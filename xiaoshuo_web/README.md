@@ -144,7 +144,7 @@ python run.py
 The browser will automatically open `http://127.0.0.1:5003`.
 
 
-### 📂 目录结构
+### 📂 Directory structure
 
 ```text
 xiaoshuo_web/
@@ -237,7 +237,7 @@ python run.py
 브라우저가 자동으로 열리며 `http://127.0.0.1:5003`에 접속됩니다.
 
 
-### 📂 目录结构
+### 📂 디렉토리 구조
 
 ```text
 xiaoshuo_web/
