@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block title %}使用教程 - 小说分析系统{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <div class="text-center mb-5">
+            <h1 class="display-4 mb-3" data-i18n="tutorial.title">使用教程</h1>
+            <p class="lead" data-i18n="tutorial.subtitle">快速上手小说分析系统</p>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-play-circle me-2"></i><span data-i18n="tutorial.quick_start">快速开始</span></h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 text-center mb-4">
+                        <div class="step-number bg-primary rounded-circle mx-auto mb-3">1</div>
+                        <h5 data-i18n="tutorial.step1">选择分析方式</h5>
+                        <p data-i18n="tutorial.step1_desc">根据您的需求选择文本输入、文件上传或网页爬取</p>
+                    </div>
+                    <div class="col-md-4 text-center mb-4">
+                        <div class="step-number bg-success rounded-circle mx-auto mb-3">2</div>
+                        <h5 data-i18n="tutorial.step2">提交内容</h5>
+                        <p data-i18n="tutorial.step2_desc">输入文本、上传文件或提供URL地址</p>
+                    </div>
+                    <div class="col-md-4 text-center mb-4">
+                        <div class="step-number bg-info rounded-circle mx-auto mb-3">3</div>
+                        <h5 data-i18n="tutorial.step3">查看结果</h5>
+                        <p data-i18n="tutorial.step3_desc">等待分析完成，查看详细的分析报告</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="fas fa-font me-2"></i><span data-i18n="tutorial.text_analysis_title">文本分析</span></h5>
+            </div>
+            <div class="card-body">
+                <h6 data-i18n="tutorial.steps_title">步骤说明：</h6>
+                <ol>
+                    <li data-i18n="tutorial.text_step1">点击"文本分析"标签页</li>
+                    <li data-i18n="tutorial.text_step2">输入小说标题（可选）</li>
+                    <li data-i18n="tutorial.text_step3">在文本框中粘贴或输入小说内容</li>
+                    <li data-i18n="tutorial.text_step4">点击"开始分析"按钮</li>
+                    <li data-i18n="tutorial.text_step5">等待分析完成（通常需要几秒到几分钟）</li>
+                </ol>
+
+                <div class="alert alert-info">
+                    <h6><i class="fas fa-lightbulb me-2"></i><span data-i18n="tutorial.tips_title">提示</span></h6>
+                    <ul class="mb-0">
+                        <li data-i18n="tutorial.tip1">建议文本长度在1000字符以上以获得更好的分析效果</li>
+                        <li data-i18n="tutorial.tip2">确保文本为英文内容</li>
+                        <li data-i18n="tutorial.tip3">清晰的章节标记有助于提高分析准确性</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0"><i class="fas fa-file-upload me-2"></i><span data-i18n="tutorial.file_upload_title">文件上传</span></h5>
+            </div>
+            <div class="card-body">
+                <h6 data-i18n="tutorial.supported_formats">支持的文件格式：</h6>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <i class="fas fa-file-text fa-3x text-primary mb-3"></i>
+                                <h6>TXT 文件</h6>
+                                <small data-i18n="tutorial.txt_desc">纯文本格式，编码建议为UTF-8</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <i class="fas fa-file-word fa-3x text-success mb-3"></i>
+                                <h6>DOCX 文件</h6>
+                                <small data-i18n="tutorial.docx_desc">Microsoft Word文档</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <i class="fas fa-file-pdf fa-3x text-danger mb-3"></i>
+                                <h6>PDF 文件</h6>
+                                <small data-i18n="tutorial.pdf_desc">可搜索的PDF文档</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning mt-3">
+                    <h6><i class="fas fa-exclamation-triangle me-2"></i><span data-i18n="tutorial.scan_warning">注意</span></h6>
+                    <ul class="mb-0">
+                        <li data-i18n="tutorial.file_limit">文件大小限制为16MB</li>
+                        <li data-i18n="tutorial.pdf_limit">PDF文件需要可选的文本层</li>
+                        <li data-i18n="tutorial.img_limit">扫描的PDF图片无法处理</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="fas fa-globe me-2"></i><span data-i18n="tutorial.web_crawl_title">网页爬取</span></h5>
+            </div>
+            <div class="card-body">
+                <h6 data-i18n="tutorial.news_crawl_title">新闻网站爬取：</h6>
+                <p data-i18n="tutorial.news_crawl_desc">输入新闻网站的URL，系统将自动爬取并分析多篇文章。</p>
+
+                <h6 data-i18n="tutorial.novel_crawl_title">小说网站爬取：</h6>
+                <p data-i18n="tutorial.novel_crawl_desc">输入小说阅读页面的URL，系统将提取小说内容进行分析。</p>
+
+                <div class="alert alert-info">
+                    <h6><i class="fas fa-info-circle me-2"></i><span data-i18n="tutorial.advice_title">使用建议</span></h6>
+                    <ul class="mb-0">
+                        <li data-i18n="tutorial.advice1">确保网站允许爬取（遵守robots.txt）</li>
+                        <li data-i18n="tutorial.advice2">某些网站可能有反爬虫机制</li>
+                        <li data-i18n="tutorial.advice3">爬取速度取决于网络状况和网站响应</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0"><i class="fas fa-question-circle me-2"></i><span data-i18n="tutorial.faq_title">常见问题</span></h5>
+            </div>
+            <div class="card-body">
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                <span data-i18n="tutorial.faq1_q">分析需要多长时间？</span>
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body" data-i18n="tutorial.faq1_a">
+                                分析时间取决于文本长度和复杂度。短篇文章通常需要几秒钟，长篇小说可能需要几分钟。
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                <span data-i18n="tutorial.faq2_q">支持中文文本吗？</span>
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body" data-i18n="tutorial.faq2_a">
+                                目前系统主要针对英文文本优化。中文支持正在开发中。
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                <span data-i18n="tutorial.faq3_q">如何提高分析准确性？</span>
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <ul data-i18n="tutorial.faq3_a">
+                                    <li>提供清晰的章节标记（如 CHAPTER 1, Chapter One）</li>
+                                    <li>确保文本格式规整</li>
+                                    <li>提供足够长的文本内容</li>
+                                    <li>使用标准的人名命名格式</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

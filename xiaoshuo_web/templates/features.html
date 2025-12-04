@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}功能特色 - 小说分析系统{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <div class="text-center mb-5">
+            <h1 class="display-4 mb-3" data-i18n="features.title">功能特色</h1>
+            <p class="lead" data-i18n="features.subtitle">探索我们强大的文本分析功能</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="feature-icon bg-primary rounded-circle mx-auto mb-3">
+                            <i class="fas fa-users fa-2x text-white"></i>
+                        </div>
+                        <h5 data-i18n="features.char_analysis_title">人物关系分析</h5>
+                        <p data-i18n="features.char_analysis_desc">自动识别小说中的主要人物，分析人物关系和互动频率</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="feature-icon bg-success rounded-circle mx-auto mb-3">
+                            <i class="fas fa-chart-line fa-2x text-white"></i>
+                        </div>
+                        <h5 data-i18n="features.plot_analysis_title">情节结构分析</h5>
+                        <p data-i18n="features.plot_analysis_desc">识别情节发展曲线，定位高潮和转折点</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="feature-icon bg-info rounded-circle mx-auto mb-3">
+                            <i class="fas fa-tags fa-2x text-white"></i>
+                        </div>
+                        <h5 data-i18n="features.theme_extraction_title">主题提取</h5>
+                        <p data-i18n="features.theme_extraction_desc">自动提取文本的主要主题和关键词</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0"><i class="fas fa-file-alt me-2"></i><span data-i18n="features.format_support_title">多格式支持</span></h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <i class="fas fa-file-text text-primary me-2"></i>
+                                <strong data-i18n="features.format_text">文本分析</strong> - <span data-i18n="features.format_text_desc">直接粘贴文本内容</span>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-file-upload text-success me-2"></i>
+                                <strong data-i18n="features.format_file">文件上传</strong> - <span data-i18n="features.format_file_desc">支持 TXT, DOCX, PDF 格式</span>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-globe text-info me-2"></i>
+                                <strong data-i18n="features.format_web">网页爬取</strong> - <span data-i18n="features.format_web_desc">自动从URL获取内容</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i><span data-i18n="features.report_title">详细分析报告</span></h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" data-i18n="features.report_summary">分层摘要（整体 + 章节）</li>
+                            <li class="list-group-item" data-i18n="features.report_graph">人物关系网络图</li>
+                            <li class="list-group-item" data-i18n="features.report_sentiment">情感曲线可视化</li>
+                            <li class="list-group-item" data-i18n="features.report_stats">文本统计和可读性分析</li>
+                            <li class="list-group-item" data-i18n="features.report_events">关键事件提取</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0"><i class="fas fa-cogs me-2"></i><span data-i18n="features.tech_title">技术特性</span></h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 data-i18n="features.nlp_title">自然语言处理</h6>
+                        <ul>
+                            <li data-i18n="features.nlp_list1">命名实体识别 (NER)</li>
+                            <li data-i18n="features.nlp_list2">情感分析</li>
+                            <li data-i18n="features.nlp_list3">文本摘要</li>
+                            <li data-i18n="features.nlp_list4">关键词提取</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 data-i18n="features.ml_title">机器学习算法</h6>
+                        <ul>
+                            <li data-i18n="features.ml_list1">TF-IDF 特征提取</li>
+                            <li data-i18n="features.ml_list2">余弦相似度计算</li>
+                            <li data-i18n="features.ml_list3">图网络分析</li>
+                            <li data-i18n="features.ml_list4">聚类分析</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

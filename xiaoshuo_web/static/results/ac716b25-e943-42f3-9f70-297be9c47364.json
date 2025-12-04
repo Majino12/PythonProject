@@ -1,0 +1,484 @@
+{
+  "novel_info": {
+    "title": "1984 - 示例文本",
+    "total_chapters": 2,
+    "total_length": 1294,
+    "avg_chapter_length": 636.5
+  },
+  "hierarchical_summary": {
+    "overall_summary": "Winston Smith, his chin nuzzled into his breast in an effort to escape the vile wind, slipped quickly through the glass doors of Victory Mansions, though not quickly enough to prevent a swirl of gritty dust from entering along with him. It depicted simply an enormous face, more than a metre wide: the face of a man of about forty-five, with a heavy black moustache and ruggedly handsome features. Even at the best of times it was seldom working, and at present the electric current was cut off during daylight hours. The flat was seven flights up, and Winston, who was thirty-nine and had a varicose ulcer above his right ankle, went slowly, resting several times on the way. On each landing, opposite the lift-shaft, the poster with the enormous face gazed from the wall.",
+    "chapter_summaries": [
+      {
+        "chapter_number": 1,
+        "summary": "Winston Smith, his chin nuzzled into his breast in an effort to escape the vile wind, slipped quickly through the glass doors of Victory Mansions, though not quickly enough to prevent a swirl of gritty dust from entering along with him. At one end of it a coloured poster, too large for indoor display, had been tacked to the wall. It depicted simply an enormous face, more than a metre wide: the face of a man of about forty-five, with a heavy black moustache and ruggedly handsome features.",
+        "length": 620,
+        "key_sentences": [
+          "Winston Smith, his chin nuzzled into his breast in an effort to escape the vile wind, slipped quickly through the glass doors of Victory Mansions, though not quickly enough to prevent a swirl of gritty dust from entering along with him.",
+          "It depicted simply an enormous face, more than a metre wide: the face of a man of about forty-five, with a heavy black moustache and ruggedly handsome features.",
+          "At one end of it a coloured poster, too large for indoor display, had been tacked to the wall."
+        ],
+        "word_count": 126
+      },
+      {
+        "chapter_number": 2,
+        "summary": "Even at the best of times it was seldom working, and at present the electric current was cut off during daylight hours. The flat was seven flights up, and Winston, who was thirty-nine and had a varicose ulcer above his right ankle, went slowly, resting several times on the way. On each landing, opposite the lift-shaft, the poster with the enormous face gazed from the wall.",
+        "length": 653,
+        "key_sentences": [
+          "The flat was seven flights up, and Winston, who was thirty-nine and had a varicose ulcer above his right ankle, went slowly, resting several times on the way.",
+          "Even at the best of times it was seldom working, and at present the electric current was cut off during daylight hours.",
+          "On each landing, opposite the lift-shaft, the poster with the enormous face gazed from the wall."
+        ],
+        "word_count": 135
+      }
+    ],
+    "total_chapters": 2
+  },
+  "character_analysis": {
+    "main_characters": [
+      {
+        "name": "The",
+        "total_mentions": 19,
+        "chapter_mentions": [
+          {
+            "chapter": 1,
+            "mentions": 6
+          },
+          {
+            "chapter": 2,
+            "mentions": 13
+          }
+        ],
+        "first_appearance": 1
+      },
+      {
+        "name": "It",
+        "total_mentions": 8,
+        "chapter_mentions": [
+          {
+            "chapter": 1,
+            "mentions": 3
+          },
+          {
+            "chapter": 2,
+            "mentions": 5
+          }
+        ],
+        "first_appearance": 1
+      },
+      {
+        "name": "Winston",
+        "total_mentions": 3,
+        "chapter_mentions": [
+          {
+            "chapter": 1,
+            "mentions": 1
+          },
+          {
+            "chapter": 2,
+            "mentions": 2
+          }
+        ],
+        "first_appearance": 1
+      },
+      {
+        "name": "At",
+        "total_mentions": 3,
+        "chapter_mentions": [
+          {
+            "chapter": 1,
+            "mentions": 1
+          },
+          {
+            "chapter": 2,
+            "mentions": 2
+          }
+        ],
+        "first_appearance": 1
+      },
+      {
+        "name": "On",
+        "total_mentions": 2,
+        "chapter_mentions": [
+          {
+            "chapter": 1,
+            "mentions": 0
+          },
+          {
+            "chapter": 2,
+            "mentions": 2
+          }
+        ],
+        "first_appearance": 2
+      },
+      {
+        "name": "April",
+        "total_mentions": 1,
+        "chapter_mentions": [
+          {
+            "chapter": 1,
+            "mentions": 1
+          },
+          {
+            "chapter": 2,
+            "mentions": 0
+          }
+        ],
+        "first_appearance": 1
+      },
+      {
+        "name": "Victory Mansions",
+        "total_mentions": 1,
+        "chapter_mentions": [
+          {
+            "chapter": 1,
+            "mentions": 1
+          },
+          {
+            "chapter": 2,
+            "mentions": 0
+          }
+        ],
+        "first_appearance": 1
+      },
+      {
+        "name": "Hate Week",
+        "total_mentions": 1,
+        "chapter_mentions": [
+          {
+            "chapter": 1,
+            "mentions": 0
+          },
+          {
+            "chapter": 2,
+            "mentions": 1
+          }
+        ],
+        "first_appearance": 2
+      },
+      {
+        "name": "Even",
+        "total_mentions": 1,
+        "chapter_mentions": [
+          {
+            "chapter": 1,
+            "mentions": 0
+          },
+          {
+            "chapter": 2,
+            "mentions": 1
+          }
+        ],
+        "first_appearance": 2
+      },
+      {
+        "name": "Winston Smith",
+        "total_mentions": 1,
+        "chapter_mentions": [
+          {
+            "chapter": 1,
+            "mentions": 1
+          },
+          {
+            "chapter": 2,
+            "mentions": 0
+          }
+        ],
+        "first_appearance": 1
+      }
+    ],
+    "character_relationships": [
+      {
+        "character1": "It",
+        "character2": "The",
+        "co_occurrence_count": 14,
+        "strength": 1.0
+      },
+      {
+        "character1": "Winston",
+        "character2": "It",
+        "co_occurrence_count": 6,
+        "strength": 1.0
+      },
+      {
+        "character1": "Winston",
+        "character2": "The",
+        "co_occurrence_count": 6,
+        "strength": 1.0
+      },
+      {
+        "character1": "It",
+        "character2": "At",
+        "co_occurrence_count": 6,
+        "strength": 1.0
+      },
+      {
+        "character1": "At",
+        "character2": "The",
+        "co_occurrence_count": 6,
+        "strength": 1.0
+      },
+      {
+        "character1": "Winston",
+        "character2": "At",
+        "co_occurrence_count": 4,
+        "strength": 0.8
+      },
+      {
+        "character1": "The",
+        "character2": "On",
+        "co_occurrence_count": 4,
+        "strength": 0.8
+      },
+      {
+        "character1": "Winston",
+        "character2": "CHAPTER",
+        "co_occurrence_count": 3,
+        "strength": 0.6
+      },
+      {
+        "character1": "It",
+        "character2": "CHAPTER",
+        "co_occurrence_count": 3,
+        "strength": 0.6
+      },
+      {
+        "character1": "At",
+        "character2": "CHAPTER",
+        "co_occurrence_count": 3,
+        "strength": 0.6
+      },
+      {
+        "character1": "The",
+        "character2": "CHAPTER",
+        "co_occurrence_count": 3,
+        "strength": 0.6
+      },
+      {
+        "character1": "April",
+        "character2": "It",
+        "co_occurrence_count": 2,
+        "strength": 0.4
+      },
+      {
+        "character1": "April",
+        "character2": "CHAPTER",
+        "co_occurrence_count": 2,
+        "strength": 0.4
+      },
+      {
+        "character1": "Winston",
+        "character2": "Victory Mansions",
+        "co_occurrence_count": 2,
+        "strength": 0.4
+      },
+      {
+        "character1": "Winston",
+        "character2": "Hate Week",
+        "co_occurrence_count": 2,
+        "strength": 0.4
+      },
+      {
+        "character1": "It",
+        "character2": "Victory Mansions",
+        "co_occurrence_count": 2,
+        "strength": 0.4
+      },
+      {
+        "character1": "It",
+        "character2": "Hate Week",
+        "co_occurrence_count": 2,
+        "strength": 0.4
+      },
+      {
+        "character1": "It",
+        "character2": "On",
+        "co_occurrence_count": 2,
+        "strength": 0.4
+      },
+      {
+        "character1": "Victory Mansions",
+        "character2": "The",
+        "co_occurrence_count": 2,
+        "strength": 0.4
+      },
+      {
+        "character1": "Victory Mansions",
+        "character2": "CHAPTER",
+        "co_occurrence_count": 2,
+        "strength": 0.4
+      },
+      {
+        "character1": "Hate Week",
+        "character2": "The",
+        "co_occurrence_count": 2,
+        "strength": 0.4
+      },
+      {
+        "character1": "April",
+        "character2": "Winston",
+        "co_occurrence_count": 1,
+        "strength": 0.2
+      },
+      {
+        "character1": "April",
+        "character2": "At",
+        "co_occurrence_count": 1,
+        "strength": 0.2
+      },
+      {
+        "character1": "April",
+        "character2": "Victory Mansions",
+        "co_occurrence_count": 1,
+        "strength": 0.2
+      },
+      {
+        "character1": "April",
+        "character2": "Hate Week",
+        "co_occurrence_count": 1,
+        "strength": 0.2
+      },
+      {
+        "character1": "April",
+        "character2": "The",
+        "co_occurrence_count": 1,
+        "strength": 0.2
+      },
+      {
+        "character1": "April",
+        "character2": "On",
+        "co_occurrence_count": 1,
+        "strength": 0.2
+      },
+      {
+        "character1": "Winston",
+        "character2": "On",
+        "co_occurrence_count": 1,
+        "strength": 0.2
+      },
+      {
+        "character1": "At",
+        "character2": "Victory Mansions",
+        "co_occurrence_count": 1,
+        "strength": 0.2
+      },
+      {
+        "character1": "At",
+        "character2": "Hate Week",
+        "co_occurrence_count": 1,
+        "strength": 0.2
+      },
+      {
+        "character1": "At",
+        "character2": "On",
+        "co_occurrence_count": 1,
+        "strength": 0.2
+      },
+      {
+        "character1": "Victory Mansions",
+        "character2": "Hate Week",
+        "co_occurrence_count": 1,
+        "strength": 0.2
+      },
+      {
+        "character1": "Victory Mansions",
+        "character2": "On",
+        "co_occurrence_count": 1,
+        "strength": 0.2
+      },
+      {
+        "character1": "Hate Week",
+        "character2": "On",
+        "co_occurrence_count": 1,
+        "strength": 0.2
+      },
+      {
+        "character1": "Hate Week",
+        "character2": "CHAPTER",
+        "co_occurrence_count": 1,
+        "strength": 0.2
+      },
+      {
+        "character1": "On",
+        "character2": "CHAPTER",
+        "co_occurrence_count": 1,
+        "strength": 0.2
+      }
+    ],
+    "total_characters_identified": 11
+  },
+  "plot_analysis": {
+    "sentiment_arc": [
+      {
+        "chapter": 1,
+        "sentiment_score": 0.12721088435374148
+      },
+      {
+        "chapter": 2,
+        "sentiment_score": -0.02609890109890111
+      }
+    ],
+    "key_events": [
+      {
+        "chapter": 1,
+        "events": [
+          "Winston Smith, his chin nuzzled into his breast in an effort to escape the vile wind, slipped quickly through the glass doors of Victory Mansions, though not quickly enough to prevent a swirl of gritty dust from entering along with him.",
+          "It depicted simply an enormous face, more than a metre wide: the face of a man of about forty-five, with a heavy black moustache and ruggedly handsome features.",
+          "At one end of it a coloured poster, too large for indoor display, had been tacked to the wall."
+        ]
+      },
+      {
+        "chapter": 2,
+        "events": [
+          "The flat was seven flights up, and Winston, who was thirty-nine and had a varicose ulcer above his right ankle, went slowly, resting several times on the way.",
+          "Even at the best of times it was seldom working, and at present the electric current was cut off during daylight hours.",
+          "On each landing, opposite the lift-shaft, the poster with the enormous face gazed from the wall."
+        ]
+      }
+    ],
+    "plot_structure": {
+      "exposition": 1,
+      "climax": 2,
+      "resolution": 2
+    }
+  },
+  "themes": [
+    "chapter winston",
+    "winston thirty",
+    "winston stairs",
+    "winston",
+    "thirteen winston"
+  ],
+  "text_statistics": {
+    "basic_stats": {
+      "total_words": 265,
+      "total_sentences": 13,
+      "avg_sentence_length": 20.384615384615383,
+      "unique_words": 157,
+      "lexical_diversity": 0.5924528301886792
+    },
+    "readability_scores": {
+      "flesch_reading_ease": 78.48,
+      "flesch_kincaid_grade": 6.8,
+      "smog_index": 7.6,
+      "coleman_liau_index": 7.77,
+      "automated_readability_index": 8.9
+    },
+    "chapter_stats": [
+      {
+        "chapter": 1,
+        "word_count": 126,
+        "sentence_count": 5,
+        "avg_sentence_length": 25.2
+      },
+      {
+        "chapter": 2,
+        "word_count": 135,
+        "sentence_count": 8,
+        "avg_sentence_length": 16.875
+      }
+    ]
+  },
+  "chapters_count": 2,
+  "result_id": "ac716b25-e943-42f3-9f70-297be9c47364",
+  "timestamp": "2025-11-11T13:41:24.215878"
+}

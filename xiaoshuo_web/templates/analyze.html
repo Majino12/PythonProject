@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}分析页面 - 小说分析系统{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 data-i18n="analyze.title">分析页面</h1>
+            <a href="{{ url_for('index') }}" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left me-1"></i><span data-i18n="common.back">返回</span>
+            </a>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i><span data-i18n="analyze.analysis_in_progress">分析进行中</span></h5>
+            </div>
+            <div class="card-body">
+                <div class="text-center py-4">
+                    <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="visually-hidden" data-i18n="common.loading">加载中...</span>
+                    </div>
+                    <h5 data-i18n="analyze.processing">正在处理您的请求</h5>
+                    <p class="text-muted" data-i18n="analyze.please_wait">请稍候，分析可能需要几分钟时间...</p>
+
+                    <div class="progress mb-3">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 75%"></div>
+                    </div>
+
+                    <div class="row text-start mt-4">
+                        <div class="col-md-6">
+                            <h6 data-i18n="analyze.current_step">当前步骤</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i><span data-i18n="analyze.step1">文本预处理</span></li>
+                                <li><i class="fas fa-check text-success me-2"></i><span data-i18n="analyze.step2">章节分割</span></li>
+                                <li><i class="fas fa-sync-alt text-primary me-2"></i><span data-i18n="analyze.step3">人物关系分析</span></li>
+                                <li><i class="fas fa-clock text-muted me-2"></i><span data-i18n="analyze.step4">情节结构分析</span></li>
+                                <li><i class="fas fa-clock text-muted me-2"></i><span data-i18n="analyze.step5">主题提取</span></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 data-i18n="analyze.estimated_time">预计剩余时间</h6>
+                            <p class="h4 text-primary">2-3 <span data-i18n="analyze.minutes">分钟</span></p>
+
+                            <h6 class="mt-3" data-i18n="analyze.details">分析详情</h6>
+                            <ul class="list-unstyled small">
+                                <li data-i18n="analyze.detail1">检测到 12 个章节</li>
+                                <li data-i18n="analyze.detail2">已识别 8 个主要人物</li>
+                                <li data-i18n="analyze.detail3">正在进行情感分析</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-light">
+                <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i><span data-i18n="analyze.tips">分析提示</span></h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="d-flex">
+                            <i class="fas fa-book text-primary me-3 mt-1"></i>
+                            <div>
+                                <h6 data-i18n="analyze.tip1_title">章节标记</h6>
+                                <p class="small mb-0" data-i18n="analyze.tip1_desc">清晰的章节标记（如CHAPTER 1）有助于提高分析准确性</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-flex">
+                            <i class="fas fa-user text-success me-3 mt-1"></i>
+                            <div>
+                                <h6 data-i18n="analyze.tip2_title">人物名称</h6>
+                                <p class="small mb-0" data-i18n="analyze.tip2_desc">标准的人物命名格式（首字母大写）便于系统识别</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-flex">
+                            <i class="fas fa-language text-warning me-3 mt-1"></i>
+                            <div>
+                                <h6 data-i18n="analyze.tip3_title">语言支持</h6>
+                                <p class="small mb-0" data-i18n="analyze.tip3_desc">目前主要支持英文文本分析，其他语言支持正在开发中</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 模拟分析进度
+    let progress = 75;
+    const progressBar = document.querySelector('.progress-bar');
+
+    const interval = setInterval(() => {
+        progress += Math.random() * 5;
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(interval);
+
+            // 分析完成，重定向到结果页面
+            setTimeout(() => {
+                window.location.href = "{{ url_for('show_result', result_id='demo') }}";
+            }, 1000);
+        }
+        progressBar.style.width = progress + '%';
+    }, 1000);
+});
+</script>
+{% endblock %}

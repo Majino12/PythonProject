@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}关于 - 小说分析系统{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0"><i class="fas fa-info-circle me-2"></i><span data-i18n="about.title">关于小说分析系统</span></h3>
+            </div>
+            <div class="card-body">
+                <h5 data-i18n="about.intro_title">系统简介</h5>
+                <p data-i18n="about.intro_desc">小说分析系统是一个基于人工智能技术的文本分析工具，专门用于深度分析小说内容。系统能够自动提取小说的关键信息，包括人物关系、情节结构、主题分析等。</p>
+
+                <h5 class="mt-4" data-i18n="about.main_features">主要功能</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h6><i class="fas fa-users text-primary me-2"></i><span data-i18n="about.feature_char">人物分析</span></h6>
+                                <p class="mb-0" data-i18n="about.feature_char_desc">自动识别主要人物，分析人物关系和出现频率</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h6><i class="fas fa-chart-line text-success me-2"></i><span data-i18n="about.feature_plot">情节分析</span></h6>
+                                <p class="mb-0" data-i18n="about.feature_plot_desc">分析情节发展，识别高潮和转折点</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h6><i class="fas fa-tags text-warning me-2"></i><span data-i18n="about.feature_theme">主题提取</span></h6>
+                                <p class="mb-0" data-i18n="about.feature_theme_desc">自动提取小说的主要主题和关键词</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h6><i class="fas fa-chart-bar text-info me-2"></i><span data-i18n="about.feature_stats">文本统计</span></h6>
+                                <p class="mb-0" data-i18n="about.feature_stats_desc">提供详细的文本统计和可读性分析</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="mt-4" data-i18n="about.tech_stack_title">技术架构</h5>
+                <p data-i18n="about.tech_stack_desc">系统基于以下技术构建：</p>
+                <ul>
+                    <li><strong data-i18n="about.tech_backend">后端框架</strong>: Flask</li>
+                    <li><strong data-i18n="about.tech_nlp">自然语言处理</strong>: NLTK, spaCy, TextBlob</li>
+                    <li><strong data-i18n="about.tech_ml">机器学习</strong>: scikit-learn, KeyBERT</li>
+                    <li><strong data-i18n="about.tech_sum">文本摘要</strong>: Sumy</li>
+                    <li><strong data-i18n="about.tech_crawl">网络爬虫</strong>: BeautifulSoup, Requests</li>
+                    <li><strong data-i18n="about.tech_frontend">前端技术</strong>: Bootstrap, Chart.js</li>
+                </ul>
+
+                <h5 class="mt-4" data-i18n="about.usage_title">使用方法</h5>
+                <ol>
+                    <li data-i18n="about.usage_step1">选择分析方式：文本输入、文件上传或网页爬取</li>
+                    <li data-i18n="about.usage_step2">提交内容进行分析</li>
+                    <li data-i18n="about.usage_step3">查看详细的分析报告</li>
+                    <li data-i18n="about.usage_step4">下载或分享分析结果</li>
+                </ol>
+
+                <div class="alert alert-info mt-4">
+                    <h6><i class="fas fa-lightbulb me-2"></i><span data-i18n="about.tips_title">使用提示</span></h6>
+                    <ul class="mb-0">
+                        <li data-i18n="about.tip1">系统目前主要支持英文文本分析</li>
+                        <li data-i18n="about.tip2">对于长篇小说，分析可能需要几分钟时间</li>
+                        <li data-i18n="about.tip3">网页爬取功能依赖于目标网站的结构</li>
+                        <li data-i18n="about.tip4">确保上传的文件编码为UTF-8</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

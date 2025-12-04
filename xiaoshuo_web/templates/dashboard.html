@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Novel Analysis System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 data-i18n="dashboard.title">Dashboard</h1>
+                <p class="text-muted mb-0" data-i18n="dashboard.subtitle">Monitor analysis progress and system status</p>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-cog me-1"></i><span data-i18n="common.settings">Settings</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" id="refreshDashboard"><i class="fas fa-sync-alt me-2"></i><span data-i18n="common.refresh">Refresh</span></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="card bg-primary text-white h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="card-title opacity-75" data-i18n="dashboard.total_analyses">Total Analyses</h6>
+                                <h3 class="display-6 fw-bold" id="totalAnalyses">0</h3>
+                                <small class="opacity-75" data-i18n="common.loading_data">Loading...</small>
+                            </div>
+                            <div class="align-self-center"><i class="fas fa-chart-bar fa-2x opacity-50"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <div class="card bg-success text-white h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="card-title opacity-75" data-i18n="dashboard.success_analyses">Successful</h6>
+                                <h3 class="display-6 fw-bold" id="successAnalyses">0</h3>
+                                <small class="opacity-75" id="successRate" data-i18n="dashboard.success_rate">Success Rate: 0%</small>
+                            </div>
+                            <div class="align-self-center"><i class="fas fa-check-circle fa-2x opacity-50"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <div class="card bg-warning text-dark h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="card-title opacity-75" data-i18n="dashboard.avg_time">Avg Time</h6>
+                                <h3 class="display-6 fw-bold" id="avgTime">0.0s</h3>
+                                <small class="opacity-75" data-i18n="dashboard.last_24h">Last 24h</small>
+                            </div>
+                            <div class="align-self-center"><i class="fas fa-clock fa-2x opacity-50"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <div class="card bg-info text-white h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="card-title opacity-75" data-i18n="dashboard.today_analyses">Today</h6>
+                                <h3 class="display-6 fw-bold" id="todayAnalyses">0</h3>
+                                <small class="opacity-75" data-i18n="dashboard.active_tasks">Active Tasks</small>
+                            </div>
+                            <div class="align-self-center"><i class="fas fa-calendar-day fa-2x opacity-50"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-header bg-white border-bottom-0 py-3">
+                        <h5 class="mb-0 fw-bold"><i class="fas fa-history me-2"></i><span data-i18n="dashboard.recent_analyses">Recent Analyses</span></h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div id="recentAnalyses" class="list-group list-group-flush">
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-4">
+                <div class="card mb-4 shadow-sm border-0">
+                    <div class="card-header bg-white border-bottom-0 py-3">
+                        <h5 class="mb-0 fw-bold"><i class="fas fa-bolt me-2"></i><span data-i18n="dashboard.quick_actions">Quick Actions</span></h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a href="{{ url_for('index') }}" class="btn btn-primary"><i class="fas fa-plus me-2"></i><span data-i18n="dashboard.new_analysis">New Analysis</span></a>
+                            <button class="btn btn-outline-success" onclick="loadSampleData()"><i class="fas fa-vial me-2"></i><span data-i18n="dashboard.test_sample">Test Sample</span></button>
+                            <a href="{{ url_for('tutorial') }}" class="btn btn-outline-warning"><i class="fas fa-graduation-cap me-2"></i><span data-i18n="dashboard.user_guide">User Guide</span></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-white border-bottom-0 py-3">
+                        <h5 class="mb-0 fw-bold"><i class="fas fa-server me-2"></i><span data-i18n="dashboard.system_status">System Status</span></h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1"><span data-i18n="dashboard.cpu_usage">CPU Usage</span><span id="cpuUsage">0%</span></div>
+                            <div class="progress" style="height: 6px;"><div id="cpuProgress" class="progress-bar" style="width: 0%"></div></div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1"><span data-i18n="dashboard.memory_usage">Memory</span><span id="memoryUsage">0 GB</span></div>
+                            <div class="progress" style="height: 6px;"><div id="memoryProgress" class="progress-bar bg-success" style="width: 0%"></div></div>
+                        </div>
+                        <div class="mb-0">
+                            <div class="d-flex justify-content-between mb-1"><span data-i18n="dashboard.storage_usage">Storage</span><span id="storageUsage">0 GB</span></div>
+                            <div class="progress" style="height: 6px;"><div id="storageProgress" class="progress-bar bg-info" style="width: 0%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+<script>
+    function loadSampleData() {
+        fetch('/example').then(r => r.json()).then(d => {
+            window.location.href = '/'; // 简单重定向到首页，因为示例数据填充在首页逻辑中
+        });
+    }
+</script>
+{% endblock %}

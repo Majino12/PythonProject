@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}小说分析系统{% endblock %}</title>
+
+    <!-- CSS 资源 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <i class="fas fa-book-open me-2"></i>
+                <span data-i18n="nav.home">小说分析系统</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">
+                            <i class="fas fa-home me-1"></i>
+                            <span data-i18n="nav.home">首页</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('dashboard') }}">
+                            <i class="fas fa-tachometer-alt me-1"></i>
+                            <span data-i18n="nav.dashboard">控制台</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('features') }}">
+                            <i class="fas fa-star me-1"></i>
+                            <span data-i18n="nav.features">功能特色</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('tutorial') }}">
+                            <i class="fas fa-graduation-cap me-1"></i>
+                            <span data-i18n="nav.tutorial">使用教程</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('about') }}">
+                            <i class="fas fa-info-circle me-1"></i>
+                            <span data-i18n="nav.about">关于</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <!-- 语言切换 -->
+                    <li class="nav-item dropdown me-2">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <i class="fas fa-globe me-1"></i>
+                            <span id="current-language">中文</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item language-option" href="#" data-lang="cn">
+                                    <i class="fas fa-language me-2"></i> 中文
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item language-option" href="#" data-lang="en">
+                                    <i class="fas fa-language me-2"></i> English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item language-option" href="#" data-lang="kr">
+                                    <i class="fas fa-language me-2"></i> 한국어
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- 用户菜单 -->
+                    {% if session.get('user_id') %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <i class="fas fa-user me-1"></i>
+                            <span data-i18n="nav.user_center">用户中心</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-history me-2"></i>
+                                    <span data-i18n="nav.analysis_history">分析历史</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cog me-2"></i>
+                                    <span data-i18n="nav.account_settings">账户设置</span>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-sign-out-alt me-2"></i>
+                                    <span data-i18n="nav.logout">退出登录</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="fas fa-sign-in-alt me-1"></i>
+                            <span data-i18n="nav.login">登录</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="container my-5 pt-4">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5>
+                        <i class="fas fa-book-open me-2"></i>
+                        <span data-i18n="nav.home">小说分析系统</span>
+                    </h5>
+                    <p class="mb-0" data-i18n="footer.description">基于AI技术的智能文本分析平台</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5 data-i18n="footer.quick_links">快速链接</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('index') }}" class="text-light" data-i18n="nav.home">开始分析</a></li>
+                        <li><a href="{{ url_for('tutorial') }}" class="text-light" data-i18n="nav.tutorial">使用教程</a></li>
+                        <li><a href="{{ url_for('features') }}" class="text-light" data-i18n="nav.features">功能特色</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5 data-i18n="footer.support">技术支持</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light" data-i18n="footer.documentation">文档中心</a></li>
+                        <li><a href="#" class="text-light" data-i18n="footer.faq">常见问题</a></li>
+                        <li><a href="#" class="text-light" data-i18n="footer.contact">联系我们</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="bg-light">
+            <div class="text-center">
+                <p class="mb-0" data-i18n="footer.copyright">© 2024 小说分析系统. 基于AI技术的小说内容分析工具.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 登录模态框 -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-sign-in-alt me-2"></i>
+                        <span data-i18n="nav.login">用户登录</span>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <span data-i18n="common.info">当前版本无需登录即可使用所有功能。登录功能正在开发中。</span>
+                    </div>
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label" data-i18n="common.username">用户名</label>
+                            <input type="text" class="form-control" placeholder="请输入用户名" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" data-i18n="common.password">密码</label>
+                            <input type="password" class="form-control" placeholder="请输入密码" disabled>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="common.close">关闭</button>
+                    <button type="button" class="btn btn-primary" disabled data-i18n="nav.login">登录</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript 资源 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="{{ url_for('static', filename='js/i18n.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}错误 - 小说分析系统{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 mx-auto">
+        <div class="card shadow-sm">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-exclamation-triangle fa-5x text-warning mb-4"></i>
+                <h2 class="text-danger mb-3" data-i18n="common.error">出错了</h2>
+                <p class="lead mb-4">{{ error }}</p>
+                <div class="d-grid gap-2 d-md-block">
+                    <a href="{{ url_for('index') }}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left me-2"></i><span data-i18n="nav.home">返回首页</span>
+                    </a>
+                    <a href="{{ url_for('tutorial') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-question-circle me-2"></i><span data-i18n="nav.tutorial">查看帮助</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
