@@ -46,8 +46,8 @@
         </div>
 
         {% if result.error %}
-            <div class="alert alert-danger">
-                <h4 class="alert-heading" data-i18n="result.analysis_error">分析错误</h4>
+            <div class="alert alert-danger shadow-sm">
+                <h4 class="alert-heading"><i class="fas fa-exclamation-triangle me-2"></i><span data-i18n="result.analysis_error">分析错误</span></h4>
                 <p class="mb-0">{{ result.error }}</p>
             </div>
             <div class="text-center mt-4">
@@ -57,7 +57,7 @@
                 </a>
             </div>
         {% else %}
-            <div class="card mb-4">
+            <div class="card mb-4 shadow-sm">
                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">
                         <i class="fas fa-info-circle me-2"></i>
@@ -65,48 +65,49 @@
                     </h5>
                     <small class="opacity-75" id="analysisTimestamp">
                         {% if result.timestamp %}
-                            {{ result.timestamp[:19] }}
+                            {{ result.timestamp[:19].replace('T', ' ') }}
                         {% endif %}
                     </small>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3 text-center mb-3">
-                            <div class="border rounded p-3">
-                                <h6 class="text-muted" data-i18n="result.title_label">标题</h6>
-                                <h5 class="mb-0">{{ result.novel_info.title }}</h5>
+                            <div class="border rounded p-3 h-100 bg-light">
+                                <h6 class="text-muted mb-2" data-i18n="result.title_label">标题</h6>
+                                <h5 class="mb-0 text-truncate" title="{{ result.novel_info.title }}">{{ result.novel_info.title }}</h5>
                             </div>
                         </div>
                         <div class="col-md-3 text-center mb-3">
-                            <div class="border rounded p-3">
-                                <h6 class="text-muted" data-i18n="result.total_chapters">总章节数</h6>
+                            <div class="border rounded p-3 h-100 bg-light">
+                                <h6 class="text-muted mb-2" data-i18n="result.total_chapters">总章节数</h6>
                                 <h5 class="mb-0 text-primary">{{ result.novel_info.total_chapters }}</h5>
                             </div>
                         </div>
                         <div class="col-md-3 text-center mb-3">
-                            <div class="border rounded p-3">
-                                <h6 class="text-muted" data-i18n="result.total_length">总长度</h6>
-                                <h5 class="mb-0 text-success">{{ result.novel_info.total_length }} <small class="text-muted" data-i18n="result.characters">字符</small></h5>
+                            <div class="border rounded p-3 h-100 bg-light">
+                                <h6 class="text-muted mb-2" data-i18n="result.total_length">总长度</h6>
+                                <h5 class="mb-0 text-success">{{ "{:,}".format(result.novel_info.total_length) }} <small class="text-muted fs-6" data-i18n="result.characters">字符</small></h5>
                             </div>
                         </div>
                         <div class="col-md-3 text-center mb-3">
-                            <div class="border rounded p-3">
-                                <h6 class="text-muted" data-i18n="result.avg_length">平均章节长度</h6>
-                                <h5 class="mb-0 text-info">{{ result.novel_info.avg_chapter_length }} <small class="text-muted" data-i18n="result.characters">字符</small></h5>
+                            <div class="border rounded p-3 h-100 bg-light">
+                                <h6 class="text-muted mb-2" data-i18n="result.avg_length">平均章节长度</h6>
+                                <h5 class="mb-0 text-info">{{ "{:,}".format(result.novel_info.avg_chapter_length) }} <small class="text-muted fs-6" data-i18n="result.characters">字符</small></h5>
                             </div>
                         </div>
                     </div>
 
                     {% if result.source %}
-                    <div class="mt-3">
+                    <div class="mt-3 text-muted small">
+                        <i class="fas fa-link me-1"></i>
                         <strong data-i18n="result.source">来源:</strong>
-                        <a href="{{ result.source }}" target="_blank" class="text-decoration-none">{{ result.source }}</a>
+                        <span class="text-break">{{ result.source }}</span>
                     </div>
                     {% endif %}
                 </div>
             </div>
 
-            <ul class="nav nav-tabs" id="resultTabs" role="tablist">
+            <ul class="nav nav-tabs nav-fill mb-3" id="resultTabs" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary" type="button">
                         <i class="fas fa-file-alt me-1"></i>
@@ -118,7 +119,7 @@
                         <i class="fas fa-users me-1"></i>
                         <span data-i18n="result.character_analysis">人物分析</span>
                         {% if result.character_analysis.main_characters %}
-                        <span class="badge bg-primary ms-1">{{ result.character_analysis.main_characters|length }}</span>
+                        <span class="badge bg-primary ms-1 rounded-pill">{{ result.character_analysis.main_characters|length }}</span>
                         {% endif %}
                     </button>
                 </li>
@@ -133,7 +134,7 @@
                         <i class="fas fa-tags me-1"></i>
                         <span data-i18n="result.themes">主题</span>
                         {% if result.themes %}
-                        <span class="badge bg-success ms-1">{{ result.themes|length }}</span>
+                        <span class="badge bg-success ms-1 rounded-pill">{{ result.themes|length }}</span>
                         {% endif %}
                     </button>
                 </li>
@@ -145,33 +146,33 @@
                 </li>
             </ul>
 
-            <div class="tab-content border border-top-0 p-4" id="resultTabsContent">
+            <div class="tab-content border rounded p-4 bg-white shadow-sm" id="resultTabsContent">
                 <div class="tab-pane fade show active" id="summary" role="tabpanel">
                     <div class="row">
                         <div class="col-lg-8">
-                            <h5 data-i18n="result.overall_summary">整体摘要</h5>
-                            <div class="card bg-light border-0">
+                            <h5 class="border-bottom pb-2 mb-3"><i class="fas fa-align-left me-2"></i><span data-i18n="result.overall_summary">整体摘要</span></h5>
+                            <div class="card bg-light border-0 mb-4">
                                 <div class="card-body">
-                                    <p class="card-text">{{ result.hierarchical_summary.overall_summary }}</p>
+                                    <p class="card-text lead fs-6">{{ result.hierarchical_summary.overall_summary }}</p>
                                 </div>
                             </div>
 
                             {% if result.hierarchical_summary.chapter_summaries %}
-                            <h5 class="mt-4" data-i18n="result.chapter_summaries">章节摘要</h5>
+                            <h5 class="border-bottom pb-2 mb-3 mt-4"><i class="fas fa-list-ol me-2"></i><span data-i18n="result.chapter_summaries">章节摘要</span></h5>
                             <div class="row" id="chapterSummaries">
                                 {% for chapter in result.hierarchical_summary.chapter_summaries %}
                                 <div class="col-md-6 mb-3">
-                                    <div class="card h-100 chapter-card">
-                                        <div class="card-header d-flex justify-content-between align-items-center py-2">
-                                            <h6 class="mb-0">
+                                    <div class="card h-100 chapter-card border">
+                                        <div class="card-header d-flex justify-content-between align-items-center py-2 bg-light">
+                                            <h6 class="mb-0 fw-bold">
                                                 <span data-i18n="result.chapter_prefix">第</span> {{ chapter.chapter_number }} <span data-i18n="result.chapter_suffix">章</span>
                                             </h6>
-                                            <span class="badge bg-secondary">{{ chapter.word_count }} <span data-i18n="result.words">词</span></span>
+                                            <span class="badge bg-secondary">{{ "{:,}".format(chapter.word_count) }} <span data-i18n="result.words">词</span></span>
                                         </div>
-                                        <div class="card-body">
-                                            <p class="card-text small">{{ chapter.summary }}</p>
-                                            <div class="d-flex justify-content-between text-muted small mt-2">
-                                                <span>{{ chapter.length }} <span data-i18n="result.characters">字符</span></span>
+                                        <div class="card-body d-flex flex-column">
+                                            <p class="card-text small flex-grow-1">{{ chapter.summary }}</p>
+                                            <div class="d-flex justify-content-between text-muted small mt-3 pt-2 border-top">
+                                                <span><i class="fas fa-text-width me-1"></i>{{ "{:,}".format(chapter.length) }} <span data-i18n="result.characters">字符</span></span>
                                                 <button class="btn btn-sm btn-outline-primary"
                                                         onclick="showChapterDetails({{ chapter.chapter_number }})">
                                                     <i class="fas fa-expand me-1"></i>
@@ -187,46 +188,49 @@
                         </div>
 
                         <div class="col-lg-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h6 class="mb-0" data-i18n="result.quick_stats">快速统计</h6>
+                            <div class="card mb-3 shadow-sm">
+                                <div class="card-header bg-info text-white">
+                                    <h6 class="mb-0"><i class="fas fa-bolt me-2"></i><span data-i18n="result.quick_stats">快速统计</span></h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="list-group list-group-flush">
                                         <div class="list-group-item d-flex justify-content-between px-0">
-                                            <span data-i18n="result.total_words">总词数</span>
-                                            <strong>{{ result.text_statistics.basic_stats.total_words }}</strong>
+                                            <span><i class="fas fa-font me-2 text-muted"></i><span data-i18n="result.total_words">总词数</span></span>
+                                            <strong class="text-primary">{{ "{:,}".format(result.text_statistics.basic_stats.total_words) }}</strong>
                                         </div>
                                         <div class="list-group-item d-flex justify-content-between px-0">
-                                            <span data-i18n="result.unique_words">独特词汇</span>
-                                            <strong>{{ result.text_statistics.basic_stats.unique_words }}</strong>
+                                            <span><i class="fas fa-fingerprint me-2 text-muted"></i><span data-i18n="result.unique_words">独特词汇</span></span>
+                                            <strong class="text-success">{{ "{:,}".format(result.text_statistics.basic_stats.unique_words) }}</strong>
                                         </div>
                                         <div class="list-group-item d-flex justify-content-between px-0">
-                                            <span data-i18n="result.lexical_diversity">词汇多样性</span>
-                                            <strong>{{ "%.3f"|format(result.text_statistics.basic_stats.lexical_diversity) }}</strong>
+                                            <span><i class="fas fa-percent me-2 text-muted"></i><span data-i18n="result.lexical_diversity">词汇多样性</span></span>
+                                            <strong class="text-info">{{ "%.1f"|format(result.text_statistics.basic_stats.lexical_diversity * 100) }}%</strong>
                                         </div>
                                         <div class="list-group-item d-flex justify-content-between px-0">
-                                            <span data-i18n="result.avg_sentence_length">平均句长</span>
-                                            <strong>{{ "%.1f"|format(result.text_statistics.basic_stats.avg_sentence_length) }} <span data-i18n="result.words">词</span></strong>
+                                            <span><i class="fas fa-ruler-horizontal me-2 text-muted"></i><span data-i18n="result.avg_sentence_length">平均句长</span></span>
+                                            <strong class="text-warning">{{ "%.1f"|format(result.text_statistics.basic_stats.avg_sentence_length) }} <span data-i18n="result.words">词</span></strong>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="card mt-3">
-                                <div class="card-header">
-                                    <h6 class="mb-0" data-i18n="result.readability">阅读难度</h6>
+                            <div class="card shadow-sm">
+                                <div class="card-header bg-success text-white">
+                                    <h6 class="mb-0"><i class="fas fa-book-reader me-2"></i><span data-i18n="result.readability">阅读难度</span></h6>
                                 </div>
-                                <div class="card-body">
-                                    <div class="text-center mb-3">
-                                        <div class="display-6 text-primary">
-                                            {{ "%.1f"|format(result.text_statistics.readability_scores.flesch_reading_ease) }}
+                                <div class="card-body text-center">
+                                    {% set reading_ease = result.text_statistics.readability_scores.flesch_reading_ease %}
+                                    <div class="mb-3">
+                                        <div class="display-4 fw-bold {% if reading_ease > 60 %}text-success{% elif reading_ease > 30 %}text-warning{% else %}text-danger{% endif %}">
+                                            {{ "%.1f"|format(reading_ease) }}
                                         </div>
-                                        <small class="text-muted" data-i18n="result.flesch_reading">Flesch阅读难度</small>
+                                        <small class="text-muted fw-bold" data-i18n="result.flesch_reading">Flesch阅读难度</small>
                                     </div>
-                                    <div class="progress mb-2" style="height: 6px;">
-                                        <div class="progress-bar {% if result.text_statistics.readability_scores.flesch_reading_ease > 60 %}bg-success{% elif result.text_statistics.readability_scores.flesch_reading_ease > 30 %}bg-warning{% else %}bg-danger{% endif %}"
-                                             style="width: {{ [result.text_statistics.readability_scores.flesch_reading_ease, 100]|min }}%">
+                                    <div class="progress mb-2" style="height: 8px;">
+                                        <div class="progress-bar {% if reading_ease > 60 %}bg-success{% elif reading_ease > 30 %}bg-warning{% else %}bg-danger{% endif %}"
+                                             role="progressbar"
+                                             style="width: {{ [reading_ease, 100]|min }}%"
+                                             aria-valuenow="{{ reading_ease }}" aria-valuemin="0" aria-valuemax="100">
                                         </div>
                                     </div>
                                     <small class="text-muted" data-i18n="result.readability_note">分数越高表示越容易阅读</small>
@@ -239,34 +243,39 @@
                 <div class="tab-pane fade" id="characters" role="tabpanel">
                     {% if result.character_analysis.main_characters %}
                     <div class="row">
-                        <div class="col-lg-6">
-                            <h5 data-i18n="result.main_characters">主要人物</h5>
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover">
-                                    <thead>
+                        <div class="col-lg-6 mb-4">
+                            <h5 class="border-bottom pb-2 mb-3"><i class="fas fa-user-friends me-2"></i><span data-i18n="result.main_characters">主要人物</span></h5>
+                            <div class="table-responsive shadow-sm border rounded">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-light">
                                         <tr>
                                             <th data-i18n="result.character">人物</th>
-                                            <th data-i18n="result.mentions">提及次数</th>
-                                            <th data-i18n="result.first_appearance">首次出现</th>
+                                            <th class="text-center" data-i18n="result.mentions">提及次数</th>
+                                            <th class="text-center" data-i18n="result.first_appearance">首次出现</th>
                                             <th data-i18n="result.importance">重要性</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% set max_mentions = result.character_analysis.main_characters[0].total_mentions %}
                                         {% for character in result.character_analysis.main_characters %}
                                         <tr>
                                             <td>
-                                                <strong>{{ character.name }}</strong>
-                                                {% if character.first_appearance == 1 %}
-                                                <span class="badge bg-success ms-1" data-i18n="result.protagonist">主角</span>
-                                                {% endif %}
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar rounded-circle bg-primary text-white me-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                                                        {{ character.name[0] }}
+                                                    </div>
+                                                    <strong>{{ character.name }}</strong>
+                                                    {% if loop.index0 == 0 %}
+                                                    <span class="badge bg-warning text-dark ms-2" data-i18n="result.protagonist"><i class="fas fa-crown me-1"></i>主角</span>
+                                                    {% endif %}
+                                                </div>
                                             </td>
-                                            <td>{{ character.total_mentions }}</td>
-                                            <td><span data-i18n="result.chapter_prefix">第</span> {{ character.first_appearance }} <span data-i18n="result.chapter_suffix">章</span></td>
+                                            <td class="text-center fw-bold">{{ "{:,}".format(character.total_mentions) }}</td>
+                                            <td class="text-center"><span data-i18n="result.chapter_prefix">第</span> {{ character.first_appearance }} <span data-i18n="result.chapter_suffix">章</span></td>
                                             <td>
-                                                <div class="progress" style="height: 8px; width: 100px;">
-                                                    <div class="progress-bar"
-                                                         style="width: {{ (character.total_mentions / result.character_analysis.main_characters[0].total_mentions * 100)|round }}%"
-                                                         title="{{ (character.total_mentions / result.character_analysis.main_characters[0].total_mentions * 100)|round }}%">
+                                                <div class="progress" style="height: 6px;">
+                                                    <div class="progress-bar bg-primary"
+                                                         style="width: {{ (character.total_mentions / max_mentions * 100)|round }}%">
                                                     </div>
                                                 </div>
                                             </td>
@@ -277,34 +286,33 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 mb-4">
+                            <h5 class="border-bottom pb-2 mb-3"><i class="fas fa-project-diagram me-2"></i><span data-i18n="result.relationships">人物关系</span></h5>
                             {% if result.character_analysis.character_relationships %}
-                            <h5 data-i18n="result.relationships">人物关系</h5>
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover">
-                                    <thead>
+                            <div class="table-responsive shadow-sm border rounded">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-light">
                                         <tr>
                                             <th data-i18n="result.character1">人物1</th>
                                             <th data-i18n="result.character2">人物2</th>
-                                            <th data-i18n="result.co_occurrence">共同出现</th>
+                                            <th class="text-center" data-i18n="result.co_occurrence">共同出现</th>
                                             <th data-i18n="result.relationship_strength">关系强度</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for rel in result.character_analysis.character_relationships %}
                                         <tr>
-                                            <td>{{ rel.character1 }}</td>
-                                            <td>{{ rel.character2 }}</td>
-                                            <td>{{ rel.co_occurrence_count }}</td>
+                                            <td><span class="badge bg-light text-dark border">{{ rel.character1 }}</span></td>
+                                            <td><span class="badge bg-light text-dark border">{{ rel.character2 }}</span></td>
+                                            <td class="text-center">{{ rel.co_occurrence_count }}</td>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <div class="progress flex-grow-1 me-2" style="height: 20px;">
-                                                        <div class="progress-bar bg-success"
+                                                    <div class="progress flex-grow-1 me-2" style="height: 6px;">
+                                                        <div class="progress-bar {% if rel.strength > 0.7 %}bg-success{% elif rel.strength > 0.4 %}bg-info{% else %}bg-warning{% endif %}"
                                                              style="width: {{ (rel.strength * 100)|round }}%">
-                                                            {{ "%.2f"|format(rel.strength) }}
                                                         </div>
                                                     </div>
-                                                    <small class="text-muted">{{ (rel.strength * 100)|round }}%</small>
+                                                    <small class="text-muted fw-bold">{{ (rel.strength * 100)|round }}%</small>
                                                 </div>
                                             </td>
                                         </tr>
@@ -313,122 +321,96 @@
                                 </table>
                             </div>
                             {% else %}
-                            <div class="alert alert-info mt-4">
-                                <i class="fas fa-info-circle me-2"></i>
-                                <span data-i18n="result.no_relationships">未发现明显的人物关系</span>
+                            <div class="alert alert-info d-flex align-items-center">
+                                <i class="fas fa-info-circle fa-2x me-3"></i>
+                                <div>
+                                    <h6 class="alert-heading mb-1" data-i18n="common.info">提示</h6>
+                                    <span data-i18n="result.no_relationships">未发现明显的人物关系。这可能是因为文本较短或人物互动较少。</span>
+                                </div>
                             </div>
                             {% endif %}
                         </div>
                     </div>
 
-                    <div class="row mt-4">
+                    <div class="row">
                         <div class="col-12">
-                            <h5 data-i18n="result.character_development">人物发展</h5>
-                            <div class="card">
-                                <div class="card-body">
-                                    <canvas id="characterDevelopmentChart" height="300"></canvas>
+                            <h5 class="border-bottom pb-2 mb-3"><i class="fas fa-chart-area me-2"></i><span data-i18n="result.character_development">人物发展</span></h5>
+                            <div class="card shadow-sm">
+                                <div class="card-body" style="position: relative; height: 400px;">
+                                    <canvas id="characterDevelopmentChart"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {% else %}
-                    <div class="alert alert-info text-center py-5">
-                        <i class="fas fa-users fa-3x mb-3 opacity-50"></i>
-                        <h5 data-i18n="result.no_characters">未识别到足够的人物信息</h5>
-                        <p class="text-muted" data-i18n="result.no_characters_desc">可能是文本中人物名称不够明确或出现频率较低</p>
+                    <div class="alert alert-warning text-center py-5 shadow-sm my-4">
+                        <i class="fas fa-users-slash fa-4x mb-3 text-warning"></i>
+                        <h4 data-i18n="result.no_characters">未识别到足够的人物信息</h4>
+                        <p class="text-muted mb-0" data-i18n="result.no_characters_desc">可能是文本中人物名称不够明确，或者使用了非标准的命名方式。</p>
                     </div>
                     {% endif %}
                 </div>
 
                 <div class="tab-pane fade" id="plot" role="tabpanel">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <h5 data-i18n="result.plot_structure">情节结构</h5>
-                            <div class="card">
+                        <div class="col-lg-6 mb-4">
+                            <h5 class="border-bottom pb-2 mb-3"><i class="fas fa-theater-masks me-2"></i><span data-i18n="result.plot_structure">情节结构</span></h5>
+                            <div class="card shadow-sm h-100">
                                 <div class="card-body">
                                     <div class="plot-timeline">
                                         <div class="timeline-item">
-                                            <div class="timeline-marker bg-primary"></div>
-                                            <div class="timeline-content">
-                                                <h6 data-i18n="result.exposition">开端</h6>
-                                                <p class="mb-1"><span data-i18n="result.chapter_prefix">第</span> {{ result.plot_analysis.plot_structure.exposition }} <span data-i18n="result.chapter_suffix">章</span></p>
-                                                <small class="text-muted" data-i18n="result.exposition_desc">介绍背景和主要人物</small>
+                                            <div class="timeline-marker bg-primary"><i class="fas fa-play small text-white"></i></div>
+                                            <div class="timeline-content shadow-sm">
+                                                <h6 class="fw-bold text-primary" data-i18n="result.exposition">开端 (Exposition)</h6>
+                                                <p class="mb-1 badge bg-primary"><span data-i18n="result.chapter_prefix">第</span> {{ result.plot_analysis.plot_structure.exposition }} <span data-i18n="result.chapter_suffix">章</span></p>
+                                                <small class="text-muted d-block mt-2" data-i18n="result.exposition_desc">介绍背景和主要人物，确立故事基调。</small>
                                             </div>
                                         </div>
                                         <div class="timeline-item">
-                                            <div class="timeline-marker bg-warning"></div>
-                                            <div class="timeline-content">
-                                                <h6 data-i18n="result.rising_action">发展</h6>
-                                                <p class="mb-1"><span data-i18n="result.chapter_prefix">第</span> {{ result.plot_analysis.plot_structure.rising_action_start }} <span data-i18n="result.chapter_suffix">章</span></p>
-                                                <small class="text-muted" data-i18n="result.rising_action_desc">冲突发展和情节推进</small>
+                                            <div class="timeline-marker bg-info"><i class="fas fa-angle-double-up small text-white"></i></div>
+                                            <div class="timeline-content shadow-sm">
+                                                <h6 class="fw-bold text-info" data-i18n="result.rising_action">发展 (Rising Action)</h6>
+                                                <p class="mb-1 badge bg-info"><span data-i18n="result.chapter_prefix">第</span> {{ result.plot_analysis.plot_structure.rising_action_start }} <span data-i18n="result.chapter_suffix">章</span></p>
+                                                <small class="text-muted d-block mt-2" data-i18n="result.rising_action_desc">冲突开始显现，情节逐渐变得复杂和紧张。</small>
                                             </div>
                                         </div>
                                         <div class="timeline-item">
-                                            <div class="timeline-marker bg-danger"></div>
-                                            <div class="timeline-content">
-                                                <h6 data-i18n="result.climax">高潮</h6>
-                                                <p class="mb-1"><span data-i18n="result.chapter_prefix">第</span> {{ result.plot_analysis.plot_structure.climax }} <span data-i18n="result.chapter_suffix">章</span></p>
-                                                <small class="text-muted" data-i18n="result.climax_desc">情节的转折点和最高潮</small>
+                                            <div class="timeline-marker bg-danger"><i class="fas fa-bomb small text-white"></i></div>
+                                            <div class="timeline-content shadow-sm" style="border-left-color: var(--bs-danger);">
+                                                <h6 class="fw-bold text-danger" data-i18n="result.climax">高潮 (Climax)</h6>
+                                                <p class="mb-1 badge bg-danger"><span data-i18n="result.chapter_prefix">第</span> {{ result.plot_analysis.plot_structure.climax }} <span data-i18n="result.chapter_suffix">章</span></p>
+                                                <small class="text-muted d-block mt-2" data-i18n="result.climax_desc">故事的最高点，主要冲突达到顶峰，人物命运发生转折。</small>
                                             </div>
                                         </div>
                                         <div class="timeline-item">
-                                            <div class="timeline-marker bg-success"></div>
-                                            <div class="timeline-content">
-                                                <h6 data-i18n="result.resolution">结尾</h6>
-                                                <p class="mb-1"><span data-i18n="result.chapter_prefix">第</span> {{ result.plot_analysis.plot_structure.resolution }} <span data-i18n="result.chapter_suffix">章</span></p>
-                                                <small class="text-muted" data-i18n="result.resolution_desc">问题解决和故事收尾</small>
+                                            <div class="timeline-marker bg-success"><i class="fas fa-flag-checkered small text-white"></i></div>
+                                            <div class="timeline-content shadow-sm" style="border-left-color: var(--bs-success);">
+                                                <h6 class="fw-bold text-success" data-i18n="result.resolution">结尾 (Resolution)</h6>
+                                                <p class="mb-1 badge bg-success"><span data-i18n="result.chapter_prefix">第</span> {{ result.plot_analysis.plot_structure.resolution }} <span data-i18n="result.chapter_suffix">章</span></p>
+                                                <small class="text-muted d-block mt-2" data-i18n="result.resolution_desc">冲突得到解决，故事走向结局，所有悬念揭晓。</small>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            {% if result.plot_analysis.key_events %}
-                            <h5 class="mt-4" data-i18n="result.key_events">关键事件</h5>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="accordion" id="keyEventsAccordion">
-                                        {% for chapter_events in result.plot_analysis.key_events %}
-                                        {% if chapter_events.events %}
-                                        <div class="accordion-item">
-                                            <h6 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                                        data-bs-target="#events{{ chapter_events.chapter }}">
-                                                    <span data-i18n="result.chapter_prefix">第</span> {{ chapter_events.chapter }} <span data-i18n="result.chapter_suffix">章</span>
-                                                    <span class="badge bg-primary ms-2">{{ chapter_events.events|length }}</span>
-                                                </button>
-                                            </h6>
-                                            <div id="events{{ chapter_events.chapter }}" class="accordion-collapse collapse"
-                                                 data-bs-parent="#keyEventsAccordion">
-                                                <div class="accordion-body">
-                                                    <ul class="mb-0">
-                                                        {% for event in chapter_events.events %}
-                                                        <li class="mb-2">{{ event }}</li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </div>
-                            {% endif %}
                         </div>
 
                         <div class="col-lg-6">
-                            <h5 data-i18n="result.sentiment_curve">情感曲线</h5>
-                            <div class="card">
-                                <div class="card-body">
-                                    <canvas id="sentimentChart" height="250"></canvas>
+                            <div class="mb-4">
+                                <h5 class="border-bottom pb-2 mb-3"><i class="fas fa-wave-square me-2"></i><span data-i18n="result.sentiment_curve">情感曲线</span></h5>
+                                <div class="card shadow-sm">
+                                    <div class="card-body" style="position: relative; height: 300px;">
+                                        <canvas id="sentimentChart"></canvas>
+                                    </div>
                                 </div>
                             </div>
 
-                            <h5 class="mt-4" data-i18n="result.complexity_analysis">文本复杂度分析</h5>
-                            <div class="card">
-                                <div class="card-body">
-                                    <canvas id="complexityChart" height="200"></canvas>
+                            <div>
+                                <h5 class="border-bottom pb-2 mb-3"><i class="fas fa-chart-line me-2"></i><span data-i18n="result.complexity_analysis">文本复杂度分析</span></h5>
+                                <div class="card shadow-sm">
+                                    <div class="card-body" style="position: relative; height: 250px;">
+                                        <canvas id="complexityChart"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -437,58 +419,59 @@
 
                 <div class="tab-pane fade" id="themes" role="tabpanel">
                     <div class="row">
-                        <div class="col-lg-8">
-                            <h5 data-i18n="result.themes">主要主题</h5>
+                        <div class="col-lg-8 mb-4">
+                            <h5 class="border-bottom pb-2 mb-3"><i class="fas fa-tags me-2"></i><span data-i18n="result.themes">主要主题</span></h5>
+                            {% if result.themes %}
                             <div class="d-flex flex-wrap gap-2 mb-4" id="themeTags">
                                 {% for theme in result.themes %}
-                                <span class="badge bg-primary fs-6 py-2 px-3 theme-tag">
-                                    {{ theme }}
-                                    <span class="theme-frequency ms-1">#{{ loop.index }}</span>
+                                <span class="badge bg-primary bg-gradient fs-6 py-2 px-3 theme-tag shadow-sm">
+                                    <i class="fas fa-hashtag me-1 opacity-50"></i>{{ theme }}
                                 </span>
                                 {% endfor %}
                             </div>
-
-                            <h5 data-i18n="result.theme_distribution">主题分布</h5>
-                            <div class="card">
-                                <div class="card-body">
-                                    <canvas id="themeChart" height="200"></canvas>
+                            <div class="card shadow-sm">
+                                <div class="card-body" style="position: relative; height: 350px;">
+                                    <canvas id="themeChart"></canvas>
                                 </div>
                             </div>
+                            {% else %}
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i> 未能提取到足够的主题信息。
+                            </div>
+                            {% endif %}
                         </div>
 
                         <div class="col-lg-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h6 class="mb-0" data-i18n="result.theme_insights">主题洞察</h6>
-                                </div>
+                            <h5 class="border-bottom pb-2 mb-3"><i class="fas fa-lightbulb me-2"></i><span data-i18n="result.theme_insights">主题洞察</span></h5>
+                            <div class="card shadow-sm bg-light border-0">
                                 <div class="card-body">
-                                    <div class="alert alert-info">
-                                        <i class="fas fa-lightbulb me-2"></i>
-                                        <strong data-i18n="result.insight">洞察</strong>
-                                        <p class="mb-0 mt-2 small" id="themeInsight">
+                                    <div class="d-flex align-items-start mb-3">
+                                        <i class="fas fa-quote-left fa-2x text-muted me-3 opacity-25"></i>
+                                        <p class="mb-0 fst-italic" id="themeInsight">
                                             {% if result.themes|length > 0 %}
-                                                文本主要探讨了 {{ result.themes[0] }} 等相关主题，
-                                                反映了作品的深层含义和作者意图。
+                                                <span data-i18n="result.insight_prefix">文本主要探讨了</span>
+                                                <strong class="text-primary">{{ result.themes[0] }}</strong>
+                                                <span data-i18n="result.insight_middle">等相关主题，反映了作品的深层含义和作者意图。这些主题在文本中多次出现，构成了故事的核心思想。</span>
                                             {% else %}
-                                                主题分析需要更多文本内容以获得准确结果。
+                                                主题分析需要更多文本内容以获得准确结果。当前文本量可能不足以提取显著主题。
                                             {% endif %}
                                         </p>
                                     </div>
 
-                                    <div class="mt-3">
-                                        <h6 data-i18n="result.recommendations">推荐分析</h6>
-                                        <ul class="list-unstyled small">
-                                            <li class="mb-1">
-                                                <i class="fas fa-check text-success me-2"></i>
-                                                <span data-i18n="result.character_arcs">人物弧光分析</span>
+                                    <div class="mt-4 pt-3 border-top">
+                                        <h6 class="fw-bold mb-3" data-i18n="result.recommendations">后续分析建议</h6>
+                                        <ul class="list-group list-group-flush bg-transparent">
+                                            <li class="list-group-item bg-transparent px-0 py-2 border-bottom-0">
+                                                <i class="fas fa-check-circle text-success me-2"></i>
+                                                <span data-i18n="result.character_arcs">深入分析主要人物的成长弧光</span>
                                             </li>
-                                            <li class="mb-1">
-                                                <i class="fas fa-check text-success me-2"></i>
-                                                <span data-i18n="result.symbolism">象征意义分析</span>
+                                            <li class="list-group-item bg-transparent px-0 py-2 border-bottom-0">
+                                                <i class="fas fa-check-circle text-success me-2"></i>
+                                                <span data-i18n="result.symbolism">探索文本中的关键象征和隐喻</span>
                                             </li>
-                                            <li class="mb-1">
-                                                <i class="fas fa-check text-success me-2"></i>
-                                                <span data-i18n="result.narrative_style">叙事风格分析</span>
+                                            <li class="list-group-item bg-transparent px-0 py-2 border-bottom-0">
+                                                <i class="fas fa-check-circle text-success me-2"></i>
+                                                <span data-i18n="result.narrative_style">分析作者的叙事视角和风格</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -500,79 +483,82 @@
 
                 <div class="tab-pane fade" id="stats" role="tabpanel">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <h5 data-i18n="result.basic_stats">基本统计</h5>
-                            <div class="card">
+                        <div class="col-lg-6 mb-4">
+                            <h5 class="border-bottom pb-2 mb-3"><i class="fas fa-calculator me-2"></i><span data-i18n="result.basic_stats">基本统计</span></h5>
+                            <div class="card shadow-sm mb-4">
                                 <div class="card-body">
-                                    <div class="row text-center">
-                                        <div class="col-6 mb-3">
-                                            <div class="border rounded p-3">
-                                                <div class="h4 text-primary mb-1">{{ result.text_statistics.basic_stats.total_words }}</div>
-                                                <small class="text-muted" data-i18n="result.total_words">总词数</small>
+                                    <div class="row text-center g-3">
+                                        <div class="col-6">
+                                            <div class="border rounded p-3 bg-light h-100">
+                                                <div class="h3 fw-bold text-primary mb-1">{{ "{:,}".format(result.text_statistics.basic_stats.total_words) }}</div>
+                                                <small class="text-muted fw-bold" data-i18n="result.total_words">总词数</small>
                                             </div>
                                         </div>
-                                        <div class="col-6 mb-3">
-                                            <div class="border rounded p-3">
-                                                <div class="h4 text-success mb-1">{{ result.text_statistics.basic_stats.total_sentences }}</div>
-                                                <small class="text-muted" data-i18n="result.total_sentences">总句数</small>
+                                        <div class="col-6">
+                                            <div class="border rounded p-3 bg-light h-100">
+                                                <div class="h3 fw-bold text-success mb-1">{{ "{:,}".format(result.text_statistics.basic_stats.total_sentences) }}</div>
+                                                <small class="text-muted fw-bold" data-i18n="result.total_sentences">总句数</small>
                                             </div>
                                         </div>
-                                        <div class="col-6 mb-3">
-                                            <div class="border rounded p-3">
-                                                <div class="h4 text-info mb-1">{{ "%.1f"|format(result.text_statistics.basic_stats.avg_sentence_length) }}</div>
-                                                <small class="text-muted" data-i18n="result.avg_sentence_length">平均句长</small>
+                                        <div class="col-6">
+                                            <div class="border rounded p-3 bg-light h-100">
+                                                <div class="h3 fw-bold text-info mb-1">{{ "%.1f"|format(result.text_statistics.basic_stats.avg_sentence_length) }}</div>
+                                                <small class="text-muted fw-bold" data-i18n="result.avg_sentence_length">平均句长</small>
                                             </div>
                                         </div>
-                                        <div class="col-6 mb-3">
-                                            <div class="border rounded p-3">
-                                                <div class="h4 text-warning mb-1">{{ result.text_statistics.basic_stats.unique_words }}</div>
-                                                <small class="text-muted" data-i18n="result.unique_words">独特词汇</small>
+                                        <div class="col-6">
+                                            <div class="border rounded p-3 bg-light h-100">
+                                                <div class="h3 fw-bold text-warning mb-1">{{ "{:,}".format(result.text_statistics.basic_stats.unique_words) }}</div>
+                                                <small class="text-muted fw-bold" data-i18n="result.unique_words">独特词汇</small>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="mt-3">
-                                        <h6 data-i18n="result.lexical_diversity">词汇多样性</h6>
-                                        <div class="progress mb-2" style="height: 20px;">
-                                            <div class="progress-bar bg-info"
-                                                 style="width: {{ (result.text_statistics.basic_stats.lexical_diversity * 100)|round }}%">
-                                                {{ "%.3f"|format(result.text_statistics.basic_stats.lexical_diversity) }}
+                                    <div class="mt-4 pt-3 border-top">
+                                        <h6 class="fw-bold mb-2" data-i18n="result.lexical_diversity">词汇多样性</h6>
+                                        {% set diversity = result.text_statistics.basic_stats.lexical_diversity %}
+                                        <div class="progress mb-2" style="height: 10px;">
+                                            <div class="progress-bar {% if diversity > 0.6 %}bg-success{% elif diversity > 0.4 %}bg-info{% else %}bg-warning{% endif %}"
+                                                 style="width: {{ (diversity * 100)|round }}%">
                                             </div>
                                         </div>
-                                        <small class="text-muted">
-                                            {% if result.text_statistics.basic_stats.lexical_diversity > 0.7 %}
-                                            <span data-i18n="result.high_diversity">词汇多样性较高，用词丰富</span>
-                                            {% elif result.text_statistics.basic_stats.lexical_diversity > 0.5 %}
-                                            <span data-i18n="result.medium_diversity">词汇多样性中等</span>
-                                            {% else %}
-                                            <span data-i18n="result.low_diversity">词汇重复度较高</span>
-                                            {% endif %}
+                                        <small class="text-muted d-flex justify-content-between">
+                                            <span>{{ "%.1f"|format(diversity * 100) }}%</span>
+                                            <span>
+                                                {% if diversity > 0.6 %}
+                                                <span data-i18n="result.high_diversity">词汇丰富</span>
+                                                {% elif diversity > 0.4 %}
+                                                <span data-i18n="result.medium_diversity">中等多样性</span>
+                                                {% else %}
+                                                <span data-i18n="result.low_diversity">重复度高</span>
+                                                {% endif %}
+                                            </span>
                                         </small>
                                     </div>
                                 </div>
                             </div>
 
                             {% if result.text_statistics.chapter_stats %}
-                            <h5 class="mt-4" data-i18n="result.chapter_stats">章节统计</h5>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-sm table-hover">
-                                            <thead>
+                            <h5 class="border-bottom pb-2 mb-3"><i class="fas fa-list me-2"></i><span data-i18n="result.chapter_stats">章节统计列表</span></h5>
+                            <div class="card shadow-sm overflow-hidden">
+                                <div class="card-body p-0">
+                                    <div class="table-responsive" style="max-height: 300px;">
+                                        <table class="table table-sm table-hover table-striped mb-0">
+                                            <thead class="table-light sticky-top">
                                                 <tr>
                                                     <th data-i18n="result.chapter">章节</th>
-                                                    <th data-i18n="result.word_count">词数</th>
-                                                    <th data-i18n="result.sentence_count">句数</th>
-                                                    <th data-i18n="result.avg_sentence_length">平均句长</th>
+                                                    <th class="text-end" data-i18n="result.word_count">词数</th>
+                                                    <th class="text-end" data-i18n="result.sentence_count">句数</th>
+                                                    <th class="text-end" data-i18n="result.avg_sentence_length">平均句长</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {% for stat in result.text_statistics.chapter_stats %}
                                                 <tr>
                                                     <td><span data-i18n="result.chapter_prefix">第</span> {{ stat.chapter }} <span data-i18n="result.chapter_suffix">章</span></td>
-                                                    <td>{{ stat.word_count }}</td>
-                                                    <td>{{ stat.sentence_count }}</td>
-                                                    <td>{{ "%.1f"|format(stat.avg_sentence_length) }}</td>
+                                                    <td class="text-end font-monospace">{{ "{:,}".format(stat.word_count) }}</td>
+                                                    <td class="text-end font-monospace">{{ stat.sentence_count }}</td>
+                                                    <td class="text-end font-monospace">{{ "%.1f"|format(stat.avg_sentence_length) }}</td>
                                                 </tr>
                                                 {% endfor %}
                                             </tbody>
@@ -584,70 +570,69 @@
                         </div>
 
                         <div class="col-lg-6">
-                            <h5 data-i18n="result.readability">可读性分析</h5>
-                            <div class="card">
+                            <h5 class="border-bottom pb-2 mb-3"><i class="fas fa-glasses me-2"></i><span data-i18n="result.readability">可读性分析</span></h5>
+                            <div class="card shadow-sm mb-4">
                                 <div class="card-body">
                                     <div class="list-group list-group-flush">
                                         {% for score_name, score_value in result.text_statistics.readability_scores.items() %}
                                         <div class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                            <span>
+                                            <span class="d-flex align-items-center">
+                                                <i class="fas fa-caret-right text-primary me-2"></i>
                                                 {% if score_name == "flesch_reading_ease" %}
                                                     <span data-i18n="result.flesch_reading">Flesch阅读难度</span>
+                                                    <i class="fas fa-question-circle text-muted ms-2 small" data-bs-toggle="tooltip" title="分数越高越容易阅读 (0-100)"></i>
                                                 {% elif score_name == "flesch_kincaid_grade" %}
                                                     <span data-i18n="result.flesch_kincaid">Flesch-Kincaid等级</span>
+                                                    <i class="fas fa-question-circle text-muted ms-2 small" data-bs-toggle="tooltip" title="对应美国学校年级水平"></i>
                                                 {% elif score_name == "smog_index" %}
                                                     <span data-i18n="result.smog_index">SMOG指数</span>
-                                                {% elif score_name == "coleman_liau_index" %}
-                                                    Coleman-Liau指数
-                                                {% elif score_name == "automated_readability_index" %}
-                                                    自动可读性指数
+                                                    <i class="fas fa-question-circle text-muted ms-2 small" data-bs-toggle="tooltip" title="估计理解所需的教育年限"></i>
                                                 {% else %}
-                                                    {{ score_name }}
+                                                    {{ score_name|replace('_', ' ')|title }}
                                                 {% endif %}
                                             </span>
-                                            <span class="badge {% if score_value > 0 %}bg-primary{% else %}bg-secondary{% endif %} rounded-pill">
+                                            <span class="badge bg-primary rounded-pill font-monospace fs-6">
                                                 {{ "%.1f"|format(score_value) }}
                                             </span>
                                         </div>
                                         {% endfor %}
                                     </div>
 
-                                    <div class="mt-3">
-                                        <h6 data-i18n="result.interpretation">解读</h6>
+                                    <div class="mt-3 pt-3 border-top">
+                                        <h6 class="fw-bold mb-2" data-i18n="result.interpretation">综合解读</h6>
+                                        {% set score = result.text_statistics.readability_scores.flesch_reading_ease %}
                                         <div class="alert
-                                            {% if result.text_statistics.readability_scores.flesch_reading_ease > 60 %}
-                                                alert-success
-                                            {% elif result.text_statistics.readability_scores.flesch_reading_ease > 30 %}
-                                                alert-warning
-                                            {% else %}
-                                                alert-danger
-                                            {% endif %}">
-                                            <small>
-                                                {% if result.text_statistics.readability_scores.flesch_reading_ease > 90 %}
-                                                    <span data-i18n="result.very_easy">非常容易阅读，适合普通读者</span>
-                                                {% elif result.text_statistics.readability_scores.flesch_reading_ease > 80 %}
-                                                    <span data-i18n="result.easy">容易阅读，适合中学生</span>
-                                                {% elif result.text_statistics.readability_scores.flesch_reading_ease > 70 %}
-                                                    <span data-i18n="result.fairly_easy">较为容易，适合高中生</span>
-                                                {% elif result.text_statistics.readability_scores.flesch_reading_ease > 60 %}
-                                                    <span data-i18n="result.standard">标准难度，适合大学生</span>
-                                                {% elif result.text_statistics.readability_scores.flesch_reading_ease > 50 %}
-                                                    <span data-i18n="result.fairly_difficult">较为困难，适合专业读者</span>
-                                                {% elif result.text_statistics.readability_scores.flesch_reading_ease > 30 %}
-                                                    <span data-i18n="result.difficult">困难，需要专业知识</span>
+                                            {% if score > 70 %}alert-success{% elif score > 50 %}alert-info{% elif score > 30 %}alert-warning{% else %}alert-danger{% endif %}
+                                            d-flex align-items-center mb-0">
+                                            <i class="fas
+                                            {% if score > 70 %}fa-check-circle{% elif score > 50 %}fa-info-circle{% elif score > 30 %}fa-exclamation-circle{% else %}fa-times-circle{% endif %}
+                                            fa-lg me-3"></i>
+                                            <div>
+                                                {% if score > 90 %}
+                                                    <strong data-i18n="result.very_easy">非常容易阅读</strong> - 适合小学生或大众读者。
+                                                {% elif score > 80 %}
+                                                    <strong data-i18n="result.easy">容易阅读</strong> - 适合中学生，语言通俗易懂。
+                                                {% elif score > 70 %}
+                                                    <strong data-i18n="result.fairly_easy">较为容易</strong> - 适合高中生，大部分成人可轻松阅读。
+                                                {% elif score > 60 %}
+                                                    <strong data-i18n="result.standard">标准难度</strong> - 适合大学生或受过教育的成人。
+                                                {% elif score > 50 %}
+                                                    <strong data-i18n="result.fairly_difficult">较为困难</strong> - 需要一定的专注力，适合专业人士。
+                                                {% elif score > 30 %}
+                                                    <strong data-i18n="result.difficult">困难</strong> - 学术或专业性强，句子结构复杂。
                                                 {% else %}
-                                                    <span data-i18n="result.very_difficult">非常困难，适合专家阅读</span>
+                                                    <strong data-i18n="result.very_difficult">非常困难</strong> - 极具挑战性，适合特定领域的专家。
                                                 {% endif %}
-                                            </small>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <h5 class="mt-4" data-i18n="result.word_frequency">词频分析</h5>
-                            <div class="card">
-                                <div class="card-body">
-                                    <canvas id="wordFrequencyChart" height="200"></canvas>
+                            <h5 class="border-bottom pb-2 mb-3"><i class="fas fa-sort-amount-down me-2"></i><span data-i18n="result.word_frequency">高频词汇分析</span></h5>
+                            <div class="card shadow-sm">
+                                <div class="card-body" style="position: relative; height: 350px;">
+                                    <canvas id="wordFrequencyChart"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -675,33 +660,43 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 {% block scripts %}
 {% if not result.error %}
 <script>
-// 初始化图表和数据
+// 等待 DOM 和 i18n 就绪
 document.addEventListener('DOMContentLoaded', function() {
-    // 等待i18n就绪后再初始化图表
     if (typeof i18n !== 'undefined' && i18n.isReady) {
         initAllCharts();
     } else {
-        document.addEventListener('i18nReady', function() {
-            initAllCharts();
-        });
+        document.addEventListener('i18nReady', initAllCharts);
     }
 
-    // 初始化交互功能
-    initInteractiveFeatures();
+    // 初始化 Bootstrap 工具提示
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
+    // 保存当前标签页
+    $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+        localStorage.setItem('lastActiveTab', $(e.target).attr('id'));
+    });
+
+    // 恢复上次的标签页
+    let lastTab = localStorage.getItem('lastActiveTab');
+    if (lastTab) {
+        $('#' + lastTab).tab('show');
+    }
 });
 
-let charts = {}; // 存储图表实例以便后续更新
+let charts = {};
 
 function initAllCharts() {
-    // 销毁现有图表
-    Object.values(charts).forEach(chart => {
-        if (chart) chart.destroy();
-    });
+    // 销毁旧图表
+    Object.values(charts).forEach(c => c && c.destroy());
 
     initSentimentChart();
     initCharacterDevelopmentChart();
@@ -710,60 +705,46 @@ function initAllCharts() {
     initWordFrequencyChart();
 }
 
+// 图表初始化函数
+
 function initSentimentChart() {
+    const ctx = document.getElementById('sentimentChart');
+    if (!ctx) return;
     const sentimentData = {{ result.plot_analysis.sentiment_arc | tojson }};
     const chapters = sentimentData.map(item => t('result.chapter_prefix') + item.chapter + t('result.chapter_suffix'));
     const scores = sentimentData.map(item => item.sentiment_score);
 
-    const ctx = document.getElementById('sentimentChart').getContext('2d');
-    charts.sentiment = new Chart(ctx, {
+    charts.sentiment = new Chart(ctx.getContext('2d'), {
         type: 'line',
         data: {
             labels: chapters,
             datasets: [{
                 label: t('result.sentiment_score'),
                 data: scores,
-                borderColor: 'rgb(75, 192, 192)',
-                backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                borderColor: '#36b9cc',
+                backgroundColor: 'rgba(54, 185, 204, 0.1)',
                 tension: 0.4,
                 fill: true,
-                pointBackgroundColor: 'rgb(75, 192, 192)',
+                pointBackgroundColor: '#36b9cc',
                 pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointRadius: 5
+                pointHoverRadius: 6
             }]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
-                title: {
-                    display: true,
-                    text: t('result.sentiment_curve'),
-                    font: { size: 16 }
-                },
-                tooltip: {
-                    mode: 'index',
-                    intersect: false
-                }
+                title: { display: false },
+                tooltip: { mode: 'index', intersect: false }
             },
             scales: {
                 y: {
                     beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: t('result.sentiment_score')
-                    },
-                    min: -1,
-                    max: 1
+                    title: { display: true, text: t('result.sentiment_score') }
                 },
                 x: {
-                    title: {
-                        display: true,
-                        text: t('result.chapters')
-                    },
-                    ticks: {
-                        maxTicksLimit: 10 // 限制X轴标签数量，防止重叠
-                    }
+                    title: { display: true, text: t('result.chapters') },
+                    ticks: { maxTicksLimit: 15 }
                 }
             }
         }
@@ -771,40 +752,71 @@ function initSentimentChart() {
 }
 
 function initCharacterDevelopmentChart() {
-    // 模拟数据
-    const characterData = {
-        labels: {{ result.plot_analysis.sentiment_arc | map(attribute='chapter') | list | tojson }}.map(c => t('result.chapter_prefix') + c + t('result.chapter_suffix')),
-        datasets: []
-    };
+    const ctx = document.getElementById('characterDevelopmentChart');
+    if (!ctx) return;
 
-    const ctx = document.getElementById('characterDevelopmentChart').getContext('2d');
-    charts.character = new Chart(ctx, {
+    // 获取真实数据
+    const rawData = {{ result.character_analysis.character_development | default({}) | tojson }};
+    const chapters = {{ result.plot_analysis.sentiment_arc | map(attribute='chapter') | list | tojson }};
+
+    // 处理标签
+    const labels = chapters.map(c => t('result.chapter_prefix') + c + t('result.chapter_suffix'));
+
+    // 构建数据集
+    const datasets = [];
+    const colors = ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b', '#858796'];
+
+    let colorIndex = 0;
+    for (const [name, counts] of Object.entries(rawData)) {
+        datasets.push({
+            label: name,
+            data: counts,
+            borderColor: colors[colorIndex % colors.length],
+            backgroundColor: colors[colorIndex % colors.length] + '20',
+            tension: 0.3,
+            fill: false,
+            pointRadius: 3,
+            pointHoverRadius: 5
+        });
+        colorIndex++;
+    }
+
+    if (datasets.length === 0) {
+        ctx.parentNode.innerHTML = `<div class="alert alert-warning text-center">${t('result.no_characters')}</div>`;
+        return;
+    }
+
+    charts.character = new Chart(ctx.getContext('2d'), {
         type: 'line',
-        data: characterData,
+        data: {
+            labels: labels,
+            datasets: datasets
+        },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
-                title: {
-                    display: true,
-                    text: t('result.character_development'),
-                    font: { size: 16 }
+                title: { display: false },
+                legend: { position: 'bottom' },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.parsed.y + ' ' + t('result.mentions');
+                        }
+                    }
                 }
             },
             scales: {
                 y: {
-                    title: {
-                        display: true,
-                        text: t('result.mentions')
-                    }
+                    beginAtZero: true,
+                    title: { display: true, text: t('result.mentions') },
+                    ticks: { precision: 0 }
                 },
                 x: {
-                    title: {
-                        display: true,
-                        text: t('result.chapters')
-                    },
-                    ticks: {
-                        maxTicksLimit: 10
-                    }
+                    title: { display: true, text: t('result.chapters') },
+                    ticks: { maxTicksLimit: 15 }
                 }
             }
         }
@@ -812,137 +824,82 @@ function initCharacterDevelopmentChart() {
 }
 
 function initComplexityChart() {
+    const ctx = document.getElementById('complexityChart');
+    if (!ctx) return;
     const complexityData = {{ result.plot_analysis.complexity_arc | tojson }};
     const chapters = complexityData.map(item => t('result.chapter_prefix') + item.chapter + t('result.chapter_suffix'));
     const scores = complexityData.map(item => item.complexity_score);
 
-    const ctx = document.getElementById('complexityChart').getContext('2d');
-    charts.complexity = new Chart(ctx, {
+    charts.complexity = new Chart(ctx.getContext('2d'), {
         type: 'line',
         data: {
             labels: chapters,
             datasets: [{
-                label: t('result.complexity_score'),
+                label: t('result.text_complexity'),
                 data: scores,
-                borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                borderColor: '#e74a3b',
+                backgroundColor: 'rgba(231, 74, 59, 0.1)',
                 tension: 0.4,
                 fill: true
             }]
         },
         options: {
             responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: t('result.text_complexity'), // 修复：使用正确的翻译键
-                    font: { size: 14 }
-                }
-            },
+            maintainAspectRatio: false,
             scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 1
-                },
-                x: {
-                    ticks: {
-                        maxTicksLimit: 10
-                    }
-                }
+                y: { beginAtZero: true, max: 1 },
+                x: { ticks: { maxTicksLimit: 15 } }
             }
         }
     });
 }
 
 function initThemeChart() {
+    const ctx = document.getElementById('themeChart');
+    if (!ctx) return;
     const themes = {{ result.themes | tojson }};
-    const themeData = {
-        labels: themes,
-        datasets: [{
-            data: themes.map((_, index) => 100 - (index * 15)),
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.8)',
-                'rgba(54, 162, 235, 0.8)',
-                'rgba(255, 206, 86, 0.8)',
-                'rgba(75, 192, 192, 0.8)',
-                'rgba(153, 102, 255, 0.8)',
-                'rgba(255, 159, 64, 0.8)'
-            ]
-        }]
-    };
 
-    const ctx = document.getElementById('themeChart').getContext('2d');
-    charts.theme = new Chart(ctx, {
+    charts.theme = new Chart(ctx.getContext('2d'), {
         type: 'doughnut',
-        data: themeData,
+        data: {
+            labels: themes,
+            datasets: [{
+                data: themes.map((_, i) => 100 - (i * 10)),
+                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b', '#858796']
+            }]
+        },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
-                legend: {
-                    position: 'bottom'
-                }
+                legend: { position: 'bottom' }
             }
         }
     });
 }
 
 function initWordFrequencyChart() {
+    const ctx = document.getElementById('wordFrequencyChart');
+    if (!ctx) return;
+    // 模拟词频数据 (后端目前未返回真实词频，暂用静态展示)
     const wordData = {
         labels: ['the', 'and', 'to', 'of', 'a', 'in', 'that', 'it', 'with', 'as'],
         datasets: [{
             label: t('result.word_frequency'),
             data: [1250, 980, 875, 760, 690, 580, 490, 420, 380, 350],
-            backgroundColor: 'rgba(54, 162, 235, 0.8)'
+            backgroundColor: '#4e73df'
         }]
     };
 
-    const ctx = document.getElementById('wordFrequencyChart').getContext('2d');
-    charts.word = new Chart(ctx, {
+    charts.word = new Chart(ctx.getContext('2d'), {
         type: 'bar',
         data: wordData,
         options: {
             responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: t('result.top_words'),
-                    font: { size: 14 }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
+            maintainAspectRatio: false,
+            scales: { y: { beginAtZero: true } }
         }
     });
-}
-
-function initInteractiveFeatures() {
-    // 主题标签点击事件
-    document.querySelectorAll('.theme-tag').forEach(tag => {
-        tag.addEventListener('click', function() {
-            const theme = this.textContent.split('#')[0].trim();
-            showThemeAnalysis(theme);
-        });
-    });
-
-    // 选项卡切换保存状态
-    document.querySelectorAll('#resultTabs button').forEach(tab => {
-        tab.addEventListener('click', function() {
-            localStorage.setItem('lastActiveTab', this.id);
-        });
-    });
-
-    // 恢复上次活动的选项卡
-    const lastActiveTab = localStorage.getItem('lastActiveTab');
-    if (lastActiveTab) {
-        const tab = document.getElementById(lastActiveTab);
-        if (tab) {
-            const tabInstance = new bootstrap.Tab(tab);
-            tabInstance.show();
-        }
-    }
 }
 
 function showChapterDetails(chapterNumber) {
@@ -956,45 +913,31 @@ function showChapterDetails(chapterNumber) {
 
     modalContent.innerHTML = `
         <div class="mb-4">
-            <h6 data-i18n="result.summary">摘要</h6>
-            <p>${chapter.summary}</p>
+            <h6 class="fw-bold" data-i18n="result.summary">摘要</h6>
+            <p class="text-muted">${chapter.summary}</p>
         </div>
         <div class="row mb-4">
             <div class="col-md-6">
-                <h6 data-i18n="result.statistics">统计信息</h6>
+                <h6 class="fw-bold" data-i18n="result.statistics">统计信息</h6>
                 <ul class="list-unstyled">
                     <li><strong data-i18n="result.word_count">词数:</strong> ${chapter.word_count}</li>
                     <li><strong data-i18n="result.characters">字符数:</strong> ${chapter.length}</li>
-                    <li><strong data-i18n="result.sentences">句子数:</strong> ${Math.round(chapter.length / 50)}</li>
                 </ul>
             </div>
             <div class="col-md-6">
-                <h6 data-i18n="result.key_sentences">关键句子</h6>
+                <h6 class="fw-bold" data-i18n="result.key_sentences">关键句子</h6>
                 <ul>
-                    ${chapter.key_sentences ? chapter.key_sentences.map(s => `<li class="small">${s}</li>`).join('') : '<li data-i18n="result.no_key_sentences">无关键句子</li>'}
+                    ${chapter.key_sentences ? chapter.key_sentences.map(s => `<li class="small text-muted">${s}</li>`).join('') : '<li class="small text-muted" data-i18n="result.no_key_sentences">无关键句子</li>'}
                 </ul>
             </div>
         </div>
-        <div class="alert alert-info">
-            <i class="fas fa-lightbulb me-2"></i>
-            <strong data-i18n="result.analysis_insight">分析洞察</strong>
-            <p class="mb-0 mt-2 small" data-i18n="result.chapter_insight">
-                本章节在情节发展中扮演重要角色，包含了关键的情节转折和人物发展。
-            </p>
-        </div>
     `;
 
-    // 需要手动翻译模态框内新生成的 data-i18n 元素
-    if (typeof i18n !== 'undefined') {
-        setTimeout(() => i18n.updatePage(), 100);
-    }
+    // 手动触发翻译更新
+    if (typeof i18n !== 'undefined') i18n.updatePage();
 
     const modal = new bootstrap.Modal(document.getElementById('chapterModal'));
     modal.show();
-}
-
-function showThemeAnalysis(theme) {
-    alert(`主题 "${theme}" 的详细分析功能正在开发中...`);
 }
 
 function exportResult(format) {
@@ -1003,92 +946,62 @@ function exportResult(format) {
         showError('无法导出：缺少结果ID');
         return;
     }
-
     const url = `/export/${resultId}?format=${format}`;
     window.open(url, '_blank');
 }
 
-// 数字格式化函数
-function numberFormat(number) {
-    return new Intl.NumberFormat().format(number);
-}
-
-// 显示通知函数
 function showError(message) {
-    Toastify({
-        text: `错误: ${message}`,
-        duration: 5000,
-        gravity: "top",
-        position: "right",
-        backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)",
-        stopOnFocus: true
-    }).showToast();
-}
-
-function showSuccess(message) {
     Toastify({
         text: message,
         duration: 3000,
         gravity: "top",
         position: "right",
-        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-        stopOnFocus: true
+        backgroundColor: "#e74a3b",
     }).showToast();
 }
 </script>
 
 <style>
-/* 时间线样式 */
+/* 美化图表容器 */
+canvas {
+    max-width: 100%;
+}
+
+/* 时间线样式优化 */
 .plot-timeline {
     position: relative;
-    padding-left: 30px;
+    padding-left: 40px;
 }
-
+.plot-timeline::before {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e3e6f0;
+}
 .timeline-item {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
-
 .timeline-marker {
     position: absolute;
-    left: -30px;
-    top: 0;
-    width: 20px;
-    height: 20px;
+    left: -40px;
+    top: 5px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    border: 3px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
 }
-
 .timeline-content {
-    padding: 10px;
-    background: #f8f9fa;
-    border-radius: 5px;
-    border-left: 3px solid #dee2e6;
-}
-
-/* 章节卡片悬停效果 */
-.chapter-card {
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.chapter-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-/* 主题标签样式 */
-.theme-tag {
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.theme-tag:hover {
-    transform: scale(1.05);
-}
-
-.theme-frequency {
-    font-size: 0.8em;
-    opacity: 0.7;
+    background: #fff;
+    border-left: 4px solid #4e73df;
+    padding: 15px;
+    border-radius: 4px;
 }
 </style>
 
