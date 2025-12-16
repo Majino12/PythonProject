@@ -1,0 +1,89 @@
+:root {
+    --primary-color: #6f42c1;
+    --primary-dark: #5a32a3;
+    --accent-color: #0d6efd;
+    --dark-bg: #1a1c23;
+    --light-bg: #f8f9fa;
+    --text-muted: #858796;
+}
+
+/* 全局 */
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    padding-top: 70px;
+}
+
+/* --- 导航栏 (关键修改) --- */
+.navbar {
+    background-color: #212529 !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    padding: 0.8rem 0;
+}
+
+/* 强制修改 Logo 文字颜色为淡紫色 */
+nav.navbar .navbar-brand {
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: 0.5px;
+    color: #a29bfe !important; /* 这里修改颜色 */
+    transition: color 0.3s;
+}
+
+nav.navbar .navbar-brand:hover {
+    color: #fff !important;
+}
+
+/* 保持图标为白色，形成层次感 */
+nav.navbar .navbar-brand i {
+    color: #ffffff !important;
+    margin-right: 8px;
+}
+
+.nav-link {
+    font-weight: 500;
+    margin: 0 10px;
+    color: rgba(255,255,255,0.6) !important;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #fff !important;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+/* --- 其他样式保持不变 --- */
+.page-section { padding: 90px 0; border-bottom: 1px solid #e3e6f0; }
+
+#home {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    margin-top: -70px;
+    padding-top: 180px;
+    padding-bottom: 140px;
+    border-bottom: none;
+}
+
+/* 卡片 */
+.card { border: none; border-radius: 0.8rem; box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1); overflow: hidden; }
+.card-header { background-color: #fff; font-weight: 700; color: var(--primary-color); padding: 1.2rem 1.5rem; }
+.card-header.bg-dark { background-color: #2e3a59 !important; color: white !important; }
+.card-header.bg-primary { background-color: var(--primary-color) !important; color: white !important; }
+
+/* 分析看板 */
+.analysis-big-metric { font-size: 2.8rem; font-weight: 800; line-height: 1; margin-bottom: 0.5rem; }
+.metric-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); }
+
+/* 日志 */
+#batch-log { font-family: monospace; font-size: 0.85rem; background: #1a1a1a; color: #0f0; border: 1px solid #333; }
+
+/* 颜色 */
+.text-success { color: #1cc88a !important; }
+.text-danger { color: #e74a3b !important; }
+.text-warning { color: #f6c23e !important; }
+.text-primary { color: #6f42c1 !important; }
+.bg-success { background-color: #1cc88a !important; }
+.bg-danger { background-color: #e74a3b !important; }
+.bg-secondary { background-color: #858796 !important; }
+.bg-warning { background-color: #f6c23e !important; }

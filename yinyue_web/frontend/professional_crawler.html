@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Crawler - Lyric Analyzer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">🎵 Lyric Analyzer 2025</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="index.html">Back to Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h2 class="fw-bold text-primary">Professional Song Crawler</h2>
+                <p class="text-muted">Auto-crawl, Auto-analyze, Auto-save</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-5">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="fas fa-search me-2"></i>Single Song</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Artist</label>
+                            <input type="text" class="form-control" id="proArtist" placeholder="e.g., Taylor Swift">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Song Title</label>
+                            <input type="text" class="form-control" id="proTitle" placeholder="e.g., Love Story">
+                        </div>
+                        <button class="btn btn-primary w-100" onclick="crawlProfessionalSingle()">
+                            <i class="fas fa-cloud-download-alt me-2"></i>Crawl & Analyze
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="mb-0"><i class="fas fa-list me-2"></i>Batch Queue</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="proBatchArtist" placeholder="Artist">
+                            <input type="text" class="form-control" id="proBatchTitle" placeholder="Title">
+                            <button class="btn btn-outline-secondary" onclick="addToProfessionalBatch()">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div id="proCrawlList" class="mb-3 border rounded p-2 bg-white" style="min-height: 100px; max-height: 200px; overflow-y: auto;">
+                            <div class="text-muted text-center small mt-4">Queue is empty</div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success" id="proCrawlBatch" disabled onclick="crawlProfessionalBatch()">Start Batch Crawl</button>
+                            <button class="btn btn-sm btn-link" onclick="loadSampleProfessionalBatch()">Load Sample Data</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="fas fa-terminal me-2"></i>Live Results</h5>
+                        <span class="badge bg-light text-dark" id="statusBadge">Ready</span>
+                    </div>
+                    <div class="card-body bg-light" id="proResults" style="min-height: 400px; max-height: 600px; overflow-y: auto;">
+                        <div class="text-center py-5 text-muted opacity-50">
+                            <i class="fas fa-robot fa-4x mb-3"></i>
+                            <p>Waiting for tasks...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/professional_crawler.js"></script>
+</body>
+</html>

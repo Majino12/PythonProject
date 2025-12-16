@@ -1,0 +1,157 @@
+2025-11-17 14:20:30,412 - database - INFO - Database initialized successfully
+2025-11-17 14:20:30,413 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:20:30,494 - werkzeug - WARNING -  * Debugger is active!
+2025-11-17 14:20:30,500 - werkzeug - INFO -  * Debugger PIN: 309-934-398
+2025-11-17 14:24:29,473 - database - INFO - Database initialized successfully
+2025-11-17 14:24:29,473 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:24:29,543 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5002
+ * Running on http://192.168.3.17:5002
+2025-11-17 14:24:29,543 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-17 14:24:29,546 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-11-17 14:24:30,129 - database - INFO - Database initialized successfully
+2025-11-17 14:24:30,129 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:24:30,188 - werkzeug - WARNING -  * Debugger is active!
+2025-11-17 14:24:30,193 - werkzeug - INFO -  * Debugger PIN: 309-934-398
+2025-11-17 14:24:35,423 - werkzeug - INFO - 192.168.3.17 - - [17/Nov/2025 14:24:35] "GET / HTTP/1.1" 200 -
+2025-11-17 14:28:09,262 - database - INFO - Database initialized successfully
+2025-11-17 14:28:09,262 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:28:09,338 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5002
+ * Running on http://192.168.3.17:5002
+2025-11-17 14:28:09,338 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-17 14:28:09,341 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-11-17 14:28:09,948 - database - INFO - Database initialized successfully
+2025-11-17 14:28:09,948 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:28:10,011 - werkzeug - WARNING -  * Debugger is active!
+2025-11-17 14:28:10,017 - werkzeug - INFO -  * Debugger PIN: 309-934-398
+2025-11-17 14:28:47,789 - werkzeug - INFO - 192.168.3.17 - - [17/Nov/2025 14:28:47] "GET / HTTP/1.1" 200 -
+2025-11-17 14:28:55,339 - werkzeug - INFO - 127.0.0.1 - - [17/Nov/2025 14:28:55] "[33mGET /api HTTP/1.1[0m" 404 -
+2025-11-17 14:32:17,408 - database - INFO - Database initialized successfully
+2025-11-17 14:32:17,408 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:32:17,478 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5002
+ * Running on http://192.168.3.17:5002
+2025-11-17 14:32:17,478 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-17 14:32:17,482 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-11-17 14:32:18,089 - database - INFO - Database initialized successfully
+2025-11-17 14:32:18,089 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:32:18,150 - werkzeug - WARNING -  * Debugger is active!
+2025-11-17 14:32:18,156 - werkzeug - INFO -  * Debugger PIN: 309-934-398
+2025-11-17 14:32:22,481 - werkzeug - INFO - 192.168.3.17 - - [17/Nov/2025 14:32:22] "GET / HTTP/1.1" 200 -
+2025-11-17 14:35:26,117 - database - INFO - Database initialized successfully
+2025-11-17 14:35:26,118 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:35:26,200 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5002
+ * Running on http://192.168.3.17:5002
+2025-11-17 14:35:26,200 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-17 14:35:26,204 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-11-17 14:35:26,792 - database - INFO - Database initialized successfully
+2025-11-17 14:35:26,792 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:35:26,851 - werkzeug - WARNING -  * Debugger is active!
+2025-11-17 14:35:26,856 - werkzeug - INFO -  * Debugger PIN: 309-934-398
+2025-11-17 14:38:26,502 - werkzeug - INFO - 127.0.0.1 - - [17/Nov/2025 14:38:26] "GET / HTTP/1.1" 200 -
+2025-11-17 14:42:37,000 - database - INFO - Database initialized successfully
+2025-11-17 14:42:37,157 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-11-17 14:42:37,682 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:42:37,682 - database - INFO - Database initialized successfully
+2025-11-17 14:42:37,682 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:42:37,684 - database - INFO - Analysis stats updated
+2025-11-17 14:43:20,662 - database - INFO - Database initialized successfully
+2025-11-17 14:43:20,827 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-11-17 14:43:21,214 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:43:21,214 - database - INFO - Database initialized successfully
+2025-11-17 14:43:21,215 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:43:21,215 - database - INFO - Analysis stats updated
+2025-11-17 14:43:21,870 - database - INFO - Database initialized successfully
+2025-11-17 14:43:21,870 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:43:22,451 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5002
+ * Running on http://192.168.3.17:5002
+2025-11-17 14:43:22,451 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-17 14:43:22,460 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-11-17 14:43:23,062 - database - INFO - Database initialized successfully
+2025-11-17 14:43:23,062 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:43:23,121 - werkzeug - WARNING -  * Debugger is active!
+2025-11-17 14:43:23,126 - werkzeug - INFO -  * Debugger PIN: 309-934-398
+2025-11-17 14:43:56,571 - database - INFO - Database initialized successfully
+2025-11-17 14:43:56,727 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-11-17 14:43:57,122 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:43:57,123 - database - INFO - Database initialized successfully
+2025-11-17 14:43:57,123 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:43:57,123 - database - INFO - Analysis stats updated
+2025-11-17 14:43:57,759 - database - INFO - Database initialized successfully
+2025-11-17 14:43:57,759 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:43:57,823 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5002
+ * Running on http://192.168.3.17:5002
+2025-11-17 14:43:57,824 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-17 14:43:57,826 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-11-17 14:43:58,433 - database - INFO - Database initialized successfully
+2025-11-17 14:43:58,433 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:43:58,493 - werkzeug - WARNING -  * Debugger is active!
+2025-11-17 14:43:58,498 - werkzeug - INFO -  * Debugger PIN: 309-934-398
+2025-11-17 14:48:07,997 - database - INFO - Database initialized successfully
+2025-11-17 14:48:07,997 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:48:08,060 - backend.lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:48:08,061 - backend.database - INFO - Database initialized successfully
+2025-11-17 14:48:08,061 - backend.database - INFO - Database initialized successfully
+2025-11-17 14:48:08,061 - backend.lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:48:08,062 - backend.database - INFO - Analysis stats updated
+2025-11-17 14:48:08,655 - database - INFO - Database initialized successfully
+2025-11-17 14:48:08,655 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:48:08,722 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5002
+ * Running on http://192.168.3.17:5002
+2025-11-17 14:48:08,722 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-17 14:48:08,725 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-11-17 14:48:09,303 - database - INFO - Database initialized successfully
+2025-11-17 14:48:09,303 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:48:09,363 - werkzeug - WARNING -  * Debugger is active!
+2025-11-17 14:48:09,370 - werkzeug - INFO -  * Debugger PIN: 309-934-398
+2025-11-17 14:51:32,735 - database - INFO - Database initialized successfully
+2025-11-17 14:51:32,911 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-11-17 14:51:33,334 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:51:33,334 - database - INFO - Database initialized successfully
+2025-11-17 14:51:33,334 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:51:33,336 - database - INFO - Analysis stats updated
+2025-11-17 14:51:34,036 - database - INFO - Database initialized successfully
+2025-11-17 14:51:34,037 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:51:34,121 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5002
+ * Running on http://192.168.3.17:5002
+2025-11-17 14:51:34,121 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-17 14:51:34,126 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-11-17 14:51:34,768 - database - INFO - Database initialized successfully
+2025-11-17 14:51:34,769 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 14:51:34,831 - werkzeug - WARNING -  * Debugger is active!
+2025-11-17 14:51:34,838 - werkzeug - INFO -  * Debugger PIN: 309-934-398
+2025-11-17 14:53:25,959 - werkzeug - INFO - 127.0.0.1 - - [17/Nov/2025 14:53:25] "OPTIONS /api/analyze HTTP/1.1" 200 -
+2025-11-17 14:53:26,024 - werkzeug - INFO - 127.0.0.1 - - [17/Nov/2025 14:53:26] "POST /api/analyze HTTP/1.1" 200 -
+2025-11-17 15:02:12,491 - werkzeug - INFO -  * Detected change in '/Users/majinourk/Desktop/pythonProject/yinyue_web/backend/professional_crawler.py', reloading
+2025-11-17 15:02:12,985 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-11-17 15:02:13,729 - database - INFO - Database initialized successfully
+2025-11-17 15:02:13,730 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 15:02:13,812 - werkzeug - WARNING -  * Debugger is active!
+2025-11-17 15:02:13,819 - werkzeug - INFO -  * Debugger PIN: 309-934-398
+2025-11-17 15:02:24,416 - werkzeug - INFO -  * Detected change in '/Users/majinourk/Desktop/pythonProject/yinyue_web/backend/professional_crawler.py', reloading
+2025-11-17 15:02:24,416 - werkzeug - INFO -  * Detected change in '/Users/majinourk/Desktop/pythonProject/yinyue_web/backend/professional_crawler.py', reloading
+2025-11-17 15:02:25,057 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-11-17 15:02:25,683 - database - INFO - Database initialized successfully
+2025-11-17 15:02:25,684 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 15:02:25,745 - werkzeug - WARNING -  * Debugger is active!
+2025-11-17 15:02:25,752 - werkzeug - INFO -  * Debugger PIN: 309-934-398
+2025-11-17 15:04:24,141 - werkzeug - INFO -  * Detected change in '/Users/majinourk/Desktop/pythonProject/yinyue_web/backend/app.py', reloading
+2025-11-17 15:04:24,778 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2025-11-17 15:04:25,393 - database - INFO - Database initialized successfully
+2025-11-17 15:04:25,393 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
+2025-11-17 15:09:22,199 - database - INFO - Database initialized successfully
+2025-11-17 15:09:22,200 - lyric_analyzer - INFO - Lyric Analyzer initialized with database support
