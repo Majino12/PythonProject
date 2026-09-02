@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#12101c" />
+    <title>MoeMotion — 一张图，动起来</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="MoeMotion 首页">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
+        <span>MoeMotion <small>0.2 EASY</small></span>
+      </a>
+      <div class="top-actions">
+        <span class="privacy"><span></span> 所有处理均在本机完成</span>
+        <button class="ghost-button" id="helpButton">不会用？</button>
+        <a class="ghost-link" href="README.md" target="_blank">项目说明 ↗</a>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="hero-copy">
+        <div>
+          <p class="eyebrow">ONE IMAGE · ZERO RIGGING</p>
+          <h1>一张立绘，<br /><em>马上动起来。</em></h1>
+        </div>
+        <div class="hero-side">
+          <p class="hero-note">无需切图、无需建模。导入角色图片，MoeMotion 会自动找到五官，并用摄像头驱动眨眼、口型与头部动作。</p>
+          <button class="hero-cta" id="heroStartButton"><span>开始制作我的角色</span><b>只需约 30 秒 →</b></button>
+        </div>
+      </section>
+
+      <nav class="journey" aria-label="制作进度">
+        <div class="current" id="journeyImage"><i>1</i><span><b>放入角色图</b><small>自动检查并绑定</small></span></div>
+        <em></em>
+        <div id="journeyCamera"><i>2</i><span><b>打开摄像头</b><small>自动校准动作</small></span></div>
+        <em></em>
+        <div id="journeyReady"><i>3</i><span><b>开始使用</b><small>录制或接入直播</small></span></div>
+      </nav>
+
+      <section class="studio" aria-label="虚拟形象工作台">
+        <aside class="controls">
+          <div class="step-block active" id="imageStep">
+            <div class="step-title"><span>01</span><div><b>选择角色</b><small>PNG / JPG / WEBP</small></div></div>
+            <label class="dropzone" id="dropzone" for="fileInput">
+              <input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp" />
+              <span class="upload-icon">↗</span>
+              <b>把立绘拖到这里</b>
+              <small>或点击选择文件 · 建议正脸、清晰五官</small>
+            </label>
+            <div class="file-row hidden" id="fileRow">
+              <div class="file-thumb"><img id="fileThumb" alt="已导入角色缩略图" /></div>
+              <div><b id="fileName">角色图片</b><small id="fileMeta">等待分析</small></div>
+              <button id="replaceButton" class="icon-button" aria-label="替换图片">↻</button>
+            </div>
+            <div class="quality-card hidden" id="qualityCard">
+              <div class="quality-head"><span>素材体检</span><b id="qualityScore">优秀</b></div>
+              <ul id="qualityList"></ul>
+            </div>
+          </div>
+
+          <div class="step-block" id="trackingStep">
+            <div class="step-title"><span>02</span><div><b>动作来源</b><small>摄像头或自动演示</small></div></div>
+            <div class="source-grid">
+              <button class="source-button" id="cameraButton">
+                <span class="source-icon">◉</span><b>开启摄像头</b><small>实时面捕</small>
+              </button>
+              <button class="source-button selected" id="demoButton">
+                <span class="source-icon">✦</span><b>自动演示</b><small>无需摄像头</small>
+              </button>
+            </div>
+            <video id="camera" playsinline muted></video>
+            <button class="next-button" id="nextButton"><span>先换成我的角色图</span><b>推荐下一步 →</b></button>
+          </div>
+
+          <details class="tuning">
+            <summary>动作微调 <span>⌄</span></summary>
+            <label>头部幅度 <output id="headOutput">70%</output><input id="headRange" type="range" min="0" max="120" value="70" /></label>
+            <label>眨眼灵敏度 <output id="blinkOutput">85%</output><input id="blinkRange" type="range" min="20" max="150" value="85" /></label>
+            <label>口型幅度 <output id="mouthOutput">90%</output><input id="mouthRange" type="range" min="20" max="150" value="90" /></label>
+          </details>
+        </aside>
+
+        <section class="preview-card">
+          <div class="preview-toolbar">
+            <div class="status" id="status"><span></span><b>演示模式</b><small>使用内置动作</small></div>
+            <div class="segmented" aria-label="背景颜色">
+              <button class="selected" data-background="gradient" title="渐变背景">◒</button>
+              <button data-background="transparent" title="透明背景">◇</button>
+              <button data-background="green" title="绿幕背景">■</button>
+            </div>
+          </div>
+          <div class="canvas-shell" id="canvasShell">
+            <canvas id="avatarCanvas" width="720" height="720"></canvas>
+            <div class="scan-state hidden" id="scanState"><i></i><span>正在识别五官…</span></div>
+            <div class="calibration hidden" id="calibration">
+              <div class="face-guide"><i></i><i></i><i></i><i></i><span id="calibrationCount">3</span></div>
+              <b>保持正脸，正在自动校准</b>
+              <small>不用做任何操作</small>
+            </div>
+            <div class="landmark-pill" id="landmarkPill">✦ 示例角色已自动绑定</div>
+          </div>
+          <div class="preview-footer">
+            <div class="meters">
+              <span>眼睛 <i><b id="eyeMeter"></b></i></span>
+              <span>口型 <i><b id="mouthMeter"></b></i></span>
+              <span>头部 <i><b id="headMeter"></b></i></span>
+            </div>
+            <button class="record-button" id="recordButton"><i></i><span>录制透明视频</span></button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer><span>LOCAL-FIRST PROTOTYPE</span><span>v0.2 · EASY MODE · 2026</span></footer>
+    <div class="toast" id="toast" role="status"></div>
+
+    <dialog class="welcome-dialog" id="welcomeDialog">
+      <button class="dialog-close" data-close-dialog aria-label="关闭">×</button>
+      <span class="dialog-kicker">欢迎使用 MOEMOTION</span>
+      <h2>不会 Live2D？<br />完全没关系。</h2>
+      <p>准备一张角色图片，剩下的自动完成。整个过程不会上传你的图片或摄像头画面。</p>
+      <div class="dialog-steps">
+        <span><i>1</i><b>选图片</b><small>正脸立绘最好</small></span>
+        <span><i>2</i><b>开摄像头</b><small>自动完成校准</small></span>
+        <span><i>3</i><b>开始动</b><small>无需学习参数</small></span>
+      </div>
+      <button class="dialog-primary" id="welcomeStartButton">选择角色图片并开始 <span>→</span></button>
+      <button class="dialog-secondary" id="welcomeDemoButton">我还没准备图片，先体验示例</button>
+    </dialog>
+
+    <dialog class="help-dialog" id="helpDialog">
+      <button class="dialog-close" data-close-dialog aria-label="关闭">×</button>
+      <span class="dialog-kicker">一分钟上手</span>
+      <h2>只需要做两件事</h2>
+      <ol>
+        <li><i>01</i><div><b>导入一张正脸角色图</b><p>PNG、JPG、WEBP 都可以。人物居中、五官无遮挡效果最好。</p></div></li>
+        <li><i>02</i><div><b>点击“开启摄像头”</b><p>允许浏览器使用摄像头，然后保持正脸 3 秒，其余全部自动完成。</p></div></li>
+      </ol>
+      <div class="help-tip"><span>小提示</span> 如果暂时没有图片或摄像头，选择“自动演示”也能体验全部动画。</div>
+      <button class="dialog-primary" data-close-dialog>知道了，开始使用</button>
+    </dialog>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
