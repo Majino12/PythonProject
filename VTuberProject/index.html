@@ -14,10 +14,10 @@
     <header class="topbar">
       <a class="brand" href="#" aria-label="MoeMotion 首页">
         <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
-        <span>MoeMotion <small>0.2 EASY</small></span>
+        <span>MoeMotion <small>0.3 AI MOTION</small></span>
       </a>
       <div class="top-actions">
-        <span class="privacy"><span></span> 所有处理均在本机完成</span>
+        <span class="privacy"><span></span> 摄像头仅在本机处理</span>
         <button class="ghost-button" id="helpButton">不会用？</button>
         <a class="ghost-link" href="README.md" target="_blank">项目说明 ↗</a>
       </div>
@@ -30,13 +30,16 @@
           <h1>一张立绘，<br /><em>马上动起来。</em></h1>
         </div>
         <div class="hero-side">
-          <p class="hero-note">无需切图、无需建模。导入角色图片，MoeMotion 会自动找到五官，并用摄像头驱动眨眼、口型与头部动作。</p>
-          <button class="hero-cta" id="heroStartButton"><span>开始制作我的角色</span><b>只需约 30 秒 →</b></button>
+        <p class="hero-note">描述一个角色让 AI 直接生成，或导入自己的立绘。MoeMotion 会自动绑定五官和身体，用摄像头驱动表情、肩膀与手臂动作。</p>
+          <div class="hero-buttons">
+            <button class="hero-cta" id="aiHeroButton"><span>✦ 用 AI 生成角色</span><b>输入描述即可 →</b></button>
+            <button class="hero-secondary" id="heroStartButton">我已经有角色图片</button>
+          </div>
         </div>
       </section>
 
       <nav class="journey" aria-label="制作进度">
-        <div class="current" id="journeyImage"><i>1</i><span><b>放入角色图</b><small>自动检查并绑定</small></span></div>
+        <div class="current" id="journeyImage"><i>1</i><span><b>创建角色</b><small>AI 生成或导入图片</small></span></div>
         <em></em>
         <div id="journeyCamera"><i>2</i><span><b>打开摄像头</b><small>自动校准动作</small></span></div>
         <em></em>
@@ -46,7 +49,9 @@
       <section class="studio" aria-label="虚拟形象工作台">
         <aside class="controls">
           <div class="step-block active" id="imageStep">
-            <div class="step-title"><span>01</span><div><b>选择角色</b><small>PNG / JPG / WEBP</small></div></div>
+            <div class="step-title"><span>01</span><div><b>创建角色</b><small>AI 生成或导入图片</small></div></div>
+            <button class="ai-create-button" id="aiOpenButton"><i>✦</i><span><b>让 AI 帮我画角色</b><small>描述外观，自动生成适合动捕的立绘</small></span><em>→</em></button>
+            <div class="or-divider"><span>或者导入现有图片</span></div>
             <label class="dropzone" id="dropzone" for="fileInput">
               <input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp" />
               <span class="upload-icon">↗</span>
@@ -68,7 +73,7 @@
             <div class="step-title"><span>02</span><div><b>动作来源</b><small>摄像头或自动演示</small></div></div>
             <div class="source-grid">
               <button class="source-button" id="cameraButton">
-                <span class="source-icon">◉</span><b>开启摄像头</b><small>实时面捕</small>
+                <span class="source-icon">◉</span><b>开启摄像头</b><small>脸部 + 肢体</small>
               </button>
               <button class="source-button selected" id="demoButton">
                 <span class="source-icon">✦</span><b>自动演示</b><small>无需摄像头</small>
@@ -83,12 +88,14 @@
             <label>头部幅度 <output id="headOutput">70%</output><input id="headRange" type="range" min="0" max="120" value="70" /></label>
             <label>眨眼灵敏度 <output id="blinkOutput">85%</output><input id="blinkRange" type="range" min="20" max="150" value="85" /></label>
             <label>口型幅度 <output id="mouthOutput">90%</output><input id="mouthRange" type="range" min="20" max="150" value="90" /></label>
+            <label>肢体幅度 <output id="bodyOutput">75%</output><input id="bodyRange" type="range" min="0" max="140" value="75" /></label>
           </details>
         </aside>
 
         <section class="preview-card">
           <div class="preview-toolbar">
             <div class="status" id="status"><span></span><b>演示模式</b><small>使用内置动作</small></div>
+            <div class="tracking-badges"><span id="faceBadge">脸部</span><span id="bodyBadge">肢体</span></div>
             <div class="segmented" aria-label="背景颜色">
               <button class="selected" data-background="gradient" title="渐变背景">◒</button>
               <button data-background="transparent" title="透明背景">◇</button>
@@ -110,6 +117,7 @@
               <span>眼睛 <i><b id="eyeMeter"></b></i></span>
               <span>口型 <i><b id="mouthMeter"></b></i></span>
               <span>头部 <i><b id="headMeter"></b></i></span>
+              <span>肢体 <i><b id="bodyMeter"></b></i></span>
             </div>
             <button class="record-button" id="recordButton"><i></i><span>录制透明视频</span></button>
           </div>
@@ -117,21 +125,22 @@
       </section>
     </main>
 
-    <footer><span>LOCAL-FIRST PROTOTYPE</span><span>v0.2 · EASY MODE · 2026</span></footer>
+    <footer><span>LOCAL-FIRST PROTOTYPE</span><span>v0.3 · AI + BODY MOTION · 2026</span></footer>
     <div class="toast" id="toast" role="status"></div>
 
     <dialog class="welcome-dialog" id="welcomeDialog">
       <button class="dialog-close" data-close-dialog aria-label="关闭">×</button>
       <span class="dialog-kicker">欢迎使用 MOEMOTION</span>
       <h2>不会 Live2D？<br />完全没关系。</h2>
-      <p>准备一张角色图片，剩下的自动完成。整个过程不会上传你的图片或摄像头画面。</p>
+      <p>描述角色让 AI 生成，或准备一张现有图片，剩下的自动完成。摄像头画面始终只在本机处理。</p>
       <div class="dialog-steps">
-        <span><i>1</i><b>选图片</b><small>正脸立绘最好</small></span>
+        <span><i>1</i><b>创建角色</b><small>AI 生成或导入</small></span>
         <span><i>2</i><b>开摄像头</b><small>自动完成校准</small></span>
         <span><i>3</i><b>开始动</b><small>无需学习参数</small></span>
       </div>
-      <button class="dialog-primary" id="welcomeStartButton">选择角色图片并开始 <span>→</span></button>
-      <button class="dialog-secondary" id="welcomeDemoButton">我还没准备图片，先体验示例</button>
+      <button class="dialog-primary" id="welcomeStartButton">用 AI 生成我的角色 <span>→</span></button>
+      <button class="dialog-secondary strong" id="welcomeUploadButton">我已有角色图片，直接导入</button>
+      <button class="dialog-secondary" id="welcomeDemoButton">暂不创建，先体验示例</button>
     </dialog>
 
     <dialog class="help-dialog" id="helpDialog">
@@ -139,11 +148,53 @@
       <span class="dialog-kicker">一分钟上手</span>
       <h2>只需要做两件事</h2>
       <ol>
-        <li><i>01</i><div><b>导入一张正脸角色图</b><p>PNG、JPG、WEBP 都可以。人物居中、五官无遮挡效果最好。</p></div></li>
+        <li><i>01</i><div><b>AI 生成或导入角色图</b><p>描述外观即可让 AI 画，也可使用 PNG、JPG、WEBP。人物居中、五官无遮挡效果最好。</p></div></li>
         <li><i>02</i><div><b>点击“开启摄像头”</b><p>允许浏览器使用摄像头，然后保持正脸 3 秒，其余全部自动完成。</p></div></li>
       </ol>
       <div class="help-tip"><span>小提示</span> 如果暂时没有图片或摄像头，选择“自动演示”也能体验全部动画。</div>
       <button class="dialog-primary" data-close-dialog>知道了，开始使用</button>
+    </dialog>
+
+    <dialog class="ai-dialog" id="aiDialog">
+      <button class="dialog-close" data-close-dialog aria-label="关闭">×</button>
+      <span class="dialog-kicker">GPT IMAGE 2 · 角色工坊</span>
+      <h2>描述一下，AI 帮你画。</h2>
+      <p>系统会自动补充“正脸、五官清晰、手臂分离、透明背景”等动捕要求。</p>
+      <label class="field-label" for="characterPrompt">你的角色是什么样子？</label>
+      <textarea id="characterPrompt" maxlength="800" placeholder="例如：银色短发的猫耳少女，紫色眼睛，黑白未来感夹克，性格冷静"></textarea>
+      <div class="prompt-examples">
+        <button data-prompt="粉色双马尾的元气魔法少女，星星发饰，白金色制服">魔法少女</button>
+        <button data-prompt="蓝黑短发的未来都市少年，琥珀色眼睛，机能风外套">未来少年</button>
+        <button data-prompt="白发红瞳的优雅吸血鬼少女，哥特礼服，银色首饰">暗夜贵族</button>
+      </div>
+      <label class="field-label">选择画风</label>
+      <div class="style-options">
+        <button class="selected" data-style="anime"><i>AN</i><span><b>现代动画</b><small>线条清晰</small></span></button>
+        <button data-style="soft"><i>SO</i><span><b>柔和日系</b><small>轻盈淡彩</small></span></button>
+        <button data-style="game"><i>GM</i><span><b>游戏立绘</b><small>细节丰富</small></span></button>
+      </div>
+      <label class="field-label" for="apiKey">OpenAI API Key</label>
+      <div class="api-key-field"><input id="apiKey" type="password" autocomplete="off" placeholder="sk-..." /><button id="toggleApiKey" aria-label="显示或隐藏 API Key">显示</button></div>
+      <div class="api-note"><i>⌁</i><span><b>密钥仅用于这一次生成</b><small>通过本机服务直接发送给 OpenAI，不写入源码、不永久保存。</small></span></div>
+      <label class="cost-consent"><input id="apiConsent" type="checkbox" /><span>我知道生成图片会调用 OpenAI API，并可能产生账户费用。</span></label>
+      <button class="dialog-primary ai-generate-button" id="generateButton" disabled><span>生成可动角色立绘</span><b>大约需要 30–90 秒 →</b></button>
+      <div class="generation-progress hidden" id="generationProgress"><i></i><span><b>AI 正在设计角色…</b><small id="generationHint">正在整理五官与身体结构</small></span></div>
+    </dialog>
+
+    <dialog class="camera-consent-dialog" id="cameraConsentDialog">
+      <button class="dialog-close" data-close-dialog aria-label="关闭">×</button>
+      <span class="dialog-kicker">摄像头使用说明</span>
+      <h2>开始动作捕捉前，<br />需要你的同意。</h2>
+      <div class="camera-privacy-visual"><div><i></i><span>画面</span></div><em>→</em><div><i></i><span>本机处理</span></div><em class="blocked">×</em><div class="cloud"><i></i><span>不会上传</span></div></div>
+      <ul class="camera-rules">
+        <li><b>用途</b><span>识别眨眼、口型、肩膀和手臂动作</span></li>
+        <li><b>范围</b><span>仅在当前页面打开期间使用</span></li>
+        <li><b>数据</b><span>摄像头帧不会保存，也不会发送到服务器</span></li>
+      </ul>
+      <div class="camera-framing"><i>◯</i><span><b>为了跟踪肢体</b><small>请让头部、肩膀和双手尽量出现在画面中。</small></span></div>
+      <label class="cost-consent camera-check"><input id="cameraConsent" type="checkbox" /><span>我已阅读并同意在本次使用期间启用摄像头。</span></label>
+      <button class="dialog-primary" id="cameraConsentButton" disabled><span>同意并请求摄像头权限</span><b>继续 →</b></button>
+      <button class="dialog-secondary" data-close-dialog>暂不开启，继续使用自动演示</button>
     </dialog>
     <script type="module" src="app.js"></script>
   </body>

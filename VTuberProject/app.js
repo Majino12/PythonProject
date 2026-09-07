@@ -18,6 +18,19 @@ const ui = {
   landmarkPill: $("#landmarkPill"),
   recordButton: $("#recordButton"),
   heroStartButton: $("#heroStartButton"),
+  aiHeroButton: $("#aiHeroButton"),
+  aiOpenButton: $("#aiOpenButton"),
+  aiDialog: $("#aiDialog"),
+  characterPrompt: $("#characterPrompt"),
+  apiKey: $("#apiKey"),
+  apiConsent: $("#apiConsent"),
+  generateButton: $("#generateButton"),
+  generationProgress: $("#generationProgress"),
+  generationHint: $("#generationHint"),
+  toggleApiKey: $("#toggleApiKey"),
+  cameraConsentDialog: $("#cameraConsentDialog"),
+  cameraConsent: $("#cameraConsent"),
+  cameraConsentButton: $("#cameraConsentButton"),
   nextButton: $("#nextButton"),
   qualityCard: $("#qualityCard"),
   qualityScore: $("#qualityScore"),
@@ -27,11 +40,14 @@ const ui = {
   welcomeDialog: $("#welcomeDialog"),
   helpDialog: $("#helpDialog"),
   welcomeStartButton: $("#welcomeStartButton"),
+  welcomeUploadButton: $("#welcomeUploadButton"),
   welcomeDemoButton: $("#welcomeDemoButton"),
   helpButton: $("#helpButton"),
   toast: $("#toast"),
-  meters: { eye: $("#eyeMeter"), mouth: $("#mouthMeter"), head: $("#headMeter") },
-  ranges: { head: $("#headRange"), blink: $("#blinkRange"), mouth: $("#mouthRange") },
+  faceBadge: $("#faceBadge"),
+  bodyBadge: $("#bodyBadge"),
+  meters: { eye: $("#eyeMeter"), mouth: $("#mouthMeter"), head: $("#headMeter"), body: $("#bodyMeter") },
+  ranges: { head: $("#headRange"), blink: $("#blinkRange"), mouth: $("#mouthRange"), body: $("#bodyRange") },
 };
 
 const state = {
@@ -42,9 +58,10 @@ const state = {
   imageRig: null,
   faceLandmarker: null,
   imageLandmarker: null,
+  poseLandmarker: null,
   lastVideoTime: -1,
-  tracking: { x: 0, y: 0, roll: 0, blinkL: 0, blinkR: 0, mouth: 0, smile: 0 },
-  smooth: { x: 0, y: 0, roll: 0, blinkL: 0, blinkR: 0, mouth: 0, smile: 0 },
+  tracking: { x: 0, y: 0, roll: 0, blinkL: 0, blinkR: 0, mouth: 0, smile: 0, bodyLean: 0, bodyBob: 0, armL: 0, armR: 0 },
+  smooth: { x: 0, y: 0, roll: 0, blinkL: 0, blinkR: 0, mouth: 0, smile: 0, bodyLean: 0, bodyBob: 0, armL: 0, armR: 0 },
   recorder: null,
   chunks: [],
   hasCustomAvatar: false,
@@ -52,7 +69,13 @@ const state = {
   calibrating: false,
   calibrationUntil: 0,
   calibrationSamples: [],
+  bodyCalibrationSamples: [],
   neutral: { x: 0, y: 0, roll: 0 },
+  bodyNeutral: { shoulderY: .45, lean: 0, armL: 0, armR: 0 },
+  poseFrame: 0,
+  bodyDetected: false,
+  selectedStyle: "anime",
+  cameraConsentGranted: false,
 };
 
 const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
@@ -84,8 +107,8 @@ function setJourney(stage) {
 function updateNextButton() {
   ui.nextButton.classList.toggle("ready", state.ready);
   if (!state.hasCustomAvatar) {
-    ui.nextButton.querySelector("span").textContent = "先换成我的角色图";
-    ui.nextButton.querySelector("b").textContent = "推荐下一步 →";
+    ui.nextButton.querySelector("span").textContent = "先创建我的角色";
+    ui.nextButton.querySelector("b").textContent = "AI 生成或导入 →";
   } else if (state.mode !== "camera") {
     ui.nextButton.querySelector("span").textContent = "下一步：开启摄像头";
     ui.nextButton.querySelector("b").textContent = "自动校准 →";
@@ -109,6 +132,7 @@ function savePreferences() {
       head: ui.ranges.head.value,
       blink: ui.ranges.blink.value,
       mouth: ui.ranges.mouth.value,
+      body: ui.ranges.body.value,
     }));
   } catch (error) {
     console.warn("Could not save preferences", error);
@@ -119,7 +143,7 @@ function restorePreferences() {
   try {
     const saved = JSON.parse(localStorage.getItem("moemotion-preferences") || "null");
     if (!saved) return;
-    for (const name of ["head", "blink", "mouth"]) {
+    for (const name of ["head", "blink", "mouth", "body"]) {
       if (saved[name]) {
         ui.ranges[name].value = saved[name];
         $(`#${name}Output`).textContent = `${saved[name]}%`;
@@ -152,6 +176,60 @@ function showQualityReport(image, landmarks) {
     return li;
   }));
   ui.qualityCard.classList.remove("hidden");
+}
+
+function openAiStudio() {
+  if (!ui.aiDialog.open) ui.aiDialog.showModal();
+  setTimeout(() => ui.characterPrompt.focus(), 80);
+}
+
+function updateGenerateButton() {
+  const validPrompt = ui.characterPrompt.value.trim().length >= 3;
+  const validKey = ui.apiKey.value.trim().startsWith("sk-") && ui.apiKey.value.trim().length >= 20;
+  ui.generateButton.disabled = !(validPrompt && validKey && ui.apiConsent.checked);
+}
+
+function base64ToAvatarFile(base64) {
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let index = 0; index < binary.length; index += 1) bytes[index] = binary.charCodeAt(index);
+  return new File([bytes], `ai-avatar-${Date.now()}.png`, { type: "image/png" });
+}
+
+async function generateAvatar() {
+  if (ui.generateButton.disabled) return;
+  const apiKey = ui.apiKey.value.trim();
+  const description = ui.characterPrompt.value.trim();
+  ui.generateButton.disabled = true;
+  ui.generationProgress.classList.remove("hidden");
+  const hints = ["正在整理五官与身体结构", "正在绘制角色服装与配色", "正在优化透明背景和动捕姿势", "快完成了，正在输出高清立绘"];
+  let hintIndex = 0;
+  const hintTimer = setInterval(() => {
+    hintIndex = Math.min(hints.length - 1, hintIndex + 1);
+    ui.generationHint.textContent = hints[hintIndex];
+  }, 9000);
+  try {
+    const response = await fetch("/api/generate-avatar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ apiKey, description, style: state.selectedStyle }),
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(result.error || `生成失败（${response.status}）`);
+    const file = base64ToAvatarFile(result.image);
+    ui.apiKey.value = "";
+    ui.apiConsent.checked = false;
+    closeDialog(ui.aiDialog);
+    await importImage(file);
+    toast("AI 角色已生成，正在自动分析并绑定动作。");
+  } catch (error) {
+    toast(error.message || "AI 生成失败，请检查 API Key 和网络后重试。");
+  } finally {
+    clearInterval(hintTimer);
+    ui.generationProgress.classList.add("hidden");
+    ui.generationHint.textContent = hints[0];
+    updateGenerateButton();
+  }
 }
 
 function makeDemoAvatar() {
@@ -220,10 +298,10 @@ function makeDemoAvatar() {
 }
 
 async function loadVision() {
-  if (state.faceLandmarker && state.imageLandmarker) return true;
+  if (state.faceLandmarker && state.imageLandmarker && state.poseLandmarker) return true;
   try {
-    setStatus("加载面捕引擎", "首次使用需要联网下载模型", false);
-    const { FaceLandmarker, FilesetResolver } = await import("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/+esm");
+    setStatus("加载动作引擎", "首次使用需要联网下载模型", false);
+    const { FaceLandmarker, FilesetResolver, PoseLandmarker } = await import("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/+esm");
     const fileset = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm");
     const options = {
       baseOptions: {
@@ -233,15 +311,26 @@ async function loadVision() {
       numFaces: 1,
       outputFaceBlendshapes: true,
     };
-    [state.imageLandmarker, state.faceLandmarker] = await Promise.all([
+    [state.imageLandmarker, state.faceLandmarker, state.poseLandmarker] = await Promise.all([
       FaceLandmarker.createFromOptions(fileset, { ...options, runningMode: "IMAGE" }),
       FaceLandmarker.createFromOptions(fileset, { ...options, runningMode: "VIDEO" }),
+      PoseLandmarker.createFromOptions(fileset, {
+        baseOptions: {
+          modelAssetPath: "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task",
+          delegate: "GPU",
+        },
+        runningMode: "VIDEO",
+        numPoses: 1,
+        minPoseDetectionConfidence: .45,
+        minPosePresenceConfidence: .45,
+        minTrackingConfidence: .45,
+      }),
     ]);
     return true;
   } catch (error) {
     console.error(error);
-    toast("面捕模型加载失败，已保留自动演示模式。请检查网络后重试。");
-    setStatus("演示模式", "面捕模型暂不可用", false);
+    toast("动作模型加载失败，已保留自动演示模式。请检查网络后重试。");
+    setStatus("演示模式", "动作模型暂不可用", false);
     return false;
   }
 }
@@ -365,12 +454,22 @@ function fallbackRig(image) {
   };
 }
 
+function requestCameraAccess() {
+  if (state.cameraConsentGranted) {
+    startCamera();
+    return;
+  }
+  ui.cameraConsent.checked = false;
+  ui.cameraConsentButton.disabled = true;
+  ui.cameraConsentDialog.showModal();
+}
+
 async function startCamera() {
   ui.cameraButton.disabled = true;
   const ready = await loadVision();
   if (!ready) { ui.cameraButton.disabled = false; return; }
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480, facingMode: "user" }, audio: false });
+    const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 960, height: 720, facingMode: "user" }, audio: false });
     video.srcObject = stream;
     await video.play();
     state.mode = "camera";
@@ -378,10 +477,15 @@ async function startCamera() {
     state.calibrating = true;
     state.calibrationUntil = performance.now() + 3200;
     state.calibrationSamples = [];
+    state.bodyCalibrationSamples = [];
+    state.bodyDetected = false;
     state.neutral = { x: 0, y: 0, roll: 0 };
+    state.bodyNeutral = { shoulderY: .45, lean: 0, armL: 0, armR: 0 };
     ui.cameraButton.classList.add("selected");
     ui.demoButton.classList.remove("selected");
     ui.calibration.classList.remove("hidden");
+    ui.faceBadge.classList.remove("active");
+    ui.bodyBadge.classList.remove("active");
     setJourney("camera");
     updateNextButton();
     setStatus("自动校准", "保持正脸约 3 秒", false);
@@ -402,6 +506,8 @@ function useDemo() {
   ui.calibration.classList.add("hidden");
   ui.demoButton.classList.add("selected");
   ui.cameraButton.classList.remove("selected");
+  ui.faceBadge.classList.add("active");
+  ui.bodyBadge.classList.add("active");
   setStatus("演示模式", "使用内置自然动作", true);
   if (video.srcObject) {
     video.srcObject.getTracks().forEach((track) => track.stop());
@@ -428,6 +534,11 @@ function updateCalibration(now) {
       state.neutral[key] = state.calibrationSamples.reduce((sum, sample) => sum + sample[key], 0) / state.calibrationSamples.length;
     }
   }
+  if (state.bodyCalibrationSamples.length) {
+    for (const key of ["shoulderY", "lean", "armL", "armR"]) {
+      state.bodyNeutral[key] = state.bodyCalibrationSamples.reduce((sum, sample) => sum + sample[key], 0) / state.bodyCalibrationSamples.length;
+    }
+  }
   state.calibrating = false;
   state.ready = true;
   ui.calibration.classList.add("hidden");
@@ -435,8 +546,8 @@ function updateCalibration(now) {
   ui.calibration.querySelector("small").textContent = "不用做任何操作";
   setJourney("ready");
   updateNextButton();
-  setStatus("全部就绪", "角色正在跟随你的动作", true);
-  toast("校准完成！现在眨眼、说话、摇头试试看。");
+  setStatus("全部就绪", state.bodyDetected ? "脸部与肢体正在实时跟踪" : "脸部跟踪已就绪，退后一点可识别肢体", true);
+  toast(state.bodyDetected ? "校准完成！现在眨眼、说话或抬手试试看。" : "脸部校准完成。让肩膀和双手入镜即可启用肢体跟踪。");
 }
 
 function categoryMap(result) {
@@ -444,19 +555,63 @@ function categoryMap(result) {
   return Object.fromEntries(categories.map(({ categoryName, score }) => [categoryName, score]));
 }
 
+function trackPose(now) {
+  if (!state.poseLandmarker) return;
+  state.poseFrame += 1;
+  if (state.poseFrame % 2 !== 0) return;
+  try {
+    const result = state.poseLandmarker.detectForVideo(video, now);
+    const landmarks = result.landmarks?.[0];
+    if (!landmarks) {
+      state.bodyDetected = false;
+      ui.bodyBadge.classList.remove("active");
+      return;
+    }
+    const leftShoulder = landmarks[11];
+    const rightShoulder = landmarks[12];
+    const leftWrist = landmarks[15];
+    const rightWrist = landmarks[16];
+    if ((leftShoulder.visibility ?? 1) < .35 || (rightShoulder.visibility ?? 1) < .35) {
+      state.bodyDetected = false;
+      ui.bodyBadge.classList.remove("active");
+      return;
+    }
+    state.bodyDetected = true;
+    ui.bodyBadge.classList.add("active");
+    const shoulderY = (leftShoulder.y + rightShoulder.y) / 2;
+    const shoulderWidth = Math.max(.08, Math.abs(rightShoulder.x - leftShoulder.x));
+    const lean = clamp(Math.atan2(rightShoulder.y - leftShoulder.y, rightShoulder.x - leftShoulder.x) / .35, -1, 1);
+    const leftVisible = (leftWrist.visibility ?? 1) > .3;
+    const rightVisible = (rightWrist.visibility ?? 1) > .3;
+    const armL = leftVisible ? clamp((leftShoulder.y - leftWrist.y) / (shoulderWidth * 1.7), -1, 1) : 0;
+    const armR = rightVisible ? clamp((rightShoulder.y - rightWrist.y) / (shoulderWidth * 1.7), -1, 1) : 0;
+    const raw = { shoulderY, lean, armL, armR };
+    if (state.calibrating) state.bodyCalibrationSamples.push(raw);
+    state.tracking.bodyLean = clamp(lean - state.bodyNeutral.lean, -1, 1);
+    state.tracking.bodyBob = clamp((state.bodyNeutral.shoulderY - shoulderY) * 5, -1, 1);
+    state.tracking.armL = clamp(armL - state.bodyNeutral.armL, -1, 1);
+    state.tracking.armR = clamp(armR - state.bodyNeutral.armR, -1, 1);
+  } catch (error) {
+    console.warn("Pose tracking skipped", error);
+  }
+}
+
 function trackCamera(now) {
   if (state.mode !== "camera" || !state.faceLandmarker || video.readyState < 2 || video.currentTime === state.lastVideoTime) return;
   state.lastVideoTime = video.currentTime;
+  trackPose(now);
   const result = state.faceLandmarker.detectForVideo(video, now);
   if (!result.faceLandmarks?.length) {
+    ui.faceBadge.classList.remove("active");
     setStatus("寻找面部", "请正对摄像头", false);
     return;
   }
+  ui.faceBadge.classList.add("active");
   if (state.calibrating) {
     ui.calibration.querySelector("b").textContent = "保持正脸，正在自动校准";
     ui.calibration.querySelector("small").textContent = "不用做任何操作";
   }
-  if (!state.calibrating) setStatus("摄像头面捕", "正在实时追踪", true);
+  if (!state.calibrating) setStatus("摄像头面捕", state.bodyDetected ? "脸部与肢体正在实时追踪" : "脸部追踪中 · 退后可识别肢体", true);
   const landmarks = result.faceLandmarks[0];
   const blends = categoryMap(result);
   const left = landmarks[33];
@@ -491,6 +646,10 @@ function trackDemo(now) {
   state.tracking.blinkR = clamp(blink + Math.pow(Math.max(0, Math.sin(t * .77)), 42) * .25);
   state.tracking.mouth = .1 + (Math.sin(t * 3.1) + 1) * .14 + Math.pow(Math.max(0, Math.sin(t * .9)), 3) * .22;
   state.tracking.smile = .25 + Math.sin(t * .41) * .1;
+  state.tracking.bodyLean = Math.sin(t * .43 + .4) * .32;
+  state.tracking.bodyBob = Math.sin(t * .86) * .18;
+  state.tracking.armL = Math.max(0, Math.sin(t * .58 + 1.5)) * .38;
+  state.tracking.armR = Math.max(0, Math.sin(t * .51 + 4.1)) * .34;
 }
 
 function drawBackground() {
@@ -548,6 +707,7 @@ function render() {
   const headAmount = Number(ui.ranges.head.value) / 100;
   const blinkAmount = Number(ui.ranges.blink.value) / 100;
   const mouthAmount = Number(ui.ranges.mouth.value) / 100;
+  const bodyAmount = Number(ui.ranges.body.value) / 100;
   const s = state.smooth;
   const imageRatio = image.naturalWidth / image.naturalHeight;
   const drawHeight = imageRatio > 1 ? canvas.height / imageRatio : canvas.height * .95;
@@ -558,9 +718,14 @@ function render() {
   const imageScale = finalWidth / image.naturalWidth;
 
   ctx.save();
-  ctx.translate(canvas.width / 2 + s.x * 15 * headAmount, canvas.height / 2 + s.y * 9 * headAmount);
-  ctx.rotate(s.roll * .055 * headAmount);
-  ctx.scale(1 + Math.abs(s.x) * .008, 1);
+  const armBalance = (s.armR - s.armL) * bodyAmount;
+  const armEnergy = (Math.abs(s.armL) + Math.abs(s.armR)) * .5 * bodyAmount;
+  ctx.translate(
+    canvas.width / 2 + s.x * 15 * headAmount + s.bodyLean * 9 * bodyAmount + armBalance * 4,
+    canvas.height / 2 + s.y * 9 * headAmount - s.bodyBob * 10 * bodyAmount - armEnergy * 3,
+  );
+  ctx.rotate(s.roll * .055 * headAmount + s.bodyLean * .038 * bodyAmount);
+  ctx.scale(1 + Math.abs(s.x) * .008 + armEnergy * .008, 1 + s.bodyBob * .012 * bodyAmount);
   ctx.translate(-finalWidth / 2, -finalHeight / 2);
   ctx.scale(imageScale, imageScale);
   ctx.drawImage(image, 0, 0);
@@ -583,6 +748,7 @@ function animate(now = performance.now()) {
   ui.meters.eye.style.width = `${clamp(blinkValue) * 100}%`;
   ui.meters.mouth.style.width = `${clamp(state.smooth.mouth) * 100}%`;
   ui.meters.head.style.width = `${clamp((Math.abs(state.smooth.x) + Math.abs(state.smooth.roll)) / 1.4) * 100}%`;
+  ui.meters.body.style.width = `${clamp((Math.abs(state.smooth.bodyLean) + Math.abs(state.smooth.bodyBob) + Math.abs(state.smooth.armL) + Math.abs(state.smooth.armR)) / 2.2) * 100}%`;
   requestAnimationFrame(animate);
 }
 
@@ -630,17 +796,58 @@ function markWelcomeSeen() {
 ui.fileInput.addEventListener("change", (event) => importImage(event.target.files[0]));
 ui.replaceButton.addEventListener("click", openFilePicker);
 ui.heroStartButton.addEventListener("click", openFilePicker);
-ui.cameraButton.addEventListener("click", startCamera);
+ui.aiHeroButton.addEventListener("click", openAiStudio);
+ui.aiOpenButton.addEventListener("click", openAiStudio);
+ui.cameraButton.addEventListener("click", requestCameraAccess);
 ui.demoButton.addEventListener("click", useDemo);
 ui.recordButton.addEventListener("click", toggleRecording);
 ui.nextButton.addEventListener("click", () => {
-  if (!state.hasCustomAvatar) openFilePicker();
-  else if (state.mode !== "camera") startCamera();
+  if (!state.hasCustomAvatar) openAiStudio();
+  else if (state.mode !== "camera") requestCameraAccess();
   else if (state.calibrating) toast("正在校准，请保持正脸，很快就好。");
   else toast("已经准备好了。你可以录制视频，或继续调整背景和动作幅度。");
 });
+ui.characterPrompt.addEventListener("input", updateGenerateButton);
+ui.apiKey.addEventListener("input", updateGenerateButton);
+ui.apiConsent.addEventListener("change", updateGenerateButton);
+ui.generateButton.addEventListener("click", generateAvatar);
+ui.characterPrompt.addEventListener("keydown", (event) => {
+  if ((event.metaKey || event.ctrlKey) && event.key === "Enter" && !ui.generateButton.disabled) generateAvatar();
+});
+ui.toggleApiKey.addEventListener("click", () => {
+  const reveal = ui.apiKey.type === "password";
+  ui.apiKey.type = reveal ? "text" : "password";
+  ui.toggleApiKey.textContent = reveal ? "隐藏" : "显示";
+});
+document.querySelectorAll("[data-prompt]").forEach((button) => {
+  button.addEventListener("click", () => {
+    ui.characterPrompt.value = button.dataset.prompt;
+    updateGenerateButton();
+    ui.characterPrompt.focus();
+  });
+});
+document.querySelectorAll("[data-style]").forEach((button) => {
+  button.addEventListener("click", () => {
+    state.selectedStyle = button.dataset.style;
+    document.querySelectorAll("[data-style]").forEach((item) => item.classList.toggle("selected", item === button));
+  });
+});
+ui.cameraConsent.addEventListener("change", () => {
+  ui.cameraConsentButton.disabled = !ui.cameraConsent.checked;
+});
+ui.cameraConsentButton.addEventListener("click", () => {
+  if (!ui.cameraConsent.checked) return;
+  state.cameraConsentGranted = true;
+  closeDialog(ui.cameraConsentDialog);
+  startCamera();
+});
 ui.helpButton.addEventListener("click", () => ui.helpDialog.showModal());
 ui.welcomeStartButton.addEventListener("click", () => {
+  markWelcomeSeen();
+  closeDialog(ui.welcomeDialog);
+  openAiStudio();
+});
+ui.welcomeUploadButton.addEventListener("click", () => {
   markWelcomeSeen();
   closeDialog(ui.welcomeDialog);
   openFilePicker();
@@ -684,6 +891,8 @@ window.addEventListener("beforeunload", () => {
 restorePreferences();
 setJourney("image");
 updateNextButton();
+ui.faceBadge.classList.add("active");
+ui.bodyBadge.classList.add("active");
 makeDemoAvatar();
 requestAnimationFrame(animate);
 setTimeout(() => {

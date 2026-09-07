@@ -1,6 +1,6 @@
 {
   "name": "moemotion",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "description": "Turn one character image into a webcam-driven 2D avatar.",
