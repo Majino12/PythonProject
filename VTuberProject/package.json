@@ -1,12 +1,12 @@
 {
   "name": "moemotion",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "type": "module",
-  "description": "Turn one character image into a webcam-driven 2D avatar.",
+  "description": "Turn one character image into an automatic 2D or procedural 3D VTuber avatar.",
   "scripts": {
     "dev": "node server.mjs",
     "start": "node server.mjs",
-    "check": "node --check app.js && node --check server.mjs"
+    "check": "node --check app.js && node --check avatar3d.js && node --check server.mjs"
   }
 }

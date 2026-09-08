@@ -153,7 +153,7 @@ h1 em { color: transparent; font-style: normal; -webkit-text-stroke: 1px rgba(25
 .tuning input { grid-column: 1 / -1; width: 100%; height: 3px; margin: 3px 0 0; accent-color: var(--purple); }
 
 .preview-card { min-width: 0; display: grid; grid-template-rows: 64px minmax(0, 1fr) 72px; background: radial-gradient(circle at 50% 55%, rgba(131,93,199,.12), transparent 50%); }
-.preview-toolbar, .preview-footer { display: flex; align-items: center; justify-content: space-between; padding: 0 24px; border-bottom: 1px solid var(--line); }
+.preview-toolbar, .preview-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 24px; border-bottom: 1px solid var(--line); }
 .status { display: grid; grid-template-columns: 8px auto; column-gap: 9px; align-items: center; }
 .status > span { grid-row: 1 / 3; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 11px var(--green); }
 .status b { font-size: 11px; }
@@ -161,15 +161,27 @@ h1 em { color: transparent; font-style: normal; -webkit-text-stroke: 1px rgba(25
 .tracking-badges { display: flex; gap: 5px; }
 .tracking-badges span { padding: 4px 7px; border: 1px solid var(--line); border-radius: 20px; color: #777180; font-size: 8px; }
 .tracking-badges span.active { border-color: rgba(125,245,189,.25); color: var(--green); background: rgba(125,245,189,.06); }
+.dimension-toggle { padding: 3px; display: flex; flex: 0 0 auto; border: 1px solid rgba(157,116,255,.2); border-radius: 9px; background: rgba(0,0,0,.17); }
+.dimension-toggle button { min-width: 43px; height: 27px; padding: 0 8px; border: 0; border-radius: 6px; color: #777180; background: none; cursor: pointer; font: 500 9px "DM Mono"; }
+.dimension-toggle button.selected { color: white; background: linear-gradient(110deg, rgba(118,81,209,.8), rgba(172,72,133,.68)); box-shadow: 0 4px 12px rgba(91,55,169,.25); }
+.dimension-toggle i { margin-right: 2px; padding: 1px 3px; border-radius: 3px; color: #ffe2f0; background: rgba(255,255,255,.1); font: normal 5px "DM Mono"; vertical-align: 1px; }
+.dimension-toggle button:disabled { opacity: .55; cursor: wait; }
 .segmented { padding: 3px; display: flex; border: 1px solid var(--line); border-radius: 9px; background: rgba(0,0,0,.15); }
 .segmented button { width: 30px; height: 25px; border: 0; border-radius: 6px; background: none; color: #777180; cursor: pointer; }
 .segmented button.selected { color: white; background: rgba(255,255,255,.1); }
 
 .canvas-shell { position: relative; min-height: 500px; display: grid; place-items: center; overflow: hidden; }
-#avatarCanvas { width: min(74vh, 680px, 90%); max-height: 100%; aspect-ratio: 1; object-fit: contain; filter: drop-shadow(0 20px 30px rgba(0,0,0,.32)); }
+#avatarCanvas, #threeCanvas { width: min(74vh, 680px, 90%); max-height: 100%; aspect-ratio: 1; object-fit: contain; filter: drop-shadow(0 20px 30px rgba(0,0,0,.32)); }
+#threeCanvas { cursor: grab; touch-action: none; }
+#threeCanvas.dragging { cursor: grabbing; }
 .landmark-pill { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); padding: 7px 11px; border: 1px solid rgba(125,245,189,.2); border-radius: 99px; color: #b5fbd8; background: rgba(16,14,24,.72); backdrop-filter: blur(12px); font-size: 9px; white-space: nowrap; }
 .scan-state { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 14px; background: rgba(16,14,24,.68); backdrop-filter: blur(8px); font-size: 11px; }
 .scan-state i { width: 52px; height: 52px; border: 1px solid var(--purple); border-radius: 15px; animation: scan 1.2s infinite ease-in-out; }
+.three-loading { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; align-content: center; gap: 15px; text-align: center; background: rgba(16,14,24,.8); backdrop-filter: blur(10px); }
+.three-loading > i { width: 49px; height: 49px; border: 2px solid rgba(157,116,255,.2); border-top-color: var(--purple); border-right-color: var(--pink); border-radius: 50%; animation: spinner .85s linear infinite; }
+.three-loading span { display: grid; gap: 4px; }
+.three-loading b { font-size: 12px; }
+.three-loading small { color: var(--muted); font-size: 9px; }
 @keyframes scan { 50% { transform: scale(1.15); border-color: var(--pink); } }
 .calibration { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; align-content: center; gap: 12px; background: rgba(12,10,19,.73); backdrop-filter: blur(10px); }
 .calibration b { font-size: 12px; }
@@ -186,6 +198,11 @@ h1 em { color: transparent; font-style: normal; -webkit-text-stroke: 1px rgba(25
 .meters > span { display: grid; grid-template-columns: auto 44px; align-items: center; gap: 6px; color: var(--muted); font-size: 9px; }
 .meters i { height: 3px; border-radius: 4px; overflow: hidden; background: rgba(255,255,255,.1); }
 .meters b { display: block; height: 100%; width: 40%; border-radius: inherit; background: var(--purple); transition: width .08s linear; }
+.output-actions { display: flex; align-items: center; gap: 7px; }
+.export-button { height: 38px; display: flex; align-items: center; gap: 7px; padding: 0 13px; border: 1px solid rgba(157,116,255,.38); border-radius: 9px; color: #e5dcff; background: rgba(157,116,255,.1); cursor: pointer; font-size: 9px; }
+.export-button:hover { border-color: var(--purple); background: rgba(157,116,255,.17); }
+.export-button:disabled { opacity: .55; cursor: wait; }
+.export-button span { color: var(--purple); font-size: 15px; }
 .record-button { height: 38px; display: flex; align-items: center; gap: 8px; padding: 0 15px; border: 1px solid var(--line); border-radius: 9px; background: rgba(255,255,255,.045); cursor: pointer; font-size: 10px; }
 .record-button:hover { border-color: rgba(255,119,183,.6); }
 .record-button i { width: 7px; height: 7px; border-radius: 50%; background: #ff568c; box-shadow: 0 0 8px #ff568c; }
@@ -289,6 +306,10 @@ dialog > p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.75;
   .meters > span { grid-template-columns: auto; }
   .meters i { width: 30px; }
   .record-button span { display: none; }
+  .export-button { width: 37px; padding: 0; justify-content: center; font-size: 0; }
+  .export-button span { font-size: 15px; }
+  .status small { display: none; }
+  .dimension-toggle button { min-width: 39px; padding: 0 5px; }
   .welcome-dialog, .help-dialog, .ai-dialog, .camera-consent-dialog { padding: 29px 20px 22px; }
   .dialog-steps { gap: 5px; }
   .dialog-steps > span { padding: 9px; }

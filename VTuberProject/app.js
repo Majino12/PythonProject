@@ -3,6 +3,7 @@ const $ = (selector) => document.querySelector(selector);
 const canvas = $("#avatarCanvas");
 const ctx = canvas.getContext("2d", { alpha: true });
 const video = $("#camera");
+let avatar3dModulePromise = null;
 const ui = {
   fileInput: $("#fileInput"),
   dropzone: $("#dropzone"),
@@ -15,8 +16,11 @@ const ui = {
   demoButton: $("#demoButton"),
   status: $("#status"),
   scanState: $("#scanState"),
+  threeCanvas: $("#threeCanvas"),
+  threeLoading: $("#threeLoading"),
   landmarkPill: $("#landmarkPill"),
   recordButton: $("#recordButton"),
+  exportModelButton: $("#exportModelButton"),
   heroStartButton: $("#heroStartButton"),
   aiHeroButton: $("#aiHeroButton"),
   aiOpenButton: $("#aiOpenButton"),
@@ -52,6 +56,7 @@ const ui = {
 
 const state = {
   mode: "demo",
+  viewMode: "2d",
   background: "gradient",
   image: null,
   imageUrl: "",
@@ -59,6 +64,7 @@ const state = {
   faceLandmarker: null,
   imageLandmarker: null,
   poseLandmarker: null,
+  visionPromise: null,
   lastVideoTime: -1,
   tracking: { x: 0, y: 0, roll: 0, blinkL: 0, blinkR: 0, mouth: 0, smile: 0, bodyLean: 0, bodyBob: 0, armL: 0, armR: 0 },
   smooth: { x: 0, y: 0, roll: 0, blinkL: 0, blinkR: 0, mouth: 0, smile: 0, bodyLean: 0, bodyBob: 0, armL: 0, armR: 0 },
@@ -76,6 +82,17 @@ const state = {
   bodyDetected: false,
   selectedStyle: "anime",
   cameraConsentGranted: false,
+  avatar3d: null,
+  build3d: "idle",
+  imageImportToken: 0,
+  landmarkMessage: "✦ 示例角色已自动绑定",
+  avatarPalette: {
+    skin: "#f0c7cb",
+    hair: "#2a1d3c",
+    outfit: "#8f67ea",
+    eyes: "#bc96ff",
+    accent: "#ff83bd",
+  },
 };
 
 const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
@@ -93,6 +110,93 @@ function setStatus(title, detail, live = true) {
   ui.status.querySelector("b").textContent = title;
   ui.status.querySelector("small").textContent = detail;
   ui.status.querySelector("span").style.background = live ? "var(--green)" : "#ffcf70";
+}
+
+function setViewButtons(mode, disabled = false) {
+  document.querySelectorAll("[data-view]").forEach((button) => {
+    const selected = button.dataset.view === mode;
+    button.classList.toggle("selected", selected);
+    button.setAttribute("aria-pressed", String(selected));
+    button.disabled = disabled;
+  });
+}
+
+function updateViewPresentation() {
+  const show3d = state.viewMode === "3d" && state.build3d === "ready" && state.avatar3d;
+  canvas.classList.toggle("hidden", show3d);
+  ui.threeCanvas.classList.toggle("hidden", !show3d);
+  ui.exportModelButton.classList.toggle("hidden", !show3d);
+  ui.landmarkPill.textContent = show3d ? "⬡ 3D 角色已自动构建 · 拖动可旋转" : state.landmarkMessage;
+  if (!state.build3d.includes("building")) ui.landmarkPill.classList.remove("hidden");
+}
+
+function setThreeLoading(title, detail) {
+  ui.threeLoading.querySelector("b").textContent = title;
+  ui.threeLoading.querySelector("small").textContent = detail;
+}
+
+async function ensureAvatar3D() {
+  if (state.avatar3d) return state.avatar3d;
+  if (state.build3d === "building") return null;
+  state.build3d = "building";
+  ui.threeLoading.classList.remove("hidden");
+  ui.landmarkPill.classList.add("hidden");
+  setThreeLoading("正在载入 3D 引擎", "首次使用需要联网 · 失败会自动返回 2D");
+  setViewButtons(state.viewMode, true);
+  try {
+    if (!avatar3dModulePromise) {
+      avatar3dModulePromise = import("./avatar3d.js").catch((error) => {
+        avatar3dModulePromise = null;
+        throw error;
+      });
+    }
+    const { Avatar3D } = await avatar3dModulePromise;
+    setThreeLoading("正在自动构建 3D 角色", "提取配色 · 创建模型 · 绑定动作");
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+    state.avatar3d = new Avatar3D(ui.threeCanvas);
+    state.avatar3d.setPalette(state.avatarPalette);
+    state.avatar3d.setBackground(state.background);
+    state.build3d = "ready";
+    setJourney("ready");
+    return state.avatar3d;
+  } catch (error) {
+    console.error("3D initialization failed", error);
+    state.avatar3d?.dispose?.();
+    state.avatar3d = null;
+    state.build3d = "error";
+    throw error;
+  } finally {
+    ui.threeLoading.classList.add("hidden");
+    setViewButtons(state.viewMode, false);
+  }
+}
+
+async function setViewMode(mode) {
+  if (!["2d", "3d"].includes(mode) || mode === state.viewMode && state.build3d !== "error") return;
+  if (state.recorder?.state === "recording") {
+    toast("请先停止当前录制，再切换 2D / 3D。");
+    return;
+  }
+  state.viewMode = mode;
+  setViewButtons(mode);
+  if (mode === "2d") {
+    ui.threeLoading.classList.add("hidden");
+    updateViewPresentation();
+    toast("已切换到 2D 单图动画，角色与动作设置都已保留。");
+    return;
+  }
+  try {
+    await ensureAvatar3D();
+    if (state.viewMode !== "3d") return;
+    updateViewPresentation();
+    state.avatar3d.render();
+    toast("3D 角色已自动生成。拖动可旋转，双击回到正面。");
+  } catch (error) {
+    state.viewMode = "2d";
+    setViewButtons("2d");
+    updateViewPresentation();
+    toast("当前设备或网络暂时无法加载 3D，已安全返回 2D。可以稍后重试。");
+  }
 }
 
 function setJourney(stage) {
@@ -293,46 +397,61 @@ function makeDemoAvatar() {
       face: { x: 450, y: 462, w: 380, h: 440 },
       skin: "#f0c7cb",
     };
+    state.avatarPalette = {
+      skin: "#f0c7cb",
+      hair: "#2a1d3c",
+      outfit: "#8f67ea",
+      eyes: "#bc96ff",
+      accent: "#ff83bd",
+    };
+    state.avatar3d?.setPalette(state.avatarPalette);
   };
   img.src = source.toDataURL("image/png");
 }
 
 async function loadVision() {
   if (state.faceLandmarker && state.imageLandmarker && state.poseLandmarker) return true;
-  try {
-    setStatus("加载动作引擎", "首次使用需要联网下载模型", false);
-    const { FaceLandmarker, FilesetResolver, PoseLandmarker } = await import("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/+esm");
-    const fileset = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm");
-    const options = {
-      baseOptions: {
-        modelAssetPath: "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
-        delegate: "GPU",
-      },
-      numFaces: 1,
-      outputFaceBlendshapes: true,
-    };
-    [state.imageLandmarker, state.faceLandmarker, state.poseLandmarker] = await Promise.all([
-      FaceLandmarker.createFromOptions(fileset, { ...options, runningMode: "IMAGE" }),
-      FaceLandmarker.createFromOptions(fileset, { ...options, runningMode: "VIDEO" }),
-      PoseLandmarker.createFromOptions(fileset, {
-        baseOptions: {
-          modelAssetPath: "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task",
-          delegate: "GPU",
-        },
-        runningMode: "VIDEO",
-        numPoses: 1,
-        minPoseDetectionConfidence: .45,
-        minPosePresenceConfidence: .45,
-        minTrackingConfidence: .45,
-      }),
-    ]);
-    return true;
-  } catch (error) {
-    console.error(error);
-    toast("动作模型加载失败，已保留自动演示模式。请检查网络后重试。");
-    setStatus("演示模式", "动作模型暂不可用", false);
-    return false;
+  if (!state.visionPromise) {
+    state.visionPromise = (async () => {
+      try {
+        setStatus("加载动作引擎", "首次使用需要联网下载模型", false);
+        const { FaceLandmarker, FilesetResolver, PoseLandmarker } = await import("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/+esm");
+        const fileset = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm");
+        const options = {
+          baseOptions: {
+            modelAssetPath: "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
+            delegate: "GPU",
+          },
+          numFaces: 1,
+          outputFaceBlendshapes: true,
+        };
+        [state.imageLandmarker, state.faceLandmarker, state.poseLandmarker] = await Promise.all([
+          FaceLandmarker.createFromOptions(fileset, { ...options, runningMode: "IMAGE" }),
+          FaceLandmarker.createFromOptions(fileset, { ...options, runningMode: "VIDEO" }),
+          PoseLandmarker.createFromOptions(fileset, {
+            baseOptions: {
+              modelAssetPath: "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task",
+              delegate: "GPU",
+            },
+            runningMode: "VIDEO",
+            numPoses: 1,
+            minPoseDetectionConfidence: .45,
+            minPosePresenceConfidence: .45,
+            minTrackingConfidence: .45,
+          }),
+        ]);
+        return true;
+      } catch (error) {
+        console.error(error);
+        toast("动作模型加载失败，已保留自动演示模式。请检查网络后重试。");
+        setStatus("演示模式", "动作模型暂不可用", false);
+        return false;
+      }
+    })();
   }
+  const ready = await state.visionPromise;
+  if (!ready) state.visionPromise = null;
+  return ready;
 }
 
 function colorFromImage(image, x, y) {
@@ -342,6 +461,28 @@ function colorFromImage(image, x, y) {
   sampleCtx.drawImage(image, clamp(x, 0, image.naturalWidth - 1), clamp(y, 0, image.naturalHeight - 1), 1, 1, 0, 0, 1, 1);
   const [r, g, b] = sampleCtx.getImageData(0, 0, 1, 1).data;
   return `rgb(${r}, ${g}, ${b})`;
+}
+
+function paletteFromImage(image, rig) {
+  const face = rig.face;
+  const hairY = face.y - face.h * .47;
+  const outfitY = Math.min(image.naturalHeight * .9, face.y + face.h * .82);
+  return {
+    skin: rig.skin,
+    hair: colorFromImage(image, face.x, hairY),
+    outfit: colorFromImage(image, face.x, outfitY),
+    eyes: colorFromImage(image, rig.leftEye.x, rig.leftEye.y),
+    accent: colorFromImage(image, rig.rightEye.x, rig.rightEye.y),
+  };
+}
+
+function updateAvatarPalette(image, rig) {
+  try {
+    state.avatarPalette = paletteFromImage(image, rig);
+    state.avatar3d?.setPalette(state.avatarPalette);
+  } catch (error) {
+    console.warn("Could not sample avatar colors", error);
+  }
 }
 
 function rigFromLandmarks(landmarks, image) {
@@ -391,13 +532,19 @@ async function importImage(file) {
     toast("图片超过 20MB，请先压缩后重试。");
     return;
   }
+  const importToken = ++state.imageImportToken;
   const url = URL.createObjectURL(file);
   const image = new Image();
   image.onload = async () => {
+    if (importToken !== state.imageImportToken) {
+      URL.revokeObjectURL(url);
+      return;
+    }
     if (state.imageUrl.startsWith("blob:")) URL.revokeObjectURL(state.imageUrl);
     state.image = image;
     state.imageUrl = url;
     state.imageRig = fallbackRig(image);
+    updateAvatarPalette(image, state.imageRig);
     state.hasCustomAvatar = true;
     state.ready = false;
     setJourney("camera");
@@ -410,35 +557,45 @@ async function importImage(file) {
     ui.scanState.classList.remove("hidden");
     ui.landmarkPill.classList.add("hidden");
     const ready = await loadVision();
+    if (importToken !== state.imageImportToken) return;
     if (ready) {
       try {
         const result = state.imageLandmarker.detect(image);
         const detectedLandmarks = result.faceLandmarks?.[0];
         if (detectedLandmarks) {
           state.imageRig = rigFromLandmarks(detectedLandmarks, image);
+          updateAvatarPalette(image, state.imageRig);
           ui.fileMeta.textContent = `${image.naturalWidth} × ${image.naturalHeight} · 已自动绑定`;
-          ui.landmarkPill.textContent = "✦ 五官识别完成 · 已自动绑定";
-          toast("角色绑定完成。下一步只需开启摄像头。");
+          state.landmarkMessage = "✦ 五官识别完成 · 已自动绑定";
+          toast(state.viewMode === "3d" ? "角色分析完成，3D 外观与动作已自动更新。" : "角色绑定完成。可直接使用，也可切换到 3D。");
         } else {
           ui.fileMeta.textContent = `${image.naturalWidth} × ${image.naturalHeight} · 使用通用绑定`;
-          ui.landmarkPill.textContent = "◇ 未检测到人脸 · 已使用通用绑定";
+          state.landmarkMessage = "◇ 未检测到人脸 · 已使用通用绑定";
           toast("没有检测到清晰正脸，已使用通用绑定。建议换一张正脸图。");
         }
         showQualityReport(image, detectedLandmarks);
       } catch (error) {
         console.error(error);
         ui.fileMeta.textContent = "已使用通用绑定";
+        state.landmarkMessage = "◇ 分析未完成 · 已使用通用绑定";
         showQualityReport(image, null);
       }
     } else {
       ui.fileMeta.textContent = "离线模式 · 使用通用绑定";
-      ui.landmarkPill.textContent = "◇ 离线通用绑定";
+      state.landmarkMessage = "◇ 离线通用绑定";
       showQualityReport(image, null);
     }
     ui.scanState.classList.add("hidden");
-    ui.landmarkPill.classList.remove("hidden");
+    setJourney("ready");
+    updateViewPresentation();
   };
-  image.onerror = () => { URL.revokeObjectURL(url); toast("无法读取这张图片，请换一个文件。"); };
+  image.onerror = () => {
+    URL.revokeObjectURL(url);
+    if (importToken !== state.imageImportToken) return;
+    ui.scanState.classList.add("hidden");
+    ui.landmarkPill.classList.remove("hidden");
+    toast("无法读取这张图片，请换一个文件。");
+  };
   image.src = url;
 }
 
@@ -469,6 +626,8 @@ async function startCamera() {
   const ready = await loadVision();
   if (!ready) { ui.cameraButton.disabled = false; return; }
   try {
+    video.srcObject?.getTracks().forEach((track) => track.stop());
+    video.srcObject = null;
     const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 960, height: 720, facingMode: "user" }, audio: false });
     video.srcObject = stream;
     await video.play();
@@ -513,7 +672,7 @@ function useDemo() {
     video.srcObject.getTracks().forEach((track) => track.stop());
     video.srcObject = null;
   }
-  setJourney(state.hasCustomAvatar ? "camera" : "image");
+  setJourney(state.hasCustomAvatar ? "ready" : "image");
   updateNextButton();
 }
 
@@ -564,6 +723,10 @@ function trackPose(now) {
     const landmarks = result.landmarks?.[0];
     if (!landmarks) {
       state.bodyDetected = false;
+      state.tracking.bodyLean = 0;
+      state.tracking.bodyBob = 0;
+      state.tracking.armL = 0;
+      state.tracking.armR = 0;
       ui.bodyBadge.classList.remove("active");
       return;
     }
@@ -573,6 +736,10 @@ function trackPose(now) {
     const rightWrist = landmarks[16];
     if ((leftShoulder.visibility ?? 1) < .35 || (rightShoulder.visibility ?? 1) < .35) {
       state.bodyDetected = false;
+      state.tracking.bodyLean = 0;
+      state.tracking.bodyBob = 0;
+      state.tracking.armL = 0;
+      state.tracking.armR = 0;
       ui.bodyBadge.classList.remove("active");
       return;
     }
@@ -602,6 +769,13 @@ function trackCamera(now) {
   trackPose(now);
   const result = state.faceLandmarker.detectForVideo(video, now);
   if (!result.faceLandmarks?.length) {
+    state.tracking.x = 0;
+    state.tracking.y = 0;
+    state.tracking.roll = 0;
+    state.tracking.blinkL = 0;
+    state.tracking.blinkR = 0;
+    state.tracking.mouth = 0;
+    state.tracking.smile = 0;
     ui.faceBadge.classList.remove("active");
     setStatus("寻找面部", "请正对摄像头", false);
     return;
@@ -743,7 +917,29 @@ function animate(now = performance.now()) {
     const speed = key.startsWith("blink") ? .42 : key === "mouth" ? .3 : .16;
     state.smooth[key] = mix(state.smooth[key], state.tracking[key], speed);
   }
-  render();
+  if (state.viewMode === "3d" && state.build3d === "ready" && state.avatar3d) {
+    try {
+      state.avatar3d.update(state.smooth, {
+        head: Number(ui.ranges.head.value) / 100,
+        blink: Number(ui.ranges.blink.value) / 100,
+        mouth: Number(ui.ranges.mouth.value) / 100,
+        body: Number(ui.ranges.body.value) / 100,
+      });
+      state.avatar3d.render();
+    } catch (error) {
+      console.error("3D rendering failed", error);
+      state.avatar3d.dispose?.();
+      state.avatar3d = null;
+      state.build3d = "error";
+      state.viewMode = "2d";
+      setViewButtons("2d");
+      updateViewPresentation();
+      toast("3D 渲染已安全停止，2D 模式仍可继续使用。");
+      render();
+    }
+  } else {
+    render();
+  }
   const blinkValue = (state.smooth.blinkL + state.smooth.blinkR) / 2;
   ui.meters.eye.style.width = `${clamp(blinkValue) * 100}%`;
   ui.meters.mouth.style.width = `${clamp(state.smooth.mouth) * 100}%`;
@@ -753,7 +949,8 @@ function animate(now = performance.now()) {
 }
 
 function toggleRecording() {
-  if (!window.MediaRecorder || !canvas.captureStream) {
+  const activeCanvas = state.viewMode === "3d" && state.avatar3d ? ui.threeCanvas : canvas;
+  if (!window.MediaRecorder || !activeCanvas.captureStream) {
     toast("当前浏览器不支持画布录制，请使用最新版 Chrome 或 Edge。");
     return;
   }
@@ -761,7 +958,7 @@ function toggleRecording() {
     state.recorder.stop();
     return;
   }
-  const stream = canvas.captureStream(30);
+  const stream = activeCanvas.captureStream(30);
   const mimeType = MediaRecorder.isTypeSupported("video/webm;codecs=vp9") ? "video/webm;codecs=vp9" : "video/webm";
   state.chunks = [];
   state.recorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 6_000_000 });
@@ -775,13 +972,41 @@ function toggleRecording() {
     anchor.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     ui.recordButton.classList.remove("recording");
-    ui.recordButton.querySelector("span").textContent = "录制透明视频";
+    ui.recordButton.querySelector("span").textContent = "录制视频";
     toast("录制完成，WebM 视频已保存。");
   };
   state.recorder.start();
   ui.recordButton.classList.add("recording");
   ui.recordButton.querySelector("span").textContent = "停止并保存";
   toast("正在录制。再次点击即可停止并保存。");
+}
+
+async function export3DModel() {
+  if (!state.avatar3d || state.build3d !== "ready") {
+    toast("3D 角色还没有准备好，请稍后重试。");
+    return;
+  }
+  const original = ui.exportModelButton.innerHTML;
+  ui.exportModelButton.disabled = true;
+  ui.exportModelButton.innerHTML = "<span>◌</span> 正在整理 GLB…";
+  try {
+    const data = await state.avatar3d.exportGLB();
+    const blob = new Blob([data], { type: "model/gltf-binary" });
+    if (!blob.size) throw new Error("导出的模型为空");
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = `moemotion-avatar-${new Date().toISOString().slice(0, 19).replaceAll(":", "-")}.glb`;
+    anchor.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1200);
+    toast("3D 角色已导出为单文件 GLB（中立姿态）。");
+  } catch (error) {
+    console.error("3D export failed", error);
+    toast("3D 模型导出失败，请重试；页面中的角色不会丢失。");
+  } finally {
+    ui.exportModelButton.disabled = false;
+    ui.exportModelButton.innerHTML = original;
+  }
 }
 
 function openFilePicker() {
@@ -801,6 +1026,7 @@ ui.aiOpenButton.addEventListener("click", openAiStudio);
 ui.cameraButton.addEventListener("click", requestCameraAccess);
 ui.demoButton.addEventListener("click", useDemo);
 ui.recordButton.addEventListener("click", toggleRecording);
+ui.exportModelButton.addEventListener("click", export3DModel);
 ui.nextButton.addEventListener("click", () => {
   if (!state.hasCustomAvatar) openAiStudio();
   else if (state.mode !== "camera") requestCameraAccess();
@@ -872,9 +1098,13 @@ ui.dropzone.addEventListener("drop", (event) => {
   ui.dropzone.classList.remove("dragging");
   importImage(event.dataTransfer.files[0]);
 });
+document.querySelectorAll("[data-view]").forEach((button) => {
+  button.addEventListener("click", () => setViewMode(button.dataset.view));
+});
 document.querySelectorAll("[data-background]").forEach((button) => {
   button.addEventListener("click", () => {
     state.background = button.dataset.background;
+    state.avatar3d?.setBackground(state.background);
     document.querySelectorAll("[data-background]").forEach((item) => item.classList.toggle("selected", item === button));
     savePreferences();
   });
@@ -886,9 +1116,12 @@ Object.entries(ui.ranges).forEach(([name, range]) => {
 window.addEventListener("beforeunload", () => {
   video.srcObject?.getTracks().forEach((track) => track.stop());
   if (state.imageUrl.startsWith("blob:")) URL.revokeObjectURL(state.imageUrl);
+  state.avatar3d?.dispose?.();
 });
 
 restorePreferences();
+setViewButtons("2d");
+updateViewPresentation();
 setJourney("image");
 updateNextButton();
 ui.faceBadge.classList.add("active");

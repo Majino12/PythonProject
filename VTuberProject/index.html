@@ -7,6 +7,14 @@
     <title>MoeMotion — 一张图，动起来</title>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link rel="stylesheet" href="styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+        }
+      }
+    </script>
   </head>
   <body>
     <div class="ambient ambient-one"></div>
@@ -14,7 +22,7 @@
     <header class="topbar">
       <a class="brand" href="#" aria-label="MoeMotion 首页">
         <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
-        <span>MoeMotion <small>0.3 AI MOTION</small></span>
+        <span>MoeMotion <small>0.4 AUTO 3D</small></span>
       </a>
       <div class="top-actions">
         <span class="privacy"><span></span> 摄像头仅在本机处理</span>
@@ -30,7 +38,7 @@
           <h1>一张立绘，<br /><em>马上动起来。</em></h1>
         </div>
         <div class="hero-side">
-        <p class="hero-note">描述一个角色让 AI 直接生成，或导入自己的立绘。MoeMotion 会自动绑定五官和身体，用摄像头驱动表情、肩膀与手臂动作。</p>
+        <p class="hero-note">描述角色让 AI 直接生成，或导入自己的立绘。MoeMotion 会自动绑定 2D，并一键构建可旋转、可导出 GLB 的 3D 角色，同一套动作直接驱动两种形态。</p>
           <div class="hero-buttons">
             <button class="hero-cta" id="aiHeroButton"><span>✦ 用 AI 生成角色</span><b>输入描述即可 →</b></button>
             <button class="hero-secondary" id="heroStartButton">我已经有角色图片</button>
@@ -41,9 +49,9 @@
       <nav class="journey" aria-label="制作进度">
         <div class="current" id="journeyImage"><i>1</i><span><b>创建角色</b><small>AI 生成或导入图片</small></span></div>
         <em></em>
-        <div id="journeyCamera"><i>2</i><span><b>打开摄像头</b><small>自动校准动作</small></span></div>
+        <div id="journeyCamera"><i>2</i><span><b>自动构建</b><small>识别外观并绑定动作</small></span></div>
         <em></em>
-        <div id="journeyReady"><i>3</i><span><b>开始使用</b><small>录制或接入直播</small></span></div>
+        <div id="journeyReady"><i>3</i><span><b>使用与导出</b><small>摄像头可选，不开也能用</small></span></div>
       </nav>
 
       <section class="studio" aria-label="虚拟形象工作台">
@@ -95,6 +103,10 @@
         <section class="preview-card">
           <div class="preview-toolbar">
             <div class="status" id="status"><span></span><b>演示模式</b><small>使用内置动作</small></div>
+            <div class="dimension-toggle" role="group" aria-label="预览形态">
+              <button class="selected" data-view="2d" aria-pressed="true">2D</button>
+              <button data-view="3d" aria-pressed="false"><i>NEW</i> 3D</button>
+            </div>
             <div class="tracking-badges"><span id="faceBadge">脸部</span><span id="bodyBadge">肢体</span></div>
             <div class="segmented" aria-label="背景颜色">
               <button class="selected" data-background="gradient" title="渐变背景">◒</button>
@@ -104,7 +116,9 @@
           </div>
           <div class="canvas-shell" id="canvasShell">
             <canvas id="avatarCanvas" width="720" height="720"></canvas>
+            <canvas id="threeCanvas" class="hidden" aria-label="自动生成的 3D 角色"></canvas>
             <div class="scan-state hidden" id="scanState"><i></i><span>正在识别五官…</span></div>
+            <div class="three-loading hidden" id="threeLoading"><i></i><span><b>正在自动构建 3D 角色</b><small>提取配色 · 创建模型 · 绑定动作</small></span></div>
             <div class="calibration hidden" id="calibration">
               <div class="face-guide"><i></i><i></i><i></i><i></i><span id="calibrationCount">3</span></div>
               <b>保持正脸，正在自动校准</b>
@@ -119,24 +133,27 @@
               <span>头部 <i><b id="headMeter"></b></i></span>
               <span>肢体 <i><b id="bodyMeter"></b></i></span>
             </div>
-            <button class="record-button" id="recordButton"><i></i><span>录制透明视频</span></button>
+            <div class="output-actions">
+              <button class="export-button hidden" id="exportModelButton" title="下载单文件 GLB"><span>⬡</span> 下载 3D 模型</button>
+              <button class="record-button" id="recordButton"><i></i><span>录制视频</span></button>
+            </div>
           </div>
         </section>
       </section>
     </main>
 
-    <footer><span>LOCAL-FIRST PROTOTYPE</span><span>v0.3 · AI + BODY MOTION · 2026</span></footer>
+    <footer><span>LOCAL-FIRST PROTOTYPE</span><span>v0.4 · AUTO 3D · 2026</span></footer>
     <div class="toast" id="toast" role="status"></div>
 
     <dialog class="welcome-dialog" id="welcomeDialog">
       <button class="dialog-close" data-close-dialog aria-label="关闭">×</button>
       <span class="dialog-kicker">欢迎使用 MOEMOTION</span>
       <h2>不会 Live2D？<br />完全没关系。</h2>
-      <p>描述角色让 AI 生成，或准备一张现有图片，剩下的自动完成。摄像头画面始终只在本机处理。</p>
+      <p>描述角色让 AI 生成，或准备一张现有图片，2D 绑定和 3D 构建都能自动完成。摄像头是可选项，画面始终只在本机处理。</p>
       <div class="dialog-steps">
         <span><i>1</i><b>创建角色</b><small>AI 生成或导入</small></span>
-        <span><i>2</i><b>开摄像头</b><small>自动完成校准</small></span>
-        <span><i>3</i><b>开始动</b><small>无需学习参数</small></span>
+        <span><i>2</i><b>选择 2D / 3D</b><small>系统自动构建</small></span>
+        <span><i>3</i><b>开始动</b><small>摄像头可跳过</small></span>
       </div>
       <button class="dialog-primary" id="welcomeStartButton">用 AI 生成我的角色 <span>→</span></button>
       <button class="dialog-secondary strong" id="welcomeUploadButton">我已有角色图片，直接导入</button>
@@ -149,7 +166,7 @@
       <h2>只需要做两件事</h2>
       <ol>
         <li><i>01</i><div><b>AI 生成或导入角色图</b><p>描述外观即可让 AI 画，也可使用 PNG、JPG、WEBP。人物居中、五官无遮挡效果最好。</p></div></li>
-        <li><i>02</i><div><b>点击“开启摄像头”</b><p>允许浏览器使用摄像头，然后保持正脸 3 秒，其余全部自动完成。</p></div></li>
+        <li><i>02</i><div><b>选择 2D 或 3D</b><p>系统会自动绑定。想用真人动作时再开启摄像头；只体验和导出模型可以完全跳过。</p></div></li>
       </ol>
       <div class="help-tip"><span>小提示</span> 如果暂时没有图片或摄像头，选择“自动演示”也能体验全部动画。</div>
       <button class="dialog-primary" data-close-dialog>知道了，开始使用</button>
@@ -159,7 +176,7 @@
       <button class="dialog-close" data-close-dialog aria-label="关闭">×</button>
       <span class="dialog-kicker">GPT IMAGE 2 · 角色工坊</span>
       <h2>描述一下，AI 帮你画。</h2>
-      <p>系统会自动补充“正脸、五官清晰、手臂分离、透明背景”等动捕要求。</p>
+      <p>系统会自动补充“正脸、五官清晰、手臂分离、透明背景”等动捕要求；在 3D 模式下生成后会自动转成立体角色。</p>
       <label class="field-label" for="characterPrompt">你的角色是什么样子？</label>
       <textarea id="characterPrompt" maxlength="800" placeholder="例如：银色短发的猫耳少女，紫色眼睛，黑白未来感夹克，性格冷静"></textarea>
       <div class="prompt-examples">

@@ -1,9 +1,10 @@
 import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const port = Number(process.env.PORT || 4173);
-const root = new URL(".", import.meta.url).pathname;
+const root = fileURLToPath(new URL(".", import.meta.url));
 const types = {
   ".html": "text/html; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
@@ -80,7 +81,10 @@ async function generateAvatar(request, response) {
     return sendJson(response, 200, { image, format: "png", model: "gpt-image-2" });
   } catch (error) {
     const timedOut = error?.name === "TimeoutError";
-    return sendJson(response, timedOut ? 504 : 500, { error: timedOut ? "生成超时，请稍后重试" : error.message || "生成失败" });
+    const invalidJson = error instanceof SyntaxError;
+    const status = timedOut ? 504 : invalidJson ? 400 : 500;
+    const message = timedOut ? "生成超时，请稍后重试" : invalidJson ? "请求格式不正确" : error.message || "生成失败";
+    return sendJson(response, status, { error: message });
   }
 }
 
