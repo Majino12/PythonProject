@@ -1,9 +1,30 @@
+import { extractFaceMotion, extractPoseMotion, normalizeExpressions } from "./motion.js";
+
 const $ = (selector) => document.querySelector(selector);
 
 const canvas = $("#avatarCanvas");
 const ctx = canvas.getContext("2d", { alpha: true });
 const video = $("#camera");
 let avatar3dModulePromise = null;
+const MOTION_DEFAULTS = Object.freeze({
+  x: 0, y: 0, roll: 0,
+  blinkL: 0, blinkR: 0, eyeWideL: 0, eyeWideR: 0,
+  lookX: 0, lookY: 0,
+  mouth: 0, mouthX: 0, smile: 0, frown: 0, pucker: 0,
+  browUp: 0, browDownL: 0, browDownR: 0, cheek: 0,
+  bodyLean: 0, bodyBob: 0, bodyTurn: 0, hipSway: 0,
+  armL: 0, armR: 0, elbowL: 0, elbowR: 0,
+  elbowSideL: 1, elbowSideR: 1,
+  armSinL: 0, armSinR: 0, armCosL: 1, armCosR: 1,
+  armDepthL: 0, armDepthR: 0, legL: 0, legR: 0,
+});
+const BODY_NEUTRAL_DEFAULTS = Object.freeze({
+  shoulderY: .45, lean: 0, bodyTurn: 0, hipSway: 0, armL: 0, armR: 0,
+});
+const EXPRESSION_KEYS = [
+  "blinkL", "blinkR", "eyeWideL", "eyeWideR", "mouth", "smile", "frown",
+  "pucker", "browUp", "browDownL", "browDownR", "cheek", "lookX", "lookY", "mouthX",
+];
 const ui = {
   fileInput: $("#fileInput"),
   dropzone: $("#dropzone"),
@@ -51,7 +72,10 @@ const ui = {
   faceBadge: $("#faceBadge"),
   bodyBadge: $("#bodyBadge"),
   meters: { eye: $("#eyeMeter"), mouth: $("#mouthMeter"), head: $("#headMeter"), body: $("#bodyMeter") },
-  ranges: { head: $("#headRange"), blink: $("#blinkRange"), mouth: $("#mouthRange"), body: $("#bodyRange") },
+  ranges: {
+    head: $("#headRange"), blink: $("#blinkRange"), mouth: $("#mouthRange"),
+    expression: $("#expressionRange"), body: $("#bodyRange"),
+  },
 };
 
 const state = {
@@ -65,9 +89,10 @@ const state = {
   imageLandmarker: null,
   poseLandmarker: null,
   visionPromise: null,
+  visionLoadToken: 0,
   lastVideoTime: -1,
-  tracking: { x: 0, y: 0, roll: 0, blinkL: 0, blinkR: 0, mouth: 0, smile: 0, bodyLean: 0, bodyBob: 0, armL: 0, armR: 0 },
-  smooth: { x: 0, y: 0, roll: 0, blinkL: 0, blinkR: 0, mouth: 0, smile: 0, bodyLean: 0, bodyBob: 0, armL: 0, armR: 0 },
+  tracking: { ...MOTION_DEFAULTS },
+  smooth: { ...MOTION_DEFAULTS },
   recorder: null,
   chunks: [],
   hasCustomAvatar: false,
@@ -76,10 +101,21 @@ const state = {
   calibrationUntil: 0,
   calibrationSamples: [],
   bodyCalibrationSamples: [],
+  expressionCalibrationSamples: [],
   neutral: { x: 0, y: 0, roll: 0 },
-  bodyNeutral: { shoulderY: .45, lean: 0, armL: 0, armR: 0 },
+  bodyNeutral: { ...BODY_NEUTRAL_DEFAULTS },
+  expressionNeutral: Object.fromEntries(EXPRESSION_KEYS.map((key) => [key, 0])),
   poseFrame: 0,
+  poseHistory: {},
   bodyDetected: false,
+  lastFaceSeen: 0,
+  lastBodySeen: 0,
+  lastVideoProgressAt: 0,
+  lastMotionSeen: {},
+  lastAnimationTime: 0,
+  cameraStarting: false,
+  cameraStartToken: 0,
+  exportingModel: false,
   selectedStyle: "anime",
   cameraConsentGranted: false,
   avatar3d: null,
@@ -98,6 +134,17 @@ const state = {
 const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 const mix = (a, b, amount) => a + (b - a) * amount;
 const point = (landmarks, index, width, height) => ({ x: landmarks[index].x * width, y: landmarks[index].y * height });
+const median = (values) => {
+  const sorted = values.filter(Number.isFinite).slice().sort((a, b) => a - b);
+  return sorted.length ? sorted[Math.floor(sorted.length / 2)] : 0;
+};
+const withTimeout = (promise, timeoutMs, message) => {
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error(message)), timeoutMs);
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+};
 
 function toast(message) {
   ui.toast.textContent = message;
@@ -110,6 +157,19 @@ function setStatus(title, detail, live = true) {
   ui.status.querySelector("b").textContent = title;
   ui.status.querySelector("small").textContent = detail;
   ui.status.querySelector("span").style.background = live ? "var(--green)" : "#ffcf70";
+}
+
+function setSourceMode(mode) {
+  const cameraSelected = mode === "camera";
+  ui.cameraButton.classList.toggle("selected", cameraSelected);
+  ui.demoButton.classList.toggle("selected", !cameraSelected);
+  ui.cameraButton.setAttribute("aria-pressed", String(cameraSelected));
+  ui.demoButton.setAttribute("aria-pressed", String(!cameraSelected));
+}
+
+function setCameraButtonLabel(connecting = false) {
+  ui.cameraButton.querySelector("b").textContent = connecting ? "正在连接…" : state.mode === "camera" ? "摄像头跟踪" : "开启摄像头";
+  ui.cameraButton.querySelector("small").textContent = connecting ? "可切回自动演示" : "脸部 + 肢体";
 }
 
 function setViewButtons(mode, disabled = false) {
@@ -126,7 +186,7 @@ function updateViewPresentation() {
   canvas.classList.toggle("hidden", show3d);
   ui.threeCanvas.classList.toggle("hidden", !show3d);
   ui.exportModelButton.classList.toggle("hidden", !show3d);
-  ui.landmarkPill.textContent = show3d ? "⬡ 3D 角色已自动构建 · 拖动可旋转" : state.landmarkMessage;
+  ui.landmarkPill.textContent = show3d ? "⬡ 宽角度 3D 动捕已就绪 · 拖动可旋转" : state.landmarkMessage;
   if (!state.build3d.includes("building")) ui.landmarkPill.classList.remove("hidden");
 }
 
@@ -141,6 +201,7 @@ async function ensureAvatar3D() {
   state.build3d = "building";
   ui.threeLoading.classList.remove("hidden");
   ui.landmarkPill.classList.add("hidden");
+  ui.recordButton.disabled = true;
   setThreeLoading("正在载入 3D 引擎", "首次使用需要联网 · 失败会自动返回 2D");
   setViewButtons(state.viewMode, true);
   try {
@@ -150,7 +211,7 @@ async function ensureAvatar3D() {
         throw error;
       });
     }
-    const { Avatar3D } = await avatar3dModulePromise;
+    const { Avatar3D } = await withTimeout(avatar3dModulePromise, 25_000, "3D 引擎加载超时");
     setThreeLoading("正在自动构建 3D 角色", "提取配色 · 创建模型 · 绑定动作");
     await new Promise((resolve) => requestAnimationFrame(resolve));
     state.avatar3d = new Avatar3D(ui.threeCanvas);
@@ -161,6 +222,7 @@ async function ensureAvatar3D() {
     return state.avatar3d;
   } catch (error) {
     console.error("3D initialization failed", error);
+    if (error.message === "3D 引擎加载超时") avatar3dModulePromise = null;
     state.avatar3d?.dispose?.();
     state.avatar3d = null;
     state.build3d = "error";
@@ -168,6 +230,7 @@ async function ensureAvatar3D() {
   } finally {
     ui.threeLoading.classList.add("hidden");
     setViewButtons(state.viewMode, false);
+    ui.recordButton.disabled = state.exportingModel;
   }
 }
 
@@ -236,6 +299,7 @@ function savePreferences() {
       head: ui.ranges.head.value,
       blink: ui.ranges.blink.value,
       mouth: ui.ranges.mouth.value,
+      expression: ui.ranges.expression.value,
       body: ui.ranges.body.value,
     }));
   } catch (error) {
@@ -247,7 +311,7 @@ function restorePreferences() {
   try {
     const saved = JSON.parse(localStorage.getItem("moemotion-preferences") || "null");
     if (!saved) return;
-    for (const name of ["head", "blink", "mouth", "body"]) {
+    for (const name of ["head", "blink", "mouth", "expression", "body"]) {
       if (saved[name]) {
         ui.ranges[name].value = saved[name];
         $(`#${name}Output`).textContent = `${saved[name]}%`;
@@ -255,7 +319,11 @@ function restorePreferences() {
     }
     if (["gradient", "transparent", "green"].includes(saved.background)) {
       state.background = saved.background;
-      document.querySelectorAll("[data-background]").forEach((button) => button.classList.toggle("selected", button.dataset.background === saved.background));
+      document.querySelectorAll("[data-background]").forEach((button) => {
+        const selected = button.dataset.background === saved.background;
+        button.classList.toggle("selected", selected);
+        button.setAttribute("aria-pressed", String(selected));
+      });
     }
   } catch (error) {
     console.warn("Could not restore preferences", error);
@@ -391,8 +459,8 @@ function makeDemoAvatar() {
     state.image = img;
     state.imageUrl = source.toDataURL("image/png");
     state.imageRig = {
-      leftEye: { x: 378, y: 468, w: 102, h: 66 },
-      rightEye: { x: 522, y: 468, w: 102, h: 66 },
+      leftEye: { x: 522, y: 468, w: 102, h: 66 },
+      rightEye: { x: 378, y: 468, w: 102, h: 66 },
       mouth: { x: 450, y: 560, w: 86, h: 50 },
       face: { x: 450, y: 462, w: 380, h: 440 },
       skin: "#f0c7cb",
@@ -412,6 +480,7 @@ function makeDemoAvatar() {
 async function loadVision() {
   if (state.faceLandmarker && state.imageLandmarker && state.poseLandmarker) return true;
   if (!state.visionPromise) {
+    const loadToken = ++state.visionLoadToken;
     state.visionPromise = (async () => {
       try {
         setStatus("加载动作引擎", "首次使用需要联网下载模型", false);
@@ -424,8 +493,12 @@ async function loadVision() {
           },
           numFaces: 1,
           outputFaceBlendshapes: true,
+          outputFacialTransformationMatrixes: true,
+          minFaceDetectionConfidence: .35,
+          minFacePresenceConfidence: .35,
+          minTrackingConfidence: .35,
         };
-        [state.imageLandmarker, state.faceLandmarker, state.poseLandmarker] = await Promise.all([
+        const [imageLandmarker, faceLandmarker, poseLandmarker] = await Promise.all([
           FaceLandmarker.createFromOptions(fileset, { ...options, runningMode: "IMAGE" }),
           FaceLandmarker.createFromOptions(fileset, { ...options, runningMode: "VIDEO" }),
           PoseLandmarker.createFromOptions(fileset, {
@@ -440,8 +513,18 @@ async function loadVision() {
             minTrackingConfidence: .45,
           }),
         ]);
+        if (loadToken !== state.visionLoadToken) {
+          imageLandmarker.close?.();
+          faceLandmarker.close?.();
+          poseLandmarker.close?.();
+          return false;
+        }
+        state.imageLandmarker = imageLandmarker;
+        state.faceLandmarker = faceLandmarker;
+        state.poseLandmarker = poseLandmarker;
         return true;
       } catch (error) {
+        if (loadToken !== state.visionLoadToken) return false;
         console.error(error);
         toast("动作模型加载失败，已保留自动演示模式。请检查网络后重试。");
         setStatus("演示模式", "动作模型暂不可用", false);
@@ -449,9 +532,18 @@ async function loadVision() {
       }
     })();
   }
-  const ready = await state.visionPromise;
-  if (!ready) state.visionPromise = null;
-  return ready;
+  try {
+    const ready = await withTimeout(state.visionPromise, 45_000, "动作模型加载超时");
+    if (!ready) state.visionPromise = null;
+    return ready;
+  } catch (error) {
+    console.error(error);
+    state.visionLoadToken += 1;
+    state.visionPromise = null;
+    toast("动作模型加载时间过长，已继续使用自动演示；稍后可再次开启摄像头。");
+    setStatus("演示模式", "动作模型加载超时，可重试", false);
+    return false;
+  }
 }
 
 function colorFromImage(image, x, y) {
@@ -489,8 +581,9 @@ function rigFromLandmarks(landmarks, image) {
   const w = image.naturalWidth;
   const h = image.naturalHeight;
   const p = (i) => point(landmarks, i, w, h);
-  const le = [p(33), p(133), p(159), p(145)];
-  const re = [p(362), p(263), p(386), p(374)];
+  // MediaPipe names left/right from the character's anatomical viewpoint.
+  const le = [p(362), p(263), p(386), p(374)];
+  const re = [p(33), p(133), p(159), p(145)];
   const mouth = [p(61), p(291), p(13), p(14)];
   const eyeBox = (eye) => ({
     x: (eye[0].x + eye[1].x) / 2,
@@ -603,8 +696,8 @@ function fallbackRig(image) {
   const w = image.naturalWidth;
   const h = image.naturalHeight;
   return {
-    leftEye: { x: w * .43, y: h * .40, w: w * .13, h: h * .065 },
-    rightEye: { x: w * .57, y: h * .40, w: w * .13, h: h * .065 },
+    leftEye: { x: w * .57, y: h * .40, w: w * .13, h: h * .065 },
+    rightEye: { x: w * .43, y: h * .40, w: w * .13, h: h * .065 },
     mouth: { x: w * .5, y: h * .55, w: w * .15, h: h * .075 },
     face: { x: w * .5, y: h * .44, w: w * .42, h: h * .5 },
     skin: colorFromImage(image, w * .5, h * .34),
@@ -622,26 +715,60 @@ function requestCameraAccess() {
 }
 
 async function startCamera() {
+  if (state.cameraStarting) {
+    toast("摄像头正在连接，请稍候。");
+    return;
+  }
+  const startToken = ++state.cameraStartToken;
+  let pendingStream = null;
+  state.cameraStarting = true;
+  ui.cameraButton.setAttribute("aria-busy", "true");
   ui.cameraButton.disabled = true;
-  const ready = await loadVision();
-  if (!ready) { ui.cameraButton.disabled = false; return; }
+  ui.nextButton.disabled = true;
+  setCameraButtonLabel(true);
   try {
+    const ready = await loadVision();
+    if (!ready || startToken !== state.cameraStartToken) return;
     video.srcObject?.getTracks().forEach((track) => track.stop());
     video.srcObject = null;
-    const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 960, height: 720, facingMode: "user" }, audio: false });
-    video.srcObject = stream;
+    pendingStream = await navigator.mediaDevices.getUserMedia({ video: { width: 960, height: 720, facingMode: "user" }, audio: false });
+    if (startToken !== state.cameraStartToken) {
+      pendingStream.getTracks().forEach((track) => track.stop());
+      pendingStream = null;
+      return;
+    }
+    video.srcObject = pendingStream;
     await video.play();
+    if (startToken !== state.cameraStartToken) {
+      pendingStream.getTracks().forEach((track) => track.stop());
+      if (video.srcObject === pendingStream) video.srcObject = null;
+      pendingStream = null;
+      return;
+    }
+    pendingStream.getVideoTracks().forEach((track) => {
+      track.addEventListener("ended", () => {
+        if (state.mode !== "camera" || video.srcObject !== pendingStream) return;
+        useDemo();
+        toast("摄像头连接已结束，已自动切回演示模式。");
+      }, { once: true });
+    });
     state.mode = "camera";
     state.ready = false;
     state.calibrating = true;
     state.calibrationUntil = performance.now() + 3200;
     state.calibrationSamples = [];
     state.bodyCalibrationSamples = [];
+    state.expressionCalibrationSamples = [];
+    state.poseHistory = {};
     state.bodyDetected = false;
+    state.lastFaceSeen = performance.now();
+    state.lastBodySeen = state.lastFaceSeen;
+    state.lastVideoProgressAt = state.lastFaceSeen;
+    state.lastMotionSeen = {};
     state.neutral = { x: 0, y: 0, roll: 0 };
-    state.bodyNeutral = { shoulderY: .45, lean: 0, armL: 0, armR: 0 };
-    ui.cameraButton.classList.add("selected");
-    ui.demoButton.classList.remove("selected");
+    state.bodyNeutral = { ...BODY_NEUTRAL_DEFAULTS };
+    state.expressionNeutral = Object.fromEntries(EXPRESSION_KEYS.map((key) => [key, 0]));
+    setSourceMode("camera");
     ui.calibration.classList.remove("hidden");
     ui.faceBadge.classList.remove("active");
     ui.bodyBadge.classList.remove("active");
@@ -650,21 +777,39 @@ async function startCamera() {
     setStatus("自动校准", "保持正脸约 3 秒", false);
     toast("摄像头已连接，请保持正脸，校准会自动完成。");
   } catch (error) {
+    pendingStream?.getTracks().forEach((track) => track.stop());
+    if (video.srcObject === pendingStream) video.srcObject = null;
+    if (startToken !== state.cameraStartToken) return;
     console.error(error);
+    state.mode = "demo";
+    setSourceMode("demo");
     toast("无法使用摄像头，请在浏览器地址栏允许摄像头权限。");
     setStatus("演示模式", "摄像头权限未开启", false);
   } finally {
-    ui.cameraButton.disabled = false;
+    if (startToken === state.cameraStartToken) {
+      state.cameraStarting = false;
+      ui.cameraButton.disabled = false;
+      ui.nextButton.disabled = false;
+      ui.cameraButton.setAttribute("aria-busy", "false");
+      setCameraButtonLabel(false);
+    }
   }
 }
 
 function useDemo() {
+  if (state.cameraStarting) {
+    state.cameraStartToken += 1;
+    state.cameraStarting = false;
+    ui.cameraButton.disabled = false;
+    ui.nextButton.disabled = false;
+    ui.cameraButton.setAttribute("aria-busy", "false");
+  }
   state.mode = "demo";
   state.calibrating = false;
   state.ready = false;
   ui.calibration.classList.add("hidden");
-  ui.demoButton.classList.add("selected");
-  ui.cameraButton.classList.remove("selected");
+  setSourceMode("demo");
+  setCameraButtonLabel(false);
   ui.faceBadge.classList.add("active");
   ui.bodyBadge.classList.add("active");
   setStatus("演示模式", "使用内置自然动作", true);
@@ -690,12 +835,17 @@ function updateCalibration(now) {
   }
   if (state.calibrationSamples.length) {
     for (const key of ["x", "y", "roll"]) {
-      state.neutral[key] = state.calibrationSamples.reduce((sum, sample) => sum + sample[key], 0) / state.calibrationSamples.length;
+      state.neutral[key] = median(state.calibrationSamples.map((sample) => sample[key]));
     }
   }
   if (state.bodyCalibrationSamples.length) {
-    for (const key of ["shoulderY", "lean", "armL", "armR"]) {
-      state.bodyNeutral[key] = state.bodyCalibrationSamples.reduce((sum, sample) => sum + sample[key], 0) / state.bodyCalibrationSamples.length;
+    for (const key of Object.keys(BODY_NEUTRAL_DEFAULTS)) {
+      state.bodyNeutral[key] = median(state.bodyCalibrationSamples.map((sample) => sample[key]));
+    }
+  }
+  if (state.expressionCalibrationSamples.length) {
+    for (const key of EXPRESSION_KEYS) {
+      state.expressionNeutral[key] = median(state.expressionCalibrationSamples.map((sample) => sample[key]));
     }
   }
   state.calibrating = false;
@@ -709,9 +859,49 @@ function updateCalibration(now) {
   toast(state.bodyDetected ? "校准完成！现在眨眼、说话或抬手试试看。" : "脸部校准完成。让肩膀和双手入镜即可启用肢体跟踪。");
 }
 
-function categoryMap(result) {
-  const categories = result.faceBlendshapes?.[0]?.categories || [];
-  return Object.fromEntries(categories.map(({ categoryName, score }) => [categoryName, score]));
+const FACE_MOTION_KEYS = [
+  "x", "y", "roll", "blinkL", "blinkR", "eyeWideL", "eyeWideR", "lookX", "lookY",
+  "mouth", "mouthX", "smile", "frown", "pucker", "browUp", "browDownL", "browDownR", "cheek",
+];
+const BODY_MOTION_KEYS = [
+  "bodyLean", "bodyBob", "bodyTurn", "hipSway", "armL", "armR", "elbowL", "elbowR",
+  "elbowSideL", "elbowSideR", "armSinL", "armSinR", "armCosL", "armCosR",
+  "armDepthL", "armDepthR", "legL", "legR",
+];
+
+function applyMotion(values, now) {
+  for (const [key, value] of Object.entries(values)) {
+    if (!(key in state.tracking) || !Number.isFinite(value)) continue;
+    state.tracking[key] = value;
+    state.lastMotionSeen[key] = now;
+  }
+}
+
+function relaxStaleMotion(keys, now, holdMs = 190) {
+  for (const key of keys) {
+    if (now - (state.lastMotionSeen[key] || 0) > holdMs) state.tracking[key] = MOTION_DEFAULTS[key] ?? 0;
+  }
+}
+
+function clearStalePoseHistory(now, immediate = false) {
+  for (const suffix of ["L", "R"]) {
+    if (!immediate && now - (state.lastMotionSeen[`armSin${suffix}`] || 0) <= 280) continue;
+    delete state.poseHistory[`elbowDirection${suffix}`];
+  }
+}
+
+function handleTrackingStall(now, detail = "摄像头画面暂停，动作正回到自然姿态") {
+  if (now - state.lastFaceSeen > 360) {
+    relaxStaleMotion(FACE_MOTION_KEYS, now, 0);
+    ui.faceBadge.classList.remove("active");
+    setStatus("等待摄像头画面", detail, false);
+  }
+  if (now - state.lastBodySeen > 360) {
+    relaxStaleMotion(BODY_MOTION_KEYS, now, 0);
+    clearStalePoseHistory(now, true);
+    state.bodyDetected = false;
+    ui.bodyBadge.classList.remove("active");
+  }
 }
 
 function trackPose(now) {
@@ -720,110 +910,129 @@ function trackPose(now) {
   if (state.poseFrame % 2 !== 0) return;
   try {
     const result = state.poseLandmarker.detectForVideo(video, now);
-    const landmarks = result.landmarks?.[0];
-    if (!landmarks) {
-      state.bodyDetected = false;
-      state.tracking.bodyLean = 0;
-      state.tracking.bodyBob = 0;
-      state.tracking.armL = 0;
-      state.tracking.armR = 0;
-      ui.bodyBadge.classList.remove("active");
+    const extracted = extractPoseMotion(result, state.bodyNeutral, state.poseHistory);
+    if (!extracted) {
+      if (now - state.lastBodySeen > 220) {
+        relaxStaleMotion(BODY_MOTION_KEYS, now, 0);
+        clearStalePoseHistory(now, true);
+        state.bodyDetected = false;
+        ui.bodyBadge.classList.remove("active");
+      }
       return;
     }
-    const leftShoulder = landmarks[11];
-    const rightShoulder = landmarks[12];
-    const leftWrist = landmarks[15];
-    const rightWrist = landmarks[16];
-    if ((leftShoulder.visibility ?? 1) < .35 || (rightShoulder.visibility ?? 1) < .35) {
-      state.bodyDetected = false;
-      state.tracking.bodyLean = 0;
-      state.tracking.bodyBob = 0;
-      state.tracking.armL = 0;
-      state.tracking.armR = 0;
-      ui.bodyBadge.classList.remove("active");
-      return;
-    }
+    state.lastBodySeen = now;
     state.bodyDetected = true;
     ui.bodyBadge.classList.add("active");
-    const shoulderY = (leftShoulder.y + rightShoulder.y) / 2;
-    const shoulderWidth = Math.max(.08, Math.abs(rightShoulder.x - leftShoulder.x));
-    const lean = clamp(Math.atan2(rightShoulder.y - leftShoulder.y, rightShoulder.x - leftShoulder.x) / .35, -1, 1);
-    const leftVisible = (leftWrist.visibility ?? 1) > .3;
-    const rightVisible = (rightWrist.visibility ?? 1) > .3;
-    const armL = leftVisible ? clamp((leftShoulder.y - leftWrist.y) / (shoulderWidth * 1.7), -1, 1) : 0;
-    const armR = rightVisible ? clamp((rightShoulder.y - rightWrist.y) / (shoulderWidth * 1.7), -1, 1) : 0;
-    const raw = { shoulderY, lean, armL, armR };
-    if (state.calibrating) state.bodyCalibrationSamples.push(raw);
-    state.tracking.bodyLean = clamp(lean - state.bodyNeutral.lean, -1, 1);
-    state.tracking.bodyBob = clamp((state.bodyNeutral.shoulderY - shoulderY) * 5, -1, 1);
-    state.tracking.armL = clamp(armL - state.bodyNeutral.armL, -1, 1);
-    state.tracking.armR = clamp(armR - state.bodyNeutral.armR, -1, 1);
+    if (state.calibrating) state.bodyCalibrationSamples.push(extracted.raw);
+    applyMotion(extracted.motion, now);
+    relaxStaleMotion(BODY_MOTION_KEYS, now, 240);
+    clearStalePoseHistory(now);
   } catch (error) {
+    if (now - state.lastBodySeen > 240) {
+      state.bodyDetected = false;
+      ui.bodyBadge.classList.remove("active");
+      relaxStaleMotion(BODY_MOTION_KEYS, now, 0);
+      clearStalePoseHistory(now, true);
+    }
     console.warn("Pose tracking skipped", error);
   }
 }
 
 function trackCamera(now) {
-  if (state.mode !== "camera" || !state.faceLandmarker || video.readyState < 2 || video.currentTime === state.lastVideoTime) return;
-  state.lastVideoTime = video.currentTime;
-  trackPose(now);
-  const result = state.faceLandmarker.detectForVideo(video, now);
-  if (!result.faceLandmarks?.length) {
-    state.tracking.x = 0;
-    state.tracking.y = 0;
-    state.tracking.roll = 0;
-    state.tracking.blinkL = 0;
-    state.tracking.blinkR = 0;
-    state.tracking.mouth = 0;
-    state.tracking.smile = 0;
-    ui.faceBadge.classList.remove("active");
-    setStatus("寻找面部", "请正对摄像头", false);
+  if (state.mode !== "camera") return;
+  if (!state.faceLandmarker || video.readyState < 2) {
+    handleTrackingStall(now, "正在等待有效的摄像头画面");
     return;
   }
-  ui.faceBadge.classList.add("active");
-  if (state.calibrating) {
-    ui.calibration.querySelector("b").textContent = "保持正脸，正在自动校准";
-    ui.calibration.querySelector("small").textContent = "不用做任何操作";
+  if (video.currentTime === state.lastVideoTime) {
+    if (now - state.lastVideoProgressAt > 420) handleTrackingStall(now);
+    return;
   }
-  if (!state.calibrating) setStatus("摄像头面捕", state.bodyDetected ? "脸部与肢体正在实时追踪" : "脸部追踪中 · 退后可识别肢体", true);
-  const landmarks = result.faceLandmarks[0];
-  const blends = categoryMap(result);
-  const left = landmarks[33];
-  const right = landmarks[263];
-  const nose = landmarks[1];
-  const eyeMidX = (left.x + right.x) / 2;
-  const eyeMidY = (left.y + right.y) / 2;
-  const eyeDistance = Math.max(.001, Math.hypot(right.x - left.x, right.y - left.y));
-  const raw = {
-    x: clamp((nose.x - eyeMidX) / eyeDistance * 2.4, -1, 1),
-    y: clamp((nose.y - eyeMidY) / eyeDistance * 2.8 - 1.05, -1, 1),
-    roll: clamp(Math.atan2(right.y - left.y, right.x - left.x) / .35, -1, 1),
-  };
-  if (state.calibrating) state.calibrationSamples.push(raw);
-  state.tracking.x = clamp(raw.x - state.neutral.x, -1, 1);
-  state.tracking.y = clamp(raw.y - state.neutral.y, -1, 1);
-  state.tracking.roll = clamp(raw.roll - state.neutral.roll, -1, 1);
-  state.tracking.blinkL = clamp(blends.eyeBlinkLeft ?? 0);
-  state.tracking.blinkR = clamp(blends.eyeBlinkRight ?? 0);
-  state.tracking.mouth = clamp((blends.jawOpen ?? 0) * 1.25);
-  state.tracking.smile = clamp(((blends.mouthSmileLeft ?? 0) + (blends.mouthSmileRight ?? 0)) / 2);
+  state.lastVideoTime = video.currentTime;
+  state.lastVideoProgressAt = now;
+  trackPose(now);
+  try {
+    const result = state.faceLandmarker.detectForVideo(video, now);
+    const extracted = extractFaceMotion(result);
+    if (!extracted) {
+      if (now - state.lastFaceSeen > 220) {
+        relaxStaleMotion(FACE_MOTION_KEYS, now, 0);
+        ui.faceBadge.classList.remove("active");
+        setStatus("寻找面部", "请让面部保持在镜头范围内", false);
+      }
+      return;
+    }
+    state.lastFaceSeen = now;
+    ui.faceBadge.classList.add("active");
+    if (state.calibrating) {
+      state.calibrationSamples.push(extracted.pose);
+      state.expressionCalibrationSamples.push(extracted.expressions);
+      ui.calibration.querySelector("b").textContent = "保持正脸，正在自动校准";
+      ui.calibration.querySelector("small").textContent = "眼睛自然睁开，嘴巴放松";
+    }
+    if (!state.calibrating) setStatus("宽角度面捕", state.bodyDetected ? "侧脸、表情与肢体正在实时追踪" : "表情追踪中 · 退后可识别肢体", true);
+    const pose = {
+      x: clamp(extracted.pose.x - state.neutral.x, -1, 1),
+      y: clamp(extracted.pose.y - state.neutral.y, -1, 1),
+      roll: clamp(extracted.pose.roll - state.neutral.roll, -1, 1),
+    };
+    const expressions = normalizeExpressions(extracted.expressions, state.expressionNeutral);
+    applyMotion({ ...pose, ...expressions }, now);
+  } catch (error) {
+    console.warn("Face tracking skipped", error);
+    if (now - state.lastFaceSeen > 240) {
+      relaxStaleMotion(FACE_MOTION_KEYS, now, 0);
+      ui.faceBadge.classList.remove("active");
+      setStatus("面捕正在恢复", "动作已平滑回到自然姿态", false);
+    }
+  }
 }
 
 function trackDemo(now) {
   if (state.mode !== "demo") return;
   const t = now / 1000;
   const blink = Math.pow(Math.max(0, Math.sin(t * 2.15 + 1.1)), 24);
-  state.tracking.x = Math.sin(t * .64) * .42;
+  const surprise = Math.pow(Math.max(0, Math.sin(t * .36 - 1.8)), 12);
+  const pucker = Math.pow(Math.max(0, Math.sin(t * .29 + 2.1)), 12) * .5;
+  const frown = Math.pow(Math.max(0, Math.sin(t * .21 + 4.2)), 14) * .34;
+  state.tracking.x = Math.sin(t * .42) * .7;
   state.tracking.y = Math.sin(t * .47 + .8) * .22;
   state.tracking.roll = Math.sin(t * .52) * .28;
   state.tracking.blinkL = blink;
   state.tracking.blinkR = clamp(blink + Math.pow(Math.max(0, Math.sin(t * .77)), 42) * .25);
-  state.tracking.mouth = .1 + (Math.sin(t * 3.1) + 1) * .14 + Math.pow(Math.max(0, Math.sin(t * .9)), 3) * .22;
-  state.tracking.smile = .25 + Math.sin(t * .41) * .1;
+  state.tracking.eyeWideL = surprise * .62;
+  state.tracking.eyeWideR = surprise * .62;
+  state.tracking.lookX = Math.sin(t * .73) * .58;
+  state.tracking.lookY = Math.sin(t * .51 + 1.3) * .34;
+  state.tracking.mouth = .08 + (Math.sin(t * 3.1) + 1) * .12 + surprise * .48;
+  state.tracking.mouthX = Math.sin(t * .32) * .1;
+  state.tracking.smile = clamp(.3 + Math.sin(t * .41) * .12 - frown * .3);
+  state.tracking.frown = frown;
+  state.tracking.pucker = pucker;
+  state.tracking.browUp = surprise * .72 + Math.max(0, Math.sin(t * .27)) * .08;
+  state.tracking.browDownL = frown * .75;
+  state.tracking.browDownR = frown * .75;
+  state.tracking.cheek = state.tracking.smile * .36;
   state.tracking.bodyLean = Math.sin(t * .43 + .4) * .32;
   state.tracking.bodyBob = Math.sin(t * .86) * .18;
-  state.tracking.armL = Math.max(0, Math.sin(t * .58 + 1.5)) * .38;
-  state.tracking.armR = Math.max(0, Math.sin(t * .51 + 4.1)) * .34;
+  state.tracking.bodyTurn = Math.sin(t * .31 + .2) * .38;
+  state.tracking.hipSway = Math.sin(t * .39 + 1.7) * .22;
+  const armAngleL = Math.max(0, Math.sin(t * .58 + 1.5)) * 2.5;
+  const armAngleR = Math.max(0, Math.sin(t * .51 + 4.1)) * 2.35;
+  state.tracking.armL = armAngleL / Math.PI;
+  state.tracking.armR = armAngleR / Math.PI;
+  state.tracking.armSinL = Math.sin(armAngleL);
+  state.tracking.armSinR = Math.sin(armAngleR);
+  state.tracking.armCosL = Math.cos(armAngleL);
+  state.tracking.armCosR = Math.cos(armAngleR);
+  state.tracking.elbowL = .12 + Math.max(0, Math.sin(t * .71 + .5)) * .58;
+  state.tracking.elbowR = .12 + Math.max(0, Math.sin(t * .67 + 3.2)) * .55;
+  state.tracking.elbowSideL = Math.sin(t * .23 + .4) > -.75 ? 1 : -1;
+  state.tracking.elbowSideR = Math.sin(t * .21 + 3.1) > -.75 ? 1 : -1;
+  state.tracking.armDepthL = Math.sin(t * .49 + 2.2) * .32;
+  state.tracking.armDepthR = Math.sin(t * .46 + 5.1) * .3;
+  state.tracking.legL = Math.max(0, Math.sin(t * .38)) * .16;
+  state.tracking.legR = Math.max(0, Math.sin(t * .38 + Math.PI)) * .16;
 }
 
 function drawBackground() {
@@ -849,7 +1058,7 @@ function drawBackground() {
   ctx.globalAlpha = 1;
 }
 
-function drawPatch(image, box, amount, type, skin) {
+function drawPatch(image, box, amount, type, skin, expression = {}) {
   const sx = box.x - box.w / 2;
   const sy = box.y - box.h / 2;
   ctx.save();
@@ -858,10 +1067,17 @@ function drawPatch(image, box, amount, type, skin) {
   ctx.clip();
   ctx.fillStyle = skin;
   ctx.fillRect(sx, sy, box.w, box.h);
-  const scaleY = type === "eye" ? Math.max(.06, 1 - amount * .94) : 1 + amount * 1.05;
+  const scaleY = type === "eye"
+    ? Math.max(.06, 1 - amount * .94 + (expression.wide || 0) * .24)
+    : 1 + amount * 1.05 + (expression.pucker || 0) * .12;
+  const scaleX = type === "mouth"
+    ? clamp(1 + amount * .1 + (expression.smile || 0) * .3 - (expression.frown || 0) * .15 - (expression.pucker || 0) * .45, .58, 1.42)
+    : expression.sideScale || 1;
+  const offsetX = type === "mouth" ? (expression.mouthX || 0) * box.w * .09 : (expression.lookX || 0) * box.w * .035;
+  const offsetY = type === "eye" ? -(expression.lookY || 0) * box.h * .04 : 0;
   ctx.translate(box.x, box.y);
-  ctx.scale(type === "mouth" ? 1 + amount * .12 : 1, scaleY);
-  ctx.drawImage(image, sx, sy, box.w, box.h, -box.w / 2, -box.h / 2, box.w, box.h);
+  ctx.scale(scaleX, scaleY);
+  ctx.drawImage(image, sx, sy, box.w, box.h, -box.w / 2 + offsetX, -box.h / 2 + offsetY, box.w, box.h);
   ctx.restore();
   if (type === "eye" && amount > .72) {
     ctx.save();
@@ -873,14 +1089,57 @@ function drawPatch(image, box, amount, type, skin) {
   }
 }
 
+function drawExpressionOverlay(rig, motion, amount) {
+  const browEnergy = Math.max(motion.browUp, motion.browDownL, motion.browDownR) * amount;
+  if (browEnergy > .035) {
+    const drawBrow = (eye, side, down) => {
+      const lift = motion.browUp * amount;
+      const press = down * amount;
+      const y = eye.y - eye.h * (.63 + lift * .25 - press * .15);
+      ctx.save();
+      ctx.translate(eye.x, y);
+      ctx.rotate(side * (lift * .16 + press * .2));
+      ctx.globalAlpha = clamp(.1 + browEnergy * .34, 0, .38);
+      ctx.strokeStyle = "#2d2039";
+      ctx.lineWidth = Math.max(1.5, eye.h * .055);
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(-eye.w * .24, 0);
+      ctx.quadraticCurveTo(0, -eye.h * .08, eye.w * .24, 0);
+      ctx.stroke();
+      ctx.restore();
+    };
+    drawBrow(rig.leftEye, 1, motion.browDownL);
+    drawBrow(rig.rightEye, -1, motion.browDownR);
+  }
+  const cheekEnergy = clamp((motion.cheek * .72 + motion.smile * .35) * amount);
+  if (cheekEnergy > .04) {
+    ctx.save();
+    ctx.fillStyle = `rgba(255, 105, 155, ${cheekEnergy * .16})`;
+    for (const side of [-1, 1]) {
+      ctx.beginPath();
+      ctx.ellipse(
+        rig.face.x + side * rig.face.w * .3,
+        rig.face.y + rig.face.h * .15,
+        rig.face.w * .105,
+        rig.face.h * .038,
+        0, 0, Math.PI * 2,
+      );
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+}
+
 function render() {
   drawBackground();
   const image = state.image;
   const rig = state.imageRig;
   if (!image || !rig) return;
-  const headAmount = Number(ui.ranges.head.value) / 100;
+  const headAmount = Number(ui.ranges.head.value) / 80;
   const blinkAmount = Number(ui.ranges.blink.value) / 100;
   const mouthAmount = Number(ui.ranges.mouth.value) / 100;
+  const expressionAmount = Number(ui.ranges.expression.value) / 100;
   const bodyAmount = Number(ui.ranges.body.value) / 100;
   const s = state.smooth;
   const imageRatio = image.naturalWidth / image.naturalHeight;
@@ -893,36 +1152,64 @@ function render() {
 
   ctx.save();
   const armBalance = (s.armR - s.armL) * bodyAmount;
-  const armEnergy = (Math.abs(s.armL) + Math.abs(s.armR)) * .5 * bodyAmount;
+  const armEnergy = (Math.abs(s.armL) + Math.abs(s.armR) + s.elbowL * .35 + s.elbowR * .35) * .42 * bodyAmount;
+  const pseudoYaw = clamp(s.x * headAmount, -.62, .62);
   ctx.translate(
-    canvas.width / 2 + s.x * 15 * headAmount + s.bodyLean * 9 * bodyAmount + armBalance * 4,
+    canvas.width / 2 + pseudoYaw * 24 + (s.bodyLean + s.hipSway * .35) * 9 * bodyAmount + armBalance * 4,
     canvas.height / 2 + s.y * 9 * headAmount - s.bodyBob * 10 * bodyAmount - armEnergy * 3,
   );
   ctx.rotate(s.roll * .055 * headAmount + s.bodyLean * .038 * bodyAmount);
-  ctx.scale(1 + Math.abs(s.x) * .008 + armEnergy * .008, 1 + s.bodyBob * .012 * bodyAmount);
+  ctx.scale((1 - Math.abs(pseudoYaw) * .1) * (1 + armEnergy * .008), 1 + s.bodyBob * .012 * bodyAmount);
   ctx.translate(-finalWidth / 2, -finalHeight / 2);
   ctx.scale(imageScale, imageScale);
   ctx.drawImage(image, 0, 0);
-  drawPatch(image, rig.leftEye, clamp(s.blinkL * blinkAmount), "eye", rig.skin);
-  drawPatch(image, rig.rightEye, clamp(s.blinkR * blinkAmount), "eye", rig.skin);
-  drawPatch(image, rig.mouth, clamp(s.mouth * mouthAmount), "mouth", rig.skin);
+  drawPatch(image, rig.leftEye, clamp(s.blinkL * blinkAmount), "eye", rig.skin, {
+    wide: s.eyeWideL * expressionAmount,
+    lookX: s.lookX * expressionAmount,
+    lookY: s.lookY * expressionAmount,
+    sideScale: 1 - Math.max(0, pseudoYaw) * .2,
+  });
+  drawPatch(image, rig.rightEye, clamp(s.blinkR * blinkAmount), "eye", rig.skin, {
+    wide: s.eyeWideR * expressionAmount,
+    lookX: s.lookX * expressionAmount,
+    lookY: s.lookY * expressionAmount,
+    sideScale: 1 + Math.min(0, pseudoYaw) * .2,
+  });
+  drawPatch(image, rig.mouth, clamp(s.mouth * mouthAmount), "mouth", rig.skin, {
+    mouthX: s.mouthX * expressionAmount,
+    smile: s.smile * expressionAmount,
+    frown: s.frown * expressionAmount,
+    pucker: s.pucker * expressionAmount,
+  });
+  drawExpressionOverlay(rig, s, expressionAmount);
   ctx.restore();
 }
 
 function animate(now = performance.now()) {
+  const dt = state.lastAnimationTime ? clamp((now - state.lastAnimationTime) / 1000, 1 / 240, .05) : 1 / 60;
+  state.lastAnimationTime = now;
   trackDemo(now);
   trackCamera(now);
   updateCalibration(now);
-  for (const key of Object.keys(state.smooth)) {
-    const speed = key.startsWith("blink") ? .42 : key === "mouth" ? .3 : .16;
-    state.smooth[key] = mix(state.smooth[key], state.tracking[key], speed);
+  for (const key of Object.keys(MOTION_DEFAULTS)) {
+    const target = Number.isFinite(state.tracking[key]) ? state.tracking[key] : 0;
+    let tau = .09;
+    if (key.startsWith("blink")) tau = target > state.smooth[key] ? .028 : .052;
+    else if (["mouth", "mouthX", "lookX", "lookY"].includes(key)) tau = .055;
+    else if (["bodyLean", "bodyBob", "bodyTurn", "hipSway", "legL", "legR"].includes(key)) tau = .15;
+    else if (["armL", "armR", "armSinL", "armSinR", "armCosL", "armCosR", "elbowL", "elbowR", "armDepthL", "armDepthR"].includes(key)) tau = .095;
+    else if (["elbowSideL", "elbowSideR"].includes(key)) tau = .16;
+    else if (["browUp", "browDownL", "browDownR", "cheek", "frown", "pucker"].includes(key)) tau = .105;
+    const amount = 1 - Math.exp(-dt / tau);
+    state.smooth[key] = mix(state.smooth[key], target, amount);
   }
   if (state.viewMode === "3d" && state.build3d === "ready" && state.avatar3d) {
     try {
       state.avatar3d.update(state.smooth, {
-        head: Number(ui.ranges.head.value) / 100,
+        head: Number(ui.ranges.head.value) / 80,
         blink: Number(ui.ranges.blink.value) / 100,
         mouth: Number(ui.ranges.mouth.value) / 100,
+        expression: Number(ui.ranges.expression.value) / 100,
         body: Number(ui.ranges.body.value) / 100,
       });
       state.avatar3d.render();
@@ -942,43 +1229,96 @@ function animate(now = performance.now()) {
   }
   const blinkValue = (state.smooth.blinkL + state.smooth.blinkR) / 2;
   ui.meters.eye.style.width = `${clamp(blinkValue) * 100}%`;
-  ui.meters.mouth.style.width = `${clamp(state.smooth.mouth) * 100}%`;
+  ui.meters.mouth.style.width = `${clamp(Math.max(state.smooth.mouth, state.smooth.smile, state.smooth.frown, state.smooth.pucker)) * 100}%`;
   ui.meters.head.style.width = `${clamp((Math.abs(state.smooth.x) + Math.abs(state.smooth.roll)) / 1.4) * 100}%`;
-  ui.meters.body.style.width = `${clamp((Math.abs(state.smooth.bodyLean) + Math.abs(state.smooth.bodyBob) + Math.abs(state.smooth.armL) + Math.abs(state.smooth.armR)) / 2.2) * 100}%`;
+  ui.meters.body.style.width = `${clamp((Math.abs(state.smooth.bodyLean) + Math.abs(state.smooth.bodyTurn) + Math.abs(state.smooth.armL) + Math.abs(state.smooth.armR) + state.smooth.elbowL + state.smooth.elbowR) / 3.2) * 100}%`;
   requestAnimationFrame(animate);
 }
 
 function toggleRecording() {
-  const activeCanvas = state.viewMode === "3d" && state.avatar3d ? ui.threeCanvas : canvas;
-  if (!window.MediaRecorder || !activeCanvas.captureStream) {
-    toast("当前浏览器不支持画布录制，请使用最新版 Chrome 或 Edge。");
+  if (state.exportingModel) {
+    toast("3D 模型正在导出，请完成后再开始录制。");
     return;
   }
   if (state.recorder?.state === "recording") {
-    state.recorder.stop();
+    try { state.recorder.stop(); } catch (error) { console.error("Could not stop recording", error); }
     return;
   }
-  const stream = activeCanvas.captureStream(30);
-  const mimeType = MediaRecorder.isTypeSupported("video/webm;codecs=vp9") ? "video/webm;codecs=vp9" : "video/webm";
-  state.chunks = [];
-  state.recorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 6_000_000 });
-  state.recorder.ondataavailable = (event) => { if (event.data.size) state.chunks.push(event.data); };
-  state.recorder.onstop = () => {
-    const blob = new Blob(state.chunks, { type: mimeType });
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-    anchor.href = url;
-    anchor.download = `moemotion-${new Date().toISOString().slice(0, 19).replaceAll(":", "-")}.webm`;
-    anchor.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  if (state.viewMode === "3d" && (state.build3d !== "ready" || !state.avatar3d)) {
+    toast("3D 角色仍在构建，请准备完成后再录制。");
+    return;
+  }
+  const activeCanvas = state.viewMode === "3d" ? ui.threeCanvas : canvas;
+  if (!window.MediaRecorder || !activeCanvas.captureStream) {
+    toast("当前浏览器不支持画布录制，请使用新版 Chrome、Edge 或 Safari。");
+    return;
+  }
+  let stream;
+  try {
+    stream = activeCanvas.captureStream(30);
+    const candidates = [
+      "video/webm;codecs=vp9", "video/webm;codecs=vp8",
+      "video/mp4;codecs=avc1.42E01E", "video/mp4", "video/webm",
+    ];
+    const mimeType = typeof MediaRecorder.isTypeSupported === "function"
+      ? candidates.find((candidate) => MediaRecorder.isTypeSupported(candidate)) || ""
+      : "";
+    const options = { videoBitsPerSecond: 6_000_000 };
+    if (mimeType) options.mimeType = mimeType;
+    state.chunks = [];
+    let recordingError = null;
+    let finished = false;
+    state.recorder = new MediaRecorder(stream, options);
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      stream.getTracks().forEach((track) => track.stop());
+      ui.recordButton.classList.remove("recording");
+      ui.recordButton.setAttribute("aria-pressed", "false");
+      ui.recordButton.querySelector("span").textContent = "录制视频";
+      ui.exportModelButton.disabled = false;
+      const actualType = state.recorder?.mimeType || mimeType || "video/webm";
+      const chunks = state.chunks.slice();
+      state.recorder = null;
+      if (recordingError || !chunks.length) {
+        toast("录制没有成功保存，请换用新版浏览器后重试。");
+        return;
+      }
+      const blob = new Blob(chunks, { type: actualType });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      const extension = actualType.includes("mp4") ? "mp4" : "webm";
+      anchor.href = url;
+      anchor.download = `moemotion-${new Date().toISOString().slice(0, 19).replaceAll(":", "-")}.${extension}`;
+      anchor.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      toast(`录制完成，${extension.toUpperCase()} 视频已保存。`);
+    };
+    state.recorder.ondataavailable = (event) => { if (event.data.size) state.chunks.push(event.data); };
+    state.recorder.onerror = (event) => {
+      recordingError = event.error || new Error("录制编码失败");
+      console.error("Recording failed", recordingError);
+      if (state.recorder?.state !== "inactive") {
+        try { state.recorder.stop(); } catch (error) { finish(); }
+      } else finish();
+    };
+    state.recorder.onstop = finish;
+    state.recorder.start();
+    ui.exportModelButton.disabled = true;
+    ui.recordButton.classList.add("recording");
+    ui.recordButton.setAttribute("aria-pressed", "true");
+    ui.recordButton.querySelector("span").textContent = "停止并保存";
+    toast("正在录制。再次点击即可停止并保存。");
+  } catch (error) {
+    console.error("Could not start recording", error);
+    stream?.getTracks().forEach((track) => track.stop());
+    state.recorder = null;
+    ui.exportModelButton.disabled = false;
     ui.recordButton.classList.remove("recording");
+    ui.recordButton.setAttribute("aria-pressed", "false");
     ui.recordButton.querySelector("span").textContent = "录制视频";
-    toast("录制完成，WebM 视频已保存。");
-  };
-  state.recorder.start();
-  ui.recordButton.classList.add("recording");
-  ui.recordButton.querySelector("span").textContent = "停止并保存";
-  toast("正在录制。再次点击即可停止并保存。");
+    toast("当前浏览器无法开始录制，角色和动作不会丢失。");
+  }
 }
 
 async function export3DModel() {
@@ -986,8 +1326,15 @@ async function export3DModel() {
     toast("3D 角色还没有准备好，请稍后重试。");
     return;
   }
+  if (state.recorder?.state === "recording") {
+    toast("请先停止并保存当前录制，再导出 3D 模型。");
+    return;
+  }
+  if (state.exportingModel) return;
   const original = ui.exportModelButton.innerHTML;
+  state.exportingModel = true;
   ui.exportModelButton.disabled = true;
+  ui.recordButton.disabled = true;
   ui.exportModelButton.innerHTML = "<span>◌</span> 正在整理 GLB…";
   try {
     const data = await state.avatar3d.exportGLB();
@@ -1004,7 +1351,9 @@ async function export3DModel() {
     console.error("3D export failed", error);
     toast("3D 模型导出失败，请重试；页面中的角色不会丢失。");
   } finally {
+    state.exportingModel = false;
     ui.exportModelButton.disabled = false;
+    ui.recordButton.disabled = false;
     ui.exportModelButton.innerHTML = original;
   }
 }
@@ -1055,7 +1404,11 @@ document.querySelectorAll("[data-prompt]").forEach((button) => {
 document.querySelectorAll("[data-style]").forEach((button) => {
   button.addEventListener("click", () => {
     state.selectedStyle = button.dataset.style;
-    document.querySelectorAll("[data-style]").forEach((item) => item.classList.toggle("selected", item === button));
+    document.querySelectorAll("[data-style]").forEach((item) => {
+      const selected = item === button;
+      item.classList.toggle("selected", selected);
+      item.setAttribute("aria-pressed", String(selected));
+    });
   });
 });
 ui.cameraConsent.addEventListener("change", () => {
@@ -1093,6 +1446,11 @@ document.querySelectorAll("dialog").forEach((dialog) => {
 });
 ui.dropzone.addEventListener("dragover", (event) => { event.preventDefault(); ui.dropzone.classList.add("dragging"); });
 ui.dropzone.addEventListener("dragleave", () => ui.dropzone.classList.remove("dragging"));
+ui.dropzone.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  event.preventDefault();
+  openFilePicker();
+});
 ui.dropzone.addEventListener("drop", (event) => {
   event.preventDefault();
   ui.dropzone.classList.remove("dragging");
@@ -1105,7 +1463,11 @@ document.querySelectorAll("[data-background]").forEach((button) => {
   button.addEventListener("click", () => {
     state.background = button.dataset.background;
     state.avatar3d?.setBackground(state.background);
-    document.querySelectorAll("[data-background]").forEach((item) => item.classList.toggle("selected", item === button));
+    document.querySelectorAll("[data-background]").forEach((item) => {
+      const selected = item === button;
+      item.classList.toggle("selected", selected);
+      item.setAttribute("aria-pressed", String(selected));
+    });
     savePreferences();
   });
 });
@@ -1115,12 +1477,14 @@ Object.entries(ui.ranges).forEach(([name, range]) => {
 });
 window.addEventListener("beforeunload", () => {
   video.srcObject?.getTracks().forEach((track) => track.stop());
+  state.recorder?.stream?.getTracks().forEach((track) => track.stop());
   if (state.imageUrl.startsWith("blob:")) URL.revokeObjectURL(state.imageUrl);
   state.avatar3d?.dispose?.();
 });
 
 restorePreferences();
 setViewButtons("2d");
+setSourceMode("demo");
 updateViewPresentation();
 setJourney("image");
 updateNextButton();

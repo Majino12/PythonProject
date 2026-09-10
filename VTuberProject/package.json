@@ -1,12 +1,13 @@
 {
   "name": "moemotion",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "private": true,
   "type": "module",
-  "description": "Turn one character image into an automatic 2D or procedural 3D VTuber avatar.",
+  "description": "Turn one character image into an expressive wide-angle 2D or procedural 3D VTuber avatar.",
   "scripts": {
     "dev": "node server.mjs",
     "start": "node server.mjs",
-    "check": "node --check app.js && node --check avatar3d.js && node --check server.mjs"
+    "check": "node --check app.js && node --check motion.js && node --check avatar3d.js && node --check server.mjs && node --check motion.test.mjs",
+    "test": "node --test motion.test.mjs"
   }
 }

@@ -48,7 +48,7 @@ async function generateAvatar(request, response) {
       game: "premium game character concept art, crisp shapes, vivid but balanced colors",
     }[style] || "polished modern anime illustration";
     const prompt = [
-      "Create a production-ready VTuber character image optimized for automatic 2D motion tracking.",
+      "Create a production-ready VTuber character image optimized for automatic 2D motion tracking and procedural 3D avatar creation.",
       styleGuide + ".",
       `Character request: ${description.trim()}`,
       "Show one single character from head to mid-thigh, facing directly forward in a neutral symmetrical pose.",

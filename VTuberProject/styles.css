@@ -173,6 +173,7 @@ h1 em { color: transparent; font-style: normal; -webkit-text-stroke: 1px rgba(25
 .canvas-shell { position: relative; min-height: 500px; display: grid; place-items: center; overflow: hidden; }
 #avatarCanvas, #threeCanvas { width: min(74vh, 680px, 90%); max-height: 100%; aspect-ratio: 1; object-fit: contain; filter: drop-shadow(0 20px 30px rgba(0,0,0,.32)); }
 #threeCanvas { cursor: grab; touch-action: none; }
+#threeCanvas:focus-visible { outline: 2px solid var(--purple); outline-offset: 4px; }
 #threeCanvas.dragging { cursor: grabbing; }
 .landmark-pill { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); padding: 7px 11px; border: 1px solid rgba(125,245,189,.2); border-radius: 99px; color: #b5fbd8; background: rgba(16,14,24,.72); backdrop-filter: blur(12px); font-size: 9px; white-space: nowrap; }
 .scan-state { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 14px; background: rgba(16,14,24,.68); backdrop-filter: blur(8px); font-size: 11px; }
