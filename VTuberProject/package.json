@@ -1,13 +1,13 @@
 {
   "name": "moemotion",
-  "version": "0.5.0",
+  "version": "0.8.0",
   "private": true,
   "type": "module",
-  "description": "Turn one character image into an expressive wide-angle 2D or procedural 3D VTuber avatar.",
+  "description": "Animate character artwork in 2D or drive a licensed recolorable VRM avatar with a lightweight 3D fallback.",
   "scripts": {
     "dev": "node server.mjs",
     "start": "node server.mjs",
-    "check": "node --check app.js && node --check motion.js && node --check avatar3d.js && node --check server.mjs && node --check motion.test.mjs",
-    "test": "node --test motion.test.mjs"
+    "check": "node --input-type=module -e \"import {readdirSync} from 'node:fs'; import {spawnSync} from 'node:child_process'; for (const entry of readdirSync('.', {withFileTypes:true}).filter(entry => entry.isFile() && /[.]m?js$/.test(entry.name)).sort((a,b) => a.name.localeCompare(b.name))) { const result = spawnSync(process.execPath, ['--check', entry.name], {stdio:'inherit'}); if (result.error) throw result.error; if (result.status !== 0) process.exit(result.status ?? 1); }\"",
+    "test": "node --test *.test.mjs"
   }
 }

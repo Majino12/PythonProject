@@ -1,0 +1,14 @@
+# Local dependencies and generated output
+node_modules/
+dist/
+coverage/
+.cache/
+*.log
+.DS_Store
+
+# Credentials and personal projects / recordings
+.env*
+!.env.example
+*.moemotion
+*.webm
+*.mp4

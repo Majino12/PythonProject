@@ -1,0 +1,8 @@
+Asset: demo-luna-v1.png
+Created: 2026-10-14
+Method: built-in image_gen tool; transparent_background=true.
+Purpose: original built-in demo illustration for MoeMotion. Not a downloaded third-party character.
+The original output was copied without raster edits. Alpha channel was inspected and preserved.
+
+Final generation prompt:
+Use case: stylized-concept. Asset type: polished original VTuber full-body character illustration for a local avatar application. Create ONE beautiful original adult anime woman with refined proportions (about 5.5 heads tall), facing exactly forward, symmetrical relaxed standing A-pose with both arms slightly away from torso and hands visible, eyes open looking forward, gentle CLOSED-mouth smile. Silver-lavender shoulder-length layered bob hair, soft side fringe that leaves both eyebrows and eyes visible, luminous violet almond-shaped eyes, delicate clean eyelashes, warm ivory skin. Tasteful modern sailor-inspired outfit: ivory high-neck blouse, short dark ink-navy fitted jacket, violet ribbon at collar, modest violet A-line skirt, dark opaque tights and ankle boots. Small simple silver hair clip, no large decorative star. Premium hand-drawn Japanese game character illustration: beautifully controlled thin lines, soft cel shading, subtle fabric folds, appealing elegant face, clean silhouette. Neutral even illumination, no cast background shadow. Full body completely visible, head and boots inside generous margins; centered on genuinely transparent alpha background, portrait image. This is an animation source asset: do not crop fingers or feet; no floating props, no scene, no text, no watermark, no extra characters, no visible checkerboard, no photorealism, no chibi giant head, no open mouth.

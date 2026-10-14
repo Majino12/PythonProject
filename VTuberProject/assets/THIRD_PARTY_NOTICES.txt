@@ -1,0 +1,74 @@
+MoeMotion third-party avatar asset notices
+
+Asset: pixiv-vrm1-sample.vrm
+Original name: VRM1_Constraint_Twist_Sample
+Original version: v1.0.1
+Author / copyright: (c) 2022 pixiv Inc.
+File size: 10,776,032 bytes
+SHA-256: 12c2b97e95e700783a6a550dc0eee2d7880aeedccef9ae67bc4c5a2f0f2631a2
+
+The included VRM file is unmodified from this fixed upstream revision:
+https://raw.githubusercontent.com/pixiv/three-vrm/5a3242b66124386c32b085c6693d9059040e72e5/packages/three-vrm/examples/models/VRM1_Constraint_Twist_Sample.vrm
+
+Official sample documentation:
+https://github.com/vrm-c/vrm-specification/blob/master/samples/VRM1_Constraint_Twist_Sample/README.md
+
+Model license: VRM Public License 1.0 (NOT the software's MIT license)
+License URL recorded in the model: https://vrm.dev/licenses/1.0/
+English license text: https://vrm.dev/en/licenses/1.0/
+
+Embedded VRMC_vrm.meta permission settings, verified from the included file:
+  authors: ["pixiv Inc."]
+  copyrightInformation: "(c) 2022 pixiv Inc."
+  licenseUrl: "https://vrm.dev/licenses/1.0/"
+  avatarPermission: "everyone"
+  commercialUsage: "corporation"
+  creditNotation: "unnecessary"
+  allowRedistribution: true
+  modification: "allowModificationRedistribution"
+  allowAntisocialOrHateUsage: false
+  allowExcessivelySexualUsage: true
+  allowExcessivelyViolentUsage: true
+  allowPoliticalOrReligiousUsage: true
+
+The license and these embedded settings together govern the model. They permit
+model/avatar use, including commercial use by corporations, redistribution,
+modification (including recoloring), and redistribution of modified versions.
+They prohibit antisocial or hate expressions as defined in the license.
+
+Redistribution and adaptation requirements:
+- Keep the model governed by its VRM Public License 1.0 and embedded settings;
+  do not relicense its underlying meshes, textures or other content as MIT,
+  public domain, or as exclusively owned by MoeMotion.
+- If distributing an adapted VRM, comply with section 3(b), including recording
+  the adapter's license in the License Settings. An adapter's terms must not
+  prevent recipients from applying the original license to the original work;
+  the subject acts and terms must be the same as or more restrictive than the
+  original license. Do not add restrictions to redistribution of the original
+  work that contradict section 2(a)(8).
+- Keep this source/license notice with the asset and document any distributed
+  model changes. Although this file does not require attribution, attribution
+  is retained here to identify the source clearly.
+- No endorsement, sponsorship, or official affiliation with pixiv is implied.
+  The model is supplied as-is without warranties; see section 4 of its license.
+
+This file summarizes provenance and records the actual settings. The full VRM
+Public License 1.0 and embedded settings control if a summary is incomplete.
+This character is a separately authored model, not a reconstruction of an
+image supplied by the user. Runtime recoloring does not change that fact.
+
+Palette exports from MoeMotion:
+When a palette export changes material factors or replaces recolored textures,
+MoeMotion keeps the original authors, license URL, permission flags, rig,
+expressions and other model extensions. The original binary data is retained
+and recolored PNG textures are appended. The model's copyrightInformation
+retains its original contents and records the adapter's license once as:
+
+"Recolored using MoeMotion. The recoloring contributions are licensed under
+VRM Public License 1.0 (https://vrm.dev/en/licenses/1.0/) with the same unchanged
+License Settings as the original work. No additional restrictions. Original
+author and original license remain unchanged."
+
+This adaptation notice is added only to changed exports, not to the bundled
+unmodified source VRM. It does not claim ownership of the original model or
+relicense the original work as MIT.

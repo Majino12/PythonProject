@@ -1,11 +1,17 @@
 import { extractFaceMotion, extractPoseMotion, normalizeExpressions } from "./motion.js";
+import { createProject, parseProject, normalizePreferences, saveProject, loadProject } from "./project-store.js";
+import { extractAppearance } from "./appearance.js";
+import { createDemoMotion } from "./demo-motion.js";
+import { PortraitWarp } from "./portrait-warp.js";
+import { createAvatar3D } from "./avatar-loader.js";
 
 const $ = (selector) => document.querySelector(selector);
 
 const canvas = $("#avatarCanvas");
 const ctx = canvas.getContext("2d", { alpha: true });
 const video = $("#camera");
-let avatar3dModulePromise = null;
+let portraitWarp = null;
+const DEMO_PALETTE = { skin: "#f5d9ce", hair: "#bcb5c9", outfit: "#39374e", eyes: "#9571bc", accent: "#8c7bac" };
 const MOTION_DEFAULTS = Object.freeze({
   x: 0, y: 0, roll: 0,
   blinkL: 0, blinkR: 0, eyeWideL: 0, eyeWideR: 0,
@@ -42,8 +48,26 @@ const ui = {
   landmarkPill: $("#landmarkPill"),
   recordButton: $("#recordButton"),
   exportModelButton: $("#exportModelButton"),
-  heroStartButton: $("#heroStartButton"),
-  aiHeroButton: $("#aiHeroButton"),
+  projectName: $("#projectName"),
+  saveState: $("#saveState"),
+  projectInput: $("#projectInput"),
+  exportProjectButton: $("#exportProjectButton"),
+  openProjectButton: $("#openProjectButton"),
+  recalibrateButton: $("#recalibrateButton"),
+  stopCameraButton: $("#stopCameraButton"),
+  resetTuningButton: $("#resetTuningButton"),
+  previewButton: $("#previewButton"),
+  exitPreviewButton: $("#exitPreviewButton"),
+  screenshotButton: $("#screenshotButton"),
+  demoMotion: $("#demoMotion"),
+  hairStyle: $("#hairStyle"),
+  modelStyle: $("#modelStyle"),
+  appearanceHint: $("#appearanceHint"),
+  hairColor: $("#hairColor"),
+  outfitColor: $("#outfitColor"),
+  eyesColor: $("#eyesColor"),
+  resetAppearance: $("#resetAppearance"),
+  demoAvatarButton: $("#demoAvatarButton"),
   aiOpenButton: $("#aiOpenButton"),
   aiDialog: $("#aiDialog"),
   characterPrompt: $("#characterPrompt"),
@@ -56,17 +80,12 @@ const ui = {
   cameraConsentDialog: $("#cameraConsentDialog"),
   cameraConsent: $("#cameraConsent"),
   cameraConsentButton: $("#cameraConsentButton"),
-  nextButton: $("#nextButton"),
   qualityCard: $("#qualityCard"),
   qualityScore: $("#qualityScore"),
   qualityList: $("#qualityList"),
   calibration: $("#calibration"),
   calibrationCount: $("#calibrationCount"),
-  welcomeDialog: $("#welcomeDialog"),
   helpDialog: $("#helpDialog"),
-  welcomeStartButton: $("#welcomeStartButton"),
-  welcomeUploadButton: $("#welcomeUploadButton"),
-  welcomeDemoButton: $("#welcomeDemoButton"),
   helpButton: $("#helpButton"),
   toast: $("#toast"),
   faceBadge: $("#faceBadge"),
@@ -94,7 +113,6 @@ const state = {
   tracking: { ...MOTION_DEFAULTS },
   smooth: { ...MOTION_DEFAULTS },
   recorder: null,
-  chunks: [],
   hasCustomAvatar: false,
   ready: false,
   calibrating: false,
@@ -120,7 +138,23 @@ const state = {
   cameraConsentGranted: false,
   avatar3d: null,
   build3d: "idle",
+  avatar3dPromise: null,
+  avatarBuildToken: 0,
+  avatarBuildController: null,
+  modelStyle: "studio",
   imageImportToken: 0,
+  imageDataUrl: null,
+  generating: false,
+  projectBusy: true,
+  storageAvailable: true,
+  projectRevision: 0,
+  savedRevision: 0,
+  savePromise: null,
+  previewMode: false,
+  demoMotion: "idle",
+  framing: "portrait",
+  appearance: { hairStyle: "bob", faceWidth: 1, eyeScale: 1, palette: { ...DEMO_PALETTE } },
+  appearanceOverrides: {},
   landmarkMessage: "✦ 示例角色已自动绑定",
   avatarPalette: {
     skin: "#f0c7cb",
@@ -154,8 +188,10 @@ function toast(message) {
 }
 
 function setStatus(title, detail, live = true) {
-  ui.status.querySelector("b").textContent = title;
-  ui.status.querySelector("small").textContent = detail;
+  const titleNode = ui.status.querySelector("b");
+  const detailNode = ui.status.querySelector("small");
+  if (titleNode.textContent !== title) titleNode.textContent = title;
+  if (detailNode.textContent !== detail) detailNode.textContent = detail;
   ui.status.querySelector("span").style.background = live ? "var(--green)" : "#ffcf70";
 }
 
@@ -165,6 +201,14 @@ function setSourceMode(mode) {
   ui.demoButton.classList.toggle("selected", !cameraSelected);
   ui.cameraButton.setAttribute("aria-pressed", String(cameraSelected));
   ui.demoButton.setAttribute("aria-pressed", String(!cameraSelected));
+  ui.demoMotion.disabled = cameraSelected;
+  updateCameraControls();
+}
+
+function updateCameraControls() {
+  ui.recalibrateButton.disabled = state.mode !== "camera" || state.calibrating;
+  ui.stopCameraButton.disabled = state.mode !== "camera" && !state.cameraStarting;
+  ui.stopCameraButton.textContent = state.cameraStarting ? "取消连接" : "关闭摄像头";
 }
 
 function setCameraButtonLabel(connecting = false) {
@@ -186,8 +230,38 @@ function updateViewPresentation() {
   canvas.classList.toggle("hidden", show3d);
   ui.threeCanvas.classList.toggle("hidden", !show3d);
   ui.exportModelButton.classList.toggle("hidden", !show3d);
-  ui.landmarkPill.textContent = show3d ? "⬡ 宽角度 3D 动捕已就绪 · 拖动可旋转" : state.landmarkMessage;
+  const studio = state.avatar3d?.modelStyle === "studio";
+  ui.landmarkPill.textContent = show3d
+    ? studio ? "✧ 精细 3D · 表情与发丝物理已就绪" : state.avatar3d?.fallbackUsed ? "⬡ 轻量备用模型 · 精细模型暂不可用" : "⬡ 轻量 3D · 拖动可旋转"
+    : state.landmarkMessage;
+  ui.exportModelButton.title = studio ? "下载保留骨骼、表情、配色和许可的 VRM；不包含当前动作" : "下载中立姿态单文件 GLB";
+  updateAppearanceControls();
   if (!state.build3d.includes("building")) ui.landmarkPill.classList.remove("hidden");
+}
+
+function updateAppearanceControls() {
+  ui.modelStyle.value = state.modelStyle;
+  ui.modelStyle.disabled = state.build3d === "building" || Boolean(state.recorder) || state.exportingModel;
+  const studio = state.avatar3d ? state.avatar3d.modelStyle === "studio" : state.modelStyle === "studio";
+  ui.hairStyle.disabled = studio || state.exportingModel;
+  for (const input of [ui.hairColor, ui.outfitColor, ui.eyesColor, ui.resetAppearance]) input.disabled = state.exportingModel;
+  ui.appearanceHint.textContent = studio
+    ? "精细模型参考图片配色，保留模板的发型和服装。不是原图的完整重建；原图不会改变。"
+    : "轻量模型可切换发型、参考图片取色。需要更细致的脸部和服装时，选择精细模型。";
+}
+
+function resetAvatar3D() {
+  state.avatarBuildToken += 1;
+  state.avatarBuildController?.abort();
+  state.avatarBuildController = null;
+  state.avatar3d?.dispose?.();
+  state.avatar3d = null;
+  state.avatar3dPromise = null;
+  state.build3d = "idle";
+  ui.threeLoading.classList.add("hidden");
+  ui.recordButton.disabled = Boolean(state.exportingModel);
+  setViewButtons(state.viewMode);
+  updateAppearanceControls();
 }
 
 function setThreeLoading(title, detail) {
@@ -197,46 +271,55 @@ function setThreeLoading(title, detail) {
 
 async function ensureAvatar3D() {
   if (state.avatar3d) return state.avatar3d;
-  if (state.build3d === "building") return null;
+  if (state.avatar3dPromise) return state.avatar3dPromise;
+  const token = ++state.avatarBuildToken;
+  const controller = state.avatarBuildController = new AbortController();
   state.build3d = "building";
   ui.threeLoading.classList.remove("hidden");
   ui.landmarkPill.classList.add("hidden");
   ui.recordButton.disabled = true;
-  setThreeLoading("正在载入 3D 引擎", "首次使用需要联网 · 失败会自动返回 2D");
   setViewButtons(state.viewMode, true);
-  try {
-    if (!avatar3dModulePromise) {
-      avatar3dModulePromise = import("./avatar3d.js").catch((error) => {
-        avatar3dModulePromise = null;
-        throw error;
+  updateAppearanceControls();
+  state.avatar3dPromise = (async () => {
+    try {
+      const avatar = await createAvatar3D(ui.threeCanvas, {
+        modelStyle: state.modelStyle,
+        signal: controller.signal,
+        onProgress: (style) => setThreeLoading(style === "studio" ? "正在载入精细 3D 模型" : "正在构建轻量 3D 模型", style === "studio" ? "加载骨骼、表情和发丝物理 · 首次引擎加载需要联网" : "精细模型不可用时，会自动使用轻量模型"),
       });
+      if (token !== state.avatarBuildToken) { avatar.dispose(); throw new DOMException("加载已取消", "AbortError"); }
+      state.avatar3d = avatar;
+      applyAvatarAppearance();
+      avatar.setFraming?.(state.framing);
+      avatar.setBackground(state.background);
+      state.build3d = "ready";
+      return avatar;
+    } catch (error) {
+      if (token !== state.avatarBuildToken) throw new DOMException("加载已取消", "AbortError");
+      if (token === state.avatarBuildToken) {
+        console.warn("3D initialization failed", error);
+        state.avatar3d?.dispose?.();
+        state.avatar3d = null;
+        state.build3d = "error";
+      }
+      throw error;
+    } finally {
+      if (token === state.avatarBuildToken) {
+        state.avatar3dPromise = null;
+        state.avatarBuildController = null;
+        ui.threeLoading.classList.add("hidden");
+        setViewButtons(state.viewMode, false);
+        ui.recordButton.disabled = state.exportingModel;
+        updateAppearanceControls();
+      }
     }
-    const { Avatar3D } = await withTimeout(avatar3dModulePromise, 25_000, "3D 引擎加载超时");
-    setThreeLoading("正在自动构建 3D 角色", "提取配色 · 创建模型 · 绑定动作");
-    await new Promise((resolve) => requestAnimationFrame(resolve));
-    state.avatar3d = new Avatar3D(ui.threeCanvas);
-    state.avatar3d.setPalette(state.avatarPalette);
-    state.avatar3d.setBackground(state.background);
-    state.build3d = "ready";
-    setJourney("ready");
-    return state.avatar3d;
-  } catch (error) {
-    console.error("3D initialization failed", error);
-    if (error.message === "3D 引擎加载超时") avatar3dModulePromise = null;
-    state.avatar3d?.dispose?.();
-    state.avatar3d = null;
-    state.build3d = "error";
-    throw error;
-  } finally {
-    ui.threeLoading.classList.add("hidden");
-    setViewButtons(state.viewMode, false);
-    ui.recordButton.disabled = state.exportingModel;
-  }
+  })();
+  return state.avatar3dPromise;
 }
 
 async function setViewMode(mode) {
-  if (!["2d", "3d"].includes(mode) || mode === state.viewMode && state.build3d !== "error") return;
-  if (state.recorder?.state === "recording") {
+  if (!["2d", "3d"].includes(mode) || mode === state.viewMode && (mode === "2d" || state.build3d === "ready")) return;
+  if (state.recorder) {
     toast("请先停止当前录制，再切换 2D / 3D。");
     return;
   }
@@ -246,6 +329,7 @@ async function setViewMode(mode) {
     ui.threeLoading.classList.add("hidden");
     updateViewPresentation();
     toast("已切换到 2D 单图动画，角色与动作设置都已保留。");
+    savePreferences();
     return;
   }
   try {
@@ -253,81 +337,243 @@ async function setViewMode(mode) {
     if (state.viewMode !== "3d") return;
     updateViewPresentation();
     state.avatar3d.render();
-    toast("3D 角色已自动生成。拖动可旋转，双击回到正面。");
+    toast(state.avatar3d.fallbackUsed ? "精细模型暂时不可用，已切换到轻量备用模型。" : "3D 已就绪。拖动可旋转，双击回到正面。");
   } catch (error) {
+    if (error.name === "AbortError") return;
     state.viewMode = "2d";
     setViewButtons("2d");
     updateViewPresentation();
     toast("当前设备或网络暂时无法加载 3D，已安全返回 2D。可以稍后重试。");
   }
-}
-
-function setJourney(stage) {
-  const steps = [$("#journeyImage"), $("#journeyCamera"), $("#journeyReady")];
-  const activeIndex = { image: 0, camera: 1, ready: 2 }[stage] ?? 0;
-  steps.forEach((step, index) => {
-    step.classList.toggle("done", index < activeIndex || (stage === "ready" && index === 2));
-    step.classList.toggle("current", index === activeIndex && stage !== "ready");
-  });
-}
-
-function updateNextButton() {
-  ui.nextButton.classList.toggle("ready", state.ready);
-  if (!state.hasCustomAvatar) {
-    ui.nextButton.querySelector("span").textContent = "先创建我的角色";
-    ui.nextButton.querySelector("b").textContent = "AI 生成或导入 →";
-  } else if (state.mode !== "camera") {
-    ui.nextButton.querySelector("span").textContent = "下一步：开启摄像头";
-    ui.nextButton.querySelector("b").textContent = "自动校准 →";
-  } else if (state.calibrating) {
-    ui.nextButton.querySelector("span").textContent = "正在自动校准…";
-    ui.nextButton.querySelector("b").textContent = "请保持正脸";
-  } else {
-    ui.nextButton.querySelector("span").textContent = "已经可以开始使用";
-    ui.nextButton.querySelector("b").textContent = "✓ 全部就绪";
-  }
+  savePreferences();
 }
 
 function closeDialog(dialog) {
   if (dialog?.open) dialog.close();
 }
 
-function savePreferences() {
-  try {
-    localStorage.setItem("moemotion-preferences", JSON.stringify({
+function currentProject() {
+  return createProject({
+    name: ui.projectName.value,
+    imageDataUrl: state.imageDataUrl,
+    preferences: {
       background: state.background,
-      head: ui.ranges.head.value,
-      blink: ui.ranges.blink.value,
-      mouth: ui.ranges.mouth.value,
-      expression: ui.ranges.expression.value,
-      body: ui.ranges.body.value,
-    }));
-  } catch (error) {
-    console.warn("Could not save preferences", error);
-  }
+      viewMode: state.viewMode,
+      demoMotion: state.demoMotion,
+      framing: state.framing,
+      modelStyle: state.modelStyle,
+      appearance: state.appearanceOverrides,
+      ...Object.fromEntries(Object.entries(ui.ranges).map(([key, range]) => [key, Number(range.value)])),
+    },
+  });
 }
 
-function restorePreferences() {
+function applyPreferences(raw) {
+  const saved = normalizePreferences(raw);
+  for (const [name, range] of Object.entries(ui.ranges)) {
+    range.value = saved[name];
+    $(`#${name}Output`).textContent = `${range.value}%`;
+  }
+  state.background = saved.background;
+  state.demoMotion = saved.demoMotion;
+  state.framing = saved.framing;
+  if (state.modelStyle !== saved.modelStyle) resetAvatar3D();
+  state.modelStyle = saved.modelStyle;
+  updateFraming();
+  ui.demoMotion.value = saved.demoMotion;
+  state.appearanceOverrides = { ...saved.appearance };
+  applyAvatarAppearance();
+  document.body.style.setProperty("--preview-background", state.background === "green" ? "#00b140" : "#100e18");
+  state.avatar3d?.setBackground(state.background);
+  document.querySelectorAll("[data-background]").forEach((button) => {
+    const selected = button.dataset.background === saved.background;
+    button.classList.toggle("selected", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+  return saved;
+}
+
+function savePreferences() {
+  if (state.projectBusy) return;
+  state.projectRevision += 1;
+  clearTimeout(savePreferences.timer);
+  ui.saveState.textContent = state.storageAvailable ? "正在保存…" : "本机保存不可用 · 请下载项目备份";
+  if (state.storageAvailable) savePreferences.timer = setTimeout(flushProjectSave, 200);
+}
+
+async function flushProjectSave() {
+  clearTimeout(savePreferences.timer);
+  if (state.savePromise || !state.storageAvailable) return state.savePromise;
+  if (state.savedRevision >= state.projectRevision) return;
+  state.savePromise = (async () => {
+    try {
+      while (state.savedRevision < state.projectRevision) {
+        const revision = state.projectRevision;
+        await saveProject(currentProject());
+        state.savedRevision = revision;
+      }
+      ui.saveState.textContent = "已保存到本机";
+    } catch (error) {
+      state.storageAvailable = false;
+      ui.saveState.textContent = "本机保存不可用 · 请下载项目备份";
+      console.warn("Project save unavailable", error);
+      toast("浏览器无法保存项目。请用“下载项目”备份，避免丢失角色。");
+    } finally {
+      state.savePromise = null;
+    }
+  })();
+  return state.savePromise;
+}
+
+function setProjectBusy(busy) {
+  state.projectBusy = busy;
+  $(".workspace").inert = busy;
+}
+
+function canReplaceProject() {
+  if (state.projectBusy || state.generating || state.recorder || state.exportingModel) {
+    toast("请先完成当前生成、录制或导出，再更换角色或项目。");
+    return false;
+  }
+  return true;
+}
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 10_000);
+}
+
+function outputName(extension) {
+  const name = (ui.projectName.value.trim() || "我的角色").replace(/[\\/:*?"<>|\u0000-\u001f]/g, "_");
+  return `${name}-${new Date().toISOString().slice(0, 19).replaceAll(":", "-")}.${extension}`;
+}
+
+function exportProject() {
   try {
-    const saved = JSON.parse(localStorage.getItem("moemotion-preferences") || "null");
-    if (!saved) return;
-    for (const name of ["head", "blink", "mouth", "expression", "body"]) {
-      if (saved[name]) {
-        ui.ranges[name].value = saved[name];
-        $(`#${name}Output`).textContent = `${saved[name]}%`;
+    const project = currentProject();
+    downloadBlob(new Blob([JSON.stringify(project)], { type: "application/json" }), outputName("moemotion"));
+    toast("项目备份已下载，包含角色图片和设置，不含密钥或摄像头数据。");
+  } catch (error) { toast(error.message || "项目备份失败，请重试。"); }
+}
+
+async function installProject(project) {
+  // Decode before changing settings so a damaged backup cannot replace the working project.
+  if (project.imageDataUrl) {
+    const installed = await importImageData(project.imageDataUrl, project.name);
+    if (!installed) throw new Error("项目中的角色图片无法读取，原项目已保留。");
+  } else {
+    state.imageImportToken += 1;
+    await makeDemoAvatar();
+    state.hasCustomAvatar = false;
+    state.imageDataUrl = null;
+    state.landmarkMessage = "✦ 原创示例 · 月见 Luna";
+    ui.fileRow.classList.add("hidden");
+    ui.qualityCard.classList.add("hidden");
+    ui.scanState.classList.add("hidden");
+    ui.dropzone.classList.remove("hidden");
+    updateViewPresentation();
+  }
+  ui.projectName.value = project.name;
+  const preferences = applyPreferences(project.preferences);
+  useDemo();
+  await setViewMode(preferences.viewMode);
+}
+
+async function openProject(file) {
+  if (!file || !canReplaceProject()) return;
+  if (file.size > 29 * 1024 * 1024) return toast("项目文件过大，请选择 MoeMotion 导出的项目备份。");
+  setProjectBusy(true);
+  try {
+    const project = parseProject(await file.text());
+    await installProject(project);
+    toast("项目已打开。摄像头保持关闭，需要时可手动开启。");
+  } catch (error) { toast(error.message || "无法打开这个项目，原项目已保留。"); }
+  finally { setProjectBusy(false); savePreferences(); }
+}
+
+async function initializeProject() {
+  setProjectBusy(true);
+  ui.saveState.textContent = "正在恢复本机项目…";
+  const protectStoredProject = (error) => {
+    state.storageAvailable = false;
+    ui.saveState.textContent = "恢复失败 · 请刷新或打开项目备份";
+    toast("本机项目暂时无法恢复，已暂停自动保存以保护旧数据。可刷新重试或打开备份。");
+    console.warn("Project restore unavailable", error);
+  };
+  try {
+    let project = null;
+    try { project = await loadProject(); }
+    catch (error) { protectStoredProject(error); }
+    // A user's saved image must not depend on the optional bundled demo asset.
+    if (project?.imageDataUrl) {
+      try {
+        await installProject(project);
+        ui.saveState.textContent = "已恢复上次项目 · 摄像头未开启";
+        return;
+      } catch (error) {
+        protectStoredProject(error);
+        project = null;
       }
     }
-    if (["gradient", "transparent", "green"].includes(saved.background)) {
-      state.background = saved.background;
-      document.querySelectorAll("[data-background]").forEach((button) => {
-        const selected = button.dataset.background === saved.background;
-        button.classList.toggle("selected", selected);
-        button.setAttribute("aria-pressed", String(selected));
-      });
+    let demoAvailable = false;
+    try { demoAvailable = await makeDemoAvatar(); }
+    catch (error) {
+      console.warn("Demo illustration unavailable", error);
+      setStatus("请导入角色", "示例立绘暂时无法载入", false);
+      toast("示例立绘暂时无法载入，可导入自己的图片或打开项目备份。");
     }
-  } catch (error) {
-    console.warn("Could not restore preferences", error);
-  }
+    if (project) {
+      ui.projectName.value = project.name;
+      const preferences = applyPreferences(project.preferences);
+      useDemo();
+      await setViewMode(preferences.viewMode);
+    } else {
+      try { applyPreferences(JSON.parse(localStorage.getItem("moemotion-preferences") || "null")); }
+      catch { applyPreferences(null); }
+    }
+    if (state.storageAvailable) {
+      ui.saveState.textContent = project
+        ? demoAvailable ? "已恢复上次项目 · 摄像头未开启" : "设置已恢复 · 请导入角色图片"
+        : "修改后自动保存在此浏览器";
+    }
+  } finally { setProjectBusy(false); }
+}
+
+function setPreviewMode(enabled) {
+  state.previewMode = enabled;
+  document.body.classList.toggle("preview-mode", enabled);
+  ui.exitPreviewButton.classList.toggle("hidden", !enabled);
+  ui.previewButton.setAttribute("aria-pressed", String(enabled));
+  (enabled ? ui.exitPreviewButton : ui.previewButton).focus();
+  window.dispatchEvent(new Event("resize"));
+}
+
+function updateFraming() {
+  state.avatar3d?.setFraming?.(state.framing);
+  document.querySelectorAll("[data-framing]").forEach((button) => {
+    const selected = button.dataset.framing === state.framing;
+    button.classList.toggle("selected", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+}
+
+async function takeScreenshot() {
+  if (!state.image || state.exportingModel || state.build3d === "building") return toast("画面正在准备，请稍后截图。");
+  ui.screenshotButton.disabled = true;
+  try {
+    const activeCanvas = state.viewMode === "3d" ? ui.threeCanvas : canvas;
+    if (state.viewMode === "3d") state.avatar3d.render();
+    else render();
+    const blob = await new Promise((resolve) => activeCanvas.toBlob(resolve, "image/png"));
+    if (!blob) throw new Error("没有可保存的画面");
+    downloadBlob(blob, outputName("png"));
+    toast("PNG 截图已下载，只包含角色画面，不包含界面。");
+  } catch { toast("截图失败，请重试或切换到 2D 模式。"); }
+  finally { ui.screenshotButton.disabled = false; }
 }
 
 function showQualityReport(image, landmarks) {
@@ -358,7 +604,7 @@ function openAiStudio() {
 function updateGenerateButton() {
   const validPrompt = ui.characterPrompt.value.trim().length >= 3;
   const validKey = ui.apiKey.value.trim().startsWith("sk-") && ui.apiKey.value.trim().length >= 20;
-  ui.generateButton.disabled = !(validPrompt && validKey && ui.apiConsent.checked);
+  ui.generateButton.disabled = state.generating || !(validPrompt && validKey && ui.apiConsent.checked);
 }
 
 function base64ToAvatarFile(base64) {
@@ -369,10 +615,13 @@ function base64ToAvatarFile(base64) {
 }
 
 async function generateAvatar() {
-  if (ui.generateButton.disabled) return;
+  if (state.generating || ui.generateButton.disabled || !canReplaceProject()) return;
   const apiKey = ui.apiKey.value.trim();
   const description = ui.characterPrompt.value.trim();
-  ui.generateButton.disabled = true;
+  state.generating = true;
+  const generationControls = [ui.characterPrompt, ui.apiKey, ui.apiConsent, ...document.querySelectorAll("[data-style], [data-prompt]")];
+  generationControls.forEach((control) => { control.disabled = true; });
+  updateGenerateButton();
   ui.generationProgress.classList.remove("hidden");
   const hints = ["正在整理五官与身体结构", "正在绘制角色服装与配色", "正在优化透明背景和动捕姿势", "快完成了，正在输出高清立绘"];
   let hintIndex = 0;
@@ -392,11 +641,21 @@ async function generateAvatar() {
     ui.apiKey.value = "";
     ui.apiConsent.checked = false;
     closeDialog(ui.aiDialog);
-    await importImage(file);
-    toast("AI 角色已生成，正在自动分析并绑定动作。");
+    const imported = await importImage(file, { generated: true });
+    if (imported) toast("AI 角色已载入，正在分析五官。可下载项目留存备份。");
+    else {
+      downloadBlob(file, outputName("png"));
+      toast("立绘已生成，但未能载入，已下载原始图片供你保留。");
+    }
   } catch (error) {
     toast(error.message || "AI 生成失败，请检查 API Key 和网络后重试。");
   } finally {
+    state.generating = false;
+    generationControls.forEach((control) => { control.disabled = false; });
+    ui.apiKey.value = "";
+    ui.apiKey.type = "password";
+    ui.toggleApiKey.textContent = "显示";
+    ui.apiConsent.checked = false;
     clearInterval(hintTimer);
     ui.generationProgress.classList.add("hidden");
     ui.generationHint.textContent = hints[0];
@@ -404,77 +663,30 @@ async function generateAvatar() {
   }
 }
 
-function makeDemoAvatar() {
-  const source = document.createElement("canvas");
-  source.width = 900;
-  source.height = 900;
-  const c = source.getContext("2d");
-  const g = c.createLinearGradient(0, 0, 900, 900);
-  g.addColorStop(0, "#211b39");
-  g.addColorStop(1, "#352347");
-  c.fillStyle = g;
-  c.fillRect(0, 0, 900, 900);
-
-  c.save();
-  c.translate(450, 480);
-  c.fillStyle = "#2b203b";
-  c.beginPath(); c.ellipse(0, 90, 285, 350, 0, 0, Math.PI * 2); c.fill();
-  c.fillStyle = "#8f67ea";
-  c.beginPath(); c.moveTo(-230, 400); c.quadraticCurveTo(-210, 195, -115, 162); c.lineTo(115, 162); c.quadraticCurveTo(210, 195, 230, 400); c.closePath(); c.fill();
-  c.fillStyle = "#f3cbd0";
-  c.fillRect(-36, 120, 72, 120);
-  c.beginPath(); c.ellipse(0, -18, 190, 220, 0, 0, Math.PI * 2); c.fill();
-
-  c.fillStyle = "#2a1d3c";
-  c.beginPath(); c.moveTo(-175, -108); c.quadraticCurveTo(-118, -286, 30, -226); c.quadraticCurveTo(180, -195, 190, -34); c.quadraticCurveTo(115, -140, 35, -153); c.quadraticCurveTo(-45, -118, -90, -165); c.quadraticCurveTo(-106, -91, -175, -45); c.closePath(); c.fill();
-  c.beginPath(); c.moveTo(-174, -82); c.quadraticCurveTo(-238, 18, -163, 175); c.lineTo(-96, 107); c.quadraticCurveTo(-151, 10, -124, -72); c.fill();
-  c.beginPath(); c.moveTo(172, -75); c.quadraticCurveTo(232, 39, 153, 185); c.lineTo(105, 103); c.quadraticCurveTo(157, 10, 128, -80); c.fill();
-
-  for (const x of [-72, 72]) {
-    c.fillStyle = "#493762";
-    c.beginPath(); c.ellipse(x, -12, 43, 28, 0, 0, Math.PI * 2); c.fill();
-    c.fillStyle = "#bc96ff";
-    c.beginPath(); c.ellipse(x, -8, 24, 23, 0, 0, Math.PI * 2); c.fill();
-    c.fillStyle = "#23182f";
-    c.beginPath(); c.ellipse(x, -5, 10, 17, 0, 0, Math.PI * 2); c.fill();
-    c.fillStyle = "white";
-    c.beginPath(); c.arc(x - 6, -13, 5, 0, Math.PI * 2); c.fill();
-  }
-  c.strokeStyle = "#563b59"; c.lineWidth = 7; c.lineCap = "round";
-  c.beginPath(); c.moveTo(-25, 80); c.quadraticCurveTo(0, 96, 25, 80); c.stroke();
-  c.fillStyle = "rgba(241,133,164,.22)";
-  c.beginPath(); c.ellipse(-118, 52, 35, 15, 0, 0, Math.PI * 2); c.fill();
-  c.beginPath(); c.ellipse(118, 52, 35, 15, 0, 0, Math.PI * 2); c.fill();
-  c.fillStyle = "#ff83bd";
-  c.beginPath(); c.moveTo(0, -242); c.lineTo(17, -205); c.lineTo(57, -206); c.lineTo(29, -175); c.lineTo(39, -137); c.lineTo(0, -158); c.lineTo(-39, -137); c.lineTo(-29, -175); c.lineTo(-57, -206); c.lineTo(-17, -205); c.closePath(); c.fill();
-  c.restore();
-
-  c.fillStyle = "rgba(255,255,255,.7)";
-  for (const [x, y, r] of [[130,130,3],[760,170,5],[735,690,3],[175,745,4]]) {
-    c.beginPath(); c.arc(x,y,r,0,Math.PI*2); c.fill();
-  }
-
+async function makeDemoAvatar() {
+  const importToken = state.imageImportToken;
   const img = new Image();
-  img.onload = () => {
-    state.image = img;
-    state.imageUrl = source.toDataURL("image/png");
-    state.imageRig = {
-      leftEye: { x: 522, y: 468, w: 102, h: 66 },
-      rightEye: { x: 378, y: 468, w: 102, h: 66 },
-      mouth: { x: 450, y: 560, w: 86, h: 50 },
-      face: { x: 450, y: 462, w: 380, h: 440 },
-      skin: "#f0c7cb",
-    };
-    state.avatarPalette = {
-      skin: "#f0c7cb",
-      hair: "#2a1d3c",
-      outfit: "#8f67ea",
-      eyes: "#bc96ff",
-      accent: "#ff83bd",
-    };
-    state.avatar3d?.setPalette(state.avatarPalette);
+  await withTimeout(new Promise((resolve, reject) => {
+    img.onload = resolve;
+    img.onerror = () => reject(new Error("示例立绘无法载入，请检查 assets 文件夹或导入自己的图片。"));
+    img.src = "./assets/demo-luna-v1.png";
+  }), 10_000, "示例立绘载入超时");
+  if (importToken !== state.imageImportToken) return false;
+  state.image = img;
+  state.imageUrl = img.src;
+  state.imageRig = {
+    leftEye: { x: 550, y: 143, w: 49, h: 31 },
+    rightEye: { x: 480, y: 147, w: 51, h: 31 },
+    mouth: { x: 519, y: 191, w: 42, h: 24 },
+    face: { x: 517, y: 153, w: 140, h: 158 },
+    skin: DEMO_PALETTE.skin, patchesEnabled: true,
   };
-  img.src = source.toDataURL("image/png");
+  state.appearance = { hairStyle: "bob", faceWidth: .94, eyeScale: 1, palette: { ...DEMO_PALETTE } };
+  state.avatarPalette = { ...DEMO_PALETTE };
+  state.landmarkMessage = "✦ 原创示例 · 月见 Luna";
+  applyAvatarAppearance();
+  updateViewPresentation();
+  return true;
 }
 
 async function loadVision() {
@@ -484,8 +696,8 @@ async function loadVision() {
     state.visionPromise = (async () => {
       try {
         setStatus("加载动作引擎", "首次使用需要联网下载模型", false);
-        const { FaceLandmarker, FilesetResolver, PoseLandmarker } = await import("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/+esm");
-        const fileset = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm");
+        const { FaceLandmarker, FilesetResolver, PoseLandmarker } = await import("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.21/vision_bundle.mjs");
+        const fileset = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.21/wasm");
         const options = {
           baseOptions: {
             modelAssetPath: "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
@@ -498,7 +710,7 @@ async function loadVision() {
           minFacePresenceConfidence: .35,
           minTrackingConfidence: .35,
         };
-        const [imageLandmarker, faceLandmarker, poseLandmarker] = await Promise.all([
+        const modelResults = await Promise.allSettled([
           FaceLandmarker.createFromOptions(fileset, { ...options, runningMode: "IMAGE" }),
           FaceLandmarker.createFromOptions(fileset, { ...options, runningMode: "VIDEO" }),
           PoseLandmarker.createFromOptions(fileset, {
@@ -513,12 +725,13 @@ async function loadVision() {
             minTrackingConfidence: .45,
           }),
         ]);
-        if (loadToken !== state.visionLoadToken) {
-          imageLandmarker.close?.();
-          faceLandmarker.close?.();
-          poseLandmarker.close?.();
+        const failure = modelResults.find((result) => result.status === "rejected");
+        if (loadToken !== state.visionLoadToken || failure) {
+          modelResults.forEach((result) => { if (result.status === "fulfilled") result.value.close?.(); });
+          if (failure) throw failure.reason;
           return false;
         }
+        const [imageLandmarker, faceLandmarker, poseLandmarker] = modelResults.map((result) => result.value);
         state.imageLandmarker = imageLandmarker;
         state.faceLandmarker = faceLandmarker;
         state.poseLandmarker = poseLandmarker;
@@ -555,23 +768,38 @@ function colorFromImage(image, x, y) {
   return `rgb(${r}, ${g}, ${b})`;
 }
 
-function paletteFromImage(image, rig) {
-  const face = rig.face;
-  const hairY = face.y - face.h * .47;
-  const outfitY = Math.min(image.naturalHeight * .9, face.y + face.h * .82);
-  return {
-    skin: rig.skin,
-    hair: colorFromImage(image, face.x, hairY),
-    outfit: colorFromImage(image, face.x, outfitY),
-    eyes: colorFromImage(image, rig.leftEye.x, rig.leftEye.y),
-    accent: colorFromImage(image, rig.rightEye.x, rig.rightEye.y),
-  };
+function appearanceFromImage(image, rig) {
+  const scale = Math.min(1, 384 / Math.max(image.naturalWidth, image.naturalHeight));
+  const sample = document.createElement("canvas");
+  sample.width = Math.max(1, Math.round(image.naturalWidth * scale));
+  sample.height = Math.max(1, Math.round(image.naturalHeight * scale));
+  const context = sample.getContext("2d", { willReadFrequently: true });
+  context.drawImage(image, 0, 0, sample.width, sample.height);
+  const scaledRig = Object.fromEntries(["face", "leftEye", "rightEye"].map((key) => [key,
+    Object.fromEntries(Object.entries(rig[key]).map(([axis, value]) => [axis, value * scale])),
+  ]));
+  return extractAppearance(context.getImageData(0, 0, sample.width, sample.height), scaledRig);
+}
+
+function applyAvatarAppearance() {
+  const profile = state.appearance;
+  const overrides = state.appearanceOverrides;
+  const palette = { ...profile.palette };
+  for (const key of ["hair", "outfit", "eyes"]) if (overrides[key]) palette[key] = overrides[key];
+  const hairStyle = overrides.hairStyle || profile.hairStyle;
+  state.avatarPalette = palette;
+  state.avatar3d?.setAppearance({ ...profile, hairStyle, palette });
+  ui.hairStyle.value = overrides.hairStyle || "auto";
+  ui.hairColor.value = palette.hair;
+  ui.outfitColor.value = palette.outfit;
+  ui.eyesColor.value = palette.eyes;
+  updateAppearanceControls();
 }
 
 function updateAvatarPalette(image, rig) {
   try {
-    state.avatarPalette = paletteFromImage(image, rig);
-    state.avatar3d?.setPalette(state.avatarPalette);
+    state.appearance = appearanceFromImage(image, rig);
+    applyAvatarAppearance();
   } catch (error) {
     console.warn("Could not sample avatar colors", error);
   }
@@ -598,6 +826,7 @@ function rigFromLandmarks(landmarks, image) {
   const forehead = p(10);
   const chin = p(152);
   return {
+    patchesEnabled: true,
     leftEye,
     rightEye,
     mouth: {
@@ -616,39 +845,66 @@ function rigFromLandmarks(landmarks, image) {
   };
 }
 
-async function importImage(file) {
-  if (!file || !file.type.startsWith("image/")) {
+async function importImage(file, { generated = false } = {}) {
+  if (!file) return false;
+  if (!generated && !canReplaceProject()) return false;
+  if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
     toast("请选择 PNG、JPG 或 WEBP 图片。");
-    return;
+    return false;
   }
   if (file.size > 20 * 1024 * 1024) {
     toast("图片超过 20MB，请先压缩后重试。");
-    return;
+    return false;
   }
   const importToken = ++state.imageImportToken;
-  const url = URL.createObjectURL(file);
+  try {
+    const dataUrl = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(new Error("无法读取这张图片"));
+      reader.readAsDataURL(file);
+    });
+    if (importToken !== state.imageImportToken) return false;
+    const installed = await importImageData(dataUrl, file.name, importToken);
+    if (installed) savePreferences();
+    return installed;
+  } catch (error) {
+    if (importToken === state.imageImportToken) toast(error.message || "无法读取这张图片，请换一个文件。");
+    return false;
+  }
+}
+
+async function importImageData(dataUrl, name, importToken = ++state.imageImportToken) {
   const image = new Image();
-  image.onload = async () => {
-    if (importToken !== state.imageImportToken) {
-      URL.revokeObjectURL(url);
-      return;
-    }
-    if (state.imageUrl.startsWith("blob:")) URL.revokeObjectURL(state.imageUrl);
+  await withTimeout(new Promise((resolve, reject) => {
+    image.onload = resolve;
+    image.onerror = () => reject(new Error("图片无法解码，请使用有效的 PNG、JPG 或 WEBP。"));
+    image.src = dataUrl;
+  }), 10_000, "图片读取超时，请换一张较小的图片。");
+  if (importToken !== state.imageImportToken) return false;
+  if (!image.naturalWidth || !image.naturalHeight || image.naturalWidth > 8192 || image.naturalHeight > 8192 || image.naturalWidth * image.naturalHeight > 16_000_000) {
+    throw new Error("图片尺寸过大，请缩小至 1600 万像素以内，单边不超过 8192px。");
+  }
     state.image = image;
-    state.imageUrl = url;
+    state.imageUrl = dataUrl;
+    state.imageDataUrl = dataUrl;
     state.imageRig = fallbackRig(image);
+    state.appearanceOverrides = {};
     updateAvatarPalette(image, state.imageRig);
     state.hasCustomAvatar = true;
     state.ready = false;
-    setJourney("camera");
-    updateNextButton();
     ui.dropzone.classList.add("hidden");
     ui.fileRow.classList.remove("hidden");
-    ui.fileThumb.src = url;
-    ui.fileName.textContent = file.name;
+    ui.fileThumb.src = dataUrl;
+    ui.fileName.textContent = name;
     ui.fileMeta.textContent = `${image.naturalWidth} × ${image.naturalHeight} · 分析中`;
     ui.scanState.classList.remove("hidden");
     ui.landmarkPill.classList.add("hidden");
+    void analyzeImage(image, importToken);
+    return true;
+}
+
+async function analyzeImage(image, importToken) {
     const ready = await loadVision();
     if (importToken !== state.imageImportToken) return;
     if (ready) {
@@ -679,23 +935,14 @@ async function importImage(file) {
       showQualityReport(image, null);
     }
     ui.scanState.classList.add("hidden");
-    setJourney("ready");
     updateViewPresentation();
-  };
-  image.onerror = () => {
-    URL.revokeObjectURL(url);
-    if (importToken !== state.imageImportToken) return;
-    ui.scanState.classList.add("hidden");
-    ui.landmarkPill.classList.remove("hidden");
-    toast("无法读取这张图片，请换一个文件。");
-  };
-  image.src = url;
 }
 
 function fallbackRig(image) {
   const w = image.naturalWidth;
   const h = image.naturalHeight;
   return {
+    patchesEnabled: false,
     leftEye: { x: w * .57, y: h * .40, w: w * .13, h: h * .065 },
     rightEye: { x: w * .43, y: h * .40, w: w * .13, h: h * .065 },
     mouth: { x: w * .5, y: h * .55, w: w * .15, h: h * .075 },
@@ -705,6 +952,7 @@ function fallbackRig(image) {
 }
 
 function requestCameraAccess() {
+  if (state.mode === "camera") return beginCalibration();
   if (state.cameraConsentGranted) {
     startCamera();
     return;
@@ -724,7 +972,7 @@ async function startCamera() {
   state.cameraStarting = true;
   ui.cameraButton.setAttribute("aria-busy", "true");
   ui.cameraButton.disabled = true;
-  ui.nextButton.disabled = true;
+  updateCameraControls();
   setCameraButtonLabel(true);
   try {
     const ready = await loadVision();
@@ -753,45 +1001,25 @@ async function startCamera() {
       }, { once: true });
     });
     state.mode = "camera";
-    state.ready = false;
-    state.calibrating = true;
-    state.calibrationUntil = performance.now() + 3200;
-    state.calibrationSamples = [];
-    state.bodyCalibrationSamples = [];
-    state.expressionCalibrationSamples = [];
-    state.poseHistory = {};
-    state.bodyDetected = false;
-    state.lastFaceSeen = performance.now();
-    state.lastBodySeen = state.lastFaceSeen;
-    state.lastVideoProgressAt = state.lastFaceSeen;
-    state.lastMotionSeen = {};
-    state.neutral = { x: 0, y: 0, roll: 0 };
-    state.bodyNeutral = { ...BODY_NEUTRAL_DEFAULTS };
-    state.expressionNeutral = Object.fromEntries(EXPRESSION_KEYS.map((key) => [key, 0]));
+    state.lastVideoTime = -1;
+    state.lastVideoProgressAt = performance.now();
     setSourceMode("camera");
-    ui.calibration.classList.remove("hidden");
-    ui.faceBadge.classList.remove("active");
-    ui.bodyBadge.classList.remove("active");
-    setJourney("camera");
-    updateNextButton();
-    setStatus("自动校准", "保持正脸约 3 秒", false);
-    toast("摄像头已连接，请保持正脸，校准会自动完成。");
+    beginCalibration();
   } catch (error) {
     pendingStream?.getTracks().forEach((track) => track.stop());
     if (video.srcObject === pendingStream) video.srcObject = null;
     if (startToken !== state.cameraStartToken) return;
     console.error(error);
-    state.mode = "demo";
-    setSourceMode("demo");
+    useDemo();
     toast("无法使用摄像头，请在浏览器地址栏允许摄像头权限。");
     setStatus("演示模式", "摄像头权限未开启", false);
   } finally {
     if (startToken === state.cameraStartToken) {
       state.cameraStarting = false;
       ui.cameraButton.disabled = false;
-      ui.nextButton.disabled = false;
       ui.cameraButton.setAttribute("aria-busy", "false");
       setCameraButtonLabel(false);
+      updateCameraControls();
     }
   }
 }
@@ -801,7 +1029,6 @@ function useDemo() {
     state.cameraStartToken += 1;
     state.cameraStarting = false;
     ui.cameraButton.disabled = false;
-    ui.nextButton.disabled = false;
     ui.cameraButton.setAttribute("aria-busy", "false");
   }
   state.mode = "demo";
@@ -817,8 +1044,33 @@ function useDemo() {
     video.srcObject.getTracks().forEach((track) => track.stop());
     video.srcObject = null;
   }
-  setJourney(state.hasCustomAvatar ? "ready" : "image");
-  updateNextButton();
+  updateCameraControls();
+}
+
+function beginCalibration() {
+  if (state.mode !== "camera" || !video.srcObject) return;
+  state.ready = false;
+  state.calibrating = true;
+  state.calibrationUntil = performance.now() + 3200;
+  state.calibrationSamples = [];
+  state.bodyCalibrationSamples = [];
+  state.expressionCalibrationSamples = [];
+  state.poseHistory = {};
+  state.bodyDetected = false;
+  state.lastFaceSeen = 0;
+  state.lastBodySeen = 0;
+  state.lastMotionSeen = {};
+  state.neutral = { x: 0, y: 0, roll: 0 };
+  state.bodyNeutral = { ...BODY_NEUTRAL_DEFAULTS };
+  state.expressionNeutral = Object.fromEntries(EXPRESSION_KEYS.map((key) => [key, 0]));
+  ui.calibration.querySelector("b").textContent = "保持正脸，正在自动校准";
+  ui.calibration.querySelector("small").textContent = "自然放松表情，肩膀和双手尽量入镜";
+  ui.calibration.classList.remove("hidden");
+  ui.faceBadge.classList.remove("active");
+  ui.bodyBadge.classList.remove("active");
+  updateCameraControls();
+  setStatus("自动校准", "保持正脸约 3 秒", false);
+  toast("请保持正脸、放松表情，校准会自动完成。");
 }
 
 function updateCalibration(now) {
@@ -826,7 +1078,12 @@ function updateCalibration(now) {
   const remaining = Math.max(0, state.calibrationUntil - now);
   ui.calibrationCount.textContent = String(Math.max(1, Math.ceil(remaining / 1000)));
   if (remaining > 0) return;
-  if (state.calibrationSamples.length < 5) {
+  if (state.calibrationSamples.length < 5 || now - state.lastFaceSeen > 360) {
+    if (now - state.lastFaceSeen > 360) {
+      state.calibrationSamples = [];
+      state.expressionCalibrationSamples = [];
+      state.bodyCalibrationSamples = [];
+    }
     state.calibrationUntil = now + 1000;
     ui.calibration.querySelector("b").textContent = "请把脸放进镜头中央";
     ui.calibration.querySelector("small").textContent = "检测到面部后会自动继续";
@@ -853,8 +1110,7 @@ function updateCalibration(now) {
   ui.calibration.classList.add("hidden");
   ui.calibration.querySelector("b").textContent = "保持正脸，正在自动校准";
   ui.calibration.querySelector("small").textContent = "不用做任何操作";
-  setJourney("ready");
-  updateNextButton();
+  updateCameraControls();
   setStatus("全部就绪", state.bodyDetected ? "脸部与肢体正在实时跟踪" : "脸部跟踪已就绪，退后一点可识别肢体", true);
   toast(state.bodyDetected ? "校准完成！现在眨眼、说话或抬手试试看。" : "脸部校准完成。让肩膀和双手入镜即可启用肢体跟踪。");
 }
@@ -923,7 +1179,10 @@ function trackPose(now) {
     state.lastBodySeen = now;
     state.bodyDetected = true;
     ui.bodyBadge.classList.add("active");
-    if (state.calibrating) state.bodyCalibrationSamples.push(extracted.raw);
+    if (state.calibrating) {
+      state.bodyCalibrationSamples.push(extracted.raw);
+      if (state.bodyCalibrationSamples.length > 120) state.bodyCalibrationSamples.shift();
+    }
     applyMotion(extracted.motion, now);
     relaxStaleMotion(BODY_MOTION_KEYS, now, 240);
     clearStalePoseHistory(now);
@@ -967,6 +1226,8 @@ function trackCamera(now) {
     if (state.calibrating) {
       state.calibrationSamples.push(extracted.pose);
       state.expressionCalibrationSamples.push(extracted.expressions);
+      if (state.calibrationSamples.length > 120) state.calibrationSamples.shift();
+      if (state.expressionCalibrationSamples.length > 120) state.expressionCalibrationSamples.shift();
       ui.calibration.querySelector("b").textContent = "保持正脸，正在自动校准";
       ui.calibration.querySelector("small").textContent = "眼睛自然睁开，嘴巴放松";
     }
@@ -990,49 +1251,7 @@ function trackCamera(now) {
 
 function trackDemo(now) {
   if (state.mode !== "demo") return;
-  const t = now / 1000;
-  const blink = Math.pow(Math.max(0, Math.sin(t * 2.15 + 1.1)), 24);
-  const surprise = Math.pow(Math.max(0, Math.sin(t * .36 - 1.8)), 12);
-  const pucker = Math.pow(Math.max(0, Math.sin(t * .29 + 2.1)), 12) * .5;
-  const frown = Math.pow(Math.max(0, Math.sin(t * .21 + 4.2)), 14) * .34;
-  state.tracking.x = Math.sin(t * .42) * .7;
-  state.tracking.y = Math.sin(t * .47 + .8) * .22;
-  state.tracking.roll = Math.sin(t * .52) * .28;
-  state.tracking.blinkL = blink;
-  state.tracking.blinkR = clamp(blink + Math.pow(Math.max(0, Math.sin(t * .77)), 42) * .25);
-  state.tracking.eyeWideL = surprise * .62;
-  state.tracking.eyeWideR = surprise * .62;
-  state.tracking.lookX = Math.sin(t * .73) * .58;
-  state.tracking.lookY = Math.sin(t * .51 + 1.3) * .34;
-  state.tracking.mouth = .08 + (Math.sin(t * 3.1) + 1) * .12 + surprise * .48;
-  state.tracking.mouthX = Math.sin(t * .32) * .1;
-  state.tracking.smile = clamp(.3 + Math.sin(t * .41) * .12 - frown * .3);
-  state.tracking.frown = frown;
-  state.tracking.pucker = pucker;
-  state.tracking.browUp = surprise * .72 + Math.max(0, Math.sin(t * .27)) * .08;
-  state.tracking.browDownL = frown * .75;
-  state.tracking.browDownR = frown * .75;
-  state.tracking.cheek = state.tracking.smile * .36;
-  state.tracking.bodyLean = Math.sin(t * .43 + .4) * .32;
-  state.tracking.bodyBob = Math.sin(t * .86) * .18;
-  state.tracking.bodyTurn = Math.sin(t * .31 + .2) * .38;
-  state.tracking.hipSway = Math.sin(t * .39 + 1.7) * .22;
-  const armAngleL = Math.max(0, Math.sin(t * .58 + 1.5)) * 2.5;
-  const armAngleR = Math.max(0, Math.sin(t * .51 + 4.1)) * 2.35;
-  state.tracking.armL = armAngleL / Math.PI;
-  state.tracking.armR = armAngleR / Math.PI;
-  state.tracking.armSinL = Math.sin(armAngleL);
-  state.tracking.armSinR = Math.sin(armAngleR);
-  state.tracking.armCosL = Math.cos(armAngleL);
-  state.tracking.armCosR = Math.cos(armAngleR);
-  state.tracking.elbowL = .12 + Math.max(0, Math.sin(t * .71 + .5)) * .58;
-  state.tracking.elbowR = .12 + Math.max(0, Math.sin(t * .67 + 3.2)) * .55;
-  state.tracking.elbowSideL = Math.sin(t * .23 + .4) > -.75 ? 1 : -1;
-  state.tracking.elbowSideR = Math.sin(t * .21 + 3.1) > -.75 ? 1 : -1;
-  state.tracking.armDepthL = Math.sin(t * .49 + 2.2) * .32;
-  state.tracking.armDepthR = Math.sin(t * .46 + 5.1) * .3;
-  state.tracking.legL = Math.max(0, Math.sin(t * .38)) * .16;
-  state.tracking.legR = Math.max(0, Math.sin(t * .38 + Math.PI)) * .16;
+  Object.assign(state.tracking, createDemoMotion(now, state.demoMotion));
 }
 
 function drawBackground() {
@@ -1058,78 +1277,6 @@ function drawBackground() {
   ctx.globalAlpha = 1;
 }
 
-function drawPatch(image, box, amount, type, skin, expression = {}) {
-  const sx = box.x - box.w / 2;
-  const sy = box.y - box.h / 2;
-  ctx.save();
-  ctx.beginPath();
-  ctx.ellipse(box.x, box.y, box.w * .54, box.h * .58, 0, 0, Math.PI * 2);
-  ctx.clip();
-  ctx.fillStyle = skin;
-  ctx.fillRect(sx, sy, box.w, box.h);
-  const scaleY = type === "eye"
-    ? Math.max(.06, 1 - amount * .94 + (expression.wide || 0) * .24)
-    : 1 + amount * 1.05 + (expression.pucker || 0) * .12;
-  const scaleX = type === "mouth"
-    ? clamp(1 + amount * .1 + (expression.smile || 0) * .3 - (expression.frown || 0) * .15 - (expression.pucker || 0) * .45, .58, 1.42)
-    : expression.sideScale || 1;
-  const offsetX = type === "mouth" ? (expression.mouthX || 0) * box.w * .09 : (expression.lookX || 0) * box.w * .035;
-  const offsetY = type === "eye" ? -(expression.lookY || 0) * box.h * .04 : 0;
-  ctx.translate(box.x, box.y);
-  ctx.scale(scaleX, scaleY);
-  ctx.drawImage(image, sx, sy, box.w, box.h, -box.w / 2 + offsetX, -box.h / 2 + offsetY, box.w, box.h);
-  ctx.restore();
-  if (type === "eye" && amount > .72) {
-    ctx.save();
-    ctx.strokeStyle = "rgba(45, 27, 48, .7)";
-    ctx.lineWidth = Math.max(1.5, box.h * .045);
-    ctx.lineCap = "round";
-    ctx.beginPath(); ctx.moveTo(box.x - box.w * .28, box.y); ctx.quadraticCurveTo(box.x, box.y + box.h * .1, box.x + box.w * .28, box.y); ctx.stroke();
-    ctx.restore();
-  }
-}
-
-function drawExpressionOverlay(rig, motion, amount) {
-  const browEnergy = Math.max(motion.browUp, motion.browDownL, motion.browDownR) * amount;
-  if (browEnergy > .035) {
-    const drawBrow = (eye, side, down) => {
-      const lift = motion.browUp * amount;
-      const press = down * amount;
-      const y = eye.y - eye.h * (.63 + lift * .25 - press * .15);
-      ctx.save();
-      ctx.translate(eye.x, y);
-      ctx.rotate(side * (lift * .16 + press * .2));
-      ctx.globalAlpha = clamp(.1 + browEnergy * .34, 0, .38);
-      ctx.strokeStyle = "#2d2039";
-      ctx.lineWidth = Math.max(1.5, eye.h * .055);
-      ctx.lineCap = "round";
-      ctx.beginPath();
-      ctx.moveTo(-eye.w * .24, 0);
-      ctx.quadraticCurveTo(0, -eye.h * .08, eye.w * .24, 0);
-      ctx.stroke();
-      ctx.restore();
-    };
-    drawBrow(rig.leftEye, 1, motion.browDownL);
-    drawBrow(rig.rightEye, -1, motion.browDownR);
-  }
-  const cheekEnergy = clamp((motion.cheek * .72 + motion.smile * .35) * amount);
-  if (cheekEnergy > .04) {
-    ctx.save();
-    ctx.fillStyle = `rgba(255, 105, 155, ${cheekEnergy * .16})`;
-    for (const side of [-1, 1]) {
-      ctx.beginPath();
-      ctx.ellipse(
-        rig.face.x + side * rig.face.w * .3,
-        rig.face.y + rig.face.h * .15,
-        rig.face.w * .105,
-        rig.face.h * .038,
-        0, 0, Math.PI * 2,
-      );
-      ctx.fill();
-    }
-    ctx.restore();
-  }
-}
 
 function render() {
   drawBackground();
@@ -1142,13 +1289,12 @@ function render() {
   const expressionAmount = Number(ui.ranges.expression.value) / 100;
   const bodyAmount = Number(ui.ranges.body.value) / 100;
   const s = state.smooth;
-  const imageRatio = image.naturalWidth / image.naturalHeight;
-  const drawHeight = imageRatio > 1 ? canvas.height / imageRatio : canvas.height * .95;
-  const drawWidth = drawHeight * imageRatio;
-  const baseScale = Math.min((canvas.width * .94) / drawWidth, (canvas.height * .96) / drawHeight);
-  const finalWidth = drawWidth * baseScale;
-  const finalHeight = drawHeight * baseScale;
-  const imageScale = finalWidth / image.naturalWidth;
+  const closeUp = state.framing === "portrait" && rig.patchesEnabled !== false;
+  const frameHeight = closeUp ? Math.min(image.naturalHeight, Math.max(image.naturalHeight * .36, rig.face.h * 4.8)) : image.naturalHeight;
+  const frameTop = closeUp ? clamp(rig.face.y - rig.face.h * 1.15, 0, image.naturalHeight - frameHeight) : 0;
+  const imageScale = closeUp ? canvas.height * .93 / frameHeight : Math.min(canvas.width * .94 / image.naturalWidth, canvas.height * .96 / image.naturalHeight);
+  const centerX = closeUp ? rig.face.x : image.naturalWidth / 2;
+  const centerY = frameTop + frameHeight / 2;
 
   ctx.save();
   const armBalance = (s.armR - s.armL) * bodyAmount;
@@ -1160,28 +1306,11 @@ function render() {
   );
   ctx.rotate(s.roll * .055 * headAmount + s.bodyLean * .038 * bodyAmount);
   ctx.scale((1 - Math.abs(pseudoYaw) * .1) * (1 + armEnergy * .008), 1 + s.bodyBob * .012 * bodyAmount);
-  ctx.translate(-finalWidth / 2, -finalHeight / 2);
+  ctx.translate(-centerX * imageScale, -centerY * imageScale);
   ctx.scale(imageScale, imageScale);
-  ctx.drawImage(image, 0, 0);
-  drawPatch(image, rig.leftEye, clamp(s.blinkL * blinkAmount), "eye", rig.skin, {
-    wide: s.eyeWideL * expressionAmount,
-    lookX: s.lookX * expressionAmount,
-    lookY: s.lookY * expressionAmount,
-    sideScale: 1 - Math.max(0, pseudoYaw) * .2,
-  });
-  drawPatch(image, rig.rightEye, clamp(s.blinkR * blinkAmount), "eye", rig.skin, {
-    wide: s.eyeWideR * expressionAmount,
-    lookX: s.lookX * expressionAmount,
-    lookY: s.lookY * expressionAmount,
-    sideScale: 1 + Math.min(0, pseudoYaw) * .2,
-  });
-  drawPatch(image, rig.mouth, clamp(s.mouth * mouthAmount), "mouth", rig.skin, {
-    mouthX: s.mouthX * expressionAmount,
-    smile: s.smile * expressionAmount,
-    frown: s.frown * expressionAmount,
-    pucker: s.pucker * expressionAmount,
-  });
-  drawExpressionOverlay(rig, s, expressionAmount);
+  portraitWarp ||= new PortraitWarp();
+  const portrait = portraitWarp.render(image, rig, s, { blink: blinkAmount, mouth: mouthAmount, expression: expressionAmount });
+  ctx.drawImage(portrait || image, 0, 0, image.naturalWidth, image.naturalHeight);
   ctx.restore();
 }
 
@@ -1240,8 +1369,15 @@ function toggleRecording() {
     toast("3D 模型正在导出，请完成后再开始录制。");
     return;
   }
-  if (state.recorder?.state === "recording") {
-    try { state.recorder.stop(); } catch (error) { console.error("Could not stop recording", error); }
+  if (state.recorder) {
+    if (state.recorder.state === "recording") {
+      ui.recordButton.disabled = true;
+      ui.recordButton.querySelector("span").textContent = "正在保存…";
+      try { state.recorder.stop(); } catch (error) {
+        ui.recordButton.disabled = false;
+        console.error("Could not stop recording", error);
+      }
+    }
     return;
   }
   if (state.viewMode === "3d" && (state.build3d !== "ready" || !state.avatar3d)) {
@@ -1265,10 +1401,11 @@ function toggleRecording() {
       : "";
     const options = { videoBitsPerSecond: 6_000_000 };
     if (mimeType) options.mimeType = mimeType;
-    state.chunks = [];
+    const chunks = [];
     let recordingError = null;
     let finished = false;
-    state.recorder = new MediaRecorder(stream, options);
+    const recorder = new MediaRecorder(stream, options);
+    state.recorder = recorder;
     const finish = () => {
       if (finished) return;
       finished = true;
@@ -1276,10 +1413,11 @@ function toggleRecording() {
       ui.recordButton.classList.remove("recording");
       ui.recordButton.setAttribute("aria-pressed", "false");
       ui.recordButton.querySelector("span").textContent = "录制视频";
+      ui.recordButton.disabled = false;
       ui.exportModelButton.disabled = false;
-      const actualType = state.recorder?.mimeType || mimeType || "video/webm";
-      const chunks = state.chunks.slice();
-      state.recorder = null;
+      const actualType = recorder.mimeType || mimeType || "video/webm";
+      if (state.recorder === recorder) state.recorder = null;
+      updateAppearanceControls();
       if (recordingError || !chunks.length) {
         toast("录制没有成功保存，请换用新版浏览器后重试。");
         return;
@@ -1294,16 +1432,18 @@ function toggleRecording() {
       setTimeout(() => URL.revokeObjectURL(url), 1000);
       toast(`录制完成，${extension.toUpperCase()} 视频已保存。`);
     };
-    state.recorder.ondataavailable = (event) => { if (event.data.size) state.chunks.push(event.data); };
-    state.recorder.onerror = (event) => {
+    recorder.ondataavailable = (event) => { if (!finished && event.data.size) chunks.push(event.data); };
+    recorder.onerror = (event) => {
+      if (finished) return;
       recordingError = event.error || new Error("录制编码失败");
       console.error("Recording failed", recordingError);
-      if (state.recorder?.state !== "inactive") {
-        try { state.recorder.stop(); } catch (error) { finish(); }
+      if (recorder.state !== "inactive") {
+        try { recorder.stop(); } catch (error) { finish(); }
       } else finish();
     };
-    state.recorder.onstop = finish;
-    state.recorder.start();
+    recorder.onstop = finish;
+    recorder.start();
+    updateAppearanceControls();
     ui.exportModelButton.disabled = true;
     ui.recordButton.classList.add("recording");
     ui.recordButton.setAttribute("aria-pressed", "true");
@@ -1313,6 +1453,7 @@ function toggleRecording() {
     console.error("Could not start recording", error);
     stream?.getTracks().forEach((track) => track.stop());
     state.recorder = null;
+    updateAppearanceControls();
     ui.exportModelButton.disabled = false;
     ui.recordButton.classList.remove("recording");
     ui.recordButton.setAttribute("aria-pressed", "false");
@@ -1326,16 +1467,17 @@ async function export3DModel() {
     toast("3D 角色还没有准备好，请稍后重试。");
     return;
   }
-  if (state.recorder?.state === "recording") {
+  if (state.recorder) {
     toast("请先停止并保存当前录制，再导出 3D 模型。");
     return;
   }
   if (state.exportingModel) return;
   const original = ui.exportModelButton.innerHTML;
   state.exportingModel = true;
+  updateAppearanceControls();
   ui.exportModelButton.disabled = true;
   ui.recordButton.disabled = true;
-  ui.exportModelButton.innerHTML = "<span>◌</span> 正在整理 GLB…";
+  ui.exportModelButton.innerHTML = `<span>◌</span> 正在整理 ${state.avatar3d.exportExtension === "vrm" ? "VRM" : "GLB"}…`;
   try {
     const data = await state.avatar3d.exportGLB();
     const blob = new Blob([data], { type: "model/gltf-binary" });
@@ -1343,15 +1485,17 @@ async function export3DModel() {
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
-    anchor.download = `moemotion-avatar-${new Date().toISOString().slice(0, 19).replaceAll(":", "-")}.glb`;
+    const extension = state.avatar3d.exportExtension === "vrm" ? "vrm" : "glb";
+    anchor.download = `moemotion-avatar-${new Date().toISOString().slice(0, 19).replaceAll(":", "-")}.${extension}`;
     anchor.click();
     setTimeout(() => URL.revokeObjectURL(url), 1200);
-    toast("3D 角色已导出为单文件 GLB（中立姿态）。");
+    toast(extension === "vrm" ? "VRM 已下载，保留骨骼、表情、配色与模型许可；不含当前动作。" : "3D 角色已导出为单文件 GLB（中立姿态）。");
   } catch (error) {
     console.error("3D export failed", error);
     toast("3D 模型导出失败，请重试；页面中的角色不会丢失。");
   } finally {
     state.exportingModel = false;
+    updateAppearanceControls();
     ui.exportModelButton.disabled = false;
     ui.recordButton.disabled = false;
     ui.exportModelButton.innerHTML = original;
@@ -1359,28 +1503,107 @@ async function export3DModel() {
 }
 
 function openFilePicker() {
+  if (!canReplaceProject()) return;
   ui.fileInput.value = "";
   ui.fileInput.click();
 }
 
-function markWelcomeSeen() {
-  try { localStorage.setItem("moemotion-welcome-seen", "1"); } catch (error) { console.warn(error); }
-}
-
 ui.fileInput.addEventListener("change", (event) => importImage(event.target.files[0]));
 ui.replaceButton.addEventListener("click", openFilePicker);
-ui.heroStartButton.addEventListener("click", openFilePicker);
-ui.aiHeroButton.addEventListener("click", openAiStudio);
 ui.aiOpenButton.addEventListener("click", openAiStudio);
 ui.cameraButton.addEventListener("click", requestCameraAccess);
 ui.demoButton.addEventListener("click", useDemo);
 ui.recordButton.addEventListener("click", toggleRecording);
 ui.exportModelButton.addEventListener("click", export3DModel);
-ui.nextButton.addEventListener("click", () => {
-  if (!state.hasCustomAvatar) openAiStudio();
-  else if (state.mode !== "camera") requestCameraAccess();
-  else if (state.calibrating) toast("正在校准，请保持正脸，很快就好。");
-  else toast("已经准备好了。你可以录制视频，或继续调整背景和动作幅度。");
+ui.recalibrateButton.addEventListener("click", beginCalibration);
+ui.stopCameraButton.addEventListener("click", () => {
+  useDemo();
+  state.cameraConsentGranted = false;
+  toast("摄像头已关闭，角色继续使用自动演示。");
+});
+ui.projectName.addEventListener("input", savePreferences);
+ui.modelStyle.addEventListener("change", async () => {
+  const modelStyle = ui.modelStyle.value;
+  if (!canReplaceProject() || state.build3d === "building") {
+    ui.modelStyle.value = state.modelStyle;
+    return;
+  }
+  if (!["studio", "light"].includes(modelStyle) || modelStyle === state.modelStyle) return;
+  state.modelStyle = modelStyle;
+  resetAvatar3D();
+  updateViewPresentation();
+  await setViewMode("3d");
+  savePreferences();
+});
+ui.projectName.addEventListener("change", () => {
+  ui.projectName.value = currentProject().name;
+  savePreferences();
+  void flushProjectSave();
+});
+ui.exportProjectButton.addEventListener("click", exportProject);
+ui.openProjectButton.addEventListener("click", () => {
+  if (!canReplaceProject()) return;
+  ui.projectInput.value = "";
+  ui.projectInput.click();
+});
+ui.projectInput.addEventListener("change", (event) => openProject(event.target.files[0]));
+ui.resetTuningButton.addEventListener("click", () => {
+  const defaults = normalizePreferences({});
+  for (const [name, range] of Object.entries(ui.ranges)) {
+    range.value = defaults[name];
+    $(`#${name}Output`).textContent = `${range.value}%`;
+  }
+  savePreferences();
+  toast("动作微调已恢复默认值，角色和背景保持不变。");
+});
+ui.demoMotion.addEventListener("change", () => {
+  state.demoMotion = ui.demoMotion.value;
+  savePreferences();
+});
+ui.hairStyle.addEventListener("change", () => {
+  if (state.exportingModel) return;
+  if (ui.hairStyle.value === "auto") delete state.appearanceOverrides.hairStyle;
+  else state.appearanceOverrides.hairStyle = ui.hairStyle.value;
+  applyAvatarAppearance();
+  savePreferences();
+});
+for (const [key, input] of [["hair", ui.hairColor], ["outfit", ui.outfitColor], ["eyes", ui.eyesColor]]) {
+  input.addEventListener("input", () => {
+    if (state.exportingModel) return;
+    state.appearanceOverrides[key] = input.value;
+    applyAvatarAppearance();
+    savePreferences();
+  });
+}
+ui.resetAppearance.addEventListener("click", () => {
+  if (state.exportingModel) return;
+  state.appearanceOverrides = {};
+  applyAvatarAppearance();
+  savePreferences();
+  toast("3D 外观已恢复为图片分析结果，原图保持不变。");
+});
+ui.demoAvatarButton.addEventListener("click", async () => {
+  if (!canReplaceProject()) return;
+  setProjectBusy(true);
+  try {
+    await flushProjectSave();
+    await installProject(createProject({ name: "月见 Luna", preferences: { ...currentProject().preferences, appearance: {} } }));
+    toast("已换成原创示例月见 Luna。2D 和 3D 使用相同的发色、眼睛和服装配色。");
+  } catch (error) { toast(error.message || "示例角色载入失败，请稍后再试。"); }
+  finally { setProjectBusy(false); savePreferences(); }
+});
+ui.previewButton.addEventListener("click", () => setPreviewMode(true));
+ui.exitPreviewButton.addEventListener("click", () => setPreviewMode(false));
+ui.screenshotButton.addEventListener("click", takeScreenshot);
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && state.previewMode) setPreviewMode(false);
+});
+ui.aiDialog.addEventListener("close", () => {
+  ui.apiKey.value = "";
+  ui.apiKey.type = "password";
+  ui.toggleApiKey.textContent = "显示";
+  ui.apiConsent.checked = false;
+  updateGenerateButton();
 });
 ui.characterPrompt.addEventListener("input", updateGenerateButton);
 ui.apiKey.addEventListener("input", updateGenerateButton);
@@ -1421,21 +1644,6 @@ ui.cameraConsentButton.addEventListener("click", () => {
   startCamera();
 });
 ui.helpButton.addEventListener("click", () => ui.helpDialog.showModal());
-ui.welcomeStartButton.addEventListener("click", () => {
-  markWelcomeSeen();
-  closeDialog(ui.welcomeDialog);
-  openAiStudio();
-});
-ui.welcomeUploadButton.addEventListener("click", () => {
-  markWelcomeSeen();
-  closeDialog(ui.welcomeDialog);
-  openFilePicker();
-});
-ui.welcomeDemoButton.addEventListener("click", () => {
-  markWelcomeSeen();
-  closeDialog(ui.welcomeDialog);
-  toast("正在使用示例角色。准备好图片后，点击左侧导入即可。");
-});
 document.querySelectorAll("[data-close-dialog]").forEach((button) => {
   button.addEventListener("click", () => closeDialog(button.closest("dialog")));
 });
@@ -1459,9 +1667,17 @@ ui.dropzone.addEventListener("drop", (event) => {
 document.querySelectorAll("[data-view]").forEach((button) => {
   button.addEventListener("click", () => setViewMode(button.dataset.view));
 });
+document.querySelectorAll("[data-framing]").forEach((button) => {
+  button.addEventListener("click", () => {
+    state.framing = button.dataset.framing;
+    updateFraming();
+    savePreferences();
+  });
+});
 document.querySelectorAll("[data-background]").forEach((button) => {
   button.addEventListener("click", () => {
     state.background = button.dataset.background;
+    document.body.style.setProperty("--preview-background", state.background === "green" ? "#00b140" : "#100e18");
     state.avatar3d?.setBackground(state.background);
     document.querySelectorAll("[data-background]").forEach((item) => {
       const selected = item === button;
@@ -1475,27 +1691,38 @@ Object.entries(ui.ranges).forEach(([name, range]) => {
   const output = $(`#${name}Output`);
   range.addEventListener("input", () => { output.textContent = `${range.value}%`; savePreferences(); });
 });
-window.addEventListener("beforeunload", () => {
+window.addEventListener("beforeunload", (event) => {
+  if (state.generating || state.recorder || state.projectRevision > state.savedRevision) {
+    void flushProjectSave();
+    event.preventDefault();
+    event.returnValue = "";
+  }
+});
+window.addEventListener("pagehide", () => {
   video.srcObject?.getTracks().forEach((track) => track.stop());
   state.recorder?.stream?.getTracks().forEach((track) => track.stop());
   if (state.imageUrl.startsWith("blob:")) URL.revokeObjectURL(state.imageUrl);
-  state.avatar3d?.dispose?.();
+  resetAvatar3D();
+  portraitWarp?.dispose();
+  portraitWarp = null;
+});
+window.addEventListener("pageshow", (event) => {
+  if (!event.persisted) return;
+  const previousView = state.viewMode;
+  state.avatar3d = null;
+  state.build3d = "idle";
+  state.viewMode = "2d";
+  state.recorder = null;
+  useDemo();
+  setViewButtons("2d");
+  updateViewPresentation();
+  if (previousView === "3d") void setViewMode("3d");
 });
 
-restorePreferences();
 setViewButtons("2d");
 setSourceMode("demo");
 updateViewPresentation();
-setJourney("image");
-updateNextButton();
 ui.faceBadge.classList.add("active");
 ui.bodyBadge.classList.add("active");
-makeDemoAvatar();
+void initializeProject();
 requestAnimationFrame(animate);
-setTimeout(() => {
-  try {
-    if (!localStorage.getItem("moemotion-welcome-seen")) ui.welcomeDialog.showModal();
-  } catch (error) {
-    console.warn(error);
-  }
-}, 280);

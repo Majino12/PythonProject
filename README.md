@@ -14,7 +14,7 @@ cd PythonProject
 
 | 项目 | 用途 | 主要技术 | 入口 |
 | --- | --- | --- | --- |
-| **MoeMotion** | 单张角色图生成 2D 动态形象与程序化 3D 角色，支持摄像头动作跟踪 | JavaScript、Canvas、Three.js、MediaPipe、Node.js | [项目说明](VTuberProject/README.md) · [源码](VTuberProject/) |
+| **MoeMotion / VTuberProject** | 原图 2D 动画、精细 VRM 模板与轻量 3D 角色，支持摄像头动作跟踪 | JavaScript、Canvas、Three.js、three-vrm、MediaPipe、Node.js | [项目说明](VTuberProject/README.md) · [源码](VTuberProject/) |
 | **小说 / 新闻文本分析** | 提取摘要、人物、关键词和情感变化，查看分析报告 | Python、Flask、NLTK、spaCy、KeyBERT、TextBlob | [项目说明](xiaoshuo_web/README.md) · [源码](xiaoshuo_web/) |
 | **歌词情感分析** | 分析歌词情感与词汇特征，保存歌曲并按特征推荐相似歌曲 | Python、Flask、TextBlob、scikit-learn、SQLite | [项目说明](yinyue_web/README.md) · [源码](yinyue_web/) |
 
@@ -22,7 +22,7 @@ cd PythonProject
 
 ## MoeMotion
 
-将一张 PNG、JPG 或 WEBP 角色图变为可互动的虚拟形象。支持自动演示、摄像头面部与身体跟踪、2D 动态形象 / 程序化 3D 角色切换、视频录制和 GLB 模型导出。当前子项目版本为 `0.5.0`。
+将一张 PNG、JPG 或 WEBP 角色图变为可互动的虚拟形象。支持原图 2D 动画、参考图片配色的授权精细 VRM 模板、轻量程序化 3D、自动演示、摄像头面部与身体跟踪、项目保存、视频录制和模型导出。当前子项目版本为 `0.8.0`。精细 3D 保留模板的脸型、发型和服装版型，不是原图的三维重建。
 
 需要 Node.js 18 或更新版本。在仓库根目录执行：
 
@@ -35,7 +35,7 @@ npm start
 
 首次使用跟踪与 3D 功能需要联网加载相关模型和运行文件。页面还提供可选的 OpenAI 图片生成入口，需要自行填写 API Key；角色描述和 API Key 会经本机服务发送到 OpenAI。导入图片、摄像头跟踪与 3D 构建在本机处理。
 
-GLB 导出内容为程序化 3D 场景；详细能力、格式说明和路线图见 [MoeMotion README](VTuberProject/README.md)。
+精细版导出保留骨骼、表情、配色与模型许可的 VRM；轻量版导出 GLB，两者均不包含当前动作。内置模型受其原许可约束，见 [素材来源与许可](VTuberProject/assets/THIRD_PARTY_NOTICES.txt)。详细能力与格式说明见 [MoeMotion README](VTuberProject/README.md)。
 
 ## 小说 / 新闻文本分析
 
