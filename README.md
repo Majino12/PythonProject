@@ -16,7 +16,7 @@ cd PythonProject
 | --- | --- | --- | --- |
 | **MoeMotion / VTuberProject** | 原图 2D 动画、精细 VRM 模板与轻量 3D 角色，支持摄像头动作跟踪 | JavaScript、Canvas、Three.js、three-vrm、MediaPipe、Node.js | [项目说明](VTuberProject/README.md) · [源码](VTuberProject/) |
 | **小说 / 新闻文本分析** | 提取摘要、人物、关键词和情感变化，查看分析报告 | Python、Flask、NLTK、spaCy、KeyBERT、TextBlob | [项目说明](xiaoshuo_web/README.md) · [源码](xiaoshuo_web/) |
-| **歌词情感分析** | 分析歌词情感与词汇特征，保存歌曲并按特征推荐相似歌曲 | Python、Flask、TextBlob、scikit-learn、SQLite | [项目说明](yinyue_web/README.md) · [源码](yinyue_web/) |
+| **歌词情感分析** | 分析歌词情感与词汇特征，保存歌曲并按特征推荐相似歌曲 | Python、Flask、TextBlob、SQLite | [项目说明](yinyue_web/README.md) · [源码](yinyue_web/) |
 
 各子目录有独立的运行入口和依赖；仓库根目录没有统一启动命令。
 
@@ -57,21 +57,23 @@ python run.py
 
 当前后端按 UTF-8 文本读取上传文件。报告可以导出 JSON 或 HTML；PDF 选项返回 HTML 报告，可再通过浏览器打印为 PDF。
 
-## 歌词情感分析
+## 歌词情感分析 · 音绪 2.0
 
-支持手动录入歌曲与歌词，也提供按歌手和歌名从 lyrics.ovh 获取歌词的入口。使用 TextBlob 与自定义英文情感词典分析歌词，提取词汇多样性等特征，并以标准化后的特征向量和余弦相似度推荐歌曲。歌曲与分析结果保存在本地 SQLite 数据库。
+中文歌词工作台，提供手动歌词分析、逐行情感变化、高频词、歌词查询、曲库搜索筛选与 JSON 导出，以及按歌曲 ID 区分的相似推荐。英文使用 TextBlob 与情感词典，中文和韩文提供基础词典分析并展示局限。歌词和分析原子保存到本机 SQLite。
 
-需要 Python 3。建议使用单独的虚拟环境；在仓库根目录执行：
+需要 Python 3.11 或更新版本。在独立虚拟环境安装：
 
 ```bash
 cd yinyue_web
+python3 -m venv .venv
+source .venv/bin/activate
 python -m pip install -r backend/requirements.txt
 python run.py
 ```
 
-启动器会开启 Flask 后端（端口 `5002`）与静态前端（端口 `8000`），并打开 <http://localhost:8000/professional_crawler.html>。歌词获取依赖外部服务是否返回对应歌曲。
+访问 <http://127.0.0.1:5002>。单个服务提供前端与 API；无需端口 8000、CDN 或额外模型下载。歌词在线查询取决于 lyrics.ovh 的可用性，手动分析可离线运行。
 
-目前主要面向英文歌词。
+旧版曾跟踪数据库文件，**Git 拉取升级前请先在仓库外备份 `yinyue_web/data/`，升级后放回**。新版本不再上传曲库、缓存或日志。详细功能、配置与限制见 [音绪说明](yinyue_web/README.md)。
 
 ## 目录结构
 
@@ -84,6 +86,6 @@ PythonProject/
 
 ## 运行说明
 
-这些项目用于本地实验与功能演示。Python 子项目尚未统一声明支持的 Python 版本；启动说明依据仓库内的依赖文件与启动脚本整理，具体环境兼容性仍需实际安装验证。
+这些项目用于本地实验与功能演示。各子项目的运行环境与验证命令见其独立说明。音绪支持 Python 3.11+，并提供隔离真实数据的自动化测试。
 
 MoeMotion 提供 `npm run check` 和 `npm test` 命令，可在 `VTuberProject` 目录中执行。

@@ -1,106 +1,114 @@
-import requests
-import json
-import time
-import logging
+"""Bounded lyrics.ovh client with expiring, atomic local caching."""
 import hashlib
+import json
+import logging
 import os
+from pathlib import Path
+import tempfile
+import time
 from urllib.parse import quote
-from fake_useragent import UserAgent
-from config import Config
+
+import requests
+
+try:
+    from .config import Config
+except ImportError:
+    from config import Config
 
 logger = logging.getLogger(__name__)
 
 
 class UnifiedCrawler:
-    def __init__(self):
-        self.session = requests.Session()
-        # 防止 fake_useragent 报错的保险措施
-        try:
-            self.ua = UserAgent()
-        except:
-            self.ua = None
+    def __init__(self, cache_dir=None, session=None, cache_ttl=86400):
+        self.cache_dir = Path(cache_dir or Path(Config.CACHE_DIR) / 'lyrics')
+        self.session = session or requests.Session()
+        self.cache_ttl = cache_ttl
 
-        self.cache_dir = os.path.join(Config.CACHE_DIR, 'lyrics')
-        os.makedirs(self.cache_dir, exist_ok=True)
-
-    def _get_headers(self):
-        # 如果 ua 加载失败，使用默认 header
-        user_agent = self.ua.random if self.ua else 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-        return {'User-Agent': user_agent}
-
-    def _get_cache_key(self, artist, title):
-        key = f"{artist}_{title}".lower().strip()
-        return hashlib.md5(key.encode()).hexdigest()
+    @staticmethod
+    def _get_cache_key(artist, title):
+        parts = [' '.join(value.casefold().split()) for value in (artist, title)]
+        return hashlib.sha256(json.dumps(parts, ensure_ascii=False).encode()).hexdigest()
 
     def _load_cache(self, key):
-        path = os.path.join(self.cache_dir, f"{key}.json")
-        if os.path.exists(path):
-            try:
-                with open(path, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-                    return data.get('lyrics')
-            except:
-                pass
+        try:
+            data = json.loads((self.cache_dir / f'{key}.json').read_text(encoding='utf-8'))
+            age = time.time() - float(data['timestamp'])
+            lyrics = data['lyrics']
+            if 0 <= age < self.cache_ttl and isinstance(lyrics, str) and 0 < len(lyrics.strip()) <= 50000:
+                return lyrics
+        except (OSError, ValueError, KeyError, TypeError):
+            pass
         return None
 
     def _save_cache(self, key, lyrics):
-        path = os.path.join(self.cache_dir, f"{key}.json")
+        temporary = None
         try:
-            with open(path, 'w', encoding='utf-8') as f:
-                json.dump({'lyrics': lyrics, 'timestamp': time.time()}, f, ensure_ascii=False)
-        except:
-            pass
+            self.cache_dir.mkdir(parents=True, exist_ok=True)
+            with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', dir=self.cache_dir,
+                                             prefix='.lyrics-', delete=False) as handle:
+                temporary = handle.name
+                json.dump({'lyrics': lyrics, 'timestamp': time.time()}, handle, ensure_ascii=False)
+            os.replace(temporary, self.cache_dir / f'{key}.json')
+        except OSError:
+            logger.warning('Lyrics cache could not be written')
+        finally:
+            if temporary and os.path.exists(temporary):
+                os.unlink(temporary)
 
     def crawl_song(self, artist, title, use_cache=True):
-        """统一爬取入口"""
-        logger.info(f"Crawling: {artist} - {title}")
+        if not all(isinstance(v, str) and 0 < len(v.strip()) <= 200 for v in (artist, title)):
+            return self._failure('歌曲和歌手必须为 1–200 个字符。', 'invalid_song', 400)
+        artist, title = artist.strip(), title.strip()
+        base = {'artist': artist, 'title': title}
         key = self._get_cache_key(artist, title)
-
-        # 1. 查缓存
         if use_cache:
             cached = self._load_cache(key)
             if cached:
-                return {'title': title, 'artist': artist, 'lyrics': cached, 'status': 'success', 'source': 'cache'}
+                return dict(base, status='success', lyrics=cached, source='cache')
 
-        # 2. 爬取 (优先 lyrics.ovh)
-        lyrics = self._fetch_lyrics_ovh(artist, title)
+        url = f'https://api.lyrics.ovh/v1/{quote(artist, safe="")}/{quote(title, safe="")}'
+        try:
+            # Requests stay on the explicitly configured public provider.
+            with self.session.get(url, timeout=(4, 12), allow_redirects=False, stream=True,
+                                  headers={'User-Agent': 'Yinyue/2.0', 'Accept': 'application/json'}) as response:
+                if response.status_code == 404:
+                    return dict(base, **self._failure('未找到歌词，请检查歌名、歌手，或手动粘贴歌词。', 'not_found', 404))
+                if response.status_code == 429:
+                    return dict(base, **self._failure('歌词服务请求过于频繁，请稍后重试。', 'rate_limited', 429))
+                if response.status_code != 200:
+                    return dict(base, **self._failure('歌词服务暂时不可用，请稍后重试。', 'upstream_error', 502))
+                chunks, size, started = [], 0, time.monotonic()
+                for chunk in response.iter_content(chunk_size=8192):
+                    size += len(chunk)
+                    if size > 512000:
+                        return dict(base, **self._failure('歌词服务返回的数据过大。', 'invalid_response', 502))
+                    if time.monotonic() - started > 20:
+                        return dict(base, **self._failure('歌词服务响应超时，请稍后重试。', 'timeout', 504))
+                    chunks.append(chunk)
+                payload = json.loads(b''.join(chunks))
+            lyrics = payload.get('lyrics') if isinstance(payload, dict) else None
+            if not isinstance(lyrics, str) or not lyrics.strip() or len(lyrics) > 50000:
+                return dict(base, **self._failure('歌词服务未返回有效歌词，请手动输入。', 'invalid_response', 502))
+            lyrics = lyrics.strip().replace('\r\n', '\n')
+            if use_cache:
+                self._save_cache(key, lyrics)
+            return dict(base, status='success', lyrics=lyrics, source='lyrics.ovh')
+        except requests.Timeout:
+            return dict(base, **self._failure('歌词服务响应超时，请稍后重试。', 'timeout', 504))
+        except requests.RequestException:
+            return dict(base, **self._failure('无法连接歌词服务，请检查网络或手动输入。', 'network_error', 502))
+        except (ValueError, UnicodeError):
+            return dict(base, **self._failure('歌词服务返回了无效数据。', 'invalid_response', 502))
 
-        # 3. 结果处理
-        if lyrics:
-            if use_cache: self._save_cache(key, lyrics)
-            return {'title': title, 'artist': artist, 'lyrics': lyrics, 'status': 'success', 'source': 'web'}
+    @staticmethod
+    def _failure(message, code, status):
+        return {'status': 'failed', 'error': message, 'error_code': code, 'http_status': status}
 
-        return {'title': title, 'artist': artist, 'status': 'failed', 'error': 'Lyrics not found'}
-
-    # --- 兼容性别名 (关键修复) ---
     def crawl_song_professional(self, artist, title, use_cache=True):
-        """兼容旧代码调用的别名"""
         return self.crawl_song(artist, title, use_cache)
 
-    def _fetch_lyrics_ovh(self, artist, title):
-        try:
-            # 处理特殊字符
-            clean_artist = quote(artist)
-            clean_title = quote(title)
-            url = f"https://api.lyrics.ovh/v1/{clean_artist}/{clean_title}"
-
-            resp = self.session.get(url, headers=self._get_headers(), timeout=15)
-            if resp.status_code == 200:
-                data = resp.json()
-                lyrics = data.get('lyrics', '')
-                if lyrics: return lyrics
-        except Exception as e:
-            logger.error(f"Lyrics.ovh error: {e}")
-        return None
-
     def crawl_multiple(self, songs):
-        results = []
-        for song in songs:
-            res = self.crawl_song(song['artist'], song['title'])
-            res['genre'] = song.get('genre', 'Unknown')
-            results.append(res)
-            time.sleep(0.5)
-        return results
+        return [self.crawl_song(song.get('artist'), song.get('title')) for song in songs[:10]]
 
 
 crawler = UnifiedCrawler()

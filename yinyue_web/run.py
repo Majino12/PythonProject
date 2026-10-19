@@ -1,75 +1,42 @@
 #!/usr/bin/env python3
+"""Start the frontend and API together; run from any working directory."""
+import argparse
 import os
 import sys
-import time
+import threading
 import webbrowser
-import subprocess
-import platform
-
-# 配置
-BACKEND_PORT = 5002
-FRONTEND_PORT = 8000
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-
-
-def check_env():
-    print("🔍 Checking environment...")
-    req_file = os.path.join(PROJECT_ROOT, 'backend', 'requirements.txt')
-    if not os.path.exists(req_file):
-        print("❌ Missing backend/requirements.txt")
-        sys.exit(1)
-    # 这里可以添加 pip install 逻辑，但为了速度通常建议手动安装
-
-
-def start_backend():
-    print(f"🔧 Starting Backend (Port {BACKEND_PORT})...")
-    backend_dir = os.path.join(PROJECT_ROOT, 'backend')
-    env = os.environ.copy()
-    env['PYTHONPATH'] = backend_dir
-
-    # Windows/Linux 兼容
-    cmd = [sys.executable, "app.py"]
-    return subprocess.Popen(cmd, cwd=backend_dir, env=env)
-
-
-def start_frontend():
-    print(f"🎨 Starting Frontend (Port {FRONTEND_PORT})...")
-    frontend_dir = os.path.join(PROJECT_ROOT, 'frontend')
-    # 使用 Python 自带 http.server
-    cmd = [sys.executable, "-m", "http.server", str(FRONTEND_PORT)]
-    return subprocess.Popen(cmd, cwd=frontend_dir)
 
 
 def main():
-    check_env()
-
-    # 1. 尝试初始化数据库
-    print("🗃️  Initializing Database...")
+    parser = argparse.ArgumentParser(description='音绪 · 歌词情感工作台')
+    parser.add_argument('--host', default=os.environ.get('YINYUE_HOST', '127.0.0.1'))
+    parser.add_argument('--port', type=int, default=int(os.environ.get('YINYUE_PORT', '5002')))
+    parser.add_argument('--no-browser', action='store_true', help='不自动打开浏览器')
+    parser.add_argument('--debug', action='store_true', help='开启本地调试模式')
+    args = parser.parse_args()
+    if not 1 <= args.port <= 65535:
+        parser.error('端口必须在 1–65535 之间')
     try:
-        subprocess.run([sys.executable, "backend/database.py"], cwd=PROJECT_ROOT)
-        # 注意：这里假设 database.py 直接运行会执行 init，如果不是，请调用 init_database.py
-    except:
-        pass
-
-    # 2. 启动服务
-    be_process = start_backend()
-    time.sleep(2)  # 等待后端
-    fe_process = start_frontend()
-
-    url = f"http://localhost:{FRONTEND_PORT}/professional_crawler.html"
-    print(f"\n🚀 System Running!")
-    print(f"👉 Open: {url}")
-
-    webbrowser.open(url)
-
+        from backend.app import create_app
+        from werkzeug.serving import make_server
+    except ModuleNotFoundError as exc:
+        print(f'缺少依赖 {exc.name}。请运行：{sys.executable} -m pip install -r backend/requirements.txt', file=sys.stderr)
+        return 1
+    application = create_app({'DEBUG': args.debug})
+    # Bind first so a port conflict never opens an unrelated service.
+    server = make_server(args.host, args.port, application, threaded=True)
+    url = f'http://{args.host if args.host != "0.0.0.0" else "127.0.0.1"}:{args.port}'
+    print(f'音绪已启动：{url}\n按 Ctrl+C 关闭。', flush=True)
+    if not args.no_browser:
+        threading.Timer(0.3, lambda: webbrowser.open(url)).start()
     try:
-        be_process.wait()
-        fe_process.wait()
+        server.serve_forever()
     except KeyboardInterrupt:
-        print("\n👋 Shutting down...")
-        be_process.terminate()
-        fe_process.terminate()
+        print('\n已关闭音绪。')
+    finally:
+        server.server_close()
+    return 0
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    raise SystemExit(main())
