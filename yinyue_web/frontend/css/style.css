@@ -1226,6 +1226,120 @@ input[type=search]::-webkit-search-cancel-button {
   margin:0
 }
 
+.emotion-profile {
+  margin:0 0 24px;
+  padding:17px;
+  border:1px solid #3b3b43;
+  border-radius:9px;
+  background:linear-gradient(135deg,#212226,#1c1e1b)
+}
+
+.emotion-profile .emotion-heading {
+  margin:0 0 10px
+}
+
+.emotion-intro,.emotion-transfer-note,.emotion-coverage {
+  margin:10px 0;
+  font-size:10px;
+  line-height:1.8;
+  color:var(--muted)
+}
+
+.emotion-dominant {
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:6px;
+  margin:12px 0 17px
+}
+
+.emotion-dominant-label {
+  margin-right:3px;
+  color:#aaa8bb;
+  font-size:10px
+}
+
+.emotion-tag {
+  padding:3px 10px;
+  border:1px solid #615b73;
+  border-radius:5px;
+  background:#353141;
+  color:#ddd4f1;
+  font-size:11px
+}
+
+.emotion-uncertain {
+  margin:0;
+  color:#d6bd8f;
+  font-size:11px
+}
+
+.emotion-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px 22px
+}
+
+.emotion-label {
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:6px;
+  color:#dedbe6;
+  font-size:11px
+}
+
+.emotion-label strong {
+  font-size:11px;
+  font-weight:500;
+  font-variant-numeric:tabular-nums
+}
+
+.emotion-bar {
+  height:5px;
+  margin:5px 0 1px;
+  border-radius:5px;
+  background:#38383b;
+  overflow:hidden
+}
+
+.emotion-bar span {
+  display:block;
+  height:100%;
+  border-radius:inherit;
+  background:#c3b3ec
+}
+
+.emotion-support {
+  color:#aca3c0;
+  font-size:9px
+}
+
+.emotion-item.low-support .emotion-label,.emotion-item.low-support .emotion-support {
+  color:#8d9086
+}
+
+.emotion-item.low-support .emotion-bar span {
+  background:#60635b
+}
+
+.emotion-coverage {
+  margin:15px 0 10px;
+  padding-top:12px;
+  border-top:1px solid #38383b
+}
+
+.emotion-details summary {
+  cursor:pointer;
+  color:#c2b8d5;
+  font-size:10px
+}
+
+.emotion-transfer-note {
+  color:#c6b795;
+  margin-bottom:0
+}
+
 .result-metrics {
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));

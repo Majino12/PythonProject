@@ -35,6 +35,9 @@ def main():
         print('\n已关闭音绪。')
     finally:
         server.server_close()
+        jobs = application.extensions.get('audio_jobs')
+        if jobs is not None:
+            jobs.close()
     return 0
 
 

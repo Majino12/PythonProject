@@ -9,3 +9,6 @@ data/*
 logs/
 .pytest_cache/
 .coverage
+
+# Local QA and generated evaluation reports
+work/

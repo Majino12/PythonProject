@@ -24,7 +24,8 @@ class APIError(Exception):
         self.message, self.code, self.status = message, code, status
 
 
-def create_app(config=None, *, database=None, lyric_analyzer=None, song_crawler=None):
+def create_app(config=None, *, database=None, lyric_analyzer=None, song_crawler=None,
+               audio_transcriber=None, music_service=None):
     app = Flask(__name__, static_folder=None)
     app.config.from_object(Config)
     if config is not None:
@@ -43,8 +44,13 @@ def create_app(config=None, *, database=None, lyric_analyzer=None, song_crawler=
             from .sentiment_models import ModelSentimentEngine
         else:
             from sentiment_models import ModelSentimentEngine
+        if __package__:
+            from .emotion_models import EmotionEngine
+        else:
+            from emotion_models import EmotionEngine
         lyric_analyzer = LocalLyricAnalyzer(ModelSentimentEngine(
-            model_dir=app.config.get("MODEL_DIR"), enabled=app.config.get("MODELS_ENABLED", True)))
+            model_dir=app.config.get("MODEL_DIR"), enabled=app.config.get("MODELS_ENABLED", True)),
+            emotion_engine=EmotionEngine(model_dir=Path(app.config["MODEL_DIR"]) / "emotion"))
     if song_crawler is None:
         if __package__:
             from .crawler import UnifiedCrawler
@@ -55,6 +61,17 @@ def create_app(config=None, *, database=None, lyric_analyzer=None, song_crawler=
     app.extensions["database"] = database
     app.extensions["lyric_analyzer"] = lyric_analyzer
     app.extensions["song_crawler"] = song_crawler
+
+    if __package__:
+        from .media_api import register_media_api
+        from .audio_transcriber import AudioTranscriber
+        from .music_search import MusicSearchService
+    else:
+        from media_api import register_media_api
+        from audio_transcriber import AudioTranscriber
+        from music_search import MusicSearchService
+    audio_transcriber = audio_transcriber or AudioTranscriber(model_dir=Path(app.config["MODEL_DIR"]) / "audio")
+    register_media_api(app, audio_transcriber, music_service or MusicSearchService())
 
     def body():
         if not request.is_json:
@@ -174,7 +191,8 @@ def create_app(config=None, *, database=None, lyric_analyzer=None, song_crawler=
             conn.execute("SELECT COUNT(*) FROM songs").fetchone()
         return jsonify(status="ok", service="yinyue-web", version=app.config["VERSION"],
                        analyzer=type(lyric_analyzer).__name__,
-                       models=lyric_analyzer.model_status() if hasattr(lyric_analyzer, "model_status") else {})
+                       models=lyric_analyzer.model_status() if hasattr(lyric_analyzer, "model_status") else {},
+                       audio=audio_transcriber.status())
 
     @app.post("/api/add_song")
     def add_song():
@@ -270,6 +288,8 @@ def create_app(config=None, *, database=None, lyric_analyzer=None, song_crawler=
         analysis = lyric_analyzer.analyze_lyrics_comprehensive(lyrics)
         failures = (analysis.get("metadata", {}).get("fallback_reasons")
                     or analysis.get("model_sentiment", {}).get("fallback_reasons"))
+        if (song.get("analysis") or {}).get("emotions", {}).get("available") and not analysis.get("emotions", {}).get("available"):
+            raise APIError("多维情绪模型当前不可用，已保留原有分析。", "emotion_model_unavailable", 503)
         if failures:
             raise APIError("专用模型当前不可用，已保留原有分析。请安装或修复模型后重试。",
                            "model_unavailable", 503)

@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 class LocalLyricAnalyzer:
-    VERSION = "2.1"
+    VERSION = "2.2"
     TOKEN_RE = re.compile(r"[^\W\d_]+(?:'[^\W\d_]+)*", re.UNICODE)
     BOUNDARY_RE = re.compile(r"[.!?,;:。！？、；：\n]")
     VECTOR_WEIGHTS = {
@@ -24,7 +24,7 @@ class LocalLyricAnalyzer:
         'sentence_complexity': 0.5,
     }
 
-    def __init__(self, model_engine=None):
+    def __init__(self, model_engine=None, emotion_engine=False):
         if model_engine is None:
             try:
                 from .sentiment_models import ModelSentimentEngine
@@ -32,6 +32,7 @@ class LocalLyricAnalyzer:
                 from sentiment_models import ModelSentimentEngine
             model_engine = ModelSentimentEngine()
         self.model_engine = model_engine if model_engine is not False else None
+        self.emotion_engine = emotion_engine if emotion_engine is not False else None
         self.positive_words = set(
             'love loved loving happy happiness beautiful amazing wonderful fantastic '
             'great good perfect nice sweet better best joy joyful smile smiling laugh '
@@ -259,9 +260,10 @@ class LocalLyricAnalyzer:
         }
 
     def model_status(self):
-        if self.model_engine is None:
-            return {lang: {'status': 'disabled'} for lang in ('zh', 'ko')}
-        return self.model_engine.status()
+        states = (self.model_engine.status() if self.model_engine else
+                  {lang: {'status': 'disabled'} for lang in ('zh', 'ko')})
+        states['emotion'] = self.emotion_engine.status() if self.emotion_engine else {'status': 'disabled'}
+        return states
 
     @staticmethod
     def _model_language(text):
@@ -273,7 +275,7 @@ class LocalLyricAnalyzer:
         ko = bool(re.search(r'[\uac00-\ud7af]', text))
         return 'zh' if zh and not ko else 'ko' if ko and not zh else None
 
-    def analyze_lyrics_comprehensive(self, lyrics):
+    def _analyze_with_sentiment_models(self, lyrics):
         result = self._analyze_baseline(lyrics)
         cleaned = self.clean_lyrics(lyrics)
         whole_language = self._model_language(cleaned)
@@ -369,6 +371,19 @@ class LocalLyricAnalyzer:
         result['metadata'].update(method=method, limitations=limitations,
                                   model_line_coverage={'modeled': modeled_lines, 'total': len(line_texts)},
                                   fallback_reasons=failures)
+        return result
+
+    def analyze_lyrics_comprehensive(self, lyrics):
+        result = self._analyze_with_sentiment_models(lyrics)
+        if self.emotion_engine is not None:
+            try:
+                result['emotions'] = self.emotion_engine.analyze(
+                    self.clean_lyrics(lyrics), result['metadata']['language'])
+            except Exception:
+                logger.warning('Multi-label emotion model unavailable', exc_info=True)
+                result['emotions'] = {'available': False, 'reason': '多维情绪模型不可用，正负情感分析仍可使用。'}
+        else:
+            result['emotions'] = {'available': False, 'reason': '多维情绪模型未启用。'}
         return result
 
     def analyze_song_library(self, database=None):

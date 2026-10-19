@@ -17,12 +17,15 @@ class Config:
     DEBUG = os.environ.get("YINYUE_DEBUG", "false").lower() in {"true", "1", "yes"}
     HOST = os.environ.get("YINYUE_HOST", "127.0.0.1")
     PORT = int(os.environ.get("YINYUE_PORT", "5002"))
-    MAX_CONTENT_LENGTH = 2 * 1024 * 1024
+    MAX_CONTENT_LENGTH = 32 * 1024 * 1024
+    MAX_AUDIO_BYTES = 30 * 1024 * 1024
+    UPLOAD_DIR = os.path.join(DATA_DIR, "uploads")
+    DOWNLOAD_DIR = os.path.join(DATA_DIR, "downloads")
     MAX_TITLE_LENGTH = 200
     MAX_ARTIST_LENGTH = 200
     MAX_LYRICS_LENGTH = 50000
     MAX_BATCH_SIZE = 10
-    VERSION = "2.1.0"
+    VERSION = "2.2.0"
     MODEL_DIR = os.environ.get("YINYUE_MODEL_DIR", os.path.join(DATA_DIR, "models"))
     MODELS_ENABLED = os.environ.get("YINYUE_MODELS_ENABLED", "true").lower() not in {"0", "false", "no"}
     CRAWLER_TIMEOUT = 12

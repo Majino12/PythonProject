@@ -3,7 +3,7 @@
 // All API data is inserted with textContent or DOM nodes, never parsed as markup.
 const $ = (id) => document.getElementById(id);
 const SVG_NS = 'http://www.w3.org/2000/svg';
-const VIEW_LABELS = { analyze: '分析工作台', crawler: '歌词采集', library: '我的曲库', recommend: '相似发现' };
+const VIEW_LABELS = { analyze: '分析工作台', audio: '音频识词', search: '歌曲搜索', crawler: '歌词采集', library: '我的曲库', recommend: '相似发现' };
 const SENTIMENT_LABELS = { positive: '积极', neutral: '中性', negative: '消极', uncertain: '倾向不明确', mixed: '混合情绪', unanalyzed: '待分析' };
 const clamp = (value, min, max) => Math.min(max, Math.max(min, Number(value) || 0));
 const number = (value, fallback = 0) => Number.isFinite(Number(value)) ? Number(value) : fallback;
@@ -165,8 +165,11 @@ class LyricAnalyzerApp {
 
   setView() {
     const hash = location.hash.slice(1);
-    const view = Object.hasOwn(VIEW_LABELS, hash) ? hash : 'analyze';
-    for (const key of Object.keys(VIEW_LABELS)) $(`view-${key}`).hidden = key !== view;
+    const view = Object.hasOwn(VIEW_LABELS, hash) && $(`view-${hash}`) ? hash : 'analyze';
+    for (const key of Object.keys(VIEW_LABELS)) {
+      const section = $(`view-${key}`);
+      if (section) section.hidden = key !== view;
+    }
     document.querySelectorAll('.nav-item').forEach((item) => {
       const active = item.dataset.view === view;
       item.classList.toggle('active', active);
@@ -241,6 +244,12 @@ class LyricAnalyzerApp {
       if (model?.model) row.title = model.model;
       container.append(row);
     }
+    const emotion = models.emotion;
+    const emotionLabels = { ready: '十维模型已就绪', missing: '模型未安装', disabled: '模型已停用', error: '模型暂不可用' };
+    const emotionRow = element('span', `model-status-item ${emotion?.status === 'ready' ? 'ready' : 'fallback'}`);
+    emotionRow.append(element('i', 'model-status-dot'), document.createTextNode(`情绪画像：${emotionLabels[emotion?.status] || '状态待确认'}`));
+    if (emotion?.model) emotionRow.title = emotion.model;
+    container.append(emotionRow);
     container.append(element('span', 'model-status-note', '歌词在本机分析，首次运行可能稍慢。'));
   }
 
@@ -338,6 +347,7 @@ class LyricAnalyzerApp {
     const limitations = Array.isArray(analysis.metadata?.limitations) ? analysis.metadata.limitations.join('；') : '';
     $('analysis-method').textContent = `${language} · ${method}${limitations ? `。${limitations}` : ''}`;
     this.renderModelAnalysis(analysis);
+    this.renderEmotions(analysis.emotions);
     this.renderChart(analysis.line_analysis || []);
     this.renderWords(analysis.lexical?.top_words || []);
   }
@@ -384,6 +394,79 @@ class LyricAnalyzerApp {
     } else {
       container.append(element('p', 'model-analysis-note', '本次结果来自基础文本分析；专用神经网络模型用于中文和韩文歌词。'));
     }
+  }
+
+  renderEmotions(emotions) {
+    const container = $('emotion-profile');
+    if (!container) return;
+    container.replaceChildren();
+    const heading = element('div', 'chart-heading emotion-heading');
+    const title = element('h4', '', '十维情绪画像');
+    title.id = 'emotion-heading';
+    heading.append(title, element('span', 'small-label', '语义匹配'));
+    container.append(heading);
+    const scores = Array.isArray(emotions?.scores) ? emotions.scores
+      .filter((row) => row && typeof row.label === 'string' && Number.isFinite(Number(row.score)))
+      .sort((left, right) => Number(number(right.evidence) >= 0.35) - Number(number(left.evidence) >= 0.35) || number(right.score) - number(left.score)) : [];
+    if (!emotions?.available || !scores.length) {
+      container.append(element('p', 'field-help', emotions
+        ? '多维情绪模型当前不可用。上方情感倾向仍可使用；模型就绪后可重新分析。'
+        : '这条记录尚未生成十维情绪画像。点击“重新分析”，使用当前模型补充结果。'));
+      return;
+    }
+    container.append(element('p', 'emotion-intro', '情绪可以共存。下列分数是独立语义匹配度，不相加为 100%，也不是置信度或准确率。'));
+    if (number(emotions.tokens_total) > 0 && number(emotions.tokens_total) < 24) {
+      container.append(element('p', 'emotion-transfer-note', '这段文字较短，可用语义线索有限，主导情绪也可能不稳定。建议补充完整歌词后再分析。'));
+    }
+    const dominant = Array.isArray(emotions.dominant) ? emotions.dominant.filter((row) => row && typeof row.name_zh === 'string') : [];
+    const tags = element('div', 'emotion-dominant');
+    if (dominant.length) {
+      tags.append(element('span', 'emotion-dominant-label', '主要表达'));
+      for (const row of dominant.slice(0, 3)) tags.append(element('span', 'emotion-tag', row.name_zh));
+    } else tags.append(element('p', 'emotion-uncertain', '主导情绪证据不足，请结合原文解读。'));
+    container.append(tags);
+    const labels = { joy: '喜悦', sadness: '悲伤', anger: '愤怒', fear: '恐惧', love: '爱恋', longing: '思念', hope: '希望', calm: '平静', loneliness: '孤独', nostalgia: '怀旧' };
+    const grid = element('div', 'emotion-grid');
+    for (const row of scores.slice(0, 10)) {
+      const score = clamp(row.score, 0, 1);
+      const supported = number(row.evidence) >= 0.35;
+      const name = labels[row.label] || row.name_zh || row.label;
+      const item = element('div', `emotion-item${supported ? '' : ' low-support'}`);
+      const label = element('div', 'emotion-label');
+      label.append(element('span', '', name), element('strong', '', supported ? percent(score) : '支持不足'));
+      const bar = element('div', 'emotion-bar');
+      const fill = element('span', '');
+      fill.style.width = supported ? percent(score) : '0%';
+      bar.append(fill);
+      bar.setAttribute('role', 'img');
+      bar.setAttribute('aria-label', supported ? `${name}语义匹配度 ${percent(score)}` : `${name}支持不足，未展示匹配度`);
+      item.append(label, bar, element('small', 'emotion-support', supported ? '有语义支持' : '缺少蕴含证据'));
+      grid.append(item);
+    }
+    container.append(grid);
+    const coverage = clamp(emotions.coverage, 0, 1);
+    const coverageNote = coverage >= 1
+      ? `已分析全文 · ${number(emotions.chunk_count, 1)} 个片段`
+      : `长文本片段采样 · 覆盖 ${percent(coverage)} 的词元 · ${number(emotions.chunk_count)} 个片段，未覆盖内容可能表达不同情绪`;
+    container.append(element('p', 'emotion-coverage', coverageNote));
+    const details = element('details', 'emotion-details');
+    details.append(element('summary', '', '模型来源与解读提示'));
+    const source = element('div', 'model-source');
+    source.append(element('span', '', '多语 NLI 模型'));
+    if (typeof emotions.model === 'string' && /^[\w.-]+\/[\w.-]+$/.test(emotions.model)) {
+      const link = element('a', '', emotions.model);
+      link.href = `https://huggingface.co/${emotions.model}`;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      source.append(link);
+    }
+    if (emotions.revision) source.append(element('small', '', `版本 ${String(emotions.revision).slice(0, 12)}`));
+    details.append(source, element('p', 'field-help', '“支持不足”表示模型对该情绪的蕴含证据较弱，即使匹配度较高，也不宜据此判断歌词情绪。'));
+    if (Array.isArray(emotions.warnings)) {
+      for (const warning of emotions.warnings) if (typeof warning === 'string') details.append(element('p', 'field-help', warning));
+    }
+    container.append(details);
+    if (['ko', 'mixed'].includes(emotions.language)) container.append(element('p', 'emotion-transfer-note', '韩文情绪画像使用跨语言迁移，尚未在韩文歌词情绪数据上验证。'));
   }
 
   renderChart(lines) {

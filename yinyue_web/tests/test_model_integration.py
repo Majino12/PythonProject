@@ -193,7 +193,7 @@ class ModelIntegrationTests(unittest.TestCase):
 
     def test_disabled_models_keep_stable_dictionary_baseline(self):
         analyzer = LocalLyricAnalyzer(model_engine=False)
-        self.assertEqual(analyzer.model_status(), {'zh': {'status': 'disabled'}, 'ko': {'status': 'disabled'}})
+        self.assertEqual(analyzer.model_status(), {'zh': {'status': 'disabled'}, 'ko': {'status': 'disabled'}, 'emotion': {'status': 'disabled'}})
         for text, expected in [('我很快乐。', 'positive'), ('我不快乐。', 'negative'),
                                ('나는 행복해', 'positive'), ('행복하지 않아', 'negative')]:
             with self.subTest(text=text):

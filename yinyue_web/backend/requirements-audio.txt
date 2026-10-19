@@ -1,0 +1,5 @@
+# Optional offline audio transcription. Install backend/requirements.txt too.
+# Apple Silicon wheels are available; PyAV includes the audio decoder.
+faster-whisper==1.2.1
+ctranslate2==4.8.3
+av==19.0.1

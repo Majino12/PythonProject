@@ -1,6 +1,8 @@
-# 音绪 · 歌词情感工作台 2.1
+# 音绪 · 歌词情感工作台 2.2
 
 一个在本机运行的歌词分析与曲库工具。粘贴歌词即可查看整体情感、逐行情感变化、词汇多样性和高频词；保存后可搜索曲库、查找特征相近的歌曲、导出 JSON。中文响应式界面，无前端构建步骤或 CDN。中文和韩文可使用本机专用情感模型，首次安装需下载约 861 MB 模型权重。
+
+2.2 新增 **音频上传与自动歌词转写、十维情绪画像、在线歌词搜索、开放许可音频试听与下载**。原有曲库继续保留。详细操作、模型来源与限制见 [音频和搜索说明](AUDIO_AND_SEARCH.md)。
 
 ## 快速开始
 
@@ -14,6 +16,10 @@ python -m pip install -r backend/requirements.txt
 # 启用更强的中文、韩文模型（推荐）
 python -m pip install -r backend/requirements-models.txt
 python scripts/setup_models.py
+# 可选：多维情绪与音频识词
+python -m pip install -r backend/requirements-audio.txt
+python scripts/setup_emotion_model.py
+python scripts/setup_audio_model.py
 python run.py
 ```
 
@@ -88,7 +94,7 @@ python run.py --port 5012
 | DELETE | `/api/songs/<id>` | 删除歌曲及关联数据 |
 | GET | `/api/export` | 导出完整曲库 JSON |
 
-歌名、歌手限制各 200 字符，歌词 50,000 字符，单次 JSON 请求上限 2 MiB。旧 `target_song` 标题推荐参数仅在曲库内标题唯一时接受；新客户端应使用 `song_id`。
+歌名、歌手限制各 200 字符，歌词 50,000 字符，单次 JSON 请求上限 2 MiB；音频上传单独限制 30 MiB / 10 分钟。旧 `target_song` 标题推荐参数仅在曲库内标题唯一时接受；新客户端应使用 `song_id`。
 
 ## 验证
 
