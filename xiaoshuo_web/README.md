@@ -1,282 +1,119 @@
+# 小说全文分析 · 2.0
 
-# Keyword Analysis and Summarization System for Web Novel/News Texts(小说分析系统 / 웹 소설/뉴스 텍스트의 키워드 분석 및 요약 생성 시스템)
+按完整原文逐段阅读的小说分析工具。中文、英文章节都保留；长章节继续切块，最后一章、最后一个字符也进入处理。提供章节摘要、全书汇总、带原文证据的人物与事件、全文统计、后台进度和报告导出。
 
+旧版的“前 15 章 / 每章 3000 字”摘要、前 30 万字符截取、固定比例猜测高潮、用共现推断关系、随机耗时与模拟进度已移除。全文覆盖率表示处理范围，**不代表准确率**。模型结论仍需结合原文核对。
 
-## 🇨🇳 中文说明
+## 快速启动
 
-小说分析系统 是一个基于 Python 和 AI 技术（NLP/机器学习）构建的 Web 应用程序，旨在深度分析小说文本内容。它能够自动提取人物关系、绘制情感曲线、识别关键主题，并生成详细的可视化分析报告。
-
-### 主要功能
-
-  * **多模式输入**：支持直接文本粘贴、文件上传（.txt, .docx, .pdf）以及网页爬虫（自动抓取新闻或小说章节）。
-  * **人物分析**：自动识别主要人物，计算出场频率，生成人物关系网络，并追踪人物发展曲线。
-  * **情节结构**：通过情感分析绘制情节起伏曲线，识别开端、高潮和结尾。
-  * **主题提取**：利用 KeyBERT 和 TF-IDF 算法提取文本核心主题和关键词。
-  * **数据可视化**：提供丰富的交互式图表（Chart.js），包括词云、频率直方图和情感折线图。
-  * **控制台监控**：实时监控系统资源（CPU/内存）和分析任务历史。
-  * **多语言界面**：内置中文、英文、韩文三种语言界面切换。
-  * **报告导出**：支持将分析结果导出为 PDF、HTML 或 JSON 格式。
-
-### 技术栈
-
-  * **后端**：Flask, NLTK, spaCy, scikit-learn, Sumy, KeyBERT, TextBlob
-  * **前端**：Bootstrap 5, Chart.js, Toastify.js
-  * **工具**：BeautifulSoup4 (爬虫), PDFPlumber (PDF解析)
-
-### 快速开始
-
-
-#### 1\. 安装依赖
+Python 3.11+，每个应用使用独立虚拟环境：
 
 ```bash
-pip install -r requirements.txt
-```
-
-#### 2\. 下载 NLP 模型
-
-为了获得最佳的人物识别效果，建议下载 spaCy 的英文模型：
-
-```bash
-python -m spacy download en_core_web_sm
-```
-
-*(注：程序启动时也会自动检查并尝试下载 NLTK 数据)*
-
-#### 4\. 启动应用
-
-```bash
+cd xiaoshuo_web
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
 python run.py
 ```
 
-系统会自动在浏览器中打开 `http://127.0.0.1:5003`。
+访问 http://127.0.0.1:5003 。未配置模型时，自动模式仅提供明确标注的全文摘录与统计，不编造语义结论。依赖安装和应用导入不会自动下载模型。
 
-### 📂 目录结构
+## 本地混合模型
 
-```text
-xiaoshuo_web/
-│
-├── app.py                  # [核心] Flask 后端入口，处理路由和 API
-├── config.py               # [配置] 项目路径、密钥和文件上传限制配置
-├── novel_analyzer.py       # [核心] 自然语言处理、爬虫和文本分析逻辑
-├── run.py                  # [启动] 自动化启动脚本 (检查依赖 + 打开浏览器)
-├── requirements.txt        # [依赖] 项目所需的 Python 库列表
-├── README.md               # [文档] 项目说明文档 (中/英/韩)
-│
-├── static/                 # [静态资源目录]
-│   ├── css/
-│   │   └── style.css       # 全局样式表 (包含深色模式适配)
-│   │
-│   ├── js/
-│   │   ├── dashboard.js    # 控制台逻辑 (图表、系统监控)
-│   │   ├── i18n.js         # 前端国际化处理核心逻辑
-│   │   ├── script.js       # 通用交互逻辑 (文件验证、主题切换)
-│   │   └── utils.js        # 工具函数 (时间格式化等)
-│   │
-│   ├── locales/            # [语言包目录]
-│   │   ├── cn.json         # 中文翻译
-│   │   ├── en.json         # 英文翻译
-│   │   └── kr.json         # 韩文翻译
-│   │
-│   ├── results/            # [自动生成] 用于存储分析生成的 .json 结果文件
-│   └── uploads/            # [自动生成] 用于存储用户上传的小说文件
-│
-└── templates/              # [HTML 模板目录]
-    ├── base.html           # 基础布局 (导航栏、页脚、资源引用)
-    ├── index.html          # 首页 (分析入口、表单、进度模态框)
-    ├── dashboard.html      # 控制台 (统计数据、历史记录)
-    ├── result.html         # 分析结果页 (图表展示、详细数据)
-    ├── features.html       # 功能特色页
-    ├── tutorial.html       # 使用教程页
-    ├── about.html          # 关于页
-    ├── error.html          # 错误提示页
-    └── export_report.html  # 导出报告专用模板 (打印/下载用)
-```
-
------
-
-## 🇺🇸 English Documentation
-
-Keyword Analysis and Summarization System for Web Novel/News Texts is a web-based application built with Python and AI technologies (NLP/Machine Learning) designed for deep analysis of novel texts. It automatically extracts character relationships, plots sentiment arcs, identifies key themes, and generates detailed visual reports.
-
-### Key Features
-
-  * **Multi-Input Support**: Direct text input, file uploads (.txt, .docx, .pdf), and web crawling (News/Novel sites).
-  * **Character Analysis**: Identifies main characters, calculates frequency, maps relationships, and tracks character development arcs.
-  * **Plot Structure**: Visualizes the narrative arc through sentiment analysis (Exposition, Climax, Resolution).
-  * **Theme Extraction**: Extracts core themes and keywords using KeyBERT and TF-IDF.
-  * **Data Visualization**: Interactive charts via Chart.js, including word clouds and sentiment curves.
-  * **Dashboard**: Real-time monitoring of system resources (CPU/RAM) and analysis history.
-  * **Multi-Language UI**: Switch between English, Chinese, and Korean.
-  * **Export**: Download reports in PDF, HTML, or JSON formats.
-
-### Tech Stack
-
-  * **Backend**: Flask, NLTK, spaCy, scikit-learn, Sumy, KeyBERT, TextBlob
-  * **Frontend**: Bootstrap 5, Chart.js, Toastify.js
-  * **Utilities**: BeautifulSoup4 (Crawler), PDFPlumber (PDF parsing)
-
-### Quick Start
-
-
-
-#### 1\. Install Dependencies
+安装 [Ollama](https://ollama.com/download) 0.34 或更新版本（本机实测 0.40.6），启动本地服务，在另一个终端下载：
 
 ```bash
-pip install -r requirements.txt
+ollama serve
+# 已有 Ollama 后台服务时无需重复启动
 ```
 
-#### 2\. Download NLP Models
-
-For the best character recognition results, install the spaCy English model:
-
 ```bash
-python -m spacy download en_core_web_sm
-```
-
-*(Note: The app will also check and download NLTK data on startup)*
-
-#### 3\. Run the Application
-
-```bash
+ollama pull qwen3.5:4b
+ollama pull qwen3.5:9b
+cp .env.example .env
+python scripts/check_models.py
 python run.py
 ```
 
-The browser will automatically open `http://127.0.0.1:5003`.
+默认配置：4B 负责分块提取，9B 负责汇总和证据复核。16GB Mac 可先使用这一组合；实际内存与速度取决于上下文和其他运行程序。更紧凑的设备可把三个阶段都设置为 `qwen3.5:4b`，更大内存设备可显式选择更大模型。模型更大或混用不自动保证某本小说更准确。首次下载需要数 GB 空间，下载完成后本地推理不需要联网。
 
+模型规格来自 [Ollama Qwen3.5 模型页](https://ollama.com/library/qwen3.5)，客户端按 [Ollama Chat API](https://docs.ollama.com/api/chat) 调用 JSON 输出。模型名称与可用性以 `python scripts/check_models.py` 的实测为准。
 
-### 📂 Directory structure
+## 云端与混合提供方
 
-```text
-xiaoshuo_web/
-│
-├── app.py                  # [Core] Flask backend entry, handles routing and API
-├── config.py               # [Configuration] Project paths, secret keys, and file upload limits configuration
-├── novel_analyzer.py       # [Core] Natural Language Processing, crawler, and text analysis logic
-├── run.py                  # [Launch] Automation startup script (checks dependencies + opens browser)
-├── requirements.txt        # [Dependencies] List of required Python libraries for the project
-├── README.md               # [Documentation] Project documentation (in Chinese/English/Korean)
-│
-├── static/                 # [Static Resources Directory]
-│   ├── css/
-│   │   └── style.css       # Global stylesheet (includes dark mode adaptation)
-│   │
-│   ├── js/
-│   │   ├── dashboard.js    # Console logic (charts, system monitoring)
-│   │   ├── i18n.js         # Frontend internationalization core logic
-│   │   ├── script.js       # General interaction logic (file validation, theme switching)
-│   │   └── utils.js        # Utility functions (time formatting, etc.)
-│   │
-│   ├── locales/            # [Language Packs Directory]
-│   │   ├── cn.json         # Chinese translations
-│   │   ├── en.json         # English translations
-│   │   └── kr.json         # Korean translations
-│   │
-│   ├── results/            # [Auto-generated] Stores analysis-generated .json result files
-│   └── uploads/            # [Auto-generated] Stores user-uploaded novel files
-│
-└── templates/              # [HTML Templates Directory]
-    ├── base.html           # Base layout (navigation bar, footer, resource references)
-    ├── index.html          # Homepage (analysis entry, forms, progress modal)
-    ├── dashboard.html      # Console (statistics, history log)
-    ├── result.html         # Results page (chart display, detailed data)
-    ├── features.html       # Features page
-    ├── tutorial.html       # Tutorial page
-    ├── about.html          # About page
-    ├── error.html          # Error prompt page
-    └── export_report.html  # Export report template (for printing/downloading)
+支持提供 JSON 输出的兼容 Chat Completions 接口。三个阶段可分别配置，密钥仅从 `.env` / 环境变量读取，不进入 Git 或报告。选择云端阶段会将该阶段原文片段或带引文的分析记录发送至所配置服务；本地模式不发送小说到云端。
+
+例如全部使用 DeepSeek（需要自己的 API Key）：
+
+```dotenv
+NOVEL_MODEL_PROVIDER=compatible
+NOVEL_BASE_URL=https://api.deepseek.com
+NOVEL_API_KEY=填写自己的密钥
+NOVEL_COMPATIBLE_THINKING=disabled
+NOVEL_MAP_MODEL=deepseek-flash
+NOVEL_REDUCE_MODEL=deepseek-v4-pro
+NOVEL_VERIFY_MODEL=deepseek-v4-pro
 ```
 
------
+上述名称根据 2026-10-19 的 [DeepSeek 官方模型表](https://api-docs.deepseek.com/quick_start/pricing/) 核实。服务可能更新名称；不保证未来永远可用。也可保留 `.env.example` 的本地 map，只取消其中 reduce/verify 云端设置的注释。任一阶段可独立设置 `NOVEL_MAP_PROVIDER`、`NOVEL_MAP_BASE_URL`、`NOVEL_MAP_API_KEY`、`NOVEL_MAP_MODEL`（把 MAP 替换为 REDUCE / VERIFY 即可）。
 
-## 🇰🇷 한국어 설명
+远程端点要求 HTTPS；本机端点允许 HTTP。API 不可用、超时、JSON 无效或输出被截断会明确失败或标为部分结果，不会悄悄用规则结果冒充模型分析。模型配置存在不代表模型已下载或服务器在线；运行检测脚本检查。
 
-웹 소설/뉴스 텍스트의 키워드 분석 및 요약 생성 시스템 은 Python과 AI 기술(NLP/머신러닝)을 기반으로 구축된 웹 애플리케이션으로, 소설 텍스트를 심층적으로 분석합니다. 인물 관계 추출, 감정 곡선 시각화, 주요 주제 식별 및 상세 분석 보고서를 자동으로 생성합니다.
+## 分析过程与报告
 
-### 주요 기능
+1. 保留原文换行和章节边界，识别中文章节、英文 Chapter 等标题；无标题文本也按段落/长度完整切块。正文限额超出时明确拒绝，不截去尾部。
+2. 每个块都提取叙述、人物、事件、主题与逐字引文。引文必须能在该原文块定位；记录章节、块号和字符偏移。
+3. 另一次模型调用逐条复核结论是否被给定证据支持，检查相邻上下文中的否定、传言和限定。复核不是事实保证；未通过的结论不进入已验证结果。
+4. 分层汇总完整章节和全书，所有分块都参与；每条摘要事实独立引用、独立复核，记录原文覆盖和失败块。全书摘要另外保留末章引用位置最靠后的至多两条已验证叙事事实，减少压缩时遗漏结尾的情况。不会将整本书直接塞进一个超长请求后让服务静默截断。
+5. 报告展示方法、模型、覆盖、警告、每章摘要、引用与全文统计。基础模式只显示摘录与统计；不生成猜测的人物关系、主题或情绪曲线。
 
-  * **다양한 입력 방식**: 텍스트 직접 입력, 파일 업로드(.txt, .docx, .pdf), 웹 크롤링(뉴스 또는 소설 사이트)을 지원합니다.
-  * **인물 분석**: 주요 인물을 자동으로 식별하고 등장 빈도, 인물 관계도 및 인물 발전 과정을 추적합니다.
-  * **플롯 구조**: 감정 분석을 통해 서사 구조(발단, 절정, 결말)를 시각화합니다.
-  * **주제 추출**: KeyBERT 및 TF-IDF 알고리즘을 사용하여 핵심 주제와 키워드를 추출합니다.
-  * **데이터 시각화**: Chart.js를 활용한 다양한 인터랙티브 차트 제공 (단어 구름, 감정 곡선 등).
-  * **대시보드**: 시스템 리소스(CPU/메모리) 및 분석 기록을 실시간으로 모니터링합니다.
-  * **다국어 인터페이스**: 한국어, 영어, 중국어 UI를 지원합니다.
-  * **내보내기**: 분석 결과를 PDF, HTML 또는 JSON 형식으로 다운로드할 수 있습니다.
+中文计数与英文按空格分词不同；统计字段说明应与具体报告一起阅读。引文存在仅证明原文有这句话，不能单独证明所有解释正确。书中不可靠叙述、讽刺、隐喻、别名、跨章伏笔可能仍被遗漏或误解。整本上传文本的覆盖不等于出版版本完整性；软件不知道是否缺章。
 
-### 기술 스택
+## 输入与边界
 
-  * **백엔드**: Flask, NLTK, spaCy, scikit-learn, Sumy, KeyBERT, TextBlob
-  * **프론트엔드**: Bootstrap 5, Chart.js, Toastify.js
-  * **유틸리티**: BeautifulSoup4 (크롤러), PDFPlumber (PDF 파싱)
+- TXT：UTF-8 / UTF-8 BOM / UTF-16 BOM / GB18030；错误编码会提示。
+- DOCX：正文段落与表格按阅读顺序提取；不做批注、图片 OCR。
+- PDF：读取文本层；扫描页或有内容却无文本层的页明确报错，避免把缺页当全文。
+- 网页：只分析当前页面提取的正文，不自动追踪整部小说目录。整本分析请上传完整文件。
+- 默认上传 64 MB、正文 2000 万字符。限额保护资源使用；不会自动缩短输入。
+- JSON / HTML 导出；PDF 使用浏览器“打印 → 保存为 PDF”。
 
-### 빠른 시작
+## 任务、保存与部署
 
+`POST /analyze` 返回 202 与任务 ID；`GET /analysis/status/<id>` 返回真实 queued / processing / completed / failed、阶段、已完成块数与总块数。未知任务返回 404。浏览器刷新不停止后台任务，但**服务进程重启会中断任务并标记失败，需重新提交原文**，任务 ID 本身不续算；默认启用响应缓存，重新提交完全相同的原文和配置时可复用已完成的模型调用，避免从零推理。
 
-#### 1\. 의존성 설치
+默认一个任务执行、两个任务排队，超过返回 429。任务状态与报告在 `data/jobs`、`data/results` 原子保存，不放入 `static`。原文上传文件不持久保存。模型响应缓存保存在私有 `data/model_cache`，包含分析及引用，默认有效期 7 天，按端点、模型和完整请求摘要匹配；不保存 API Key 或原始请求正文。模型提供方原地升级同名模型时，请清理此缓存或设置 `NOVEL_CACHE_ENABLED=0` 重新测算。仓库原先已跟踪的上传文件、旧报告和缓存保留存档，本次不删除；忽略规则防止新增运行数据进入提交，但不会撤销已有文件的跟踪。应用禁止访问旧版上传和报告静态目录，也不会将旧报告作为新结果使用。
+
+当前是单进程本地应用，请只启动一个服务进程。不要使用多进程 Gunicorn 或让多个实例共用 data 目录。默认只监听 127.0.0.1；本版本没有账户隔离，不宜直接公开到互联网。
+
+## 配置
+
+| 环境变量 | 默认值 | 用途 |
+| --- | --- | --- |
+| `NOVEL_MODEL_PROVIDER` | `disabled` | `disabled` / `ollama` / `compatible` |
+| `NOVEL_MODEL_TIMEOUT` | 180 | 每次模型请求读超时（秒） |
+| `NOVEL_MODEL_RETRIES` | 2 | 连接、429、5xx 的额外重试次数 |
+| `NOVEL_MAX_PROMPT_CHARS` | 24000 | 模型输入字符硬上限；超限报错 |
+| `NOVEL_MAX_OUTPUT_TOKENS` | 4096 | 单次输出预算 |
+| `NOVEL_CONTEXT_TOKENS` | 32768 | Ollama 上下文预算 |
+| `NOVEL_CACHE_ENABLED` | 1 | 是否复用 7 天内相同模型请求的响应 |
+| `NOVEL_CHUNK_CHARS` | 6000 | 分块字符预算 |
+| `NOVEL_REDUCE_INPUT_CHARS` | 18000 | 汇总批次字符预算 |
+| `NOVEL_DATA_DIR` | `xiaoshuo_web/data` | 私有任务与报告目录 |
+| `NOVEL_MAX_CONTENT_LENGTH` | 67108864 | 请求体字节上限 |
+| `NOVEL_MAX_ANALYSIS_TEXT_LENGTH` | 20000000 | 正文字数上限 |
+| `NOVEL_JOB_WORKERS` | 1 | 同时分析的任务数 |
+| `NOVEL_JOB_QUEUE_SIZE` | 2 | 等待队列长度 |
+
+大模型与长篇逐块处理可能耗时较长；本机 4B/9B 的两章短篇实测也需要数分钟，百万字整书应预留长时间运行。页面显示工作进度，未估算时不声称几秒完成。API 用量取决于分块数与复核、汇总请求数。
+
+## 验证
 
 ```bash
-pip install -r requirements.txt
+python -m unittest discover -s tests -v
+python scripts/check_models.py  # 只检测连接与模型名，不进行推理
+node --test tests/test_ui.js    # Node 18+，无需 npm 依赖
+python scripts/evaluate_pipeline.py --live --output data/live-check.json
 ```
 
-#### 2\. NLP 모델 다운로드
-
-정확한 인물 인식을 위해 spaCy 영어 모델을 설치하는 것을 권장합니다:
-
-```bash
-python -m spacy download en_core_web_sm
-```
-
-*(참고: 앱 실행 시 NLTK 데이터도 자동으로 확인하고 다운로드합니다)*
-
-#### 3\. 애플리케이션 실행
-
-```bash
-python run.py
-```
-
-브라우저가 자동으로 열리며 `http://127.0.0.1:5003`에 접속됩니다.
-
-
-### 📂 디렉토리 구조
-
-```text
-xiaoshuo_web/
-│
-├── app.py                  # [핵심] Flask 백엔드 진입점, 라우팅 및 API 처리
-├── config.py               # [설정] 프로젝트 경로, 시크릿 키 및 파일 업로드 제한 설정
-├── novel_analyzer.py       # [핵심] 자연어 처리, 크롤러 및 텍스트 분석 로직
-├── run.py                  # [시작] 자동화 시작 스크립트 (의존성 확인 + 브라우저 열기)
-├── requirements.txt        # [의존성] 프로젝트에 필요한 Python 라이브러리 목록
-├── README.md               # [문서] 프로젝트 설명 문서 (중/영/한)
-│
-├── static/                 # [정적 리소스 디렉터리]
-│   ├── css/
-│   │   └── style.css       # 전역 스타일시트 (다크 모드 적용 포함)
-│   │
-│   ├── js/
-│   │   ├── dashboard.js    # 콘솔 로직 (차트, 시스템 모니터링)
-│   │   ├── i18n.js         # 프론트엔드 국제화 핵심 로직
-│   │   ├── script.js       # 일반 상호작용 로직 (파일 검증, 테마 전환)
-│   │   └── utils.js        # 유틸리티 함수 (시간 포맷팅 등)
-│   │
-│   ├── locales/            # [언어 패키지 디렉터리]
-│   │   ├── cn.json         # 중국어 번역
-│   │   ├── en.json         # 영어 번역
-│   │   └── kr.json         # 한국어 번역
-│   │
-│   ├── results/            # [자동 생성] 분석으로 생성된 .json 결과 파일 저장
-│   └── uploads/            # [자동 생성] 사용자 업로드 소설 파일 저장
-│
-└── templates/              # [HTML 템플릿 디렉터리]
-    ├── base.html           # 기본 레이아웃 (네비게이션 바, 푸터, 리소스 참조)
-    ├── index.html          # 홈페이지 (분석 시작점, 폼, 진행 모달창)
-    ├── dashboard.html      # 콘솔 (통계 데이터, 기록)
-    ├── result.html         # 결과 페이지 (차트 표시, 상세 데이터)
-    ├── features.html       # 기능 소개 페이지
-    ├── tutorial.html       # 사용 튜토리얼 페이지
-    ├── about.html          # 프로젝트 소개 페이지
-    ├── error.html          # 오류 안내 페이지
-    └── export_report.html  # 보고서 내보내기 전용 템플릿 (인쇄/다운로드용)
-```
-
------
+自动化测试使用可控模型替身验证覆盖、原文证据拒绝、异常响应、任务状态、文件提取与导出，不把替身测试当模型准确率。真实模型测试与结果记录见 `VALIDATION.md`。需要带人工标注的不同作品评测才能报告准确率，本项目没有宣称未测得的提升百分比。

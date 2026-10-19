@@ -1,0 +1,98 @@
+{% set info = result.get('novel_info', {}) %}
+{% set meta = result.get('analysis_metadata', {}) %}
+{% set summaries = result.get('hierarchical_summary', {}) %}
+{% set people = result.get('character_analysis', {}) %}
+{% set plot = result.get('plot_analysis', {}) %}
+{% set evidence = result.get('evidence', []) %}
+{% macro references(ids) -%}
+    {% if ids %}<span class="evidence-links">原文依据：{% for id in ids %}<a href="#evidence-{{ id }}">[{{ id }}]</a>{% if not loop.last %} {% endif %}{% endfor %}</span>{% endif %}
+{%- endmacro %}
+{% macro grounded_summary(statements, fallback, ids, empty_message) -%}
+    {% if statements %}
+        {% for statement in statements %}
+        <div class="summary-statement mb-3">
+            <p class="report-prose mb-1">{{ statement.get('text', '') }}</p>
+            {{ references(statement.get('evidence_ids', [])) }}
+        </div>
+        {% endfor %}
+    {% elif fallback %}
+        <div class="report-prose">{{ fallback }}</div>
+        {{ references(ids) }}
+    {% else %}<p class="empty-state">{{ empty_message }}</p>{% endif %}
+{%- endmacro %}
+<div class="novel-report">
+    {% if result.get('error') %}<div class="alert alert-danger">{{ result.error }}</div>{% endif %}
+    <section class="card mb-4" aria-labelledby="coverageHeading"><div class="card-body p-md-4">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+            <h2 id="coverageHeading" class="h5 mb-0">分析范围与方法</h2>
+            {% if meta %}<span class="badge {{ 'bg-success' if meta.get('status') == 'complete' else 'bg-warning text-dark' }}">{{ '处理完成' if meta.get('status') == 'complete' else '部分完成 · 请检查限制' }}</span>{% else %}<span class="badge bg-secondary">历史报告</span>{% endif %}
+        </div>
+        <div class="report-metrics mb-3">
+            <div><span class="metric-label">输入章节</span><strong>{{ info.get('total_chapters', '未记录') }}</strong></div>
+            <div><span class="metric-label">输入字符</span><strong>{{ '{:,}'.format(info.get('total_length', 0)) if info.get('total_length') is number else '未记录' }}</strong></div>
+            <div><span class="metric-label">本次输入覆盖率</span><strong>{{ '%.1f'|format(meta.get('coverage_ratio', 0) * 100) ~ '%' if meta.get('coverage_ratio') is number else '未记录' }}</strong></div>
+            <div><span class="metric-label">{{ '有核对结论的片段' if meta.get('mode') == 'model' else '已处理片段' }}</span><strong>{{ meta.get('processed_chunks', '—') }} / {{ meta.get('total_chunks', '—') }}</strong></div>
+        </div>
+        {% if meta %}
+        <p><strong>分析方式：</strong>{{ '模型分析' if meta.get('mode') == 'model' else '基础统计与原文摘录' if meta.get('mode') == 'baseline' else meta.get('mode', '未记录') }}{% if result.get('duration') %}<span class="ms-3 text-muted">耗时 {{ result.duration }}</span>{% endif %}</p>
+        <p class="small text-muted">覆盖率只表示本次提交文本的处理范围，不表示结论准确率，也不能证明提交的是完整小说。请核对下方末章与原书结尾。</p>
+        {% if meta.get('coverage_definition') %}<p class="small">{{ meta.coverage_definition }}</p>{% endif %}
+        {% if meta.get('grounding_note') %}<p class="small">{{ meta.grounding_note }}</p>{% endif %}
+        {% if meta.get('warnings') %}<div class="alert alert-warning mb-3"><strong>本次分析的限制</strong><ul class="mb-0 mt-2">{% for warning in meta.warnings %}<li>{{ warning }}</li>{% endfor %}</ul></div>{% endif %}
+        {% if meta.get('failed_chunks') %}<p class="text-danger small">未成功处理的片段：{{ meta.failed_chunks }}</p>{% endif %}
+        {% if meta.get('mode') == 'baseline' %}<div class="alert alert-info">当前报告是本地基础统计与摘录，未进行模型语义分析。需要人物关系、事件和主题解读时，请配置模型后重新分析。</div>{% endif %}
+        {% else %}<div class="alert alert-warning">这份历史报告没有全文覆盖记录、模型记录或引用核验信息，无法确认旧结论是否可靠。建议使用新版重新分析原文件。</div>{% endif %}
+        {% if result.get('source') %}<p class="small text-muted mb-1 text-break">来源：{{ result.source }}</p>{% endif %}
+        {% if result.get('timestamp') %}<p class="small text-muted mb-1">生成时间：{{ result.timestamp }}</p>{% endif %}
+        {% if meta %}<details class="mt-3"><summary class="small">查看实际模型与处理记录</summary><pre class="metadata-json">{{ meta|tojson(indent=2) }}</pre></details>{% endif %}
+    </div></section>
+
+    <nav class="report-nav no-print mb-4" aria-label="报告目录">
+        <a href="#overallSummary">全书摘要</a><a href="#chapterSummaries">逐章阅读</a><a href="#characterAnalysis">人物</a><a href="#keyEvents">事件</a><a href="#themesAnalysis">主题</a><a href="#sourceEvidence">原文依据</a>
+    </nav>
+    <section class="card mb-4" id="overallSummary"><div class="card-body p-md-4">
+        <h2 class="h5 mb-3">{{ '全文摘录概览' if meta.get('mode') == 'baseline' else '全书摘要' }}</h2>
+        {{ grounded_summary(summaries.get('overall_summary_statements', []), summaries.get('overall_summary'), summaries.get('overall_evidence_ids', summaries.get('evidence_ids', [])), '没有可用的全书摘要。') }}
+    </div></section>
+    <section class="card mb-4" id="chapterSummaries"><div class="card-body p-md-4">
+        <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between mb-3"><h2 class="h5 mb-0">逐章阅读</h2><span class="text-muted small">{{ summaries.get('chapter_summaries', [])|length }} 个章节记录 · 按输入顺序</span></div>
+        {% for chapter in summaries.get('chapter_summaries', []) %}
+        <article class="chapter-entry" id="chapter-{{ chapter.get('chapter_number', loop.index) }}">
+            <div class="d-flex justify-content-between align-items-start gap-3"><h3 class="h6">{{ chapter.get('title') or '第 ' ~ chapter.get('chapter_number', loop.index) ~ ' 章' }}</h3>{% if chapter.get('status') %}<small class="text-muted">{{ {'complete':'已处理', 'partial':'部分处理', 'failed':'未完成', 'baseline':'基础摘录', 'extractive':'原文摘录', 'verified':'已核对'}.get(chapter.status, chapter.status) }}</small>{% endif %}</div>
+            {{ grounded_summary(chapter.get('summary_statements', []), chapter.get('summary'), chapter.get('evidence_ids', []), '本章没有可用摘要，请检查处理记录。') }}
+            {% if chapter.get('length') is number %}<span class="small text-muted me-3">{{ '{:,}'.format(chapter.length) }} 字符</span>{% endif %}
+        </article>
+        {% else %}<p class="empty-state">没有章节摘要记录。不能据此确认全文已被分析。</p>{% endfor %}
+        {% if result.get('chunk_analyses') %}<details class="mt-4"><summary>逐段处理记录（{{ result.chunk_analyses|length }} 个片段）</summary>
+        <div class="table-responsive mt-3"><table class="table table-sm"><thead><tr><th>片段</th><th>章节</th><th>字符范围</th><th>结果</th></tr></thead><tbody>{% for chunk in result.chunk_analyses %}<tr><td>{{ chunk.get('chunk_id', '') }}</td><td>{{ chunk.get('chapter', '') }}</td><td>{{ chunk.get('start', '') }}–{{ chunk.get('end', '') }}</td><td>{{ {'verified':'已核对', 'complete':'已处理', 'extractive':'原文摘录', 'failed':'失败', 'partial':'部分完成', 'skipped':'未处理'}.get(chunk.get('status'), chunk.get('status', '未记录')) }} · {{ '模型结论' if chunk.get('summary_method') == 'model' else '原文摘录' }}{% if chunk.get('summary') or chunk.get('summary_statements') %}<details class="mt-2"><summary class="small">查看本段内容</summary>{{ grounded_summary(chunk.get('summary_statements', []), chunk.get('summary'), chunk.get('evidence_ids', []), '本段没有可用摘要。') }}</details>{% endif %}</td></tr>{% endfor %}</tbody></table></div></details>{% endif %}
+    </div></section>
+    <section class="card mb-4" id="characterAnalysis"><div class="card-body p-md-4">
+        <h2 class="h5 mb-3">人物与关系</h2>
+        {% for character in people.get('main_characters', []) %}
+        {% if character is mapping %}<article class="claim-entry"><h3 class="h6">{{ character.get('name', '未命名人物') }}</h3><p>{{ character.get('description') or '未提供人物描述。' }}</p>{% if character.get('first_appearance') %}<span class="small text-muted me-3">首次出现章节：{{ character.first_appearance }}</span>{% endif %}{{ references(character.get('evidence_ids', [])) }}</article>{% else %}<p>{{ character }}</p>{% endif %}
+        {% else %}<p class="empty-state">没有经过核对的人物结论。基础模式不推断人物；模型模式中证据不足的结论会被省略。</p>{% endfor %}
+        {% if people.get('character_relationships') %}<h3 class="h6 mt-4">关系记录</h3>{% for relation in people.character_relationships %}{% if relation is mapping %}<article class="claim-entry"><p><strong>{{ relation.get('character1', '') }} · {{ relation.get('character2', '') }}</strong><br>{{ relation.get('relationship', '') }}</p>{{ references(relation.get('evidence_ids', [])) }}</article>{% endif %}{% endfor %}{% endif %}
+    </div></section>
+    <section class="card mb-4" id="keyEvents"><div class="card-body p-md-4">
+        <h2 class="h5 mb-3">关键事件</h2>
+        {% for event in plot.get('key_events', []) %}<article class="claim-entry">{% if event is mapping %}<p>{% if event.get('chapter') %}<span class="badge bg-light text-dark border me-2">第 {{ event.chapter }} 章</span>{% endif %}{{ event.get('event') or event.get('description') or event.get('sentence', '') }}</p>{{ references(event.get('evidence_ids', [])) }}{% else %}<p>{{ event }}</p>{% endif %}</article>{% else %}<p class="empty-state">没有可供核对的关键事件记录。系统不会按固定章节比例猜测高潮或转折。</p>{% endfor %}
+    </div></section>
+    <section class="card mb-4" id="themesAnalysis"><div class="card-body p-md-4">
+        <h2 class="h5 mb-3">主题解读</h2>
+        {% for theme in result.get('theme_analysis', []) %}<article class="claim-entry"><h3 class="h6">{{ theme.get('theme', '') }}</h3><p>{{ theme.get('explanation', '') }}</p>{{ references(theme.get('evidence_ids', [])) }}</article>{% else %}
+            {% if not meta and result.get('themes') %}<p class="small text-muted">历史报告关键词（没有引用核验记录）：</p><p>{% for theme in result.themes %}<span class="badge bg-light text-dark border me-2">{{ theme }}</span>{% endfor %}</p>{% else %}<p class="empty-state">没有经过核对的主题结论。关键词频率本身不代表文学主题。</p>{% endif %}
+        {% endfor %}
+    </div></section>
+    <section class="card mb-4" id="sourceEvidence"><div class="card-body p-md-4">
+        <h2 class="h5 mb-3">原文依据 <span class="text-muted small">{{ evidence|length }} 条</span></h2>
+        <p class="small text-muted">以下摘录来自本次输入。字符位置为提取后的文本偏移，不是 PDF 页码。原文存在只能验证引用出处，解读仍需结合上下文。</p>
+        {% for entry in evidence %}<figure class="evidence-entry" id="evidence-{{ entry.get('id', loop.index) }}"><figcaption><strong>[{{ entry.get('id', loop.index) }}]</strong> · 第 {{ entry.get('chapter', '未记录') }} 章{% if entry.get('start') is number and entry.get('end') is number %} · 字符 {{ entry.start }}–{{ entry.end }}{% endif %}</figcaption><blockquote>{{ entry.get('quote', '') }}</blockquote>{% if entry.get('context_before') or entry.get('context_after') %}<details class="mt-2"><summary class="small">查看引用上下文</summary><p class="report-prose mt-2">{{ entry.get('context_before', '') }}<mark>{{ entry.get('quote', '') }}</mark>{{ entry.get('context_after', '') }}</p></details>{% endif %}</figure>{% else %}<p class="empty-state">没有原文引用记录。</p>{% endfor %}
+    </div></section>
+    {% if result.get('text_statistics') %}
+    {% set stats = result.text_statistics %}{% set basic = stats.get('basic_stats', {}) %}
+    <section class="card mb-4"><div class="card-body p-md-4"><h2 class="h5 mb-3">实际文本统计</h2>
+    <p class="small text-muted">{{ stats.get('tokenization_note', '统计口径随语言而不同，字词数量不能衡量作品质量。') }}</p>
+    <div class="report-metrics"><div><span class="metric-label">字词单位</span><strong>{{ basic.get('total_words', '—') }}</strong></div><div><span class="metric-label">句子数量</span><strong>{{ basic.get('total_sentences', '—') }}</strong></div><div><span class="metric-label">不同字词单位</span><strong>{{ basic.get('unique_words', '—') }}</strong></div><div><span class="metric-label">平均句长</span><strong>{{ basic.get('avg_sentence_length', '—') }}</strong></div></div>
+    <details class="mt-3"><summary class="small">查看完整统计数据</summary><pre class="metadata-json">{{ stats|tojson(indent=2) }}</pre></details>
+    </div></section>{% endif %}
+</div>

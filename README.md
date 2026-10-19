@@ -15,7 +15,7 @@ cd PythonProject
 | 项目 | 用途 | 主要技术 | 入口 |
 | --- | --- | --- | --- |
 | **MoeMotion / VTuberProject** | 原图 2D 动画、精细 VRM 模板与轻量 3D 角色，支持摄像头动作跟踪 | JavaScript、Canvas、Three.js、three-vrm、MediaPipe、Node.js | [项目说明](VTuberProject/README.md) · [源码](VTuberProject/) |
-| **小说 / 新闻文本分析** | 提取摘要、人物、关键词和情感变化，查看分析报告 | Python、Flask、NLTK、spaCy、KeyBERT、TextBlob | [项目说明](xiaoshuo_web/README.md) · [源码](xiaoshuo_web/) |
+| **小说全文分析 2.0** | 全文分块、混合模型阅读与证据复核、章节及全书报告 | Python、Flask、Ollama、兼容模型 API | [项目说明](xiaoshuo_web/README.md) · [源码](xiaoshuo_web/) |
 | **歌词情感分析** | 分析歌词情感与词汇特征，保存歌曲并按特征推荐相似歌曲 | Python、Flask、TextBlob、SQLite | [项目说明](yinyue_web/README.md) · [源码](yinyue_web/) |
 
 各子目录有独立的运行入口和依赖；仓库根目录没有统一启动命令。
@@ -37,25 +37,23 @@ npm start
 
 精细版导出保留骨骼、表情、配色与模型许可的 VRM；轻量版导出 GLB，两者均不包含当前动作。内置模型受其原许可约束，见 [素材来源与许可](VTuberProject/assets/THIRD_PARTY_NOTICES.txt)。详细能力与格式说明见 [MoeMotion README](VTuberProject/README.md)。
 
-## 小说 / 新闻文本分析
+## 小说全文分析 · 2.0
 
-通过粘贴文本、上传 UTF-8 TXT 文件或输入网页地址进行分析。提供摘要、人物统计、简单共现关系、关键词、情感曲线和可读性统计，并保存分析历史。
+完整处理上传原文，支持中英文章节、超长章节分块与全书汇总。推荐本地 Qwen3.5 4B 提取 + 9B 汇总/复核，也能混用兼容云端 API。人物、事件、主题附逐字原文证据；报告展示覆盖范围与失败块。未配置模型时提供明确标注的全文摘录和统计。
 
-需要 Python 3。建议在独立虚拟环境中安装依赖；在仓库根目录执行：
+需要 Python 3.11+。在仓库根目录执行：
 
 ```bash
 cd xiaoshuo_web
+python3 -m venv .venv
+source .venv/bin/activate
 python -m pip install -r requirements.txt
-python -m pip install psutil
-python -m spacy download en_core_web_sm
 python run.py
 ```
 
-访问 <http://127.0.0.1:5003>。`psutil` 是现有启动脚本和后端使用、但尚未列入该目录依赖清单的依赖。
+访问 <http://127.0.0.1:5003>。开启本地模型需安装 Ollama、下载模型并配置 `.env`，具体见 [小说分析 README](xiaoshuo_web/README.md)。支持 TXT、文本型 PDF、DOCX；网页仅提取当前页。任务异步执行，进度来自实际工作量，结果可导出 JSON / HTML 或打印为 PDF。服务重启会明确标记被中断任务。
 
-分析流程主要使用英文分词、英文停用词和英文模型；中文、英文、韩文界面切换不代表三种语言的分析效果相同。首次运行可能下载 NLTK 数据及相关模型。
-
-当前后端按 UTF-8 文本读取上传文件。报告可以导出 JSON 或 HTML；PDF 选项返回 HTML 报告，可再通过浏览器打印为 PDF。
+全文覆盖率不等于准确率，模型结论仍需人工核对。未再使用旧版前 15 章截取、固定位置猜高潮与虚假进度。自动测试：`python -m unittest discover -s tests -v`。
 
 ## 歌词情感分析 · 音绪 2.2
 

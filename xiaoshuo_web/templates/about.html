@@ -1,84 +1,15 @@
 {% extends "base.html" %}
-
 {% block title %}关于 - 小说分析系统{% endblock %}
-
 {% block content %}
-<div class="row">
-    <div class="col-lg-8 mx-auto">
-        <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <h3 class="mb-0"><i class="fas fa-info-circle me-2"></i><span data-i18n="about.title">关于小说分析系统</span></h3>
-            </div>
-            <div class="card-body">
-                <h5 data-i18n="about.intro_title">系统简介</h5>
-                <p data-i18n="about.intro_desc">小说分析系统是一个基于人工智能技术的文本分析工具，专门用于深度分析小说内容。系统能够自动提取小说的关键信息，包括人物关系、情节结构、主题分析等。</p>
-
-                <h5 class="mt-4" data-i18n="about.main_features">主要功能</h5>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h6><i class="fas fa-users text-primary me-2"></i><span data-i18n="about.feature_char">人物分析</span></h6>
-                                <p class="mb-0" data-i18n="about.feature_char_desc">自动识别主要人物，分析人物关系和出现频率</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h6><i class="fas fa-chart-line text-success me-2"></i><span data-i18n="about.feature_plot">情节分析</span></h6>
-                                <p class="mb-0" data-i18n="about.feature_plot_desc">分析情节发展，识别高潮和转折点</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h6><i class="fas fa-tags text-warning me-2"></i><span data-i18n="about.feature_theme">主题提取</span></h6>
-                                <p class="mb-0" data-i18n="about.feature_theme_desc">自动提取小说的主要主题和关键词</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h6><i class="fas fa-chart-bar text-info me-2"></i><span data-i18n="about.feature_stats">文本统计</span></h6>
-                                <p class="mb-0" data-i18n="about.feature_stats_desc">提供详细的文本统计和可读性分析</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <h5 class="mt-4" data-i18n="about.tech_stack_title">技术架构</h5>
-                <p data-i18n="about.tech_stack_desc">系统基于以下技术构建：</p>
-                <ul>
-                    <li><strong data-i18n="about.tech_backend">后端框架</strong>: Flask</li>
-                    <li><strong data-i18n="about.tech_nlp">自然语言处理</strong>: NLTK, spaCy, TextBlob</li>
-                    <li><strong data-i18n="about.tech_ml">机器学习</strong>: scikit-learn, KeyBERT</li>
-                    <li><strong data-i18n="about.tech_sum">文本摘要</strong>: Sumy</li>
-                    <li><strong data-i18n="about.tech_crawl">网络爬虫</strong>: BeautifulSoup, Requests</li>
-                    <li><strong data-i18n="about.tech_frontend">前端技术</strong>: Bootstrap, Chart.js</li>
-                </ul>
-
-                <h5 class="mt-4" data-i18n="about.usage_title">使用方法</h5>
-                <ol>
-                    <li data-i18n="about.usage_step1">选择分析方式：文本输入、文件上传或网页爬取</li>
-                    <li data-i18n="about.usage_step2">提交内容进行分析</li>
-                    <li data-i18n="about.usage_step3">查看详细的分析报告</li>
-                    <li data-i18n="about.usage_step4">下载或分享分析结果</li>
-                </ol>
-
-                <div class="alert alert-info mt-4">
-                    <h6><i class="fas fa-lightbulb me-2"></i><span data-i18n="about.tips_title">使用提示</span></h6>
-                    <ul class="mb-0">
-                        <li data-i18n="about.tip1">系统目前主要支持英文文本分析</li>
-                        <li data-i18n="about.tip2">对于长篇小说，分析可能需要几分钟时间</li>
-                        <li data-i18n="about.tip3">网页爬取功能依赖于目标网站的结构</li>
-                        <li data-i18n="about.tip4">确保上传的文件编码为UTF-8</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="row"><div class="col-lg-8 mx-auto"><h1 class="h2 mb-4">关于小说分析系统</h1><div class="card"><div class="card-body p-md-4">
+<h2 class="h5">帮助阅读长篇，保留可核对的依据</h2>
+<p>系统按章节和片段处理提交的全文，再逐层汇总。模型模式将人物、事件、主题结论关联到原文摘录，报告记录实际使用的模型、输入覆盖范围和处理限制。</p>
+<h2 class="h5 mt-4">模型可以分工</h2>
+<p>分段阅读、全书汇总和复核可以分别配置模型。配置由服务器管理；首页会显示当前配置。实际质量取决于所用模型、正文质量与任务难度，并没有固定的准确率承诺。</p>
+<h2 class="h5 mt-4">没有模型时也如实报告</h2>
+<p>基础模式提供全文统计、章节划分和原文摘录，不把词频或人名猜测包装成文学解读。配置模型后，可以用同一份原文重新运行模型分析。</p>
+<h2 class="h5 mt-4">阅读报告的边界</h2>
+<p>全文覆盖表示输入被处理，不保证提交内容就是完整原书。原文引用核对也不保证解释正确。关键判断应回到原文和前后章节复核，尤其是含有伏笔、不可靠叙述者或多个同名人物的小说。</p>
+<a class="btn btn-primary mt-2" href="{{ url_for('index') }}">开始分析</a>
+</div></div></div></div>
 {% endblock %}

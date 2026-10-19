@@ -1,464 +1,234 @@
-// 主JavaScript功能
-function analyzeContent(analysisType, formData) {
-    const loadingElement = document.getElementById('loading');
-    const resultsElement = document.getElementById('results');
+'use strict';
 
-    // 显示加载指示器
-    loadingElement.classList.remove('d-none');
-    resultsElement.classList.add('d-none');
+// Server progress is the only source of completion. Text from files/models uses textContent.
+let activeTaskId = null;
+let polling = false;
+let currentModal = null;
+const taskStorageKey = 'novelAnalysisActiveTask';
 
-    // 添加分析类型到表单数据
-    formData.append('analysis_type', analysisType);
+function showMessage(message, kind = 'danger') {
+    const container = document.getElementById('pageMessages') || document.querySelector('main');
+    if (!container) return;
+    const alert = document.createElement('div');
+    alert.className = `alert alert-${kind} alert-dismissible fade show`;
+    alert.setAttribute('role', 'alert');
+    alert.appendChild(document.createTextNode(String(message)));
+    const close = document.createElement('button');
+    close.type = 'button';
+    close.className = 'btn-close';
+    close.setAttribute('data-bs-dismiss', 'alert');
+    close.setAttribute('aria-label', '关闭');
+    close.addEventListener('click', () => alert.remove());
+    alert.appendChild(close);
+    container.prepend(alert);
+}
+function showError(message) { showMessage(message); }
+function showSuccess(message) { showMessage(message, 'success'); }
 
-    // 显示进度指示
-    let dots = 0;
-    const progressText = loadingElement.querySelector('p');
-    const originalText = progressText.textContent;
-    const progressInterval = setInterval(() => {
-        dots = (dots + 1) % 4;
-        progressText.textContent = originalText + '.'.repeat(dots);
-    }, 500);
+async function fetchJSON(url, options = {}) {
+    const response = await fetch(url, options);
+    let data;
+    try { data = await response.json(); }
+    catch (_) { throw new Error(`服务器未返回有效数据（HTTP ${response.status}），请重试。`); }
+    if (!response.ok) {
+        const error = new Error(data.error || `请求失败（HTTP ${response.status}）。`);
+        error.status = response.status;
+        throw error;
+    }
+    return data;
+}
 
-    // 发送分析请求
-    fetch('/analyze', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        clearInterval(progressInterval);
-        loadingElement.classList.add('d-none');
-
-        if (data.error) {
-            showError(data.error);
-            return;
-        }
-
-        if (data.success) {
-            // 重定向到结果页面
-            window.location.href = `/result/${data.result_id}`;
-        } else {
-            showError('分析失败，请重试');
-        }
-    })
-    .catch(error => {
-        clearInterval(progressInterval);
-        loadingElement.classList.add('d-none');
-        console.error('Error:', error);
-        showError('网络错误，请检查连接后重试');
+function rememberTask(id) {
+    try { if (id) sessionStorage.setItem(taskStorageKey, id); else sessionStorage.removeItem(taskStorageKey); }
+    catch (_) { /* Storage can be unavailable in privacy mode. */ }
+}
+function setBusy(busy) {
+    document.getElementById('activeTaskNotice')?.classList.toggle('d-none', !busy);
+    document.querySelectorAll('form[data-analysis-type] button[type="submit"]').forEach(button => {
+        button.disabled = busy || (button.id === 'fileSubmit' && !document.getElementById('fileInput')?.files.length);
     });
+    const mode = document.getElementById('analysisMode');
+    if (mode) mode.disabled = busy;
 }
-
-function showError(message) {
-    // 创建错误提示
-    const errorAlert = document.createElement('div');
-    errorAlert.className = 'alert alert-danger alert-dismissible fade show';
-    errorAlert.innerHTML = `
-        <strong>错误:</strong> ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    `;
-
-    // 插入到页面顶部
-    const container = document.querySelector('.container');
-    container.insertBefore(errorAlert, container.firstChild);
-
-    // 自动移除
-    setTimeout(() => {
-        if (errorAlert.parentNode) {
-            errorAlert.remove();
-        }
-    }, 5000);
-}
-
-function showSuccess(message) {
-    // 创建成功提示
-    const successAlert = document.createElement('div');
-    successAlert.className = 'alert alert-success alert-dismissible fade show';
-    successAlert.innerHTML = `
-        <strong>成功:</strong> ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    `;
-
-    // 插入到页面顶部
-    const container = document.querySelector('.container');
-    container.insertBefore(successAlert, container.firstChild);
-
-    // 自动移除
-    setTimeout(() => {
-        if (successAlert.parentNode) {
-            successAlert.remove();
-        }
-    }, 3000);
-}
-
-// 示例文本加载
-function loadExampleText() {
-    const textArea = document.querySelector('textarea[name="text_content"]');
-    const titleInput = document.querySelector('input[name="title"]');
-
-    if (textArea && titleInput) {
-        titleInput.value = "1984 - 示例文本";
-        textArea.value = `CHAPTER 1
-It was a bright cold day in April, and the clocks were striking thirteen.
-Winston Smith, his chin nuzzled into his breast in an effort to escape the vile wind,
-slipped quickly through the glass doors of Victory Mansions, though not quickly enough
-to prevent a swirl of gritty dust from entering along with him.
-
-The hallway smelt of boiled cabbage and old rag mats. At one end of it a coloured poster,
-too large for indoor display, had been tacked to the wall. It depicted simply an enormous face,
-more than a metre wide: the face of a man of about forty-five, with a heavy black moustache
-and ruggedly handsome features.
-
-CHAPTER 2
-Winston made for the stairs. It was no use trying the lift. Even at the best of times
-it was seldom working, and at present the electric current was cut off during daylight hours.
-It was part of the economy drive in preparation for Hate Week. The flat was seven flights up,
-and Winston, who was thirty-nine and had a varicose ulcer above his right ankle, went slowly,
-resting several times on the way.
-
-On each landing, opposite the lift-shaft, the poster with the enormous face gazed from the wall.
-It was one of those pictures which are so contrived that the eyes follow you about when you move.
-BIG BROTHER IS WATCHING YOU, the caption beneath it ran.`;
-
-        showSuccess('已加载示例文本，您可以修改或直接进行分析');
+function showProgress() {
+    const element = document.getElementById('progressModal');
+    if (element && typeof bootstrap !== 'undefined') {
+        currentModal = bootstrap.Modal.getOrCreateInstance(element);
+        currentModal.show();
     }
 }
+function progressError(message, reconnect) {
+    const error = document.getElementById('progressError');
+    if (error) { error.textContent = message; error.classList.remove('d-none'); }
+    else showError(message);
+    document.getElementById('retryStatus')?.classList.toggle('d-none', !reconnect);
+    document.getElementById('analysisProgress')?.classList.remove('progress-bar-animated');
+}
+function updateProgress(status) {
+    const bar = document.getElementById('analysisProgress');
+    const progress = Number(status.progress);
+    if (bar && Number.isFinite(progress)) {
+        const value = Math.max(0, Math.min(status.status === 'completed' ? 100 : 99, progress));
+        bar.style.width = `${value}%`;
+        bar.setAttribute('aria-valuenow', String(value));
+    }
+    const text = document.getElementById('progressText');
+    const stages = {queued: '已排队，等待处理', prepare: '准备全文', extract: '分段阅读', fetching: '获取网页正文', loading: '正在读取正文', preparing: '准备全文', map: '分段阅读', verify: '核对引用与结论', baseline: '基础统计与摘录', chapter_summary: '整理章节摘要', book_summary: '汇总全书', complete: '处理完成'};
+    if (text) text.textContent = status.message || stages[status.stage] || status.stage || (status.status === 'queued' ? '已排队，等待处理…' : '正在处理全文…');
+    const units = document.getElementById('progressUnits');
+    if (units) units.textContent = Number(status.total_units) > 0 ? `当前阶段已处理 ${status.completed_units || 0} / ${status.total_units} 个单元` : '等待服务器报告处理单元数';
+}
+async function pollAnalysis(taskId) {
+    if (polling) return;
+    polling = true;
+    document.getElementById('progressError')?.classList.add('d-none');
+    document.getElementById('retryStatus')?.classList.add('d-none');
+    document.getElementById('analysisProgress')?.classList.add('progress-bar-animated');
+    try {
+        while (activeTaskId === taskId) {
+            const status = await fetchJSON(`/analysis/status/${encodeURIComponent(taskId)}`);
+            updateProgress(status);
+            if (status.status === 'completed') {
+                if (!status.result_id) throw new Error('服务器报告已完成，但缺少结果编号。请重新连接进度。');
+                rememberTask(null);
+                window.location.assign(`/result/${encodeURIComponent(status.result_id)}`);
+                return;
+            }
+            if (status.status === 'failed') {
+                activeTaskId = null;
+                rememberTask(null);
+                setBusy(false);
+                progressError(status.error || '分析未完成，请检查配置后重试。', false);
+                return;
+            }
+            if (!['queued', 'processing'].includes(status.status)) throw new Error('服务器返回了未知任务状态，请重新连接进度。');
+            await new Promise(resolve => setTimeout(resolve, 1500));
+        }
+    } catch (error) {
+        if (error.status === 404) {
+            activeTaskId = null;
+            rememberTask(null);
+            setBusy(false);
+            progressError(`${error.message} 请返回首页重新提交。`, false);
+        } else progressError(`${error.message} 任务可能仍在服务器运行，可重新连接查看。`, true);
+    } finally { polling = false; }
+}
+async function startAnalysis(type, formData) {
+    if (activeTaskId) { showProgress(); return; }
+    formData.set('analysis_type', type);
+    formData.set('analysis_mode', document.getElementById('analysisMode')?.value || 'auto');
+    setBusy(true);
+    showProgress();
+    document.getElementById('progressError')?.classList.add('d-none');
+    document.getElementById('retryStatus')?.classList.add('d-none');
+    updateProgress({progress: 0, stage: '正在提交内容…'});
+    try {
+        const data = await fetchJSON('/analyze', {method: 'POST', body: formData});
+        if (!data.success || !data.task_id) throw new Error(data.error || '服务器未创建分析任务。');
+        activeTaskId = data.task_id;
+        rememberTask(activeTaskId);
+        await pollAnalysis(activeTaskId);
+    } catch (error) {
+        setBusy(false);
+        progressError(error.message, false);
+    }
+}
+// Retain the public entry point for old links/integrations.
+function analyzeContent(type, data) { return startAnalysis(type, data); }
 
-// 文件类型验证
+function updateTextCounter() {
+    const input = document.querySelector('textarea[name="text_content"]');
+    const counter = document.getElementById('textCounter');
+    if (input && counter) counter.textContent = `${Array.from(input.value).length.toLocaleString()} 字符`;
+}
+function loadExampleText() {
+    const input = document.querySelector('textarea[name="text_content"]');
+    const title = document.querySelector('input[name="title"]');
+    if (!input || !title) return;
+    title.value = '灯塔来信（三章原创示例）';
+    input.value = '第一章 来信\n林舟在旧灯塔里发现一封未寄出的信。信上写着姐姐林遥的名字，她已经离开海岛十年。守塔人陈伯说，林遥离开前曾把一本航海日志交给他。林舟决定找出姐姐离开的原因。\n\n第二章 日志\n陈伯把日志交给林舟。日志记录了十年前的风暴：林遥冒险出海，救下了一名迷路的孩子。林舟读到最后一页才知道，姐姐受伤后去了城里治疗，没有人把后续的信送到岛上。陈伯承认自己一直没有勇气告诉林舟。\n\n第三章 重逢\n林舟带着那封旧信来到城里的修船厂，找到了林遥。林遥解释自己曾多次寄信，却始终没有收到回音。两人决定一起回岛，查清信件失踪的缘由。黄昏时，兄妹重新点亮灯塔，把日志留在窗边。';
+    document.getElementById('text-tab')?.click();
+    updateTextCounter();
+}
 function validateFile(input) {
     const file = input.files[0];
-    if (file) {
-        const fileName = file.name.toLowerCase();
-        const validExtensions = ['.txt', '.docx', '.pdf'];
-        const maxSize = 16 * 1024 * 1024; // 16MB
-
-        if (!validExtensions.some(ext => fileName.endsWith(ext))) {
-            showError('只支持 .txt, .docx, .pdf 格式文件');
-            input.value = '';
-            return false;
-        }
-
-        if (file.size > maxSize) {
-            showError('文件大小超过16MB限制');
-            input.value = '';
-            return false;
-        }
-
-        showSuccess(`已选择文件: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
-        return true;
-    }
-    return false;
-}
-
-// URL验证
-function validateURL(input) {
-    const url = input.value.trim();
-    if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
-        showError('URL必须以 http:// 或 https:// 开头');
-        input.focus();
+    if (!file) return false;
+    const maxBytes = Number(input.dataset.maxBytes) || 64 * 1024 * 1024;
+    if (!/\.(txt|docx|pdf)$/i.test(file.name) || file.size >= maxBytes) {
+        showError(`请选择小于 ${Math.round(maxBytes / 1024 / 1024)} MB 的 TXT、DOCX 或带文字层的 PDF 文件。`);
+        input.value = '';
         return false;
     }
     return true;
 }
-
-// 文本长度统计
-function updateTextCounter() {
-    const textArea = document.querySelector('textarea[name="text_content"]');
-    const counter = document.getElementById('textCounter');
-
-    if (textArea && counter) {
-        const length = textArea.value.length;
-        counter.textContent = `${length} 字符`;
-
-        if (length < 100) {
-            counter.className = 'form-text text-end text-danger';
-        } else if (length < 500) {
-            counter.className = 'form-text text-end text-warning';
-        } else {
-            counter.className = 'form-text text-end text-success';
+async function loadModelStatus() {
+    const status = document.getElementById('modelStatus');
+    const details = document.getElementById('modelDetails');
+    if (!status) return;
+    try {
+        const data = await fetchJSON('/api/models');
+        status.textContent = data.configured ? '已配置模型，分析时将连接模型服务。' : '尚未配置模型，自动模式将提供基础统计与原文摘录。';
+        status.className = data.configured ? 'mb-1 small text-success' : 'mb-1 small text-warning-emphasis';
+        const labels = {map: '分段阅读', reduce: '全书汇总', verify: '引用复核'};
+        if (details) {
+            details.replaceChildren();
+            for (const role of ['map', 'reduce', 'verify']) {
+                const row = document.createElement('p');
+                row.className = 'mb-1';
+                const stage = data.stages?.[role];
+                row.textContent = `${labels[role]}：${stage?.model || data.models?.[role] || '未配置'}${stage?.provider ? `（${stage.provider}）` : ''}`;
+                details.appendChild(row);
+            }
+            for (const warning of data.warnings || []) {
+                const row = document.createElement('p');
+                row.className = 'mb-1';
+                row.textContent = warning;
+                details.appendChild(row);
+            }
         }
+    } catch (error) {
+        status.textContent = '暂时无法读取模型状态。提交时将由服务器检查配置。';
+        if (details) details.textContent = error.message;
     }
 }
 
-// 页面加载完成后初始化
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('小说分析系统已加载');
-
-    // 添加文本计数器
-    const textArea = document.querySelector('textarea[name="text_content"]');
-    if (textArea) {
-        const counter = document.createElement('div');
-        counter.id = 'textCounter';
-        counter.className = 'form-text text-end';
-        counter.textContent = '0 字符';
-        textArea.parentNode.appendChild(counter);
-
-        textArea.addEventListener('input', updateTextCounter);
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('form[data-analysis-type]').forEach(form => {
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+            if (form.reportValidity()) startAnalysis(form.dataset.analysisType, new FormData(form));
+        });
+    });
+    document.querySelector('textarea[name="text_content"]')?.addEventListener('input', updateTextCounter);
+    document.getElementById('loadExample')?.addEventListener('click', loadExampleText);
+    document.getElementById('clearText')?.addEventListener('click', () => {
+        const input = document.querySelector('textarea[name="text_content"]');
+        if (input) input.value = '';
         updateTextCounter();
-    }
-
-    // 示例加载按钮
-    const loadExampleBtn = document.getElementById('loadExample');
-    if (loadExampleBtn) {
-        loadExampleBtn.addEventListener('click', loadExampleText);
-    }
-
-    // 文件验证
-    const fileInput = document.querySelector('input[type="file"]');
-    if (fileInput) {
-        fileInput.addEventListener('change', function() {
-            validateFile(this);
-        });
-    }
-
-    // URL验证
-    const urlInputs = document.querySelectorAll('input[type="url"]');
-    urlInputs.forEach(input => {
-        input.addEventListener('blur', function() {
-            validateURL(this);
-        });
     });
-
-    // 表单验证
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            if (!form.checkValidity()) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                // 找到第一个无效字段
-                const invalidField = form.querySelector(':invalid');
-                if (invalidField) {
-                    invalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    invalidField.focus();
-                }
-            }
-            form.classList.add('was-validated');
-        });
+    document.getElementById('fileInput')?.addEventListener('change', event => {
+        const input = event.target;
+        const valid = validateFile(input);
+        document.getElementById('fileSubmit').disabled = !valid || Boolean(activeTaskId);
+        document.getElementById('fileInfo').textContent = valid ? `${input.files[0].name} · ${(input.files[0].size / 1024 / 1024).toFixed(2)} MB` : '';
     });
-
-    // 平滑滚动
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
+    document.getElementById('checkModels')?.addEventListener('click', async event => {
+        const button = event.currentTarget;
+        const status = document.getElementById('modelHealth');
+        button.disabled = true;
+        status.textContent = '正在检查已配置的模型连接…';
+        try {
+            const data = await fetchJSON('/api/models?check=1');
+            status.textContent = data.available ? '配置的模型可连接。实际分析时仍可能受服务容量影响。' : '有模型尚不可用，请检查模型服务是否启动、模型是否已下载及配置是否正确。';
+        } catch (error) { status.textContent = error.message; }
+        finally { button.disabled = false; }
     });
+    document.getElementById('reopenProgress')?.addEventListener('click', showProgress);
+    document.getElementById('retryStatus')?.addEventListener('click', () => { if (activeTaskId) pollAnalysis(activeTaskId); });
+    updateTextCounter();
+    loadModelStatus();
+    if (document.getElementById('progressModal')) {
+        try { activeTaskId = sessionStorage.getItem(taskStorageKey); } catch (_) { /* Optional state. */ }
+        if (activeTaskId) { setBusy(true); showProgress(); pollAnalysis(activeTaskId); }
+    }
 });
-
-// 控制台功能
-function loadDashboardData() {
-    // 加载分析历史
-    const history = JSON.parse(localStorage.getItem('analysisHistory') || '[]');
-    displayRecentAnalyses(history);
-
-    // 更新统计信息
-    updateStatistics(history);
-}
-
-function displayRecentAnalyses(history) {
-    const container = document.getElementById('recentAnalyses');
-
-    if (history.length === 0) {
-        container.innerHTML = `
-            <div class="text-center py-4 text-muted">
-                <i class="fas fa-inbox fa-3x mb-3"></i>
-                <p>暂无分析记录</p>
-            </div>
-        `;
-        return;
-    }
-
-    container.innerHTML = history.slice(0, 10).map(item => `
-        <div class="list-group-item">
-            <div class="d-flex w-100 justify-content-between">
-                <h6 class="mb-1">${item.title || '未命名分析'}</h6>
-                <small class="text-muted">${formatTime(item.timestamp)}</small>
-            </div>
-            <p class="mb-1">${item.type || '文本分析'} • ${item.chapters || 0} 章节</p>
-            <div class="d-flex justify-content-between align-items-center">
-                <small class="text-muted">${item.duration || 'N/A'}</small>
-                <div>
-                    <button class="btn btn-sm btn-outline-primary" onclick="viewAnalysis('${item.id}')">
-                        <i class="fas fa-eye me-1"></i>查看
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" onclick="deleteAnalysis('${item.id}')">
-                        <i class="fas fa-trash me-1"></i>删除
-                    </button>
-                </div>
-            </div>
-        </div>
-    `).join('');
-}
-
-function updateStatistics(history) {
-    const totalEl = document.getElementById('totalAnalyses');
-    const todayEl = document.getElementById('todayAnalyses');
-    const successEl = document.getElementById('successAnalyses');
-    const avgTimeEl = document.getElementById('avgTime');
-
-    if (totalEl) totalEl.textContent = history.length;
-
-    const today = new Date().toDateString();
-    const todayCount = history.filter(item =>
-        new Date(item.timestamp).toDateString() === today
-    ).length;
-    if (todayEl) todayEl.textContent = todayCount;
-
-    const successCount = history.filter(item => !item.error).length;
-    if (successEl) successEl.textContent = successCount;
-
-    const totalTime = history.reduce((sum, item) => sum + (parseFloat(item.duration) || 0), 0);
-    const avgTime = history.length > 0 ? (totalTime / history.length).toFixed(1) : 0;
-    if (avgTimeEl) avgTimeEl.textContent = avgTime + 's';
-}
-
-function updateSystemStatus() {
-    // 模拟系统状态更新
-    const cpu = Math.floor(Math.random() * 30) + 10;
-    const memory = Math.floor(Math.random() * 200) + 100;
-    const storage = Math.floor(Math.random() * 500) + 200;
-
-    const cpuUsageEl = document.getElementById('cpuUsage');
-    const cpuProgressEl = document.getElementById('cpuProgress');
-    const memoryUsageEl = document.getElementById('memoryUsage');
-    const memoryProgressEl = document.getElementById('memoryProgress');
-    const storageUsageEl = document.getElementById('storageUsage');
-    const storageProgressEl = document.getElementById('storageProgress');
-
-    if (cpuUsageEl) cpuUsageEl.textContent = cpu + '%';
-    if (cpuProgressEl) cpuProgressEl.style.width = cpu + '%';
-
-    if (memoryUsageEl) memoryUsageEl.textContent = memory + ' MB';
-    if (memoryProgressEl) memoryProgressEl.style.width = Math.min(cpu + 20, 100) + '%';
-
-    if (storageUsageEl) storageUsageEl.textContent = storage + ' MB';
-    if (storageProgressEl) storageProgressEl.style.width = Math.min(storage / 10, 100) + '%';
-}
-
-function formatTime(timestamp) {
-    const date = new Date(timestamp);
-    return date.toLocaleString('zh-CN');
-}
-
-function clearHistory() {
-    if (confirm('确定要清空所有分析记录吗？此操作不可恢复。')) {
-        localStorage.removeItem('analysisHistory');
-        loadDashboardData();
-    }
-}
-
-function viewAnalysis(id) {
-    window.location.href = `/result/${id}`;
-}
-
-function deleteAnalysis(id) {
-    if (confirm('确定要删除此分析记录吗？')) {
-        let history = JSON.parse(localStorage.getItem('analysisHistory') || '[]');
-        history = history.filter(item => item.id !== id);
-        localStorage.setItem('analysisHistory', JSON.stringify(history));
-        loadDashboardData();
-    }
-}
-
-function loadSampleData() {
-    // 加载示例数据进行分析
-    fetch('/example')
-        .then(response => response.json())
-        .then(data => {
-            // 模拟分析过程
-            const analysisId = 'sample_' + Date.now();
-            const analysisItem = {
-                id: analysisId,
-                title: data.novel_info.title,
-                type: '示例分析',
-                chapters: data.novel_info.total_chapters,
-                timestamp: new Date().toISOString(),
-                duration: '2.5s'
-            };
-
-            // 保存到历史
-            let history = JSON.parse(localStorage.getItem('analysisHistory') || '[]');
-            history.unshift(analysisItem);
-            localStorage.setItem('analysisHistory', JSON.stringify(history));
-
-            // 跳转到结果页面
-            window.location.href = `/result/${analysisId}`;
-        })
-        .catch(error => {
-            console.error('Error loading sample data:', error);
-            showError('加载示例数据失败');
-        });
-}
-
-function saveSettings() {
-    const form = document.getElementById('settingsForm');
-    const formData = new FormData(form);
-    const settings = Object.fromEntries(formData.entries());
-
-    localStorage.setItem('analysisSettings', JSON.stringify(settings));
-
-    // 显示成功消息
-    showSuccess('设置已保存！');
-
-    // 关闭模态框
-    const modal = bootstrap.Modal.getInstance(document.getElementById('settingsModal'));
-    if (modal) {
-        modal.hide();
-    }
-}
-
-function startBatchAnalysis() {
-    const batchProgress = document.getElementById('batchProgress');
-    if (batchProgress) {
-        batchProgress.classList.remove('d-none');
-    }
-
-    let progress = 0;
-    const interval = setInterval(() => {
-        progress += 10;
-        const progressBar = document.querySelector('#batchProgress .progress-bar');
-        if (progressBar) {
-            progressBar.style.width = progress + '%';
-        }
-
-        if (progress >= 100) {
-            clearInterval(interval);
-            setTimeout(() => {
-                showSuccess('批量分析完成！');
-                const modal = bootstrap.Modal.getInstance(document.getElementById('batchModal'));
-                if (modal) {
-                    modal.hide();
-                }
-                if (batchProgress) {
-                    batchProgress.classList.add('d-none');
-                }
-            }, 500);
-        }
-    }, 200);
-}
-
-function exportResults() {
-    showSuccess('导出功能正在准备中...');
-    const modal = bootstrap.Modal.getInstance(document.getElementById('exportModal'));
-    if (modal) {
-        modal.hide();
-    }
-}
-
-// 初始化控制台
-if (window.location.pathname === '/dashboard') {
-    document.addEventListener('DOMContentLoaded', function() {
-        loadDashboardData();
-        setInterval(updateSystemStatus, 5000);
-    });
-}

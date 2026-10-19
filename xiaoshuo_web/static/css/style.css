@@ -293,3 +293,25 @@ textarea.form-control {
     opacity: 0.6;
     cursor: not-allowed;
 }
+/* Evidence-led reports keep every chapter readable on screen and in print. */
+.report-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+.report-metrics > div { padding: 1rem; border-radius: .5rem; background: #f3f7fb; }
+.report-metrics strong { display: block; margin-top: .25rem; font-size: 1.5rem; color: #254b6a; }
+.metric-label { color: #637487; font-size: .82rem; }
+.report-nav { display: flex; flex-wrap: wrap; gap: 1rem; }
+.report-nav a { color: #24648f; text-decoration: none; }
+.report-prose { white-space: pre-wrap; line-height: 1.9; overflow-wrap: anywhere; }
+.chapter-entry, .claim-entry { padding: 1.25rem 0; border-top: 1px solid #e4eaf0; }
+.chapter-entry:last-child, .claim-entry:last-child { padding-bottom: 0; }
+.chapter-entry h3, .claim-entry h3 { font-weight: 650; }
+.evidence-links { font-size: .8rem; color: #687a8c; overflow-wrap: anywhere; }
+.evidence-links a { display: inline-block; margin-right: .25rem; }
+.evidence-entry { background: #f5f9fc; border-left: 3px solid #4385b5; margin: 1rem 0; padding: 1rem 1.2rem; }
+.evidence-entry figcaption { font-size: .8rem; color: #607286; }
+.evidence-entry blockquote { margin: .7rem 0 0; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; }
+.empty-state { margin: 0; color: #6c7a89; line-height: 1.8; }
+.metadata-json { font-size: .78rem; white-space: pre-wrap; overflow-wrap: anywhere; background: #f3f6f9; padding: 1rem; margin-top: 1rem; border-radius: .4rem; }
+.novel-report section, .novel-report article, .novel-report figure { scroll-margin-top: 90px; }
+.evidence-entry:target, .chapter-entry:target { outline: 2px solid #3498db; outline-offset: 4px; }
+@media (max-width: 600px) { .report-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); } .report-metrics strong { font-size: 1.2rem; } }
+@media print { .navbar, body > footer, .modal { display: none !important; } main.container { max-width: none; margin: 0 !important; padding: 0 !important; } body { background: white; } .card { box-shadow: none !important; border: 0 !important; } .card-body { padding: .5rem 0 !important; } .evidence-entry { break-inside: avoid; } h2,h3 { break-after: avoid; } .novel-report a { color: inherit; } .report-metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); } }

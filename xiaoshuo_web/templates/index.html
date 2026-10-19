@@ -1,370 +1,83 @@
 {% extends "base.html" %}
-
 {% block content %}
-<div class="row">
-    <div class="col-lg-10 mx-auto">
-        <div class="text-center mb-5">
-            <h1 class="display-4 mb-3" data-i18n="home.title">小说分析系统</h1>
-            <p class="lead" data-i18n="home.subtitle">使用AI技术深度分析小说内容，提取人物关系、情节结构、主题等关键信息</p>
-        </div>
-
-        <div class="card shadow-sm mb-4">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">
-                    <i class="fas fa-upload me-2"></i>
-                    <span data-i18n="home.analysis_method">选择分析方式</span>
-                </h5>
+<div class="row"><div class="col-lg-10 mx-auto">
+    <div class="mb-4 text-center">
+        <h1 class="display-5 fw-bold">读完整本，再看结论</h1>
+        <p class="lead text-muted">按章节阅读全文，汇总人物与情节，用原文出处核对分析。</p>
+    </div>
+    <div id="pageMessages" aria-live="polite"></div>
+    <div id="activeTaskNotice" class="alert alert-info d-none">当前有分析任务正在进行。<button id="reopenProgress" type="button" class="btn btn-sm btn-outline-primary ms-2">查看进度</button></div>
+    <div class="card mb-4"><div class="card-body p-md-4">
+        <div class="row align-items-start g-3">
+            <div class="col-md-5">
+                <label for="analysisMode" class="form-label">分析方式</label>
+                <select id="analysisMode" class="form-select" aria-describedby="modeHelp">
+                    <option value="auto">自动选择</option>
+                    <option value="model">模型深度分析</option>
+                    <option value="baseline">本地基础统计</option>
+                </select>
             </div>
-            <div class="card-body">
-                <ul class="nav nav-tabs" id="analysisTabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="text-tab" data-bs-toggle="tab" data-bs-target="#text" type="button">
-                            <i class="fas fa-font me-1"></i>
-                            <span data-i18n="home.text_analysis">文本分析</span>
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="file-tab" data-bs-toggle="tab" data-bs-target="#file" type="button">
-                            <i class="fas fa-file me-1"></i>
-                            <span data-i18n="home.file_upload">文件上传</span>
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="news-tab" data-bs-toggle="tab" data-bs-target="#news" type="button">
-                            <i class="fas fa-newspaper me-1"></i>
-                            <span data-i18n="home.news_crawl">新闻爬取</span>
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="novel-tab" data-bs-toggle="tab" data-bs-target="#novel" type="button">
-                            <i class="fas fa-globe me-1"></i>
-                            <span data-i18n="home.novel_crawl">小说爬取</span>
-                        </button>
-                    </li>
-                </ul>
-
-                <div class="tab-content p-3" id="analysisTabsContent">
-                    <div class="tab-pane fade show active" id="text" role="tabpanel">
-                        <form id="textForm">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label" data-i18n="home.input_title">标题</label>
-                                    <input type="text" class="form-control" name="title" required
-                                        placeholder="我的小说"
-                                        data-i18n-placeholder="home.default_title_placeholder">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">语言</label>
-                                    <select class="form-select" name="language">
-                                        <option value="en" selected>English</option>
-                                        <option value="zh">中文</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" data-i18n="home.input_content">小说内容</label>
-                                <textarea class="form-control" name="text_content" rows="15"
-                                          placeholder="请输入或粘贴小说内容..." required
-                                          data-i18n-placeholder="home.input_content"></textarea>
-                                <div class="form-text text-end">
-                                    <span id="textCounter">0</span> <span data-i18n="common.characters">字符</span>
-                                </div>
-                            </div>
-                            <div class="d-flex gap-2">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-chart-bar me-1"></i>
-                                    <span data-i18n="home.start_analysis">开始分析</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary" id="loadExample">
-                                    <i class="fas fa-eye me-1"></i>
-                                    <span data-i18n="home.view_example">查看示例</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-info" id="clearText">
-                                    <i class="fas fa-eraser me-1"></i>
-                                    <span data-i18n="common.clear">清空</span>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="tab-pane fade" id="file" role="tabpanel">
-                        <form id="fileForm" enctype="multipart/form-data">
-                            <div class="mb-4">
-                                <div class="file-upload-area border rounded p-5 text-center">
-                                    <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
-                                    <h5 data-i18n="home.select_file">选择文件</h5>
-                                    <p class="text-muted mb-3" data-i18n="home.file_types">
-                                        支持 .txt, .docx, .pdf 格式文件，最大16MB
-                                    </p>
-                                    <input type="file" class="d-none" name="file" id="fileInput"
-                                           accept=".txt,.docx,.pdf" required>
-                                    <button type="button" class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
-                                        <i class="fas fa-folder-open me-1"></i>
-                                        <span data-i18n="common.choose_file">选择文件</span>
-                                    </button>
-                                </div>
-                                <div id="fileInfo" class="mt-3 d-none">
-                                    <div class="alert alert-info d-flex align-items-center">
-                                        <i class="fas fa-file me-2"></i>
-                                        <div>
-                                            <strong id="fileName"></strong>
-                                            <div id="fileSize" class="small"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100" disabled id="fileSubmit">
-                                <i class="fas fa-upload me-1"></i>
-                                <span data-i18n="home.upload_analyze">上传并分析</span>
-                            </button>
-                        </form>
-                    </div>
-
-                    <div class="tab-pane fade" id="news" role="tabpanel">
-                        <form id="newsForm">
-                            <div class="mb-3">
-                                <label class="form-label" data-i18n="home.news_url">新闻网站URL</label>
-                                <input type="url" class="form-control" name="url"
-                                       placeholder="https://example.com/news" required
-                                       data-i18n-placeholder="home.enter_url">
-                                <div class="form-text" data-i18n="home.enter_url">
-                                    请输入新闻网站的URL，系统将自动爬取并分析文章内容
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" data-i18n="home.max_articles">最大文章数量</label>
-                                <select class="form-select" name="max_articles">
-                                    <option value="3" data-i18n="home.article_count_3">3篇</option>
-                                    <option value="5" selected data-i18n="home.article_count_5">5篇</option>
-                                    <option value="10" data-i18n="home.article_count_10">10篇</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-spider me-1"></i>
-                                <span data-i18n="home.crawl_analyze">爬取并分析</span>
-                            </button>
-                        </form>
-                    </div>
-
-                    <div class="tab-pane fade" id="novel" role="tabpanel">
-                        <form id="novelForm">
-                            <div class="mb-3">
-                                <label class="form-label" data-i18n="home.novel_url">小说网站URL</label>
-                                <input type="url" class="form-control" name="url"
-                                       placeholder="https://example.com/novel" required
-                                       data-i18n-placeholder="home.enter_url">
-                                <div class="form-text" data-i18n="home.enter_url">
-                                    请输入小说阅读网站的URL
-                                </div>
-                            </div>
-                            <div class="alert alert-warning">
-                                <i class="fas fa-exclamation-triangle me-2"></i>
-                                <span data-i18n="common.warning">请注意版权问题，仅支持公开可访问的内容</span>
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-book me-1"></i>
-                                <span data-i18n="home.crawl_analyze">爬取并分析</span>
-                            </button>
-                        </form>
-                    </div>
-                </div>
+            <div class="col-md-7 pt-md-4">
+                <p id="modelStatus" class="mb-1 small" role="status">正在读取模型配置…</p>
+                <p id="modeHelp" class="small text-muted mb-0">自动模式在配置模型时进行全文分析；未配置时提供基础统计与摘录。基础模式不推断人物关系或主题。</p>
             </div>
         </div>
-
-        <div class="row mt-5">
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center">
-                        <div class="feature-icon bg-primary rounded-circle mx-auto mb-3">
-                            <i class="fas fa-users fa-2x text-white"></i>
-                        </div>
-                        <h5 data-i18n="home.feature_char_title">人物关系分析</h5>
-                        <p class="text-muted" data-i18n="home.feature_char_desc">自动识别小说中的主要人物，分析人物关系和互动频率</p>
-                    </div>
+        <details class="mt-3 small"><summary>本次使用的模型</summary><div id="modelDetails" class="text-muted mt-2">正在加载…</div><button id="checkModels" type="button" class="btn btn-sm btn-outline-secondary mt-2">检查模型连接</button><p id="modelHealth" class="mt-2 mb-0" role="status"></p></details>
+    </div></div>
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white"><h2 class="h5 mb-0">提供小说内容</h2></div>
+        <div class="card-body p-md-4">
+            <ul class="nav nav-tabs mb-4" role="tablist">
+                <li class="nav-item" role="presentation"><button class="nav-link active" id="text-tab" data-bs-toggle="tab" data-bs-target="#text" type="button" role="tab" aria-controls="text" aria-selected="true">粘贴全文</button></li>
+                <li class="nav-item" role="presentation"><button class="nav-link" id="file-tab" data-bs-toggle="tab" data-bs-target="#file" type="button" role="tab" aria-controls="file" aria-selected="false">上传文件</button></li>
+                <li class="nav-item" role="presentation"><button class="nav-link" id="novel-tab" data-bs-toggle="tab" data-bs-target="#novel" type="button" role="tab" aria-controls="novel" aria-selected="false">网页内容</button></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="text" role="tabpanel" aria-labelledby="text-tab">
+                    <form id="textForm" data-analysis-type="text">
+                        <div class="mb-3"><label for="novelTitle" class="form-label">小说标题</label><input id="novelTitle" class="form-control" name="title" placeholder="我的小说" required></div>
+                        <div class="mb-3"><label for="novelText" class="form-label">正文</label><textarea id="novelText" class="form-control" name="text_content" rows="14" placeholder="粘贴完整正文，保留第一章到结尾的章节标题…" minlength="100" required></textarea><div id="textCounter" class="form-text text-end">0 字符</div></div>
+                        <div class="d-flex flex-wrap gap-2"><button type="submit" class="btn btn-primary">开始分析</button><button type="button" class="btn btn-outline-secondary" id="loadExample">载入三章示例</button><button type="button" class="btn btn-outline-secondary" id="clearText">清空</button></div>
+                    </form>
                 </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center">
-                        <div class="feature-icon bg-success rounded-circle mx-auto mb-3">
-                            <i class="fas fa-chart-line fa-2x text-white"></i>
+                <div class="tab-pane fade" id="file" role="tabpanel" aria-labelledby="file-tab">
+                    <form id="fileForm" data-analysis-type="file" enctype="multipart/form-data">
+                        <div class="file-upload-area p-4 mb-3">
+                            <label for="fileInput" class="form-label">选择整本小说文件</label>
+                            <input type="file" class="form-control" name="file" id="fileInput" data-max-bytes="{{ config.MAX_CONTENT_LENGTH }}" accept=".txt,.docx,.pdf" aria-describedby="fileHelp" required>
+                            <p class="form-text mb-0" id="fileHelp">支持 TXT、DOCX、带文字层的 PDF，请求上限 {{ config.MAX_CONTENT_LENGTH // (1024 * 1024) }} MB。扫描图片 PDF 需先转换为可复制的文字。</p>
                         </div>
-                        <h5 data-i18n="home.feature_plot_title">情节结构分析</h5>
-                        <p class="text-muted" data-i18n="home.feature_plot_desc">识别情节发展曲线，定位高潮和转折点</p>
-                    </div>
+                        <p id="fileInfo" class="small text-muted" aria-live="polite"></p>
+                        <button type="submit" class="btn btn-primary" id="fileSubmit" disabled>上传并分析</button>
+                    </form>
                 </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center">
-                        <div class="feature-icon bg-info rounded-circle mx-auto mb-3">
-                            <i class="fas fa-tags fa-2x text-white"></i>
-                        </div>
-                        <h5 data-i18n="home.feature_theme_title">主题提取</h5>
-                        <p class="text-muted" data-i18n="home.feature_theme_desc">自动提取文本的主要主题和关键词</p>
-                    </div>
+                <div class="tab-pane fade" id="novel" role="tabpanel" aria-labelledby="novel-tab">
+                    <form id="novelForm" data-analysis-type="url_novel">
+                        <label for="novelURL" class="form-label">阅读页面 URL</label><input id="novelURL" type="url" class="form-control mb-3" name="url" placeholder="https://example.com/novel" required>
+                        <p class="text-muted small">网页提取仅分析实际获取的内容，不保证包含目录后的所有章节。分析整本小说建议上传完整文件，并在报告中检查末章。</p>
+                        <button type="submit" class="btn btn-primary">获取并分析</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="modal fade" id="progressModal" tabindex="-1" data-bs-backdrop="static">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title">
-                    <i class="fas fa-chart-bar me-2"></i>
-                    <span data-i18n="analyze.analysis_in_progress">分析进行中</span>
-                </h5>
-            </div>
-            <div class="modal-body">
-                <div class="text-center py-3">
-                    <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;" role="status">
-                        <span class="visually-hidden" data-i18n="common.loading">加载中...</span>
-                    </div>
-                    <h5 data-i18n="analyze.processing">正在处理您的请求</h5>
-                    <p class="text-muted" data-i18n="analyze.please_wait">请稍候，分析可能需要几分钟时间...</p>
-
-                    <div class="progress mb-4" style="height: 10px;">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated"
-                             id="analysisProgress" style="width: 0%"></div>
-                    </div>
-                    <p class="small text-muted" id="progressText">初始化分析环境...</p>
-                </div>
-            </div>
-        </div>
+    <div class="row g-3 mt-2">
+        <div class="col-md-4"><div class="card h-100"><div class="card-body"><h3 class="h6">全文覆盖可查</h3><p class="small text-muted mb-0">长章分段处理，再逐层汇总。报告列出所有章节、处理覆盖率和失败片段。</p></div></div></div>
+        <div class="col-md-4"><div class="card h-100"><div class="card-body"><h3 class="h6">结论附原文</h3><p class="small text-muted mb-0">人物、事件与主题链接到章节及原文摘录，方便回到文本确认。</p></div></div></div>
+        <div class="col-md-4"><div class="card h-100"><div class="card-body"><h3 class="h6">如实呈现限制</h3><p class="small text-muted mb-0">模型可能理解有误。引用核对不等于结论正确，覆盖率也不等于准确率。</p></div></div></div>
     </div>
+</div></div>
+<div class="modal fade" id="progressModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="progressTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+        <div class="modal-header"><h2 class="modal-title h5" id="progressTitle">分析进行中</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="收起进度"></button></div>
+        <div class="modal-body p-4">
+            <p id="progressText" role="status" aria-live="polite">准备提交…</p>
+            <div class="progress mb-3" style="height: 12px;"><div id="analysisProgress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="width:0%"></div></div>
+            <p id="progressUnits" class="small text-muted"></p>
+            <p class="small text-muted mb-0">进度来自服务器实际处理状态。整本书可能需要较长时间，取决于长度、模型速度和可用资源。</p>
+            <div id="progressError" class="alert alert-danger mt-3 d-none" role="alert"></div>
+            <button id="retryStatus" type="button" class="btn btn-outline-primary mt-2 d-none">重新连接进度</button>
+        </div>
+    </div></div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    initTextCounter();
-    initFileUpload();
-    initFormHandlers();
-    initExampleLoader();
-    if(typeof i18n !== 'undefined') i18n.updatePage();
-});
-
-// 文本计数器
-function initTextCounter() {
-    const textArea = document.querySelector('textarea[name="text_content"]');
-    const counter = document.getElementById('textCounter');
-    if (textArea && counter) {
-        textArea.addEventListener('input', function() {
-            const length = this.value.length;
-            counter.textContent = length.toLocaleString();
-            if (length < 100) counter.className = 'form-text text-end text-danger';
-            else if (length < 500) counter.className = 'form-text text-end text-warning';
-            else counter.className = 'form-text text-end text-success';
-        });
-        textArea.dispatchEvent(new Event('input'));
-    }
-}
-
-// 文件上传处理
-function initFileUpload() {
-    const fileInput = document.getElementById('fileInput');
-    const fileInfo = document.getElementById('fileInfo');
-    const fileName = document.getElementById('fileName');
-    const fileSize = document.getElementById('fileSize');
-    const fileSubmit = document.getElementById('fileSubmit');
-
-    if (fileInput) {
-        fileInput.addEventListener('change', function() {
-            if (this.files.length > 0) {
-                const file = this.files[0];
-                fileName.textContent = file.name;
-                fileSize.textContent = (file.size / (1024 * 1024)).toFixed(2) + " MB";
-                fileInfo.classList.remove('d-none');
-                fileSubmit.disabled = false;
-            } else {
-                fileInfo.classList.add('d-none');
-                fileSubmit.disabled = true;
-            }
-        });
-    }
-}
-
-// 表单提交处理
-function initFormHandlers() {
-    const forms = ['textForm', 'fileForm', 'newsForm', 'novelForm'];
-    forms.forEach(id => {
-        const form = document.getElementById(id);
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const formData = new FormData(this);
-                let type = 'text';
-                if (id === 'fileForm') type = 'file';
-                else if (id === 'newsForm') type = 'url_news';
-                else if (id === 'novelForm') type = 'url_novel';
-
-                startAnalysis(type, formData);
-            });
-        }
-    });
-
-    document.getElementById('clearText')?.addEventListener('click', function() {
-        const textArea = document.querySelector('textarea[name="text_content"]');
-        if (textArea && confirm('确定要清空吗？')) {
-            textArea.value = '';
-            textArea.dispatchEvent(new Event('input'));
-        }
-    });
-}
-
-// 示例加载
-function initExampleLoader() {
-    document.getElementById('loadExample')?.addEventListener('click', function() {
-        fetch('/example').then(r=>r.json()).then(data => {
-            document.querySelector('textarea[name="text_content"]').value = "CHAPTER 1\nIt was a bright cold day in April...";
-            document.querySelector('input[name="title"]').value = "1984 (Example)";
-            document.getElementById('text-tab').click();
-            document.querySelector('textarea[name="text_content"]').dispatchEvent(new Event('input'));
-        });
-    });
-}
-
-// 开始分析逻辑 (简化版)
-function startAnalysis(type, formData) {
-    const modal = new bootstrap.Modal(document.getElementById('progressModal'));
-    modal.show();
-    formData.append('analysis_type', type);
-
-    fetch('/analyze', { method: 'POST', body: formData })
-        .then(r => r.json())
-        .then(data => {
-            if(data.error) {
-                modal.hide();
-                alert('Error: ' + data.error);
-            } else {
-                // 轮询状态
-                let progress = 0;
-                const bar = document.getElementById('analysisProgress');
-                const interval = setInterval(() => {
-                    fetch(`/analysis/status/${data.task_id}`)
-                        .then(r => r.json())
-                        .then(status => {
-                            progress += 10;
-                            if (progress > 90) progress = 90;
-                            if (status.status === 'completed') {
-                                bar.style.width = '100%';
-                                clearInterval(interval);
-                                window.location.href = `/result/${status.result_id}`;
-                            } else {
-                                bar.style.width = progress + '%';
-                            }
-                        });
-                }, 1000);
-            }
-        })
-        .catch(e => {
-            modal.hide();
-            alert('Network Error');
-        });
-}
-</script>
 {% endblock %}
