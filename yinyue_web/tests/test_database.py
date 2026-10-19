@@ -139,6 +139,23 @@ class DatabaseTests(unittest.TestCase):
         self.assertEqual(stats["avg_polarity"], 0.8)
         self.assertEqual(stats["sentiment_distribution"]["unanalyzed"], 1)
 
+    def test_legacy_intense_sentiments_are_normalized_without_rewriting_analysis(self):
+        for legacy, normalized in (("very positive", "positive"), ("very negative", "negative")):
+            with self.subTest(legacy=legacy):
+                analysis = {**self.analysis, "consensus_sentiment": legacy}
+                song_id = self.db.store_crawled_song_with_analysis(
+                    {**self.song, "title": legacy}, analysis, self.vector)
+                saved = self.db.get_song(song_id)
+                self.assertEqual(saved["sentiment"], normalized)
+                self.assertEqual(saved["analysis"]["consensus_sentiment"], legacy)
+                with self.db.get_connection() as conn:
+                    raw = conn.execute("SELECT analysis_json FROM song_analysis WHERE song_id=?", (song_id,)).fetchone()[0]
+                self.assertEqual(json.loads(raw)["consensus_sentiment"], legacy)
+        distribution = self.db.get_analysis_stats()["sentiment_distribution"]
+        self.assertEqual(distribution["positive"], 1)
+        self.assertEqual(distribution["negative"], 1)
+        self.assertEqual(distribution["unanalyzed"], 0)
+
     def test_library_has_no_hidden_thousand_song_limit(self):
         with self.db.get_connection() as conn:
             conn.executemany("INSERT INTO songs (title,artist,lyrics) VALUES (?, 'artist','text')",

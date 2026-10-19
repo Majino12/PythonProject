@@ -176,6 +176,8 @@ class DatabaseManager:
         song["analysis"] = self._decode_json(song.pop("analysis_json", None), dict)
         song["emotion_vector"] = self._decode_json(song.get("emotion_vector"), (dict, list))
         sentiment = (song["analysis"] or {}).get("consensus_sentiment", "unanalyzed")
+        if isinstance(sentiment, str):
+            sentiment = {"very positive": "positive", "very negative": "negative"}.get(sentiment, sentiment)
         song["sentiment"] = sentiment if isinstance(sentiment, str) and sentiment in {
             "positive", "neutral", "negative"
         } else "unanalyzed"
