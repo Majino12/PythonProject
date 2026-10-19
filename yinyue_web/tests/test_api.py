@@ -96,6 +96,101 @@ class APITests(unittest.TestCase):
         fresh = self.client.post("/api/professional/crawl", json={"title": "New remote", "artist": "Artist"})
         self.assertEqual(fresh.get_json()["genre"], "Unknown")
 
+    def test_reanalyze_updates_analysis_and_preserves_song_metadata_and_favorites(self):
+        song_id = self.db.store_crawled_song_with_analysis(
+            {"title": "旧歌名", "artist": "가수", "lyrics": "sad and alone",
+             "genre": "Alternative Pop", "year": 2019, "source": "crawler"},
+            {"consensus_sentiment": "positive", "textblob": {"polarity": 0.5}},
+            {"polarity": 0.5})
+        with self.db.get_connection() as connection:
+            connection.execute("CREATE TABLE user_favorites (song_id INTEGER REFERENCES songs(id), note TEXT)")
+            connection.execute("INSERT INTO user_favorites VALUES (?, ?)", (song_id, "keep this"))
+        before = self.db.get_song(song_id)
+        response = self.client.post(f"/api/songs/{song_id}/reanalyze")
+        self.assertEqual(response.status_code, 200, response.get_json())
+        result = response.get_json()
+        self.assertTrue(result["db_saved"])
+        self.assertEqual(result["song_id"], song_id)
+        after = self.db.get_song(song_id)
+        for key in ("id", "title", "artist", "lyrics", "source", "year", "genre", "created_at", "updated_at"):
+            self.assertEqual(before[key], after[key], key)
+        self.assertEqual(after["sentiment"], "negative")
+        self.assertEqual(after["emotion_vector"]["polarity"], -0.5)
+        self.assertEqual(self.client.get("/api/library").get_json()["total"], 1)
+        with self.db.get_connection() as connection:
+            favorite = connection.execute("SELECT * FROM user_favorites WHERE song_id=?", (song_id,)).fetchone()
+        self.assertEqual(favorite["note"], "keep this")
+
+    def test_reanalyze_failure_preserves_original_analysis_and_vector(self):
+        original = self.add()["song"]
+        with patch.object(self.analyzer, "analyze_lyrics_comprehensive", side_effect=RuntimeError("secret")):
+            with self.assertLogs("backend.app", level="ERROR"):
+                response = self.client.post(f"/api/songs/{original['id']}/reanalyze")
+        self.assertEqual(response.status_code, 500)
+        self.assertFalse(response.get_json()["success"])
+        self.assertNotIn("secret", response.get_data(as_text=True))
+        self.assertEqual(self.db.get_song(original["id"]), original)
+
+    def test_reanalyze_database_failure_rolls_back_new_analysis(self):
+        original = self.add()["song"]
+        replacement = {"consensus_sentiment": "negative", "textblob": {"polarity": -0.9}}
+        with patch.object(self.analyzer, "analyze_lyrics_comprehensive", return_value=replacement):
+            # The failure occurs after the analysis upsert, exercising the actual
+            # SQLite transaction rather than only a pre-write validation failure.
+            with patch.object(self.db, "_update_stats", side_effect=RuntimeError("disk failure")):
+                with self.assertLogs("backend.app", level="ERROR"):
+                    response = self.client.post(f"/api/songs/{original['id']}/reanalyze")
+        self.assertEqual(response.status_code, 500)
+        self.assertFalse(response.get_json()["success"])
+        self.assertEqual(self.db.get_song(original["id"]), original)
+
+    def test_reanalyze_model_fallback_preserves_original_results(self):
+        original = self.add()["song"]
+        # Full-model failure stores its reason in model_sentiment; partial
+        # bilingual failure stores the reason in metadata. Both must refuse
+        # to overwrite an existing analysis with a downgraded result.
+        for reason_location, available in [("model_sentiment", False), ("metadata", True)]:
+            with self.subTest(reason_location=reason_location):
+                replacement = {
+                    "consensus_sentiment": "neutral", "textblob": {"polarity": 0},
+                    "model_sentiment": {"available": available}, "metadata": {},
+                }
+                replacement[reason_location]["fallback_reasons"] = {"zh": "Model missing"}
+                with patch.object(self.analyzer, "analyze_lyrics_comprehensive", return_value=replacement):
+                    response = self.client.post(f"/api/songs/{original['id']}/reanalyze")
+                self.assertEqual(response.status_code, 503)
+                self.assertEqual(response.get_json()["error_code"], "model_unavailable")
+                self.assertFalse(response.get_json()["success"])
+                self.assertEqual(self.db.get_song(original["id"]), original)
+
+    def test_reanalyze_missing_song_returns_not_found(self):
+        response = self.client.post("/api/songs/999/reanalyze")
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.get_json()["error_code"], "song_not_found")
+
+    def test_uncertain_and_mixed_remain_distinct_in_library_filters_and_stats(self):
+        ids = {}
+        for sentiment, polarity in [("positive", 0.8), ("neutral", 0), ("uncertain", 0.12), ("mixed", -0.04)]:
+            ids[sentiment] = self.db.store_crawled_song_with_analysis(
+                {"title": sentiment, "artist": "Artist", "lyrics": "original text", "source": "manual"},
+                {"consensus_sentiment": sentiment, "overall_polarity": polarity,
+                 "textblob": {"polarity": 0}},
+                {"polarity": polarity})
+        for sentiment in ("uncertain", "mixed", "neutral"):
+            with self.subTest(sentiment=sentiment):
+                response = self.client.get(f"/api/library?sentiment={sentiment}")
+                self.assertEqual(response.status_code, 200)
+                payload = response.get_json()
+                self.assertEqual(payload["total"], 1)
+                self.assertEqual(payload["songs"][0]["id"], ids[sentiment])
+                self.assertEqual(payload["songs"][0]["sentiment"], sentiment)
+        stats = self.client.get("/api/stats").get_json()
+        self.assertEqual(stats["sentiment_distribution"], {
+            "positive": 1, "neutral": 1, "negative": 0,
+            "uncertain": 1, "mixed": 1, "unanalyzed": 0,
+        })
+        self.assertAlmostEqual(stats["avg_polarity"], 0.22)
+
     def test_json_types_missing_fields_and_limits_rejected(self):
         invalid_bodies = [None, [], "text", {}, {"title": "Title", "artist": 2, "lyrics": "love"},
                           {"title": " ", "artist": "Singer", "lyrics": "love"},

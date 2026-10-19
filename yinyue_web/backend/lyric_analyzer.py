@@ -1,8 +1,4 @@
-"""Lyric features and stable recommendations without numeric dependencies.
-
-English combines TextBlob with a lexicon. Chinese and Korean use deliberately
-limited dictionaries; every analysis exposes the corresponding limitations.
-"""
+"""Local lyric analysis with optional specialized Chinese/Korean classifiers."""
 
 import logging
 import math
@@ -19,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 class LocalLyricAnalyzer:
-    VERSION = "2.0"
+    VERSION = "2.1"
     TOKEN_RE = re.compile(r"[^\W\d_]+(?:'[^\W\d_]+)*", re.UNICODE)
     BOUNDARY_RE = re.compile(r"[.!?,;:。！？、；：\n]")
     VECTOR_WEIGHTS = {
@@ -28,7 +24,14 @@ class LocalLyricAnalyzer:
         'sentence_complexity': 0.5,
     }
 
-    def __init__(self):
+    def __init__(self, model_engine=None):
+        if model_engine is None:
+            try:
+                from .sentiment_models import ModelSentimentEngine
+            except ImportError:
+                from sentiment_models import ModelSentimentEngine
+            model_engine = ModelSentimentEngine()
+        self.model_engine = model_engine if model_engine is not False else None
         self.positive_words = set(
             'love loved loving happy happiness beautiful amazing wonderful fantastic '
             'great good perfect nice sweet better best joy joyful smile smiling laugh '
@@ -208,8 +211,7 @@ class LocalLyricAnalyzer:
     def create_emotion_vector(self, analysis):
         tb, lex = analysis['textblob'], analysis['lexicon']
         return {
-            'polarity': self._bounded(tb['polarity'] if tb.get('supported', True) and tb.get('available', True)
-                                      else lex['score'], -1.0, 1.0),
+            'polarity': self._bounded(analysis.get('overall_polarity', self._consensus_score(tb, lex)), -1.0, 1.0),
             'subjectivity': self._bounded(tb['subjectivity']),
             'lexicon_score': self._bounded(lex['score'], -1.0, 1.0),
             'lexical_diversity': self._bounded(analysis['lexical']['lexical_diversity']),
@@ -217,7 +219,7 @@ class LocalLyricAnalyzer:
             'sentence_complexity': self._bounded(analysis['lexical']['avg_sentence_length'] / 20),
         }
 
-    def analyze_lyrics_comprehensive(self, lyrics):
+    def _analyze_baseline(self, lyrics):
         cleaned = self.clean_lyrics(lyrics)
         language = self.detect_language(cleaned)
         tb = self.analyze_sentiment_textblob(cleaned)
@@ -255,6 +257,119 @@ class LocalLyricAnalyzer:
                          'tokenization': 'Unicode words; Chinese dictionary matching with character fallback'},
             'line_analysis': lines,
         }
+
+    def model_status(self):
+        if self.model_engine is None:
+            return {lang: {'status': 'disabled'} for lang in ('zh', 'ko')}
+        return self.model_engine.status()
+
+    @staticmethod
+    def _model_language(text):
+        # Keep nearby English in its Chinese/Korean sentence. Never route Kana
+        # to a Chinese model merely because Japanese also contains Han characters.
+        if re.search(r'[\u3040-\u30ff]', text):
+            return None
+        zh = bool(re.search(r'[\u4e00-\u9fff]', text))
+        ko = bool(re.search(r'[\uac00-\ud7af]', text))
+        return 'zh' if zh and not ko else 'ko' if ko and not zh else None
+
+    def analyze_lyrics_comprehensive(self, lyrics):
+        result = self._analyze_baseline(lyrics)
+        cleaned = self.clean_lyrics(lyrics)
+        whole_language = self._model_language(cleaned)
+        line_texts = [self.clean_lyrics(line['text']) for line in result['line_analysis']]
+        if whole_language and any(self._model_language(text) != whole_language for text in line_texts):
+            whole_language = None
+        # Pure-language lyrics get a contextual, full-text prediction. Bilingual
+        # Chinese/Korean lyrics are aggregated by line, with coverage made explicit.
+        requests = {language: [] for language in ('zh', 'ko')}
+        if whole_language:
+            requests[whole_language].append(cleaned)
+        for text in line_texts:
+            language = self._model_language(text)
+            if language:
+                requests[language].append(text)
+        predictions, failures, models = {}, {}, []
+        for language, texts in requests.items():
+            texts = list(dict.fromkeys(texts))
+            if not texts:
+                continue
+            if self.model_engine is None:
+                failures[language] = '模型已关闭'
+                continue
+            try:
+                values = self.model_engine.predict(texts, language)
+                if len(values) != len(texts):
+                    raise ValueError('Model response count mismatch')
+                for prediction in values:
+                    if (prediction['sentiment'] not in {'positive', 'negative', 'uncertain'}
+                            or not math.isfinite(prediction['polarity'])
+                            or not -1 <= prediction['polarity'] <= 1
+                            or not 0.5 <= prediction['confidence'] <= 1
+                            or not prediction['model'] or not prediction['revision']):
+                        raise ValueError('Invalid model prediction')
+                first = values[0]
+                models.append({'language': language, 'model': first['model'],
+                               'revision': first['revision']})
+                predictions.update(zip(texts, values))
+            except Exception as error:
+                # Prediction failure must remain visible and never look like a
+                # successful model result. Do not expose internal paths to clients.
+                logger.warning('Sentiment model unavailable for %s: %s', language, type(error).__name__)
+                failures[language] = '模型未安装、依赖缺失或加载失败；请检查模型状态'
+        result['metadata']['models'] = models
+        result['model_sentiment'] = {'available': False}
+        if not predictions:
+            result['model_sentiment']['fallback_reasons'] = failures
+            if failures:
+                result['metadata']['limitations'].append(
+                    '专用模型本次不可用，已明确回退到基础词典。请运行 scripts/setup_models.py 并安装模型依赖。')
+            return result
+        modeled_lines = 0
+        for line, text in zip(result['line_analysis'], line_texts):
+            if text in predictions:
+                prediction = predictions[text]
+                line.update(polarity=round(prediction['polarity'], 6),
+                            sentiment=prediction['sentiment'], confidence=prediction['confidence'],
+                            method='transformer')
+                modeled_lines += 1
+            else:
+                line['method'] = ('textblob+lexicon' if re.search('[a-zA-Z]', text)
+                                  and result['textblob']['available'] else 'lexicon')
+        if cleaned in predictions:
+            model_result = dict(predictions[cleaned], available=True)
+            score, sentiment = model_result['polarity'], model_result['sentiment']
+            method = 'transformer'
+        else:
+            weights = [max(1, len(text)) for text in line_texts]
+            total = sum(weights) or 1
+            score = sum(line['polarity'] * weight for line, weight
+                        in zip(result['line_analysis'], weights)) / total
+            # Aggregated cross-language scores are not calibrated probabilities.
+            sentiment = 'positive' if score > 0.3 else 'negative' if score < -0.3 else 'uncertain'
+            directions = {line['sentiment'] for line in result['line_analysis'] if line.get('method') == 'transformer'}
+            if abs(score) <= 0.3 and {'positive', 'negative'} <= directions:
+                sentiment = 'mixed'
+            model_result = {'available': True, 'partial': modeled_lines < len(line_texts),
+                            'polarity': round(score, 6), 'sentiment': sentiment,
+                            'aggregation': 'character-weighted line scores'}
+            method = 'hybrid'
+        limitations = [
+            '模型来自评论等文本领域，未针对歌词标注训练；隐喻、讽刺、叙事视角和跨句转折仍可能误判。',
+            '中文和韩文模型仅学习正面/负面两类，没有中性类别；低置信度显示“倾向不明确”，置信度不是准确率。',
+            '长文本按 token 分块、按长度汇总；逐行独立分析用于辅助阅读，可能与全文判断不同。',
+            '词数、高频词与词典统计仍使用简单切分，不代表模型的判断依据。',
+        ]
+        if result['metadata']['language'] == 'mixed':
+            limitations.append('混合语言按行路由；单行同时含中文和韩文时保留基础方法，跨语言语境可能丢失。')
+        if failures:
+            limitations.append('部分语言模型不可用，相关行回退到基础词典。')
+        result.update(model_sentiment=model_result, overall_polarity=round(score, 6),
+                      consensus_sentiment=sentiment)
+        result['metadata'].update(method=method, limitations=limitations,
+                                  model_line_coverage={'modeled': modeled_lines, 'total': len(line_texts)},
+                                  fallback_reasons=failures)
+        return result
 
     def analyze_song_library(self, database=None):
         """Compatibility helper; IDs keep songs with equal titles distinct."""

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#111210">
-  <meta name="description" content="听见文字的情绪。支持中英文歌词分析、在线获取、情感曲库和相似歌曲发现的音乐工作台。">
+  <meta name="description" content="听见文字的情绪。支持中文、韩文和英文歌词分析、在线获取、情感曲库和相似歌曲发现的音乐工作台。">
   <title>音绪 YINYUE · 歌词情感工作台</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23c6f36b'/%3E%3Cpath d='M16 27v10m8-19v28m8-34v40m8-32v24m8-18v12' stroke='%23111210' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="css/style.css">
@@ -42,7 +42,7 @@
   </aside>
 
   <div class="app-shell">
-    <header class="topbar"><div class="breadcrumb"><span>工作空间</span><span aria-hidden="true">/</span><strong id="current-view-label">分析工作台</strong></div><div class="topbar-right"><span class="language-tag">中文 / EN</span><span class="workspace-avatar" aria-label="本地工作空间">S</span></div></header>
+    <header class="topbar"><div class="breadcrumb"><span>工作空间</span><span aria-hidden="true">/</span><strong id="current-view-label">分析工作台</strong></div><div class="topbar-right"><span class="language-tag">中文 / 한국어 / EN</span><span class="workspace-avatar" aria-label="本地工作空间">S</span></div></header>
     <main id="main" tabindex="-1">
       <section id="view-analyze" class="view" aria-labelledby="analyze-heading">
         <div class="hero">
@@ -57,9 +57,12 @@
           <div class="stat-card"><div><span class="stat-label"><i class="sentiment-dot negative"></i> 消极情绪</span><strong id="stat-negative">—</strong><span class="stat-unit">低落、思念与失落</span></div><span class="stat-glyph negative" aria-hidden="true">↘</span></div>
         </div>
 
+        <p id="stat-other-emotions" class="stats-extra field-help" aria-live="polite"></p>
+
         <div class="section-heading" id="analysis-workspace"><div><span class="eyebrow muted">01 / LYRICS LAB</span><h2>歌词实验室</h2></div><span class="section-note">从一首歌开始，读懂它的情绪</span></div>
+        <div id="model-status" class="model-status" role="status" aria-live="polite">正在检查中文与韩文模型状态…</div>
         <div class="analysis-grid">
-          <section class="panel input-panel" aria-labelledby="input-heading"><div class="panel-heading"><h3 id="input-heading"><svg class="icon"><use href="#i-music"/></svg> 导入歌词</h3><span class="small-label">中英文支持</span></div>
+          <section class="panel input-panel" aria-labelledby="input-heading"><div class="panel-heading"><h3 id="input-heading"><svg class="icon"><use href="#i-music"/></svg> 导入歌词</h3><span class="small-label">中文 · 韩文 · 英文</span></div>
             <form id="analysis-form"><div class="field-row"><div class="field"><label for="an-title">歌曲名称 <span aria-hidden="true">*</span></label><input id="an-title" name="title" placeholder="给这首歌一个名字" maxlength="200" required autocomplete="off"></div><div class="field"><label for="an-artist">歌手 / 创作者 <span aria-hidden="true">*</span></label><input id="an-artist" name="artist" placeholder="是谁唱出了心声" maxlength="200" required autocomplete="off"></div></div>
               <div class="field lyrics-field"><div class="field-label-row"><label for="an-lyrics">歌词正文 <span aria-hidden="true">*</span></label><span id="lyrics-count">0 字</span></div><textarea id="an-lyrics" name="lyrics" rows="12" placeholder="把歌词粘贴在这里…&#10;&#10;保留换行，让每一句情绪都有迹可循。" maxlength="50000" required aria-describedby="lyrics-help"></textarea><p id="lyrics-help" class="field-help">支持纯文本及 LRC 时间标签，最多 50,000 字。</p></div>
               <button class="button primary full-width" id="analyze-submit" type="submit"><svg class="icon"><use href="#i-wave"/></svg><span>分析并保存到曲库</span><svg class="icon end-icon"><use href="#i-arrow"/></svg></button><p id="analysis-status" class="inline-status" role="status" aria-live="polite">填写后开始分析，结果会保存在你的本地曲库。</p>
@@ -71,9 +74,11 @@
             <div id="analysis-content" hidden>
               <div class="result-song"><div><span class="eyebrow muted">NOW ANALYZING</span><h4 id="result-title"></h4><p id="result-artist"></p></div><span id="result-sentiment" class="sentiment-badge"></span></div>
               <div class="result-metrics"><div><span>情感极性</span><strong id="res-polarity">—</strong><small>−1 消极 · +1 积极</small></div><div><span>主观性</span><strong id="res-subjectivity">—</strong><small>0 客观 · 1 主观</small></div><div><span>词汇多样性</span><strong id="res-diversity">—</strong><small id="res-word-count"></small></div></div>
+              <div id="model-analysis" class="model-analysis"></div>
               <div class="chart-heading"><h4>情绪轨迹</h4><span id="line-count" class="small-label"></span></div><div id="sentiment-chart" class="sentiment-chart"></div><p id="chart-summary" class="visually-hidden"></p>
               <div class="word-section"><div class="chart-heading"><h4>高频词汇</h4><span class="small-label">词频 / TOP 8</span></div><div id="top-words" class="word-tags"></div></div>
-              <details class="analysis-details"><summary>查看分析依据与指标 <span aria-hidden="true">+</span></summary><div class="detail-metrics"><span>词典情感分 <strong id="res-lexicon">—</strong></span><span>积极词占比 <strong id="res-positive-ratio">—</strong></span><span>消极词占比 <strong id="res-negative-ratio">—</strong></span><span>情感词密度 <strong id="res-density">—</strong></span></div><p id="analysis-method" class="field-help"></p><p class="field-help">情感来自文本统计与词典分析，仅描述语言特征；隐喻、反讽和音乐本身的情绪可能无法准确识别。</p></details>
+              <details class="analysis-details"><summary>查看分析依据与指标 <span aria-hidden="true">+</span></summary><div class="detail-metrics"><span>词典情感分 <strong id="res-lexicon">—</strong></span><span>积极词占比 <strong id="res-positive-ratio">—</strong></span><span>消极词占比 <strong id="res-negative-ratio">—</strong></span><span>情感词密度 <strong id="res-density">—</strong></span></div><div id="model-sources" class="model-sources"></div><p id="analysis-method" class="field-help"></p><p class="field-help">分析描述歌词的文字倾向；隐喻、反讽与音乐本身的情绪仍可能被误判。</p></details>
+              <div class="result-actions"><button id="result-reanalyze" class="button secondary compact" type="button" hidden>重新分析</button><span class="field-help">使用当前可用模型更新已保存的结果</span></div>
             </div>
           </section>
         </div>
@@ -87,7 +92,7 @@
 
       <section id="view-library" class="view" aria-labelledby="library-heading" hidden>
         <div class="page-intro with-action"><div><div class="eyebrow">03 / YOUR COLLECTION</div><h1 id="library-heading">收藏每一种情绪。</h1><p>在你的曲库里，重访那些触动心弦的文字。</p></div><button class="button secondary" id="export-library"><svg class="icon"><use href="#i-download"/></svg> 导出 JSON</button></div>
-        <section class="panel library-panel"><div class="library-toolbar"><div class="search-field"><svg class="icon"><use href="#i-search"/></svg><label class="visually-hidden" for="library-search">搜索歌名或歌手</label><input id="library-search" type="search" placeholder="搜索歌名或歌手…" maxlength="200"></div><div class="filter-fields"><label class="visually-hidden" for="library-sentiment">筛选情绪</label><select id="library-sentiment"><option value="">全部情绪</option value="positive">积极</option><option value="neutral">中性</option><option value="negative">消极</option><option value="unanalyzed">待分析</option></select><label class="visually-hidden" for="library-sort">歌曲排序</label><select id="library-sort"><option value="recent">最近添加</option><option value="oldest">最早添加</option><option value="title">按歌曲名称</option><option value="artist">按歌手名称</option></select></div></div>
+        <section class="panel library-panel"><div class="library-toolbar"><div class="search-field"><svg class="icon"><use href="#i-search"/></svg><label class="visually-hidden" for="library-search">搜索歌名或歌手</label><input id="library-search" type="search" placeholder="搜索歌名或歌手…" maxlength="200"></div><div class="filter-fields"><label class="visually-hidden" for="library-sentiment">筛选情绪</label><select id="library-sentiment"><option value="">全部情绪</option value="positive">积极</option><option value="neutral">中性</option><option value="negative">消极</option><option value="uncertain">倾向不明确</option><option value="mixed">混合情绪</option><option value="unanalyzed">待分析</option></select><label class="visually-hidden" for="library-sort">歌曲排序</label><select id="library-sort"><option value="recent">最近添加</option><option value="oldest">最早添加</option><option value="title">按歌曲名称</option><option value="artist">按歌手名称</option></select></div></div>
           <div class="table-scroll"><table class="library-table"><thead><tr><th scope="col" class="track-index">#</th><th scope="col">歌曲 / 创作者</th><th scope="col">情绪</th><th scope="col">情感极性</th><th scope="col" class="action-cell">操作</th></tr></thead><tbody id="library-table-body"></tbody></table></div><p id="library-status" class="library-status" role="status" aria-live="polite"></p><div class="pagination"><span id="library-total">正在载入曲库…</span><div><button class="button secondary compact" id="previous-page" aria-label="上一页" disabled>← 上一页</button><span id="page-label">1 / 1</span><button class="button secondary compact" id="next-page" aria-label="下一页" disabled>下一页 →</button></div></div>
         </section>
       </section>
@@ -100,7 +105,7 @@
     </main>
   </div>
 
-  <dialog id="song-dialog" class="song-dialog" aria-labelledby="dialog-song-title"><div class="dialog-heading"><span class="eyebrow">FROM YOUR COLLECTION</span><button class="icon-button" id="close-song-dialog" aria-label="关闭歌曲详情"><svg class="icon"><use href="#i-close"/></svg></button></div><h2 id="dialog-song-title"></h2><p id="dialog-song-artist" class="muted"></p><div class="dialog-meta"><span id="dialog-song-sentiment" class="sentiment-badge"></span><span id="dialog-song-source" class="small-label"></span></div><pre id="dialog-song-lyrics" class="song-lyrics"></pre><div class="dialog-actions"><button class="button secondary" id="dialog-recommend">寻找相似歌曲</button><button class="button primary" id="dialog-analysis">查看完整分析 <svg class="icon"><use href="#i-arrow"/></svg></button></div></dialog>
+  <dialog id="song-dialog" class="song-dialog" aria-labelledby="dialog-song-title"><div class="dialog-heading"><span class="eyebrow">FROM YOUR COLLECTION</span><button class="icon-button" id="close-song-dialog" aria-label="关闭歌曲详情"><svg class="icon"><use href="#i-close"/></svg></button></div><h2 id="dialog-song-title"></h2><p id="dialog-song-artist" class="muted"></p><div class="dialog-meta"><span id="dialog-song-sentiment" class="sentiment-badge"></span><span id="dialog-song-source" class="small-label"></span></div><pre id="dialog-song-lyrics" class="song-lyrics"></pre><p id="dialog-analysis-status" class="inline-status" role="status" aria-live="polite"></p><div class="dialog-actions"><button class="button secondary" id="dialog-reanalyze" type="button">重新分析</button><button class="button secondary" id="dialog-recommend">寻找相似歌曲</button><button class="button primary" id="dialog-analysis">查看完整分析 <svg class="icon"><use href="#i-arrow"/></svg></button></div></dialog>
   <dialog id="delete-dialog" class="confirm-dialog" aria-labelledby="delete-dialog-title" aria-describedby="delete-description"><div class="delete-icon"><svg class="icon"><use href="#i-trash"/></svg></div><h2 id="delete-dialog-title">从曲库中删除？</h2><p id="delete-description"></p><p class="field-help">删除后，歌词及分析记录将一并移除。</p><p id="delete-status" class="inline-status" role="status"></p><div class="dialog-actions"><button class="button secondary" id="cancel-delete">保留歌曲</button><button class="button danger" id="confirm-delete">确认删除</button></div></dialog>
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
   <noscript><div class="noscript">请启用 JavaScript，以使用歌词分析、采集和曲库功能。</div></noscript>

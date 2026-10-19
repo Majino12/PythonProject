@@ -57,9 +57,9 @@ python run.py
 
 当前后端按 UTF-8 文本读取上传文件。报告可以导出 JSON 或 HTML；PDF 选项返回 HTML 报告，可再通过浏览器打印为 PDF。
 
-## 歌词情感分析 · 音绪 2.0
+## 歌词情感分析 · 音绪 2.1
 
-中文歌词工作台，提供手动歌词分析、逐行情感变化、高频词、歌词查询、曲库搜索筛选与 JSON 导出，以及按歌曲 ID 区分的相似推荐。英文使用 TextBlob 与情感词典，中文和韩文提供基础词典分析并展示局限。歌词和分析原子保存到本机 SQLite。
+中文歌词工作台，提供手动歌词分析、逐行情感变化、高频词、歌词查询、曲库搜索筛选与 JSON 导出，以及按歌曲 ID 区分的相似推荐。英文使用 TextBlob 与情感词典，中文使用 Erlangshen、韩文使用 KoELECTRA 本地专用模型；展示置信度、模型版本和回退状态。歌词和分析原子保存到本机 SQLite。
 
 需要 Python 3.11 或更新版本。在独立虚拟环境安装：
 
@@ -68,10 +68,12 @@ cd yinyue_web
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r backend/requirements.txt
+python -m pip install -r backend/requirements-models.txt
+python scripts/setup_models.py
 python run.py
 ```
 
-访问 <http://127.0.0.1:5002>。单个服务提供前端与 API；无需端口 8000、CDN 或额外模型下载。歌词在线查询取决于 lyrics.ovh 的可用性，手动分析可离线运行。
+访问 <http://127.0.0.1:5002>。单个服务提供前端与 API；无需端口 8000 或 CDN。中韩模型首次需下载约 861 MB 权重，之后离线推理。歌词在线查询取决于 lyrics.ovh 的可用性，手动分析可离线运行。
 
 旧版曾跟踪数据库文件，**Git 拉取升级前请先在仓库外备份 `yinyue_web/data/`，升级后放回**。新版本不再上传曲库、缓存或日志。详细功能、配置与限制见 [音绪说明](yinyue_web/README.md)。
 

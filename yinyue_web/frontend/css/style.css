@@ -1091,6 +1091,141 @@ input[type=search]::-webkit-search-cancel-button {
   color:var(--negative)
 }
 
+.sentiment-badge.uncertain {
+  background:#393424;
+  border-color:#62563a;
+  color:#dcc18b
+}
+
+.sentiment-badge.mixed {
+  background:#293740;
+  border-color:#405462;
+  color:#a6c7df
+}
+
+.stats-extra {
+  margin-top:10px
+}
+
+.model-status {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px 22px;
+  margin:-2px 0 18px;
+  padding:12px 16px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:var(--surface);
+  color:var(--muted);
+  font-size:11px
+}
+
+.model-status-item {
+  display:inline-flex;
+  align-items:center;
+  gap:7px
+}
+
+.model-status-dot {
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#dcc18b;
+  flex-shrink:0
+}
+
+.model-status-item.ready .model-status-dot {
+  background:var(--accent)
+}
+
+.model-status-note {
+  font-size:10px;
+  margin-left:auto
+}
+
+.model-analysis {
+  margin:-10px 0 24px;
+  padding:14px;
+  background:#1d2518;
+  border:1px solid #35412a;
+  border-radius:7px
+}
+
+.model-confidence-heading,.model-probability-values {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  color:#a8b69b;
+  font-size:10px
+}
+
+.model-confidence-heading strong {
+  color:#d1dfc4;
+  font-size:15px;
+  font-weight:500
+}
+
+.model-probability-bar {
+  display:flex;
+  height:5px;
+  margin:11px 0 8px;
+  background:#b78d78;
+  border-radius:5px;
+  overflow:hidden
+}
+
+.model-probability-bar .positive {
+  background:var(--accent)
+}
+
+.model-analysis .field-help {
+  margin:10px 0 0
+}
+
+.model-analysis-note {
+  color:#a8b69b;
+  font-size:11px;
+  line-height:1.8
+}
+
+.model-sources {
+  margin-top:14px
+}
+
+.model-source {
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px 9px;
+  margin:7px 0;
+  font-size:10px;
+  color:#9ba88b;
+  overflow-wrap:anywhere
+}
+
+.model-source a {
+  color:#c4d9ac;
+  text-decoration:underline;
+  text-underline-offset:3px
+}
+
+.model-source small {
+  width:100%;
+  color:#849176
+}
+
+.result-actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 12px;
+  align-items:center;
+  margin-top:18px
+}
+
+.result-actions .field-help {
+  margin:0
+}
+
 .result-metrics {
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
@@ -1867,6 +2002,7 @@ progress::-moz-progress-bar {
 
 .dialog-actions {
   display:flex;
+  flex-wrap:wrap;
   justify-content:flex-end;
   gap:10px;
   margin-top:24px

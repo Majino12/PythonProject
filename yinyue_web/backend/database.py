@@ -179,7 +179,7 @@ class DatabaseManager:
         if isinstance(sentiment, str):
             sentiment = {"very positive": "positive", "very negative": "negative"}.get(sentiment, sentiment)
         song["sentiment"] = sentiment if isinstance(sentiment, str) and sentiment in {
-            "positive", "neutral", "negative"
+            "positive", "neutral", "negative", "uncertain", "mixed"
         } else "unanalyzed"
         return song
 
@@ -226,7 +226,7 @@ class DatabaseManager:
                 value = textblob.get("polarity") if isinstance(textblob, dict) else None
             if isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value):
                 polarities.append(value)
-        distribution = dict.fromkeys(("positive", "neutral", "negative", "unanalyzed"), 0)
+        distribution = dict.fromkeys(("positive", "neutral", "negative", "uncertain", "mixed", "unanalyzed"), 0)
         distribution.update(Counter(song["sentiment"] for song in songs))
         return {
             "total_songs": len(songs),

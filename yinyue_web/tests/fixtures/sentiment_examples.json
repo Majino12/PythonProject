@@ -1,0 +1,277 @@
+{
+  "name": "Original Chinese and Korean lyric-style qualitative regression examples",
+  "version": 1,
+  "authored_on": "2026-10-19",
+  "description": "32 original short lyric-style examples authored and frozen before running the upgraded models. They are not quotations from existing lyrics.",
+  "limitations": [
+    "This is a small, manually authored qualitative regression set, not a representative benchmark.",
+    "Expected labels are editorial interpretations, not independently adjudicated ground truth.",
+    "Agreement on these examples must not be presented as generalization accuracy or a validated claim about real songs.",
+    "Binary models do not have a learned neutral class; neutral and ambiguous examples are reported separately from positive/negative agreement.",
+    "Keep all examples and mismatches visible. Do not change or remove examples to improve a model's reported agreement."
+  ],
+  "label_policy": {
+    "positive": "The speaker's overall expressed attitude is favorable, hopeful, reassuring, or connected.",
+    "negative": "The speaker's overall expressed attitude is unfavorable, distressed, rejected, or depleted.",
+    "neutral": "A literal description without an intended emotional stance; review whether the model forces a confident binary label.",
+    "ambiguous": "Mixed or context-dependent feelings with no required binary label; inspect the result qualitatively, without scoring it as a classification error."
+  },
+  "examples": [
+    {
+      "id": "zh-positive-01",
+      "language": "zh",
+      "text": "门推开的时候，屋里的人都笑着为我留了位置。",
+      "expected": "positive",
+      "phenomenon": "implicit_belonging",
+      "notes": "被接纳和被等待的情境表达归属感，未直接说快乐或幸福。"
+    },
+    {
+      "id": "zh-positive-02",
+      "language": "zh",
+      "text": "跌过那么多次，我还是相信明天会更好。",
+      "expected": "positive",
+      "phenomenon": "adversity_then_hope",
+      "notes": "前半句提到挫折，整句立场是对未来保持信心。"
+    },
+    {
+      "id": "zh-positive-03",
+      "language": "zh",
+      "text": "我不再害怕一个人出发，远方让我充满期待。",
+      "expected": "positive",
+      "phenomenon": "negated_fear",
+      "notes": "否定过去的恐惧，并明确表达期待。"
+    },
+    {
+      "id": "zh-positive-04",
+      "language": "zh",
+      "text": "原来被认真听见，是这样让人安心的事。",
+      "expected": "positive",
+      "phenomenon": "reassurance",
+      "notes": "被理解带来的安心，情感强度较温和。"
+    },
+    {
+      "id": "zh-positive-05",
+      "language": "zh",
+      "text": "这一次我终于做到了，想把好消息唱给你听。",
+      "expected": "positive",
+      "phenomenon": "achievement",
+      "notes": "成功和分享好消息表达积极态度。"
+    },
+    {
+      "id": "zh-positive-06",
+      "language": "zh",
+      "text": "雨停后你握住我的手，我觉得一切都值得。",
+      "expected": "positive",
+      "phenomenon": "indirect_affection",
+      "notes": "通过陪伴和肯定表达感情，雨只是情境。"
+    },
+    {
+      "id": "zh-positive-07",
+      "language": "zh",
+      "text": "即使路还很长，我也愿意和你慢慢走下去。",
+      "expected": "positive",
+      "phenomenon": "commitment_despite_difficulty",
+      "notes": "虽然有困难，主旨仍是愿意相伴。"
+    },
+    {
+      "id": "zh-negative-01",
+      "language": "zh",
+      "text": "你说下次再见，可那把钥匙再也没有转动。",
+      "expected": "negative",
+      "phenomenon": "implied_abandonment",
+      "notes": "再也未归的情境暗示失落；这是一种作者解释，隐喻可能有其他读法。"
+    },
+    {
+      "id": "zh-negative-02",
+      "language": "zh",
+      "text": "我并没有你想的那么快乐，只是习惯在人前点头。",
+      "expected": "negative",
+      "phenomenon": "negated_positive_and_masking",
+      "notes": "否认表面的快乐，后半句解释掩饰。"
+    },
+    {
+      "id": "zh-negative-03",
+      "language": "zh",
+      "text": "明明灯都亮着，这个家却再也不像家了。",
+      "expected": "negative",
+      "phenomenon": "contrast_and_alienation",
+      "notes": "灯亮并不代表积极，转折后表达疏离。"
+    },
+    {
+      "id": "zh-negative-04",
+      "language": "zh",
+      "text": "等来的只有空白，我连再问一次的力气都没有。",
+      "expected": "negative",
+      "phenomenon": "emotional_exhaustion",
+      "notes": "无回应和耗尽力气表达消沉。"
+    },
+    {
+      "id": "zh-negative-05",
+      "language": "zh",
+      "text": "你说我会忘记，可每个清晨都像又失去你一次。",
+      "expected": "negative",
+      "phenomenon": "persistent_loss",
+      "notes": "反复体验失去，转折否定了已经释怀的理解。"
+    },
+    {
+      "id": "zh-negative-06",
+      "language": "zh",
+      "text": "那些祝福我都说得出口，转身以后却一句也说不下去。",
+      "expected": "negative",
+      "phenomenon": "suppressed_distress",
+      "notes": "祝福的表面积极被转身后的失语推翻。"
+    },
+    {
+      "id": "zh-negative-07",
+      "language": "zh",
+      "text": "不是不想靠近，是每走一步都被你推远。",
+      "expected": "negative",
+      "phenomenon": "double_negation_and_rejection",
+      "notes": "双重否定说明想靠近，但句子的核心是被拒绝。"
+    },
+    {
+      "id": "zh-neutral-01",
+      "language": "zh",
+      "text": "列车经过三座桥，下一站写在车门旁边。",
+      "expected": "neutral",
+      "phenomenon": "literal_observation",
+      "notes": "作者未设定情感态度；仅定性观察二分类模型是否给出过强结论，不纳入正负例一致数。"
+    },
+    {
+      "id": "zh-ambiguous-01",
+      "language": "zh",
+      "text": "我笑着送你到路口，回家时又哭了很久。",
+      "expected": "ambiguous",
+      "phenomenon": "mixed_feelings",
+      "notes": "离别中的笑和哭可能包含欣慰、掩饰或难过，需要更大语境；不要求唯一类别。"
+    },
+    {
+      "id": "ko-positive-01",
+      "language": "ko",
+      "text": "늦게 돌아온 내게도 식탁에는 자리가 남아 있었어.",
+      "expected": "positive",
+      "phenomenon": "implicit_belonging",
+      "notes": "餐桌还为晚归的人留着位置，作者意图是被接纳和惦记。"
+    },
+    {
+      "id": "ko-positive-02",
+      "language": "ko",
+      "text": "몇 번을 넘어져도 내일은 더 나아질 거라 믿어.",
+      "expected": "positive",
+      "phenomenon": "adversity_then_hope",
+      "notes": "即使多次跌倒，仍相信明天会变好。"
+    },
+    {
+      "id": "ko-positive-03",
+      "language": "ko",
+      "text": "이제 혼자 걷는 길도 두렵지 않아, 새 아침이 기다려져.",
+      "expected": "positive",
+      "phenomenon": "negated_fear",
+      "notes": "韩语后置否定消解恐惧，并表达对新一天的期待。"
+    },
+    {
+      "id": "ko-positive-04",
+      "language": "ko",
+      "text": "네가 끝까지 내 말을 들어 줘서 마음이 놓였어.",
+      "expected": "positive",
+      "phenomenon": "reassurance",
+      "notes": "被耐心听完而放心，表达温和积极情绪。"
+    },
+    {
+      "id": "ko-positive-05",
+      "language": "ko",
+      "text": "드디어 해냈어, 이 소식을 너에게 제일 먼저 들려주고 싶어.",
+      "expected": "positive",
+      "phenomenon": "achievement",
+      "notes": "终于做到并想首先分享给对方，表达成就感。"
+    },
+    {
+      "id": "ko-positive-06",
+      "language": "ko",
+      "text": "네 손을 잡으니 평범한 오늘도 선물처럼 느껴져.",
+      "expected": "positive",
+      "phenomenon": "indirect_affection",
+      "notes": "牵手让普通一天也像礼物，通过比喻表达珍惜。"
+    },
+    {
+      "id": "ko-positive-07",
+      "language": "ko",
+      "text": "길이 멀어도 너와 함께라면 천천히 가도 괜찮아.",
+      "expected": "positive",
+      "phenomenon": "commitment_despite_difficulty",
+      "notes": "虽然路远，但相伴让人愿意继续。"
+    },
+    {
+      "id": "ko-negative-01",
+      "language": "ko",
+      "text": "다시 온다던 너의 신발은 끝내 현관에 놓이지 않았어.",
+      "expected": "negative",
+      "phenomenon": "implied_abandonment",
+      "notes": "承诺回来的人始终没有回来，作者意图是落空和失落。"
+    },
+    {
+      "id": "ko-negative-02",
+      "language": "ko",
+      "text": "웃고 있다고 괜찮은 건 아니야, 아무에게도 말하지 못했을 뿐이야.",
+      "expected": "negative",
+      "phenomenon": "negated_positive_and_masking",
+      "notes": "明确否认微笑等于没事，并解释难以开口。"
+    },
+    {
+      "id": "ko-negative-03",
+      "language": "ko",
+      "text": "불은 환하게 켜져 있는데 이곳은 더 이상 내 집 같지 않아.",
+      "expected": "negative",
+      "phenomenon": "contrast_and_alienation",
+      "notes": "明亮环境与失去家的归属感形成反差。"
+    },
+    {
+      "id": "ko-negative-04",
+      "language": "ko",
+      "text": "답장 없는 화면을 보다 지쳐서 이제는 묻고 싶지도 않아.",
+      "expected": "negative",
+      "phenomenon": "emotional_exhaustion",
+      "notes": "没有回复和疲惫表达心灰意冷。"
+    },
+    {
+      "id": "ko-negative-05",
+      "language": "ko",
+      "text": "잊을 거라 했지만 아침마다 너를 다시 잃는 기분이야.",
+      "expected": "negative",
+      "phenomenon": "persistent_loss",
+      "notes": "虽然说过会忘记，仍每天体验失去。"
+    },
+    {
+      "id": "ko-negative-06",
+      "language": "ko",
+      "text": "축하한다는 말은 했지만 돌아서자 목이 메어 더는 말할 수 없었어.",
+      "expected": "negative",
+      "phenomenon": "suppressed_distress",
+      "notes": "表面说祝贺，转身后却哽咽，主旨是隐藏的难过。"
+    },
+    {
+      "id": "ko-negative-07",
+      "language": "ko",
+      "text": "다가가기 싫은 게 아니야, 다가갈 때마다 네가 나를 밀어냈어.",
+      "expected": "negative",
+      "phenomenon": "double_negation_and_rejection",
+      "notes": "不讨厌靠近并非主旨，每次靠近都被推开才是负面情境。"
+    },
+    {
+      "id": "ko-neutral-01",
+      "language": "ko",
+      "text": "기차는 다리 세 개를 지나고 다음 역 이름은 문 옆에 적혀 있어.",
+      "expected": "neutral",
+      "phenomenon": "literal_observation",
+      "notes": "客观描述列车与站名；仅定性观察模型倾向，不纳入正负例一致数。"
+    },
+    {
+      "id": "ko-ambiguous-01",
+      "language": "ko",
+      "text": "웃으며 너를 배웅했는데 집에 돌아와서는 한참 울었어.",
+      "expected": "ambiguous",
+      "phenomenon": "mixed_feelings",
+      "notes": "笑着送别后哭泣可能包含多种情感，缺少上下文时不要求唯一类别。"
+    }
+  ]
+}

@@ -22,7 +22,9 @@ class Config:
     MAX_ARTIST_LENGTH = 200
     MAX_LYRICS_LENGTH = 50000
     MAX_BATCH_SIZE = 10
-    VERSION = "2.0.0"
+    VERSION = "2.1.0"
+    MODEL_DIR = os.environ.get("YINYUE_MODEL_DIR", os.path.join(DATA_DIR, "models"))
+    MODELS_ENABLED = os.environ.get("YINYUE_MODELS_ENABLED", "true").lower() not in {"0", "false", "no"}
     CRAWLER_TIMEOUT = 12
     CACHE_ENABLED = True
     CACHE_EXPIRY = timedelta(hours=24)

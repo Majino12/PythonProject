@@ -39,7 +39,12 @@ def create_app(config=None, *, database=None, lyric_analyzer=None, song_crawler=
             from .lyric_analyzer import LocalLyricAnalyzer
         else:
             from lyric_analyzer import LocalLyricAnalyzer
-        lyric_analyzer = LocalLyricAnalyzer()
+        if __package__:
+            from .sentiment_models import ModelSentimentEngine
+        else:
+            from sentiment_models import ModelSentimentEngine
+        lyric_analyzer = LocalLyricAnalyzer(ModelSentimentEngine(
+            model_dir=app.config.get("MODEL_DIR"), enabled=app.config.get("MODELS_ENABLED", True)))
     if song_crawler is None:
         if __package__:
             from .crawler import UnifiedCrawler
@@ -168,7 +173,8 @@ def create_app(config=None, *, database=None, lyric_analyzer=None, song_crawler=
         with database.get_connection() as conn:
             conn.execute("SELECT COUNT(*) FROM songs").fetchone()
         return jsonify(status="ok", service="yinyue-web", version=app.config["VERSION"],
-                       analyzer=type(lyric_analyzer).__name__)
+                       analyzer=type(lyric_analyzer).__name__,
+                       models=lyric_analyzer.model_status() if hasattr(lyric_analyzer, "model_status") else {})
 
     @app.post("/api/add_song")
     def add_song():
@@ -221,7 +227,7 @@ def create_app(config=None, *, database=None, lyric_analyzer=None, song_crawler=
         if len(query) > 200:
             raise APIError("搜索内容不能超过 200 个字符。", "invalid_query")
         sentiment = request.args.get("sentiment", "").strip().lower()
-        if sentiment not in ("", "all", "positive", "negative", "neutral", "unanalyzed"):
+        if sentiment not in ("", "all", "positive", "negative", "neutral", "uncertain", "mixed", "unanalyzed"):
             raise APIError("不支持该情感筛选条件。", "invalid_query")
         sort = request.args.get("sort", "recent")
         if sort == "newest":
@@ -253,6 +259,23 @@ def create_app(config=None, *, database=None, lyric_analyzer=None, song_crawler=
         if song is None:
             raise APIError("找不到这首歌曲。", "song_not_found", 404)
         return jsonify(song=song)
+
+    @app.post("/api/songs/<int:song_id>/reanalyze")
+    def reanalyze_song(song_id):
+        song = database.get_song(song_id)
+        if song is None:
+            raise APIError("找不到这首歌曲。", "song_not_found", 404)
+        # Updating only analysis preserves all song metadata, IDs and favorites.
+        lyrics = text_field(song, "lyrics", app.config["MAX_LYRICS_LENGTH"], "歌词")
+        analysis = lyric_analyzer.analyze_lyrics_comprehensive(lyrics)
+        failures = (analysis.get("metadata", {}).get("fallback_reasons")
+                    or analysis.get("model_sentiment", {}).get("fallback_reasons"))
+        if failures:
+            raise APIError("专用模型当前不可用，已保留原有分析。请安装或修复模型后重试。",
+                           "model_unavailable", 503)
+        vector = lyric_analyzer.create_emotion_vector(analysis)
+        database.save_analysis(song_id, analysis, vector)
+        return jsonify(saved_payload(database.get_song(song_id)))
 
     @app.delete("/api/songs/<int:song_id>")
     def delete_song(song_id):

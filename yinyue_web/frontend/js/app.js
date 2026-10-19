@@ -4,7 +4,7 @@
 const $ = (id) => document.getElementById(id);
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const VIEW_LABELS = { analyze: '分析工作台', crawler: '歌词采集', library: '我的曲库', recommend: '相似发现' };
-const SENTIMENT_LABELS = { positive: '积极', neutral: '中性', negative: '消极', unanalyzed: '待分析' };
+const SENTIMENT_LABELS = { positive: '积极', neutral: '中性', negative: '消极', uncertain: '倾向不明确', mixed: '混合情绪', unanalyzed: '待分析' };
 const clamp = (value, min, max) => Math.min(max, Math.max(min, Number(value) || 0));
 const number = (value, fallback = 0) => Number.isFinite(Number(value)) ? Number(value) : fallback;
 const percent = (value) => `${Math.round(clamp(value, 0, 1) * 100)}%`;
@@ -74,6 +74,8 @@ class LyricAnalyzerApp {
     this.queueRunning = false;
     this.stopRequested = false;
     this.currentSong = null;
+    this.displayedSong = null;
+    this.reanalyzingIds = new Set();
     this.pendingDelete = null;
     this.recommendationSequence = 0;
     this.bindEvents();
@@ -141,6 +143,8 @@ class LyricAnalyzerApp {
     $('recommend-form').addEventListener('submit', (event) => { event.preventDefault(); this.getRecommendations(); });
     $('close-song-dialog').addEventListener('click', () => $('song-dialog').close());
     $('dialog-analysis').addEventListener('click', () => this.openCurrentAnalysis());
+    $('dialog-reanalyze').addEventListener('click', () => this.reanalyzeSong(this.currentSong, 'dialog'));
+    $('result-reanalyze').addEventListener('click', () => this.reanalyzeSong(this.displayedSong, 'result'));
     $('dialog-recommend').addEventListener('click', () => this.recommendCurrentSong());
     $('cancel-delete').addEventListener('click', () => $('delete-dialog').close());
     $('confirm-delete').addEventListener('click', () => this.deleteSong());
@@ -206,18 +210,38 @@ class LyricAnalyzerApp {
     $('connection-label').textContent = '正在连接服务';
     $('connection-dot').className = 'connection-dot';
     try {
-      await this.request('/health', { timeout: 10000 });
+      const health = await this.request('/health', { timeout: 10000 });
       if (sequence !== this.connectionSequence) return;
       $('connection-label').textContent = '本地服务已连接';
       $('connection-dot').classList.add('connected');
       $('connection-dot').setAttribute('title', '本地服务已连接');
+      this.renderModelStatus(health.models);
     } catch (error) {
       if (sequence !== this.connectionSequence) return;
       $('connection-label').textContent = '服务连接异常';
       $('connection-dot').classList.add('offline');
       $('connection-dot').setAttribute('title', error.message);
+      $('model-status').textContent = '暂时无法确认模型状态，请重新检查服务连接。';
       this.toast(error.message, true);
     }
+  }
+
+  renderModelStatus(models) {
+    const container = $('model-status');
+    container.replaceChildren();
+    const labels = { ready: '专用模型已就绪', missing: '模型未安装 · 使用词典回退', disabled: '模型已停用 · 使用词典回退', error: '模型加载异常 · 使用词典回退' };
+    if (!models || typeof models !== 'object') {
+      container.textContent = '服务尚未提供专用模型状态；每次分析采用的方法会显示在结果中。';
+      return;
+    }
+    for (const [language, title] of [['zh', '中文'], ['ko', '韩文']]) {
+      const model = models[language];
+      const row = element('span', `model-status-item ${model?.status === 'ready' ? 'ready' : 'fallback'}`);
+      row.append(element('i', 'model-status-dot'), document.createTextNode(`${title}：${labels[model?.status] || '状态待确认'}`));
+      if (model?.model) row.title = model.model;
+      container.append(row);
+    }
+    container.append(element('span', 'model-status-note', '歌词在本机分析，首次运行可能稍慢。'));
   }
 
   async refreshData() {
@@ -236,12 +260,14 @@ class LyricAnalyzerApp {
       $('stat-total').textContent = total.toLocaleString('zh-CN');
       $('nav-library-count').textContent = total.toLocaleString('zh-CN');
       for (const key of ['positive', 'neutral', 'negative']) $(`stat-${key}`).textContent = number(distribution[key], 0).toLocaleString('zh-CN');
+      $('stat-other-emotions').textContent = `另有 ${number(distribution.uncertain).toLocaleString('zh-CN')} 首倾向不明确 · ${number(distribution.mixed).toLocaleString('zh-CN')} 首混合情绪。倾向不明确不等于中性。`;
     } catch (error) {
       if (sequence !== this.statsSequence) return;
       for (const id of ['stat-total', 'stat-positive', 'stat-neutral', 'stat-negative']) {
         $(id).textContent = '—';
         $(id).title = error.message;
       }
+      $('stat-other-emotions').textContent = '';
     }
   }
 
@@ -270,7 +296,7 @@ class LyricAnalyzerApp {
     this.setStatus('analysis-status', '正在分析情感与词汇，并保存到曲库…', 'loading');
     document.querySelector('.result-panel').setAttribute('aria-busy', 'true');
     try {
-      const data = await this.request('/add_song', { method: 'POST', body: JSON.stringify(payload), timeout: 45000 });
+      const data = await this.request('/add_song', { method: 'POST', body: JSON.stringify(payload), timeout: 120000 });
       const song = data.song || { ...payload, ...data, id: data.id ?? data.song_id };
       if (!song.analysis) throw new Error('歌曲已提交，但没有收到分析结果。请刷新曲库查看。');
       this.displayAnalysis(song);
@@ -288,6 +314,9 @@ class LyricAnalyzerApp {
   displayAnalysis(song) {
     const analysis = song.analysis;
     if (!analysis) return;
+    this.displayedSong = song;
+    $('result-reanalyze').hidden = song.id === undefined || song.id === null;
+    this.setBusy('result-reanalyze', this.reanalyzingIds.has(String(song.id)));
     $('analysis-placeholder').hidden = true;
     $('analysis-content').hidden = false;
     $('result-state-label').textContent = '已完成分析';
@@ -305,11 +334,56 @@ class LyricAnalyzerApp {
     $('res-negative-ratio').textContent = percent(analysis.lexicon?.negative_ratio);
     $('res-density').textContent = percent(analysis.emotion_intensity?.emotion_density);
     const language = { zh: '中文', en: '英文', ko: '韩文', mixed: '混合语言', unknown: '未识别语言' }[analysis.metadata?.language] || '旧版分析记录';
-    const method = { 'textblob+lexicon': 'TextBlob 英文分析 + 基础情感词典', lexicon: '基础情感词典分析' }[analysis.metadata?.method] || 'TextBlob 与词典分析';
+    const method = { transformer: '专用神经网络情感模型', hybrid: '按语言组合模型与基础分析', 'textblob+lexicon': 'TextBlob 英文分析 + 基础情感词典', lexicon: '基础情感词典分析' }[analysis.metadata?.method] || '旧版 TextBlob 与词典分析';
     const limitations = Array.isArray(analysis.metadata?.limitations) ? analysis.metadata.limitations.join('；') : '';
     $('analysis-method').textContent = `${language} · ${method}${limitations ? `。${limitations}` : ''}`;
+    this.renderModelAnalysis(analysis);
     this.renderChart(analysis.line_analysis || []);
     this.renderWords(analysis.lexical?.top_words || []);
+  }
+
+  renderModelAnalysis(analysis) {
+    const model = analysis.model_sentiment;
+    const container = $('model-analysis');
+    const sources = $('model-sources');
+    container.replaceChildren();
+    sources.replaceChildren();
+    const models = Array.isArray(analysis.metadata?.models) ? [...analysis.metadata.models] : [];
+    if (!models.length && model?.model) models.push({ model: model.model, revision: model.revision });
+    for (const source of models) {
+      if (!source || typeof source.model !== 'string') continue;
+      const row = element('div', 'model-source');
+      const language = { zh: '中文', ko: '韩文' }[source.language];
+      row.append(element('span', '', language ? `${language}模型` : '模型来源'));
+      // Model IDs are data, not arbitrary URLs. Only link valid Hugging Face repo IDs.
+      if (/^[\w.-]+\/[\w.-]+$/.test(source.model)) {
+        const link = element('a', '', source.model);
+        link.href = `https://huggingface.co/${source.model}`;
+        link.target = '_blank'; link.rel = 'noopener noreferrer'; row.append(link);
+      } else row.append(element('span', '', source.model));
+      if (source.revision) row.append(element('small', '', `版本 ${String(source.revision).slice(0, 12)}`));
+      sources.append(row);
+    }
+    if (model?.available && model.probabilities && Number.isFinite(Number(model.confidence))) {
+      const heading = element('div', 'model-confidence-heading');
+      heading.append(element('span', '', '模型预测置信度'), element('strong', '', percent(model.confidence)));
+      const bar = element('div', 'model-probability-bar');
+      const positive = element('span', 'positive');
+      positive.style.width = percent(model.probabilities.positive);
+      bar.append(positive);
+      bar.setAttribute('role', 'img');
+      bar.setAttribute('aria-label', `积极概率 ${percent(model.probabilities.positive)}，消极概率 ${percent(model.probabilities.negative)}`);
+      const values = element('div', 'model-probability-values');
+      values.append(element('span', '', `积极 ${percent(model.probabilities.positive)}`), element('span', '', `消极 ${percent(model.probabilities.negative)}`));
+      container.append(heading, bar, values, element('p', 'field-help', '置信度是模型对本次预测的倾向，并非准确率。模型只区分积极与消极；“倾向不明确”表示证据不足，不代表中性。'));
+      if (number(model.chunk_count) > 1) container.append(element('p', 'field-help', `长歌词已分为 ${number(model.chunk_count)} 段分析并汇总。`));
+    } else if (analysis.metadata?.method === 'hybrid') {
+      container.append(element('p', 'model-analysis-note', '本次按歌词语言分别分析并汇总，请展开分析依据查看使用的模型与限制。'));
+    } else if (['zh', 'ko', 'mixed'].includes(analysis.metadata?.language)) {
+      container.append(element('p', 'model-analysis-note', '这条记录使用了基础词典分析。专用模型就绪后，可点击“重新分析”更新结果。'));
+    } else {
+      container.append(element('p', 'model-analysis-note', '本次结果来自基础文本分析；专用神经网络模型用于中文和韩文歌词。'));
+    }
   }
 
   renderChart(lines) {
@@ -346,15 +420,19 @@ class LyricAnalyzerApp {
     }
     if (points.length <= 24) points.forEach((point, index) => {
       const circle = svgElement('circle', { cx: x(index), cy: y(point.polarity), r: points.length === 1 ? 4 : 2.5, class: 'chart-point' });
-      circle.append(svgElement('title', {}, `第 ${index + 1} 句：${point.text || ''}（${number(point.polarity).toFixed(2)}）`));
+      const label = point.sentiment ? ` · ${SENTIMENT_LABELS[sentimentKey(point.sentiment)]}` : '';
+      circle.append(svgElement('title', {}, `第 ${index + 1} 句：${point.text || ''}（${number(point.polarity).toFixed(2)}${label}）`));
       chart.append(circle);
     });
     chart.append(svgElement('text', { x: left, y: height - 5 }, '第 1 句'));
     if (points.length > 1) chart.append(svgElement('text', { x: width - right, y: height - 5, 'text-anchor': 'end' }, `第 ${points.length} 句`));
     container.append(chart);
-    const positive = points.filter((point) => number(point.polarity) > 0.05).length;
-    const negative = points.filter((point) => number(point.polarity) < -0.05).length;
-    $('chart-summary').textContent = `${points.length} 句歌词中，积极 ${positive} 句，消极 ${negative} 句，中性 ${points.length - positive - negative} 句。`;
+    const counts = {};
+    for (const point of points) {
+      const key = point.sentiment ? sentimentKey(point.sentiment) : number(point.polarity) > 0.05 ? 'positive' : number(point.polarity) < -0.05 ? 'negative' : 'neutral';
+      counts[key] = (counts[key] || 0) + 1;
+    }
+    $('chart-summary').textContent = `${points.length} 句歌词中，${Object.entries(counts).map(([key, count]) => `${SENTIMENT_LABELS[key]} ${count} 句`).join('，')}。`;
   }
 
   renderWords(words) {
@@ -384,7 +462,7 @@ class LyricAnalyzerApp {
     this.setBusy('crawl-submit', true);
     this.setStatus('crawler-status', '正在查询歌词来源，获取后将自动分析保存…', 'loading');
     try {
-      const data = await this.request('/professional/crawl', { method: 'POST', body: JSON.stringify(song), timeout: 65000 });
+      const data = await this.request('/professional/crawl', { method: 'POST', body: JSON.stringify(song), timeout: 120000 });
       if (data.status !== 'success') throw new Error(data.error || '未能获取歌词，请尝试手动导入。');
       this.setStatus('crawler-status', `《${data.song?.title || data.title || song.title}》已采集、分析并保存。`, 'success');
       this.toast('歌词采集完成，已加入曲库');
@@ -468,7 +546,7 @@ class LyricAnalyzerApp {
         song.state = 'running';
         this.renderQueue();
         try {
-          const data = await this.request('/professional/crawl', { method: 'POST', body: JSON.stringify({ title: song.title, artist: song.artist }), timeout: 65000 });
+          const data = await this.request('/professional/crawl', { method: 'POST', body: JSON.stringify({ title: song.title, artist: song.artist }), timeout: 120000 });
           if (data.status !== 'success') throw new Error(data.error || '未能获取歌词');
           song.state = 'success';
           song.songId = data.song?.id ?? data.song_id ?? data.id;
@@ -563,17 +641,53 @@ class LyricAnalyzerApp {
       if (sequence !== this.detailSequence) return;
       this.currentSong = data.song || data;
       const song = this.currentSong;
-      $('dialog-song-title').textContent = song.title || '未命名歌曲';
-      $('dialog-song-artist').textContent = song.artist || '未知创作者';
-      $('dialog-song-lyrics').textContent = song.lyrics || '这条记录没有歌词。';
-      setSentiment($('dialog-song-sentiment'), song.sentiment || song.analysis?.consensus_sentiment);
-      const source = song.source || '手动导入';
-      $('dialog-song-source').textContent = `来源：${source === 'manual' ? '手动导入' : source}`;
-      $('dialog-analysis').textContent = song.analysis ? '查看完整分析 →' : '前往工作台分析 →';
-      $('dialog-recommend').disabled = !song.analysis;
+      this.renderSongDialog(song);
+      this.setStatus('dialog-analysis-status', this.reanalyzingIds.has(String(song.id)) ? '正在使用当前可用模型重新分析…' : '重新分析会更新本首歌曲的情感结果，保留歌词和歌曲信息。');
       if (!$('song-dialog').open) $('song-dialog').showModal();
       $('dialog-song-lyrics').scrollTop = 0;
     } catch (error) { if (sequence === this.detailSequence) this.toast(error.message, true); }
+  }
+
+  renderSongDialog(song) {
+    $('dialog-song-title').textContent = song.title || '未命名歌曲';
+    $('dialog-song-artist').textContent = song.artist || '未知创作者';
+    $('dialog-song-lyrics').textContent = song.lyrics || '这条记录没有歌词。';
+    setSentiment($('dialog-song-sentiment'), song.sentiment || song.analysis?.consensus_sentiment);
+    const source = song.source || '手动导入';
+    $('dialog-song-source').textContent = `来源：${source === 'manual' ? '手动导入' : source}`;
+    $('dialog-analysis').textContent = song.analysis ? '查看完整分析 →' : '前往工作台分析 →';
+    $('dialog-recommend').disabled = !song.analysis;
+    this.setBusy('dialog-reanalyze', this.reanalyzingIds.has(String(song.id)));
+    if (!song.lyrics) $('dialog-reanalyze').disabled = true;
+  }
+
+  async reanalyzeSong(song, origin) {
+    if (song?.id === undefined || song?.id === null || this.reanalyzingIds.has(String(song.id))) return;
+    const id = String(song.id);
+    const stillCurrent = () => String((origin === 'dialog' ? this.currentSong : this.displayedSong)?.id) === id;
+    const statusId = origin === 'dialog' ? 'dialog-analysis-status' : 'analysis-status';
+    this.reanalyzingIds.add(id);
+    if (String(this.currentSong?.id) === id) this.setBusy('dialog-reanalyze', true);
+    if (String(this.displayedSong?.id) === id) this.setBusy('result-reanalyze', true);
+    this.setStatus(statusId, '正在使用当前可用模型重新分析；首次加载可能需要稍等…', 'loading');
+    try {
+      const data = await this.request(`/songs/${encodeURIComponent(id)}/reanalyze`, { method: 'POST', timeout: 120000 });
+      const updated = data.song || data;
+      if (!updated.analysis) throw new Error('请求已提交，但没有收到分析结果。请刷新曲库查看。');
+      if (String(this.currentSong?.id) === id) { this.currentSong = updated; this.renderSongDialog(updated); }
+      if (String(this.displayedSong?.id) === id) this.displayAnalysis(updated);
+      if (stillCurrent()) this.setStatus(statusId, '已用当前可用的分析方法更新结果，歌曲信息已保留。', 'success');
+      this.toast(`《${updated.title || song.title}》已重新分析`);
+      await this.refreshData();
+      await this.checkConnection();
+    } catch (error) {
+      if (stillCurrent()) this.setStatus(statusId, error.message, 'error');
+      else this.toast(error.message, true);
+    } finally {
+      this.reanalyzingIds.delete(id);
+      if (String(this.currentSong?.id) === id) this.setBusy('dialog-reanalyze', false);
+      if (String(this.displayedSong?.id) === id) this.setBusy('result-reanalyze', false);
+    }
   }
 
   openCurrentAnalysis() {
@@ -586,11 +700,12 @@ class LyricAnalyzerApp {
     this.updateCharacterCount();
     if (song.analysis) this.displayAnalysis(song);
     else {
+      this.displayedSong = null;
       $('analysis-placeholder').hidden = false;
       $('analysis-content').hidden = true;
       $('result-state-label').textContent = '等待输入';
     }
-    this.setStatus('analysis-status', song.analysis ? '正在查看曲库中的已保存分析；修改歌词后可以重新分析。' : '歌曲已填入，点击“分析并保存到曲库”生成结果。');
+    this.setStatus('analysis-status', song.analysis ? '正在查看已保存的分析；点击结果中的“重新分析”使用当前可用模型，或修改歌词后提交。' : '歌曲已填入，点击“分析并保存到曲库”生成结果。');
     this.navigate('analyze');
     window.requestAnimationFrame(() => { $('analysis-workspace').scrollIntoView({ behavior: this.scrollBehavior() }); $('an-title').focus({ preventScroll: true }); });
   }

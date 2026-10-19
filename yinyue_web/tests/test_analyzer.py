@@ -12,7 +12,7 @@ from lyric_analyzer import LocalLyricAnalyzer
 
 class AnalyzerTests(unittest.TestCase):
     def setUp(self):
-        self.analyzer = LocalLyricAnalyzer()
+        self.analyzer = LocalLyricAnalyzer(model_engine=False)
 
     def test_zero_evidence_is_neutral(self):
         for lyrics in ('The train is at the station.', '', '[Chorus]\n...'):
@@ -112,7 +112,7 @@ class AnalyzerTests(unittest.TestCase):
 
 class RecommendationTests(unittest.TestCase):
     def setUp(self):
-        self.analyzer = LocalLyricAnalyzer()
+        self.analyzer = LocalLyricAnalyzer(model_engine=False)
 
     def song(self, song_id, lyrics='I am happy!', title='Same title'):
         result = self.analyzer.analyze_lyrics_comprehensive(lyrics)

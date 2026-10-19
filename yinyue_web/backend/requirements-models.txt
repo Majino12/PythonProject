@@ -1,0 +1,4 @@
+# Optional local Chinese/Korean transformer inference.
+# Install the ordinary backend requirements as well.
+torch==2.9.1
+transformers==4.57.6
