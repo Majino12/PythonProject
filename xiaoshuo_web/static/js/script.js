@@ -5,6 +5,7 @@ let activeTaskId = null;
 let polling = false;
 let currentModal = null;
 const taskStorageKey = 'novelAnalysisActiveTask';
+const modelRoleLabels = {map: '分段阅读', quote: '人物引文核验', reduce: '全书汇总', verify: '证据与上下文复核'};
 
 function showMessage(message, kind = 'danger') {
     const container = document.getElementById('pageMessages') || document.querySelector('main');
@@ -73,7 +74,7 @@ function updateProgress(status) {
         bar.setAttribute('aria-valuenow', String(value));
     }
     const text = document.getElementById('progressText');
-    const stages = {queued: '已排队，等待处理', prepare: '准备全文', extract: '分段阅读', fetching: '获取网页正文', loading: '正在读取正文', preparing: '准备全文', map: '分段阅读', verify: '核对引用与结论', baseline: '基础统计与摘录', chapter_summary: '整理章节摘要', book_summary: '汇总全书', complete: '处理完成'};
+    const stages = {queued: '已排队，等待处理', prepare: '准备全文', extract: '分段阅读', fetching: '获取网页正文', loading: '正在读取正文', preparing: '准备全文', map: '分段阅读', quote: '核对人物引文', verify: '核对证据、上下文与结论', baseline: '基础统计与摘录', chapter_summary: '整理章节摘要', book_summary: '汇总全书', complete: '处理完成'};
     if (text) text.textContent = status.message || stages[status.stage] || status.stage || (status.status === 'queued' ? '已排队，等待处理…' : '正在处理全文…');
     const units = document.getElementById('progressUnits');
     if (units) units.textContent = Number(status.total_units) > 0 ? `当前阶段已处理 ${status.completed_units || 0} / ${status.total_units} 个单元` : '等待服务器报告处理单元数';
@@ -169,14 +170,14 @@ async function loadModelStatus() {
         const data = await fetchJSON('/api/models');
         status.textContent = data.configured ? '已配置模型，分析时将连接模型服务。' : '尚未配置模型，自动模式将提供基础统计与原文摘录。';
         status.className = data.configured ? 'mb-1 small text-success' : 'mb-1 small text-warning-emphasis';
-        const labels = {map: '分段阅读', reduce: '全书汇总', verify: '引用复核'};
         if (details) {
             details.replaceChildren();
-            for (const role of ['map', 'reduce', 'verify']) {
+            const roles = [...new Set([...Object.keys(data.stages || {}), ...Object.keys(data.models || {})])];
+            for (const role of roles) {
                 const row = document.createElement('p');
                 row.className = 'mb-1';
                 const stage = data.stages?.[role];
-                row.textContent = `${labels[role]}：${stage?.model || data.models?.[role] || '未配置'}${stage?.provider ? `（${stage.provider}）` : ''}`;
+                row.textContent = `${modelRoleLabels[role] || role}：${stage?.model || data.models?.[role] || '未配置'}${stage?.provider ? `（${stage.provider}）` : ''}`;
                 details.appendChild(row);
             }
             for (const warning of data.warnings || []) {
@@ -219,7 +220,8 @@ document.addEventListener('DOMContentLoaded', () => {
         status.textContent = '正在检查已配置的模型连接…';
         try {
             const data = await fetchJSON('/api/models?check=1');
-            status.textContent = data.available ? '配置的模型可连接。实际分析时仍可能受服务容量影响。' : '有模型尚不可用，请检查模型服务是否启动、模型是否已下载及配置是否正确。';
+            const unavailable = Object.entries(data.stages || {}).filter(([, stage]) => stage.available === false).map(([role]) => modelRoleLabels[role] || role);
+            status.textContent = data.available ? '配置的模型可连接。实际分析时仍可能受服务容量影响。' : `${unavailable.length ? `尚不可用：${unavailable.join('、')}。` : '有模型尚不可用。'}请检查模型服务是否启动、模型是否已下载及配置是否正确。`;
         } catch (error) { status.textContent = error.message; }
         finally { button.disabled = false; }
     });

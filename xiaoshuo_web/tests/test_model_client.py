@@ -83,9 +83,19 @@ class ModelClientTests(unittest.TestCase):
         self.session.get.return_value = response
         result = client.check_health()
         self.assertFalse(result['available'])
-        self.assertTrue(result['stages']['map']['available'])
+        self.assertFalse(result['stages']['map']['available'])
+        self.assertTrue(result['stages']['quote']['available'])
         self.assertFalse(result['stages']['reduce']['available'])
         self.assertEqual(self.session.get.call_count, 1)
+
+    def test_all_four_roles_are_reported_and_required_for_configuration(self):
+        client = self.client()
+        self.assertEqual(set(client.describe()['stages']), {'map', 'quote', 'verify', 'reduce'})
+        self.assertTrue(client.configured)
+        client = self.client(NOVEL_QUOTE_PROVIDER='disabled')
+        self.assertFalse(client.configured)
+        with self.assertRaises(ModelError):
+            client.generate_json([], 'quote')
 
     def test_malformed_provider_structures_are_safe_errors(self):
         client = self.client()

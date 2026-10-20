@@ -1,4 +1,4 @@
-"""Explicit JSON client: independently configurable map/reduce/verify models."""
+"""Explicit JSON client with independent map, quote, verify and reduce models."""
 import json
 import hashlib
 import os
@@ -16,11 +16,12 @@ class ModelError(RuntimeError):
 
 class ModelResponse(dict):
     """Ordinary JSON object with per-response, non-serialized cache identity."""
-    __slots__ = ('_cache_key',)
+    __slots__ = ('_cache_key', 'cache_hit')
 
-    def __init__(self, value, cache_key=None):
+    def __init__(self, value, cache_key=None, cache_hit=False):
         super().__init__(value)
         self._cache_key = cache_key
+        self.cache_hit = cache_hit
 
 
 def _invalid_constant(_value):
@@ -39,6 +40,7 @@ class ModelClient:
         self.max_output = int(self._number('NOVEL_MAX_OUTPUT_TOKENS', 4096, 128, 32768))
         self.context = int(self._number('NOVEL_CONTEXT_TOKENS', 32768, 4096, 262144))
         self.stages = {role: self._stage(role) for role in ('map', 'reduce', 'verify')}
+        self.stages['quote'] = self._stage('quote')
         self.configured = all(self._ready(stage) for stage in self.stages.values())
         self.cache = None
         if self.configured and str(self._get('NOVEL_CACHE_ENABLED', '1')).lower() in ('1', 'true', 'yes'):
@@ -60,24 +62,41 @@ class ModelClient:
 
     def _stage(self, role):
         prefix = 'NOVEL_' + role.upper()
-        provider = str(self._get(prefix + '_PROVIDER', self.provider)).lower()
+        inherited = self.stages['verify'] if role == 'quote' else None
+        provider = str(self._get(prefix + '_PROVIDER', inherited['provider'] if inherited else self.provider)).lower()
         if provider not in ('disabled', 'ollama', 'compatible'):
             raise ValueError('模型提供方须为 disabled、ollama 或 compatible')
-        default_url = 'http://127.0.0.1:11434' if provider == 'ollama' else ''
-        url = str(self._get(prefix + '_BASE_URL', self._get('NOVEL_BASE_URL', default_url))).rstrip('/')
-        model_default = ('qwen3.5:4b' if role == 'map' else 'qwen3.5:9b') if provider == 'ollama' else ''
-        model = str(self._get(prefix + '_MODEL', self._get('NOVEL_MODEL', model_default)))
-        key = str(self._get(prefix + '_API_KEY', self._get('NOVEL_API_KEY', '')))
+        if inherited:
+            # A cloud verifier keeps its endpoint/auth/model unless quote is
+            # explicitly overridden. Local default quote support uses 4B; an
+            # explicit shared NOVEL_MODEL still applies to local installations.
+            default_model = self._get('NOVEL_MODEL', 'qwen3.5:4b') if provider == 'ollama' else inherited['model']
+            url = str(self._get(prefix + '_BASE_URL', inherited['base_url'])).rstrip('/')
+            model = str(self._get(prefix + '_MODEL', default_model))
+            key = str(self._get(prefix + '_API_KEY', inherited['api_key']))
+        else:
+            default_url = 'http://127.0.0.1:11434' if provider == 'ollama' else ''
+            url = str(self._get(prefix + '_BASE_URL', self._get('NOVEL_BASE_URL', default_url))).rstrip('/')
+            model_default = 'qwen3.5:9b' if provider == 'ollama' else ''
+            model = str(self._get(prefix + '_MODEL', self._get('NOVEL_MODEL', model_default)))
+            key = str(self._get(prefix + '_API_KEY', self._get('NOVEL_API_KEY', '')))
         if url:
             parsed = urlsplit(url)
             if parsed.scheme not in ('https', 'http') or not parsed.hostname or parsed.username or parsed.password or parsed.query or parsed.fragment:
                 raise ValueError(f'{prefix}_BASE_URL 必须是无凭据、无查询参数的 HTTP(S) 地址')
             if parsed.scheme == 'http' and parsed.hostname not in ('localhost', '127.0.0.1', '::1'):
                 raise ValueError('远程模型服务须使用 HTTPS；HTTP 仅限本机')
-        thinking = str(self._get(prefix + '_THINKING', self._get('NOVEL_COMPATIBLE_THINKING', ''))).lower()
+        thinking_default = 'disabled' if provider == 'ollama' else self._get('NOVEL_COMPATIBLE_THINKING', '')
+        thinking = str(self._get(prefix + '_THINKING', thinking_default)).lower()
+        thinking = {'true': 'enabled', 'false': 'disabled'}.get(thinking, thinking)
         if thinking not in ('', 'enabled', 'disabled'):
-            raise ValueError('兼容服务 thinking 配置须为空、enabled 或 disabled')
-        return {'provider': provider, 'model': model, 'base_url': url, 'api_key': key, 'thinking': thinking}
+            raise ValueError('thinking 配置须为空、enabled/disabled 或 true/false')
+        default_output = inherited['max_output'] if inherited else (max(self.max_output, 8192) if role == 'verify' else self.max_output)
+        default_timeout = inherited['timeout'] if inherited else (max(self.timeout, 300) if role == 'verify' else self.timeout)
+        max_output = int(self._number(prefix + '_MAX_OUTPUT_TOKENS', default_output, 128, 32768))
+        timeout = self._number(prefix + '_TIMEOUT', default_timeout, 1, 1800)
+        return {'provider': provider, 'model': model, 'base_url': url, 'api_key': key,
+                'thinking': thinking, 'max_output': max_output, 'timeout': timeout}
 
     @staticmethod
     def _ready(stage):
@@ -87,7 +106,9 @@ class ModelClient:
         return {
             'configured': self.configured, 'provider': self.provider,
             'models': {role: stage['model'] for role, stage in self.stages.items()},
-            'stages': {role: {'provider': stage['provider'], 'model': stage['model']} for role, stage in self.stages.items()},
+            'stages': {role: {'provider': stage['provider'], 'model': stage['model'], 'thinking': stage['thinking'],
+                             'max_output_tokens': stage['max_output'], 'timeout_seconds': stage['timeout']}
+                       for role, stage in self.stages.items()},
             'warnings': ([] if self.configured else ['尚未配置语义分析模型；基础模式仅提供全文摘录和统计。']),
             'availability_checked': False,
             'response_cache_enabled': self.cache is not None,
@@ -152,13 +173,14 @@ class ModelClient:
             raise ModelError('模型输入超过分块预算；请减小分块/汇总批次，正文未被截断')
         if stage['provider'] == 'ollama':
             path = '/api/chat'
-            payload = {'model': stage['model'], 'messages': messages, 'stream': False, 'format': 'json', 'think': False,
+            payload = {'model': stage['model'], 'messages': messages, 'stream': False, 'format': 'json',
+                       'think': stage['thinking'] == 'enabled',
                        'truncate': False, 'shift': False,
-                       'options': {'temperature': 0, 'num_ctx': self.context, 'num_predict': self.max_output}, 'keep_alive': '5m'}
+                       'options': {'temperature': 0, 'num_ctx': self.context, 'num_predict': stage['max_output']}, 'keep_alive': '5m'}
         else:
             path = '/chat/completions'
             payload = {'model': stage['model'], 'messages': messages, 'stream': False, 'temperature': 0,
-                       'max_tokens': self.max_output, 'response_format': {'type': 'json_object'}}
+                       'max_tokens': stage['max_output'], 'response_format': {'type': 'json_object'}}
             if stage['thinking']:
                 payload['thinking'] = {'type': stage['thinking']}
         cache_key = hashlib.sha256(json.dumps({'schema': 1, 'role': role, 'provider': stage['provider'],
@@ -167,11 +189,11 @@ class ModelClient:
         if self.cache is not None:
             cached = self.cache.get(cache_key)
             if cached is not None:
-                return ModelResponse(cached, cache_key)
+                return ModelResponse(cached, cache_key, cache_hit=True)
         for attempt in range(self.retries + 1):
             try:
                 response = self.session.post(stage['base_url'] + path, json=payload, headers=self._headers(stage),
-                                             timeout=(10, self.timeout), allow_redirects=False)
+                                             timeout=(10, stage['timeout']), allow_redirects=False)
                 if response.status_code == 429 or response.status_code >= 500:
                     if attempt < self.retries:
                         self.sleep(min(8, 2 ** attempt))

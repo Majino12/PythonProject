@@ -113,6 +113,25 @@ class ReportRenderingTests(unittest.TestCase):
             self.assertIn("未进行模型语义分析", baseline)
             self.assertIn("没有经过核对的人物结论", baseline)
 
+    def test_model_duration_explains_possible_cache_without_inventing_hits(self):
+        result = {"duration": "0.008s", "analysis_metadata": {"mode": "model", "status": "complete"}}
+        for template in ("result.html", "export_report.html"):
+            html = self.render(template, result)
+            self.assertIn("耗时 0.008s", html)
+            self.assertIn("耗时为本次运行时间，可能复用缓存；首次推理可能更久。", html)
+            self.assertNotIn("本次缓存复用", html)
+            self.assertNotIn("客户端调用", html)
+            baseline = self.render(template, {"duration": "0.008s", "analysis_metadata": {"mode": "baseline", "status": "complete"}})
+            self.assertNotIn("首次推理可能更久", baseline)
+
+    def test_cache_and_model_call_counts_are_shown_only_when_recorded(self):
+        result = {"duration": "0.008s", "analysis_metadata": {"mode": "model", "status": "complete", "cache_hits": 11, "model_calls": 2}}
+        for template in ("result.html", "export_report.html"):
+            html = self.render(template, result)
+            self.assertIn("本次缓存复用 11 次。", html)
+            self.assertIn("客户端调用 2 次（含缓存及失败）。", html)
+            self.assertNotIn("本次模型调用", html)
+
     def test_old_and_empty_reports_remain_readable(self):
         for result in ({}, {"novel_info": {"title": "Legacy novel"}, "themes": ["old keyword"]}):
             for template in ("result.html", "export_report.html"):

@@ -11,13 +11,14 @@ function controller(responses) {
     const elements = new Map();
     function element(id) {
         if (!elements.has(id)) elements.set(id, {value: 'auto', style: {}, textContent: '', disabled: false, attributes: {},
+            children: [], replaceChildren() {this.children = [];}, appendChild(item) {this.children.push(item);},
             classList: {add() {}, remove() {}, toggle() {}}, setAttribute(key, value) {this.attributes[key] = value;}});
         return elements.get(id);
     }
     const redirects = [];
     const storage = new Map();
     const context = vm.createContext({
-        document: {getElementById: element, querySelectorAll: () => [], addEventListener() {}},
+        document: {getElementById: element, createElement: () => ({textContent: '', className: ''}), querySelectorAll: () => [], addEventListener() {}},
         window: {location: {assign: url => redirects.push(url)}},
         sessionStorage: {setItem: (key, value) => storage.set(key, value), removeItem: key => storage.delete(key)},
         setTimeout: callback => callback(),
@@ -69,4 +70,27 @@ test('missing tasks clear stale saved id and permit a new submission', async () 
     assert.equal(vm.runInContext('activeTaskId', harness.context), null);
     assert.equal(harness.storage.size, 0);
     assert.equal(harness.elements.get('analysisMode').disabled, false);
+});
+
+test('model status displays every reported role, including character quote review', async () => {
+    const harness = controller([{configured: true, stages: {
+        map: {provider: 'ollama', model: 'reader'},
+        quote: {provider: 'ollama', model: 'quote-reviewer'},
+        reduce: {provider: 'ollama', model: 'synthesizer'},
+        verify: {provider: 'ollama', model: 'context-reviewer'},
+    }}]);
+    await vm.runInContext('loadModelStatus()', harness.context);
+    const rows = harness.elements.get('modelDetails').children.map(row => row.textContent);
+    assert.equal(rows.length, 4);
+    assert.ok(rows.includes('人物引文核验：quote-reviewer（ollama）'));
+    assert.ok(rows.includes('证据与上下文复核：context-reviewer（ollama）'));
+});
+
+test('model roles returned only in the models map are not silently omitted', async () => {
+    const harness = controller([{configured: true, stages: {map: {model: 'reader'}}, models: {map: 'reader', quote: 'direct-quote', future_review: 'extra-reviewer'}}]);
+    await vm.runInContext('loadModelStatus()', harness.context);
+    const rows = harness.elements.get('modelDetails').children.map(row => row.textContent);
+    assert.equal(rows.length, 3);
+    assert.ok(rows.includes('人物引文核验：direct-quote'));
+    assert.ok(rows.includes('future_review：extra-reviewer'));
 });
