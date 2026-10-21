@@ -1,6 +1,6 @@
 # PythonProject · Web 与 AI 应用实验集
 
-收录三个独立运行的应用原型：让单张角色图动起来的 **MoeMotion**、小说与新闻文本分析工具，以及歌词情感分析与相似歌曲推荐工具。
+收录三个独立运行的应用原型：绘制式 2D / 3D 虚拟形象工具 **MoeMotion**、小说与新闻文本分析工具，以及歌词情感分析与相似歌曲推荐工具。
 
 **项目分类：应用实验 · Web 与 AI**  
 **技术：Python · Flask · JavaScript · Three.js · 自然语言处理**
@@ -14,7 +14,7 @@ cd PythonProject
 
 | 项目 | 用途 | 主要技术 | 入口 |
 | --- | --- | --- | --- |
-| **MoeMotion / VTuberProject** | 原图 2D 动画、精细 VRM 模板与轻量 3D 角色，支持摄像头动作跟踪 | JavaScript、Canvas、Three.js、three-vrm、MediaPipe、Node.js | [项目说明](VTuberProject/README.md) · [源码](VTuberProject/) |
+| **MoeMotion / VTuberProject** | 内置多角度绘制 2D、单图安全动画、精细 VRM 与轻量 3D，支持摄像头动作跟踪 | JavaScript、Canvas、Three.js、three-vrm、MediaPipe、Node.js | [项目说明](VTuberProject/README.md) · [源码](VTuberProject/) |
 | **小说全文分析 2.0** | 全文分块、混合模型阅读与证据复核、章节及全书报告 | Python、Flask、Ollama、兼容模型 API | [项目说明](xiaoshuo_web/README.md) · [源码](xiaoshuo_web/) |
 | **歌词情感分析** | 分析歌词情感与词汇特征，保存歌曲并按特征推荐相似歌曲 | Python、Flask、TextBlob、SQLite | [项目说明](yinyue_web/README.md) · [源码](yinyue_web/) |
 
@@ -22,7 +22,9 @@ cd PythonProject
 
 ## MoeMotion
 
-将一张 PNG、JPG 或 WEBP 角色图变为可互动的虚拟形象。支持原图 2D 动画、参考图片配色的授权精细 VRM 模板、轻量程序化 3D、自动演示、摄像头面部与身体跟踪、项目保存、视频录制和模型导出。当前子项目版本为 `0.8.0`。精细 3D 保留模板的脸型、发型和服装版型，不是原图的三维重建。
+MoeMotion 内置 Luna 绘制角色，提供 13 个有限头部方向、11 段眨眼加开心闭眼、24 种嘴型、眉毛表情和带迟滞的稳定画稿切换；也支持参考图片配色的授权精细 VRM 模板、轻量程序化 3D、自动演示、摄像头面部与身体跟踪、项目保存、视频录制和模型导出。当前子项目版本为 `0.11.0`。
+
+用户可上传 PNG、JPG、WEBP，或使用页面内的可选 OpenAI 图片生成入口，但这些结果是普通单图：五官保持静态，只做整体动作，不会自动获得 Luna 的多角度、眨眼或口型图层。内置 2D 是有限离散画稿，不是 360° 模型或 52 套独立表情；精细 3D 保留模板的脸型、发型和服装版型，也不是原图的三维重建。
 
 需要 Node.js 18 或更新版本。在仓库根目录执行：
 

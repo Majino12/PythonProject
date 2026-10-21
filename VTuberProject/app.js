@@ -2,16 +2,26 @@ import { extractFaceMotion, extractPoseMotion, normalizeExpressions } from "./mo
 import { createProject, parseProject, normalizePreferences, saveProject, loadProject } from "./project-store.js";
 import { extractAppearance } from "./appearance.js";
 import { createDemoMotion } from "./demo-motion.js";
-import { PortraitWarp } from "./portrait-warp.js";
+import { PaintedAvatar, PAINTED_CHANNEL_SUPPORT } from "./painted-avatar.js";
+import { LUNA_PAINTED_MANIFEST, LUNA_PAINTED_RIG } from "./painted-luna.js";
 import { createAvatar3D } from "./avatar-loader.js";
+import { FaceSession, normalizeHeadPose } from "./face-session.js";
+import { FaceEditor } from "./face-editor.js";
 
 const $ = (selector) => document.querySelector(selector);
 
 const canvas = $("#avatarCanvas");
 const ctx = canvas.getContext("2d", { alpha: true });
 const video = $("#camera");
-let portraitWarp = null;
+let faceEditor = null;
 const DEMO_PALETTE = { skin: "#f5d9ce", hair: "#bcb5c9", outfit: "#39374e", eyes: "#9571bc", accent: "#8c7bac" };
+const DEMO_IMAGE_RIG = Object.freeze({
+  leftEye: { x: 550, y: 143, w: 49, h: 31 },
+  rightEye: { x: 480, y: 147, w: 51, h: 31 },
+  mouth: { x: 519, y: 191, w: 42, h: 24 },
+  face: { x: 517, y: 153, w: 140, h: 158 },
+  skin: DEMO_PALETTE.skin, patchesEnabled: true,
+});
 const MOTION_DEFAULTS = Object.freeze({
   x: 0, y: 0, roll: 0,
   blinkL: 0, blinkR: 0, eyeWideL: 0, eyeWideR: 0,
@@ -68,6 +78,7 @@ const ui = {
   eyesColor: $("#eyesColor"),
   resetAppearance: $("#resetAppearance"),
   demoAvatarButton: $("#demoAvatarButton"),
+  faceEditorRoot: $("#faceEditor"),
   aiOpenButton: $("#aiOpenButton"),
   aiDialog: $("#aiDialog"),
   characterPrompt: $("#characterPrompt"),
@@ -104,6 +115,10 @@ const state = {
   image: null,
   imageUrl: "",
   imageRig: null,
+  avatar2dKind: "static",
+  paintedAvatar: null,
+  paintedRig: null,
+  paintedBuildController: null,
   faceLandmarker: null,
   imageLandmarker: null,
   poseLandmarker: null,
@@ -151,6 +166,7 @@ const state = {
   savedRevision: 0,
   savePromise: null,
   previewMode: false,
+  face2d: new FaceSession(),
   demoMotion: "idle",
   framing: "portrait",
   appearance: { hairStyle: "bob", faceWidth: 1, eyeScale: 1, palette: { ...DEMO_PALETTE } },
@@ -179,6 +195,16 @@ const withTimeout = (promise, timeoutMs, message) => {
   });
   return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
 };
+
+function currentPaintedHeadPose() {
+  if (state.face2d?.poseManual) return normalizeHeadPose(state.face2d.manualPose);
+  const headGain = Number(ui.ranges.head.value) / 80;
+  return normalizeHeadPose({
+    yaw: state.smooth.x * headGain,
+    // MoeMotion y is positive while looking down; painted pitch is positive up.
+    pitch: -state.smooth.y * headGain,
+  });
+}
 
 function toast(message) {
   ui.toast.textContent = message;
@@ -236,6 +262,7 @@ function updateViewPresentation() {
     : state.landmarkMessage;
   ui.exportModelButton.title = studio ? "下载保留骨骼、表情、配色和许可的 VRM；不包含当前动作" : "下载中立姿态单文件 GLB";
   updateAppearanceControls();
+  ui.faceEditorRoot?.classList.toggle("hidden", state.viewMode === "3d");
   if (!state.build3d.includes("building")) ui.landmarkPill.classList.remove("hidden");
 }
 
@@ -248,6 +275,30 @@ function updateAppearanceControls() {
   ui.appearanceHint.textContent = studio
     ? "精细模型参考图片配色，保留模板的发型和服装。不是原图的完整重建；原图不会改变。"
     : "轻量模型可切换发型、参考图片取色。需要更细致的脸部和服装时，选择精细模型。";
+}
+
+function cancelPaintedBuild() {
+  state.paintedBuildController?.abort();
+  state.paintedBuildController = null;
+}
+
+function useStaticAvatar2D() {
+  cancelPaintedBuild();
+  state.paintedAvatar?.dispose?.();
+  state.paintedAvatar = null;
+  state.paintedRig = null;
+  state.avatar2dKind = "static";
+  state.face2d?.clearTest();
+  faceEditor?.refreshControls();
+}
+
+function installPaintedAvatar(avatar) {
+  const previous = state.paintedAvatar;
+  state.paintedAvatar = avatar;
+  state.paintedRig = LUNA_PAINTED_RIG;
+  state.avatar2dKind = "painted";
+  if (previous !== avatar) previous?.dispose?.();
+  faceEditor?.refreshControls();
 }
 
 function resetAvatar3D() {
@@ -328,7 +379,9 @@ async function setViewMode(mode) {
   if (mode === "2d") {
     ui.threeLoading.classList.add("hidden");
     updateViewPresentation();
-    toast("已切换到 2D 单图动画，角色与动作设置都已保留。");
+    toast(state.avatar2dKind === "painted"
+      ? "已切换到高清分层 2D，独立绘制的眼、眉与嘴型会跟随动作。"
+      : "已切换到单图安全模式；原表情保持不变，仅驱动整体动作。");
     savePreferences();
     return;
   }
@@ -363,6 +416,7 @@ function currentProject() {
       framing: state.framing,
       modelStyle: state.modelStyle,
       appearance: state.appearanceOverrides,
+      face2d: state.face2d?.settings,
       ...Object.fromEntries(Object.entries(ui.ranges).map(([key, range]) => [key, Number(range.value)])),
     },
   });
@@ -370,6 +424,8 @@ function currentProject() {
 
 function applyPreferences(raw) {
   const saved = normalizePreferences(raw);
+  state.face2d?.setSettings(saved.face2d);
+  faceEditor?.refreshControls();
   for (const [name, range] of Object.entries(ui.ranges)) {
     range.value = saved[name];
     $(`#${name}Output`).textContent = `${range.value}%`;
@@ -470,7 +526,9 @@ async function installProject(project) {
     await makeDemoAvatar();
     state.hasCustomAvatar = false;
     state.imageDataUrl = null;
-    state.landmarkMessage = "✦ 原创示例 · 月见 Luna";
+    state.landmarkMessage = state.avatar2dKind === "painted"
+      ? "✦ 高清分层 2D · 眼睛、眉毛与嘴型独立绘制"
+      : "◇ 分层表情暂不可用 · 已显示中性示例立绘";
     ui.fileRow.classList.add("hidden");
     ui.qualityCard.classList.add("hidden");
     ui.scanState.classList.add("hidden");
@@ -665,28 +723,59 @@ async function generateAvatar() {
 
 async function makeDemoAvatar() {
   const importToken = state.imageImportToken;
+  cancelPaintedBuild();
+  const controller = new AbortController();
+  state.paintedBuildController = controller;
   const img = new Image();
-  await withTimeout(new Promise((resolve, reject) => {
-    img.onload = resolve;
-    img.onerror = () => reject(new Error("示例立绘无法载入，请检查 assets 文件夹或导入自己的图片。"));
-    img.src = "./assets/demo-luna-v1.png";
-  }), 10_000, "示例立绘载入超时");
-  if (importToken !== state.imageImportToken) return false;
-  state.image = img;
-  state.imageUrl = img.src;
-  state.imageRig = {
-    leftEye: { x: 550, y: 143, w: 49, h: 31 },
-    rightEye: { x: 480, y: 147, w: 51, h: 31 },
-    mouth: { x: 519, y: 191, w: 42, h: 24 },
-    face: { x: 517, y: 153, w: 140, h: 158 },
-    skin: DEMO_PALETTE.skin, patchesEnabled: true,
-  };
-  state.appearance = { hairStyle: "bob", faceWidth: .94, eyeScale: 1, palette: { ...DEMO_PALETTE } };
-  state.avatarPalette = { ...DEMO_PALETTE };
-  state.landmarkMessage = "✦ 原创示例 · 月见 Luna";
-  applyAvatarAppearance();
-  updateViewPresentation();
-  return true;
+  let painted = null;
+  let paintedError = null;
+  try {
+    await withTimeout(new Promise((resolve, reject) => {
+      const stop = () => {
+        img.onload = img.onerror = null;
+        img.removeAttribute("src");
+        reject(new DOMException("示例角色载入已取消", "AbortError"));
+      };
+      controller.signal.addEventListener("abort", stop, { once: true });
+      img.onload = () => { controller.signal.removeEventListener("abort", stop); resolve(); };
+      img.onerror = () => { controller.signal.removeEventListener("abort", stop); reject(new Error("示例立绘无法载入，请检查 assets 文件夹或导入自己的图片。")); };
+      img.src = "./assets/demo-luna-v1.png";
+    }), 10_000, "示例立绘载入超时");
+    if (controller.signal.aborted || importToken !== state.imageImportToken) return false;
+    painted = new PaintedAvatar({ timeoutMs: 30_000 });
+    try {
+      await painted.load(LUNA_PAINTED_MANIFEST, { signal: controller.signal });
+    } catch (error) {
+      painted.dispose();
+      painted = null;
+      if (controller.signal.aborted || importToken !== state.imageImportToken || error?.name === "AbortError") return false;
+      paintedError = error;
+      console.warn("Painted 2D avatar unavailable; using the neutral illustration", error);
+    }
+    if (controller.signal.aborted || importToken !== state.imageImportToken) {
+      painted?.dispose();
+      return false;
+    }
+    state.image = img;
+    state.imageUrl = img.src;
+    state.imageRig = DEMO_IMAGE_RIG;
+    state.appearance = { hairStyle: "bob", faceWidth: .94, eyeScale: 1, palette: { ...DEMO_PALETTE } };
+    state.avatarPalette = { ...DEMO_PALETTE };
+    if (painted) {
+      installPaintedAvatar(painted);
+      state.landmarkMessage = "✦ 高清分层 2D · 眼睛、眉毛与嘴型独立绘制";
+    } else {
+      useStaticAvatar2D();
+      state.landmarkMessage = "◇ 分层表情暂不可用 · 已显示中性示例立绘";
+      if (paintedError) toast("高清分层表情暂时无法载入，已安全显示中性示例立绘。可刷新后重试。");
+    }
+    applyAvatarAppearance();
+    updateViewPresentation();
+    return true;
+  } finally {
+    controller.abort();
+    if (state.paintedBuildController === controller) state.paintedBuildController = null;
+  }
 }
 
 async function loadVision() {
@@ -857,6 +946,9 @@ async function importImage(file, { generated = false } = {}) {
     return false;
   }
   const importToken = ++state.imageImportToken;
+  // Cancel pending atlas I/O immediately so it cannot finish later and replace
+  // the selected portrait. Keep the active image until the new one decodes.
+  cancelPaintedBuild();
   try {
     const dataUrl = await new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -875,6 +967,7 @@ async function importImage(file, { generated = false } = {}) {
 }
 
 async function importImageData(dataUrl, name, importToken = ++state.imageImportToken) {
+  cancelPaintedBuild();
   const image = new Image();
   await withTimeout(new Promise((resolve, reject) => {
     image.onload = resolve;
@@ -885,6 +978,7 @@ async function importImageData(dataUrl, name, importToken = ++state.imageImportT
   if (!image.naturalWidth || !image.naturalHeight || image.naturalWidth > 8192 || image.naturalHeight > 8192 || image.naturalWidth * image.naturalHeight > 16_000_000) {
     throw new Error("图片尺寸过大，请缩小至 1600 万像素以内，单边不超过 8192px。");
   }
+    useStaticAvatar2D();
     state.image = image;
     state.imageUrl = dataUrl;
     state.imageDataUrl = dataUrl;
@@ -892,6 +986,7 @@ async function importImageData(dataUrl, name, importToken = ++state.imageImportT
     state.appearanceOverrides = {};
     updateAvatarPalette(image, state.imageRig);
     state.hasCustomAvatar = true;
+    state.landmarkMessage = "◇ 单图安全模式 · 五官保持原图，仅驱动整体动作";
     state.ready = false;
     ui.dropzone.classList.add("hidden");
     ui.fileRow.classList.remove("hidden");
@@ -914,24 +1009,24 @@ async function analyzeImage(image, importToken) {
         if (detectedLandmarks) {
           state.imageRig = rigFromLandmarks(detectedLandmarks, image);
           updateAvatarPalette(image, state.imageRig);
-          ui.fileMeta.textContent = `${image.naturalWidth} × ${image.naturalHeight} · 已自动绑定`;
-          state.landmarkMessage = "✦ 五官识别完成 · 已自动绑定";
-          toast(state.viewMode === "3d" ? "角色分析完成，3D 外观与动作已自动更新。" : "角色绑定完成。可直接使用，也可切换到 3D。");
+          ui.fileMeta.textContent = `${image.naturalWidth} × ${image.naturalHeight} · 已定位人脸`;
+          state.landmarkMessage = "◇ 单图安全模式 · 五官保持原图，仅驱动整体动作";
+          toast(state.viewMode === "3d" ? "角色分析完成，3D 外观与动作已自动更新。" : "已定位人脸。为避免扭曲，上传单图会保留原表情，仅驱动整体动作。");
         } else {
-          ui.fileMeta.textContent = `${image.naturalWidth} × ${image.naturalHeight} · 使用通用绑定`;
-          state.landmarkMessage = "◇ 未检测到人脸 · 已使用通用绑定";
-          toast("没有检测到清晰正脸，已使用通用绑定。建议换一张正脸图。");
+          ui.fileMeta.textContent = `${image.naturalWidth} × ${image.naturalHeight} · 未定位清晰人脸`;
+          state.landmarkMessage = "◇ 单图安全模式 · 表情保持原图";
+          toast("没有检测到清晰正脸。图片会保持原表情并仅使用轻微整体动作。");
         }
         showQualityReport(image, detectedLandmarks);
       } catch (error) {
         console.error(error);
-        ui.fileMeta.textContent = "已使用通用绑定";
-        state.landmarkMessage = "◇ 分析未完成 · 已使用通用绑定";
+        ui.fileMeta.textContent = "分析未完成 · 保持原图";
+        state.landmarkMessage = "◇ 单图安全模式 · 表情保持原图";
         showQualityReport(image, null);
       }
     } else {
-      ui.fileMeta.textContent = "离线模式 · 使用通用绑定";
-      state.landmarkMessage = "◇ 离线通用绑定";
+      ui.fileMeta.textContent = "离线模式 · 保持原图";
+      state.landmarkMessage = "◇ 离线单图模式 · 表情保持原图";
       showQualityReport(image, null);
     }
     ui.scanState.classList.add("hidden");
@@ -1025,6 +1120,8 @@ async function startCamera() {
 }
 
 function useDemo() {
+  state.face2d?.clearTest();
+  faceEditor?.refreshControls();
   if (state.cameraStarting) {
     state.cameraStartToken += 1;
     state.cameraStarting = false;
@@ -1055,6 +1152,8 @@ function beginCalibration() {
   state.calibrationSamples = [];
   state.bodyCalibrationSamples = [];
   state.expressionCalibrationSamples = [];
+  state.face2d?.beginCalibration();
+  faceEditor?.refreshControls();
   state.poseHistory = {};
   state.bodyDetected = false;
   state.lastFaceSeen = 0;
@@ -1083,6 +1182,7 @@ function updateCalibration(now) {
       state.calibrationSamples = [];
       state.expressionCalibrationSamples = [];
       state.bodyCalibrationSamples = [];
+      state.face2d?.beginCalibration();
     }
     state.calibrationUntil = now + 1000;
     ui.calibration.querySelector("b").textContent = "请把脸放进镜头中央";
@@ -1106,6 +1206,7 @@ function updateCalibration(now) {
     }
   }
   state.calibrating = false;
+  state.face2d?.finishCalibration();
   state.ready = true;
   ui.calibration.classList.add("hidden");
   ui.calibration.querySelector("b").textContent = "保持正脸，正在自动校准";
@@ -1222,6 +1323,7 @@ function trackCamera(now) {
       return;
     }
     state.lastFaceSeen = now;
+    state.face2d?.receive(result, now, state.calibrating);
     ui.faceBadge.classList.add("active");
     if (state.calibrating) {
       state.calibrationSamples.push(extracted.pose);
@@ -1262,7 +1364,7 @@ function drawBackground() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     return;
   }
-  const gradient = ctx.createRadialGradient(360, 330, 40, 360, 360, 510);
+  const gradient = ctx.createRadialGradient(canvas.width * .5, canvas.height * .46, canvas.width * .055, canvas.width * .5, canvas.height * .5, canvas.width * .71);
   gradient.addColorStop(0, "#322746");
   gradient.addColorStop(.58, "#1c1828");
   gradient.addColorStop(1, "#12101b");
@@ -1271,46 +1373,72 @@ function drawBackground() {
   ctx.globalAlpha = .13;
   ctx.strokeStyle = "#c5a9ff";
   ctx.lineWidth = 1;
-  for (let i = -720; i < 720; i += 52) {
-    ctx.beginPath(); ctx.moveTo(i, 720); ctx.lineTo(i + 720, 0); ctx.stroke();
+  for (let i = -canvas.width; i < canvas.width; i += canvas.width / 14) {
+    ctx.beginPath(); ctx.moveTo(i, canvas.height); ctx.lineTo(i + canvas.width, 0); ctx.stroke();
   }
   ctx.globalAlpha = 1;
 }
 
 
-function render() {
+function render(dt = 0) {
   drawBackground();
-  const image = state.image;
-  const rig = state.imageRig;
-  if (!image || !rig) return;
   const headAmount = Number(ui.ranges.head.value) / 80;
   const blinkAmount = Number(ui.ranges.blink.value) / 100;
   const mouthAmount = Number(ui.ranges.mouth.value) / 100;
   const expressionAmount = Number(ui.ranges.expression.value) / 100;
   const bodyAmount = Number(ui.ranges.body.value) / 100;
-  const s = state.smooth;
-  const closeUp = state.framing === "portrait" && rig.patchesEnabled !== false;
-  const frameHeight = closeUp ? Math.min(image.naturalHeight, Math.max(image.naturalHeight * .36, rig.face.h * 4.8)) : image.naturalHeight;
-  const frameTop = closeUp ? clamp(rig.face.y - rig.face.h * 1.15, 0, image.naturalHeight - frameHeight) : 0;
-  const imageScale = closeUp ? canvas.height * .93 / frameHeight : Math.min(canvas.width * .94 / image.naturalWidth, canvas.height * .96 / image.naturalHeight);
-  const centerX = closeUp ? rig.face.x : image.naturalWidth / 2;
+  const intensity = { head: headAmount, blink: blinkAmount, mouth: mouthAmount, expression: expressionAmount };
+  const headPose = currentPaintedHeadPose();
+  let image = state.image;
+  let rig = state.imageRig;
+  if (state.avatar2dKind === "painted" && state.paintedAvatar) {
+    try {
+      const painted = state.paintedAvatar.render(state.face2d?.output, intensity, dt, headPose);
+      if (!painted) throw new Error("分层角色没有可绘制画面");
+      image = painted;
+      rig = state.paintedRig;
+    } catch (error) {
+      console.error("Painted 2D rendering failed", error);
+      useStaticAvatar2D();
+      state.landmarkMessage = "◇ 分层表情已安全停止 · 正在显示中性示例立绘";
+      updateViewPresentation();
+      toast("高清分层表情已安全停止，当前显示中性示例立绘。");
+      image = state.image;
+      rig = state.imageRig;
+    }
+  }
+  if (!image || !rig) return;
+  const s = state.face2d?.manual ? { ...MOTION_DEFAULTS } : state.smooth;
+  const usableFace = rig.patchesEnabled !== false && rig.face
+    && [rig.face.x, rig.face.y, rig.face.w, rig.face.h].every(Number.isFinite)
+    && rig.face.w > 0 && rig.face.h > 0
+    && rig.face.x >= 0 && rig.face.x < (image.naturalWidth ?? image.width)
+    && rig.face.y >= 0 && rig.face.y < (image.naturalHeight ?? image.height);
+  const imageWidth = image.naturalWidth ?? image.width;
+  const imageHeight = image.naturalHeight ?? image.height;
+  if (![imageWidth, imageHeight].every(Number.isFinite) || imageWidth < 1 || imageHeight < 1) return;
+  const closeUp = state.framing === "portrait" && usableFace;
+  const faceFocus = state.face2d?.focus && usableFace;
+  const frameHeight = faceFocus ? Math.min(imageHeight, Math.max(64, imageHeight * .06, rig.face.h * 1.65)) : closeUp ? Math.min(imageHeight, Math.max(imageHeight * .36, rig.face.h * (state.avatar2dKind === "painted" ? 2.5 : 4.8))) : imageHeight;
+  const frameTop = faceFocus ? clamp(rig.face.y - frameHeight * .50, 0, imageHeight - frameHeight) : closeUp ? clamp(rig.face.y - rig.face.h * 1.15, 0, imageHeight - frameHeight) : 0;
+  const imageScale = closeUp || faceFocus ? canvas.height * .93 / frameHeight : Math.min(canvas.width * .94 / imageWidth, canvas.height * .96 / imageHeight);
+  const centerX = closeUp || faceFocus ? rig.face.x : imageWidth / 2;
   const centerY = frameTop + frameHeight / 2;
 
   ctx.save();
   const armBalance = (s.armR - s.armL) * bodyAmount;
   const armEnergy = (Math.abs(s.armL) + Math.abs(s.armR) + s.elbowL * .35 + s.elbowR * .35) * .42 * bodyAmount;
-  const pseudoYaw = clamp(s.x * headAmount, -.62, .62);
+  const staticHeadMotion = state.avatar2dKind === "painted" ? 0 : 1;
+  const pseudoYaw = clamp(s.x * headAmount, -.62, .62) * staticHeadMotion;
   ctx.translate(
     canvas.width / 2 + pseudoYaw * 24 + (s.bodyLean + s.hipSway * .35) * 9 * bodyAmount + armBalance * 4,
-    canvas.height / 2 + s.y * 9 * headAmount - s.bodyBob * 10 * bodyAmount - armEnergy * 3,
+    canvas.height / 2 + s.y * 9 * headAmount * staticHeadMotion - s.bodyBob * 10 * bodyAmount - armEnergy * 3,
   );
   ctx.rotate(s.roll * .055 * headAmount + s.bodyLean * .038 * bodyAmount);
-  ctx.scale((1 - Math.abs(pseudoYaw) * .1) * (1 + armEnergy * .008), 1 + s.bodyBob * .012 * bodyAmount);
+  ctx.scale(1 + armEnergy * .008, 1 + s.bodyBob * .012 * bodyAmount);
   ctx.translate(-centerX * imageScale, -centerY * imageScale);
   ctx.scale(imageScale, imageScale);
-  portraitWarp ||= new PortraitWarp();
-  const portrait = portraitWarp.render(image, rig, s, { blink: blinkAmount, mouth: mouthAmount, expression: expressionAmount });
-  ctx.drawImage(portrait || image, 0, 0, image.naturalWidth, image.naturalHeight);
+  ctx.drawImage(image, 0, 0, imageWidth, imageHeight);
   ctx.restore();
 }
 
@@ -1320,6 +1448,8 @@ function animate(now = performance.now()) {
   trackDemo(now);
   trackCamera(now);
   updateCalibration(now);
+  state.face2d.update(state.tracking, state.mode, now, dt);
+  faceEditor?.update(now, state.mode);
   for (const key of Object.keys(MOTION_DEFAULTS)) {
     const target = Number.isFinite(state.tracking[key]) ? state.tracking[key] : 0;
     let tau = .09;
@@ -1351,15 +1481,21 @@ function animate(now = performance.now()) {
       setViewButtons("2d");
       updateViewPresentation();
       toast("3D 渲染已安全停止，2D 模式仍可继续使用。");
-      render();
+      render(dt);
     }
   } else {
-    render();
+    render(dt);
   }
-  const blinkValue = (state.smooth.blinkL + state.smooth.blinkR) / 2;
+  const faceOutput = state.viewMode === "2d" ? state.face2d?.output : null;
+  const blinkValue = faceOutput ? Math.max(faceOutput.eyeBlinkLeft, faceOutput.eyeBlinkRight) : (state.smooth.blinkL + state.smooth.blinkR) / 2;
   ui.meters.eye.style.width = `${clamp(blinkValue) * 100}%`;
-  ui.meters.mouth.style.width = `${clamp(Math.max(state.smooth.mouth, state.smooth.smile, state.smooth.frown, state.smooth.pucker)) * 100}%`;
-  ui.meters.head.style.width = `${clamp((Math.abs(state.smooth.x) + Math.abs(state.smooth.roll)) / 1.4) * 100}%`;
+  const mouthValue = faceOutput ? Math.max(faceOutput.jawOpen * (1 - faceOutput.mouthClose), faceOutput.mouthSmileLeft, faceOutput.mouthSmileRight, faceOutput.mouthFunnel, faceOutput.mouthPucker)
+    : Math.max(state.smooth.mouth, state.smooth.smile, state.smooth.frown, state.smooth.pucker);
+  ui.meters.mouth.style.width = `${clamp(mouthValue) * 100}%`;
+  const displayedHeadPose = state.viewMode === "2d" && state.avatar2dKind === "painted" ? currentPaintedHeadPose() : null;
+  ui.meters.head.style.width = `${clamp(displayedHeadPose
+    ? (Math.abs(displayedHeadPose.yaw) + Math.abs(displayedHeadPose.pitch) + Math.abs(state.smooth.roll) * .35) / 1.7
+    : (Math.abs(state.smooth.x) + Math.abs(state.smooth.roll)) / 1.4) * 100}%`;
   ui.meters.body.style.width = `${clamp((Math.abs(state.smooth.bodyLean) + Math.abs(state.smooth.bodyTurn) + Math.abs(state.smooth.armL) + Math.abs(state.smooth.armR) + state.smooth.elbowL + state.smooth.elbowR) / 3.2) * 100}%`;
   requestAnimationFrame(animate);
 }
@@ -1553,8 +1689,10 @@ ui.resetTuningButton.addEventListener("click", () => {
     range.value = defaults[name];
     $(`#${name}Output`).textContent = `${range.value}%`;
   }
+  state.face2d?.clearTest();
+  faceEditor?.refreshControls();
   savePreferences();
-  toast("动作微调已恢复默认值，角色和背景保持不变。");
+  toast("动作微调和临时表情、方向试调已恢复默认，角色和背景保持不变。");
 });
 ui.demoMotion.addEventListener("change", () => {
   state.demoMotion = ui.demoMotion.value;
@@ -1588,7 +1726,9 @@ ui.demoAvatarButton.addEventListener("click", async () => {
   try {
     await flushProjectSave();
     await installProject(createProject({ name: "月见 Luna", preferences: { ...currentProject().preferences, appearance: {} } }));
-    toast("已换成原创示例月见 Luna。2D 和 3D 使用相同的发色、眼睛和服装配色。");
+    toast(state.avatar2dKind === "painted"
+      ? "已换成原创示例月见 Luna。2D 使用独立绘制的眼、眉与嘴型关键帧。"
+      : "已换成月见 Luna 的中性示例立绘；分层表情暂时无法载入。");
   } catch (error) { toast(error.message || "示例角色载入失败，请稍后再试。"); }
   finally { setProjectBusy(false); savePreferences(); }
 });
@@ -1699,12 +1839,13 @@ window.addEventListener("beforeunload", (event) => {
   }
 });
 window.addEventListener("pagehide", () => {
-  video.srcObject?.getTracks().forEach((track) => track.stop());
+  // Reject a FileReader/image decode that completes after BFCache restore.
+  state.imageImportToken += 1;
+  useDemo();
   state.recorder?.stream?.getTracks().forEach((track) => track.stop());
   if (state.imageUrl.startsWith("blob:")) URL.revokeObjectURL(state.imageUrl);
   resetAvatar3D();
-  portraitWarp?.dispose();
-  portraitWarp = null;
+  useStaticAvatar2D();
 });
 window.addEventListener("pageshow", (event) => {
   if (!event.persisted) return;
@@ -1716,9 +1857,22 @@ window.addEventListener("pageshow", (event) => {
   useDemo();
   setViewButtons("2d");
   updateViewPresentation();
+  if (!state.imageDataUrl) void makeDemoAvatar().catch((error) => {
+    console.warn("Could not restore the painted 2D avatar after page restore", error);
+    state.landmarkMessage = "◇ 分层表情暂不可用 · 已保留中性示例立绘";
+    updateViewPresentation();
+  });
   if (previousView === "3d") void setViewMode("3d");
 });
 
+faceEditor = new FaceEditor(ui.faceEditorRoot, state.face2d, {
+  quickRoot: $("#faceQuick"),
+  onChange: savePreferences, onMessage: toast,
+  indicator: $("#faceTestIndicator"), is2D: () => state.viewMode === "2d",
+  getSupport: () => state.avatar2dKind === "painted" ? PAINTED_CHANNEL_SUPPORT : {},
+  canPose: () => state.avatar2dKind === "painted",
+  getPose: () => ({ input: currentPaintedHeadPose(), rendered: state.paintedAvatar?.pose || null }),
+});
 setViewButtons("2d");
 setSourceMode("demo");
 updateViewPresentation();

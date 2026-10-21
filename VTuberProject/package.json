@@ -1,9 +1,9 @@
 {
   "name": "moemotion",
-  "version": "0.8.0",
+  "version": "0.11.0",
   "private": true,
   "type": "module",
-  "description": "Animate character artwork in 2D or drive a licensed recolorable VRM avatar with a lightweight 3D fallback.",
+  "description": "Animate the built-in finite 13-pose painted 2D avatar, or drive licensed and lightweight 3D avatars.",
   "scripts": {
     "dev": "node server.mjs",
     "start": "node server.mjs",

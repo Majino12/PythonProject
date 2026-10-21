@@ -1,0 +1,21 @@
+MoeMotion — Luna painted 2D recreation prompts
+
+These prompts are concise reconstruction guidance, NOT the verbatim original image-generation requests. Generative outputs vary. Matching expression positions and transparent margins must be checked against the base image before a new set can use the same rendering rectangles.
+
+Shared art direction:
+Create an original anime VTuber bust character called Luna. Keep one consistent frontal character design, clean illustrative line work, restrained cel shading, readable facial features, and transparent backgrounds. Preserve the same face proportions, skin tone, line weight and lighting across every asset. Do not copy a reference application's screenshot, character sprite, logo, text, or user interface. No text, labels, watermarks, extra characters, props, checkerboard background, or unrequested decorative elements in the output.
+
+Base portrait:
+Produce a 1024 x 1536 frontal bust base for fixed-position expression compositing. Retain the head silhouette, hair, ears, neck and clothing. Keep facial expression areas clean and compatible with separate eye, mouth and brow overlays. Leave comfortable transparent outer margins and avoid cropping the head. Use an original design and a neutral forward-facing pose; do not invent a side-view model.
+
+Eye atlas:
+Using the completed base as the character reference, draw six aligned eye states: fully open, approximately 25 percent closed, 50 percent closed, 75 percent closed, fully closed, and happy closed. Preserve eye shape, color, lashes, highlights and consistent scale. Each state must fit an equal atlas cell with transparent margins, arranged in a consistent grid. Include only the required eye artwork, not a new head or face. Do not label cells.
+
+Mouth atlas:
+Using the same base design and scale, draw twelve aligned mouth states: neutral closed, small open, medium open, wide open, closed smile, open smile, closed frown, open frown, rounded funnel, pucker, pressed lips, and a side-shift mouth. Keep a consistent thin line style and restrained interior shading. Place each mouth in an equal grid cell with transparent margins. Do not add a tongue, missing-face reconstruction, text or labels. The runtime uses finite frame selection, not a promise of anatomically complete mouth articulation.
+
+Brow atlas:
+Using the same base design, draw consistent aligned eyebrow pairs for neutral, raised, lowered, worried and outer-raised expressions; a sixth atlas cell may be reserved. Keep each pair at the same scale and anchor position with transparent margins, without eyes, face, hair or labels. Only the five configured states are used by the current renderer.
+
+Integration checks:
+Check the actual PNG alpha channel, cell boundaries, facial anchors and overlay scale visually. A generated atlas is not automatically aligned merely because its grid is regular. Do not treat these prompts as a runtime automatic-layer-generation feature or as a reproduction guarantee.

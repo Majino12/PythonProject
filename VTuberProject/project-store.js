@@ -1,15 +1,19 @@
+import { normalizeBlendshapeSettings } from "./arkit-blendshapes.js";
+
 const PROJECT_FORMAT = "moemotion-project";
 const PROJECT_VERSION = 1;
 const DATABASE_NAME = "moemotion-projects";
 const STORE_NAME = "projects";
 const CURRENT_PROJECT_KEY = "current";
 export const MAX_IMAGE_DATA_URL_LENGTH = 28 * 1024 * 1024;
-const MAX_PROJECT_JSON_LENGTH = MAX_IMAGE_DATA_URL_LENGTH + 8192;
+// Full ARKit52 calibration settings need bounded room beyond the image payload.
+const MAX_PROJECT_JSON_LENGTH = MAX_IMAGE_DATA_URL_LENGTH + 32 * 1024;
 
 export const DEFAULT_PREFERENCES = Object.freeze({
   background: "gradient", viewMode: "2d", modelStyle: "studio",
   head: 90, blink: 85, mouth: 90, expression: 100, body: 75,
   demoMotion: "idle", framing: "portrait", appearance: Object.freeze({}),
+  face2d: Object.freeze({ channels: Object.freeze({}) }),
 });
 
 const RANGE_LIMITS = Object.freeze({
@@ -23,7 +27,8 @@ const own = (value, key) => Object.prototype.hasOwnProperty.call(value, key);
 // Whitelisting also keeps credentials, device IDs and tracking data out of backups.
 export function normalizePreferences(raw) {
   const source = isRecord(raw) ? raw : {};
-  const preferences = { ...DEFAULT_PREFERENCES, appearance: {} };
+  const preferences = { ...DEFAULT_PREFERENCES, appearance: {}, face2d: { channels: {} } };
+  if (own(source, "face2d")) preferences.face2d = normalizeBlendshapeSettings(source.face2d);
   if (own(source, "demoMotion") && ["idle", "greeting", "speaking"].includes(source.demoMotion)) preferences.demoMotion = source.demoMotion;
   if (own(source, "framing") && ["portrait", "full"].includes(source.framing)) preferences.framing = source.framing;
   if (own(source, "appearance") && isRecord(source.appearance)) {

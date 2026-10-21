@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { ARKIT_CHANNELS, DEFAULT_CHANNEL_SETTINGS } from "./arkit-blendshapes.js";
 import {
   DEFAULT_PREFERENCES, MAX_IMAGE_DATA_URL_LENGTH, normalizePreferences,
   createProject, parseProject, saveProject, loadProject, clearProject,
@@ -15,7 +16,10 @@ test("preferences supply defaults and never share mutable state", () => {
   }
   const first = normalizePreferences({});
   first.head = 4;
+  first.face2d.channels.jawOpen = { inputMin: .2 };
   assert.equal(normalizePreferences({}).head, 90);
+  assert.deepEqual(normalizePreferences({}).face2d, { channels: {} });
+  assert.equal(Object.isFrozen(DEFAULT_PREFERENCES.face2d.channels), true);
 });
 
 test("preferences whitelist known options and clamp finite range values", () => {
@@ -25,7 +29,7 @@ test("preferences whitelist known options and clamp finite range values", () => 
   }), {
     background: "green", viewMode: "3d", modelStyle: "studio", head: 0, blink: 150,
     mouth: 73, expression: 100, body: 0,
-    demoMotion: "idle", framing: "portrait", appearance: {},
+    demoMotion: "idle", framing: "portrait", appearance: {}, face2d: { channels: {} },
   });
   for (const invalid of [NaN, Infinity, -Infinity, "invalid", "", " ", null, true, {}, []]) {
     assert.equal(normalizePreferences({ mouth: invalid }).mouth, 90);
@@ -66,6 +70,7 @@ test("older version-one projects default to studio without losing their image or
   assert.equal(restored.preferences.modelStyle, "studio");
   assert.equal(restored.preferences.background, "green");
   assert.equal(restored.preferences.framing, "full");
+  assert.deepEqual(restored.preferences.face2d, { channels: {} });
   assert.deepEqual(restored.preferences.appearance, { outfit: "#445566" });
   assert.equal(restored.imageDataUrl, PNG);
   assert.equal(Object.hasOwn(previous.preferences, "modelStyle"), false);
@@ -79,6 +84,92 @@ test("appearance overrides round-trip without sharing objects or admitting unsaf
   saved.appearance.eyes = "#ffffff";
   assert.deepEqual(normalizePreferences({}).appearance, {});
   assert.equal(normalizePreferences({ demoMotion: "unknown" }).demoMotion, "idle");
+});
+
+test("ARKit52 settings round-trip as project preferences without sharing nested objects", () => {
+  const face2d = { channels: {
+    eyeBlinkLeft: { inputMin: .12, inputMax: .8, outputMin: .1, outputMax: .9, smoothing: 80, curve: "smooth" },
+    jawOpen: { inputMin: .05, inputMax: .7, outputMin: 0, outputMax: 1, smoothing: 140, curve: "easeOut" },
+  } };
+  const project = createProject({ imageDataUrl: PNG, preferences: { face2d } });
+  const restored = parseProject(JSON.stringify(project));
+  assert.deepEqual(restored.preferences.face2d, face2d);
+  assert.equal(restored.version, 1);
+  assert.equal(restored.imageDataUrl, PNG);
+  face2d.channels.jawOpen.smoothing = 0;
+  assert.equal(project.preferences.face2d.channels.jawOpen.smoothing, 140);
+  restored.preferences.face2d.channels.eyeBlinkLeft.inputMin = .4;
+  assert.equal(project.preferences.face2d.channels.eyeBlinkLeft.inputMin, .12);
+});
+
+test("ARKit settings clamp finite channel limits and default invalid configurations", () => {
+  const preferences = normalizePreferences({ face2d: { channels: {
+    jawOpen: { inputMin: -10, inputMax: 10, outputMin: -5, outputMax: 4, smoothing: 999, curve: "easeIn" },
+    eyeBlinkLeft: { smoothing: -30, curve: "unknown", outputMax: Infinity },
+    eyeBlinkRight: { inputMin: NaN, smoothing: NaN },
+    mouthSmileLeft: null,
+    mouthSmileRight: [],
+  } } });
+  assert.deepEqual(preferences.face2d.channels.jawOpen, {
+    inputMin: 0, inputMax: 1, outputMin: 0, outputMax: 1, smoothing: 400, curve: "easeIn",
+  });
+  assert.equal(preferences.face2d.channels.eyeBlinkLeft.smoothing, 0);
+  assert.equal(preferences.face2d.channels.eyeBlinkLeft.curve, DEFAULT_CHANNEL_SETTINGS.curve);
+  assert.equal(preferences.face2d.channels.eyeBlinkLeft.outputMax, DEFAULT_CHANNEL_SETTINGS.outputMax);
+  assert.deepEqual(preferences.face2d.channels.eyeBlinkRight, DEFAULT_CHANNEL_SETTINGS);
+  assert.equal(Object.hasOwn(preferences.face2d.channels, "mouthSmileLeft"), false);
+  assert.equal(Object.hasOwn(preferences.face2d.channels, "mouthSmileRight"), false);
+  for (const face2d of [null, [], "invalid", 0, { channels: [] }, { channels: null }]) {
+    assert.deepEqual(normalizePreferences({ face2d }).face2d, { channels: {} });
+  }
+});
+
+test("ARKit persistence keeps only canonical settings, never camera or manual-test state", () => {
+  const preferences = normalizePreferences({ face2d: {
+    raw: { jawOpen: .3 }, smooth: { jawOpen: .2 }, cameraFrame: "private-camera-frame",
+    manualValues: { eyeBlinkLeft: 1 }, testing: true, apiKey: "private-api-key",
+    channels: {
+      jawOpen: { smoothing: 60, raw: .7, smooth: .4, manualValue: 1, enabled: true, secret: "private-secret" },
+      _neutral: { smoothing: 200 }, unknownChannel: { smoothing: 100 },
+    },
+  } });
+  assert.deepEqual(preferences.face2d, { channels: { jawOpen: { ...DEFAULT_CHANNEL_SETTINGS, smoothing: 60 } } });
+  const serialized = JSON.stringify(createProject({ preferences }));
+  for (const forbidden of ["private", '"raw"', '"smooth"', "manualValue", "testing", "apiKey", "cameraFrame", "unknownChannel", "_neutral"]) {
+    assert.equal(serialized.includes(forbidden), false, `must not persist ${forbidden}`);
+  }
+});
+
+test("ARKit preferences ignore inherited wrappers, channels and per-channel properties", () => {
+  const inheritedFace = Object.create({ face2d: { channels: { jawOpen: {} } } });
+  assert.deepEqual(normalizePreferences(inheritedFace).face2d, { channels: {} });
+  assert.deepEqual(normalizePreferences({ face2d: Object.create({ channels: { jawOpen: {} } }) }).face2d, { channels: {} });
+  const channelMap = Object.assign(Object.create({ eyeBlinkRight: { smoothing: 400 } }), {
+    jawOpen: Object.assign(Object.create({ smoothing: 400, outputMin: .8 }), { inputMin: .1 }),
+  });
+  const settings = normalizePreferences({ face2d: { channels: channelMap } }).face2d;
+  assert.deepEqual(settings, { channels: { jawOpen: { ...DEFAULT_CHANNEL_SETTINGS, inputMin: .1 } } });
+  const payload = JSON.parse('{"channels":{"__proto__":{"polluted":true},"jawOpen":{"__proto__":{"smoothing":400},"smoothing":90}}}');
+  assert.deepEqual(normalizePreferences({ face2d: payload }).face2d, {
+    channels: { jawOpen: { ...DEFAULT_CHANNEL_SETTINGS, smoothing: 90 } },
+  });
+  assert.equal({}.polluted, undefined);
+});
+
+test("all 52 full-precision configurations fit in the expanded bounded project envelope", () => {
+  const channels = Object.fromEntries(ARKIT_CHANNELS.map((name) => [name, {
+    inputMin: .12345678901234567, inputMax: .9234567890123456,
+    outputMin: .02345678901234567, outputMax: .8234567890123456,
+    smoothing: 123.45678901234567, curve: "easeOut",
+  }]));
+  const project = createProject({ preferences: { face2d: { channels } } });
+  assert.equal(Object.keys(project.preferences.face2d.channels).length, 52);
+  const serialized = JSON.stringify(project);
+  assert.ok(serialized.length > 8192, "test payload must exceed the previous settings allowance");
+  assert.ok(serialized.length < 32 * 1024);
+  // Whitespace is valid JSON and exercises the combined image/settings envelope without allocating a decoded image.
+  const padded = " ".repeat(MAX_IMAGE_DATA_URL_LENGTH) + serialized;
+  assert.deepEqual(parseProject(padded), project);
 });
 
 test("a demo project round-trips without an image or secret data", () => {
@@ -114,7 +205,7 @@ test("invalid base64 and oversized project data fail before persistence", () => 
     "data:image/png;base64,====", "data:image/png;base64,AA=A",
   ]) assert.throws(() => createProject({ imageDataUrl }));
   assert.throws(() => createProject({ imageDataUrl: "x".repeat(MAX_IMAGE_DATA_URL_LENGTH + 1) }), /太大/);
-  assert.throws(() => parseProject("x".repeat(MAX_IMAGE_DATA_URL_LENGTH + 8193)), /太大/);
+  assert.throws(() => parseProject("x".repeat(MAX_IMAGE_DATA_URL_LENGTH + 32 * 1024 + 1)), /太大/);
 });
 
 test("corrupt, unrelated, inherited and future-version project envelopes are rejected", () => {
@@ -219,12 +310,18 @@ test("IndexedDB save/load/clear complete only after transaction commit and close
   const mock = installStorageDouble();
   try {
     assert.equal(await loadProject(), null);
-    const project = createProject({ imageDataUrl: PNG, preferences: { body: 55 } });
-    const saved = await saveProject({ ...project, apiKey: "discard me" });
+    const project = createProject({ imageDataUrl: PNG, preferences: {
+      body: 55, face2d: { channels: { jawOpen: { smoothing: 120, curve: "smooth" } } },
+    } });
+    const saved = await saveProject({ ...project, apiKey: "discard me", preferences: {
+      ...project.preferences,
+      face2d: { ...project.preferences.face2d, raw: { jawOpen: .9 }, manualValues: { jawOpen: 1 }, cameraFrame: "private" },
+    } });
     assert.equal(mock.state.commits, 2);
     assert.deepEqual(saved, project);
     assert.deepEqual(await loadProject(), project);
     assert.equal(Object.hasOwn(mock.state.value, "apiKey"), false);
+    assert.deepEqual(mock.state.value.preferences.face2d, project.preferences.face2d);
     await clearProject();
     assert.equal(await loadProject(), null);
     assert.equal(mock.state.closes, 5);

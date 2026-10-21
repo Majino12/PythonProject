@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; media-src 'none'; object-src 'none'; base-uri 'none'" />
+  <title>MoeMotion · 绘制角色验收画廊</title>
+  <style>
+    :root { color-scheme: dark; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #0c0b16; color: #f4f1ff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: radial-gradient(circle at 20% 0, #272046 0, #0c0b16 48rem); }
+    main { width: min(1500px, 100%); margin: 0 auto; padding: 24px; }
+    h1 { margin: 0 0 6px; font-size: clamp(1.35rem, 3vw, 2rem); }
+    .intro { margin: 0 0 18px; color: #c6bedb; line-height: 1.55; }
+    fieldset { margin: 0 0 18px; padding: 14px; border: 1px solid #46405d; border-radius: 14px; background: rgba(20, 17, 34, .88); }
+    legend { padding: 0 8px; font-weight: 700; }
+    .presets, .sliders { display: flex; flex-wrap: wrap; align-items: end; gap: 10px; }
+    .presets { margin-bottom: 14px; }
+    button, select, input { font: inherit; }
+    button, select { min-height: 38px; border: 1px solid #5b5377; border-radius: 9px; background: #211c35; color: inherit; padding: 7px 11px; }
+    button:hover:not(:disabled), button[aria-pressed="true"] { border-color: #bd9cff; background: #362b55; }
+    button:focus-visible, select:focus-visible, input:focus-visible { outline: 3px solid #a8e7ff; outline-offset: 2px; }
+    label { display: grid; gap: 6px; min-width: 150px; color: #d9d1eb; }
+    label span { display: flex; justify-content: space-between; gap: 10px; font-size: .86rem; }
+    input[type="range"] { width: 180px; accent-color: #b38cff; }
+    #galleryStatus { min-height: 1.5em; margin: 0 0 12px; color: #bfe9d5; }
+    #galleryStatus.error { color: #ffb4bd; }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+    figure { margin: 0; overflow: hidden; border: 1px solid #39334e; border-radius: 12px; background: #161326; box-shadow: 0 10px 25px rgba(0, 0, 0, .18); }
+    canvas { display: block; width: 100%; height: auto; aspect-ratio: 700 / 580; background-color: #f0edf7; background-image: linear-gradient(45deg, #d9d3e8 25%, transparent 25%), linear-gradient(-45deg, #d9d3e8 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #d9d3e8 75%), linear-gradient(-45deg, transparent 75%, #d9d3e8 75%); background-position: 0 0, 0 10px, 10px -10px, -10px 0; background-size: 20px 20px; }
+    figcaption { display: flex; justify-content: space-between; gap: 8px; padding: 8px 10px; color: #ded7ef; font: 600 .78rem ui-monospace, SFMono-Regular, Menlo, monospace; }
+    figcaption small { color: #9e94ba; font: inherit; font-weight: 400; }
+    noscript { color: #ffb4bd; }
+    @media (max-width: 560px) { main { padding: 16px; } input[type="range"] { width: min(72vw, 240px); } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>绘制角色验收画廊</h1>
+    <p class="intro">开发 / 验收专用：从 Luna 的同一份本地 manifest 读取全部头部画稿。每格固定截取源画布 x=180、y=200、w=700、h=580；页面不启用摄像头，也不访问外网。</p>
+    <fieldset id="galleryControls" disabled>
+      <legend>统一检查全部方向</legend>
+      <div class="presets" role="group" aria-label="表情预设">
+        <button type="button" data-gallery-preset="neutral" aria-pressed="true">中性</button>
+        <button type="button" data-gallery-preset="blink" aria-pressed="false">闭眼</button>
+        <button type="button" data-gallery-preset="jaw" aria-pressed="false">张嘴</button>
+        <button type="button" data-gallery-preset="puckerLeft" aria-pressed="false">左噘嘴</button>
+        <button type="button" data-gallery-preset="puckerRight" aria-pressed="false">右噘嘴</button>
+        <button type="button" data-gallery-preset="press" aria-pressed="false">抿嘴</button>
+      </div>
+      <div class="sliders">
+        <label><span>眨眼 <output for="galleryBlink">0%</output></span><input id="galleryBlink" data-gallery-channel="blink" type="range" min="0" max="1" step=".01" value="0" /></label>
+        <label><span>张嘴 <output for="galleryJaw">0%</output></span><input id="galleryJaw" data-gallery-channel="jaw" type="range" min="0" max="1" step=".01" value="0" /></label>
+        <label><span>噘嘴 <output for="galleryPucker">0%</output></span><input id="galleryPucker" data-gallery-channel="pucker" type="range" min="0" max="1" step=".01" value="0" /></label>
+        <label><span>抿嘴 <output for="galleryPress">0%</output></span><input id="galleryPress" data-gallery-channel="press" type="range" min="0" max="1" step=".01" value="0" /></label>
+        <label>噘嘴方向
+          <select id="galleryPuckerDirection">
+            <option value="center">居中</option>
+            <option value="left">角色左侧</option>
+            <option value="right">角色右侧</option>
+          </select>
+        </label>
+      </div>
+    </fieldset>
+    <p id="galleryStatus" role="status" aria-live="polite">正在加载本地画稿…</p>
+    <section class="gallery" id="paintedGallery" aria-label="所有绘制头部方向"></section>
+    <noscript>此验收页需要启用 JavaScript；它只读取项目内置资源。</noscript>
+  </main>
+  <script type="module" src="./painted-gallery.js"></script>
+</body>
+</html>
