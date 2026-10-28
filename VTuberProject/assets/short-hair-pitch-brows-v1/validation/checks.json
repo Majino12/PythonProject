@@ -1,0 +1,407 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-27",
+  "version": "0.13.1-review.12",
+  "assetId": "short-hair-pitch-brows-v1",
+  "status": "candidate; automated, browser functional and internal visual checks complete; user visual approval pending",
+  "tests": {
+    "syntax": "npm run check passed; latest pitch-brow-diagnostics.js node --check also passed",
+    "command": "npm test",
+    "total": 510,
+    "passed": 510,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "log": "../../../TEST-RESULTS.txt",
+    "logSha256": "44e05b5c134ffcf823bc1fba3842bc61943e8c8067cd1d770906d0855e489874"
+  },
+  "browser": {
+    "reports": {
+      "pixel-checks.json": {
+        "sha256": "11852576feedb13de9e5fdbd743ca91684275425507263030780dccd1ce2db4c",
+        "loadOrder": "parallel",
+        "summary": {
+          "passed": true,
+          "legacyCombinations": 315,
+          "browCombinations": 336,
+          "comparisons": 1212,
+          "assertions": 2221,
+          "failedAssertions": 0,
+          "failures": []
+        },
+        "inheritedLayers": {
+          "comparisons": 48,
+          "changedPixels": 0
+        }
+      },
+      "pixel-checks-brows-first.json": {
+        "sha256": "196197cc0b00dab14a679f084de0e7417e3407c85cb1b9f2359272c591cf8f07",
+        "loadOrder": "brows-first",
+        "summary": {
+          "passed": true,
+          "legacyCombinations": 315,
+          "browCombinations": 336,
+          "comparisons": 1212,
+          "assertions": 2221,
+          "failedAssertions": 0,
+          "failures": []
+        },
+        "inheritedLayers": {
+          "comparisons": 48,
+          "changedPixels": 0
+        }
+      }
+    },
+    "presetsVisited": 102,
+    "supportedChannels": 22,
+    "presetErrors": 0,
+    "uiChecks": "browser-ui-checks.json",
+    "json": "Independent brow selection and conflict priority checked; out-of-range, string, null and malformed JSON preserve previous state; unknown channels are explicitly ignored.",
+    "olderVersions": {
+      "pitchMouth": {
+        "channels": 17,
+        "feedback": 72
+      },
+      "pitchGaze": {
+        "channels": 12,
+        "feedback": 54
+      },
+      "pitch": {
+        "channels": 4,
+        "feedback": 24
+      }
+    },
+    "demo": {
+      "durationSeconds": 12,
+      "allVisibleStagesObserved": true,
+      "stops": [
+        {
+          "action": "switchGroup",
+          "playing": "false"
+        },
+        {
+          "action": "switchPose",
+          "playing": "false"
+        },
+        {
+          "action": "original",
+          "playing": "false"
+        },
+        {
+          "action": "export",
+          "playing": "false"
+        },
+        {
+          "action": "switchVariant",
+          "playing": "false"
+        }
+      ]
+    },
+    "originalExportRetainsTargetAndShowsNeutral": true,
+    "feedbackAfterQA": "No feedback written or autoapproved",
+    "responsive": {
+      "requested390": "override did not affect hidden test tab",
+      "actualVisible319": {
+        "buttons": [
+          {
+            "text": "俯仰眉毛小样新增三种眉形与组合",
+            "width": 142,
+            "x": 14,
+            "y": 176.984375
+          },
+          {
+            "text": "已确认俯仰嘴型保留原画眉毛",
+            "width": 142,
+            "x": 163,
+            "y": 176.984375
+          },
+          {
+            "text": "已确认俯仰视线基础表情与独立视线",
+            "width": 142,
+            "x": 14,
+            "y": 231.984375
+          },
+          {
+            "text": "已确认俯仰基础表情保留原画视线",
+            "width": 142,
+            "x": 163,
+            "y": 231.984375
+          }
+        ],
+        "scrollWidth": 319,
+        "width": 319
+      },
+      "horizontalOverflow": false,
+      "verification": "Visible IAB panel has319pxCSSwidth, nohorizontaloverflow; fourversionbuttonsform2x2rows. Screenshotrecorded; no broaderdeviceclaim."
+    },
+    "gazeRegression": "Approved source/registration fingerprints share immutable ImageBitmap layers. Exact comparisons establish inherited output stability, not equivalence of unrelated independent compilations."
+  },
+  "exports": {
+    "export-rendered.png": {
+      "width": 630,
+      "height": 460,
+      "sha256": "010862f8812c04118e5f203daa6ef309af422c73394061e03103de5f19bb67a3"
+    },
+    "export-original.png": {
+      "width": 630,
+      "height": 460,
+      "sha256": "ee2aa961912d54a2d422a2bfb0ea4880ddc793edf36fd688bc4dc468a7d4d98c"
+    },
+    "export-rendered.json": {
+      "sha256": "dfe9621a2ae81053da8f18ba969d409eafad04c3857be31efb329bb32947dc11",
+      "mode": "static",
+      "playing": false,
+      "supportedChannels": 22,
+      "feedbackEntries": 102,
+      "renderedState": {
+        "eyeLeft": "half",
+        "eyeRight": "half",
+        "mouth": "pucker",
+        "browLeft": "innerUp",
+        "browRight": "innerUp"
+      },
+      "targetState": {
+        "eyeLeft": "half",
+        "eyeRight": "half",
+        "mouth": "pucker",
+        "browLeft": "innerUp",
+        "browRight": "innerUp"
+      },
+      "renderedGaze": {
+        "eyeLeft": {
+          "x": -0.75,
+          "y": 0
+        },
+        "eyeRight": {
+          "x": -0.75,
+          "y": 0
+        }
+      },
+      "targetGaze": {
+        "eyeLeft": {
+          "x": -0.75,
+          "y": 0
+        },
+        "eyeRight": {
+          "x": -0.75,
+          "y": 0
+        }
+      }
+    },
+    "export-original.json": {
+      "sha256": "61ad6a76077fb862b5e6083e58f9585627e7af6b8f100d56415c93a4c211c0f5",
+      "mode": "original",
+      "playing": false,
+      "supportedChannels": 22,
+      "feedbackEntries": 102,
+      "renderedState": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "targetState": {
+        "eyeLeft": "half",
+        "eyeRight": "half",
+        "mouth": "pucker",
+        "browLeft": "innerUp",
+        "browRight": "innerUp"
+      },
+      "renderedGaze": {
+        "eyeLeft": {
+          "x": 0,
+          "y": 0
+        },
+        "eyeRight": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "targetGaze": {
+        "eyeLeft": {
+          "x": -0.75,
+          "y": 0
+        },
+        "eyeRight": {
+          "x": -0.75,
+          "y": 0
+        }
+      }
+    },
+    "export-paused-demo.json": {
+      "sha256": "a277c2f27ae5cf980725710f615291ed4e102a890bb280b6127c4a5be53f55ae",
+      "mode": "frames",
+      "playing": false,
+      "supportedChannels": 22,
+      "feedbackEntries": 102,
+      "renderedState": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "targetState": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "renderedGaze": {
+        "eyeLeft": {
+          "x": 0,
+          "y": 0
+        },
+        "eyeRight": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "targetGaze": {
+        "eyeLeft": {
+          "x": 0,
+          "y": 0
+        },
+        "eyeRight": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    }
+  },
+  "generation": {
+    "tool": "Built-in image_gen",
+    "saved": 11,
+    "adopted": 9,
+    "intermediatesOrRejected": 2,
+    "allCopiesByteIdentical": true,
+    "provenance": "../provenance.json",
+    "provenanceSha256": "3656d0bbbc31a917a129b70dbdf5ae8a6419e66b7e4893c1a077ad5b8648acc5",
+    "copies": [
+      {
+        "file": "view-left-up-innerUp.png",
+        "sha256": "57cd04153d14e2e92dc5676ac2e9021894310f6992ad83f1b9749921cdd790e1",
+        "matchesGenerationOutput": true
+      },
+      {
+        "file": "view-left-up-outerUp.png",
+        "sha256": "080eef31edcba45d7803024dbf41dad8b0d26c3e5010976c77fe27bb8e54a6ed",
+        "matchesGenerationOutput": true
+      },
+      {
+        "file": "view-left-up-down.png",
+        "sha256": "2e7b48cef4ed42e3fb0575af7080ea69414a9a22bc58e5effef672b8fb67adbd",
+        "matchesGenerationOutput": true
+      },
+      {
+        "file": "view-right-up-innerUp.png",
+        "sha256": "2015edddbead11fcbe413558068105c7a6a1b902b65db0da8fe1f42e73e66d2d",
+        "matchesGenerationOutput": true
+      },
+      {
+        "file": "view-right-up-outerUp.png",
+        "sha256": "a774cc052ac300de8221849701be00901a5735e710c8c0c4397854d7ff4f9243",
+        "matchesGenerationOutput": true
+      },
+      {
+        "file": "view-right-up-down.png",
+        "sha256": "c6ad82f3f21b33b4720a1c21c3a4129c6e041253cb00551323ef28aab9858f6e",
+        "matchesGenerationOutput": true
+      },
+      {
+        "file": "view-left-down-innerUp.png",
+        "sha256": "521d778e22cb5dec93389f64a5687c2e4e61aeb2b7edac155bbb782629e18fe8",
+        "matchesGenerationOutput": true
+      },
+      {
+        "file": "view-left-down-outerUp.png",
+        "sha256": "6aed0c0977f62d56210166c9cec1a0cdaa6bea10f685c4a9e5595510ab94bf34",
+        "matchesGenerationOutput": true
+      },
+      {
+        "file": "view-left-down-down.png",
+        "sha256": "58846b0eed18b6baec4d1e7a10f73dd09b7483f15d1a32a996337e540a640fc2",
+        "matchesGenerationOutput": true
+      },
+      {
+        "file": "view-left-down-outerUp-v2.png",
+        "sha256": "501a1dc2cbff2e7a62fe8761c278b1e657e9122fe6c3330155f676baf0dabba8",
+        "matchesGenerationOutput": true
+      },
+      {
+        "file": "view-left-down-down-v2.png",
+        "sha256": "04ac3d576b1b082ed94474d76c5d281344d9a06a69b2b7c92217822142ae9ddf",
+        "matchesGenerationOutput": true
+      }
+    ]
+  },
+  "corrections": {
+    "sourceRefinements": [
+      "view-left-down-outerUp-v2.png",
+      "view-left-down-down-v2.png"
+    ],
+    "fixedHairExclusions": [
+      "view-left-up/browLeft",
+      "view-left-down/browLeft"
+    ],
+    "record": "junction-repair.json",
+    "sourcePngsUnmodifiedByRegistration": true
+  },
+  "registration": {
+    "manifest": "../manifest.json",
+    "manifestSha256": "ced1c4d30f6e4f6f9df4ffe8971979dc072805fae3aab4a0ff2936ccb8c15f65",
+    "sourceCount": 36,
+    "poseIds": [
+      "view-left-up",
+      "view-right-up",
+      "view-left-down"
+    ]
+  },
+  "visualReview": {
+    "status": "internal-visual-review-complete; user approval pending",
+    "structureReview": "structure-review.txt",
+    "note": "Native 4× junction crops and actual composited brow/face views inspected. Historical files retain the two earlier hair-mask failures. Mild authored color/strength differences remain; no assertion of pixel-identical hair everywhere or user approval.",
+    "report": "visual-review.txt"
+  },
+  "evidenceSha256": {
+    "registration.json": "fa73fb410992bef0a885711424aca479d0f556ca2504a798b2af0a1975a304e8",
+    "junction-repair.json": "983773be435bfd55874635092163cc36754acb8335a867e4619d85710530f8e3",
+    "structure-review.txt": "07d289d3f9659c8a8404e07db109a41e38a40759f7703682c0b249a7276797c6",
+    "left-up-brows.jpg": "b96d2978c9f0b24c5159dc05a26a811204fe56e031e7e6a802a307c65966e5b7",
+    "right-up-brows.jpg": "6eef4e1001e745ad231599349ee8b43d113a9d253eda8a447daf10bcdd3427d0",
+    "left-down-brows.jpg": "fde710a86e547cb59ce67e4452deedf270b2476a9169755e8a5b544e55aefc2b",
+    "browser-ui-checks.json": "39a90713aab8ddac7c88687a10189caa0bddd999473b22ff5a797367b0652e12",
+    "junction-view-left-up.jpg": "67af6e66abbd9a344007edab383c24829534b9fa97e6d362e3f21a8af0109081",
+    "junction-view-left-down.jpg": "005e55b1bc2f99811e3b23f1580183dd2bdf0cf9326de75ecffa54534a6d3d80",
+    "browser-visible-319px.jpg": "11d4ecb3c81a1dd36f9682f12cd08a6754a1227a03e0c27d7fcbce1dfafc61c6",
+    "visual-review.txt": "f2ea4bc0c95ba49893c91e5bcda0e1a0c0d5cea52fbf203c09682aa4d2c06770"
+  },
+  "runtimeSha256": {
+    "side-expression-renderer.js": "0c4281b0d4346371c288a639dc915e46c1a7efcd5a6a66f38b86a149a6d45979",
+    "pitch-gaze-snapshot.js": "7743bff62e18b8e4f7f72d4f3098b2980d3aace5b0b915953faefef9c1147f43",
+    "pitch-expression-review.js": "ab45868e582ac8803d44eac28469a593b5b12c42e156dba3406fbae7e3953db2",
+    "pitch-expression-review.html": "3cd850d324a3acefdf783a9b60ba016ee130b4131b5415b06708f6f6214dbc4e",
+    "pitch-expression-review.css": "ca653b43a765016762a5f179da678350e83c0ccf408143535899ee844f9e2c7b",
+    "pitch-brow-diagnostics.js": "66bcee42e7dabdc6f3cd71850b141b7d6467da5bbcd67b189dde7bcb88eb58a6",
+    "pitch-brow-diagnostics.html": "4d0f62e85dbcd835dde72eefd45a462d736df4e3c27973a76bdb1c946650e4ee",
+    "pitch-gaze.js": "48e3c5242d5ac96d7fd04ea98e40454707e52cddc9367c828bacfa9b82769b0f",
+    "side-gaze.js": "2a2c245f45b03c95ff31e9789a003e27410f08e8cd1d5df49d1c457da6dc9c3d",
+    "side-expression-model.js": "13ede8e1067805ab664768b99716ef59a6d083416c8cc97a1d39d175ce9c97bf",
+    "side-mouth-model.js": "62a6998da471ece81f5b2067de64d9441c1a76f6f15344581495f53ed53fa164",
+    "side-brow-model.js": "14688fd60a17c963e40c5cd7cf24dbeafb3da052cf5c2341b83440679cca9c18",
+    "side-brow-exclusion.js": "85ab0b404736b405bccd65e6a8e34db5a50c41de54b426defeeff41356ac78e6"
+  },
+  "service": {
+    "url": "http://127.0.0.1:4175/pitch-expression-review.html",
+    "execSessionId": 68497
+  },
+  "formalProjectUpdated": false,
+  "formalProjectVersion": "0.12.0",
+  "githubUpdated": false,
+  "preview": {
+    "file": "../../../../pitch-brow-review-preview.jpg",
+    "sha256": "793caf1bb86b7325c4e0588428d781b11c07c3be5da2d99c2813c3e86f4c212a"
+  }
+}

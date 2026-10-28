@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-26",
+  "timezone": "Asia/Seoul",
+  "userFeedback": "太好了，侧转表情也很满意！请继续进行下去吧，可以一直进行下去了，感觉不会出问题了。",
+  "assetId": "short-hair-side-expression-v1",
+  "acceptedScope": "Existing two fixed side-angle expressions v1, including independent eyes and three mouth stages, approved in side-expression-review.html. Prior front and static design approvals remain valid.",
+  "pendingScope": "New side-angle gaze, other new expressions/angles and continuous head movement are outside this approval.",
+  "approvedManifestBeforeMetadataUpdate": "b32a6968abce67020f1bc3864123cc98c625946808a7a974459d09c8f1f48ff2",
+  "approvedSources": {
+    "left-neutral": {
+      "src": "./assets/short-hair-v1/view-left.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left",
+      "sha256": "23da31b12da3e50550519db9d95077e107d20755ca72fdab8b82335a961206b6"
+    },
+    "left-half-small": {
+      "src": "./assets/short-hair-side-expressions-v1/left-half-small.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left",
+      "sha256": "59f1706eaa93de6b178a6e17cc392f4335964328a3cadfd1a6f5215a23a2ad6c"
+    },
+    "left-closed-wide": {
+      "src": "./assets/short-hair-side-expressions-v1/left-closed-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left",
+      "sha256": "e5d2c2a619b810a383a89cee75fd419310bb70d00b75abc90b5d39179950aeac"
+    },
+    "right-neutral": {
+      "src": "./assets/short-hair-v1/view-right.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right",
+      "sha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3"
+    },
+    "right-half-small": {
+      "src": "./assets/short-hair-side-expressions-v1/right-half-small.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right",
+      "sha256": "27ce8524fd491ad5ed2197895e48afe2c096adb29678c04780f3a781e599731b"
+    },
+    "right-closed-wide": {
+      "src": "./assets/short-hair-side-expressions-v1/right-closed-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right",
+      "sha256": "03f9b19971df7136402430e183f1a49d74af87b6e41227197df10643a43735e7"
+    }
+  },
+  "approvedPosesSha256": "04e8d99af703da1b0ef1ce57bee97df1e3937d6bdc853fb28d3d21caa6dc9035",
+  "approvedModelSha256": "13ede8e1067805ab664768b99716ef59a6d083416c8cc97a1d39d175ce9c97bf"
+}

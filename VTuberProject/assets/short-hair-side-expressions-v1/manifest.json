@@ -1,0 +1,530 @@
+{
+  "version": 1,
+  "id": "short-hair-side-expression-v1",
+  "status": "approved",
+  "createdAt": "2026-10-26",
+  "width": 1122,
+  "height": 1402,
+  "sources": {
+    "left-neutral": {
+      "src": "./assets/short-hair-v1/view-left.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left",
+      "sha256": "23da31b12da3e50550519db9d95077e107d20755ca72fdab8b82335a961206b6"
+    },
+    "left-half-small": {
+      "src": "./assets/short-hair-side-expressions-v1/left-half-small.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left",
+      "sha256": "59f1706eaa93de6b178a6e17cc392f4335964328a3cadfd1a6f5215a23a2ad6c"
+    },
+    "left-closed-wide": {
+      "src": "./assets/short-hair-side-expressions-v1/left-closed-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left",
+      "sha256": "e5d2c2a619b810a383a89cee75fd419310bb70d00b75abc90b5d39179950aeac"
+    },
+    "right-neutral": {
+      "src": "./assets/short-hair-v1/view-right.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right",
+      "sha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3"
+    },
+    "right-half-small": {
+      "src": "./assets/short-hair-side-expressions-v1/right-half-small.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right",
+      "sha256": "27ce8524fd491ad5ed2197895e48afe2c096adb29678c04780f3a781e599731b"
+    },
+    "right-closed-wide": {
+      "src": "./assets/short-hair-side-expressions-v1/right-closed-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right",
+      "sha256": "03f9b19971df7136402430e183f1a49d74af87b6e41227197df10643a43735e7"
+    }
+  },
+  "poses": {
+    "view-left": {
+      "label": "画面左转 · 角色右转",
+      "directionNote": "画面右眼是角色左眼（近眼），画面左眼是角色右眼（远眼）。",
+      "reference": "left-neutral",
+      "faceView": [
+        245,
+        350,
+        630,
+        460
+      ],
+      "mouthReference": [
+        461,
+        654
+      ],
+      "detailViews": {
+        "eyes": [
+          285,
+          425,
+          385,
+          140
+        ],
+        "mouth": [
+          390,
+          620,
+          165,
+          120
+        ]
+      },
+      "patches": {
+        "eyeLeft": {
+          "half": {
+            "source": "left-half-small",
+            "rect": [
+              483,
+              434,
+              177,
+              109
+            ],
+            "destination": [
+              483,
+              434,
+              177,
+              109
+            ],
+            "transform": "translation-only",
+            "feather": 5
+          },
+          "closed": {
+            "source": "left-closed-wide",
+            "rect": [
+              483,
+              434,
+              177,
+              109
+            ],
+            "destination": [
+              483,
+              434,
+              177,
+              109
+            ],
+            "transform": "translation-only",
+            "feather": 5
+          }
+        },
+        "eyeRight": {
+          "half": {
+            "source": "left-half-small",
+            "rect": [
+              294,
+              454,
+              124,
+              102
+            ],
+            "destination": [
+              294,
+              454,
+              124,
+              102
+            ],
+            "transform": "translation-only",
+            "feather": 5
+          },
+          "closed": {
+            "source": "left-closed-wide",
+            "rect": [
+              294,
+              454,
+              124,
+              102
+            ],
+            "destination": [
+              294,
+              454,
+              124,
+              102
+            ],
+            "transform": "translation-only",
+            "feather": 5
+          }
+        },
+        "mouth": {
+          "openSmall": {
+            "source": "left-half-small",
+            "rect": [
+              395,
+              626,
+              153,
+              95
+            ],
+            "destination": [
+              395,
+              636,
+              153,
+              95
+            ],
+            "transform": "translation-only",
+            "feather": 8,
+            "clip": [
+              [
+                395,
+                636
+              ],
+              [
+                548,
+                636
+              ],
+              [
+                548,
+                681
+              ],
+              [
+                520,
+                708
+              ],
+              [
+                491,
+                730
+              ],
+              [
+                451,
+                730
+              ],
+              [
+                433,
+                710
+              ],
+              [
+                413,
+                690
+              ],
+              [
+                395,
+                665
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                461,
+                644
+              ],
+              "destination": [
+                461,
+                654
+              ]
+            }
+          },
+          "openWide": {
+            "source": "left-closed-wide",
+            "rect": [
+              395,
+              619,
+              153,
+              95
+            ],
+            "destination": [
+              395,
+              636,
+              153,
+              95
+            ],
+            "transform": "translation-only",
+            "feather": 8,
+            "clip": [
+              [
+                395,
+                636
+              ],
+              [
+                548,
+                636
+              ],
+              [
+                548,
+                681
+              ],
+              [
+                520,
+                708
+              ],
+              [
+                491,
+                730
+              ],
+              [
+                451,
+                730
+              ],
+              [
+                433,
+                710
+              ],
+              [
+                413,
+                690
+              ],
+              [
+                395,
+                665
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                461,
+                637
+              ],
+              "destination": [
+                461,
+                654
+              ]
+            }
+          }
+        }
+      }
+    },
+    "view-right": {
+      "label": "画面右转 · 角色左转",
+      "directionNote": "画面左眼是角色右眼（近眼），画面右眼是角色左眼（远眼）。",
+      "reference": "right-neutral",
+      "faceView": [
+        245,
+        350,
+        630,
+        460
+      ],
+      "mouthReference": [
+        661,
+        655
+      ],
+      "detailViews": {
+        "eyes": [
+          440,
+          425,
+          385,
+          140
+        ],
+        "mouth": [
+          585,
+          620,
+          165,
+          120
+        ]
+      },
+      "patches": {
+        "eyeLeft": {
+          "half": {
+            "source": "right-half-small",
+            "rect": [
+              705,
+              431,
+              109,
+              111
+            ],
+            "destination": [
+              705,
+              431,
+              109,
+              111
+            ],
+            "transform": "translation-only",
+            "feather": 5
+          },
+          "closed": {
+            "source": "right-closed-wide",
+            "rect": [
+              705,
+              431,
+              109,
+              111
+            ],
+            "destination": [
+              705,
+              431,
+              109,
+              111
+            ],
+            "transform": "translation-only",
+            "feather": 5
+          }
+        },
+        "eyeRight": {
+          "half": {
+            "source": "right-half-small",
+            "rect": [
+              449,
+              445,
+              170,
+              112
+            ],
+            "destination": [
+              449,
+              445,
+              170,
+              112
+            ],
+            "transform": "translation-only",
+            "feather": 5
+          },
+          "closed": {
+            "source": "right-closed-wide",
+            "rect": [
+              449,
+              445,
+              170,
+              112
+            ],
+            "destination": [
+              449,
+              445,
+              170,
+              112
+            ],
+            "transform": "translation-only",
+            "feather": 5
+          }
+        },
+        "mouth": {
+          "openSmall": {
+            "source": "right-half-small",
+            "rect": [
+              590,
+              623,
+              140,
+              95
+            ],
+            "destination": [
+              590,
+              636,
+              140,
+              95
+            ],
+            "transform": "translation-only",
+            "feather": 8,
+            "clip": [
+              [
+                590,
+                636
+              ],
+              [
+                730,
+                636
+              ],
+              [
+                730,
+                674
+              ],
+              [
+                700,
+                698
+              ],
+              [
+                673,
+                724
+              ],
+              [
+                636,
+                724
+              ],
+              [
+                606,
+                704
+              ],
+              [
+                590,
+                680
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                661,
+                642
+              ],
+              "destination": [
+                661,
+                655
+              ]
+            }
+          },
+          "openWide": {
+            "source": "right-closed-wide",
+            "rect": [
+              590,
+              622,
+              140,
+              95
+            ],
+            "destination": [
+              590,
+              636,
+              140,
+              95
+            ],
+            "transform": "translation-only",
+            "feather": 8,
+            "clip": [
+              [
+                590,
+                636
+              ],
+              [
+                730,
+                636
+              ],
+              [
+                730,
+                674
+              ],
+              [
+                700,
+                698
+              ],
+              [
+                673,
+                724
+              ],
+              [
+                636,
+                724
+              ],
+              [
+                606,
+                704
+              ],
+              [
+                590,
+                680
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                661,
+                641
+              ],
+              "destination": [
+                661,
+                655
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "provenance": "./assets/short-hair-side-expressions-v1/provenance.json",
+  "limitations": [
+    "左右侧转分别取自独立画稿；眼睛三档、张嘴三档，尚非连续形变或完整ARKit支持。",
+    "只支持eyeBlinkLeft、eyeBlinkRight、jawOpen、mouthClose；侧向视线、眉毛、噘嘴与抿嘴尚未制作。",
+    "固定对应角度的已批准底图，仅对眼睛和嘴部合成新源稿局部。源像素不缩放、镜像或扭曲。",
+    "每张嘴稿以上唇中央进行固定平移登记，张嘴主要向下；这属于源稿准备，不是动态移动整个嘴。",
+    "两姿态供独立观察，切换会回中性；尚未接入实时连续转头或俯仰表情。",
+    "AI生成局部素材保留皮肤底色与画出的发丝遮挡，尚非正式手工分层资产。2026-10-26用户已确认当前侧转表情。"
+  ],
+  "approval": "./assets/short-hair-side-expressions-v1/approval.json"
+}

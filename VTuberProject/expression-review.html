@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'self'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+  <title>短发角色 · 正面表情验收</title>
+  <link rel="stylesheet" href="./expression-review.css" />
+</head>
+<body>
+  <main>
+    <header class="page-header">
+      <div>
+        <a class="back-link" href="./short-hair-studio.html">← 角色工作台</a>
+        <a class="back-link" href="./character-review.html">← 已确认静态设计</a>
+        <a class="back-link" href="./side-expression-review.html">已确认侧转表情 →</a>
+        <a class="back-link" href="./pitch-expression-review.html">俯仰表情与眉毛 →</a>
+        <p class="eyebrow">CHARACTER STUDY · 02</p>
+        <h1>让视线跟随眼睑自然变化</h1>
+        <p class="intro">正面表情、自然动作与独立视线已确认。侧转表情也已确认，抬头与低头的基础表情可从上方链接查看。</p>
+      </div>
+      <div class="phase"><span class="phase-dot"></span><strong id="variantStatus">已确认视线</strong><span id="variantScope">正面视线效果已获用户确认</span></div>
+    </header>
+
+    <div class="variant-bar" role="group" aria-label="表情素材版本">
+      <button type="button" data-variant="candidate" aria-pressed="true">已确认视线 <span>独立视线与五档表情</span></button>
+      <button type="button" data-variant="motion" aria-pressed="false">已确认自然动作 <span>五档表情与自然节奏</span></button>
+      <button type="button" data-variant="approved" aria-pressed="false">已确认基础版 <span>保留已批准画稿</span></button>
+    </div>
+    <p id="loadStatus" class="load-status" role="status" aria-live="polite">正在载入本地表情画稿…</p>
+    <fieldset id="workspaceControls" class="workspace" disabled>
+      <legend class="sr-only">正面表情预览与验收</legend>
+      <div class="workspace-toolbar">
+        <div class="segments" role="group" aria-label="预览范围">
+          <button type="button" data-view="face" aria-pressed="true">脸部</button>
+          <button type="button" data-view="full" aria-pressed="false">全幅</button>
+        </div>
+        <div class="display-toggles">
+          <label><input id="guidesToggle" type="checkbox" />辅助线</label>
+          <label><input id="originalToggle" type="checkbox" />看原画</label>
+        </div>
+      </div>
+
+      <div class="review-layout">
+        <section class="canvas-panel" aria-labelledby="previewHeading">
+          <div class="panel-heading"><div><span class="panel-kicker">EXPRESSION PREVIEW</span><h2 id="previewHeading">中性</h2></div><span id="previewBadge" class="badge">静止预览</span></div>
+          <div class="canvas-stage"><canvas id="expressionCanvas" width="720" height="720" aria-label="当前正面表情预览"></canvas><p id="canvasPlaceholder">等待画稿载入</p></div>
+          <p id="guidesCaption" class="guides-caption" hidden>细线：固定上唇参考位置 · 方框：局部画稿区域</p>
+          <div class="demo-row"><label class="sr-only" for="demoMode">演示模式</label><select id="demoMode"><option value="natural">自然动作 · 8 秒</option><option value="frames">逐稿观察 · 10 秒</option></select><button id="demoToggle" type="button" aria-pressed="false">播放演示</button><p id="motionStatus" role="status" aria-live="polite">默认静止；左右方向均以角色自身为准。</p></div>
+        </section>
+
+        <aside class="side-panel">
+          <section class="reference-card" aria-labelledby="referenceHeading">
+            <div class="reference-image"><canvas id="referenceCanvas" width="224" height="280" aria-label="已经用户确认的正面原画"></canvas></div>
+            <div><span class="panel-kicker">APPROVED REFERENCE</span><h2 id="referenceHeading">已确认原画</h2><p>对照原有的眼型、眉形和细柔笑线。</p><span class="badge approved">静态设计已确认</span></div>
+          </section>
+
+          <section class="presets-panel" aria-labelledby="presetsHeading">
+            <h2 id="presetsHeading">选择动作</h2>
+            <div class="group-tabs" role="group" aria-label="表情类别">
+              <button type="button" data-group="eyes" aria-pressed="true">眼睛</button>
+              <button type="button" data-group="gaze" aria-pressed="false" hidden>视线</button>
+              <button type="button" data-group="mouth" aria-pressed="false">嘴部</button>
+              <button type="button" data-group="brows" aria-pressed="false">眉毛</button>
+              <button type="button" data-group="combined" aria-pressed="false">组合</button>
+            </div>
+            <div id="presetButtons" class="preset-buttons" role="group" aria-label="表情预设"></div>
+            <p id="directionNote" class="direction-note">角色左侧在画面右侧；左右移嘴使用各自的画稿。</p>
+          </section>
+
+          <section class="feedback-panel" aria-labelledby="feedbackHeading">
+            <h2 id="feedbackHeading">中性 · 你的判断</h2>
+            <p id="feedbackHint" class="feedback-hint">反馈自动保存在本浏览器。</p>
+            <fieldset id="feedbackControls" class="feedback-controls">
+              <legend class="sr-only">当前预设评价</legend>
+              <div class="status-options">
+                <label><input type="radio" name="feedbackStatus" value="pass" /><span>通过</span></label>
+                <label><input type="radio" name="feedbackStatus" value="revise" /><span>需修改</span></label>
+                <label><input type="radio" name="feedbackStatus" value="undecided" checked /><span>未判断</span></label>
+              </div>
+              <label class="note-label" for="feedbackNote">备注</label>
+              <textarea id="feedbackNote" maxlength="4000" rows="3" placeholder="例如：上唇有位移、闭眼线过粗…"></textarea>
+            </fieldset>
+            <p id="saveStatus" class="save-status" role="status" aria-live="polite">尚未记录评价。</p>
+          </section>
+        </aside>
+      </div>
+
+      <section class="export-row" aria-label="导出当前预览与反馈">
+        <p id="reviewProgress">预设评价保留在本浏览器。</p>
+        <div><button id="exportFeedback" type="button">导出反馈 JSON ↗</button><button id="exportPng" type="button">保存当前 PNG ↗</button></div>
+      </section>
+
+      <details id="sequenceReview" class="detail-panel sequence-panel">
+        <summary>查看画稿顺序 <span>并排对照已确认档位</span></summary>
+        <p class="detail-intro">同一行使用固定的局部范围与显示倍率。点击画稿可选中对应预设；窄栏可左右滑动查看。</p>
+        <div id="sequenceRows"></div>
+      </details>
+
+      <details id="advancedControls" class="detail-panel">
+        <summary>高级控制 <span id="channelSummary">22 个 ARKit 通道 · JSON 导入</span></summary>
+        <p id="channelIntro" class="detail-intro">系数范围为 0–1。手动调整会暂停演示；支持的通道随当前素材版本显示。</p>
+        <p id="stateReadout" class="state-readout">当前画稿与输入目标将在载入后显示。</p>
+        <div id="channelSliders" class="channel-sliders"></div>
+        <div class="json-import">
+          <label for="channelJson">导入通道 JSON <span>可粘贴通道对象，或本页导出的完整反馈 JSON。</span></label>
+          <textarea id="channelJson" rows="4" spellcheck="false" placeholder='{"eyeBlinkLeft":0.5,"jawOpen":0.4}'></textarea>
+          <div><button id="applyJson" type="button">应用 JSON</button><p id="importStatus" role="status" aria-live="polite">未列出的通道会明确列出并忽略。</p></div>
+        </div>
+      </details>
+
+      <details class="detail-panel capability-panel">
+        <summary>样机能力说明 <span>已确认版本的能力与边界</span></summary>
+        <p id="frameCapability">五档眼睑、五档张嘴、自然动作与独立视线已获用户确认。</p>
+        <p>自然动作依次显示相邻的实际画稿；逐稿观察、静态预设和手动参数直接显示所选画稿。画稿之间不交叉淡化、不拉伸扭曲。自然演示暂停会保留当前可见帧；导出同时记录输入目标与实际画稿。</p>
+        <p id="gazeCapability">本版使用同一眼球配合五档眼睑，高光随闭眼遮挡消失，中心视线也保持同一眼球外观。可切回已确认版本比较原逐档画稿。自然演示沿用已确认节奏，视线保持朝前。眉头、眉尾与单侧抿嘴仍采用整部位近似；侧向表情与连续转头尚未接入。</p>
+        <p id="capabilityStatus">可用画稿以载入后的状态为准。</p>
+      </details>
+    </fieldset>
+    <footer>本页不启用摄像头。基础版、五档表情、自然动作与正面视线已获用户确认；反馈按素材版本独立保存，批准记录与本浏览器评价保持分开。</footer>
+    <noscript><p class="load-status error">请启用 JavaScript 以查看本地表情画稿与记录评价。</p></noscript>
+  </main>
+  <script type="module" src="./expression-review.js"></script>
+</body>
+</html>

@@ -1,0 +1,872 @@
+{
+  "schemaVersion": 1,
+  "status": "source-and-internal-compositor-review-completed",
+  "method": {
+    "eyes": "Manual native source edge/iris-center-span estimates including dark pupil and highlights. Values have about ±2px reading uncertainty and are not used to manufacture aperture masks. Polygon areas are an independent registration check in aperture-progression.json.",
+    "mouth": "Approximate colored oral cavity center-column heights excluding teeth and exterior lip line. Source upper-lip positions are measured separately and translated once to the accepted anatomical target.",
+    "order": {
+      "eyes": [
+        "open",
+        "quarter",
+        "half",
+        "threeQuarter",
+        "closed"
+      ],
+      "mouth": [
+        "neutral",
+        "parted",
+        "openSmall",
+        "openMedium",
+        "openWide"
+      ]
+    }
+  },
+  "notes": [
+    "The corrected right-quarter near eye uses source v4; both its lid trajectory and aperture separation were inspected before selection.",
+    "The corrected right-down far-quarter eye uses source v2; first-version quarter was too close to half and is retained only as provenance.",
+    "Intervals are visually unequal: left-facing quarter stages are close to open; right-up small/medium and left-down parted/small are modest steps. These are actual distinct source drawings, not synthesized in-betweens.",
+    "Minor generated skin-tone, fine-strand, lip-lightness and eyelid-edge variation remains a known limitation. Final native contact sheets were reviewed internally with no blocking seams or reversed intermediate trajectories found."
+  ],
+  "poses": {
+    "view-left-up": {
+      "selectedSources": {
+        "view-left-up-quarter-parted": {
+          "file": "view-left-up-quarter-parted.png",
+          "sha256": "d8ada72d7662e5738efa4ab5221fcf47d5367e22797c562119688f561663c4c9"
+        },
+        "view-left-up-three-quarter-medium": {
+          "file": "view-left-up-three-quarter-medium.png",
+          "sha256": "b23f197157208100c910cde8143601fd98067b5716a24a1c5660a18757455f70"
+        }
+      },
+      "metrics": {
+        "eyes": {
+          "eyeLeft": {
+            "estimatedHeights": [
+              49,
+              38,
+              32,
+              12,
+              0
+            ]
+          },
+          "eyeRight": {
+            "estimatedHeights": [
+              44,
+              34,
+              29,
+              12,
+              0
+            ]
+          }
+        },
+        "mouth": {
+          "estimatedHeights": [
+            0,
+            12,
+            17,
+            29,
+            63
+          ]
+        }
+      },
+      "upperLipAnchors": {
+        "parted": {
+          "kind": "upper-lip",
+          "source": [
+            405,
+            572
+          ],
+          "destination": [
+            405,
+            574
+          ]
+        },
+        "openMedium": {
+          "kind": "upper-lip",
+          "source": [
+            405,
+            565
+          ],
+          "destination": [
+            405,
+            574
+          ]
+        }
+      },
+      "sourceInspection": "Selected native source drawings inspected; matching final composite sheet reviewed internally."
+    },
+    "view-right-up": {
+      "selectedSources": {
+        "view-right-up-quarter-parted": {
+          "file": "view-right-up-quarter-parted.png",
+          "sha256": "4e6c6e0c093ec531d0fb155aa3107703e13fad1b74886cce9b79eec4d9e48833"
+        },
+        "view-right-up-three-quarter-medium": {
+          "file": "view-right-up-three-quarter-medium.png",
+          "sha256": "452075292d9d3d7cd40005705b999d282ac50eb4f03d619dc662283adc8a4eaf"
+        }
+      },
+      "metrics": {
+        "eyes": {
+          "eyeLeft": {
+            "estimatedHeights": [
+              50,
+              37,
+              31,
+              11,
+              0
+            ]
+          },
+          "eyeRight": {
+            "estimatedHeights": [
+              51,
+              39,
+              34,
+              14,
+              0
+            ]
+          }
+        },
+        "mouth": {
+          "estimatedHeights": [
+            0,
+            12,
+            19,
+            24,
+            47
+          ]
+        }
+      },
+      "upperLipAnchors": {
+        "parted": {
+          "kind": "upper-lip",
+          "source": [
+            690,
+            586
+          ],
+          "destination": [
+            690,
+            588
+          ]
+        },
+        "openMedium": {
+          "kind": "upper-lip",
+          "source": [
+            690,
+            580
+          ],
+          "destination": [
+            690,
+            588
+          ]
+        }
+      },
+      "sourceInspection": "Selected native source drawings inspected; matching final composite sheet reviewed internally."
+    },
+    "view-left": {
+      "selectedSources": {
+        "view-left-quarter-parted": {
+          "file": "view-left-quarter-parted-v2.png",
+          "sha256": "b5e481284928c25400b986d9fc1720b7b09a27b45172fd52f3bfd9796161d0c6"
+        },
+        "view-left-three-quarter-medium": {
+          "file": "view-left-three-quarter-medium-v2.png",
+          "sha256": "1169474dcf13fc1e64e283943297388f2e88f7ac37f523dc89f2acd025c1933c"
+        }
+      },
+      "metrics": {
+        "eyes": {
+          "eyeLeft": {
+            "estimatedHeights": [
+              54,
+              51,
+              32,
+              14,
+              0
+            ]
+          },
+          "eyeRight": {
+            "estimatedHeights": [
+              48,
+              45,
+              29,
+              13,
+              0
+            ]
+          }
+        },
+        "mouth": {
+          "estimatedHeights": [
+            0,
+            15,
+            29,
+            38,
+            50
+          ]
+        }
+      },
+      "upperLipAnchors": {
+        "parted": {
+          "kind": "upper-lip",
+          "source": [
+            461,
+            644
+          ],
+          "destination": [
+            461,
+            654
+          ]
+        },
+        "openMedium": {
+          "kind": "upper-lip",
+          "source": [
+            461,
+            635
+          ],
+          "destination": [
+            461,
+            654
+          ]
+        }
+      },
+      "sourceInspection": "Selected native source drawings inspected; matching final composite sheet reviewed internally."
+    },
+    "view-right": {
+      "selectedSources": {
+        "view-right-quarter-parted": {
+          "file": "view-right-quarter-parted-v4.png",
+          "sha256": "96ab85e9e2420667160824f5d926008a207a594120ecb51b17077c352b3d6d19"
+        },
+        "view-right-three-quarter-medium": {
+          "file": "view-right-three-quarter-medium-v2.png",
+          "sha256": "85f3a3fdeea52395caac9d5438051025159c749ecaca4e342a25c0bf33f54124"
+        }
+      },
+      "metrics": {
+        "eyes": {
+          "eyeLeft": {
+            "estimatedHeights": [
+              48,
+              39,
+              28,
+              12,
+              0
+            ]
+          },
+          "eyeRight": {
+            "estimatedHeights": [
+              49,
+              36,
+              28,
+              12,
+              0
+            ]
+          }
+        },
+        "mouth": {
+          "estimatedHeights": [
+            0,
+            15,
+            30,
+            38,
+            49
+          ]
+        }
+      },
+      "upperLipAnchors": {
+        "parted": {
+          "kind": "upper-lip",
+          "source": [
+            661,
+            646
+          ],
+          "destination": [
+            661,
+            655
+          ]
+        },
+        "openMedium": {
+          "kind": "upper-lip",
+          "source": [
+            661,
+            641
+          ],
+          "destination": [
+            661,
+            655
+          ]
+        }
+      },
+      "sourceInspection": "Selected native source drawings inspected; matching final composite sheet reviewed internally."
+    },
+    "view-left-down": {
+      "selectedSources": {
+        "view-left-down-quarter-parted": {
+          "file": "view-left-down-quarter-parted.png",
+          "sha256": "4481cc535f635eb16bca11dde1c73c50afada8676dec09d3595483591172ede5"
+        },
+        "view-left-down-three-quarter-medium": {
+          "file": "view-left-down-three-quarter-medium.png",
+          "sha256": "6bd9bff3535d2310cf3011c39377ab1d441950f287cf257704a2ca47b76bd9cd"
+        }
+      },
+      "metrics": {
+        "eyeOrder": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouthOrder": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ],
+        "eyes": {
+          "eyeLeft": {
+            "columnX": 526,
+            "visibleIrisRangesY": [
+              [
+                533,
+                575
+              ],
+              [
+                544,
+                574
+              ],
+              [
+                552,
+                572
+              ],
+              [
+                565,
+                573
+              ],
+              null
+            ],
+            "estimatedHeights": [
+              43,
+              31,
+              21,
+              9,
+              0
+            ]
+          },
+          "eyeRight": {
+            "columnX": 345,
+            "visibleIrisRangesY": [
+              [
+                551,
+                587
+              ],
+              [
+                560,
+                587
+              ],
+              [
+                566,
+                585
+              ],
+              [
+                577,
+                585
+              ],
+              null
+            ],
+            "estimatedHeights": [
+              37,
+              28,
+              20,
+              9,
+              0
+            ]
+          }
+        },
+        "mouth": {
+          "columnX": 454,
+          "coloredInteriorRangesY": [
+            null,
+            [
+              708,
+              717
+            ],
+            [
+              708,
+              721
+            ],
+            [
+              708,
+              729
+            ],
+            [
+              697,
+              733
+            ]
+          ],
+          "estimatedHeights": [
+            0,
+            10,
+            14,
+            22,
+            37
+          ]
+        }
+      },
+      "upperLipAnchors": {
+        "parted": {
+          "kind": "upper-lip",
+          "source": [
+            454,
+            706
+          ],
+          "destination": [
+            454,
+            711
+          ]
+        },
+        "openMedium": {
+          "kind": "upper-lip",
+          "source": [
+            454,
+            703
+          ],
+          "destination": [
+            454,
+            711
+          ]
+        }
+      },
+      "sourceInspection": "Selected native source drawings inspected; matching final composite sheet reviewed internally."
+    },
+    "view-up": {
+      "selectedSources": {
+        "view-up-quarter-parted": {
+          "file": "view-up-quarter-parted.png",
+          "sha256": "bb531326da80b56c0b580c13338762cdd8653e63acd4811640fc6266178908a5"
+        },
+        "view-up-three-quarter-medium": {
+          "file": "view-up-three-quarter-medium.png",
+          "sha256": "be3e876f0264fc9005f7b3cbb4c6498aa939fb48b963a545305d145ce9b2cd33"
+        }
+      },
+      "metrics": {
+        "eyeOrder": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouthOrder": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ],
+        "eyes": {
+          "eyeLeft": {
+            "columnX": 668,
+            "visibleIrisRangesY": [
+              [
+                442,
+                486
+              ],
+              [
+                450,
+                484
+              ],
+              [
+                459,
+                485
+              ],
+              [
+                470,
+                482
+              ],
+              null
+            ],
+            "estimatedHeights": [
+              45,
+              35,
+              27,
+              13,
+              0
+            ]
+          },
+          "eyeRight": {
+            "columnX": 444,
+            "visibleIrisRangesY": [
+              [
+                440,
+                487
+              ],
+              [
+                450,
+                485
+              ],
+              [
+                459,
+                486
+              ],
+              [
+                473,
+                483
+              ],
+              null
+            ],
+            "estimatedHeights": [
+              48,
+              36,
+              28,
+              11,
+              0
+            ]
+          }
+        },
+        "mouth": {
+          "columnX": 558,
+          "coloredInteriorRangesY": [
+            null,
+            [
+              600,
+              613
+            ],
+            [
+              598,
+              617
+            ],
+            [
+              596,
+              624
+            ],
+            [
+              594,
+              641
+            ]
+          ],
+          "estimatedHeights": [
+            0,
+            14,
+            20,
+            29,
+            48
+          ]
+        }
+      },
+      "upperLipAnchors": {
+        "parted": {
+          "kind": "upper-lip",
+          "source": [
+            558,
+            594
+          ],
+          "destination": [
+            558,
+            604
+          ]
+        },
+        "openMedium": {
+          "kind": "upper-lip",
+          "source": [
+            558,
+            589
+          ],
+          "destination": [
+            558,
+            604
+          ]
+        }
+      },
+      "sourceInspection": "Selected native source drawings inspected; matching final composite sheet reviewed internally."
+    },
+    "view-down": {
+      "selectedSources": {
+        "view-down-quarter-parted": {
+          "file": "view-down-quarter-parted.png",
+          "sha256": "ab2c3d882ed044015a830b6b20ca93f790d274d853e9ad17c7ceb0d9aa1838c3"
+        },
+        "view-down-three-quarter-medium": {
+          "file": "view-down-three-quarter-medium.png",
+          "sha256": "1f4641028278566993ab6b5df5593591c2ca2b3e3e90fc9cb89eb6d4b1c130da"
+        }
+      },
+      "metrics": {
+        "eyeOrder": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouthOrder": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ],
+        "eyes": {
+          "eyeLeft": {
+            "columnX": 668,
+            "visibleIrisRangesY": [
+              [
+                531,
+                575
+              ],
+              [
+                545,
+                574
+              ],
+              [
+                551,
+                571
+              ],
+              [
+                565,
+                576
+              ],
+              null
+            ],
+            "estimatedHeights": [
+              45,
+              30,
+              21,
+              12,
+              0
+            ]
+          },
+          "eyeRight": {
+            "columnX": 445,
+            "visibleIrisRangesY": [
+              [
+                543,
+                583
+              ],
+              [
+                553,
+                582
+              ],
+              [
+                559,
+                579
+              ],
+              [
+                569,
+                579
+              ],
+              null
+            ],
+            "estimatedHeights": [
+              41,
+              30,
+              21,
+              11,
+              0
+            ]
+          }
+        },
+        "mouth": {
+          "columnX": 559,
+          "coloredInteriorRangesY": [
+            null,
+            [
+              713,
+              720
+            ],
+            [
+              707,
+              729
+            ],
+            [
+              707,
+              736
+            ],
+            [
+              702,
+              739
+            ]
+          ],
+          "estimatedHeights": [
+            0,
+            8,
+            23,
+            30,
+            38
+          ]
+        }
+      },
+      "upperLipAnchors": {
+        "parted": {
+          "kind": "upper-lip",
+          "source": [
+            559,
+            706
+          ],
+          "destination": [
+            559,
+            714
+          ]
+        },
+        "openMedium": {
+          "kind": "upper-lip",
+          "source": [
+            559,
+            700
+          ],
+          "destination": [
+            559,
+            714
+          ]
+        }
+      },
+      "sourceInspection": "Selected native source drawings inspected; matching final composite sheet reviewed internally."
+    },
+    "view-right-down": {
+      "selectedSources": {
+        "view-right-down-quarter-parted": {
+          "file": "view-right-down-quarter-parted-v2.png",
+          "sha256": "d744e922bd7c61b8fdac1c297995a940a2c2d93f82c043ae67d718d5d0409f4d"
+        },
+        "view-right-down-three-quarter-medium": {
+          "file": "view-right-down-three-quarter-medium.png",
+          "sha256": "c12b6e2ca49fd726d306c167056b8ebc5fa20dc83f51d675a106a9a70dbd284f"
+        }
+      },
+      "metrics": {
+        "eyeOrder": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouthOrder": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ],
+        "eyes": {
+          "eyeLeft": {
+            "columnX": 789,
+            "visibleIrisRangesY": [
+              [
+                548,
+                582
+              ],
+              [
+                554,
+                582
+              ],
+              [
+                563,
+                584
+              ],
+              [
+                577,
+                584
+              ],
+              null
+            ],
+            "estimatedHeights": [
+              35,
+              29,
+              22,
+              8,
+              0
+            ]
+          },
+          "eyeRight": {
+            "columnX": 621,
+            "visibleIrisRangesY": [
+              [
+                501,
+                541
+              ],
+              [
+                511,
+                538
+              ],
+              [
+                522,
+                543
+              ],
+              [
+                540,
+                545
+              ],
+              null
+            ],
+            "estimatedHeights": [
+              41,
+              28,
+              22,
+              6,
+              0
+            ]
+          }
+        },
+        "mouth": {
+          "columnX": 671,
+          "coloredInteriorRangesY": [
+            null,
+            [
+              689,
+              695
+            ],
+            [
+              685,
+              701
+            ],
+            [
+              684,
+              708
+            ],
+            [
+              678,
+              713
+            ]
+          ],
+          "estimatedHeights": [
+            0,
+            7,
+            17,
+            25,
+            36
+          ]
+        }
+      },
+      "upperLipAnchors": {
+        "parted": {
+          "kind": "upper-lip",
+          "source": [
+            671,
+            686
+          ],
+          "destination": [
+            671,
+            691
+          ]
+        },
+        "openMedium": {
+          "kind": "upper-lip",
+          "source": [
+            671,
+            678
+          ],
+          "destination": [
+            671,
+            691
+          ]
+        }
+      },
+      "sourceInspection": "Selected native source drawings inspected; matching final composite sheet reviewed internally."
+    }
+  }
+}

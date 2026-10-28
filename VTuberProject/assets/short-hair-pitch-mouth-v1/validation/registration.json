@@ -1,0 +1,1713 @@
+{
+  "schema": "pitch-mouth-registration-v1",
+  "status": "candidate-registration-complete; final source adoption and actual-composite visual QA pending",
+  "poses": {
+    "view-left-up": {
+      "mouthReference": [
+        405,
+        574
+      ],
+      "protection": {
+        "nose": [
+          [
+            [
+              343,
+              485
+            ],
+            [
+              355,
+              486
+            ],
+            [
+              366,
+              522
+            ],
+            [
+              356,
+              527
+            ],
+            [
+              345,
+              503
+            ]
+          ],
+          [
+            [
+              366,
+              502
+            ],
+            [
+              383,
+              503
+            ],
+            [
+              383,
+              515
+            ],
+            [
+              366,
+              514
+            ]
+          ]
+        ],
+        "chin": [
+          [
+            [
+              368,
+              682
+            ],
+            [
+              392,
+              684
+            ],
+            [
+              428,
+              674
+            ],
+            [
+              441,
+              684
+            ],
+            [
+              398,
+              706
+            ],
+            [
+              374,
+              706
+            ]
+          ]
+        ],
+        "hair": [
+          [
+            [
+              371,
+              300
+            ],
+            [
+              407,
+              300
+            ],
+            [
+              427,
+              359
+            ],
+            [
+              407,
+              403
+            ],
+            [
+              386,
+              419
+            ],
+            [
+              375,
+              384
+            ]
+          ],
+          [
+            [
+              648,
+              366
+            ],
+            [
+              683,
+              389
+            ],
+            [
+              669,
+              470
+            ],
+            [
+              623,
+              520
+            ],
+            [
+              610,
+              509
+            ],
+            [
+              636,
+              463
+            ]
+          ]
+        ],
+        "brows": [
+          [
+            [
+              455,
+              348
+            ],
+            [
+              486,
+              342
+            ],
+            [
+              535,
+              339
+            ],
+            [
+              575,
+              343
+            ],
+            [
+              603,
+              351
+            ],
+            [
+              602,
+              360
+            ],
+            [
+              574,
+              352
+            ],
+            [
+              534,
+              348
+            ],
+            [
+              485,
+              352
+            ],
+            [
+              458,
+              361
+            ]
+          ],
+          [
+            [
+              312,
+              370
+            ],
+            [
+              337,
+              368
+            ],
+            [
+              362,
+              372
+            ],
+            [
+              368,
+              383
+            ],
+            [
+              339,
+              378
+            ],
+            [
+              314,
+              380
+            ]
+          ]
+        ],
+        "eyes": [
+          [
+            [
+              451,
+              365
+            ],
+            [
+              644,
+              365
+            ],
+            [
+              644,
+              475
+            ],
+            [
+              451,
+              475
+            ]
+          ],
+          [
+            [
+              281,
+              391
+            ],
+            [
+              396,
+              391
+            ],
+            [
+              396,
+              486
+            ],
+            [
+              281,
+              486
+            ]
+          ]
+        ]
+      },
+      "patches": {
+        "mouth": {
+          "shiftLeft": {
+            "source": "view-left-up-shiftLeft",
+            "rect": [
+              342,
+              551,
+              132,
+              65
+            ],
+            "destination": [
+              342,
+              552,
+              132,
+              65
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                347,
+                552
+              ],
+              [
+                474,
+                552
+              ],
+              [
+                474,
+                617
+              ],
+              [
+                359,
+                617
+              ],
+              [
+                349,
+                595
+              ],
+              [
+                342,
+                578
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                412.5,
+                573
+              ],
+              "destination": [
+                412.5,
+                574
+              ]
+            }
+          },
+          "shiftRight": {
+            "source": "view-left-up-shiftRight",
+            "rect": [
+              342,
+              550,
+              132,
+              65
+            ],
+            "destination": [
+              342,
+              552,
+              132,
+              65
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                347,
+                552
+              ],
+              [
+                474,
+                552
+              ],
+              [
+                474,
+                617
+              ],
+              [
+                359,
+                617
+              ],
+              [
+                349,
+                595
+              ],
+              [
+                342,
+                578
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                401,
+                572
+              ],
+              "destination": [
+                401,
+                574
+              ]
+            }
+          },
+          "press": {
+            "source": "view-left-up-press",
+            "rect": [
+              342,
+              552,
+              132,
+              65
+            ],
+            "destination": [
+              342,
+              552,
+              132,
+              65
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                347,
+                552
+              ],
+              [
+                474,
+                552
+              ],
+              [
+                474,
+                617
+              ],
+              [
+                359,
+                617
+              ],
+              [
+                349,
+                595
+              ],
+              [
+                342,
+                578
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                405,
+                574
+              ],
+              "destination": [
+                405,
+                574
+              ]
+            }
+          },
+          "pucker": {
+            "source": "view-left-up-pucker",
+            "rect": [
+              322,
+              550,
+              132,
+              65
+            ],
+            "destination": [
+              342,
+              552,
+              132,
+              65
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                349,
+                552
+              ],
+              [
+                474,
+                552
+              ],
+              [
+                474,
+                617
+              ],
+              [
+                371,
+                617
+              ],
+              [
+                356,
+                593
+              ],
+              [
+                349,
+                574
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                385,
+                572
+              ],
+              "destination": [
+                405,
+                574
+              ]
+            }
+          }
+        }
+      },
+      "measurements": {
+        "shiftLeft": {
+          "sourceVisibleLineBBox": [
+            362,
+            565,
+            457,
+            581
+          ],
+          "neutralVisibleCenterX": 402,
+          "visibleCenterDeltaX": 7.5,
+          "anatomicalReference": [
+            405,
+            574
+          ],
+          "registeredDirectionalUpperLip": [
+            412.5,
+            574
+          ],
+          "fixedTranslation": [
+            0,
+            1
+          ],
+          "note": "Source x preserved. Upper-lip x uses approved anatomical reference plus measured directional center displacement; the visible-line bbox center is not substituted as the anatomical anchor.",
+          "measuredFile": "view-left-up-shiftLeft.png",
+          "sourceSha256": "c47d7a64b863e698d8b15546e1f3db0e46f9cddd9fd712d31b45912db3786566"
+        },
+        "shiftRight": {
+          "sourceVisibleLineBBox": [
+            358,
+            568,
+            438,
+            577
+          ],
+          "neutralVisibleCenterX": 402,
+          "visibleCenterDeltaX": -4,
+          "anatomicalReference": [
+            405,
+            574
+          ],
+          "registeredDirectionalUpperLip": [
+            401,
+            574
+          ],
+          "fixedTranslation": [
+            0,
+            2
+          ],
+          "note": "Source x preserved. Upper-lip x uses approved anatomical reference plus measured directional center displacement; the visible-line bbox center is not substituted as the anatomical anchor.",
+          "measuredFile": "view-left-up-shiftRight.png",
+          "sourceSha256": "27664a11ab30b4de96f57cf0f9d9c49abeb2898e32964941b49d1918e2dd7ed9"
+        },
+        "press": {
+          "measuredFile": "view-left-up-press-v2.png",
+          "sourceVisibleLineBBox": [
+            363,
+            573,
+            439,
+            580
+          ],
+          "neutralVisibleCenterX": 402,
+          "visibleCenterDeltaX": -1.0,
+          "anatomicalReference": [
+            405,
+            574
+          ],
+          "registeredDirectionalUpperLip": [
+            405,
+            574
+          ],
+          "fixedTranslation": [
+            0,
+            0
+          ],
+          "note": "Source x is preserved for directional states. Pucker central crease is anatomically registered; visible bbox center is a direction check, not the upper-lip anchor.",
+          "sourceSha256": "c8848c9a8551f351dda558c2bf073522bad93e46c68ee791fe0f1f861f2d6723"
+        },
+        "pucker": {
+          "measuredFile": "view-left-up-pucker-v3.png",
+          "sourceVisibleLineBBox": [
+            365,
+            572,
+            404,
+            579
+          ],
+          "neutralVisibleCenterX": 402,
+          "visibleCenterDeltaX": -17.5,
+          "anatomicalReference": [
+            405,
+            574
+          ],
+          "registeredDirectionalUpperLip": [
+            405,
+            574
+          ],
+          "fixedTranslation": [
+            20,
+            2
+          ],
+          "note": "Pucker central upper-lip peak is anatomically registered; directional state keeps source x and its real displacement. The bbox center is not the anatomical anchor.",
+          "sourceSha256": "db5a610d3a19b2d5ada10f6d166e04e1857819ee77d46cb203fbcdf6fd7a0abf"
+        }
+      },
+      "detailViews": {
+        "mouth": [
+          325,
+          532,
+          160,
+          100
+        ]
+      }
+    },
+    "view-right-up": {
+      "mouthReference": [
+        690,
+        588
+      ],
+      "protection": {
+        "nose": [
+          [
+            [
+              724,
+              501
+            ],
+            [
+              738,
+              501
+            ],
+            [
+              739,
+              518
+            ],
+            [
+              730,
+              538
+            ],
+            [
+              720,
+              536
+            ]
+          ]
+        ],
+        "chin": [
+          [
+            [
+              668,
+              683
+            ],
+            [
+              700,
+              688
+            ],
+            [
+              722,
+              682
+            ],
+            [
+              728,
+              696
+            ],
+            [
+              710,
+              706
+            ],
+            [
+              681,
+              701
+            ]
+          ]
+        ],
+        "hair": [
+          [
+            [
+              641,
+              294
+            ],
+            [
+              689,
+              293
+            ],
+            [
+              704,
+              345
+            ],
+            [
+              691,
+              389
+            ],
+            [
+              671,
+              418
+            ],
+            [
+              650,
+              390
+            ]
+          ],
+          [
+            [
+              826,
+              397
+            ],
+            [
+              848,
+              410
+            ],
+            [
+              845,
+              488
+            ],
+            [
+              817,
+              530
+            ],
+            [
+              808,
+              516
+            ],
+            [
+              822,
+              480
+            ]
+          ]
+        ],
+        "brows": [
+          [
+            [
+              499,
+              368
+            ],
+            [
+              534,
+              361
+            ],
+            [
+              577,
+              361
+            ],
+            [
+              615,
+              367
+            ],
+            [
+              619,
+              378
+            ],
+            [
+              577,
+              372
+            ],
+            [
+              535,
+              373
+            ],
+            [
+              499,
+              380
+            ]
+          ],
+          [
+            [
+              721,
+              369
+            ],
+            [
+              742,
+              358
+            ],
+            [
+              774,
+              354
+            ],
+            [
+              790,
+              357
+            ],
+            [
+              792,
+              365
+            ],
+            [
+              774,
+              364
+            ],
+            [
+              746,
+              368
+            ],
+            [
+              722,
+              380
+            ]
+          ]
+        ],
+        "eyes": [
+          [
+            [
+              708,
+              382
+            ],
+            [
+              819,
+              382
+            ],
+            [
+              819,
+              492
+            ],
+            [
+              708,
+              492
+            ]
+          ],
+          [
+            [
+              449,
+              389
+            ],
+            [
+              635,
+              389
+            ],
+            [
+              635,
+              504
+            ],
+            [
+              449,
+              504
+            ]
+          ]
+        ]
+      },
+      "patches": {
+        "mouth": {
+          "pucker": {
+            "source": "view-right-up-pucker",
+            "rect": [
+              639,
+              559,
+              139,
+              59
+            ],
+            "destination": [
+              619,
+              563,
+              139,
+              59
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                619,
+                563
+              ],
+              [
+                752,
+                563
+              ],
+              [
+                758,
+                590
+              ],
+              [
+                750,
+                610
+              ],
+              [
+                737,
+                622
+              ],
+              [
+                619,
+                622
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                710,
+                584
+              ],
+              "destination": [
+                690,
+                588
+              ]
+            }
+          },
+          "press": {
+            "source": "view-right-up-press",
+            "rect": [
+              619,
+              564,
+              139,
+              59
+            ],
+            "destination": [
+              619,
+              563,
+              139,
+              59
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                619,
+                563
+              ],
+              [
+                752,
+                563
+              ],
+              [
+                758,
+                590
+              ],
+              [
+                750,
+                610
+              ],
+              [
+                737,
+                622
+              ],
+              [
+                619,
+                622
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                690,
+                589
+              ],
+              "destination": [
+                690,
+                588
+              ]
+            }
+          },
+          "shiftRight": {
+            "source": "view-right-up-shiftRight",
+            "rect": [
+              619,
+              563,
+              139,
+              59
+            ],
+            "destination": [
+              619,
+              563,
+              139,
+              59
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                619,
+                563
+              ],
+              [
+                752,
+                563
+              ],
+              [
+                758,
+                590
+              ],
+              [
+                750,
+                610
+              ],
+              [
+                737,
+                622
+              ],
+              [
+                619,
+                622
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                683,
+                588
+              ],
+              "destination": [
+                683,
+                588
+              ]
+            }
+          },
+          "shiftLeft": {
+            "source": "view-right-up-shiftLeft",
+            "rect": [
+              619,
+              562,
+              139,
+              59
+            ],
+            "destination": [
+              619,
+              563,
+              139,
+              59
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                619,
+                563
+              ],
+              [
+                752,
+                563
+              ],
+              [
+                758,
+                590
+              ],
+              [
+                750,
+                610
+              ],
+              [
+                737,
+                622
+              ],
+              [
+                619,
+                622
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                696,
+                587
+              ],
+              "destination": [
+                696,
+                588
+              ]
+            }
+          }
+        }
+      },
+      "measurements": {
+        "pucker": {
+          "sourceVisibleLineBBox": [
+            687,
+            584,
+            724,
+            592
+          ],
+          "neutralVisibleCenterX": 691,
+          "visibleCenterDeltaX": 14.5,
+          "anatomicalReference": [
+            690,
+            588
+          ],
+          "registeredDirectionalUpperLip": [
+            690,
+            588
+          ],
+          "fixedTranslation": [
+            -20,
+            4
+          ],
+          "note": "Pucker central upper-lip peak is registered to the anatomical neutral point; press uses central upper seam; directional state preserves source x and measured shift.",
+          "measuredFile": "view-right-up-pucker.png",
+          "sourceSha256": "89f07af7097c98744c8a229cd94f1c1b2ecc5985b415242dc8100e11376087f1"
+        },
+        "press": {
+          "sourceVisibleLineBBox": [
+            653,
+            587,
+            725,
+            597
+          ],
+          "neutralVisibleCenterX": 691,
+          "visibleCenterDeltaX": -2.0,
+          "anatomicalReference": [
+            690,
+            588
+          ],
+          "registeredDirectionalUpperLip": [
+            690,
+            588
+          ],
+          "fixedTranslation": [
+            0,
+            -1
+          ],
+          "note": "Pucker central upper-lip peak is registered to the anatomical neutral point; press uses central upper seam; directional state preserves source x and measured shift.",
+          "measuredFile": "view-right-up-press.png",
+          "sourceSha256": "afb047e0f47240ff10aada2a51672e3945f9a5e5d2ec9db59c0ed0b48fa334dd"
+        },
+        "shiftRight": {
+          "sourceVisibleLineBBox": [
+            636,
+            585,
+            732,
+            590
+          ],
+          "neutralVisibleCenterX": 691,
+          "visibleCenterDeltaX": -7.0,
+          "anatomicalReference": [
+            690,
+            588
+          ],
+          "registeredDirectionalUpperLip": [
+            683,
+            588
+          ],
+          "fixedTranslation": [
+            0,
+            0
+          ],
+          "note": "Pucker central upper-lip peak is registered to the anatomical neutral point; press uses central upper seam; directional state preserves source x and measured shift.",
+          "measuredFile": "view-right-up-shiftRight.png",
+          "sourceSha256": "e1aa96e0386314ff3a4f5ac99bce9fc27c71fe46d323a53a78d1b58721db664b"
+        },
+        "shiftLeft": {
+          "measuredFile": "view-right-up-shiftLeft-v2.png",
+          "sourceVisibleLineBBox": [
+            654,
+            578,
+            740,
+            593
+          ],
+          "neutralVisibleCenterX": 691,
+          "visibleCenterDeltaX": 6.0,
+          "anatomicalReference": [
+            690,
+            588
+          ],
+          "registeredDirectionalUpperLip": [
+            696,
+            588
+          ],
+          "fixedTranslation": [
+            0,
+            1
+          ],
+          "note": "Pucker central upper-lip peak is anatomically registered; directional state keeps source x and its real displacement. The bbox center is not the anatomical anchor.",
+          "sourceSha256": "0d04be0dae84af34a15c7f6631f6b8b3558f0b99f03dadc3f76baa02bb809e00"
+        }
+      },
+      "detailViews": {
+        "mouth": [
+          610,
+          546,
+          160,
+          100
+        ]
+      }
+    },
+    "view-left-down": {
+      "mouthReference": [
+        454,
+        711
+      ],
+      "protection": {
+        "nose": [
+          [
+            [
+              382,
+              644
+            ],
+            [
+              396,
+              643
+            ],
+            [
+              393,
+              656
+            ],
+            [
+              408,
+              676
+            ],
+            [
+              397,
+              681
+            ],
+            [
+              379,
+              665
+            ]
+          ],
+          [
+            [
+              408,
+              661
+            ],
+            [
+              422,
+              662
+            ],
+            [
+              422,
+              673
+            ],
+            [
+              408,
+              671
+            ]
+          ]
+        ],
+        "chin": [
+          [
+            [
+              447,
+              779
+            ],
+            [
+              470,
+              781
+            ],
+            [
+              490,
+              775
+            ],
+            [
+              496,
+              787
+            ],
+            [
+              476,
+              797
+            ],
+            [
+              457,
+              794
+            ]
+          ]
+        ],
+        "hair": [
+          [
+            [
+              355,
+              420
+            ],
+            [
+              402,
+              419
+            ],
+            [
+              424,
+              480
+            ],
+            [
+              414,
+              525
+            ],
+            [
+              392,
+              552
+            ],
+            [
+              375,
+              522
+            ]
+          ],
+          [
+            [
+              651,
+              497
+            ],
+            [
+              687,
+              498
+            ],
+            [
+              674,
+              580
+            ],
+            [
+              632,
+              646
+            ],
+            [
+              614,
+              645
+            ],
+            [
+              643,
+              580
+            ]
+          ]
+        ],
+        "brows": [
+          [
+            [
+              447,
+              495
+            ],
+            [
+              485,
+              482
+            ],
+            [
+              530,
+              471
+            ],
+            [
+              577,
+              465
+            ],
+            [
+              593,
+              471
+            ],
+            [
+              574,
+              477
+            ],
+            [
+              533,
+              483
+            ],
+            [
+              490,
+              493
+            ],
+            [
+              449,
+              507
+            ]
+          ],
+          [
+            [
+              283,
+              490
+            ],
+            [
+              308,
+              491
+            ],
+            [
+              335,
+              498
+            ],
+            [
+              354,
+              506
+            ],
+            [
+              357,
+              514
+            ],
+            [
+              332,
+              507
+            ],
+            [
+              308,
+              501
+            ],
+            [
+              282,
+              500
+            ]
+          ]
+        ],
+        "eyes": [
+          [
+            [
+              450,
+              493
+            ],
+            [
+              644,
+              493
+            ],
+            [
+              644,
+              610
+            ],
+            [
+              450,
+              610
+            ]
+          ],
+          [
+            [
+              267,
+              516
+            ],
+            [
+              399,
+              516
+            ],
+            [
+              399,
+              619
+            ],
+            [
+              267,
+              619
+            ]
+          ]
+        ]
+      },
+      "patches": {
+        "mouth": {
+          "pucker": {
+            "source": "view-left-down-pucker",
+            "rect": [
+              381,
+              686,
+              126,
+              60
+            ],
+            "destination": [
+              401,
+              682,
+              126,
+              60
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                409,
+                682
+              ],
+              [
+                527,
+                682
+              ],
+              [
+                527,
+                742
+              ],
+              [
+                448,
+                742
+              ],
+              [
+                429,
+                726
+              ],
+              [
+                409,
+                704
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                434,
+                715
+              ],
+              "destination": [
+                454,
+                711
+              ]
+            }
+          },
+          "press": {
+            "source": "view-left-down-press",
+            "rect": [
+              401,
+              681,
+              126,
+              60
+            ],
+            "destination": [
+              401,
+              682,
+              126,
+              60
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                409,
+                682
+              ],
+              [
+                527,
+                682
+              ],
+              [
+                527,
+                742
+              ],
+              [
+                448,
+                742
+              ],
+              [
+                429,
+                726
+              ],
+              [
+                409,
+                704
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                454,
+                710
+              ],
+              "destination": [
+                454,
+                711
+              ]
+            }
+          },
+          "shiftLeft": {
+            "source": "view-left-down-shiftLeft",
+            "rect": [
+              401.0,
+              680,
+              126,
+              60
+            ],
+            "destination": [
+              401,
+              682,
+              126,
+              60
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                409,
+                682
+              ],
+              [
+                527,
+                682
+              ],
+              [
+                527,
+                742
+              ],
+              [
+                448,
+                742
+              ],
+              [
+                429,
+                726
+              ],
+              [
+                409,
+                704
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                459.5,
+                709
+              ],
+              "destination": [
+                459.5,
+                711
+              ]
+            }
+          },
+          "shiftRight": {
+            "source": "view-left-down-shiftRight",
+            "rect": [
+              401,
+              679,
+              126,
+              60
+            ],
+            "destination": [
+              401,
+              682,
+              126,
+              60
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                409,
+                682
+              ],
+              [
+                527,
+                682
+              ],
+              [
+                527,
+                742
+              ],
+              [
+                448,
+                742
+              ],
+              [
+                429,
+                726
+              ],
+              [
+                409,
+                704
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                451,
+                708
+              ],
+              "destination": [
+                451,
+                711
+              ]
+            }
+          }
+        }
+      },
+      "measurements": {
+        "pucker": {
+          "measuredFile": "view-left-down-pucker.png",
+          "sourceVisibleLineBBox": [
+            423,
+            708,
+            450,
+            716
+          ],
+          "neutralVisibleCenterX": 457.5,
+          "visibleCenterDeltaX": -21.0,
+          "anatomicalReference": [
+            454,
+            711
+          ],
+          "registeredDirectionalUpperLip": [
+            454,
+            711
+          ],
+          "fixedTranslation": [
+            20,
+            -4
+          ],
+          "note": "Source x is preserved for directional states. Pucker central crease is anatomically registered; visible bbox center is a direction check, not the upper-lip anchor.",
+          "sourceSha256": "36febec4a736803946ac62c0426cd9bb26bec7503a1fc083605916f4ea9397fb"
+        },
+        "press": {
+          "measuredFile": "view-left-down-press.png",
+          "sourceVisibleLineBBox": [
+            422,
+            709,
+            488,
+            712
+          ],
+          "neutralVisibleCenterX": 457.5,
+          "visibleCenterDeltaX": -2.5,
+          "anatomicalReference": [
+            454,
+            711
+          ],
+          "registeredDirectionalUpperLip": [
+            454,
+            711
+          ],
+          "fixedTranslation": [
+            0,
+            1
+          ],
+          "note": "Source x is preserved for directional states. Pucker central crease is anatomically registered; visible bbox center is a direction check, not the upper-lip anchor.",
+          "sourceSha256": "989fcfa970fb5dac928ffc2a9ebf5c048ea2abf5092aa7a7dec96ef8bb92deaf"
+        },
+        "shiftLeft": {
+          "measuredFile": "view-left-down-shiftLeft.png",
+          "sourceVisibleLineBBox": [
+            416,
+            693,
+            510,
+            712
+          ],
+          "neutralVisibleCenterX": 457.5,
+          "visibleCenterDeltaX": 5.5,
+          "anatomicalReference": [
+            454,
+            711
+          ],
+          "registeredDirectionalUpperLip": [
+            459.5,
+            711
+          ],
+          "fixedTranslation": [
+            0.0,
+            2
+          ],
+          "note": "Source x is preserved for directional states. Pucker central crease is anatomically registered; visible bbox center is a direction check, not the upper-lip anchor.",
+          "sourceSha256": "a465c13e17559cbfaf4278c0722e8b63ce29babd4421d566f28e8307c84d4a7d"
+        },
+        "shiftRight": {
+          "measuredFile": "view-left-down-shiftRight.png",
+          "sourceVisibleLineBBox": [
+            416,
+            703,
+            493,
+            710
+          ],
+          "neutralVisibleCenterX": 457.5,
+          "visibleCenterDeltaX": -3.0,
+          "anatomicalReference": [
+            454,
+            711
+          ],
+          "registeredDirectionalUpperLip": [
+            451,
+            711
+          ],
+          "fixedTranslation": [
+            0,
+            3
+          ],
+          "note": "Source x is preserved for directional states. Pucker central crease is anatomically registered; visible bbox center is a direction check, not the upper-lip anchor.",
+          "sourceSha256": "5a3cb455af480bed5b75021df67d328370c5f8d50ead3601056051023ab093ba"
+        }
+      },
+      "detailViews": {
+        "mouth": [
+          374,
+          669,
+          160,
+          100
+        ]
+      }
+    }
+  },
+  "notes": [
+    "All twelve mouth patches are native 1:1 translation-only. No source pixels were edited during registration.",
+    "For all six directional states source x is preserved; signed anatomical anchor offset follows the independently drawn visible seam displacement.",
+    "The three pucker source paintings have misplaced central creases, registered once to approved anatomical neutral upper-lip references. Clip polygons avoid translated jaw edges.",
+    "Left-up pucker-v3 retains a few faint lower-lip bright pixels; it is not a fully matte result. Left-up press-v2 is restrained rather than strongly compressed.",
+    "Only the four new mouth patches per pose are proposed; all previously approved eye/jaw patches, face views, gaze and original sources stay unchanged."
+  ]
+}

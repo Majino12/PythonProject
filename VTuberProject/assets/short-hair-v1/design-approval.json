@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 2,
+  "characterId": "short-hair-v1",
+  "approvals": [
+    {
+      "id": "front-design-2026-10-23",
+      "date": "2026-10-23",
+      "approvedFile": "short-haired-vtuber-concept-v1.png",
+      "userFeedback": "太棒了！非常满意，可以继续工作了！",
+      "acceptedScope": "Character appearance: haircut, colors, face and static frontal illustration.",
+      "pendingScope": "New angles, facial layers, expression drawings, motion behavior and visual acceptance of integrated model.",
+      "preserve": "Do not redesign the accepted face, eyebrow style, clothes, haircut or palette while extending poses."
+    },
+    {
+      "id": "six-static-angles-2026-10-23",
+      "date": "2026-10-23",
+      "timezone": "Asia/Seoul",
+      "evidenceSource": "User message in the project conversation after reviewing the six static angle drawings.",
+      "userFeedback": "太棒了，你做的很完美，持续进行下一步",
+      "acceptedScope": "Six static angle illustrations (left/right yaw, left/right up, left/right down) are approved; the previously approved front design remains approved.",
+      "approvedPoseIds": [
+        "view-left",
+        "view-right",
+        "view-left-up",
+        "view-right-up",
+        "view-left-down",
+        "view-right-down"
+      ],
+      "assetRevision": "short-hair-structure-v1-reviewed",
+      "approvedImages": [
+        {
+          "id": "view-left",
+          "file": "assets/short-hair-v1/view-left.png",
+          "sha256": "23da31b12da3e50550519db9d95077e107d20755ca72fdab8b82335a961206b6"
+        },
+        {
+          "id": "view-right",
+          "file": "assets/short-hair-v1/view-right.png",
+          "sha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3"
+        },
+        {
+          "id": "view-left-up",
+          "file": "assets/short-hair-v1/view-left-up.png",
+          "sha256": "614ea3f4df961ffefefe4ae054eea45fe6c42a0cf5ae25cb3f6e88d5f6ca8637"
+        },
+        {
+          "id": "view-right-up",
+          "file": "assets/short-hair-v1/view-right-up.png",
+          "sha256": "900d998244e371021320ead30a823661d8759b516d72ad6390c2c62d3fd21037"
+        },
+        {
+          "id": "view-left-down",
+          "file": "assets/short-hair-v1/view-left-down.png",
+          "sha256": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983"
+        },
+        {
+          "id": "view-right-down",
+          "file": "assets/short-hair-v1/view-right-down.png",
+          "sha256": "502b668ec8c8f33cc48c15e747a12a44306487fc5639e6153d9edf4ef2bdde2d"
+        }
+      ],
+      "pendingScope": "Facial expression drawings, facial layers, gaze, continuous head motion, transitions, ARKit channel behavior and visual acceptance of the integrated animated model."
+    },
+    {
+      "id": "front-expression-v1-2026-10-23",
+      "date": "2026-10-23",
+      "userFeedback": "效果太棒了！很满意，可以继续进行下去了",
+      "acceptedScope": "Front expression sample v1 as displayed in expression-review.html: existing eyelid, jaw, pucker, press, directional mouth and brow paintings and combinations.",
+      "pendingScope": "New in-between drawings, natural timing improvements, gaze and dynamic multi-angle expressions are not covered by this approval.",
+      "evidenceFile": "assets/short-hair-expressions-v1/approval.json"
+    },
+    {
+      "id": "front-motion-v2-2026-10-23",
+      "date": "2026-10-23",
+      "userFeedback": "太好了！请继续！",
+      "acceptedScope": "Front expression v2 five-stage eye/jaw paintings and natural timing are approved.",
+      "pendingScope": "Independent gaze, multi-angle expressions and continuous head motion.",
+      "evidenceFile": "assets/short-hair-expressions-v2/approval.json"
+    },
+    {
+      "id": "front-gaze-v3-2026-10-26",
+      "date": "2026-10-26",
+      "timezone": "Asia/Seoul",
+      "userFeedback": "太好了，视线效果很满意！请继续进行吧！！",
+      "acceptedScope": "Front independent gaze v3, unified eyeball appearance, and eyelid occlusion.",
+      "pendingScope": "New side-angle expressions and gaze; multi-angle motion and continuous head turning.",
+      "evidenceFile": "assets/short-hair-gaze-v1/approval.json"
+    },
+    {
+      "id": "side-expressions-v1-2026-10-26",
+      "date": "2026-10-26",
+      "userFeedback": "太好了，侧转表情也很满意！请继续进行下去吧，可以一直进行下去了，感觉不会出问题了。",
+      "acceptedScope": "Existing two fixed side-angle expressions v1, including independent eyes and three mouth stages, approved in side-expression-review.html. Prior front and static design approvals remain valid.",
+      "evidenceFile": "assets/short-hair-side-expressions-v1/approval.json",
+      "timezone": "Asia/Seoul",
+      "pendingScope": "New side-angle gaze and further expression/angle work, continuous head movement and final integrated software acceptance."
+    },
+    {
+      "id": "side-gaze-v1-2026-10-26",
+      "date": "2026-10-26",
+      "timezone": "Asia/Seoul",
+      "userFeedback": "做得很好！请继续！",
+      "acceptedScope": "Independent gaze for the two fixed side-angle poses shown in side-expression-review.html, including a shared painted eyeball per eye across open/half lids, original-core highlights, perspective-specific travel and foreground eyelid/hair occlusion. Previous front, static-pose and side-expression approvals remain valid.",
+      "pendingScope": "New side-angle pucker, press, mouthLeft/mouthRight drawings, new eyebrow states, other new expressions/angles, continuous head movement and final integrated software acceptance are outside this approval.",
+      "evidenceFile": "assets/short-hair-side-gaze-v1/approval.json"
+    },
+    {
+      "id": "side-mouth-v1-2026-10-26",
+      "date": "2026-10-26",
+      "timezone": "Asia/Seoul",
+      "userFeedback": "太棒了，请继续！",
+      "acceptedScope": "The delivered pucker, press, character-left and character-right mouth paintings for both fixed side-angle poses, including the shown combinations with approved eyelids and independent gaze. Previous front, static-pose, side-expression and side-gaze approvals remain valid.",
+      "pendingScope": "New side-angle eyebrow states, pitch/diagonal expressions, new mouth in-between or combined-action paintings, continuous head movement and final integrated software acceptance are outside this approval.",
+      "evidenceFile": "assets/short-hair-side-mouth-v1/approval.json"
+    },
+    {
+      "id": "side-brows-v1-2026-10-26",
+      "date": "2026-10-26",
+      "timezone": "Asia/Seoul",
+      "userFeedback": "太棒了！可以进行下一步了",
+      "acceptedScope": "The delivered independent left/right inner-brow raise, outer-brow raise and brow-down paintings for both fixed side-angle poses, including the shown combinations with approved eyes, mouth and gaze and the fixed lower fine-hair junction exclusions. All previous front, static-pose, side-expression, side-gaze and side-mouth approvals remain valid.",
+      "pendingScope": "New pitch/diagonal expressions, new expression strength or combined-action paintings, continuous head movement and final integrated software acceptance are outside this approval.",
+      "evidenceFile": "assets/short-hair-side-brows-v1/approval.json"
+    },
+    {
+      "id": "pitch-expressions-v1-2026-10-26",
+      "date": "2026-10-26",
+      "timezone": "Asia/Seoul",
+      "userFeedback": "太棒了，若已完成请修改原项目，若还有需要进行的，请先运行",
+      "acceptedScope": "The delivered independent eye and mouth paintings for three fixed diagonal poses (view-left-up, view-right-up and view-left-down), including open/half/closed eyes, neutral/small/wide mouth and shown independent eye/mouth combinations. Previous appearance, static-pose, front and side expression approvals remain valid.",
+      "pendingScope": "New pitch gaze, pitch eyebrow actions, pitch pucker/press/directional mouths, right-down expressions, further in-between paintings, continuous head movement and final integrated software acceptance are outside this approval. The overall project is unfinished; no replacement of the original project is implied at this stage.",
+      "evidenceFile": "assets/short-hair-pitch-expressions-v1/approval.json"
+    },
+    {
+      "id": "pitch-gaze-v1-2026-10-26",
+      "date": "2026-10-26",
+      "timezone": "Asia/Seoul",
+      "userFeedback": "太棒了！请继续进行",
+      "acceptedScope": "The delivered independent gaze for fixed view-left-up, view-right-up and view-left-down poses, including near/far perspective-specific motion, open/half eyelid occlusion, shown eye/mouth combinations and the same composite path at zero and nonzero input. The displayed fuller lower iris contour and small differences from the original half-eye paintings are included. All previous appearance, static-pose and expression approvals remain valid.",
+      "pendingScope": "New pitch pucker/press/directional-mouth paintings, pitch eyebrow actions, right-down expressions and gaze, further in-between or combined-action paintings, continuous head motion and final integrated software acceptance remain outside this approval. The original project has not been replaced.",
+      "evidenceFile": "assets/short-hair-pitch-gaze-v1/approval.json"
+    },
+    {
+      "id": "pitch-mouth-v1-2026-10-27",
+      "date": "2026-10-27",
+      "timezone": "Asia/Seoul",
+      "userFeedback": "不错，进展目前不错，请继续进步，且可以进行下一步了",
+      "acceptedScope": "The delivered pucker, whole-mouth press, character-left and character-right mouth paintings for the three fixed view-left-up, view-right-up and view-left-down poses, including their shown combinations with the previously approved eyelids and independent gaze. Acceptance includes the displayed subtle and asymmetric shift strengths, mild left-up press and faint left-up lower-lip highlight. All earlier appearance, static-pose and expression approvals remain valid.",
+      "pendingScope": "New pitch eyebrow paintings, right-down expressions and gaze, further in-between or combined-action paintings, continuous head movement and final integrated software acceptance remain outside this approval. The original project has not been replaced.",
+      "evidenceFile": "assets/short-hair-pitch-mouth-v1/approval.json"
+    },
+    {
+      "id": "pitch-brows-v1-2026-10-27",
+      "date": "2026-10-27",
+      "timezone": "Asia/Seoul",
+      "userFeedback": "非常棒，若完成可以修改原项目了，若还有未完成请优先做完",
+      "acceptedScope": "The delivered independent inner-up, outer-up and lowered eyebrow paintings for the three fixed view-left-up, view-right-up and view-left-down poses, including shown combinations with approved eyelids, mouth shapes and independent gaze. This includes the repaired foreground-hair junctions, mild left-up far outer-brow amplitude, and slightly lighter/warmer left-down lowered near eyebrow. All previous appearance, static-pose and expression approvals remain valid.",
+      "pendingScope": "The unfinished right-down expression/gaze coverage, pure frontal up/down poses and their expressions, integrated avatar operation and final software validation remain pending. New or repaired pose artwork is outside this approval. Original-project replacement is authorized after the remaining work is completed and verified; it has not yet occurred.",
+      "evidenceFile": "assets/short-hair-pitch-brows-v1/approval.json"
+    }
+  ],
+  "currentAcceptedScope": "Frontal appearance, six static angles, front expressions and natural timing, independent front gaze v3, both fixed side-angle expressions/gaze/mouths/brows, and eye/mouth/gaze/eyebrow paintings for fixed left-up, right-up and left-down poses are approved.",
+  "currentPendingScope": "The unfinished right-down expression/gaze coverage, pure frontal up/down poses and their expressions, integrated avatar operation and final software validation remain pending. New or repaired pose artwork is outside this approval. Original-project replacement is authorized after the remaining work is completed and verified; it has not yet occurred.",
+  "referenceImage": {
+    "id": "front",
+    "file": "assets/short-hair-v1/front.png",
+    "sha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822"
+  },
+  "preserve": "Do not redesign the accepted face, eyebrow style, clothes, haircut or palette while extending poses.",
+  "feedbackSeparation": "These approval records reflect direct conversation evidence. Per-browser supplemental feedback remains separate; no localStorage values were created or changed to simulate user clicks."
+}

@@ -12,6 +12,9 @@ const types = {
   ".json": "application/json; charset=utf-8",
   ".svg": "image/svg+xml",
   ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".webm": "video/webm",
+  ".mp4": "video/mp4",
   ".txt": "text/plain; charset=utf-8",
   ".md": "text/plain; charset=utf-8",
   ".vrm": "model/gltf-binary",
@@ -119,5 +122,5 @@ const server = createServer(async (request, response) => {
 });
 
 server.listen(port, "127.0.0.1", () => {
-  console.log(`MoeMotion is running at http://127.0.0.1:${port}`);
+  console.log(`MoeMotion is running at http://127.0.0.1:${server.address().port}`);
 });

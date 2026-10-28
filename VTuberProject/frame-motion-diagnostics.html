@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>五档画稿与帧率诊断 · 0.15.0</title>
+<style>
+:root{font-family:system-ui,sans-serif;color:#253244;background:#f2f4f7;color-scheme:light}*{box-sizing:border-box}body{margin:0;padding:24px}main{max-width:1500px;margin:auto}a{color:#335c84}h1{font-size:26px}p{line-height:1.6}button,select{font:inherit;padding:9px 12px;border:1px solid #bec8d5;border-radius:7px;background:white;color:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:default}.toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:18px 0}.notice{background:#e3ebf3;border-radius:8px;padding:13px}.notice[data-state=failed]{background:#ffe7dc}.pose-sheet{margin:26px 0}.pose-sheet[hidden]{display:none}.row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}figure{margin:0;background:white;border:1px solid #ccd4df;border-radius:7px;overflow:hidden}canvas{display:block;width:100%;height:auto}figcaption{font-size:13px;padding:9px}#sequenceCanvas{max-width:630px;border:1px solid #ccd4df}pre{font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:600px;overflow:auto;background:white;padding:14px}#timingReadout{font-variant-numeric:tabular-nums}.note{color:#627086;font-size:13px}@media(max-width:650px){body{padding:14px}.row{grid-template-columns:repeat(2,minmax(0,1fr))}h1{font-size:22px}}
+</style></head><body><main>
+<p><a href="./short-hair-studio.html">← 返回 2D 工作台</a></p><h1>九向五档画稿 · 动作与帧率诊断</h1>
+<p>每个方向依次显示五档眼睑与五档张嘴。像素检查使用原生尺寸；下方只是缩小显示，不生成中间图、不变形、不跨稿透明叠化。这里不会开启摄像头，也不会写入视觉通过记录。</p>
+<p id="summary" class="notice" role="status">正在载入本地画稿…</p>
+<div class="toolbar"><label>查看方向 <select id="poseSelect" disabled></select></label><label><input id="showAll" type="checkbox">展开九个方向</label><button id="downloadSheet" disabled>下载当前方向对照图</button><button id="downloadReport" disabled>下载 JSON 报告</button></div>
+<div id="sheets"></div>
+<section><h2>30 / 60 fps 顺序动作</h2><p>依次运行 60 与 30 fps 请求，各 2.5 秒。只统计成功绘制，记录实际出现的眼睑／口型顺序；实测可能低于请求值，不能据此声称屏幕呈现或录像编码达到相同帧率。</p><div class="toolbar"><button id="runTiming" disabled>运行约 5 秒诊断</button><button id="stopTiming" disabled>停止</button><output id="timingReadout">尚未运行</output></div><canvas id="sequenceCanvas" width="630" height="460" aria-label="逐稿动作诊断"></canvas></section>
+<p class="note">上唇检查验证登记锚点与平移关系；视线检查验证极端输入改变的像素仍处于已登记眼裂。它们不能替代对脸型、眼轴、上唇形状及新稿美观程度的人工检查。</p>
+<details open><summary>当前检查结果（JSON）</summary><pre id="result">{"status":"loading"}</pre></details>
+</main><script type="module" src="./frame-motion-diagnostics.js"></script></body></html>

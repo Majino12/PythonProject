@@ -1,0 +1,43 @@
+{
+  "versions": [
+    {
+      "channels": "12 个 ARKit 通道 · JSON 导入",
+      "import": "已忽略未支持通道：browInnerUp。没有本页支持的通道，当前参数保持不变。",
+      "progress": "当前版本 · 当前姿态 0 / 18 项已评价 · 两侧合计 0 / 36 项 · 0 项需修改",
+      "version": "已确认侧转视线"
+    },
+    {
+      "channels": "4 个 ARKit 通道 · JSON 导入",
+      "import": "已忽略未支持通道：browInnerUp。没有本页支持的通道，当前参数保持不变。",
+      "progress": "当前版本 · 当前姿态 0 / 8 项已评价 · 两侧合计 0 / 16 项 · 0 项需修改",
+      "version": "已确认侧转表情"
+    }
+  ],
+  "input": [
+    {
+      "input": {
+        "browOuterUpLeft": 1
+      },
+      "visible": "画面左转 · 角色右转，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "input": {
+        "browOuterUpRight": 1
+      },
+      "visible": "画面左转 · 角色右转，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 眉尾抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "input": {
+        "browInnerUp": 1,
+        "browOuterUpLeft": 1,
+        "browOuterUpRight": 1,
+        "browDownLeft": 1,
+        "eyeBlinkRight": 0.5,
+        "mouthRight": 1,
+        "eyeLookOutLeft": 0.6,
+        "eyeLookInRight": 0.6
+      },
+      "visible": "画面左转 · 角色右转，角色左眼 睁眼 / 角色右眼 半闭 · 嘴 角色右移（画面左） · 左眉 压低 / 右眉 眉头抬；视线以画面右、下为正，角色左眼 0.60, 0.00，角色右眼 0.60, 0.00"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # PythonProject · Web 与 AI 应用实验集
 
-收录三个独立运行的应用原型：绘制式 2D / 3D 虚拟形象工具 **MoeMotion**、小说与新闻文本分析工具，以及歌词情感分析与相似歌曲推荐工具。
+收录三个独立运行的应用原型：绘制式 2D 虚拟形象工具 **MoeMotion**（保留旧 3D 入口）、小说与新闻文本分析工具，以及歌词情感分析与相似歌曲推荐工具。
 
 **项目分类：应用实验 · Web 与 AI**  
 **技术：Python · Flask · JavaScript · Three.js · 自然语言处理**
@@ -14,7 +14,7 @@ cd PythonProject
 
 | 项目 | 用途 | 主要技术 | 入口 |
 | --- | --- | --- | --- |
-| **MoeMotion / VTuberProject** | 内置多角度绘制 2D、单图安全动画、精细 VRM 与轻量 3D，支持摄像头动作跟踪 | JavaScript、Canvas、Three.js、three-vrm、MediaPipe、Node.js | [项目说明](VTuberProject/README.md) · [源码](VTuberProject/) |
+| **MoeMotion / VTuberProject** | 九方向短发 2D 角色、五档眼睑／张嘴、独立视线、ARKit 命名通道与可选面部跟踪 | JavaScript、Canvas、Three.js、three-vrm、MediaPipe、Node.js | [项目说明](VTuberProject/README.md) · [源码](VTuberProject/) |
 | **小说全文分析 2.0** | 全文分块、混合模型阅读与证据复核、章节及全书报告 | Python、Flask、Ollama、兼容模型 API | [项目说明](xiaoshuo_web/README.md) · [源码](xiaoshuo_web/) |
 | **歌词情感分析** | 分析歌词情感与词汇特征，保存歌曲并按特征推荐相似歌曲 | Python、Flask、TextBlob、SQLite | [项目说明](yinyue_web/README.md) · [源码](yinyue_web/) |
 
@@ -22,9 +22,7 @@ cd PythonProject
 
 ## MoeMotion
 
-MoeMotion 内置 Luna 绘制角色，提供 13 个有限头部方向、11 段眨眼加开心闭眼、24 种嘴型、眉毛表情和带迟滞的稳定画稿切换；也支持参考图片配色的授权精细 VRM 模板、轻量程序化 3D、自动演示、摄像头面部与身体跟踪、项目保存、视频录制和模型导出。当前子项目版本为 `0.11.0`。
-
-用户可上传 PNG、JPG、WEBP，或使用页面内的可选 OpenAI 图片生成入口，但这些结果是普通单图：五官保持静态，只做整体动作，不会自动获得 Luna 的多角度、眨眼或口型图层。内置 2D 是有限离散画稿，不是 360° 模型或 52 套独立表情；精细 3D 保留模板的脸型、发型和服装版型，也不是原图的三维重建。
+当前子项目版本为 `0.15.0`，默认打开短发角色 2D 工作台：九个准备好的头部方向、五档眼睑与张嘴、眉毛动作、独立视线和 22 个 ARKit 命名通道。八个非正面方向新增 16 张选定源稿，眼睑与张嘴逐张经过已有档位；提供 30／60 fps 请求选项和实际绘制统计。
 
 需要 Node.js 18 或更新版本。在仓库根目录执行：
 
@@ -33,11 +31,11 @@ cd VTuberProject
 npm start
 ```
 
-访问 <http://127.0.0.1:4173>。可以先用示例角色体验自动演示，再导入图片或开启摄像头。
+访问 <http://127.0.0.1:4173>，可直接手动搭配方向与表情或播放演示。开启摄像头是可选操作，首次需要联网下载 MediaPipe 面部模型；默认启动不加载 3D、不请求摄像头，也不调用图像生成服务。工作台支持本地项目保存、单帧系数 JSON、PNG 和无声录像导出。
 
-首次使用跟踪与 3D 功能需要联网加载相关模型和运行文件。页面还提供可选的 OpenAI 图片生成入口，需要自行填写 API Key；角色描述和 API Key 会经本机服务发送到 OpenAI。导入图片、摄像头跟踪与 3D 构建在本机处理。
+九方向是有限画稿，不是连续转头；30／60 fps 是绘制和录像请求，不保证设备始终达到，也不代表每秒有 60 张独立原稿。当前保留画稿背景，没有虚拟摄像头、iPhone 接收器或 VTube Studio 连接。全套自动测试 589 项通过，浏览器完成 718 次原生像素比较、1060 项断言；实际摄像头硬件尚未启用验证。
 
-精细版导出保留骨骼、表情、配色与模型许可的 VRM；轻量版导出 GLB，两者均不包含当前动作。内置模型受其原许可约束，见 [素材来源与许可](VTuberProject/assets/THIRD_PARTY_NOTICES.txt)。详细能力与格式说明见 [MoeMotion README](VTuberProject/README.md)。
+旧 Luna／3D 应用仍可通过 `legacy-studio.html` 访问，其功能与许可见 [旧版说明](VTuberProject/LEGACY-README.md) 和 [素材来源与许可](VTuberProject/assets/THIRD_PARTY_NOTICES.txt)。本次没有修改 3D 功能。完整能力、限制、素材来源与验证结果见 [VTuberProject README](VTuberProject/README.md)。
 
 ## 小说全文分析 · 2.0
 
@@ -81,7 +79,7 @@ python run.py
 
 ```text
 PythonProject/
-├── VTuberProject/   # MoeMotion：浏览器内的 2D / 3D 虚拟形象原型
+├── VTuberProject/   # MoeMotion：短发 2D 工作台与旧版 3D 入口
 ├── xiaoshuo_web/    # 小说与新闻文本分析
 └── yinyue_web/      # 歌词情感分析与相似歌曲推荐
 ```
@@ -90,4 +88,4 @@ PythonProject/
 
 这些项目用于本地实验与功能演示。各子项目的运行环境与验证命令见其独立说明。音绪支持 Python 3.11+，并提供隔离真实数据的自动化测试。
 
-MoeMotion 提供 `npm run check` 和 `npm test` 命令，可在 `VTuberProject` 目录中执行。
+MoeMotion 的开发验证使用 Node.js 22，在 `VTuberProject` 目录执行 `npm run check` 和 `npm test`；GitHub 自动测试运行同样的命令。

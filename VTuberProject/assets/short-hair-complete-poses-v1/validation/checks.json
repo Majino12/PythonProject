@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "assetId": "short-hair-complete-poses-v1",
+  "status": "internal-checks-pass",
+  "checkedAt": "2026-10-27T02:04:36.014Z",
+  "manifestStatus": "candidate",
+  "userApprovalInferred": false,
+  "internalFreeze": true,
+  "freezeMeaning": "Source and geometry hashes reviewed for this candidate. This is not a user approval or a change to approved-stage history.",
+  "sources": {
+    "view-up-neutral": {
+      "src": "./assets/short-hair-complete-poses-v1/view-up-neutral.png",
+      "sha256": "252ba6a46b0121ee0c9f94b37180ba4745158da6f2bb230aff5efa0894cb23d6"
+    },
+    "view-up-half-small": {
+      "src": "./assets/short-hair-complete-poses-v1/view-up-half-small.png",
+      "sha256": "88a0e8973a7f2a65926d6c3b20a0215cdd7f2f3deb87fd4177ff91819590378a"
+    },
+    "view-up-closed-wide": {
+      "src": "./assets/short-hair-complete-poses-v1/view-up-closed-wide-v2.png",
+      "sha256": "ac0c0738c88f2d9c052817c1e3fd89edc7e707f62021b52c97a672caa818648f"
+    },
+    "view-up-pucker": {
+      "src": "./assets/short-hair-complete-poses-v1/view-up-pucker-v2.png",
+      "sha256": "a58476e2d0036edfcfb665ada803ab29c87f9bfcecd70f468f10c4415fef7d71"
+    },
+    "view-up-press": {
+      "src": "./assets/short-hair-complete-poses-v1/view-up-press.png",
+      "sha256": "2ab4fc1b4b70490c787be79d9029cb2c09fd79a7381a98a3b7841be42826b6ab"
+    },
+    "view-up-shiftLeft": {
+      "src": "./assets/short-hair-complete-poses-v1/view-up-shiftLeft.png",
+      "sha256": "7b9dd1283e2de6732c73f31b947ce96518e2f0454d0c745ca1939ec44ef71248"
+    },
+    "view-up-shiftRight": {
+      "src": "./assets/short-hair-complete-poses-v1/view-up-shiftRight.png",
+      "sha256": "68150a4b72cd5a0b389a7e8782f4d0c22fb1c4fe93d1d48bd39643a576388d95"
+    },
+    "view-up-innerUp": {
+      "src": "./assets/short-hair-complete-poses-v1/view-up-innerUp.png",
+      "sha256": "43d3a2616b7c06545aa1e355dbd8840ab5b5bd5c0b44b968478113ab9a13befe"
+    },
+    "view-up-outerUp": {
+      "src": "./assets/short-hair-complete-poses-v1/view-up-outerUp.png",
+      "sha256": "d9f6af8625abed59f63a58bbd2bce0bdec4ea6424501fe380b4e3499eced6950"
+    },
+    "view-up-down": {
+      "src": "./assets/short-hair-complete-poses-v1/view-up-down.png",
+      "sha256": "a88fef6897da5a1f16ee72e0f61be1ad77e49d6ce3dd929ed932d9bd37d47f47"
+    },
+    "view-up-eye-whites": {
+      "src": "./assets/short-hair-complete-poses-v1/view-up-eye-whites.png",
+      "sha256": "1a1166721d358f6830da33288d56a1b128ff35c79e5746e3079a3855b5e5e760"
+    },
+    "view-up-irises-fill": {
+      "src": "./assets/short-hair-complete-poses-v1/view-up-irises-fill.png",
+      "sha256": "ac2f3c05ab732793ca11952da6ff6998e0dc70d3cd94865ee3800997ec0da245"
+    },
+    "view-down-neutral": {
+      "src": "./assets/short-hair-complete-poses-v1/view-down-neutral.png",
+      "sha256": "f9e6315e19b09a121d3d1216611dd0759020f21a5d3fab9827adebb9eceb9d4f"
+    },
+    "view-down-half-small": {
+      "src": "./assets/short-hair-complete-poses-v1/view-down-half-small.png",
+      "sha256": "5e90b193bbebedb69da423f9f0c6b54df015d32bfae6fe974a7da6ae7645d0c5"
+    },
+    "view-down-closed-wide": {
+      "src": "./assets/short-hair-complete-poses-v1/view-down-closed-wide-v2.png",
+      "sha256": "3573d68e381fc4eb434ad3845972912f7c14f5c3d892dffc5a48278e52dd6a9f"
+    },
+    "view-down-pucker": {
+      "src": "./assets/short-hair-complete-poses-v1/view-down-pucker-v2.png",
+      "sha256": "eb89df2e9a61e0942d05cc046d9bcc96723a1ce6c8170ad7e521826dc9c9c24b"
+    },
+    "view-down-press": {
+      "src": "./assets/short-hair-complete-poses-v1/view-down-press.png",
+      "sha256": "5752b188938c37af2fec6470c2b84cfd1c81ba180d7d91e8d8ac5ed0a9f66fee"
+    },
+    "view-down-shiftLeft": {
+      "src": "./assets/short-hair-complete-poses-v1/view-down-shiftLeft.png",
+      "sha256": "fbb143d4c0ca782df56c1c4c68f81e9ad95a320163c269b1a6c8c27f1cb0a956"
+    },
+    "view-down-shiftRight": {
+      "src": "./assets/short-hair-complete-poses-v1/view-down-shiftRight.png",
+      "sha256": "b76ed45c1b704ea00cd86ace725c053c7ae70f50afb598eb16c6fd6578172b66"
+    },
+    "view-down-innerUp": {
+      "src": "./assets/short-hair-complete-poses-v1/view-down-innerUp.png",
+      "sha256": "88791f47cdd9ce8c327026184a8dad1a459b124a84d783376e42b6d95ae85abd"
+    },
+    "view-down-outerUp": {
+      "src": "./assets/short-hair-complete-poses-v1/view-down-outerUp.png",
+      "sha256": "f8779d724ec2c64444395719167dda9fd3258b9f405bb17ae351ce7f139fdf31"
+    },
+    "view-down-down": {
+      "src": "./assets/short-hair-complete-poses-v1/view-down-down.png",
+      "sha256": "7a585126395789a4337a3adfef1cdacc276213628b5519781f4cc4b880a2c236"
+    },
+    "view-down-eye-whites": {
+      "src": "./assets/short-hair-complete-poses-v1/view-down-eye-whites.png",
+      "sha256": "816b353153afc665eb5891feb45ad3bbd0500747dff77d5e580fef8f46ae3e1c"
+    },
+    "view-down-irises-fill": {
+      "src": "./assets/short-hair-complete-poses-v1/view-down-irises-fill.png",
+      "sha256": "04bd947129a9eb1bca1759637bc385d22960f722f391fcb46424710461fab892"
+    },
+    "view-right-down-neutral": {
+      "src": "./assets/short-hair-complete-poses-v1/view-right-down-neutral.png",
+      "sha256": "5845cf6909248321f234bff531c16b231017d95fcd92de1e24789328b79e0b71"
+    },
+    "view-right-down-half-small": {
+      "src": "./assets/short-hair-complete-poses-v1/view-right-down-half-small.png",
+      "sha256": "3ad207d1355b119018caacf2bf9547a34b7c99ed79d724524c295af42edcb41f"
+    },
+    "view-right-down-closed-wide": {
+      "src": "./assets/short-hair-complete-poses-v1/view-right-down-closed-wide-v2.png",
+      "sha256": "73bc4e3eb531a5046ab4d2d84fafcb7087aea5d29b6364f22ee4f0609de02023"
+    },
+    "view-right-down-pucker": {
+      "src": "./assets/short-hair-complete-poses-v1/view-right-down-pucker.png",
+      "sha256": "565e16b8d5a6e848bf6aa9e2df5dee38ef50c9c865c45bf365dd000f58b7db3f"
+    },
+    "view-right-down-press": {
+      "src": "./assets/short-hair-complete-poses-v1/view-right-down-press.png",
+      "sha256": "8ce566cb96dd4a3bb6a0e9098ebd3fa4c71e215ac149d70d3720137704895efa"
+    },
+    "view-right-down-shiftLeft": {
+      "src": "./assets/short-hair-complete-poses-v1/view-right-down-shiftLeft.png",
+      "sha256": "8f7e71dcf45448032ee72a2da504d580528bb932e926b29fef280e1f3cd66c18"
+    },
+    "view-right-down-shiftRight": {
+      "src": "./assets/short-hair-complete-poses-v1/view-right-down-shiftRight.png",
+      "sha256": "786f9ebb492709b282fe72bcd39630d8e84c88c46d191e43b9f97772b9b05ec1"
+    },
+    "view-right-down-innerUp": {
+      "src": "./assets/short-hair-complete-poses-v1/view-right-down-innerUp.png",
+      "sha256": "1d575a77e476ae362e31b3a553cca8bcdd5c646e73abe35be8f9cd770483ec9d"
+    },
+    "view-right-down-outerUp": {
+      "src": "./assets/short-hair-complete-poses-v1/view-right-down-outerUp-v2.png",
+      "sha256": "dc78bb751ea785c133879bab192bcb3d0d499a6f717843c76ace2eb72b918311"
+    },
+    "view-right-down-down": {
+      "src": "./assets/short-hair-complete-poses-v1/view-right-down-down.png",
+      "sha256": "2c24f392edad85bd1022079d721c313ab11239516397d4939265ee820623d82c"
+    },
+    "view-right-down-eye-whites": {
+      "src": "./assets/short-hair-complete-poses-v1/view-right-down-eye-whites.png",
+      "sha256": "6cb0a6c9c5c6dc45e4a1ceafcda62905f3525267b1f417834ce2295dd30991e3"
+    },
+    "view-right-down-irises-fill": {
+      "src": "./assets/short-hair-complete-poses-v1/view-right-down-irises-fill.png",
+      "sha256": "c40b6ad393b8ebdb6c8c37c89eeef946de8ecea6c0b6c0cc4ab80cc58c92ba43"
+    }
+  },
+  "configurationHashes": {
+    "manifest": "846844ef8d0876cde1b5c06a871bd1312da614531a147d04df8c3f9f6f10ae56",
+    "provenance": "26d1412252e3b70eddb29a38a91fb41165bdd554ffe5eb7f3285d9dea2710777",
+    "registration": "33cd38fcc01c3ff9dbb340fc341317acfd58c830b45dc6713c4fd37e867bbb70",
+    "gazeRegistration": "d2c58761dd969dcc2453d4ebcd8de9ad54fbc7ca8d36f7c2d4827932f4b642c4",
+    "visualReview": "ab9bf18eec8315ef53028304c44c6d6a7f9f9f63efe6268e77138351fe9a0773"
+  },
+  "checks": {
+    "sourceAndConfigurationTests": {
+      "passed": 6,
+      "failed": 0,
+      "testFile": "complete-pose-assets.test.mjs"
+    },
+    "nativePixelReport": {
+      "file": "pixel-checks.json",
+      "sha256": "fb9a502a57fcad522f3780b22843789119de326c6d3edf16120fc8fa93f83a22",
+      "passed": true,
+      "mouthCombinations": 315,
+      "browCombinations": 336,
+      "gazeCombinations": 135,
+      "comparisons": 1344,
+      "assertions": 2781,
+      "failedAssertions": 0,
+      "failures": []
+    },
+    "studioPixelReport": {
+      "file": "studio-pixel-checks.json",
+      "sha256": "c1bf0d9196a3164762a862d85d6e1562f73d3395f167528b679318efd3d235c7",
+      "passed": true,
+      "poses": 9,
+      "scenarios": 33,
+      "comparisons": 648,
+      "assertions": 1957,
+      "failedAssertions": 0,
+      "failures": []
+    },
+    "visualReview": {
+      "file": "visual-review.json",
+      "status": "internal-review-complete",
+      "unresolvedDefects": 0
+    }
+  },
+  "historicalEvidence": [
+    "pixel-checks-before.json",
+    "registration-before-chin-boundary.json",
+    "pixel-checks-before-nose-clip.json",
+    "registration-before-nose-clip.json",
+    "view-down-native-inspection-before-nose-clip.png"
+  ]
+}

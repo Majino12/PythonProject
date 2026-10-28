@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-23",
+  "tool": "built-in image_gen",
+  "status": "candidate",
+  "purpose": "Two targeted in-between expression portraits supplying two new eyelid states and two jaw states. Approved v1 source drawings remain unchanged.",
+  "generations": [
+    {
+      "id": "quarter-parted",
+      "prompt": "Use case: precise-object-edit. Production painted in-between expression for an already approved 2D anime VTuber. Image1 is the editable original full-open neutral face; image2 is the approved HALF-CLOSED eye / small open mouth; image3 is the approved fully CLOSED eye / wide mouth. Output ONE portrait on the identical 1122x1402 canvas with EXACT same registration and head upright. Do not redesign or move face, nose, chin, hair strands, eyebrows, colors, shoulders, tee, jacket or background. Only redraw eyelids and mouth at the specified intermediate stage. Both eyes symmetrical in blink amount, same original teal irises and gaze. Do not stretch the supplied images. Keep fine soft desaturated mouth contour without fleshy lips, lip shine, lipstick, or big teeth. Preserve skin color. No text, no panel, no collage. Draw upper lids 25 percent closed: visibly midway between image1 fully-open and image2 half-closed, so eyes retain approximately three quarters of the original open aperture. Eyelid moves down modestly over the same iris, with original corner spacing and lower lid substantially preserved. It must be MORE OPEN than image2. Mouth JUST PARTED for a quiet syllable: slim dark desaturated gap about10 pixels tall and85 pixels wide, very subtle lower warm inner edge, almost closed, no teeth or tongue detail. Critical: the upper lip midpoint MUST stay at x558,y674. Only the lower mouth contour moves downward to roughly y684. Do not move the upper lip upward. Mouth same gentle original character.",
+      "references": [
+        "assets/short-hair-v1/front.png",
+        "assets/short-hair-expressions-v1/half-open-small.png",
+        "assets/short-hair-expressions-v1/closed-open-wide.png"
+      ],
+      "raw": "exec-9bc0d798-222c-4497-93b3-f73ca48e8da7.png",
+      "selected": false,
+      "reason": "Eye aperture and mouth gap too close to approved half/small states. Corrected targeted edit selected."
+    },
+    {
+      "id": "three-quarter-medium",
+      "prompt": "Use case: precise-object-edit. Production painted in-between expression for an already approved 2D anime VTuber. Image1 is the editable original full-open neutral face; image2 is the approved HALF-CLOSED eye / small open mouth; image3 is the approved fully CLOSED eye / wide mouth. Output ONE portrait on the identical 1122x1402 canvas with EXACT same registration and head upright. Do not redesign or move face, nose, chin, hair strands, eyebrows, colors, shoulders, tee, jacket or background. Only redraw eyelids and mouth at the specified intermediate stage. Both eyes symmetrical in blink amount, same original teal irises and gaze. Do not stretch the supplied images. Keep fine soft desaturated mouth contour without fleshy lips, lip shine, lipstick, or big teeth. Preserve skin color. No text, no panel, no collage. Draw upper lids 75 percent CLOSED: a narrow horizontal remaining eye aperture midway between the HALF-CLOSED image2 and fully CLOSED image3. Only a very thin sliver of original teal iris and a hint of white remains between lashes, approximately8 to12pixels at the center; clearly less open than image2 but not sealed shut as image3. Keep corner spacing, no squint wrinkles or unhappy face. Mouth medium open for a calm 'ah', between small and wide: roughly85pixels wide and37pixels tall with soft dark desaturated red interior and understated lower tongue. Critical: upper lip midpoint MUST be x558,y674, lower mouth edge roughly y711, opening exclusively downward. No white lip shine. No moving the nose or chin.",
+      "references": [
+        "assets/short-hair-v1/front.png",
+        "assets/short-hair-expressions-v1/half-open-small.png",
+        "assets/short-hair-expressions-v1/closed-open-wide.png"
+      ],
+      "raw": "exec-f73b344b-0189-4cea-b324-e715ab1efe22.png",
+      "selected": true,
+      "reason": ""
+    },
+    {
+      "id": "quarter-parted-corrected",
+      "prompt": "Use case: precise-object-edit. Image1 is the target expression portrait, Image2 is the approved original face for identity/registration. Keep the target EXACT same 1122x1402 framing, entire head, skin, brows, hair, nose, chin, clothes, body and background unchanged. Correct only two insufficiently separated intermediate states. EYES: lift the upper lash contour in image1 by about8pixels, keeping the lower lids, irises and eye corner spacing unchanged; the result must be more open than image1 but a little less open than the fully-open image2. This is only one quarter of a blink, approximately75% eye aperture remaining. MOUTH: replace image1's large open mouth with a VERY SLIM nearly closed slit, 85px wide but only7 to9pixels high. Upper lip at y674, lower edge abouty683; preserve a fine warm gray-brown gentle original mouth style. No visible tongue, no pink lower lip, no white glossy upper lip, no teeth. A single thin muted dark red opening under the upper seam is sufficient. Do not widen the face, move the jaw, or add a new emotion. Absolutely no text or collage.",
+      "references": [
+        "exec-9bc0d798-222c-4497-93b3-f73ca48e8da7.png",
+        "assets/short-hair-v1/front.png"
+      ],
+      "raw": "exec-5f5c014c-0c0e-40db-beb0-d1af0215eb09.png",
+      "selected": true,
+      "reason": ""
+    }
+  ]
+}

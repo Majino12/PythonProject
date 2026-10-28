@@ -24,6 +24,18 @@ export function normalizeHeadPose(raw) {
   };
 }
 
+/** Gentle deterministic 2D-only demo motion. The compact demo bus tops out
+ * below the first painted brow stage, so amplify only its explicit activity
+ * cue while retaining a sparse, smooth idle lift. */
+export function demoBrowLift(rawBrowUp, nowMs) {
+  const source = Number.isFinite(rawBrowUp) ? Math.max(0, Math.min(1, rawBrowUp)) : 0;
+  const time = Number.isFinite(nowMs) ? nowMs / 1000 : 0;
+  const idlePulse = ((1 + Math.cos(Math.PI * 2 * (time - 2.4) / 8.6)) / 2) ** 8;
+  const idle = .02 + idlePulse * .18;
+  const activity = Math.max(0, Math.min(1, (source - .02) / .055));
+  return Math.min(.48, Math.max(idle, .02 + activity * .46));
+}
+
 /** A local-only repeatable preview; it never enters saved project settings. */
 export function transitionPreviewFrame(elapsedMs) {
   const elapsed = Number.isFinite(elapsedMs) ? Math.max(0, elapsedMs) : 0;
@@ -36,6 +48,10 @@ export function transitionPreviewFrame(elapsedMs) {
   const jaw = pulse(1450, 1050);
   const pucker = pulse(2850, 1200);
   const press = pulse(4450, 1050);
+  const browUp = pulse(50, 800);
+  const browDown = pulse(1150, 900);
+  const browWorried = pulse(2600, 1000);
+  const browOuterUp = pulse(4000, 1000);
   return normalizeBlendshapeFrame({
     eyeBlinkLeft: blink,
     eyeBlinkRight: blink,
@@ -43,6 +59,13 @@ export function transitionPreviewFrame(elapsedMs) {
     mouthPucker: pucker * .94,
     mouthPressLeft: press * .92,
     mouthPressRight: press * .92,
+    browInnerUp: Math.max(browUp, browWorried) * .88,
+    browDownLeft: browDown * .88,
+    browDownRight: browDown * .88,
+    browOuterUpLeft: browOuterUp * .88,
+    // A sub-emotion-threshold frown cue selects the worried brow painting
+    // without replacing the existing jaw/pucker/press mouth sequence.
+    mouthFrownLeft: browWorried * .24,
   });
 }
 
@@ -169,7 +192,14 @@ export class FaceSession {
       this.raw = fresh ? Object.fromEntries(ARKIT_CHANNELS.map((key) => [
         key, Math.max(0, Math.min(1, (this.cameraFrame[key] - this.neutral[key]) / Math.max(.1, 1 - this.neutral[key]))),
       ])) : normalizeBlendshapeFrame();
-    } else this.raw = legacyMotionToBlendshapes(motion);
+    } else {
+      this.raw = legacyMotionToBlendshapes(motion);
+      if (mode === "demo") {
+        const brow = demoBrowLift(this.raw.browInnerUp, now);
+        this.raw.browInnerUp = brow;
+        this.raw.browOuterUpLeft = this.raw.browOuterUpRight = brow * .72;
+      }
+    }
     this.output = this.filter.update(this.raw, this.settings, dt);
     return this.output;
   }

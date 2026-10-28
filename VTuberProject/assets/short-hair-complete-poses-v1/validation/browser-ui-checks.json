@@ -1,0 +1,554 @@
+{
+  "date": "2026-10-27",
+  "scope": "Internal product QA; no new user visual approval implied",
+  "actions": [
+    {
+      "pose": "front",
+      "action": "blink",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面，左眼 闭眼 · 右眼 闭眼\n嘴 自然 · 左眉 自然 · 右眉 自然",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "front",
+      "action": "openWide",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 自然 · 右眉 自然",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "front",
+      "action": "outerUp",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 抬起 · 右眉 抬起",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "front",
+      "action": "shiftLeft",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面，左眼 闭眼 · 右眼 闭眼\n嘴 角色左移 · 左眉 抬起 · 右眉 抬起",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "front",
+      "action": "shiftRight",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面，左眼 闭眼 · 右眼 闭眼\n嘴 角色右移 · 左眉 抬起 · 右眉 抬起",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "front",
+      "action": "pucker",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面，左眼 闭眼 · 右眼 闭眼\n嘴 噘嘴 · 左眉 抬起 · 右眉 抬起",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "front",
+      "action": "press",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面，左眼 闭眼 · 右眼 闭眼\n嘴 抿嘴 · 左眉 抬起 · 右眉 抬起",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "front",
+      "action": "neutral",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面，左眼 睁眼 · 右眼 睁眼\n嘴 抿嘴 · 左眉 抬起 · 右眉 抬起",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left",
+      "action": "blink",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左转 · 角色右转，左眼 闭眼 · 右眼 闭眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left",
+      "action": "openWide",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左转 · 角色右转，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left",
+      "action": "outerUp",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左转 · 角色右转，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left",
+      "action": "shiftLeft",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左转 · 角色右转，左眼 闭眼 · 右眼 闭眼\n嘴 角色左移 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left",
+      "action": "shiftRight",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左转 · 角色右转，左眼 闭眼 · 右眼 闭眼\n嘴 角色右移 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left",
+      "action": "pucker",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左转 · 角色右转，左眼 闭眼 · 右眼 闭眼\n嘴 噘嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left",
+      "action": "press",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左转 · 角色右转，左眼 闭眼 · 右眼 闭眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left",
+      "action": "neutral",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左转 · 角色右转，左眼 睁眼 · 右眼 睁眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right",
+      "action": "blink",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右转 · 角色左转，左眼 闭眼 · 右眼 闭眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right",
+      "action": "openWide",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右转 · 角色左转，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right",
+      "action": "outerUp",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右转 · 角色左转，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right",
+      "action": "shiftLeft",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右转 · 角色左转，左眼 闭眼 · 右眼 闭眼\n嘴 角色左移 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right",
+      "action": "shiftRight",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右转 · 角色左转，左眼 闭眼 · 右眼 闭眼\n嘴 角色右移 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right",
+      "action": "pucker",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右转 · 角色左转，左眼 闭眼 · 右眼 闭眼\n嘴 噘嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right",
+      "action": "press",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右转 · 角色左转，左眼 闭眼 · 右眼 闭眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right",
+      "action": "neutral",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右转 · 角色左转，左眼 睁眼 · 右眼 睁眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left-up",
+      "action": "blink",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左斜上 · 角色右转抬头，左眼 闭眼 · 右眼 闭眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left-up",
+      "action": "openWide",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左斜上 · 角色右转抬头，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left-up",
+      "action": "outerUp",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左斜上 · 角色右转抬头，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left-up",
+      "action": "shiftLeft",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左斜上 · 角色右转抬头，左眼 闭眼 · 右眼 闭眼\n嘴 角色左移 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left-up",
+      "action": "shiftRight",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左斜上 · 角色右转抬头，左眼 闭眼 · 右眼 闭眼\n嘴 角色右移 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left-up",
+      "action": "pucker",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左斜上 · 角色右转抬头，左眼 闭眼 · 右眼 闭眼\n嘴 噘嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left-up",
+      "action": "press",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左斜上 · 角色右转抬头，左眼 闭眼 · 右眼 闭眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left-up",
+      "action": "neutral",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左斜上 · 角色右转抬头，左眼 睁眼 · 右眼 睁眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right-up",
+      "action": "blink",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右斜上 · 角色左转抬头，左眼 闭眼 · 右眼 闭眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right-up",
+      "action": "openWide",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右斜上 · 角色左转抬头，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right-up",
+      "action": "outerUp",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右斜上 · 角色左转抬头，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right-up",
+      "action": "shiftLeft",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右斜上 · 角色左转抬头，左眼 闭眼 · 右眼 闭眼\n嘴 角色左移 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right-up",
+      "action": "shiftRight",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右斜上 · 角色左转抬头，左眼 闭眼 · 右眼 闭眼\n嘴 角色右移 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right-up",
+      "action": "pucker",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右斜上 · 角色左转抬头，左眼 闭眼 · 右眼 闭眼\n嘴 噘嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right-up",
+      "action": "press",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右斜上 · 角色左转抬头，左眼 闭眼 · 右眼 闭眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right-up",
+      "action": "neutral",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右斜上 · 角色左转抬头，左眼 睁眼 · 右眼 睁眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left-down",
+      "action": "blink",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左斜下 · 角色右转低头，左眼 闭眼 · 右眼 闭眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left-down",
+      "action": "openWide",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左斜下 · 角色右转低头，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left-down",
+      "action": "outerUp",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左斜下 · 角色右转低头，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left-down",
+      "action": "shiftLeft",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左斜下 · 角色右转低头，左眼 闭眼 · 右眼 闭眼\n嘴 角色左移 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left-down",
+      "action": "shiftRight",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左斜下 · 角色右转低头，左眼 闭眼 · 右眼 闭眼\n嘴 角色右移 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left-down",
+      "action": "pucker",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左斜下 · 角色右转低头，左眼 闭眼 · 右眼 闭眼\n嘴 噘嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left-down",
+      "action": "press",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左斜下 · 角色右转低头，左眼 闭眼 · 右眼 闭眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-left-down",
+      "action": "neutral",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面左斜下 · 角色右转低头，左眼 睁眼 · 右眼 睁眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-up",
+      "action": "blink",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面抬头，左眼 闭眼 · 右眼 闭眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-up",
+      "action": "openWide",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面抬头，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-up",
+      "action": "outerUp",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面抬头，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-up",
+      "action": "shiftLeft",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面抬头，左眼 闭眼 · 右眼 闭眼\n嘴 角色左移 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-up",
+      "action": "shiftRight",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面抬头，左眼 闭眼 · 右眼 闭眼\n嘴 角色右移 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-up",
+      "action": "pucker",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面抬头，左眼 闭眼 · 右眼 闭眼\n嘴 噘嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-up",
+      "action": "press",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面抬头，左眼 闭眼 · 右眼 闭眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-up",
+      "action": "neutral",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面抬头，左眼 睁眼 · 右眼 睁眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-down",
+      "action": "blink",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面低头，左眼 闭眼 · 右眼 闭眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-down",
+      "action": "openWide",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面低头，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-down",
+      "action": "outerUp",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面低头，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-down",
+      "action": "shiftLeft",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面低头，左眼 闭眼 · 右眼 闭眼\n嘴 角色左移 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-down",
+      "action": "shiftRight",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面低头，左眼 闭眼 · 右眼 闭眼\n嘴 角色右移 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-down",
+      "action": "pucker",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面低头，左眼 闭眼 · 右眼 闭眼\n嘴 噘嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-down",
+      "action": "press",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面低头，左眼 闭眼 · 右眼 闭眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-down",
+      "action": "neutral",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "正面低头，左眼 睁眼 · 右眼 睁眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right-down",
+      "action": "blink",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右斜下 · 角色左转低头，左眼 闭眼 · 右眼 闭眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right-down",
+      "action": "openWide",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右斜下 · 角色左转低头，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right-down",
+      "action": "outerUp",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右斜下 · 角色左转低头，左眼 闭眼 · 右眼 闭眼\n嘴 大张 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right-down",
+      "action": "shiftLeft",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右斜下 · 角色左转低头，左眼 闭眼 · 右眼 闭眼\n嘴 角色左移 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right-down",
+      "action": "shiftRight",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右斜下 · 角色左转低头，左眼 闭眼 · 右眼 闭眼\n嘴 角色右移 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right-down",
+      "action": "pucker",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右斜下 · 角色左转低头，左眼 闭眼 · 右眼 闭眼\n嘴 噘嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right-down",
+      "action": "press",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右斜下 · 角色左转低头，左眼 闭眼 · 右眼 闭眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    },
+    {
+      "pose": "view-right-down",
+      "action": "neutral",
+      "error": "正在准备九个方向的角色画稿…",
+      "label": "画面右斜下 · 角色左转低头，左眼 睁眼 · 右眼 睁眼\n嘴 抿嘴 · 左眉 眉尾抬 · 右眉 眉尾抬",
+      "source": "手动 · 静止"
+    }
+  ],
+  "actionRecordNote": "error contains loadStatus text, including a hidden successful-loading notice; it is not a list of visible errors. neutral action refers to eye-open preset and intentionally retains mouth and brow inputs.",
+  "verified": {
+    "validJsonReplacesAll22Coefficients": true,
+    "invalidJsonPreservesState": true,
+    "projectDownloadAndRestore": true,
+    "localAutosaveAfterReload": true,
+    "cameraOffAfterRestore": true,
+    "pngRenderedAndOriginalDimensions": [
+      630,
+      460
+    ],
+    "frameJsonExport": true,
+    "demoWithPoseTour": true,
+    "recordedVideo": {
+      "format": "WebM",
+      "codec": "VP9",
+      "width": 630,
+      "height": 460,
+      "audioTracks": 0,
+      "bytes": 5943523,
+      "playbackObservedSeconds": 37
+    },
+    "actualVisibleNarrowViewport": {
+      "clientWidth": 319,
+      "scrollWidth": 319
+    },
+    "consoleWarningsAndErrors": [],
+    "realCameraActivated": false
+  },
+  "evidence": [
+    "studio-export-project.json",
+    "studio-export-frame.json",
+    "studio-export-rendered.png",
+    "studio-export-original.png",
+    "studio-demo-recording.webm",
+    "recording-playback.jpg",
+    "recording-playback-ended.jpg",
+    "studio-visible-narrow.jpg"
+  ],
+  "limitations": [
+    "Camera calibration, failures, and lifecycle tested using mocks and real FaceSession logic; hardware tracking not exercised.",
+    "Video playback shows a finite 37-second clip after consuming the WebM stream; no initial duration metadata.",
+    "Only the observed 319px and 1280px layouts are asserted."
+  ]
+}

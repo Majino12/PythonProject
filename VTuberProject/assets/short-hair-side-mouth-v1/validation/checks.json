@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-26",
+  "timezone": "Asia/Seoul",
+  "status": "internal-checks-passed; candidate-not-user-approved",
+  "version": "0.13.1-review.7",
+  "automated": {
+    "syntax": "npm run check: exit 0",
+    "tests": "npm test: exit 0",
+    "total": 404,
+    "passed": 404,
+    "failed": 0,
+    "skipped": 0,
+    "report": "../../../TEST-RESULTS.txt"
+  },
+  "sourceRegistration": {
+    "finalSourceCount": 8,
+    "sourcePixels": "Copied unchanged from builtin image_gen output",
+    "runtime": "Native 1:1 source patches with fixed per-source translation; no dynamic scale, warp or mirroring",
+    "directionalPatchX": "Source crop x equals destination x for all four directional sources",
+    "anatomicalLeft": "viewer-right",
+    "anatomicalRight": "viewer-left",
+    "visibleSeamCenterShiftPx": {
+      "view-left": {
+        "shiftLeft": 4.5,
+        "shiftRight": -3.5
+      },
+      "view-right": {
+        "shiftLeft": 4,
+        "shiftRight": -5.5
+      }
+    }
+  },
+  "pixelComparison": {
+    "count": 18,
+    "reference": "Approved side gaze with matching eye states and gaze; neutral mouth for new states",
+    "outsideActiveMouthPatch": 0,
+    "nose": 0,
+    "belowJaw": 0,
+    "oldNeutralAndJaw": "Identical pixels in both poses",
+    "note": "New patch differences include fixed local source skin as well as lip lines.",
+    "file": "pixel-check.json"
+  },
+  "visual": {
+    "result": "No required repair identified for residual smiles, rectangular skin joins, doubled edges, nose or jaw displacement",
+    "independentReview": "visual-review.txt",
+    "details": [
+      "left-mouth-detail.png",
+      "right-mouth-detail.png"
+    ]
+  },
+  "browser": {
+    "url": "http://127.0.0.1:4175/side-expression-review.html",
+    "consoleWarningsAndErrors": 0,
+    "loadedVariants": [
+      "mouth",
+      "gaze",
+      "approved"
+    ],
+    "mouthChannels": 17,
+    "feedbackCount": 48,
+    "feedbackBlankAndUndecided": true,
+    "feedbackIsolation": "Temporary note recovered only in mouth variant and then cleared; approved variants remained blank.",
+    "jsonInputChecks": [
+      "mouthLeft selects shiftLeft",
+      "mouthRight selects shiftRight",
+      "equal opposing mouthLeft/mouthRight cancels to neutral",
+      "press overrides pucker/shift/jaw while half blink and gaze remain independent",
+      "old variants explicitly ignore unsupported mouth channels"
+    ],
+    "demo": "12-second mouth demo observed; changing group pauses playback and restores the other group timeline",
+    "rightPoseCombination": "Half blink + pressed mouth visibly selected",
+    "exports": {
+      "normalFeedback": "pucker plus both gaze x=-0.75; target and rendered match",
+      "originalFeedback": "visible neutral and zero gaze; target pucker/gaze preserved",
+      "facePng": [
+        630,
+        460
+      ],
+      "fullPng": [
+        1122,
+        1402
+      ]
+    },
+    "preview": "../../../../side-mouth-review-preview.png"
+  },
+  "limits": [
+    "Only two fixed side poses; no continuous turn model.",
+    "One new painting per action and pose; graded strengths and intermediate drawings are not provided.",
+    "view-left shiftRight has a deeper closed crease at maximum strength than other shifts; style/strength symmetry needs later refinement.",
+    "One-sided press uses full-mouth approximation. Pucker with shift selects pucker."
+  ],
+  "hashes": {
+    "manifest.json": "ae59d51312e92fab6e5c2528b0ed9a3b56d31df86ea0f0bbe09095e03d091dab",
+    "../../side-mouth-model.js": "62a6998da471ece81f5b2067de64d9441c1a76f6f15344581495f53ed53fa164",
+    "../../side-expression-renderer.js": "cc69d0fb7a0eeed06adc65733071411c1d42bb4f65df6723440530c128142c70",
+    "../../side-expression-review.js": "1910e04746a3574ffd55b467d0e61a4fab86e36af4422a447bbb8584c53bbe4e",
+    "../../side-gaze.js": "2a2c245f45b03c95ff31e9789a003e27410f08e8cd1d5df49d1c457da6dc9c3d",
+    "validation/registration.json": "a28612dc7885920c7708bf43f0e996a9cd4805f12c623b78f9a6fe7b770959a7"
+  }
+}

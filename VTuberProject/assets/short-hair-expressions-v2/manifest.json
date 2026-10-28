@@ -1,0 +1,904 @@
+{
+  "version": 1,
+  "id": "short-hair-expression-v2",
+  "status": "approved",
+  "width": 1122,
+  "height": 1402,
+  "reference": "neutral",
+  "faceView": [
+    245,
+    350,
+    630,
+    460
+  ],
+  "sources": {
+    "neutral": {
+      "src": "./assets/short-hair-v1/front.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "closed-open-wide": {
+      "src": "./assets/short-hair-expressions-v1/closed-open-wide.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "half-open-small": {
+      "src": "./assets/short-hair-expressions-v1/half-open-small.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "pucker-flat": {
+      "src": "./assets/short-hair-expressions-v1/pucker-flat.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "press-brow-down": {
+      "src": "./assets/short-hair-expressions-v1/press-brow-down.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "shift-left": {
+      "src": "./assets/short-hair-expressions-v1/shift-left.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "shift-right": {
+      "src": "./assets/short-hair-expressions-v1/shift-right.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "quarter-parted": {
+      "src": "./assets/short-hair-expressions-v2/quarter-parted.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "three-quarter-medium": {
+      "src": "./assets/short-hair-expressions-v2/three-quarter-medium.png",
+      "width": 1122,
+      "height": 1402
+    }
+  },
+  "mouthReference": [
+    558,
+    674
+  ],
+  "registration": "Local crops retain source pixel scale. Only fixed per-drawing translation; no morphing, mirroring, rotation or expression-dependent scaling. Upper lip anchors are visually registered estimates, not automated visual acceptance.",
+  "patches": {
+    "eyeLeft": {
+      "half": {
+        "source": "half-open-small",
+        "rect": [
+          606,
+          448,
+          155,
+          116
+        ],
+        "destination": [
+          606,
+          448,
+          155,
+          116
+        ],
+        "feather": 6,
+        "transform": "translation-only"
+      },
+      "closed": {
+        "source": "closed-open-wide",
+        "rect": [
+          606,
+          448,
+          155,
+          116
+        ],
+        "destination": [
+          606,
+          448,
+          155,
+          116
+        ],
+        "feather": 6,
+        "transform": "translation-only"
+      },
+      "quarter": {
+        "source": "quarter-parted",
+        "rect": [
+          606,
+          448,
+          155,
+          116
+        ],
+        "destination": [
+          606,
+          448,
+          155,
+          116
+        ],
+        "feather": 6,
+        "transform": "translation-only"
+      },
+      "threeQuarter": {
+        "source": "three-quarter-medium",
+        "rect": [
+          606,
+          448,
+          155,
+          116
+        ],
+        "destination": [
+          606,
+          448,
+          155,
+          116
+        ],
+        "feather": 6,
+        "transform": "translation-only"
+      }
+    },
+    "eyeRight": {
+      "half": {
+        "source": "half-open-small",
+        "rect": [
+          347,
+          448,
+          167,
+          116
+        ],
+        "destination": [
+          347,
+          448,
+          167,
+          116
+        ],
+        "feather": 6,
+        "transform": "translation-only"
+      },
+      "closed": {
+        "source": "closed-open-wide",
+        "rect": [
+          347,
+          448,
+          167,
+          116
+        ],
+        "destination": [
+          347,
+          448,
+          167,
+          116
+        ],
+        "feather": 6,
+        "transform": "translation-only"
+      },
+      "quarter": {
+        "source": "quarter-parted",
+        "rect": [
+          347,
+          448,
+          167,
+          116
+        ],
+        "destination": [
+          347,
+          448,
+          167,
+          116
+        ],
+        "feather": 6,
+        "transform": "translation-only"
+      },
+      "threeQuarter": {
+        "source": "three-quarter-medium",
+        "rect": [
+          347,
+          448,
+          167,
+          116
+        ],
+        "destination": [
+          347,
+          448,
+          167,
+          116
+        ],
+        "feather": 6,
+        "transform": "translation-only"
+      }
+    },
+    "browLeft": {
+      "up": {
+        "source": "pucker-flat",
+        "rect": [
+          592,
+          395,
+          158,
+          69
+        ],
+        "destination": [
+          592,
+          395,
+          158,
+          69
+        ],
+        "feather": 6,
+        "transform": "translation-only",
+        "clip": [
+          [
+            592,
+            395
+          ],
+          [
+            750,
+            395
+          ],
+          [
+            750,
+            450
+          ],
+          [
+            705,
+            450
+          ],
+          [
+            655,
+            458
+          ],
+          [
+            608,
+            463
+          ],
+          [
+            592,
+            463
+          ]
+        ]
+      },
+      "down": {
+        "source": "press-brow-down",
+        "rect": [
+          592,
+          395,
+          158,
+          69
+        ],
+        "destination": [
+          592,
+          395,
+          158,
+          69
+        ],
+        "feather": 6,
+        "transform": "translation-only",
+        "clip": [
+          [
+            592,
+            395
+          ],
+          [
+            750,
+            395
+          ],
+          [
+            750,
+            450
+          ],
+          [
+            705,
+            450
+          ],
+          [
+            655,
+            458
+          ],
+          [
+            608,
+            463
+          ],
+          [
+            592,
+            463
+          ]
+        ]
+      }
+    },
+    "browRight": {
+      "up": {
+        "source": "pucker-flat",
+        "rect": [
+          368,
+          397,
+          138,
+          67
+        ],
+        "destination": [
+          368,
+          397,
+          138,
+          67
+        ],
+        "feather": 6,
+        "transform": "translation-only",
+        "clip": [
+          [
+            368,
+            397
+          ],
+          [
+            506,
+            397
+          ],
+          [
+            506,
+            464
+          ],
+          [
+            468,
+            461
+          ],
+          [
+            420,
+            453
+          ],
+          [
+            368,
+            450
+          ]
+        ]
+      },
+      "down": {
+        "source": "press-brow-down",
+        "rect": [
+          368,
+          397,
+          138,
+          67
+        ],
+        "destination": [
+          368,
+          397,
+          138,
+          67
+        ],
+        "feather": 6,
+        "transform": "translation-only",
+        "clip": [
+          [
+            368,
+            397
+          ],
+          [
+            506,
+            397
+          ],
+          [
+            506,
+            464
+          ],
+          [
+            468,
+            461
+          ],
+          [
+            420,
+            453
+          ],
+          [
+            368,
+            450
+          ]
+        ]
+      }
+    },
+    "mouth": {
+      "openSmall": {
+        "source": "half-open-small",
+        "rect": [
+          468,
+          635,
+          194,
+          98
+        ],
+        "destination": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "feather": 6,
+        "anchor": {
+          "source": [
+            558,
+            663
+          ],
+          "destination": [
+            558,
+            674
+          ],
+          "kind": "upper-lip"
+        },
+        "transform": "translation-only",
+        "clip": [
+          [
+            468,
+            646
+          ],
+          [
+            662,
+            646
+          ],
+          [
+            662,
+            692
+          ],
+          [
+            618,
+            724
+          ],
+          [
+            589,
+            744
+          ],
+          [
+            527,
+            744
+          ],
+          [
+            510,
+            724
+          ],
+          [
+            468,
+            692
+          ]
+        ]
+      },
+      "openWide": {
+        "source": "closed-open-wide",
+        "rect": [
+          468,
+          630,
+          194,
+          98
+        ],
+        "destination": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "feather": 6,
+        "anchor": {
+          "source": [
+            558,
+            658
+          ],
+          "destination": [
+            558,
+            674
+          ],
+          "kind": "upper-lip"
+        },
+        "transform": "translation-only",
+        "clip": [
+          [
+            468,
+            646
+          ],
+          [
+            662,
+            646
+          ],
+          [
+            662,
+            692
+          ],
+          [
+            618,
+            724
+          ],
+          [
+            589,
+            744
+          ],
+          [
+            527,
+            744
+          ],
+          [
+            510,
+            724
+          ],
+          [
+            468,
+            692
+          ]
+        ]
+      },
+      "pucker": {
+        "source": "pucker-flat",
+        "rect": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "destination": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "feather": 6,
+        "anchor": {
+          "source": [
+            558,
+            674
+          ],
+          "destination": [
+            558,
+            674
+          ],
+          "kind": "mouth-seam"
+        },
+        "transform": "translation-only",
+        "clip": [
+          [
+            468,
+            646
+          ],
+          [
+            662,
+            646
+          ],
+          [
+            662,
+            692
+          ],
+          [
+            618,
+            724
+          ],
+          [
+            589,
+            744
+          ],
+          [
+            527,
+            744
+          ],
+          [
+            510,
+            724
+          ],
+          [
+            468,
+            692
+          ]
+        ]
+      },
+      "press": {
+        "source": "press-brow-down",
+        "rect": [
+          468,
+          645,
+          194,
+          98
+        ],
+        "destination": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "feather": 6,
+        "anchor": {
+          "source": [
+            558,
+            673
+          ],
+          "destination": [
+            558,
+            674
+          ],
+          "kind": "mouth-seam"
+        },
+        "transform": "translation-only",
+        "clip": [
+          [
+            468,
+            646
+          ],
+          [
+            662,
+            646
+          ],
+          [
+            662,
+            692
+          ],
+          [
+            618,
+            724
+          ],
+          [
+            589,
+            744
+          ],
+          [
+            527,
+            744
+          ],
+          [
+            510,
+            724
+          ],
+          [
+            468,
+            692
+          ]
+        ]
+      },
+      "shiftLeft": {
+        "source": "shift-left",
+        "rect": [
+          468,
+          643,
+          194,
+          98
+        ],
+        "destination": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "feather": 6,
+        "anchor": {
+          "source": [
+            580,
+            671
+          ],
+          "destination": [
+            580,
+            674
+          ],
+          "kind": "directional-mouth-seam"
+        },
+        "transform": "translation-only",
+        "clip": [
+          [
+            468,
+            646
+          ],
+          [
+            662,
+            646
+          ],
+          [
+            662,
+            692
+          ],
+          [
+            618,
+            724
+          ],
+          [
+            589,
+            744
+          ],
+          [
+            527,
+            744
+          ],
+          [
+            510,
+            724
+          ],
+          [
+            468,
+            692
+          ]
+        ]
+      },
+      "shiftRight": {
+        "source": "shift-right",
+        "rect": [
+          482,
+          645,
+          194,
+          98
+        ],
+        "destination": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "feather": 6,
+        "anchor": {
+          "source": [
+            550,
+            673
+          ],
+          "destination": [
+            536,
+            674
+          ],
+          "kind": "directional-mouth-seam"
+        },
+        "transform": "translation-only",
+        "clip": [
+          [
+            468,
+            646
+          ],
+          [
+            662,
+            646
+          ],
+          [
+            662,
+            692
+          ],
+          [
+            618,
+            724
+          ],
+          [
+            589,
+            744
+          ],
+          [
+            527,
+            744
+          ],
+          [
+            510,
+            724
+          ],
+          [
+            468,
+            692
+          ]
+        ]
+      },
+      "parted": {
+        "source": "quarter-parted",
+        "rect": [
+          468,
+          643,
+          194,
+          98
+        ],
+        "destination": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "feather": 6,
+        "anchor": {
+          "source": [
+            558,
+            671
+          ],
+          "destination": [
+            558,
+            674
+          ],
+          "kind": "upper-lip"
+        },
+        "transform": "translation-only",
+        "clip": [
+          [
+            468,
+            646
+          ],
+          [
+            662,
+            646
+          ],
+          [
+            662,
+            692
+          ],
+          [
+            618,
+            724
+          ],
+          [
+            589,
+            744
+          ],
+          [
+            527,
+            744
+          ],
+          [
+            510,
+            724
+          ],
+          [
+            468,
+            692
+          ]
+        ]
+      },
+      "openMedium": {
+        "source": "three-quarter-medium",
+        "rect": [
+          468,
+          629,
+          194,
+          98
+        ],
+        "destination": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "feather": 6,
+        "anchor": {
+          "source": [
+            558,
+            657
+          ],
+          "destination": [
+            558,
+            674
+          ],
+          "kind": "upper-lip"
+        },
+        "transform": "translation-only",
+        "clip": [
+          [
+            468,
+            646
+          ],
+          [
+            662,
+            646
+          ],
+          [
+            662,
+            692
+          ],
+          [
+            618,
+            724
+          ],
+          [
+            589,
+            744
+          ],
+          [
+            527,
+            744
+          ],
+          [
+            510,
+            724
+          ],
+          [
+            468,
+            692
+          ]
+        ]
+      }
+    }
+  },
+  "limitations": [
+    "已确认正面五档眼睑和五档张嘴；噘/抿/左右移嘴及眉毛沿用已确认基础。",
+    "眉头/眉尾输入复用整眉；单侧抿嘴输入复用整嘴；左右侧移含单侧嘴角上扬，强度不完全对称。",
+    "虹膜未独立，不支持视线；未支持动态转头及斜向表情。",
+    "眉部源稿保留画出的刘海遮挡；尚无可独立运动的前景头发层。",
+    "局部贴片带静态皮肤底色，边缘用固定透明度遮罩融合；后续需细化为正式分层资产。",
+    "五档中间稿及自然时序已获用户确认；独立视线及多角度动态仍待制作和验收。"
+  ],
+  "basedOn": "short-hair-expression-v1",
+  "extensions": {
+    "eyes": true,
+    "jaw": true
+  },
+  "approval": "./assets/short-hair-expressions-v2/approval.json"
+}

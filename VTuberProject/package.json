@@ -1,9 +1,9 @@
 {
   "name": "moemotion",
-  "version": "0.11.0",
+  "version": "0.15.0",
   "private": true,
   "type": "module",
-  "description": "Animate the built-in finite 13-pose painted 2D avatar, or drive licensed and lightweight 3D avatars.",
+  "description": "Local 2D short-haired avatar studio with nine prepared poses, painted expressions, gaze, ARKit-named coefficients, optional camera tracking and local exports.",
   "scripts": {
     "dev": "node server.mjs",
     "start": "node server.mjs",

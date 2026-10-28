@@ -1,0 +1,37 @@
+Pure left/right mouth direction repair
+
+Scope: only the new work/VTuberProject copy. No original project, former v0.13 experiment, assets, GitHub, or accepted concept image was modified.
+
+Changed files
+- painted-avatar.js
+- painted-avatar.test.mjs
+- painted-integration.test.mjs
+- painted-gallery.js
+- painted-gallery.html
+
+Behavior
+- Removed the unsigned legacy `side` selection. Its legacy atlas alias can remain as unused data, but it is no longer a required frame or an output.
+- Optional manifest.sequences.mouthLeft / mouthRight opt in independently. Each contains separate non-neutral painting keys in weak-to-strong order and uses anatomical character direction.
+- Signed mouthLeft minus mouthRight chooses the correct independent sequence. Equal coefficients cancel, zero coefficients release, and each direction has its own hysteresis.
+- Priority: press > closure > directional/center pucker > funnel > supported pure shift > emotion > jaw.
+- Without a pure-shift sequence, pure direction input preserves the other current mouth coefficients, and the capability is `unsupported`. It never falls back to a directional pucker or `side`.
+- Pucker + left/right remains independently supported by its existing pucker sequences and retains correct sign.
+- Support becomes `frame` only if the sequence exists with its own keys and distinct source rectangles in every registered mouth atlas/pose. Validation rejects missing frames or aliases to another mouth shape/direction. A malformed replacement pack does not silently advertise a missing capability.
+- Pure mouthLeft / mouthRight support remains `unsupported` for the actual old Luna v0.13 pack, which still has no dedicated pure-shift artwork.
+
+Gallery
+- Added pure-left and pure-right presets with mouthPucker = 0.
+- Direction input is now independent of the pucker control.
+- Added resource-derived missing-art support text for both directions and distinguished pure shifts from directional pucker.
+- Labeled this gallery as old Luna material inspection, visually unapproved, separate from the accepted new short-haired character.
+
+Validation
+- node --test painted-avatar.test.mjs painted-integration.test.mjs face-editor.test.mjs: 101 passed, 0 failed.
+- node --check painted-avatar.js: passed.
+- node --check painted-gallery.js: passed.
+- Tests exercise both directions and strength stages; neutral/equal cancellation; transitions out of previous pucker; independent sequence omissions; aliases and missing pose frames; priority; actual renderer source-rectangle choices; support reset after legacy reload; and gallery controls emitting pure direction signals.
+
+Limits
+- This fixes signal/asset correctness, not visual quality. No new mouth artwork was generated; the old pack still cannot display pure mouth shifts.
+- Distinct source rectangles prevent known manifest aliases but cannot prove the pixel artwork or anatomy is correct. Visual acceptance is still required.
+- Other inherited integration tests still snapshot old eye and mouth positions; those assertions must not be cited as evidence that their perspective or placement is visually correct.

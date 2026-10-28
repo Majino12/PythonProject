@@ -1,0 +1,116 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-10-23",
+  "acceptance": "Expression candidates only; static appearance approval does not approve these drawings.",
+  "method": "Six independent expression source portraits; renderer composites fixed local regions over byte-identical approved front. No source image warping or mirroring.",
+  "generations": [
+    {
+      "id": "closed-open-wide",
+      "detail": "Changes: both eyes are gently fully CLOSED in a natural relaxed blink, with curved fine eyelid lash contours near the existing lower eyelid line, no iris or white showing, no happy upward squeezed arches, no cheek movement. Mouth is naturally open for an 'ah', interior soft dark desaturated red, small subtle lower tongue, no visible big teeth. Upper edge at the original closed mouth line (center y673), opening extends downward about 40px, mouth width about100px. Keep eyebrows neutral in their original positions.",
+      "prompt": "Use case: precise-object-edit. Edit target: the attached approved frontal 2D VTuber illustration. Production expression drawing, same exact canvas 1122 by 1402 and pixel scale and registration as reference. Keep head perfectly upright, the identical face silhouette, nose, chin, hair, eyebrows unless explicitly changed, skin shading, gray-blue short tomboy hair, teal iris design, ears, navy jacket, ivory tee, shoulders and pale blue-gray background unchanged. Only make the specified small local facial changes. Fine soft warm gray-brown mouth line with no lipstick, gloss, shiny lower lip or thick lips. The upper-lip midpoint remains approximately x558,y673 in this canvas; mouth opens by extending the lower mouth edge downwards. No new accessories, no labels, no collage. Changes: both eyes are gently fully CLOSED in a natural relaxed blink, with curved fine eyelid lash contours near the existing lower eyelid line, no iris or white showing, no happy upward squeezed arches, no cheek movement. Mouth is naturally open for an 'ah', interior soft dark desaturated red, small subtle lower tongue, no visible big teeth. Upper edge at the original closed mouth line (center y673), opening extends downward about 40px, mouth width about100px. Keep eyebrows neutral in their original positions.",
+      "reference": "assets/short-hair-v1/front.png",
+      "raw": "exec-3aaa1234-401e-4727-8c97-c40b3a8ad717.png",
+      "output": "./closed-open-wide.png",
+      "status": "candidate",
+      "reason": ""
+    },
+    {
+      "id": "half-open-small",
+      "detail": "Changes: both eyes HALF CLOSED midway through a relaxed blink. Upper lids descend over existing same teal irises, keep eye inner/outer corners and lower lids at their existing positions, do not move the eyeballs or widen/narrow eyes. Mouth is slightly parted for quiet speaking, original upper lip center y673, opening extends downward about15px, about95px wide, soft desaturated reddish interior without teeth. Keep eyebrows neutral.",
+      "prompt": "Use case: precise-object-edit. Edit target: the attached approved frontal 2D VTuber illustration. Production expression drawing, same exact canvas 1122 by 1402 and pixel scale and registration as reference. Keep head perfectly upright, the identical face silhouette, nose, chin, hair, eyebrows unless explicitly changed, skin shading, gray-blue short tomboy hair, teal iris design, ears, navy jacket, ivory tee, shoulders and pale blue-gray background unchanged. Only make the specified small local facial changes. Fine soft warm gray-brown mouth line with no lipstick, gloss, shiny lower lip or thick lips. The upper-lip midpoint remains approximately x558,y673 in this canvas; mouth opens by extending the lower mouth edge downwards. No new accessories, no labels, no collage. Changes: both eyes HALF CLOSED midway through a relaxed blink. Upper lids descend over existing same teal irises, keep eye inner/outer corners and lower lids at their existing positions, do not move the eyeballs or widen/narrow eyes. Mouth is slightly parted for quiet speaking, original upper lip center y673, opening extends downward about15px, about95px wide, soft desaturated reddish interior without teeth. Keep eyebrows neutral.",
+      "reference": "assets/short-hair-v1/front.png",
+      "raw": "exec-ef378004-6d67-4f66-ada1-c9692e138cd5.png",
+      "output": "./half-open-small.png",
+      "status": "candidate",
+      "reason": ""
+    },
+    {
+      "id": "pucker-brow-up",
+      "detail": "Paint a small gentle closed-lip PUCKER: modest protruding compressed kiss 'u' silhouette about35 pixels wide and20 pixels tall, understated anime linework with a very small dark curved middle seam, no open mouth cavity, no thick lip makeup. Mouth upper seam position remains around y673. Raise both eyebrows naturally about14 pixels, preserve exact original thickness and gray-blue color, soft inquisitive arcs not worried inverted V. The long front bangs must still occlude eyebrows exactly where the original hair crosses them; never draw eyebrows on top of opaque hair.",
+      "prompt": "Use case: precise-object-edit. Edit target: attached approved frontal 2D VTuber illustration. Production expression drawing on exactly same canvas 1122x1402, pixel scale and registration. Keep identical head upright, face outline, nose, chin, hair strokes, teal eyes OPEN unchanged, gray-blue short tomboy hair, skin, ears, navy jacket, ivory tee, shoulders and pale blue-gray background unchanged. Only alter mouth and brows as specified. Thin soft desaturated warm brown mouth drawing, absolutely no lipstick or glossy fleshy lips. No additional accessories, text or collage. Mouth centered at x558 with upper edge y673. Paint a small gentle closed-lip PUCKER: modest protruding compressed kiss 'u' silhouette about35 pixels wide and20 pixels tall, understated anime linework with a very small dark curved middle seam, no open mouth cavity, no thick lip makeup. Mouth upper seam position remains around y673. Raise both eyebrows naturally about14 pixels, preserve exact original thickness and gray-blue color, soft inquisitive arcs not worried inverted V. The long front bangs must still occlude eyebrows exactly where the original hair crosses them; never draw eyebrows on top of opaque hair.",
+      "reference": "assets/short-hair-v1/front.png",
+      "raw": "exec-a8cdb3e1-945d-463d-bce0-5f2f5ba86a1c.png",
+      "output": null,
+      "status": "rejected",
+      "reason": "Mouth glossy lip fill inconsistent with accepted fine line; retained as historical input to correction."
+    },
+    {
+      "id": "press-brow-down",
+      "detail": "Paint a subtle PRESSED-LIP mouth: a soft thin nearly horizontal slightly compressed line about80 pixels wide at y673, small tension at corners and tiny muted lower-lip crease, no large open cavity, no glossy lip. Gently lower both eyebrows about10 pixels, inner tips slightly closer/lower for mild concentration, never fierce caricature. Keep their exact original gray-blue color and thickness. Preserve the original opaque foreground bangs over eyebrows so no brow strokes cross the hair.",
+      "prompt": "Use case: precise-object-edit. Edit target: attached approved frontal 2D VTuber illustration. Production expression drawing on exactly same canvas 1122x1402, pixel scale and registration. Keep identical head upright, face outline, nose, chin, hair strokes, teal eyes OPEN unchanged, gray-blue short tomboy hair, skin, ears, navy jacket, ivory tee, shoulders and pale blue-gray background unchanged. Only alter mouth and brows as specified. Thin soft desaturated warm brown mouth drawing, absolutely no lipstick or glossy fleshy lips. No additional accessories, text or collage. Mouth centered at x558 with upper edge y673. Paint a subtle PRESSED-LIP mouth: a soft thin nearly horizontal slightly compressed line about80 pixels wide at y673, small tension at corners and tiny muted lower-lip crease, no large open cavity, no glossy lip. Gently lower both eyebrows about10 pixels, inner tips slightly closer/lower for mild concentration, never fierce caricature. Keep their exact original gray-blue color and thickness. Preserve the original opaque foreground bangs over eyebrows so no brow strokes cross the hair.",
+      "reference": "assets/short-hair-v1/front.png",
+      "raw": "exec-53a44a65-6af8-4719-935c-2b20beae46af.png",
+      "output": "./press-brow-down.png",
+      "status": "candidate",
+      "reason": ""
+    },
+    {
+      "id": "pucker-flat",
+      "reference": "exec-a8cdb3e1-945d-463d-bce0-5f2f5ba86a1c.png",
+      "prompt": "Use case: precise-object-edit. Production local facial expression edit of this exact upright front 2D anime avatar. Output same1122x1402 canvas, unchanged pixel scale and registration. Absolutely preserve original face/head silhouette, chin, eyes, nose, eyebrows, hair strokes, colors, skin and clothing, torso, background. Change ONLY the mouth. No text, no collage, no accessories. Fine flat line-art mouth, never fleshy lips or lipstick. The attached target already has the raised brows we need; keep them. Correct ONLY the too glossy kiss mouth. Remove ALL pink lip fill, ALL white sparkles, ALL lower lip shading and volume. Replace with a tiny desaturated brown understated puckered mouth seam, a small curved sideways 3 / soft omega-like compressed closed line only, 32 pixels wide, around x558 y673, with a tiny subtle lower crease. The surrounding skin has its original uninterrupted matte color. This is simple anime closed mouth drawing, not realistic lips.",
+      "raw": "exec-c58fce16-5092-432d-baf5-826fcfe15a7b.png",
+      "output": "./pucker-flat.png",
+      "status": "candidate",
+      "reason": ""
+    },
+    {
+      "id": "shift-left",
+      "reference": "assets/short-hair-v1/front.png",
+      "prompt": "Use case: precise-object-edit. Production local facial expression edit of this exact upright front 2D anime avatar. Output same1122x1402 canvas, unchanged pixel scale and registration. Absolutely preserve original face/head silhouette, chin, eyes, nose, eyebrows, hair strokes, colors, skin and clothing, torso, background. Change ONLY the mouth. No text, no collage, no accessories. Fine flat line-art mouth, never fleshy lips or lipstick. Paint the closed gentle mouth pulled toward the CHARACTER'S LEFT (VIEWER'S RIGHT). Mouth seam center at approximately x580 y673 (22px to screen right of the original). Anatomically asymmetric gentle pursing: viewer-right corner slightly raised and compressed, viewer-left side extended, soft little curve on the right, not an open mouth and not a kiss pucker. Draw a fresh 85-pixel-wide fine soft brown smile seam, no visible lip surfaces or shine. Both eyes and brows completely unchanged.",
+      "raw": "exec-ceb67696-c27a-47c7-b8a8-7e487d34e746.png",
+      "output": "./shift-left.png",
+      "status": "candidate",
+      "reason": ""
+    },
+    {
+      "id": "shift-right",
+      "reference": "assets/short-hair-v1/front.png",
+      "prompt": "Use case: precise-object-edit. Production local facial expression edit of this exact upright front 2D anime avatar. Output same1122x1402 canvas, unchanged pixel scale and registration. Absolutely preserve original face/head silhouette, chin, eyes, nose, eyebrows, hair strokes, colors, skin and clothing, torso, background. Change ONLY the mouth. No text, no collage, no accessories. Fine flat line-art mouth, never fleshy lips or lipstick. Paint the closed gentle mouth pulled toward the CHARACTER'S RIGHT (VIEWER'S LEFT). Mouth seam center at approximately x536 y673 (22px to screen left of the original). Anatomically asymmetric gentle pursing: viewer-left corner slightly raised and compressed, viewer-right side extended, soft little curve on the left, not an open mouth and not a kiss pucker. Draw a fresh85-pixel-wide fine soft brown smile seam, no visible lip surfaces or shine. Both eyes and brows completely unchanged.",
+      "raw": "exec-16eb8b8b-edff-4eb0-b7fe-7ba6621f7e13.png",
+      "output": "./shift-right.png",
+      "status": "candidate",
+      "reason": ""
+    }
+  ],
+  "files": {
+    "pucker-flat.png": {
+      "sha256": "6b4242b3873b55032f6f186e7ad34cc53be019a5c945eb90a1391df4a92b523f"
+    },
+    "shift-right.png": {
+      "sha256": "4ab95924f8a27e1255cb2a935d37818be3ff4017bba510e9aab1e7cbb83f6cd0"
+    },
+    "half-open-small.png": {
+      "sha256": "731c623f1a5155a2c183cad2056827b6205691869e5668596258ff0febb90b07"
+    },
+    "press-brow-down.png": {
+      "sha256": "2019c5448e75bd24b7d19ae6545f0d0e014c11b6eed5e629e62173fb89e83c82"
+    },
+    "closed-open-wide.png": {
+      "sha256": "ecb6aad1c10e0d3d4a740cf93f87fd878f15bfa395da20606020319567568cbe"
+    },
+    "shift-left.png": {
+      "sha256": "62585a54c81da1a92c7e1eae64117d7273827dd251fd2887c6e15703a3d1d625"
+    }
+  },
+  "compositing": {
+    "manifest": "manifest.json",
+    "manifestSha256": "1df4c425c970fa59009f53db78fb58b26efa5666c225644ceeb8d65d06aedb53",
+    "lipReference": [
+      558,
+      674
+    ],
+    "jawRegistrations": {
+      "openSmall": [
+        0,
+        11
+      ],
+      "openWide": [
+        0,
+        16
+      ]
+    },
+    "registerEvidence": "Manual visible-contour inspection with read-only pixel sampling; no pixel deformation. See EXPRESSION-VISUAL-REVIEW.txt.",
+    "mouthMask": "Narrows toward chin to exclude source jaw edge after fixed lip registration.",
+    "eyeMask": "Includes original open-eye upper crease to prevent residual floating eyelid."
+  }
+}

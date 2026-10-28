@@ -1,0 +1,3548 @@
+
+> moemotion@0.15.0 test
+> node --test *.test.mjs
+
+TAP version 13
+# Subtest: recording cannot restart while the previous stop is still queued
+ok 1 - recording cannot restart while the previous stop is still queued
+  ---
+  duration_ms: 3.945583
+  type: 'test'
+  ...
+# Subtest: each recording saves only its own chunks and ignores an old stop callback
+ok 2 - each recording saves only its own chunks and ignores an old stop callback
+  ---
+  duration_ms: 1.154084
+  type: 'test'
+  ...
+# Subtest: empty recording releases capture tracks without a download
+ok 3 - empty recording releases capture tracks without a download
+  ---
+  duration_ms: 0.911
+  type: 'test'
+  ...
+# Subtest: 3D disposal releases shared materials, stage and shadow resources once
+ok 4 - 3D disposal releases shared materials, stage and shadow resources once
+  ---
+  duration_ms: 0.80575
+  type: 'test'
+  ...
+# Subtest: AI generation remains single-flight even when inputs change or it is called again
+ok 5 - AI generation remains single-flight even when inputs change or it is called again
+  ---
+  duration_ms: 0.739
+  type: 'test'
+  ...
+# Subtest: AI generation failure clears credentials and unlocks controls without another request
+ok 6 - AI generation failure clears credentials and unlocks controls without another request
+  ---
+  duration_ms: 0.371375
+  type: 'test'
+  ...
+# Subtest: a generated image is downloaded for safekeeping when avatar import fails
+ok 7 - a generated image is downloaded for safekeeping when avatar import fails
+  ---
+  duration_ms: 0.382584
+  type: 'test'
+  ...
+# Subtest: calibration rejects enough samples when the face is no longer recently visible
+ok 8 - calibration rejects enough samples when the face is no longer recently visible
+  ---
+  duration_ms: 0.357584
+  type: 'test'
+  ...
+# Subtest: flushing a clean project does not leave a promise that blocks later autosaves
+ok 9 - flushing a clean project does not leave a promise that blocks later autosaves
+  ---
+  duration_ms: 0.643833
+  type: 'test'
+  ...
+# Subtest: saved custom image restores without loading an unavailable demo asset
+ok 10 - saved custom image restores without loading an unavailable demo asset
+  ---
+  duration_ms: 4.13825
+  type: 'test'
+  ...
+# Subtest: missing demo on first launch unlocks import without disabling healthy storage
+ok 11 - missing demo on first launch unlocks import without disabling healthy storage
+  ---
+  duration_ms: 0.777209
+  type: 'test'
+  ...
+# Subtest: saved demo preferences survive missing illustration without blaming the database
+ok 12 - saved demo preferences survive missing illustration without blaming the database
+  ---
+  duration_ms: 0.827959
+  type: 'test'
+  ...
+# Subtest: genuine storage and custom-image restore errors still preserve stored data
+ok 13 - genuine storage and custom-image restore errors still preserve stored data
+  ---
+  duration_ms: 0.626542
+  type: 'test'
+  ...
+# Subtest: portrait crop stays inside the source image even with a low or large face
+ok 14 - portrait crop stays inside the source image even with a low or large face
+  ---
+  duration_ms: 1.006375
+  type: 'test'
+  ...
+# Subtest: degenerate or out-of-image face geometry falls back to a finite full-image view
+ok 15 - degenerate or out-of-image face geometry falls back to a finite full-image view
+  ---
+  duration_ms: 4.347416
+  type: 'test'
+  ...
+# Subtest: face focus has a minimum crop extent and remains bounded for tiny or huge rig geometry
+ok 16 - face focus has a minimum crop extent and remains bounded for tiny or huge rig geometry
+  ---
+  duration_ms: 5.509166
+  type: 'test'
+  ...
+# Subtest: a successfully decoded custom portrait clears temporary painted expression and direction tests
+ok 17 - a successfully decoded custom portrait clears temporary painted expression and direction tests
+  ---
+  duration_ms: 1.588625
+  type: 'test'
+  ...
+# Subtest: failed or stale custom portrait decoding preserves the active painted test state
+ok 18 - failed or stale custom portrait decoding preserves the active painted test state
+  ---
+  duration_ms: 5.1655
+  type: 'test'
+  ...
+# Subtest: concurrent 3D requests share one build and both receive the ready model
+ok 19 - concurrent 3D requests share one build and both receive the ready model
+  ---
+  duration_ms: 21.297625
+  type: 'test'
+  ...
+# Subtest: late cancelled model cannot replace a newer model or unlock its loading controls
+ok 20 - late cancelled model cannot replace a newer model or unlock its loading controls
+  ---
+  duration_ms: 6.943708
+  type: 'test'
+  ...
+# Subtest: opening a different-model 2D project cancels loading and restores 2D recording
+ok 21 - opening a different-model 2D project cancels loading and restores 2D recording
+  ---
+  duration_ms: 1.02625
+  type: 'test'
+  ...
+# Subtest: opening a different-model 3D project waits for the new build and ignores the old one
+ok 22 - opening a different-model 3D project waits for the new build and ignores the old one
+  ---
+  duration_ms: 10.162709
+  type: 'test'
+  ...
+# Subtest: late ordinary errors from a cancelled build cannot force the replacement back to 2D
+ok 23 - late ordinary errors from a cancelled build cannot force the replacement back to 2D
+  ---
+  duration_ms: 0.6465
+  type: 'test'
+  ...
+# Subtest: pagehide cancels pending 3D and painted loads, disposes painted 2D, and restores only once
+ok 24 - pagehide cancels pending 3D and painted loads, disposes painted 2D, and restores only once
+  ---
+  duration_ms: 0.748042
+  type: 'test'
+  ...
+# Subtest: model switching is rejected while recording, exporting or already loading
+ok 25 - model switching is rejected while recording, exporting or already loading
+  ---
+  duration_ms: 5.136334
+  type: 'test'
+  ...
+# Subtest: VRM export locks model and color controls until completion
+ok 26 - VRM export locks model and color controls until completion
+  ---
+  duration_ms: 6.795917
+  type: 'test'
+  ...
+# Subtest: recording updates model-switch controls through the queued stop callback
+ok 27 - recording updates model-switch controls through the queued stop callback
+  ---
+  duration_ms: 1.377917
+  type: 'test'
+  ...
+# Subtest: camera lifecycle forwards asymmetric raw channels and expires stalled or missing face data
+ok 28 - camera lifecycle forwards asymmetric raw channels and expires stalled or missing face data
+  ---
+  duration_ms: 2.059709
+  type: 'test'
+  ...
+# Subtest: choosing automatic demo exits manual face testing while preserving response settings
+ok 29 - choosing automatic demo exits manual face testing while preserving response settings
+  ---
+  duration_ms: 1.001042
+  type: 'test'
+  ...
+# Subtest: recalibration exits manual testing and establishes a fresh 2D camera neutral
+ok 30 - recalibration exits manual testing and establishes a fresh 2D camera neutral
+  ---
+  duration_ms: 2.651167
+  type: 'test'
+  ...
+# Subtest: switching project clears temporary 2D tests and refreshes the editor without importing live state
+ok 31 - switching project clears temporary 2D tests and refreshes the editor without importing live state
+  ---
+  duration_ms: 1.283666
+  type: 'test'
+  ...
+# Subtest: 2D ARKit response settings and manual tests cannot alter the original 3D motion pipeline
+ok 32 - 2D ARKit response settings and manual tests cannot alter the original 3D motion pipeline
+  ---
+  duration_ms: 2.803959
+  type: 'test'
+  ...
+# Subtest: pagehide invalidates a camera start still loading vision without requesting camera permission later
+ok 33 - pagehide invalidates a camera start still loading vision without requesting camera permission later
+  ---
+  duration_ms: 1.694291
+  type: 'test'
+  ...
+# Subtest: a getUserMedia stream arriving after pagehide is immediately stopped and never attached or played
+ok 34 - a getUserMedia stream arriving after pagehide is immediately stopped and never attached or played
+  ---
+  duration_ms: 12.769
+  type: 'test'
+  ...
+# Subtest: a pending video play is cancelled by pagehide and cannot later replace a fresh post-restore camera
+ok 35 - a pending video play is cancelled by pagehide and cannot later replace a fresh post-restore camera
+  ---
+  duration_ms: 3.026
+  type: 'test'
+  ...
+# Subtest: transparent regions do not become black hair or clothes
+ok 36 - transparent regions do not become black hair or clothes
+  ---
+  duration_ms: 29.7745
+  type: 'test'
+  ...
+# Subtest: uniform white and chroma-green borders do not contaminate the palette
+ok 37 - uniform white and chroma-green borders do not contaminate the palette
+  ---
+  duration_ms: 99.953666
+  type: 'test'
+  ...
+# Subtest: true black hair is retained while white sclera and dark pupils are ignored
+ok 38 - true black hair is retained while white sclera and dark pupils are ignored
+  ---
+  duration_ms: 18.137625
+  type: 'test'
+  ...
+# Subtest: uniform blank opaque images fall back instead of sampling the background
+ok 39 - uniform blank opaque images fall back instead of sampling the background
+  ---
+  duration_ms: 1.571
+  type: 'test'
+  ...
+# Subtest: deep skin tones and completely black hair remain valid source colours
+ok 40 - deep skin tones and completely black hair remain valid source colours
+  ---
+  duration_ms: 18.255209
+  type: 'test'
+  ...
+# Subtest: extraction is deterministic and does not mutate pixels or rig
+ok 41 - extraction is deterministic and does not mutate pixels or rig
+  ---
+  duration_ms: 20.905458
+  type: 'test'
+  ...
+# Subtest: degenerate images and unsafe geometry return finite bounded values
+ok 42 - degenerate images and unsafe geometry return finite bounded values
+  ---
+  duration_ms: 8.654208
+  type: 'test'
+  ...
+# Subtest: connected background removal preserves enclosed matching white clothing
+ok 43 - connected background removal preserves enclosed matching white clothing
+  ---
+  duration_ms: 11.505833
+  type: 'test'
+  ...
+# Subtest: long hair is only inferred with side silhouette evidence
+ok 44 - long hair is only inferred with side silhouette evidence
+  ---
+  duration_ms: 24.296709
+  type: 'test'
+  ...
+# Subtest: default objects and palettes cannot be accidentally shared between imports
+ok 45 - default objects and palettes cannot be accidentally shared between imports
+  ---
+  duration_ms: 0.633666
+  type: 'test'
+  ...
+# Subtest: non-finite pixel values do not leak into palette output
+ok 46 - non-finite pixel values do not leak into palette output
+  ---
+  duration_ms: 0.29925
+  type: 'test'
+  ...
+# Subtest: exports the 52 canonical Apple ARKit channels with complete Chinese metadata
+ok 47 - exports the 52 canonical Apple ARKit channels with complete Chinese metadata
+  ---
+  duration_ms: 2.465833
+  type: 'test'
+  ...
+# Subtest: frame normalization returns all channels while rejecting unknown, inherited and non-finite data
+ok 48 - frame normalization returns all channels while rejecting unknown, inherited and non-finite data
+  ---
+  duration_ms: 0.3305
+  type: 'test'
+  ...
+# Subtest: MediaPipe 51 plus neutral becomes canonical ARKit 52 without inventing tongue data
+ok 49 - MediaPipe 51 plus neutral becomes canonical ARKit 52 without inventing tongue data
+  ---
+  duration_ms: 0.156041
+  type: 'test'
+  ...
+# Subtest: legacy compact motion maps independent eyes, brows, gaze and mouth into ARKit channels
+ok 50 - legacy compact motion maps independent eyes, brows, gaze and mouth into ARKit channels
+  ---
+  duration_ms: 0.383708
+  type: 'test'
+  ...
+# Subtest: settings retain only own canonical channels and produce complete bounded configurations
+ok 51 - settings retain only own canonical channels and produce complete bounded configurations
+  ---
+  duration_ms: 0.269
+  type: 'test'
+  ...
+# Subtest: all 52 explicit settings normalize without exceeding the canonical channel set
+ok 52 - all 52 explicit settings normalize without exceeding the canonical channel set
+  ---
+  duration_ms: 0.225334
+  type: 'test'
+  ...
+# Subtest: value mapping supports all curves, clipping and reversed output
+ok 53 - value mapping supports all curves, clipping and reversed output
+  ---
+  duration_ms: 0.135833
+  type: 'test'
+  ...
+# Subtest: filter smoothing is frame-rate independent and zero smoothing is immediate
+ok 54 - filter smoothing is frame-rate independent and zero smoothing is immediate
+  ---
+  duration_ms: 9.380583
+  type: 'test'
+  ...
+# Subtest: filter reset and hostile timing or frame values never leak non-finite output
+ok 55 - filter reset and hostile timing or frame values never leak non-finite output
+  ---
+  duration_ms: 0.497583
+  type: 'test'
+  ...
+# Subtest: appearance switches real hair groups and clamps proportions
+ok 56 - appearance switches real hair groups and clamps proportions
+  ---
+  duration_ms: 1.465209
+  type: 'test'
+  ...
+# Subtest: invalid motion and excessive sensitivity cannot produce non-finite transforms
+ok 57 - invalid motion and excessive sensitivity cannot produce non-finite transforms
+  ---
+  duration_ms: 0.785083
+  type: 'test'
+  ...
+# Subtest: shoulder and elbow changes ease in instead of snapping in a single frame
+ok 58 - shoulder and elbow changes ease in instead of snapping in a single frame
+  ---
+  duration_ms: 5.625083
+  type: 'test'
+  ...
+# Subtest: half-strength overhead arms keep their direction without vector interpolation flips
+ok 59 - half-strength overhead arms keep their direction without vector interpolation flips
+  ---
+  duration_ms: 2.711125
+  type: 'test'
+  ...
+# Subtest: elbow direction transitions continuously through ambiguous tracking
+ok 60 - elbow direction transitions continuously through ambiguous tracking
+  ---
+  duration_ms: 7.638959
+  type: 'test'
+  ...
+# Subtest: fringe and side-strip root corners stay inside the rounded crown silhouette
+ok 61 - fringe and side-strip root corners stay inside the rounded crown silhouette
+  ---
+  duration_ms: 0.460458
+  type: 'test'
+  ...
+# Subtest: blouse follows the exact jacket profile without sinking into the lower torso
+ok 62 - blouse follows the exact jacket profile without sinking into the lower torso
+  ---
+  duration_ms: 0.453625
+  type: 'test'
+  ...
+# Subtest: export lock leaves motion transforms unchanged
+ok 63 - export lock leaves motion transforms unchanged
+  ---
+  duration_ms: 0.466625
+  type: 'test'
+  ...
+# Subtest: disposing shared eye maps releases texture memory once
+ok 64 - disposing shared eye maps releases texture memory once
+  ---
+  duration_ms: 1.507167
+  type: 'test'
+  ...
+# Subtest: portrait and full framing keep a finite camera and a useful head-to-hips view
+ok 65 - portrait and full framing keep a finite camera and a useful head-to-hips view
+  ---
+  duration_ms: 0.652083
+  type: 'test'
+  ...
+# Subtest: studio is the default and its model path and abort signal are passed through
+ok 66 - studio is the default and its model path and abort signal are passed through
+  ---
+  duration_ms: 0.575666
+  type: 'test'
+  ...
+# Subtest: failed studio falls back to light while explicit light skips VRM
+ok 67 - failed studio falls back to light while explicit light skips VRM
+  ---
+  duration_ms: 1.154375
+  type: 'test'
+  ...
+# Subtest: cancelling a build never loads fallback and disposes a late successful result
+ok 68 - cancelling a build never loads fallback and disposes a late successful result
+  ---
+  duration_ms: 3.010042
+  type: 'test'
+  ...
+# Subtest: timeout falls back and a late module cannot create a second renderer
+ok 69 - timeout falls back and a late module cannot create a second renderer
+  ---
+  duration_ms: 14.404625
+  type: 'test'
+  ...
+# Subtest: a failed fallback rejects and a pre-cancelled request does no work
+ok 70 - a failed fallback rejects and a pre-cancelled request does no work
+  ---
+  duration_ms: 0.511958
+  type: 'test'
+  ...
+# Subtest: review manifest keeps missing or hidden landmarks absent
+ok 71 - review manifest keeps missing or hidden landmarks absent
+  ---
+  duration_ms: 2.827958
+  type: 'test'
+  ...
+# Subtest: invalid image dimensions, landmarks, identities and remote assets fail before rendering
+ok 72 - invalid image dimensions, landmarks, identities and remote assets fail before rendering
+  ---
+  duration_ms: 0.925667
+  type: 'test'
+  ...
+# Subtest: feedback round trips exact note text and does not add editable approval to reference
+ok 73 - feedback round trips exact note text and does not add editable approval to reference
+  ---
+  duration_ms: 0.517041
+  type: 'test'
+  ...
+# Subtest: unknown saved status and old asset revisions cannot become approvals
+ok 74 - unknown saved status and old asset revisions cannot become approvals
+  ---
+  duration_ms: 0.526791
+  type: 'test'
+  ...
+# Subtest: conversation approval preserves browser feedback and never fabricates a pass
+ok 75 - conversation approval preserves browser feedback and never fabricates a pass
+  ---
+  duration_ms: 2.22475
+  type: 'test'
+  ...
+# Subtest: export includes image dimensions, landmarks and feedback without claiming runtime readiness
+ok 76 - export includes image dimensions, landmarks and feedback without claiming runtime readiness
+  ---
+  duration_ms: 0.395625
+  type: 'test'
+  ...
+# Subtest: face crop encloses observed landmarks, stays in source canvas, and does not mutate them
+ok 77 - face crop encloses observed landmarks, stays in source canvas, and does not mutate them
+  ---
+  duration_ms: 0.283958
+  type: 'test'
+  ...
+# Subtest: face magnification preserves relative face sizes instead of fitting each landmark span
+ok 78 - face magnification preserves relative face sizes instead of fitting each landmark span
+  ---
+  duration_ms: 0.376542
+  type: 'test'
+  ...
+# Subtest: three completed poses own thirty-six distinct native source paintings and all expression capabilities
+ok 79 - three completed poses own thirty-six distinct native source paintings and all expression capabilities
+  ---
+  duration_ms: 87.303959
+  type: 'test'
+  ...
+# Subtest: accepted earlier pose artwork and reusable behavior remain exactly frozen
+ok 80 - accepted earlier pose artwork and reusable behavior remain exactly frozen
+  ---
+  duration_ms: 73.709584
+  type: 'test'
+  ...
+# Subtest: each new pose uses local native-scale eyelids, separately authored mouth directions and independent anatomical brows
+ok 81 - each new pose uses local native-scale eyelids, separately authored mouth directions and independent anatomical brows
+  ---
+  duration_ms: 1.001333
+  type: 'test'
+  ...
+# Subtest: real generation provenance preserves all multi-image references and refinement chains to frozen original art
+ok 82 - real generation provenance preserves all multi-image references and refinement chains to frozen original art
+  ---
+  duration_ms: 52.436334
+  type: 'test'
+  ...
+# Subtest: new anatomical protection and detail windows are registered from actual art independently of paint clips
+ok 83 - new anatomical protection and detail windows are registered from actual art independently of paint clips
+  ---
+  duration_ms: 0.570209
+  type: 'test'
+  ...
+# Subtest: pure lateral inputs reach two distinct real paintings while combined pucker behavior stays explicit
+ok 84 - pure lateral inputs reach two distinct real paintings while combined pucker behavior stays explicit
+  ---
+  duration_ms: 0.338125
+  type: 'test'
+  ...
+# Subtest: completion family requires all three real pose IDs and all facial capabilities
+ok 85 - completion family requires all three real pose IDs and all facial capabilities
+  ---
+  duration_ms: 20.429334
+  type: 'test'
+  ...
+# Subtest: completion compiler preserves the new IDs and creates no visible closed-eye iris
+ok 86 - completion compiler preserves the new IDs and creates no visible closed-eye iris
+  ---
+  duration_ms: 5.267875
+  type: 'test'
+  ...
+# Subtest: completion snapshots share stable content, invalidate changed gaze, and retry failed compilation
+ok 87 - completion snapshots share stable content, invalidate changed gaze, and retry failed compilation
+  ---
+  duration_ms: 7.900167
+  type: 'test'
+  ...
+# Subtest: completion loader resolves its own URL and refuses an old-family manifest before image loading
+ok 88 - completion loader resolves its own URL and refuses an old-family manifest before image loading
+  ---
+  duration_ms: 47.840333
+  type: 'test'
+  ...
+# Subtest: studio loads all four asset families into nine uniquely owned head poses
+ok 89 - studio loads all four asset families into nine uniquely owned head poses
+  ---
+  duration_ms: 52.176208
+  type: 'test'
+  ...
+# Subtest: studio original exports neutral rendered metadata, retains target metadata, and never substitutes missing views
+ok 90 - studio original exports neutral rendered metadata, retains target metadata, and never substitutes missing views
+  ---
+  duration_ms: 55.297833
+  type: 'test'
+  ...
+# Subtest: demo motion returns every finite normalized channel for every mode
+ok 91 - demo motion returns every finite normalized channel for every mode
+  ---
+  duration_ms: 105.195833
+  type: 'test'
+  ...
+# Subtest: idle stays closed-mouth, gently breathing and at rest
+ok 92 - idle stays closed-mouth, gently breathing and at rest
+  ---
+  duration_ms: 15.944042
+  type: 'test'
+  ...
+# Subtest: greeting raises one arm moderately and returns it to rest
+ok 93 - greeting raises one arm moderately and returns it to rest
+  ---
+  duration_ms: 1.897625
+  type: 'test'
+  ...
+# Subtest: arm direction is coherent with arm amount and elbows never flip
+ok 94 - arm direction is coherent with arm amount and elbows never flip
+  ---
+  duration_ms: 6.979542
+  type: 'test'
+  ...
+# Subtest: greeting forearm points upward at the first wave peak
+ok 95 - greeting forearm points upward at the first wave peak
+  ---
+  duration_ms: 0.2795
+  type: 'test'
+  ...
+# Subtest: blinks have a small duty cycle, a short duration and slight eyelid offset
+ok 96 - blinks have a small duty cycle, a short duration and slight eyelid offset
+  ---
+  duration_ms: 18.132625
+  type: 'test'
+  ...
+# Subtest: speaking uses bounded mouth pulses with closed-mouth pauses
+ok 97 - speaking uses bounded mouth pulses with closed-mouth pauses
+  ---
+  duration_ms: 6.834041
+  type: 'test'
+  ...
+# Subtest: all trajectories are continuous at adjacent frames and loop boundaries
+ok 98 - all trajectories are continuous at adjacent frames and loop boundaries
+  ---
+  duration_ms: 64.514208
+  type: 'test'
+  ...
+# Subtest: invalid input is safe, unknown mode falls back to idle, and calls are deterministic
+ok 99 - invalid input is safe, unknown mode falls back to idle, and calls are deterministic
+  ---
+  duration_ms: 0.518583
+  type: 'test'
+  ...
+# Subtest: actual expression images exist at their registered dimensions and approved front is unchanged
+ok 100 - actual expression images exist at their registered dimensions and approved front is unchanged
+  ---
+  duration_ms: 11.967833
+  type: 'test'
+  ...
+# Subtest: left and right mouth use independent source drawings, not a shared pucker or mirror
+ok 101 - left and right mouth use independent source drawings, not a shared pucker or mirror
+  ---
+  duration_ms: 3.426375
+  type: 'test'
+  ...
+# Subtest: registered jaw paintings share upper lip anchor and never scale with expression strength
+ok 102 - registered jaw paintings share upper lip anchor and never scale with expression strength
+  ---
+  duration_ms: 0.129625
+  type: 'test'
+  ...
+# Subtest: renderer refuses invalid registration instead of stretching or clipping silently
+ok 103 - renderer refuses invalid registration instead of stretching or clipping silently
+  ---
+  duration_ms: 0.579875
+  type: 'test'
+  ...
+# Subtest: approved five-stage pack preserves every original source and registration and adds actual in-between images
+ok 104 - approved five-stage pack preserves every original source and registration and adds actual in-between images
+  ---
+  duration_ms: 13.154834
+  type: 'test'
+  ...
+# Subtest: five-stage approval fingerprints still match every source drawing
+ok 105 - five-stage approval fingerprints still match every source drawing
+  ---
+  duration_ms: 12.07425
+  type: 'test'
+  ...
+# Subtest: approved gaze pack preserves all approved five-stage artwork and registers separate gaze resources
+ok 106 - approved gaze pack preserves all approved five-stage artwork and registers separate gaze resources
+  ---
+  duration_ms: 3.655334
+  type: 'test'
+  ...
+# Subtest: approved gaze source images, expression registration and eye-layer geometry retain their accepted fingerprints
+ok 107 - approved gaze source images, expression registration and eye-layer geometry retain their accepted fingerprints
+  ---
+  duration_ms: 16.976292
+  type: 'test'
+  ...
+# Subtest: partial extended packs are rejected rather than claiming five-stage support
+ok 108 - partial extended packs are rejected rather than claiming five-stage support
+  ---
+  duration_ms: 0.732458
+  type: 'test'
+  ...
+# Subtest: registered gaze uses separate iris crops and an individual mask for every visible eyelid stage
+ok 109 - registered gaze uses separate iris crops and an individual mask for every visible eyelid stage
+  ---
+  duration_ms: 1.704875
+  type: 'test'
+  ...
+# Subtest: approved packs without gaze remain valid and an explicit opt-in is required
+ok 110 - approved packs without gaze remain valid and an explicit opt-in is required
+  ---
+  duration_ms: 0.9995
+  type: 'test'
+  ...
+# Subtest: gaze validation refuses missing eye masks, missing painted fragments and a visible closed-eye iris
+ok 111 - gaze validation refuses missing eye masks, missing painted fragments and a visible closed-eye iris
+  ---
+  duration_ms: 8.852042
+  type: 'test'
+  ...
+# Subtest: gaze validation refuses shared or overlapping iris crops and nonuniform registration
+ok 112 - gaze validation refuses shared or overlapping iris crops and nonuniform registration
+  ---
+  duration_ms: 0.616
+  type: 'test'
+  ...
+# Subtest: gaze validation refuses out-of-bounds or nonfinite iris registrations and masks
+ok 113 - gaze validation refuses out-of-bounds or nonfinite iris registrations and masks
+  ---
+  duration_ms: 3.701791
+  type: 'test'
+  ...
+# Subtest: gaze validation refuses unavailable sources or invalid travel limits
+ok 114 - gaze validation refuses unavailable sources or invalid travel limits
+  ---
+  duration_ms: 2.610708
+  type: 'test'
+  ...
+# Subtest: zero and invalid gaze inputs give exactly zero displacement
+ok 115 - zero and invalid gaze inputs give exactly zero displacement
+  ---
+  duration_ms: 0.852
+  type: 'test'
+  ...
+# Subtest: small gaze movement remains continuous and preserves distinct up/down travel
+ok 116 - small gaze movement remains continuous and preserves distinct up/down travel
+  ---
+  duration_ms: 0.303917
+  type: 'test'
+  ...
+# Subtest: saturation and diagonal travel remain within the registered ellipse
+ok 117 - saturation and diagonal travel remain within the registered ellipse
+  ---
+  duration_ms: 0.387791
+  type: 'test'
+  ...
+# Subtest: only declared sample channels are sanitized; null, nonfinite, inherited and unknown values are safe
+ok 118 - only declared sample channels are sanitized; null, nonfinite, inherited and unknown values are safe
+  ---
+  duration_ms: 1.191792
+  type: 'test'
+  ...
+# Subtest: channel metadata covers only the actual sample and states whole-mouth/whole-brow approximations
+ok 119 - channel metadata covers only the actual sample and states whole-mouth/whole-brow approximations
+  ---
+  duration_ms: 0.229666
+  type: 'test'
+  ...
+# Subtest: gaze directions follow anatomical left/right while coordinates follow the canvas
+ok 120 - gaze directions follow anatomical left/right while coordinates follow the canvas
+  ---
+  duration_ms: 0.332667
+  type: 'test'
+  ...
+# Subtest: gaze needs a strict resource flag and unsupported channels never fabricate movement
+ok 121 - gaze needs a strict resource flag and unsupported channels never fabricate movement
+  ---
+  duration_ms: 1.294167
+  type: 'test'
+  ...
+# Subtest: opposing gaze inputs cancel after per-channel saturation without coupling the eyes
+ok 122 - opposing gaze inputs cancel after per-channel saturation without coupling the eyes
+  ---
+  duration_ms: 0.137208
+  type: 'test'
+  ...
+# Subtest: gaze rejects nonfinite, inherited, coerced and malformed input
+ok 123 - gaze rejects nonfinite, inherited, coerced and malformed input
+  ---
+  duration_ms: 0.107417
+  type: 'test'
+  ...
+# Subtest: gaze and expression selection remain separate and do not mutate input or share output
+ok 124 - gaze and expression selection remain separate and do not mutate input or share output
+  ---
+  duration_ms: 0.224666
+  type: 'test'
+  ...
+# Subtest: eyes independently select open/half/closed in character anatomy
+ok 125 - eyes independently select open/half/closed in character anatomy
+  ---
+  duration_ms: 0.119875
+  type: 'test'
+  ...
+# Subtest: eye hysteresis resists boundary noise but allows immediate full close and open
+ok 126 - eye hysteresis resists boundary noise but allows immediate full close and open
+  ---
+  duration_ms: 0.274875
+  type: 'test'
+  ...
+# Subtest: jaw has only three painted choices and a neutral release, without fabricated in-between states
+ok 127 - jaw has only three painted choices and a neutral release, without fabricated in-between states
+  ---
+  duration_ms: 0.350042
+  type: 'test'
+  ...
+# Subtest: mouth precedence is press, closure, pucker, supported shift, then jaw
+ok 128 - mouth precedence is press, closure, pucker, supported shift, then jaw
+  ---
+  duration_ms: 0.158333
+  type: 'test'
+  ...
+# Subtest: pucker and whole-mouth press have hysteresis and release to remaining inputs
+ok 129 - pucker and whole-mouth press have hysteresis and release to remaining inputs
+  ---
+  duration_ms: 0.091583
+  type: 'test'
+  ...
+# Subtest: pure shifts require their own strict availability flag and never substitute pucker
+ok 130 - pure shifts require their own strict availability flag and never substitute pucker
+  ---
+  duration_ms: 0.29325
+  type: 'test'
+  ...
+# Subtest: signed shifts cancel equal coefficients and retain direction through hysteresis
+ok 131 - signed shifts cancel equal coefficients and retain direction through hysteresis
+  ---
+  duration_ms: 0.088042
+  type: 'test'
+  ...
+# Subtest: brows keep anatomical independence and use only neutral/up/down paintings
+ok 132 - brows keep anatomical independence and use only neutral/up/down paintings
+  ---
+  duration_ms: 0.074
+  type: 'test'
+  ...
+# Subtest: brow dominance and hysteresis keep small contrary noise from changing families
+ok 133 - brow dominance and hysteresis keep small contrary noise from changing families
+  ---
+  duration_ms: 0.069791
+  type: 'test'
+  ...
+# Subtest: combined input keeps all five parts independent, without mutating caller data
+ok 134 - combined input keeps all five parts independent, without mutating caller data
+  ---
+  duration_ms: 2.065375
+  type: 'test'
+  ...
+# Subtest: ten-second demo has gap-free intervals, each expression group and one sustained combination
+ok 135 - ten-second demo has gap-free intervals, each expression group and one sustained combination
+  ---
+  duration_ms: 0.315292
+  type: 'test'
+  ...
+# Subtest: demo is deterministic, wraps at ten seconds, and missing shift art stays unsupported
+ok 136 - demo is deterministic, wraps at ten seconds, and missing shift art stays unsupported
+  ---
+  duration_ms: 0.12625
+  type: 'test'
+  ...
+# Subtest: extended eye paintings require explicit availability and preserve the old three-stage mapping by default
+ok 137 - extended eye paintings require explicit availability and preserve the old three-stage mapping by default
+  ---
+  duration_ms: 0.451416
+  type: 'test'
+  ...
+# Subtest: extended jaw anchors map to actual five paintings independently from extended eyes
+ok 138 - extended jaw anchors map to actual five paintings independently from extended eyes
+  ---
+  duration_ms: 0.505125
+  type: 'test'
+  ...
+# Subtest: extended eye and jaw threshold noise cannot chatter between adjacent source paintings
+ok 139 - extended eye and jaw threshold noise cannot chatter between adjacent source paintings
+  ---
+  duration_ms: 0.083166
+  type: 'test'
+  ...
+# Subtest: extended drawings do not change mouth family priority or the old ten-second observation timeline
+ok 140 - extended drawings do not change mouth family priority or the old ten-second observation timeline
+  ---
+  duration_ms: 0.23475
+  type: 'test'
+  ...
+# Subtest: motion creation is detached and starts neutral without allocating timers or requiring a renderer
+ok 141 - motion creation is detached and starts neutral without allocating timers or requiring a renderer
+  ---
+  duration_ms: 0.96275
+  type: 'test'
+  ...
+# Subtest: extended eyes visit adjacent drawings at 24 ms per step and hold their independent targets
+ok 142 - extended eyes visit adjacent drawings at 24 ms per step and hold their independent targets
+  ---
+  duration_ms: 0.283875
+  type: 'test'
+  ...
+# Subtest: three-stage defaults and strict opt-in never select unavailable intermediate eye or jaw artwork
+ok 143 - three-stage defaults and strict opt-in never select unavailable intermediate eye or jaw artwork
+  ---
+  duration_ms: 0.109667
+  type: 'test'
+  ...
+# Subtest: jaw progresses through five actual paintings at 38 ms, without crossing unrelated mouth families
+ok 144 - jaw progresses through five actual paintings at 38 ms, without crossing unrelated mouth families
+  ---
+  duration_ms: 0.071333
+  type: 'test'
+  ...
+# Subtest: eye reversal discards old partial progress and never continues a queued closure
+ok 145 - eye reversal discards old partial progress and never continues a queued closure
+  ---
+  duration_ms: 0.119333
+  type: 'test'
+  ...
+# Subtest: a nearer replacement target stops exactly there and idle time is never banked
+ok 146 - a nearer replacement target stops exactly there and idle time is never banked
+  ---
+  duration_ms: 0.095625
+  type: 'test'
+  ...
+# Subtest: left and right eyes retain separate timing when their targets start at different instants
+ok 147 - left and right eyes retain separate timing when their targets start at different instants
+  ---
+  duration_ms: 0.052584
+  type: 'test'
+  ...
+# Subtest: pucker, press and pure shifts switch instantly both into and out of the jaw family
+ok 148 - pucker, press and pure shifts switch instantly both into and out of the jaw family
+  ---
+  duration_ms: 0.083083
+  type: 'test'
+  ...
+# Subtest: brows update immediately without spending or altering eye/jaw timing
+ok 149 - brows update immediately without spending or altering eye/jaw timing
+  ---
+  duration_ms: 0.216167
+  type: 'test'
+  ...
+# Subtest: normal elapsed-time partitions agree and larger valid steps follow their bounded elapsed budget
+ok 150 - normal elapsed-time partitions agree and larger valid steps follow their bounded elapsed budget
+  ---
+  duration_ms: 0.961459
+  type: 'test'
+  ...
+# Subtest: stale, negative or nonfinite time snaps to latest safe target instead of replaying old transitions
+ok 151 - stale, negative or nonfinite time snaps to latest safe target instead of replaying old transitions
+  ---
+  duration_ms: 0.274167
+  type: 'test'
+  ...
+# Subtest: dropping extended availability never renders removed states, including after a suspended tab
+ok 152 - dropping extended availability never renders removed states, including after a suspended tab
+  ---
+  duration_ms: 0.058667
+  type: 'test'
+  ...
+# Subtest: motion functions do not mutate targets, prior state, timing or availability, and reject corrupted time credit
+ok 153 - motion functions do not mutate targets, prior state, timing or availability, and reject corrupted time credit
+  ---
+  duration_ms: 0.074666
+  type: 'test'
+  ...
+# Subtest: natural demo labels cover exactly eight seconds and sampling is bounded, deterministic and fresh
+ok 154 - natural demo labels cover exactly eight seconds and sampling is bounded, deterministic and fresh
+  ---
+  duration_ms: 7.239584
+  type: 'test'
+  ...
+# Subtest: natural blink/wink each last 420 ms with a closure hold longer than the full five-frame travel
+ok 155 - natural blink/wink each last 420 ms with a closure hold longer than the full five-frame travel
+  ---
+  duration_ms: 0.138458
+  type: 'test'
+  ...
+# Subtest: real natural demo sampling reaches closed at ordinary display rates and reopening does not retain stale closure
+ok 156 - real natural demo sampling reaches closed at ordinary display rates and reopening does not retain stale closure
+  ---
+  duration_ms: 94.077625
+  type: 'test'
+  ...
+# Subtest: natural talking uses smooth coefficients and visits every registered jaw drawing
+ok 157 - natural talking uses smooth coefficients and visits every registered jaw drawing
+  ---
+  duration_ms: 11.500209
+  type: 'test'
+  ...
+# Subtest: natural timeline exercises eyebrow, pucker and whole-mouth press without implying optional shift support
+ok 158 - natural timeline exercises eyebrow, pucker and whole-mouth press without implying optional shift support
+  ---
+  duration_ms: 5.573542
+  type: 'test'
+  ...
+# Subtest: the QA gallery exposes every requested brow action and one bounded strength
+ok 159 - the QA gallery exposes every requested brow action and one bounded strength
+  ---
+  duration_ms: 0.525875
+  type: 'test'
+  ...
+# Subtest: gallery brow controls emit natural symmetric and one-sided ARKit frames
+ok 160 - gallery brow controls emit natural symmetric and one-sided ARKit frames
+  ---
+  duration_ms: 4.454542
+  type: 'test'
+  ...
+# Subtest: brow comparisons preserve the accepted eyes, gaze and mouth inputs
+ok 161 - brow comparisons preserve the accepted eyes, gaze and mouth inputs
+  ---
+  duration_ms: 1.671667
+  type: 'test'
+  ...
+# Subtest: JSON single-frame reader only accepts bounded numeric ARKit data
+ok 162 - JSON single-frame reader only accepts bounded numeric ARKit data
+  ---
+  duration_ms: 1.590959
+  type: 'test'
+  ...
+# Subtest: head pose normalization accepts only finite own numbers and clamps both axes
+ok 163 - head pose normalization accepts only finite own numbers and clamps both axes
+  ---
+  duration_ms: 0.980083
+  type: 'test'
+  ...
+# Subtest: transition preview loops through smooth complete ARKit frames
+ok 164 - transition preview loops through smooth complete ARKit frames
+  ---
+  duration_ms: 2.170291
+  type: 'test'
+  ...
+# Subtest: 2D demo brows cross painted stages smoothly while camera and manual input stay untouched
+ok 165 - 2D demo brows cross painted stages smoothly while camera and manual input stay untouched
+  ---
+  duration_ms: 21.618292
+  type: 'test'
+  ...
+# Subtest: manual expression, head pose and transition preview have independent lifecycles
+ok 166 - manual expression, head pose and transition preview have independent lifecycles
+  ---
+  duration_ms: 0.957
+  type: 'test'
+  ...
+# Subtest: global resets clear every temporary face and direction override
+ok 167 - global resets clear every temporary face and direction override
+  ---
+  duration_ms: 1.275292
+  type: 'test'
+  ...
+# Subtest: camera channels keep asymmetry and stale frames relax instead of freezing
+ok 168 - camera channels keep asymmetry and stale frames relax instead of freezing
+  ---
+  duration_ms: 0.424167
+  type: 'test'
+  ...
+# Subtest: manual testing isolates one channel and never changes persisted settings
+ok 169 - manual testing isolates one channel and never changes persisted settings
+  ---
+  duration_ms: 0.365209
+  type: 'test'
+  ...
+# Subtest: neutral calibration centers camera values without touching demo or saved settings
+ok 170 - neutral calibration centers camera values without touching demo or saved settings
+  ---
+  duration_ms: 0.964041
+  type: 'test'
+  ...
+# Subtest: project settings restore exits test mode and excludes temporary camera data
+ok 171 - project settings restore exits test mode and excludes temporary camera data
+  ---
+  duration_ms: 0.412917
+  type: 'test'
+  ...
+# Subtest: restarting calibration releases manual input and discards all previous neutral samples
+ok 172 - restarting calibration releases manual input and discards all previous neutral samples
+  ---
+  duration_ms: 0.33525
+  type: 'test'
+  ...
+# Subtest: invalid camera timestamps never replace the last valid frame or calibration samples
+ok 173 - invalid camera timestamps never replace the last valid frame or calibration samples
+  ---
+  duration_ms: 0.437458
+  type: 'test'
+  ...
+# Subtest: calibration sample memory remains bounded and uses a median robust to one outlier
+ok 174 - calibration sample memory remains bounded and uses a median robust to one outlier
+  ---
+  duration_ms: 2.482833
+  type: 'test'
+  ...
+# Subtest: a pending JSON test-frame import cannot reactivate manual testing after a project switch
+ok 175 - a pending JSON test-frame import cannot reactivate manual testing after a project switch
+  ---
+  duration_ms: 0.941625
+  type: 'test'
+  ...
+# Subtest: leaving manual testing cancels a pending JSON test-frame import
+ok 176 - leaving manual testing cancels a pending JSON test-frame import
+  ---
+  duration_ms: 0.498833
+  type: 'test'
+  ...
+# Subtest: a slower older JSON frame cannot overwrite the most recently selected frame
+ok 177 - a slower older JSON frame cannot overwrite the most recently selected frame
+  ---
+  duration_ms: 0.282875
+  type: 'test'
+  ...
+# Subtest: selecting an invalid newer JSON frame still cancels the older in-flight selection
+ok 178 - selecting an invalid newer JSON frame still cancels the older in-flight selection
+  ---
+  duration_ms: 0.417041
+  type: 'test'
+  ...
+# Subtest: failed stale JSON reads do not display errors for a different project
+ok 179 - failed stale JSON reads do not display errors for a different project
+  ---
+  duration_ms: 0.356042
+  type: 'test'
+  ...
+# Subtest: the manual-state checkbox follows a programmatic calibration reset
+ok 180 - the manual-state checkbox follows a programmatic calibration reset
+  ---
+  duration_ms: 0.621542
+  type: 'test'
+  ...
+# Subtest: manual status remains visible with the editor collapsed but stays hidden in 3D
+ok 181 - manual status remains visible with the editor collapsed but stays hidden in 3D
+  ---
+  duration_ms: 0.196334
+  type: 'test'
+  ...
+# Subtest: inspecting another channel preserves an imported multi-channel JSON frame
+ok 182 - inspecting another channel preserves an imported multi-channel JSON frame
+  ---
+  duration_ms: 0.601291
+  type: 'test'
+  ...
+# Subtest: browsing any quick preset preserves all of its coordinated channels
+ok 183 - browsing any quick preset preserves all of its coordinated channels
+  ---
+  duration_ms: 4.950708
+  type: 'test'
+  ...
+# Subtest: moving the test slider deliberately switches an imported frame to isolated single-channel testing
+ok 184 - moving the test slider deliberately switches an imported frame to isolated single-channel testing
+  ---
+  duration_ms: 1.708
+  type: 'test'
+  ...
+# Subtest: explicitly enabling manual testing starts a single-channel test after viewing a preset
+ok 185 - explicitly enabling manual testing starts a single-channel test after viewing a preset
+  ---
+  duration_ms: 0.431167
+  type: 'test'
+  ...
+# Subtest: sixteen selected full-size source paintings match preserved generation provenance and hashes
+ok 186 - sixteen selected full-size source paintings match preserved generation provenance and hashes
+  ---
+  duration_ms: 59.700541
+  type: 'test'
+  ...
+# Subtest: extension is bound to exact accepted base art and geometry, with unchanged upper-lip destinations
+ok 187 - extension is bound to exact accepted base art and geometry, with unchanged upper-lip destinations
+  ---
+  duration_ms: 2.464334
+  type: 'test'
+  ...
+# Subtest: source-traced apertures decrease strictly through five stages for both eyes of every new pose
+ok 188 - source-traced apertures decrease strictly through five stages for both eyes of every new pose
+  ---
+  duration_ms: 0.256709
+  type: 'test'
+  ...
+# Subtest: registration rejects missing actual frames, cross-pose sources, moving eyes, and false upper-lip anchors
+ok 189 - registration rejects missing actual frames, cross-pose sources, moving eyes, and false upper-lip anchors
+  ---
+  duration_ms: 4.680625
+  type: 'test'
+  ...
+# Subtest: extension compiles only added states, preserving every old patch, gaze clean frame and iris by identity
+ok 190 - extension compiles only added states, preserving every old patch, gaze clean frame and iris by identity
+  ---
+  duration_ms: 51.80575
+  type: 'test'
+  ...
+# Subtest: explicit frame capability exposes five eye and speaking targets with the accepted front thresholds
+ok 191 - explicit frame capability exposes five eye and speaking targets with the accepted front thresholds
+  ---
+  duration_ms: 1.089125
+  type: 'test'
+  ...
+# Subtest: five-frame thresholds keep hysteresis while unknown or malformed channel values stay neutral
+ok 192 - five-frame thresholds keep hysteresis while unknown or malformed channel values stay neutral
+  ---
+  duration_ms: 0.205084
+  type: 'test'
+  ...
+# Subtest: frozen side priorities and independent brows survive the extra eye and jaw paintings
+ok 193 - frozen side priorities and independent brows survive the extra eye and jaw paintings
+  ---
+  duration_ms: 0.303875
+  type: 'test'
+  ...
+# Subtest: studio paint sequences reflect both the actual pose registration and its compiled images
+ok 194 - studio paint sequences reflect both the actual pose registration and its compiled images
+  ---
+  duration_ms: 2.66
+  type: 'test'
+  ...
+# Subtest: displaying an intermediate painting does not alter the selected target or claim a missing side painting
+ok 195 - displaying an intermediate painting does not alter the selected target or claim a missing side painting
+  ---
+  duration_ms: 1.575833
+  type: 'test'
+  ...
+# Subtest: face mapping returns null when no face is present
+ok 196 - face mapping returns null when no face is present
+  ---
+  duration_ms: 2.030958
+  type: 'test'
+  ...
+# Subtest: fallback landmark yaw stays monotonic from front to side
+ok 197 - fallback landmark yaw stays monotonic from front to side
+  ---
+  duration_ms: 0.597959
+  type: 'test'
+  ...
+# Subtest: facial transformation matrix expands the usable side-view range
+ok 198 - facial transformation matrix expands the usable side-view range
+  ---
+  duration_ms: 0.154958
+  type: 'test'
+  ...
+# Subtest: invalid face matrix safely falls back to finite landmarks
+ok 199 - invalid face matrix safely falls back to finite landmarks
+  ---
+  duration_ms: 0.12525
+  type: 'test'
+  ...
+# Subtest: rich blendshapes map without missing-value NaN
+ok 200 - rich blendshapes map without missing-value NaN
+  ---
+  duration_ms: 1.580292
+  type: 'test'
+  ...
+# Subtest: invalid blendshape values are ignored instead of saturating
+ok 201 - invalid blendshape values are ignored instead of saturating
+  ---
+  duration_ms: 0.693125
+  type: 'test'
+  ...
+# Subtest: expression neutral calibration removes resting bias
+ok 202 - expression neutral calibration removes resting bias
+  ---
+  duration_ms: 0.123125
+  type: 'test'
+  ...
+# Subtest: pose mapping produces finite arm, elbow, depth and torso channels
+ok 203 - pose mapping produces finite arm, elbow, depth and torso channels
+  ---
+  duration_ms: 0.34975
+  type: 'test'
+  ...
+# Subtest: arm elevation remains progressive from rest through overhead
+ok 204 - arm elevation remains progressive from rest through overhead
+  ---
+  duration_ms: 0.591958
+  type: 'test'
+  ...
+# Subtest: arm motion comes back down after crossing over the head
+ok 205 - arm motion comes back down after crossing over the head
+  ---
+  duration_ms: 1.340542
+  type: 'test'
+  ...
+# Subtest: elbow direction distinguishes inward and outward bends
+ok 206 - elbow direction distinguishes inward and outward bends
+  ---
+  duration_ms: 0.337459
+  type: 'test'
+  ...
+# Subtest: low-confidence shoulders do not emit unstable body motion
+ok 207 - low-confidence shoulders do not emit unstable body motion
+  ---
+  duration_ms: 0.131958
+  type: 'test'
+  ...
+# Subtest: zero coefficients remain genuinely neutral, including null and invalid values
+ok 208 - zero coefficients remain genuinely neutral, including null and invalid values
+  ---
+  duration_ms: 3.716167
+  type: 'test'
+  ...
+# Subtest: left/right eyes select painted blink stages independently, with a true closed lid at .85 gain
+ok 209 - left/right eyes select painted blink stages independently, with a true closed lid at .85 gain
+  ---
+  duration_ms: 3.10675
+  type: 'test'
+  ...
+# Subtest: blink thresholds resist chatter but do not delay a large close/open jump
+ok 210 - blink thresholds resist chatter but do not delay a large close/open jump
+  ---
+  duration_ms: 0.302084
+  type: 'test'
+  ...
+# Subtest: happy closed eyes require smile plus closure, not smile alone
+ok 211 - happy closed eyes require smile plus closure, not smile alone
+  ---
+  duration_ms: 0.449417
+  type: 'test'
+  ...
+# Subtest: squint/cheek/eye-wide are explicitly approximate and never suppress a full blink
+ok 212 - squint/cheek/eye-wide are explicitly approximate and never suppress a full blink
+  ---
+  duration_ms: 1.479625
+  type: 'test'
+  ...
+# Subtest: eyebrows select independently with deterministic pressure/worry/outer-raise priorities
+ok 213 - eyebrows select independently with deterministic pressure/worry/outer-raise priorities
+  ---
+  duration_ms: 0.467542
+  type: 'test'
+  ...
+# Subtest: optional brow sequences expose low, medium and strong hand-painted expressions
+ok 214 - optional brow sequences expose low, medium and strong hand-painted expressions
+  ---
+  duration_ms: 2.145667
+  type: 'test'
+  ...
+# Subtest: painted brow thresholds have a short hysteresis band and release fully to neutral
+ok 215 - painted brow thresholds have a short hysteresis band and release fully to neutral
+  ---
+  duration_ms: 1.467375
+  type: 'test'
+  ...
+# Subtest: staged brow conflicts retain pressure/worry priority without low pressure hiding a strong raise
+ok 216 - staged brow conflicts retain pressure/worry priority without low pressure hiding a strong raise
+  ---
+  duration_ms: 0.743542
+  type: 'test'
+  ...
+# Subtest: partial brow opt-in preserves legacy thresholds for undeclared families and all eye/mouth choices
+ok 217 - partial brow opt-in preserves legacy thresholds for undeclared families and all eye/mouth choices
+  ---
+  duration_ms: 2.06675
+  type: 'test'
+  ...
+# Subtest: jaw opening has four distinct paintings and mouthClose is independent
+ok 218 - jaw opening has four distinct paintings and mouthClose is independent
+  ---
+  duration_ms: 0.166333
+  type: 'test'
+  ...
+# Subtest: legacy mouth priority skips unsupported pure shifts and preserves emotion and jaw
+ok 219 - legacy mouth priority skips unsupported pure shifts and preserves emotion and jaw
+  ---
+  duration_ms: 0.084667
+  type: 'test'
+  ...
+# Subtest: mouth smile/frown each have open/closed drawings, not fabricated independent corners
+ok 220 - mouth smile/frown each have open/closed drawings, not fabricated independent corners
+  ---
+  duration_ms: 0.082584
+  type: 'test'
+  ...
+# Subtest: pucker/funnel retain a short hysteresis band and release to neutral
+ok 221 - pucker/funnel retain a short hysteresis band and release to neutral
+  ---
+  duration_ms: 0.285792
+  type: 'test'
+  ...
+# Subtest: metadata covers canonical 52 honestly, unsupported signals produce no phantom animation
+ok 222 - metadata covers canonical 52 honestly, unsupported signals produce no phantom animation
+  ---
+  duration_ms: 0.150542
+  type: 'test'
+  ...
+# Subtest: manifest validates built-in Luna and copies arrays without mutating source
+ok 223 - manifest validates built-in Luna and copies arrays without mutating source
+  ---
+  duration_ms: 5.832125
+  type: 'test'
+  ...
+# Subtest: manifest only accepts local built-in assets, never remote/traversal/file/data URLs
+ok 224 - manifest only accepts local built-in assets, never remote/traversal/file/data URLs
+  ---
+  duration_ms: 0.387458
+  type: 'test'
+  ...
+# Subtest: manifest rejects invalid size, missing states, malformed and out-of-bounds rectangles
+ok 225 - manifest rejects invalid size, missing states, malformed and out-of-bounds rectangles
+  ---
+  duration_ms: 0.687833
+  type: 'test'
+  ...
+# Subtest: manifest never resolves inherited or prototype atlas names
+ok 226 - manifest never resolves inherited or prototype atlas names
+  ---
+  duration_ms: 0.188
+  type: 'test'
+  ...
+# Subtest: load deduplicates atlases, exposes base/loaded and draws five fixed feature layers
+ok 227 - load deduplicates atlases, exposes base/loaded and draws five fixed feature layers
+  ---
+  duration_ms: 9.620125
+  type: 'test'
+  ...
+# Subtest: render never dynamically scales destinations or fades the whole face
+ok 228 - render never dynamically scales destinations or fades the whole face
+  ---
+  duration_ms: 0.741625
+  type: 'test'
+  ...
+# Subtest: adjacent eye blend uses premultiplied addition, draws one opaque layer, and finishes within 30 ms
+ok 229 - adjacent eye blend uses premultiplied addition, draws one opaque layer, and finishes within 30 ms
+  ---
+  duration_ms: 0.757959
+  type: 'test'
+  ...
+# Subtest: unchanged selected frames reuse composition while a changed feature redraws
+ok 230 - unchanged selected frames reuse composition while a changed feature redraws
+  ---
+  duration_ms: 0.638667
+  type: 'test'
+  ...
+# Subtest: both eye transitions share one fixed-size buffer across repeated blinks
+ok 231 - both eye transitions share one fixed-size buffer across repeated blinks
+  ---
+  duration_ms: 6.737583
+  type: 'test'
+  ...
+# Subtest: adjacent brow frames use a 35 ms premultiplied local blend and then cache the composition
+ok 232 - adjacent brow frames use a 35 ms premultiplied local blend and then cache the composition
+  ---
+  duration_ms: 1.585458
+  type: 'test'
+  ...
+# Subtest: brow category changes, skipped stages, zero dt and pose changes never leave a ghost frame
+ok 233 - brow category changes, skipped stages, zero dt and pose changes never leave a ghost frame
+  ---
+  duration_ms: 1.357917
+  type: 'test'
+  ...
+# Subtest: both brows share the existing eye/mouth buffer without per-frame canvases or legacy brow fades
+ok 234 - both brows share the existing eye/mouth buffer without per-frame canvases or legacy brow fades
+  ---
+  duration_ms: 3.587583
+  type: 'test'
+  ...
+# Subtest: omitted/invalid dt does not leave an eye crossfade suspended
+ok 235 - omitted/invalid dt does not leave an eye crossfade suspended
+  ---
+  duration_ms: 0.347417
+  type: 'test'
+  ...
+# Subtest: static clipping is applied in canvas coordinates before mirroring the sprite
+ok 236 - static clipping is applied in canvas coordinates before mirroring the sprite
+  ---
+  duration_ms: 0.259083
+  type: 'test'
+  ...
+# Subtest: render and repeated same-manifest load reuse decoded images
+ok 237 - render and repeated same-manifest load reuse decoded images
+  ---
+  duration_ms: 6.870416
+  type: 'test'
+  ...
+# Subtest: load checks decoded dimensions and actual atlas frame bounds
+ok 238 - load checks decoded dimensions and actual atlas frame bounds
+  ---
+  duration_ms: 4.950167
+  type: 'test'
+  ...
+# Subtest: failed replacement keeps the previous complete character usable
+ok 239 - failed replacement keeps the previous complete character usable
+  ---
+  duration_ms: 0.48975
+  type: 'test'
+  ...
+# Subtest: already-aborted load performs no image allocation
+ok 240 - already-aborted load performs no image allocation
+  ---
+  duration_ms: 0.202708
+  type: 'test'
+  ...
+# Subtest: external abort removes image handlers and cancels pending sources
+ok 241 - external abort removes image handlers and cancels pending sources
+  ---
+  duration_ms: 0.218625
+  type: 'test'
+  ...
+# Subtest: hanging images time out and release all handlers
+ok 242 - hanging images time out and release all handlers
+  ---
+  duration_ms: 23.502959
+  type: 'test'
+  ...
+# Subtest: a newer load cancels the previous load and prevents stale commits
+ok 243 - a newer load cancels the previous load and prevents stale commits
+  ---
+  duration_ms: 0.377208
+  type: 'test'
+  ...
+# Subtest: invalid replacement does not cancel an already loading valid manifest
+ok 244 - invalid replacement does not cancel an already loading valid manifest
+  ---
+  duration_ms: 0.155208
+  type: 'test'
+  ...
+# Subtest: source setter errors still clean up image handlers
+ok 245 - source setter errors still clean up image handlers
+  ---
+  duration_ms: 0.144208
+  type: 'test'
+  ...
+# Subtest: dispose is idempotent and aborts pending load without future drawing
+ok 246 - dispose is idempotent and aborts pending load without future drawing
+  ---
+  duration_ms: 0.132708
+  type: 'test'
+  ...
+# Subtest: missing canvas context or image loader fails clearly without hidden fallback
+ok 247 - missing canvas context or image loader fails clearly without hidden fallback
+  ---
+  duration_ms: 0.161292
+  type: 'test'
+  ...
+# Subtest: extended blink sequence exposes every one of eleven actual drawings independently
+ok 248 - extended blink sequence exposes every one of eleven actual drawings independently
+  ---
+  duration_ms: 0.150375
+  type: 'test'
+  ...
+# Subtest: extended sequence hysteresis prevents adjacent-state chatter without delaying large jumps
+ok 249 - extended sequence hysteresis prevents adjacent-state chatter without delaying large jumps
+  ---
+  duration_ms: 0.067667
+  type: 'test'
+  ...
+# Subtest: all six jaw and three pucker/press strength drawings are reachable
+ok 250 - all six jaw and three pucker/press strength drawings are reachable
+  ---
+  duration_ms: 0.146333
+  type: 'test'
+  ...
+# Subtest: left/right pucker chooses distinct drawings using anatomical direction and both strengths
+ok 251 - left/right pucker chooses distinct drawings using anatomical direction and both strengths
+  ---
+  duration_ms: 0.186208
+  type: 'test'
+  ...
+# Subtest: extended mouth priorities keep press/closure above directional pucker and funnel
+ok 252 - extended mouth priorities keep press/closure above directional pucker and funnel
+  ---
+  duration_ms: 0.06475
+  type: 'test'
+  ...
+# Subtest: independent shift sequences preserve anatomical sign, strength, and neutral cancellation
+ok 253 - independent shift sequences preserve anatomical sign, strength, and neutral cancellation
+  ---
+  duration_ms: 4.370375
+  type: 'test'
+  ...
+# Subtest: pure shifts require explicit separate sequences; absent art preserves the remaining mouth inputs
+ok 254 - pure shifts require explicit separate sequences; absent art preserves the remaining mouth inputs
+  ---
+  duration_ms: 0.194625
+  type: 'test'
+  ...
+# Subtest: independent shifts stay below press, closure, pucker and funnel, above emotion and jaw
+ok 255 - independent shifts stay below press, closure, pucker and funnel, above emotion and jaw
+  ---
+  duration_ms: 0.182166
+  type: 'test'
+  ...
+# Subtest: shift capability requires independent source rectangles in every pose and rejects pucker aliases
+ok 256 - shift capability requires independent source rectangles in every pose and rejects pucker aliases
+  ---
+  duration_ms: 12.827542
+  type: 'test'
+  ...
+# Subtest: renderer draws different real sources for pure left/right and clears capability on legacy reload
+ok 257 - renderer draws different real sources for pure left/right and clears capability on legacy reload
+  ---
+  duration_ms: 0.535
+  type: 'test'
+  ...
+# Subtest: manifest copies additional frames/sequences and static pose overrides without aliasing
+ok 258 - manifest copies additional frames/sequences and static pose overrides without aliasing
+  ---
+  duration_ms: 0.291334
+  type: 'test'
+  ...
+# Subtest: manifest requires every extra sequence key in each pose-specific atlas
+ok 259 - manifest requires every extra sequence key in each pose-specific atlas
+  ---
+  duration_ms: 0.599709
+  type: 'test'
+  ...
+# Subtest: brow sequence validation requires neutral first and every declared painting in all brow atlases
+ok 260 - brow sequence validation requires neutral first and every declared painting in all brow atlases
+  ---
+  duration_ms: 0.364166
+  type: 'test'
+  ...
+# Subtest: manifest rejects malformed, duplicate, remote and excessive pose definitions
+ok 261 - manifest rejects malformed, duplicate, remote and excessive pose definitions
+  ---
+  duration_ms: 0.808542
+  type: 'test'
+  ...
+# Subtest: legacy manifests get an implicit front; pose packs can inherit it safely
+ok 262 - legacy manifests get an implicit front; pose packs can inherit it safely
+  ---
+  duration_ms: 0.1055
+  type: 'test'
+  ...
+# Subtest: all thirteen actually drawn head poses are individually reachable without synthesis
+ok 263 - all thirteen actually drawn head poses are individually reachable without synthesis
+  ---
+  duration_ms: 0.490958
+  type: 'test'
+  ...
+# Subtest: pose distance hysteresis suppresses boundary chatter and returns exact neutral
+ok 264 - pose distance hysteresis suppresses boundary chatter and returns exact neutral
+  ---
+  duration_ms: 0.267292
+  type: 'test'
+  ...
+# Subtest: pose selection is part of the composition cache and uses its real base image
+ok 265 - pose selection is part of the composition cache and uses its real base image
+  ---
+  duration_ms: 0.526042
+  type: 'test'
+  ...
+# Subtest: changing pose clears active feature blends so no previous-perspective pixels remain
+ok 266 - changing pose clears active feature blends so no previous-perspective pixels remain
+  ---
+  duration_ms: 5.097
+  type: 'test'
+  ...
+# Subtest: adjacent mouth stages use one premultiplied local blend for at most 40 ms
+ok 267 - adjacent mouth stages use one premultiplied local blend for at most 40 ms
+  ---
+  duration_ms: 0.922542
+  type: 'test'
+  ...
+# Subtest: cross-family mouth changes and large jumps never blend unrelated shapes
+ok 268 - cross-family mouth changes and large jumps never blend unrelated shapes
+  ---
+  duration_ms: 0.280208
+  type: 'test'
+  ...
+# Subtest: extra pose images load once and aggregate decoded pixels are bounded
+ok 269 - extra pose images load once and aggregate decoded pixels are bounded
+  ---
+  duration_ms: 0.922
+  type: 'test'
+  ...
+# Subtest: multi-pose loading has at most four pending decodes and dispose cancels the queue
+ok 270 - multi-pose loading has at most four pending decodes and dispose cancels the queue
+  ---
+  duration_ms: 0.65275
+  type: 'test'
+  ...
+# Subtest: flipFrames validates existing safe frame keys and is copied independently
+ok 271 - flipFrames validates existing safe frame keys and is copied independently
+  ---
+  duration_ms: 1.198
+  type: 'test'
+  ...
+# Subtest: per-frame mirror composes with the layer mirror as XOR and preserves placement
+ok 272 - per-frame mirror composes with the layer mirror as XOR and preserves placement
+  ---
+  duration_ms: 1.694
+  type: 'test'
+  ...
+# Subtest: adjacent mouth blending mirrors each source separately before premultiplied addition
+ok 273 - adjacent mouth blending mirrors each source separately before premultiplied addition
+  ---
+  duration_ms: 0.397625
+  type: 'test'
+  ...
+# Subtest: gaze is neutral without real signals and independent for each anatomical eye
+ok 274 - gaze is neutral without real signals and independent for each anatomical eye
+  ---
+  duration_ms: 0.080541
+  type: 'test'
+  ...
+# Subtest: static gaze bias is additive, bounded and cancellable by actual input
+ok 275 - static gaze bias is additive, bounded and cancellable by actual input
+  ---
+  duration_ms: 0.047792
+  type: 'test'
+  ...
+# Subtest: gaze support metadata reflects actual layered assets, never baked-in legacy eyes
+ok 276 - gaze support metadata reflects actual layered assets, never baked-in legacy eyes
+  ---
+  duration_ms: 2.810292
+  type: 'test'
+  ...
+# Subtest: layered eye manifest validates/copies iris, apertures and per-pose biases
+ok 277 - layered eye manifest validates/copies iris, apertures and per-pose biases
+  ---
+  duration_ms: 0.127458
+  type: 'test'
+  ...
+# Subtest: layered eye validation rejects unsafe resources, missing holes and out-of-range data
+ok 278 - layered eye validation rejects unsafe resources, missing holes and out-of-range data
+  ---
+  duration_ms: 0.699375
+  type: 'test'
+  ...
+# Subtest: gaze draws the original white/lid first then a fixed-size iris inside its exact opening
+ok 279 - gaze draws the original white/lid first then a fixed-size iris inside its exact opening
+  ---
+  duration_ms: 0.428917
+  type: 'test'
+  ...
+# Subtest: all four layer/frame mirror XOR combinations preserve WORLD horizontal and vertical gaze
+ok 280 - all four layer/frame mirror XOR combinations preserve WORLD horizontal and vertical gaze
+  ---
+  duration_ms: 0.868333
+  type: 'test'
+  ...
+# Subtest: closed and happy-closed paintings contain no iris draw at any gaze extreme
+ok 281 - closed and happy-closed paintings contain no iris draw at any gaze extreme
+  ---
+  duration_ms: 0.177959
+  type: 'test'
+  ...
+# Subtest: adjacent blink endpoints clip iris separately before weighted addition
+ok 282 - adjacent blink endpoints clip iris separately before weighted addition
+  ---
+  duration_ms: 0.34225
+  type: 'test'
+  ...
+# Subtest: adjacent gaze endpoint movement also obeys mirror XOR
+ok 283 - adjacent gaze endpoint movement also obeys mirror XOR
+  ---
+  duration_ms: 0.827292
+  type: 'test'
+  ...
+# Subtest: gaze smoothing is short, settles exactly, and stable gaze reuses cached composition
+ok 284 - gaze smoothing is short, settles exactly, and stable gaze reuses cached composition
+  ---
+  duration_ms: 2.492958
+  type: 'test'
+  ...
+# Subtest: legacy eyes ignore gaze channels and preserve the stable-frame cache
+ok 285 - legacy eyes ignore gaze channels and preserve the stable-frame cache
+  ---
+  duration_ms: 0.581583
+  type: 'test'
+  ...
+# Subtest: pose changes clear gaze blink transitions and immediately apply cancellable static bias
+ok 286 - pose changes clear gaze blink transitions and immediately apply cancellable static bias
+  ---
+  duration_ms: 1.012917
+  type: 'test'
+  ...
+# Subtest: gaze image source bounds and aggregate decoded budget are checked
+ok 287 - gaze image source bounds and aggregate decoded budget are checked
+  ---
+  duration_ms: 0.641875
+  type: 'test'
+  ...
+# Subtest: failed iris load does not replace the previous usable legacy character
+ok 288 - failed iris load does not replace the previous usable legacy character
+  ---
+  duration_ms: 0.485959
+  type: 'test'
+  ...
+# Subtest: iris loading participates in external abort and handler cleanup
+ok 289 - iris loading participates in external abort and handler cleanup
+  ---
+  duration_ms: 0.3165
+  type: 'test'
+  ...
+# Subtest: repeated independent gaze/blinks allocate at most three canvases and dispose releases them
+ok 290 - repeated independent gaze/blinks allocate at most three canvases and dispose releases them
+  ---
+  duration_ms: 7.50175
+  type: 'test'
+  ...
+# Subtest: the bundled Luna manifest matches the real RGBA files and every source frame
+ok 291 - the bundled Luna manifest matches the real RGBA files and every source frame
+  ---
+  duration_ms: 37.823209
+  type: 'test'
+  ...
+# Subtest: the shipped v0.13 manifest registers 24 mouth source regions and 13 brow stages
+ok 292 - the shipped v0.13 manifest registers 24 mouth source regions and 13 brow stages
+  ---
+  duration_ms: 1.585209
+  type: 'test'
+  ...
+# Subtest: the shipped old pack declares pure mouth shifts unsupported and preserves other mouth signals
+ok 293 - the shipped old pack declares pure mouth shifts unsupported and preserves other mouth signals
+  ---
+  duration_ms: 5.215666
+  type: 'test'
+  ...
+# Subtest: v0.13 mouths and brows keep fixed uniform art scale in all 13 poses
+ok 294 - v0.13 mouths and brows keep fixed uniform art scale in all 13 poses
+  ---
+  duration_ms: 0.650541
+  type: 'test'
+  ...
+# Subtest: the shipped brow drawings are reachable through real 2D demo and transition inputs
+ok 295 - the shipped brow drawings are reachable through real 2D demo and transition inputs
+  ---
+  duration_ms: 80.760792
+  type: 'test'
+  ...
+# Subtest: yaw and diagonal eye pairs share one axis and raised diagonal lips sit lower
+ok 296 - yaw and diagonal eye pairs share one axis and raised diagonal lips sit lower
+  ---
+  duration_ms: 1.627583
+  type: 'test'
+  ...
+# Subtest: every referenced PNG keeps genuinely transparent and fully painted pixels
+ok 297 - every referenced PNG keeps genuinely transparent and fully painted pixels
+  ---
+  duration_ms: 894.252583
+  type: 'test'
+  ...
+# Subtest: the painted destinations, measured eye openings and crop rig stay inside the actual canvas
+ok 298 - the painted destinations, measured eye openings and crop rig stay inside the actual canvas
+  ---
+  duration_ms: 0.172875
+  type: 'test'
+  ...
+# Subtest: v0.12 keeps natural eye scale, real near/far perspective and explicit anatomical mirroring
+ok 299 - v0.12 keeps natural eye scale, real near/far perspective and explicit anatomical mirroring
+  ---
+  duration_ms: 0.943542
+  type: 'test'
+  ...
+# Subtest: the app uses the painted compositor and never activates the retired portrait warp
+ok 300 - the app uses the painted compositor and never activates the retired portrait warp
+  ---
+  duration_ms: 0.461375
+  type: 'test'
+  ...
+# Subtest: FaceEditor resolves support on every refresh so painted/static switching is truthful
+ok 301 - FaceEditor resolves support on every refresh so painted/static switching is truthful
+  ---
+  duration_ms: 0.396417
+  type: 'test'
+  ...
+# Subtest: the main look-up and look-down UI presets always move both irises together
+ok 302 - the main look-up and look-down UI presets always move both irises together
+  ---
+  duration_ms: 0.489583
+  type: 'test'
+  ...
+# Subtest: the offline QA gallery snapshots every manifest pose through one renderer
+ok 303 - the offline QA gallery snapshots every manifest pose through one renderer
+  ---
+  duration_ms: 0.180959
+  type: 'test'
+  ...
+# Subtest: the QA gallery exercises pure left/right without pucker and exposes missing-art capability
+ok 304 - the QA gallery exercises pure left/right without pucker and exposes missing-art capability
+  ---
+  duration_ms: 2.269209
+  type: 'test'
+  ...
+# Subtest: the QA gallery maps one signed gaze value to symmetric ARKit up/down channels
+ok 305 - the QA gallery maps one signed gaze value to symmetric ARKit up/down channels
+  ---
+  duration_ms: 0.354708
+  type: 'test'
+  ...
+# Subtest: approved pitch eyebrow pack has three poses and nine actual new paintings among thirty-six verified native PNG sources
+ok 306 - approved pitch eyebrow pack has three poses and nine actual new paintings among thirty-six verified native PNG sources
+  ---
+  duration_ms: 44.837833
+  type: 'test'
+  ...
+# Subtest: new pitch eyebrows preserve all approved mouth sources, complete gaze registration and mouth capabilities
+ok 307 - new pitch eyebrows preserve all approved mouth sources, complete gaze registration and mouth capabilities
+  ---
+  duration_ms: 0.760292
+  type: 'test'
+  ...
+# Subtest: removing only new brow patches and their detail view restores every approved pitch pose field
+ok 308 - removing only new brow patches and their detail view restores every approved pitch pose field
+  ---
+  duration_ms: 1.633708
+  type: 'test'
+  ...
+# Subtest: nine distinct double-brow sources supply eighteen anatomical brow crops with fixed native positions
+ok 309 - nine distinct double-brow sources supply eighteen anatomical brow crops with fixed native positions
+  ---
+  duration_ms: 0.670875
+  type: 'test'
+  ...
+# Subtest: every new painting records the real generation prompt and same-pose reference chain back to an approved original
+ok 310 - every new painting records the real generation prompt and same-pose reference chain back to an approved original
+  ---
+  duration_ms: 26.979625
+  type: 'test'
+  ...
+# Subtest: accepted gaze snapshots, expression and mouth selection, eyebrow actions and fine-hair exclusion remain frozen
+ok 311 - accepted gaze snapshots, expression and mouth selection, eyebrow actions and fine-hair exclusion remain frozen
+  ---
+  duration_ms: 0.326125
+  type: 'test'
+  ...
+# Subtest: original anatomical protection regions are registered separately from candidate brow clip geometry
+ok 312 - original anatomical protection regions are registered separately from candidate brow clip geometry
+  ---
+  duration_ms: 0.827292
+  type: 'test'
+  ...
+# Subtest: measured thin-hair exclusions restore the original crossing strands below all authored brow strokes
+ok 313 - measured thin-hair exclusions restore the original crossing strands below all authored brow strokes
+  ---
+  duration_ms: 109.090708
+  type: 'test'
+  ...
+# Subtest: accepted pitch eyebrows freeze their36 sources, delivered pose registrations and reusable runtime behavior
+ok 314 - accepted pitch eyebrows freeze their36 sources, delivered pose registrations and reusable runtime behavior
+  ---
+  duration_ms: 40.359417
+  type: 'test'
+  ...
+# Subtest: pitch brows extend the complete accepted mouth and gaze families with all three independent poses
+ok 315 - pitch brows extend the complete accepted mouth and gaze families with all three independent poses
+  ---
+  duration_ms: 14.532959
+  type: 'test'
+  ...
+# Subtest: pitch variants reject a different capability family before loading any image
+ok 316 - pitch variants reject a different capability family before loading any image
+  ---
+  duration_ms: 10.470875
+  type: 'test'
+  ...
+# Subtest: pitch brow loader decodes all portraits, snapshots inherited eyes first, then clips 48 native local patches
+ok 317 - pitch brow loader decodes all portraits, snapshots inherited eyes first, then clips 48 native local patches
+  ---
+  duration_ms: 5.579042
+  type: 'test'
+  ...
+# Subtest: brow-first and accepted-mouth loads reuse the exact immutable gaze layers without recompilation
+ok 318 - brow-first and accepted-mouth loads reuse the exact immutable gaze layers without recompilation
+  ---
+  duration_ms: 5.245417
+  type: 'test'
+  ...
+# Subtest: pitch brow and mouth selectors retain anatomical left-right channels through the actual draw order
+ok 319 - pitch brow and mouth selectors retain anatomical left-right channels through the actual draw order
+  ---
+  duration_ms: 2.80625
+  type: 'test'
+  ...
+# Subtest: pitch original comparison bypasses selected brows and detail framing does not alter native patches
+ok 320 - pitch original comparison bypasses selected brows and detail framing does not alter native patches
+  ---
+  duration_ms: 1.324875
+  type: 'test'
+  ...
+# Subtest: approved pitch base contains three explicit poses and nine actual PNGs with matching dimensions and hashes
+ok 321 - approved pitch base contains three explicit poses and nine actual PNGs with matching dimensions and hashes
+  ---
+  duration_ms: 15.09325
+  type: 'test'
+  ...
+# Subtest: accepted pitch snapshot freezes nine source paintings and the approved per-pose eye and upper-lip registration
+ok 322 - accepted pitch snapshot freezes nine source paintings and the approved per-pose eye and upper-lip registration
+  ---
+  duration_ms: 13.8
+  type: 'test'
+  ...
+# Subtest: approved pitch eye and jaw selection keeps its accepted expression runtime implementation
+ok 323 - approved pitch eye and jaw selection keeps its accepted expression runtime implementation
+  ---
+  duration_ms: 1.001917
+  type: 'test'
+  ...
+# Subtest: all three pitch references remain the approved static illustrations and the unimplemented right-down pose is not borrowed
+ok 324 - all three pitch references remain the approved static illustrations and the unimplemented right-down pose is not borrowed
+  ---
+  duration_ms: 13.373208
+  type: 'test'
+  ...
+# Subtest: each pitch pose uses two independent expression paintings through six separate local eye and mouth patches
+ok 325 - each pitch pose uses two independent expression paintings through six separate local eye and mouth patches
+  ---
+  duration_ms: 9.146625
+  type: 'test'
+  ...
+# Subtest: pitch eye crops preserve anatomical sides and all local drawings keep native scale and stay above the approved chin
+ok 326 - pitch eye crops preserve anatomical sides and all local drawings keep native scale and stay above the approved chin
+  ---
+  duration_ms: 0.231459
+  type: 'test'
+  ...
+# Subtest: small and wide mouth drawings register to each pitch pose’s own stable upper-lip anchor
+ok 327 - small and wide mouth drawings register to each pitch pose’s own stable upper-lip anchor
+  ---
+  duration_ms: 0.094458
+  type: 'test'
+  ...
+# Subtest: six pitch paintings record actual generation prompts and the matching approved pose references
+ok 328 - six pitch paintings record actual generation prompts and the matching approved pose references
+  ---
+  duration_ms: 0.151708
+  type: 'test'
+  ...
+# Subtest: pitch validation accepts the three explicit poses with individual tilted eye and mouth registrations
+ok 329 - pitch validation accepts the three explicit poses with individual tilted eye and mouth registrations
+  ---
+  duration_ms: 3.109875
+  type: 'test'
+  ...
+# Subtest: pitch family cannot be omitted, invented, mixed with side poses, or expanded to unprepared views
+ok 330 - pitch family cannot be omitted, invented, mixed with side poses, or expanded to unprepared views
+  ---
+  duration_ms: 0.768417
+  type: 'test'
+  ...
+# Subtest: pitch basic family rejects mouth and brow extensions that omit their accepted prerequisites
+ok 331 - pitch basic family rejects mouth and brow extensions that omit their accepted prerequisites
+  ---
+  duration_ms: 0.353417
+  type: 'test'
+  ...
+# Subtest: pitch patches and base images cannot borrow another pose or disguise a shared PNG as independent art
+ok 332 - pitch patches and base images cannot borrow another pose or disguise a shared PNG as independent art
+  ---
+  duration_ms: 0.572541
+  type: 'test'
+  ...
+# Subtest: pitch mouths require stable anatomical upper-lip anchors and native-size local registration
+ok 333 - pitch mouths require stable anatomical upper-lip anchors and native-size local registration
+  ---
+  duration_ms: 2.342625
+  type: 'test'
+  ...
+# Subtest: pitch uses independent anatomical blink channels and close-mouth priority without applying unused full portraits
+ok 334 - pitch uses independent anatomical blink channels and close-mouth priority without applying unused full portraits
+  ---
+  duration_ms: 1.005458
+  type: 'test'
+  ...
+# Subtest: changing pitch pose clears the preceding pose and chooses only the new pose reference and patches
+ok 335 - changing pitch pose clears the preceding pose and chooses only the new pose reference and patches
+  ---
+  duration_ms: 0.164791
+  type: 'test'
+  ...
+# Subtest: neutral and original pitch views use only the approved pose image
+ok 336 - neutral and original pitch views use only the approved pose image
+  ---
+  duration_ms: 0.17575
+  type: 'test'
+  ...
+# Subtest: pitch loader uses its explicit URL and compiles only eighteen native local patches
+ok 337 - pitch loader uses its explicit URL and compiles only eighteen native local patches
+  ---
+  duration_ms: 1.827041
+  type: 'test'
+  ...
+# Subtest: pitch loader refuses a valid old-side manifest before any images are loaded
+ok 338 - pitch loader refuses a valid old-side manifest before any images are loaded
+  ---
+  duration_ms: 1.192292
+  type: 'test'
+  ...
+# Subtest: approved pitch gaze registers the same three poses and fifteen actual PNG dimensions and fingerprints
+ok 339 - approved pitch gaze registers the same three poses and fifteen actual PNG dimensions and fingerprints
+  ---
+  duration_ms: 15.377
+  type: 'test'
+  ...
+# Subtest: accepted pitch gaze snapshot freezes fifteen source paintings and the full pose and gaze registration
+ok 340 - accepted pitch gaze snapshot freezes fifteen source paintings and the full pose and gaze registration
+  ---
+  duration_ms: 16.961916
+  type: 'test'
+  ...
+# Subtest: accepted pitch iris compiler, shared gaze drawing and eye-mouth selection retain their frozen runtimes
+ok 341 - accepted pitch iris compiler, shared gaze drawing and eye-mouth selection retain their frozen runtimes
+  ---
+  duration_ms: 0.187833
+  type: 'test'
+  ...
+# Subtest: pitch gaze preserves all nine approved source paintings, every eye/mouth patch and the frozen expression selector
+ok 342 - pitch gaze preserves all nine approved source paintings, every eye/mouth patch and the frozen expression selector
+  ---
+  duration_ms: 11.117125
+  type: 'test'
+  ...
+# Subtest: six new pitch white/iris sources are independent paintings with their exact generation prompts and pose references
+ok 343 - six new pitch white/iris sources are independent paintings with their exact generation prompts and pose references
+  ---
+  duration_ms: 4.40725
+  type: 'test'
+  ...
+# Subtest: actual pitch iris files contain two painted sprites on genuine transparent backgrounds without substantial cropped-away pixels
+ok 344 - actual pitch iris files contain two painted sprites on genuine transparent backgrounds without substantial cropped-away pixels
+  ---
+  duration_ms: 415.988375
+  type: 'test'
+  ...
+# Subtest: actual pitch gaze registrations retain per-eye anatomy and separate open/half apertures without closed-eye iris layers
+ok 345 - actual pitch gaze registrations retain per-eye anatomy and separate open/half apertures without closed-eye iris layers
+  ---
+  duration_ms: 0.285208
+  type: 'test'
+  ...
+# Subtest: actual pitch travel remains bounded in each registered eye axis at all maximum cardinal and diagonal gaze inputs
+ok 346 - actual pitch travel remains bounded in each registered eye axis at all maximum cardinal and diagonal gaze inputs
+  ---
+  duration_ms: 4.4675
+  type: 'test'
+  ...
+# Subtest: concurrent approved and mouth-only packs share one immutable gaze snapshot without recompiling identical eyes
+ok 347 - concurrent approved and mouth-only packs share one immutable gaze snapshot without recompiling identical eyes
+  ---
+  duration_ms: 8.867458
+  type: 'test'
+  ...
+# Subtest: source URLs, hashes, eye registration, reference and gaze geometry invalidate the inherited snapshot
+ok 348 - source URLs, hashes, eye registration, reference and gaze geometry invalidate the inherited snapshot
+  ---
+  duration_ms: 16.499167
+  type: 'test'
+  ...
+# Subtest: non-eye metadata and object insertion order do not invalidate the same gaze content
+ok 349 - non-eye metadata and object insertion order do not invalidate the same gaze content
+  ---
+  duration_ms: 3.754959
+  type: 'test'
+  ...
+# Subtest: snapshot caches are isolated by document, Image constructor and bitmap factory
+ok 350 - snapshot caches are isolated by document, Image constructor and bitmap factory
+  ---
+  duration_ms: 4.719292
+  type: 'test'
+  ...
+# Subtest: snapshot failure is never cached, partial bitmaps close and a later request retries successfully
+ok 351 - snapshot failure is never cached, partial bitmaps close and a later request retries successfully
+  ---
+  duration_ms: 2.542333
+  type: 'test'
+  ...
+# Subtest: wrong-size snapshots and hosts without ImageBitmap fail explicitly instead of reusing mutable canvases
+ok 352 - wrong-size snapshots and hosts without ImageBitmap fail explicitly instead of reusing mutable canvases
+  ---
+  duration_ms: 4.266833
+  type: 'test'
+  ...
+# Subtest: player materializes inherited gaze before any new mouth or eyelid crop canvases
+ok 353 - player materializes inherited gaze before any new mouth or eyelid crop canvases
+  ---
+  duration_ms: 3.4875
+  type: 'test'
+  ...
+# Subtest: pitch gaze is a separate explicit three-pose capability while the approved basic pack still has no gaze layers
+ok 354 - pitch gaze is a separate explicit three-pose capability while the approved basic pack still has no gaze layers
+  ---
+  duration_ms: 5.460375
+  type: 'test'
+  ...
+# Subtest: pitch eye whites and irises cannot reuse another pose, the neutral image, or an approved eyelid source
+ok 355 - pitch eye whites and irises cannot reuse another pose, the neutral image, or an approved eyelid source
+  ---
+  duration_ms: 1.97025
+  type: 'test'
+  ...
+# Subtest: pitch registration refuses cross-pose eyelid frames, closed irises, stretched crops and invalid local axes
+ok 356 - pitch registration refuses cross-pose eyelid frames, closed irises, stretched crops and invalid local axes
+  ---
+  duration_ms: 3.574834
+  type: 'test'
+  ...
+# Subtest: pitch gaze reuses the approved ARKit mapping and bounded local travel at extreme and diagonal inputs
+ok 357 - pitch gaze reuses the approved ARKit mapping and bounded local travel at extreme and diagonal inputs
+  ---
+  duration_ms: 1.858167
+  type: 'test'
+  ...
+# Subtest: pitch compiles one shared complete iris per eye with the approved open-eye pigment core and separate fragment cleanup
+ok 358 - pitch compiles one shared complete iris per eye with the approved open-eye pigment core and separate fragment cleanup
+  ---
+  duration_ms: 3.297208
+  type: 'test'
+  ...
+# Subtest: pitch center and tiny gaze inputs use exactly the same clipped drawing path with fixed iris size
+ok 359 - pitch center and tiny gaze inputs use exactly the same clipped drawing path with fixed iris size
+  ---
+  duration_ms: 0.99875
+  type: 'test'
+  ...
+# Subtest: pitch closed or unknown eye states strictly skip every iris even at maximum gaze, independently for each eye
+ok 360 - pitch closed or unknown eye states strictly skip every iris even at maximum gaze, independently for each eye
+  ---
+  duration_ms: 0.715083
+  type: 'test'
+  ...
+# Subtest: pitch player applies gaze after local eye/mouth drawings and original comparison bypasses gaze completely
+ok 361 - pitch player applies gaze after local eye/mouth drawings and original comparison bypasses gaze completely
+  ---
+  duration_ms: 1.043125
+  type: 'test'
+  ...
+# Subtest: pitchGaze loader selects the independent pack and rejects basic/gaze capability mismatches before image loading
+ok 362 - pitchGaze loader selects the independent pack and rejects basic/gaze capability mismatches before image loading
+  ---
+  duration_ms: 6.535042
+  type: 'test'
+  ...
+# Subtest: the accepted side gaze runtime remains byte-for-byte frozen while pitch owns its new validator/compiler
+ok 363 - the accepted side gaze runtime remains byte-for-byte frozen while pitch owns its new validator/compiler
+  ---
+  duration_ms: 0.849833
+  type: 'test'
+  ...
+# Subtest: approved pitch mouth pack has three poses, twelve new paintings and twenty-seven verified PNG sources
+ok 364 - approved pitch mouth pack has three poses, twelve new paintings and twenty-seven verified PNG sources
+  ---
+  duration_ms: 33.164834
+  type: 'test'
+  ...
+# Subtest: pitch mouth extension preserves all fifteen approved sources and the complete accepted gaze registration
+ok 365 - pitch mouth extension preserves all fifteen approved sources and the complete accepted gaze registration
+  ---
+  duration_ms: 13.8175
+  type: 'test'
+  ...
+# Subtest: removing only four new mouth states restores every approved pitch pose field and original eye/jaw patch exactly
+ok 366 - removing only four new mouth states restores every approved pitch pose field and original eye/jaw patch exactly
+  ---
+  duration_ms: 0.499
+  type: 'test'
+  ...
+# Subtest: every pitch mouth state owns a distinct pose-specific painting, including separate left and right shifts
+ok 367 - every pitch mouth state owns a distinct pose-specific painting, including separate left and right shifts
+  ---
+  duration_ms: 12.09875
+  type: 'test'
+  ...
+# Subtest: actual pitch mouths retain one-to-one source scale, upper-lip height and each authored shift direction
+ok 368 - actual pitch mouths retain one-to-one source scale, upper-lip height and each authored shift direction
+  ---
+  duration_ms: 0.274167
+  type: 'test'
+  ...
+# Subtest: all twelve final pitch mouth paintings record actual prompts and same-pose reference chains that reach approved originals
+ok 369 - all twelve final pitch mouth paintings record actual prompts and same-pose reference chains that reach approved originals
+  ---
+  duration_ms: 44.854792
+  type: 'test'
+  ...
+# Subtest: accepted gaze compilation, gaze drawing and eye/jaw/mouth selection runtimes stay frozen
+ok 370 - accepted gaze compilation, gaze drawing and eye/jaw/mouth selection runtimes stay frozen
+  ---
+  duration_ms: 0.212417
+  type: 'test'
+  ...
+# Subtest: accepted pitch mouth snapshot freezes all source bytes, registrations, gaze inheritance and mouth selection
+ok 371 - accepted pitch mouth snapshot freezes all source bytes, registrations, gaze inheritance and mouth selection
+  ---
+  duration_ms: 33.827292
+  type: 'test'
+  ...
+# Subtest: pitch mouth requires the exact four authored states, existing gaze and the three supported pitch poses
+ok 372 - pitch mouth requires the exact four authored states, existing gaze and the three supported pitch poses
+  ---
+  duration_ms: 13.126
+  type: 'test'
+  ...
+# Subtest: pitch mouth sources cannot be mirrored, shared across directions, borrowed from another angle or stretched
+ok 373 - pitch mouth sources cannot be mirrored, shared across directions, borrowed from another angle or stretched
+  ---
+  duration_ms: 3.923959
+  type: 'test'
+  ...
+# Subtest: pitch directional upper-lip registration keeps its signed offset instead of recentering both drawings
+ok 374 - pitch directional upper-lip registration keeps its signed offset instead of recentering both drawings
+  ---
+  duration_ms: 7.338583
+  type: 'test'
+  ...
+# Subtest: pitch mouths reuse close/press/pucker/signed-shift priority and cancellation without altering independent eyes or gaze
+ok 375 - pitch mouths reuse close/press/pucker/signed-shift priority and cancellation without altering independent eyes or gaze
+  ---
+  duration_ms: 1.142666
+  type: 'test'
+  ...
+# Subtest: pitchMouth loading compiles thirty native expression crops and retains all six independent gaze layers
+ok 376 - pitchMouth loading compiles thirty native expression crops and retains all six independent gaze layers
+  ---
+  duration_ms: 7.498625
+  type: 'test'
+  ...
+# Subtest: pitch base and gaze variants reject mouth capability while pitchMouth rejects either older pack before loading images
+ok 377 - pitch base and gaze variants reject mouth capability while pitchMouth rejects either older pack before loading images
+  ---
+  duration_ms: 3.275459
+  type: 'test'
+  ...
+# Subtest: the accepted mouth selector is byte-identical while pitch extends only the shared player
+ok 378 - the accepted mouth selector is byte-identical while pitch extends only the shared player
+  ---
+  duration_ms: 0.466375
+  type: 'test'
+  ...
+# Subtest: portrait rig uses original source dimensions and exact original locations
+ok 379 - portrait rig uses original source dimensions and exact original locations
+  ---
+  duration_ms: 1.048709
+  type: 'test'
+  ...
+# Subtest: unverified rig opts out without modifying its original geometry
+ok 380 - unverified rig opts out without modifying its original geometry
+  ---
+  duration_ms: 0.206625
+  type: 'test'
+  ...
+# Subtest: invalid geometry and non-finite motion cannot reach uniforms
+ok 381 - invalid geometry and non-finite motion cannot reach uniforms
+  ---
+  duration_ms: 0.204
+  type: 'test'
+  ...
+# Subtest: neutral motion preserves the source sampling coordinates
+ok 382 - neutral motion preserves the source sampling coordinates
+  ---
+  duration_ms: 0.107834
+  type: 'test'
+  ...
+# Subtest: blink inverse warp stays strictly monotonic at every supported strength
+ok 383 - blink inverse warp stays strictly monotonic at every supported strength
+  ---
+  duration_ms: 6.478541
+  type: 'test'
+  ...
+# Subtest: compact support keeps pixels outside facial regions unchanged
+ok 384 - compact support keeps pixels outside facial regions unchanged
+  ---
+  duration_ms: 0.273333
+  type: 'test'
+  ...
+# Subtest: full eyelid closure compresses the iris below one source pixel without folds
+ok 385 - full eyelid closure compresses the iris below one source pixel without folds
+  ---
+  duration_ms: 8.173875
+  type: 'test'
+  ...
+# Subtest: canonical independent eye and brow channels override legacy merged values
+ok 386 - canonical independent eye and brow channels override legacy merged values
+  ---
+  duration_ms: 0.20425
+  type: 'test'
+  ...
+# Subtest: canonical mouth direction replaces rather than doubles the legacy signal
+ok 387 - canonical mouth direction replaces rather than doubles the legacy signal
+  ---
+  duration_ms: 0.337375
+  type: 'test'
+  ...
+# Subtest: closing lips does not erase jaw travel and funnel is different from pucker
+ok 388 - closing lips does not erase jaw travel and funnel is different from pucker
+  ---
+  duration_ms: 0.578333
+  type: 'test'
+  ...
+# Subtest: funnel produces a distinctly rounder aperture than ordinary jaw opening
+ok 389 - funnel produces a distinctly rounder aperture than ordinary jaw opening
+  ---
+  duration_ms: 0.208792
+  type: 'test'
+  ...
+# Subtest: left and right lips, smile corners and lip pressure stay independent
+ok 390 - left and right lips, smile corners and lip pressure stay independent
+  ---
+  duration_ms: 0.070458
+  type: 'test'
+  ...
+# Subtest: mouth cavity keeps a warm lip tint and lower bounce instead of a black cutout
+ok 391 - mouth cavity keeps a warm lip tint and lower bounce instead of a black cutout
+  ---
+  duration_ms: 1.221875
+  type: 'test'
+  ...
+# Subtest: 52 channel metadata is honest and every advertised channel drives renderer state
+ok 392 - 52 channel metadata is honest and every advertised channel drives renderer state
+  ---
+  duration_ms: 1.400167
+  type: 'test'
+  ...
+# Subtest: head yaw stays a local face parameter and invalid canonical coefficients are bounded
+ok 393 - head yaw stays a local face parameter and invalid canonical coefficients are bounded
+  ---
+  duration_ms: 0.112291
+  type: 'test'
+  ...
+# Subtest: renderer without browser/WebGL gracefully falls back and disposes safely
+ok 394 - renderer without browser/WebGL gracefully falls back and disposes safely
+  ---
+  duration_ms: 0.172625
+  type: 'test'
+  ...
+# Subtest: image texture uploads are cached, loss falls back and resources are released
+ok 395 - image texture uploads are cached, loss falls back and resources are released
+  ---
+  duration_ms: 1.430834
+  type: 'test'
+  ...
+# Subtest: preferences supply defaults and never share mutable state
+ok 396 - preferences supply defaults and never share mutable state
+  ---
+  duration_ms: 1.07925
+  type: 'test'
+  ...
+# Subtest: preferences whitelist known options and clamp finite range values
+ok 397 - preferences whitelist known options and clamp finite range values
+  ---
+  duration_ms: 0.186042
+  type: 'test'
+  ...
+# Subtest: model styles whitelist only explicit studio/light preferences
+ok 398 - model styles whitelist only explicit studio/light preferences
+  ---
+  duration_ms: 0.0965
+  type: 'test'
+  ...
+# Subtest: studio and light selections round-trip with original image and appearance settings
+ok 399 - studio and light selections round-trip with original image and appearance settings
+  ---
+  duration_ms: 0.494041
+  type: 'test'
+  ...
+# Subtest: older version-one projects default to studio without losing their image or preferences
+ok 400 - older version-one projects default to studio without losing their image or preferences
+  ---
+  duration_ms: 0.131041
+  type: 'test'
+  ...
+# Subtest: appearance overrides round-trip without sharing objects or admitting unsafe values
+ok 401 - appearance overrides round-trip without sharing objects or admitting unsafe values
+  ---
+  duration_ms: 0.961416
+  type: 'test'
+  ...
+# Subtest: ARKit52 settings round-trip as project preferences without sharing nested objects
+ok 402 - ARKit52 settings round-trip as project preferences without sharing nested objects
+  ---
+  duration_ms: 0.779083
+  type: 'test'
+  ...
+# Subtest: ARKit settings clamp finite channel limits and default invalid configurations
+ok 403 - ARKit settings clamp finite channel limits and default invalid configurations
+  ---
+  duration_ms: 0.325833
+  type: 'test'
+  ...
+# Subtest: ARKit persistence keeps only canonical settings, never camera or manual-test state
+ok 404 - ARKit persistence keeps only canonical settings, never camera or manual-test state
+  ---
+  duration_ms: 1.94025
+  type: 'test'
+  ...
+# Subtest: ARKit preferences ignore inherited wrappers, channels and per-channel properties
+ok 405 - ARKit preferences ignore inherited wrappers, channels and per-channel properties
+  ---
+  duration_ms: 1.165375
+  type: 'test'
+  ...
+# Subtest: all 52 full-precision configurations fit in the expanded bounded project envelope
+ok 406 - all 52 full-precision configurations fit in the expanded bounded project envelope
+  ---
+  duration_ms: 29.597958
+  type: 'test'
+  ...
+# Subtest: a demo project round-trips without an image or secret data
+ok 407 - a demo project round-trips without an image or secret data
+  ---
+  duration_ms: 0.174541
+  type: 'test'
+  ...
+# Subtest: PNG, JPEG and WebP images survive project serialization
+ok 408 - PNG, JPEG and WebP images survive project serialization
+  ---
+  duration_ms: 0.17525
+  type: 'test'
+  ...
+# Subtest: external URLs, SVG and MIME-spoofed images are rejected
+ok 409 - external URLs, SVG and MIME-spoofed images are rejected
+  ---
+  duration_ms: 0.175333
+  type: 'test'
+  ...
+# Subtest: invalid base64 and oversized project data fail before persistence
+ok 410 - invalid base64 and oversized project data fail before persistence
+  ---
+  duration_ms: 0.17925
+  type: 'test'
+  ...
+# Subtest: corrupt, unrelated, inherited and future-version project envelopes are rejected
+ok 411 - corrupt, unrelated, inherited and future-version project envelopes are rejected
+  ---
+  duration_ms: 0.143
+  type: 'test'
+  ...
+# Subtest: unknown fields and prototype pollution payloads do not enter the returned project
+ok 412 - unknown fields and prototype pollution payloads do not enter the returned project
+  ---
+  duration_ms: 0.058041
+  type: 'test'
+  ...
+# Subtest: missing browser storage is surfaced without using localStorage
+ok 413 - missing browser storage is surfaced without using localStorage
+  ---
+  duration_ms: 0.3235
+  type: 'test'
+  ...
+# Subtest: IndexedDB save/load/clear complete only after transaction commit and close each connection
+ok 414 - IndexedDB save/load/clear complete only after transaction commit and close each connection
+  ---
+  duration_ms: 0.595042
+  type: 'test'
+  ...
+# Subtest: storage quota aborts are surfaced and do not pretend the project was saved
+ok 415 - storage quota aborts are surfaced and do not pretend the project was saved
+  ---
+  duration_ms: 0.098708
+  type: 'test'
+  ...
+# Subtest: blocked opening rejects, closes late successful connections and never starts a transaction
+ok 416 - blocked opening rejects, closes late successful connections and never starts a transaction
+  ---
+  duration_ms: 5.588208
+  type: 'test'
+  ...
+# Subtest: damaged stored data rejects instead of looking like an empty first launch
+ok 417 - damaged stored data rejects instead of looking like an empty first launch
+  ---
+  duration_ms: 0.26425
+  type: 'test'
+  ...
+# Subtest: camera construction performs no model or permission work and successful stop releases all tracks
+ok 418 - camera construction performs no model or permission work and successful stop releases all tracks
+  ---
+  duration_ms: 1.935
+  type: 'test'
+  ...
+# Subtest: cancelling a model load cannot request camera permission afterward
+ok 419 - cancelling a model load cannot request camera permission afterward
+  ---
+  duration_ms: 0.253833
+  type: 'test'
+  ...
+# Subtest: a stream arriving after permission cancellation is immediately stopped
+ok 420 - a stream arriving after permission cancellation is immediately stopped
+  ---
+  duration_ms: 0.304459
+  type: 'test'
+  ...
+# Subtest: cancelling pending video playback prevents a late camera reactivation
+ok 421 - cancelling pending video playback prevents a late camera reactivation
+  ---
+  duration_ms: 0.338417
+  type: 'test'
+  ...
+# Subtest: camera permission rejection is recoverable and does not leave a starting state
+ok 422 - camera permission rejection is recoverable and does not leave a starting state
+  ---
+  duration_ms: 0.556167
+  type: 'test'
+  ...
+# Subtest: camera polling skips duplicate video frames, throttles work and closes after hardware disconnect
+ok 423 - camera polling skips duplicate video frames, throttles work and closes after hardware disconnect
+  ---
+  duration_ms: 0.322084
+  type: 'test'
+  ...
+# Subtest: disposing during a model load closes its late resource without requesting a stream
+ok 424 - disposing during a model load closes its late resource without requesting a stream
+  ---
+  duration_ms: 0.91675
+  type: 'test'
+  ...
+# Subtest: model loading failures can be retried without requesting camera permission on the failed attempt
+ok 425 - model loading failures can be retried without requesting camera permission on the failed attempt
+  ---
+  duration_ms: 0.432042
+  type: 'test'
+  ...
+# Subtest: permission rejection can recover using the already loaded model
+ok 426 - permission rejection can recover using the already loaded model
+  ---
+  duration_ms: 0.827208
+  type: 'test'
+  ...
+# Subtest: overlapping cancelled starts close a late tracker only once when the page is disposed
+ok 427 - overlapping cancelled starts close a late tracker only once when the page is disposed
+  ---
+  duration_ms: 1.330167
+  type: 'test'
+  ...
+# Subtest: loading the studio prepares only local art and remains still with no camera start
+ok 428 - loading the studio prepares only local art and remains still with no camera start
+  ---
+  duration_ms: 3.384541
+  type: 'test'
+  ...
+# Subtest: hiding an active camera recording closes the camera and recorder without scheduling a hidden frame
+ok 429 - hiding an active camera recording closes the camera and recorder without scheduling a hidden frame
+  ---
+  duration_ms: 0.745167
+  type: 'test'
+  ...
+# Subtest: hiding a demo pauses it, while returning visible never restarts animation or camera
+ok 430 - hiding a demo pauses it, while returning visible never restarts animation or camera
+  ---
+  duration_ms: 0.517792
+  type: 'test'
+  ...
+# Subtest: leaving the page cancels camera startup and disposes its resource owner
+ok 431 - leaving the page cancels camera startup and disposes its resource owner
+  ---
+  duration_ms: 0.4
+  type: 'test'
+  ...
+# Subtest: invalid imported frames leave active input and coefficients unchanged
+ok 432 - invalid imported frames leave active input and coefficients unchanged
+  ---
+  duration_ms: 1.492666
+  type: 'test'
+  ...
+# Subtest: the first calibrated frame uses the new head baseline without a one-frame pose jump
+ok 433 - the first calibrated frame uses the new head baseline without a one-frame pose jump
+  ---
+  duration_ms: 1.408792
+  type: 'test'
+  ...
+# Subtest: tracking runtime errors close the camera and leave a retryable manual state
+ok 434 - tracking runtime errors close the camera and leave a retryable manual state
+  ---
+  duration_ms: 1.396958
+  type: 'test'
+  ...
+# Subtest: an invalid project import does not stop the active source or partially overwrite current settings
+ok 435 - an invalid project import does not stop the active source or partially overwrite current settings
+  ---
+  duration_ms: 1.559417
+  type: 'test'
+  ...
+# Subtest: a project file finishing after a newer manual action cannot overwrite that action
+ok 436 - a project file finishing after a newer manual action cannot overwrite that action
+  ---
+  duration_ms: 1.584667
+  type: 'test'
+  ...
+# Subtest: recording finalization uses the actual MIME extension and stops its stream after deferred onstop
+ok 437 - recording finalization uses the actual MIME extension and stops its stream after deferred onstop
+  ---
+  duration_ms: 2.184542
+  type: 'test'
+  ...
+# Subtest: a recorder error never labels possibly damaged chunks as a successful download
+ok 438 - a recorder error never labels possibly damaged chunks as a successful download
+  ---
+  duration_ms: 1.339125
+  type: 'test'
+  ...
+# Subtest: a late callback from a failed encoder cannot clear or stop a newer recording
+ok 439 - a late callback from a failed encoder cannot clear or stop a newer recording
+  ---
+  duration_ms: 1.176542
+  type: 'test'
+  ...
+# Subtest: camera ARKit gaze remains unit coefficients and normalized head pitch is converted to up-positive studio coordinates
+ok 440 - camera ARKit gaze remains unit coefficients and normalized head pitch is converted to up-positive studio coordinates
+  ---
+  duration_ms: 1.819125
+  type: 'test'
+  ...
+# Subtest: a delayed PNG callback retains the captured pose name rather than a later selection
+ok 441 - a delayed PNG callback retains the captured pose name rather than a later selection
+  ---
+  duration_ms: 3.705584
+  type: 'test'
+  ...
+# Subtest: camera calibration handles every studio channel and new frames replace stale gaze and expression coefficients
+ok 442 - camera calibration handles every studio channel and new frames replace stale gaze and expression coefficients
+  ---
+  duration_ms: 7.665166
+  type: 'test'
+  ...
+# Subtest: manual eye and jaw actions visit every real intermediate painting, then stop at the exact endpoints
+ok 443 - manual eye and jaw actions visit every real intermediate painting, then stop at the exact endpoints
+  ---
+  duration_ms: 1.646042
+  type: 'test'
+  ...
+# Subtest: a reversed manual action replans from the displayed frame without completing an old target
+ok 444 - a reversed manual action replans from the displayed frame without completing an old target
+  ---
+  duration_ms: 2.045625
+  type: 'test'
+  ...
+# Subtest: pausing or hiding a manual transition freezes its actual frame and never restarts from a stale RAF
+ok 445 - pausing or hiding a manual transition freezes its actual frame and never restarts from a stale RAF
+  ---
+  duration_ms: 3.736875
+  type: 'test'
+  ...
+# Subtest: pose selection, original preview and single-frame exports use exact endpoint states
+ok 446 - pose selection, original preview and single-frame exports use exact endpoint states
+  ---
+  duration_ms: 1.504791
+  type: 'test'
+  ...
+# Subtest: render scheduling counts successful 30/60 fps draws rather than 120 Hz RAF callbacks
+ok 447 - render scheduling counts successful 30/60 fps draws rather than 120 Hz RAF callbacks
+  ---
+  duration_ms: 9.643375
+  type: 'test'
+  ...
+# Subtest: a skipped or failed render cannot commit unseen motion or contribute to measured drawing rate
+ok 448 - a skipped or failed render cannot commit unseen motion or contribute to measured drawing rate
+  ---
+  duration_ms: 2.059916
+  type: 'test'
+  ...
+# Subtest: recording requests the selected fps, locks it until finalization and preserves a paused visible frame
+ok 449 - recording requests the selected fps, locks it until finalization and preserves a paused visible frame
+  ---
+  duration_ms: 4.445125
+  type: 'test'
+  ...
+# Subtest: camera disconnection freezes a pending motion and cancels the next scheduled frame
+ok 450 - camera disconnection freezes a pending motion and cancels the next scheduled frame
+  ---
+  duration_ms: 0.989709
+  type: 'test'
+  ...
+# Subtest: a camera polling failure during RAF cannot repaint or advance the last visible expression
+ok 451 - a camera polling failure during RAF cannot repaint or advance the last visible expression
+  ---
+  duration_ms: 1.349833
+  type: 'test'
+  ...
+# Subtest: studio head selection covers nine independently painted directions and retains a hysteresis band
+ok 452 - studio head selection covers nine independently painted directions and retains a hysteresis band
+  ---
+  duration_ms: 0.508
+  type: 'test'
+  ...
+# Subtest: studio gaze uses screen direction and always clears opposite eye signals
+ok 453 - studio gaze uses screen direction and always clears opposite eye signals
+  ---
+  duration_ms: 0.116875
+  type: 'test'
+  ...
+# Subtest: quick actions preserve independently chosen groups while replacing conflicts in their own group
+ok 454 - quick actions preserve independently chosen groups while replacing conflicts in their own group
+  ---
+  duration_ms: 0.255334
+  type: 'test'
+  ...
+# Subtest: studio frame import accepts real ARKit envelopes but refuses invalid known values atomically
+ok 455 - studio frame import accepts real ARKit envelopes but refuses invalid known values atomically
+  ---
+  duration_ms: 1.260833
+  type: 'test'
+  ...
+# Subtest: project round trips keep manual settings and exclude camera state, permission, image paths and credentials
+ok 456 - project round trips keep manual settings and exclude camera state, permission, image paths and credentials
+  ---
+  duration_ms: 0.809792
+  type: 'test'
+  ...
+# Subtest: demo spans every prepared pose only when touring is enabled and never emits unsupported coefficients
+ok 457 - demo spans every prepared pose only when touring is enabled and never emits unsupported coefficients
+  ---
+  duration_ms: 0.892958
+  type: 'test'
+  ...
+# Subtest: the default server route opens the short-hair studio and preserves the old application at an explicit legacy URL
+ok 458 - the default server route opens the short-hair studio and preserves the old application at an explicit legacy URL
+  ---
+  duration_ms: 7.57775
+  type: 'test'
+  ...
+# Subtest: studio startup static dependencies are local and exclude legacy, 3D and body tracking modules
+ok 459 - studio startup static dependencies are local and exclude legacy, 3D and body tracking modules
+  ---
+  duration_ms: 6.53275
+  type: 'test'
+  ...
+# Subtest: 60 is an unmeasured scheduling/recording target, never a fabricated result
+ok 460 - 60 is an unmeasured scheduling/recording target, never a fabricated result
+  ---
+  duration_ms: 1.947375
+  type: 'test'
+  ...
+# Subtest: 60 Hz and 120 Hz callbacks each schedule 60 draws per second with no double scheduling
+ok 461 - 60 Hz and 120 Hz callbacks each schedule 60 draws per second with no double scheduling
+  ---
+  duration_ms: 0.396042
+  type: 'test'
+  ...
+# Subtest: fractional RAF jitter does not halve the render rate or cause catch-up bursts
+ok 462 - fractional RAF jitter does not halve the render rate or cause catch-up bursts
+  ---
+  duration_ms: 0.873542
+  type: 'test'
+  ...
+# Subtest: 30 target works on a 60 Hz callback stream and changing target resets timing and measurements
+ok 463 - 30 target works on a 60 Hz callback stream and changing target resets timing and measurements
+  ---
+  duration_ms: 0.509
+  type: 'test'
+  ...
+# Subtest: slow successful output is measured as slow, not as the requested target
+ok 464 - slow successful output is measured as slow, not as the requested target
+  ---
+  duration_ms: 0.094834
+  type: 'test'
+  ...
+# Subtest: measurement needs an observation window and ignores duplicate/invalid draws
+ok 465 - measurement needs an observation window and ignores duplicate/invalid draws
+  ---
+  duration_ms: 0.14625
+  type: 'test'
+  ...
+# Subtest: reset and clock rollback start a fresh interval; invalid callbacks do not mutate cadence
+ok 466 - reset and clock rollback start a fresh interval; invalid callbacks do not mutate cadence
+  ---
+  duration_ms: 0.064708
+  type: 'test'
+  ...
+# Subtest: every prepared eyelid and jaw painting is visited in order even after long frame gaps
+ok 467 - every prepared eyelid and jaw painting is visited in order even after long frame gaps
+  ---
+  duration_ms: 0.496208
+  type: 'test'
+  ...
+# Subtest: uncommitted proposals cannot skip paintings and reverse inputs replan from the displayed frame
+ok 468 - uncommitted proposals cannot skip paintings and reverse inputs replan from the displayed frame
+  ---
+  duration_ms: 0.229666
+  type: 'test'
+  ...
+# Subtest: sub-frame callbacks hold their current art until the minimum interval elapses
+ok 469 - sub-frame callbacks hold their current art until the minimum interval elapses
+  ---
+  duration_ms: 0.925583
+  type: 'test'
+  ...
+# Subtest: eye and jaw timing are independent and 30/60 Hz do not double action duration
+ok 470 - eye and jaw timing are independent and 30/60 Hz do not double action duration
+  ---
+  duration_ms: 0.148959
+  type: 'test'
+  ...
+# Subtest: eyes travel independently; special mouths and brows use their actual direct paintings
+ok 471 - eyes travel independently; special mouths and brows use their actual direct paintings
+  ---
+  duration_ms: 0.053625
+  type: 'test'
+  ...
+# Subtest: old three-stage poses use only registered frames and reset boundaries snap exactly
+ok 472 - old three-stage poses use only registered frames and reset boundaries snap exactly
+  ---
+  duration_ms: 0.047209
+  type: 'test'
+  ...
+# Subtest: invalid timing or duplicate source stages fail explicitly
+ok 473 - invalid timing or duplicate source stages fail explicitly
+  ---
+  duration_ms: 0.078834
+  type: 'test'
+  ...
+# Subtest: approved side brow pack registers six new double-brow paintings and all twenty-four PNG dimensions and hashes match their files
+ok 474 - approved side brow pack registers six new double-brow paintings and all twenty-four PNG dimensions and hashes match their files
+  ---
+  duration_ms: 39.911125
+  type: 'test'
+  ...
+# Subtest: brow extension preserves all eighteen approved sources, gaze registration, mouth capability and accepted mouth selector
+ok 475 - brow extension preserves all eighteen approved sources, gaze registration, mouth capability and accepted mouth selector
+  ---
+  duration_ms: 23.608625
+  type: 'test'
+  ...
+# Subtest: every existing pose registration and eye/mouth patch stays unchanged apart from adding the brow groups and their detail view
+ok 476 - every existing pose registration and eye/mouth patch stays unchanged apart from adding the brow groups and their detail view
+  ---
+  duration_ms: 0.586
+  type: 'test'
+  ...
+# Subtest: each pose has three distinct double-brow sources and twelve independently registered brow crops in total
+ok 477 - each pose has three distinct double-brow sources and twelve independently registered brow crops in total
+  ---
+  duration_ms: 23.2445
+  type: 'test'
+  ...
+# Subtest: new eyebrows retain native source positions, fixed one-to-one scale and explicit local clipping
+ok 478 - new eyebrows retain native source positions, fixed one-to-one scale and explicit local clipping
+  ---
+  duration_ms: 0.2735
+  type: 'test'
+  ...
+# Subtest: all six final brow sources retain their actual generation prompts and corresponding approved pose references
+ok 479 - all six final brow sources retain their actual generation prompts and corresponding approved pose references
+  ---
+  duration_ms: 0.198916
+  type: 'test'
+  ...
+# Subtest: measured right-pose hair junction masks restore their protected cores without erasing the neutral or newly painted brow strokes
+ok 480 - measured right-pose hair junction masks restore their protected cores without erasing the neutral or newly painted brow strokes
+  ---
+  duration_ms: 29.753875
+  type: 'test'
+  ...
+# Subtest: accepted eyebrow snapshot freezes all source bytes and the delivered pose, gaze, mouth and brow registration
+ok 481 - accepted eyebrow snapshot freezes all source bytes and the delivered pose, gaze, mouth and brow registration
+  ---
+  duration_ms: 23.900833
+  type: 'test'
+  ...
+# Subtest: approved eyebrow action selection and fine-hair exclusion keep their accepted runtime implementations
+ok 482 - approved eyebrow action selection and fine-hair exclusion keep their accepted runtime implementations
+  ---
+  duration_ms: 0.362084
+  type: 'test'
+  ...
+# Subtest: fixed exclusions are optional only for brows and require paired finite feather and destination-bounded polygons
+ok 483 - fixed exclusions are optional only for brows and require paired finite feather and destination-bounded polygons
+  ---
+  duration_ms: 1.366584
+  type: 'test'
+  ...
+# Subtest: coverage stays zero outside and on polygon edges, and increases smoothly only inward
+ok 484 - coverage stays zero outside and on polygon edges, and increases smoothly only inward
+  ---
+  duration_ms: 0.251708
+  type: 'test'
+  ...
+# Subtest: overlapping exclusions take maximum coverage rather than compounding alpha removal
+ok 485 - overlapping exclusions take maximum coverage rather than compounding alpha removal
+  ---
+  duration_ms: 0.061708
+  type: 'test'
+  ...
+# Subtest: concave polygons, winding direction and repeated closing points retain the intended interior
+ok 486 - concave polygons, winding direction and repeated closing points retain the intended interior
+  ---
+  duration_ms: 0.427458
+  type: 'test'
+  ...
+# Subtest: native alpha raster respects destination coordinates and can only reduce an existing clipped alpha
+ok 487 - native alpha raster respects destination coordinates and can only reduce an existing clipped alpha
+  ---
+  duration_ms: 1.049042
+  type: 'test'
+  ...
+# Subtest: manifest rejects exclusions on approved eyes or mouths even when a brow extension is present
+ok 488 - manifest rejects exclusions on approved eyes or mouths even when a brow extension is present
+  ---
+  duration_ms: 2.071375
+  type: 'test'
+  ...
+# Subtest: only an opted-in brow compiles one fixed destination-in mask, while all original compilation paths stay untouched
+ok 489 - only an opted-in brow compiles one fixed destination-in mask, while all original compilation paths stay untouched
+  ---
+  duration_ms: 14.063959
+  type: 'test'
+  ...
+# Subtest: side brows add the five ARKit brow channels without duplicating existing mouth or gaze channels
+ok 490 - side brows add the five ARKit brow channels without duplicating existing mouth or gaze channels
+  ---
+  duration_ms: 2.177458
+  type: 'test'
+  ...
+# Subtest: without explicit brow capability the approved mouth selector and return shape are unchanged
+ok 491 - without explicit brow capability the approved mouth selector and return shape are unchanged
+  ---
+  duration_ms: 2.374084
+  type: 'test'
+  ...
+# Subtest: brow inputs reject inherited, nonfinite and coerced values and never consume independent gaze
+ok 492 - brow inputs reject inherited, nonfinite and coerced values and never consume independent gaze
+  ---
+  duration_ms: 0.629667
+  type: 'test'
+  ...
+# Subtest: inner-up affects both brows while unilateral outer-up and down retain anatomical left/right
+ok 493 - inner-up affects both brows while unilateral outer-up and down retain anatomical left/right
+  ---
+  duration_ms: 0.165042
+  type: 'test'
+  ...
+# Subtest: each brow independently resolves conflicting coefficients as down then inner-up then outer-up
+ok 494 - each brow independently resolves conflicting coefficients as down then inner-up then outer-up
+  ---
+  duration_ms: 0.142875
+  type: 'test'
+  ...
+# Subtest: independent hysteresis holds actual painted states through boundary noise and releases below .35
+ok 495 - independent hysteresis holds actual painted states through boundary noise and releases below .35
+  ---
+  duration_ms: 0.169959
+  type: 'test'
+  ...
+# Subtest: brow selection preserves approved eye and mouth behavior and does not mutate input or prior state
+ok 496 - brow selection preserves approved eye and mouth behavior and does not mutate input or prior state
+  ---
+  duration_ms: 0.20725
+  type: 'test'
+  ...
+# Subtest: brow extension requires both independent brow groups and all three authored states while old packs remain valid
+ok 497 - brow extension requires both independent brow groups and all three authored states while old packs remain valid
+  ---
+  duration_ms: 11.093292
+  type: 'test'
+  ...
+# Subtest: same-pose paired brows use separate crops of their corresponding double-brow painting, never a reused state or opposite pose
+ok 498 - same-pose paired brows use separate crops of their corresponding double-brow painting, never a reused state or opposite pose
+  ---
+  duration_ms: 2.177834
+  type: 'test'
+  ...
+# Subtest: brow roots may move in the drawing without a fake fixed-root anchor, and eyebrow rectangles may share forehead skin with an eye crop
+ok 499 - brow roots may move in the drawing without a fake fixed-root anchor, and eyebrow rectangles may share forehead skin with an eye crop
+  ---
+  duration_ms: 1.988916
+  type: 'test'
+  ...
+# Subtest: asymmetric eyebrow selections cannot overlap each other or replace the mouth
+ok 500 - asymmetric eyebrow selections cannot overlap each other or replace the mouth
+  ---
+  duration_ms: 2.406
+  type: 'test'
+  ...
+# Subtest: draw order is approved eyes/mouth, selected brows, then gaze; every eyebrow is drawn at fixed scale
+ok 501 - draw order is approved eyes/mouth, selected brows, then gaze; every eyebrow is drawn at fixed scale
+  ---
+  duration_ms: 1.525417
+  type: 'test'
+  ...
+# Subtest: neutral brows use the base portrait, original comparison skips all patches, and brow details use their own crop
+ok 502 - neutral brows use the base portrait, original comparison skips all patches, and brow details use their own crop
+  ---
+  duration_ms: 0.5655
+  type: 'test'
+  ...
+# Subtest: loader compiles each brow from its pose-owned source at one-to-one dimensions and resolves the isolated brows variant
+ok 503 - loader compiles each brow from its pose-owned source at one-to-one dimensions and resolves the isolated brows variant
+  ---
+  duration_ms: 8.47775
+  type: 'test'
+  ...
+# Subtest: approved side pack has two poses and all six actual PNGs match their recorded dimensions and fingerprints
+ok 504 - approved side pack has two poses and all six actual PNGs match their recorded dimensions and fingerprints
+  ---
+  duration_ms: 10.398125
+  type: 'test'
+  ...
+# Subtest: side expression approval protects all six source files, pose registrations and the authored-state model
+ok 505 - side expression approval protects all six source files, pose registrations and the authored-state model
+  ---
+  duration_ms: 6.649792
+  type: 'test'
+  ...
+# Subtest: each neutral background uses its approved static pose and all six approved angles remain byte-identical
+ok 506 - each neutral background uses its approved static pose and all six approved angles remain byte-identical
+  ---
+  duration_ms: 9.870375
+  type: 'test'
+  ...
+# Subtest: four expression paintings are distinct from each other and their approved backgrounds
+ok 507 - four expression paintings are distinct from each other and their approved backgrounds
+  ---
+  duration_ms: 19.434167
+  type: 'test'
+  ...
+# Subtest: source provenance identifies each saved painting and the corresponding approved pose reference
+ok 508 - source provenance identifies each saved painting and the corresponding approved pose reference
+  ---
+  duration_ms: 0.24375
+  type: 'test'
+  ...
+# Subtest: local eye registration preserves anatomical sides and avoids replacing the chin or torso
+ok 509 - local eye registration preserves anatomical sides and avoids replacing the chin or torso
+  ---
+  duration_ms: 0.111625
+  type: 'test'
+  ...
+# Subtest: each angle independently registers both mouth drawings to one stable upper-lip point
+ok 510 - each angle independently registers both mouth drawings to one stable upper-lip point
+  ---
+  duration_ms: 0.212541
+  type: 'test'
+  ...
+# Subtest: side sample consumes exactly four declared ARKit channels without coercion
+ok 511 - side sample consumes exactly four declared ARKit channels without coercion
+  ---
+  duration_ms: 0.758
+  type: 'test'
+  ...
+# Subtest: missing, inherited and malformed channel inputs cannot accidentally activate a drawing
+ok 512 - missing, inherited and malformed channel inputs cannot accidentally activate a drawing
+  ---
+  duration_ms: 0.667459
+  type: 'test'
+  ...
+# Subtest: left and right blinking is independent in anatomical channel space
+ok 513 - left and right blinking is independent in anatomical channel space
+  ---
+  duration_ms: 0.263292
+  type: 'test'
+  ...
+# Subtest: blink boundaries retain the prior drawing for small noise and can jump directly to closed
+ok 514 - blink boundaries retain the prior drawing for small noise and can jump directly to closed
+  ---
+  duration_ms: 0.221083
+  type: 'test'
+  ...
+# Subtest: mouthClose selects the original mouth even with full jawOpen
+ok 515 - mouthClose selects the original mouth even with full jawOpen
+  ---
+  duration_ms: 0.171292
+  type: 'test'
+  ...
+# Subtest: jaw hysteresis does not alter previous state and rejects unknown previous state names
+ok 516 - jaw hysteresis does not alter previous state and rejects unknown previous state names
+  ---
+  duration_ms: 0.234542
+  type: 'test'
+  ...
+# Subtest: side demo is ten seconds of contiguous held drawings and never changes pose or gaze
+ok 517 - side demo is ten seconds of contiguous held drawings and never changes pose or gaze
+  ---
+  duration_ms: 0.50825
+  type: 'test'
+  ...
+# Subtest: side demo handles invalid time, loops and returns independent coefficient objects
+ok 518 - side demo handles invalid time, loops and returns independent coefficient objects
+  ---
+  duration_ms: 0.368917
+  type: 'test'
+  ...
+# Subtest: independent side registrations validate with distinct poses, drawings and lip anchors
+ok 519 - independent side registrations validate with distinct poses, drawings and lip anchors
+  ---
+  duration_ms: 4.001833
+  type: 'test'
+  ...
+# Subtest: missing states and unsupported pose sets cannot silently become a partial side sample
+ok 520 - missing states and unsupported pose sets cannot silently become a partial side sample
+  ---
+  duration_ms: 0.50275
+  type: 'test'
+  ...
+# Subtest: local source validation rejects remote, traversing, mis-sized, shared and duplicate art
+ok 521 - local source validation rejects remote, traversing, mis-sized, shared and duplicate art
+  ---
+  duration_ms: 0.317334
+  type: 'test'
+  ...
+# Subtest: stretching, invalid crops, drifting upper lips and masks beyond registration are refused
+ok 522 - stretching, invalid crops, drifting upper lips and masks beyond registration are refused
+  ---
+  duration_ms: 0.587792
+  type: 'test'
+  ...
+# Subtest: rendering selects one pose and translates its local drawings without scaling or blending
+ok 523 - rendering selects one pose and translates its local drawings without scaling or blending
+  ---
+  duration_ms: 0.408666
+  type: 'test'
+  ...
+# Subtest: neutral and original mode draw the exact approved pose, and unknown states never expose object properties
+ok 524 - neutral and original mode draw the exact approved pose, and unknown states never expose object properties
+  ---
+  duration_ms: 0.161875
+  type: 'test'
+  ...
+# Subtest: detail and full views use the pose-specific crop, and guides use its own upper-lip anchor
+ok 525 - detail and full views use the pose-specific crop, and guides use its own upper-lip anchor
+  ---
+  duration_ms: 0.2125
+  type: 'test'
+  ...
+# Subtest: loader compiles each state from its owned source at one-to-one dimensions and fails unavailable assets
+ok 526 - loader compiles each state from its owned source at one-to-one dimensions and fails unavailable assets
+  ---
+  duration_ms: 3.323416
+  type: 'test'
+  ...
+# Subtest: loader waits for every image decode before creating any expression canvas
+ok 527 - loader waits for every image decode before creating any expression canvas
+  ---
+  duration_ms: 5.772083
+  type: 'test'
+  ...
+# Subtest: decode errors fail loading before compilation and a later retry can succeed
+ok 528 - decode errors fail loading before compilation and a later retry can succeed
+  ---
+  duration_ms: 0.834166
+  type: 'test'
+  ...
+# Subtest: approved side gaze validates both independently registered poses and all ten actual PNG dimensions and hashes
+ok 529 - approved side gaze validates both independently registered poses and all ten actual PNG dimensions and hashes
+  ---
+  duration_ms: 10.88525
+  type: 'test'
+  ...
+# Subtest: side gaze approval preserves the exact accepted sources, poses and gaze registration without accepting future mouth artwork
+ok 530 - side gaze approval preserves the exact accepted sources, poses and gaze registration without accepting future mouth artwork
+  ---
+  duration_ms: 8.331875
+  type: 'test'
+  ...
+# Subtest: the approved side gaze runtime remains unchanged while new expression packs extend the shared player
+ok 531 - the approved side gaze runtime remains unchanged while new expression packs extend the shared player
+  ---
+  duration_ms: 0.097166
+  type: 'test'
+  ...
+# Subtest: new gaze pack preserves approved expression sources and complete pose registrations exactly
+ok 532 - new gaze pack preserves approved expression sources and complete pose registrations exactly
+  ---
+  duration_ms: 10.564167
+  type: 'test'
+  ...
+# Subtest: both side poses have their own distinct painted eye whites and complete iris sprites with exact prompt provenance
+ok 533 - both side poses have their own distinct painted eye whites and complete iris sprites with exact prompt provenance
+  ---
+  duration_ms: 2.591708
+  type: 'test'
+  ...
+# Subtest: actual iris files contain two antialiased painted sprites on real transparent backgrounds
+ok 534 - actual iris files contain two antialiased painted sprites on real transparent backgrounds
+  ---
+  duration_ms: 169.254791
+  type: 'test'
+  ...
+# Subtest: actual side registrations keep distinct near/far anatomy and an aperture for each visible authored eyelid state
+ok 535 - actual side registrations keep distinct near/far anatomy and an aperture for each visible authored eyelid state
+  ---
+  duration_ms: 0.186917
+  type: 'test'
+  ...
+# Subtest: side gaze is opt-in and the approved side pack stays valid without gaze resources
+ok 536 - side gaze is opt-in and the approved side pack stays valid without gaze resources
+  ---
+  duration_ms: 5.61725
+  type: 'test'
+  ...
+# Subtest: side gaze keeps anatomical inward/outward mapping independent from pose selection
+ok 537 - side gaze keeps anatomical inward/outward mapping independent from pose selection
+  ---
+  duration_ms: 0.611209
+  type: 'test'
+  ...
+# Subtest: side coefficients reject inherited, nonnumeric and nonfinite inputs without changing caller data
+ok 538 - side coefficients reject inherited, nonnumeric and nonfinite inputs without changing caller data
+  ---
+  duration_ms: 0.125792
+  type: 'test'
+  ...
+# Subtest: each perspective has independent finite travel and the eye-axis slope affects translation only
+ok 539 - each perspective has independent finite travel and the eye-axis slope affects translation only
+  ---
+  duration_ms: 0.741667
+  type: 'test'
+  ...
+# Subtest: side gaze refuses cross-pose art, missing authored states, closed-eye irises and reused crops
+ok 540 - side gaze refuses cross-pose art, missing authored states, closed-eye irises and reused crops
+  ---
+  duration_ms: 1.640875
+  type: 'test'
+  ...
+# Subtest: registration refuses stretching, unbounded travel, invalid masks and an axis that could invert anatomy
+ok 541 - registration refuses stretching, unbounded travel, invalid masks and an axis that could invert anatomy
+  ---
+  duration_ms: 3.015083
+  type: 'test'
+  ...
+# Subtest: one full iris and its approved original core are compiled per eye; cleanup remains specific to each eyelid drawing
+ok 542 - one full iris and its approved original core are compiled per eye; cleanup remains specific to each eyelid drawing
+  ---
+  duration_ms: 1.08325
+  type: 'test'
+  ...
+# Subtest: neutral and moving gaze follow the same clipped pipeline; closed and unknown eye states never leak an iris
+ok 543 - neutral and moving gaze follow the same clipped pipeline; closed and unknown eye states never leak an iris
+  ---
+  duration_ms: 0.810875
+  type: 'test'
+  ...
+# Subtest: side renderer applies gaze after authored patches and original comparison bypasses the complete extension
+ok 544 - side renderer applies gaze after authored patches and original comparison bypasses the complete extension
+  ---
+  duration_ms: 1.911458
+  type: 'test'
+  ...
+# Subtest: side loader resolves explicit approved and gaze packs while refusing unknown variant names
+ok 545 - side loader resolves explicit approved and gaze packs while refusing unknown variant names
+  ---
+  duration_ms: 2.324583
+  type: 'test'
+  ...
+# Subtest: approved side mouth pack registers exactly eight new drawings and all eighteen PNG dimensions and hashes match the actual files
+ok 546 - approved side mouth pack registers exactly eight new drawings and all eighteen PNG dimensions and hashes match the actual files
+  ---
+  duration_ms: 18.673834
+  type: 'test'
+  ...
+# Subtest: new mouth pack preserves all ten approved gaze sources, eye geometry and accepted gaze runtime
+ok 547 - new mouth pack preserves all ten approved gaze sources, eye geometry and accepted gaze runtime
+  ---
+  duration_ms: 9.990208
+  type: 'test'
+  ...
+# Subtest: both approved eye patches, two jaw patches and every other pose registration remain unchanged
+ok 548 - both approved eye patches, two jaw patches and every other pose registration remain unchanged
+  ---
+  duration_ms: 0.332083
+  type: 'test'
+  ...
+# Subtest: four mouth actions use eight distinct pose-owned source paintings with no runtime mirroring or reused pucker source
+ok 549 - four mouth actions use eight distinct pose-owned source paintings with no runtime mirroring or reused pucker source
+  ---
+  duration_ms: 17.916208
+  type: 'test'
+  ...
+# Subtest: each final mouth source retains its exact generation prompt and corresponding approved pose reference
+ok 550 - each final mouth source retains its exact generation prompt and corresponding approved pose reference
+  ---
+  duration_ms: 0.246208
+  type: 'test'
+  ...
+# Subtest: actual new mouths keep one-to-one registration and stable upper lip height while signed shifts retain their authored direction
+ok 551 - actual new mouths keep one-to-one registration and stable upper lip height while signed shifts retain their authored direction
+  ---
+  duration_ms: 0.181666
+  type: 'test'
+  ...
+# Subtest: accepted mouth snapshot freezes the delivered sources, pose registration, gaze and mouth-art scope
+ok 552 - accepted mouth snapshot freezes the delivered sources, pose registration, gaze and mouth-art scope
+  ---
+  duration_ms: 17.529583
+  type: 'test'
+  ...
+# Subtest: approved mouth action selection stays frozen while future features use separate assets and models
+ok 553 - approved mouth action selection stays frozen while future features use separate assets and models
+  ---
+  duration_ms: 0.144292
+  type: 'test'
+  ...
+# Subtest: side mouth declares exactly five extra ARKit channels, whole-mouth press limitations and four painted states
+ok 554 - side mouth declares exactly five extra ARKit channels, whole-mouth press limitations and four painted states
+  ---
+  duration_ms: 0.771959
+  type: 'test'
+  ...
+# Subtest: unavailable artwork returns the approved selector for every old eye/jaw combination
+ok 555 - unavailable artwork returns the approved selector for every old eye/jaw combination
+  ---
+  duration_ms: 6.042083
+  type: 'test'
+  ...
+# Subtest: new mouth coefficients reject inherited, nonfinite and coerced values and leave input untouched
+ok 556 - new mouth coefficients reject inherited, nonfinite and coerced values and leave input untouched
+  ---
+  duration_ms: 0.187125
+  type: 'test'
+  ...
+# Subtest: single left/right mouth inputs choose distinct anatomical directions and opposing coefficients cancel
+ok 557 - single left/right mouth inputs choose distinct anatomical directions and opposing coefficients cancel
+  ---
+  duration_ms: 0.336375
+  type: 'test'
+  ...
+# Subtest: mouthClose overrides all authored mouth actions and priority is press, pucker, shift, then jaw
+ok 558 - mouthClose overrides all authored mouth actions and priority is press, pucker, shift, then jaw
+  ---
+  duration_ms: 0.08825
+  type: 'test'
+  ...
+# Subtest: either press input chooses the documented whole-mouth approximation, without inventing unilateral frames
+ok 559 - either press input chooses the documented whole-mouth approximation, without inventing unilateral frames
+  ---
+  duration_ms: 0.057583
+  type: 'test'
+  ...
+# Subtest: mouth state hysteresis tolerates boundary noise while direction reversal remains explicit
+ok 560 - mouth state hysteresis tolerates boundary noise while direction reversal remains explicit
+  ---
+  duration_ms: 0.178416
+  type: 'test'
+  ...
+# Subtest: new mouths preserve independent blinking and never mutate or trust unknown previous state names
+ok 561 - new mouths preserve independent blinking and never mutate or trust unknown previous state names
+  ---
+  duration_ms: 0.071917
+  type: 'test'
+  ...
+# Subtest: mouth extension requires both poses and all four independent new drawings while old manifests keep only the original mouth states
+ok 562 - mouth extension requires both poses and all four independent new drawings while old manifests keep only the original mouth states
+  ---
+  duration_ms: 7.059959
+  type: 'test'
+  ...
+# Subtest: new source registration refuses shared or mirrored states and cross-pose assets
+ok 563 - new source registration refuses shared or mirrored states and cross-pose assets
+  ---
+  duration_ms: 0.974667
+  type: 'test'
+  ...
+# Subtest: mouth shift anchors carry a fixed signed offset from the anatomical reference, never a state-independent recentering
+ok 564 - mouth shift anchors carry a fixed signed offset from the anatomical reference, never a state-independent recentering
+  ---
+  duration_ms: 0.5215
+  type: 'test'
+  ...
+# Subtest: mouth offset limits cannot be bypassed by zero, wrong sign, vertical drift or an arbitrary anchor flag
+ok 565 - mouth offset limits cannot be bypassed by zero, wrong sign, vertical drift or an arbitrary anchor flag
+  ---
+  duration_ms: 1.935875
+  type: 'test'
+  ...
+# Subtest: new mouth state draws only its independent registered crop without movement, resizing or blending
+ok 566 - new mouth state draws only its independent registered crop without movement, resizing or blending
+  ---
+  duration_ms: 0.686167
+  type: 'test'
+  ...
+# Subtest: mouth variant resolves to its own manifest and never replaces default approved or gaze URLs
+ok 567 - mouth variant resolves to its own manifest and never replaces default approved or gaze URLs
+  ---
+  duration_ms: 0.425084
+  type: 'test'
+  ...
+# Subtest: studio runtime uses the bundled licensed VRM and the official loader
+ok 568 - studio runtime uses the bundled licensed VRM and the official loader
+  ---
+  duration_ms: 0.4255
+  type: 'test'
+  ...
+# Subtest: recoloring is restricted to explicit hair eye and clothing materials
+ok 569 - recoloring is restricted to explicit hair eye and clothing materials
+  ---
+  duration_ms: 1.286041
+  type: 'test'
+  ...
+# Subtest: VRM export rebuilds original bytes rather than generic glTF export
+ok 570 - VRM export rebuilds original bytes rather than generic glTF export
+  ---
+  duration_ms: 0.366291
+  type: 'test'
+  ...
+# Subtest: dispose keeps the shared canvas context reusable
+ok 571 - dispose keeps the shared canvas context reusable
+  ---
+  duration_ms: 0.218917
+  type: 'test'
+  ...
+# Subtest: unchanged palette colors reuse texture work without dropping export factors
+ok 572 - unchanged palette colors reuse texture work without dropping export factors
+  ---
+  duration_ms: 0.6515
+  type: 'test'
+  ...
+# Subtest: neutral studio pose lowers T-pose arms and keeps feet pinned
+ok 573 - neutral studio pose lowers T-pose arms and keeps feet pinned
+  ---
+  duration_ms: 0.910625
+  type: 'test'
+  ...
+# Subtest: head, torso and gaze respect motion direction
+ok 574 - head, torso and gaze respect motion direction
+  ---
+  duration_ms: 0.144584
+  type: 'test'
+  ...
+# Subtest: arm raise and elbow bend retain anatomical mirror symmetry
+ok 575 - arm raise and elbow bend retain anatomical mirror symmetry
+  ---
+  duration_ms: 0.130291
+  type: 'test'
+  ...
+# Subtest: emotion override budget leaves room for blink and vowel morphs
+ok 576 - emotion override budget leaves room for blink and vowel morphs
+  ---
+  duration_ms: 0.101291
+  type: 'test'
+  ...
+# Subtest: invalid and extreme input cannot produce non-finite transforms
+ok 577 - invalid and extreme input cannot produce non-finite transforms
+  ---
+  duration_ms: 0.280791
+  type: 'test'
+  ...
+# Subtest: recoloring can brighten original brown hair to silver without multiplying it dark
+ok 578 - recoloring can brighten original brown hair to silver without multiplying it dark
+  ---
+  duration_ms: 0.961375
+  type: 'test'
+  ...
+# Subtest: recoloring retains alpha, transparent pixels, dark lineart and white highlights
+ok 579 - recoloring retains alpha, transparent pixels, dark lineart and white highlights
+  ---
+  duration_ms: 0.182875
+  type: 'test'
+  ...
+# Subtest: shadow-to-highlight ordering survives recoloring
+ok 580 - shadow-to-highlight ordering survives recoloring
+  ---
+  duration_ms: 0.067917
+  type: 'test'
+  ...
+# Subtest: outfit recoloring dyes white cloth navy and dark cloth purple while retaining seam shadows
+ok 581 - outfit recoloring dyes white cloth navy and dark cloth purple while retaining seam shadows
+  ---
+  duration_ms: 0.089459
+  type: 'test'
+  ...
+# Subtest: recoloring is deterministic and rejects invalid pixel data or settings
+ok 582 - recoloring is deterministic and rejects invalid pixel data or settings
+  ---
+  duration_ms: 0.196458
+  type: 'test'
+  ...
+# Subtest: unchanged VRM round-trip is byte-identical and returns an independent buffer
+ok 583 - unchanged VRM round-trip is byte-identical and returns an independent buffer
+  ---
+  duration_ms: 0.398709
+  type: 'test'
+  ...
+# Subtest: VRM recolor export preserves license, extensions, rig, original binary and shared skin
+ok 584 - VRM recolor export preserves license, extensions, rig, original binary and shared skin
+  ---
+  duration_ms: 0.701625
+  type: 'test'
+  ...
+# Subtest: material indices, single slots and VRM 0.x metadata are supported
+ok 585 - material indices, single slots and VRM 0.x metadata are supported
+  ---
+  duration_ms: 0.202708
+  type: 'test'
+  ...
+# Subtest: factor-only exports preserve original binary bytes without adding textures
+ok 586 - factor-only exports preserve original binary bytes without adding textures
+  ---
+  duration_ms: 0.807291
+  type: 'test'
+  ...
+# Subtest: adaptation terms retain original copyright, preserve all other meta fields, and are not duplicated
+ok 587 - adaptation terms retain original copyright, preserve all other meta fields, and are not duplicated
+  ---
+  duration_ms: 1.802708
+  type: 'test'
+  ...
+# Subtest: VRM export rejects invalid files and unsafe or ambiguous edits
+ok 588 - VRM export rejects invalid files and unsafe or ambiguous edits
+  ---
+  duration_ms: 0.534584
+  type: 'test'
+  ...
+# Subtest: bundled pixiv VRM retains every original license and runtime extension on recolor export
+ok 589 - bundled pixiv VRM retains every original license and runtime extension on recolor export
+  ---
+  duration_ms: 13.101666
+  type: 'test'
+  ...
+1..589
+# tests 589
+# suites 0
+# pass 589
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1441.461666

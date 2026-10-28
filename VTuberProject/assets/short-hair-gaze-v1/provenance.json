@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-23",
+  "tool": "Built-in image_gen",
+  "status": "candidate",
+  "reference": "../short-hair-v1/front.png",
+  "assets": [
+    {
+      "file": "eye-whites.png",
+      "generationId": "exec-878aebd0-ac8c-4367-8516-ecbdb96e11ea",
+      "prompt": "Use case: precise-object-edit.\nAsset type: eye-white clean plate for a 2D VTuber layered renderer, not a new character design.\nInput Image 1 is the approved front portrait, the edit target. Preserve its exact canvas dimensions 1122 x 1402 and all composition and drawing coordinates.\nChange ONLY the interiors of the two open eyes: remove BOTH teal irises, dark pupils and all iris highlights completely and repaint those interiors as uninterrupted natural warm off-white sclera, with the same soft gray upper-eyelid cast shadow. Keep original eyelid contours, eyelashes, outer/inner eye corners, under-eye marks, skin, eyebrows, hair occlusion, nose, thin smile, head, outfit, background and everything else exactly unchanged. This is a technical clean layer, so two eyes with blank whites are intentional. Do not close eyes, do not change eye size, do not leave circles or pupil ghosts. No text, watermark, labels or extra elements.",
+      "purpose": "Clean sclera revealed behind moving iris; only registered eye interiors used."
+    },
+    {
+      "file": "irises.png",
+      "generationId": "exec-d614e49e-40c5-4946-9fdd-2275843e9600",
+      "prompt": "Use case: background-extraction.\nAsset type: separate LEFT and RIGHT iris-and-pupil sprites for the approved 2D VTuber character, on real transparency.\nInput Image 1 is the approved portrait, the edit target. Keep the SAME 1122 x 1402 canvas. Remove ALL portrait content, leaving only the two isolated complete teal irises with dark pupils and their original small white highlights at their original image locations (approximately viewer-left center x447,y511, viewer-right center x668,y509). Each iris about 64 pixels wide and 72 pixels high. Complete the upper arc that was hidden by the eyelid, so each is a full smooth vertically oval iris with a clean dark outer edge and no cut-off portions. Match each corresponding iris's original individual color, gradient, pupil shape, painted texture, highlight position and original scale. Do not mirror one iris to create the other. Keep the original subtle teal upper shade and pale mint lower iris. There must be NO eye whites, NO eyelid lines, NO eyelashes, NO skin, NO hair and NO face. Two complete iris/pupil paintings only, at the original eye positions, surrounded by truly transparent alpha everywhere else. No checkerboard painted into the image, no text, no labels, no additional symbols.",
+      "purpose": "Transparent complete irises; generated larger than requested and independently registered at fixed uniform 0.5. Approved open-iris interior overlays the completed edge. One eyeball per eye is shared across every eyelid state."
+    }
+  ],
+  "processing": "Source PNG bytes copied unchanged. Browser crops and composites a full iris with original open-iris interior, then clips it through each approved eyelid aperture. Gaze is finite translation only; registration scale is fixed and uniform. The candidate uses this layer even at center to avoid a texture-switch discontinuity. Approved v1/v2 files and expression registrations remain unchanged.",
+  "notes": [
+    "Generated full iris locations and sizes differ from prompt request; actual crops are recorded in manifest.",
+    "Visual approval of prior v2 does not automatically approve these new gaze layers.",
+    "Rejected renderer approach: per-eyelid original iris fragments carried lower-lid pixels and moving highlights. Replaced with one shared eyeball per eye; this changes candidate iris edges and highlight occlusion compared with v2, and is explicitly pending visual acceptance."
+  ]
+}

@@ -1,0 +1,336 @@
+{
+  "view-left": [
+    {
+      "eyelid": "open",
+      "direction": "中心",
+      "changed": 2998,
+      "outside": 0,
+      "max": 219,
+      "large": 1661
+    },
+    {
+      "eyelid": "open",
+      "direction": "画面左",
+      "changed": 5742,
+      "outside": 0,
+      "max": 216,
+      "large": 3709
+    },
+    {
+      "eyelid": "open",
+      "direction": "画面右",
+      "changed": 5872,
+      "outside": 0,
+      "max": 218,
+      "large": 3813
+    },
+    {
+      "eyelid": "open",
+      "direction": "上",
+      "changed": 5594,
+      "outside": 0,
+      "max": 221,
+      "large": 2782
+    },
+    {
+      "eyelid": "open",
+      "direction": "下",
+      "changed": 5581,
+      "outside": 0,
+      "max": 224,
+      "large": 2679
+    },
+    {
+      "eyelid": "open",
+      "direction": "左上",
+      "changed": 5635,
+      "outside": 0,
+      "max": 217,
+      "large": 3072
+    },
+    {
+      "eyelid": "open",
+      "direction": "右上",
+      "changed": 5766,
+      "outside": 0,
+      "max": 216,
+      "large": 3410
+    },
+    {
+      "eyelid": "open",
+      "direction": "左下",
+      "changed": 5683,
+      "outside": 0,
+      "max": 220,
+      "large": 3357
+    },
+    {
+      "eyelid": "open",
+      "direction": "右下",
+      "changed": 5795,
+      "outside": 0,
+      "max": 214,
+      "large": 3441
+    },
+    {
+      "eyelid": "half",
+      "direction": "中心",
+      "changed": 3419,
+      "outside": 0,
+      "max": 220,
+      "large": 1745
+    },
+    {
+      "eyelid": "half",
+      "direction": "画面左",
+      "changed": 3580,
+      "outside": 0,
+      "max": 217,
+      "large": 2525
+    },
+    {
+      "eyelid": "half",
+      "direction": "画面右",
+      "changed": 3592,
+      "outside": 0,
+      "max": 218,
+      "large": 2266
+    },
+    {
+      "eyelid": "half",
+      "direction": "上",
+      "changed": 3399,
+      "outside": 0,
+      "max": 219,
+      "large": 2334
+    },
+    {
+      "eyelid": "half",
+      "direction": "下",
+      "changed": 3433,
+      "outside": 0,
+      "max": 216,
+      "large": 1607
+    },
+    {
+      "eyelid": "half",
+      "direction": "左上",
+      "changed": 3491,
+      "outside": 0,
+      "max": 214,
+      "large": 2314
+    },
+    {
+      "eyelid": "half",
+      "direction": "右上",
+      "changed": 3524,
+      "outside": 0,
+      "max": 214,
+      "large": 2335
+    },
+    {
+      "eyelid": "half",
+      "direction": "左下",
+      "changed": 3541,
+      "outside": 0,
+      "max": 215,
+      "large": 2177
+    },
+    {
+      "eyelid": "half",
+      "direction": "右下",
+      "changed": 3546,
+      "outside": 0,
+      "max": 212,
+      "large": 1968
+    },
+    {
+      "check": "tiny 0.001",
+      "changed": 361,
+      "outside": 0,
+      "max": 2,
+      "large": 0
+    },
+    {
+      "check": "tiny 0.01",
+      "changed": 2268,
+      "outside": 0,
+      "max": 13,
+      "large": 0
+    },
+    {
+      "check": "closed opposite gaze",
+      "changed": 0,
+      "outside": 0,
+      "max": 0,
+      "large": 0
+    }
+  ],
+  "view-right": [
+    {
+      "eyelid": "open",
+      "direction": "中心",
+      "changed": 2751,
+      "outside": 0,
+      "max": 216,
+      "large": 1579
+    },
+    {
+      "eyelid": "open",
+      "direction": "画面左",
+      "changed": 5685,
+      "outside": 0,
+      "max": 209,
+      "large": 3749
+    },
+    {
+      "eyelid": "open",
+      "direction": "画面右",
+      "changed": 5500,
+      "outside": 0,
+      "max": 208,
+      "large": 3661
+    },
+    {
+      "eyelid": "open",
+      "direction": "上",
+      "changed": 5287,
+      "outside": 0,
+      "max": 219,
+      "large": 2873
+    },
+    {
+      "eyelid": "open",
+      "direction": "下",
+      "changed": 5342,
+      "outside": 0,
+      "max": 210,
+      "large": 2628
+    },
+    {
+      "eyelid": "open",
+      "direction": "左上",
+      "changed": 5477,
+      "outside": 0,
+      "max": 207,
+      "large": 3405
+    },
+    {
+      "eyelid": "open",
+      "direction": "右上",
+      "changed": 5444,
+      "outside": 0,
+      "max": 219,
+      "large": 3354
+    },
+    {
+      "eyelid": "open",
+      "direction": "左下",
+      "changed": 5577,
+      "outside": 0,
+      "max": 213,
+      "large": 3323
+    },
+    {
+      "eyelid": "open",
+      "direction": "右下",
+      "changed": 5467,
+      "outside": 0,
+      "max": 204,
+      "large": 3363
+    },
+    {
+      "eyelid": "half",
+      "direction": "中心",
+      "changed": 2978,
+      "outside": 0,
+      "max": 214,
+      "large": 1625
+    },
+    {
+      "eyelid": "half",
+      "direction": "画面左",
+      "changed": 3170,
+      "outside": 0,
+      "max": 222,
+      "large": 2228
+    },
+    {
+      "eyelid": "half",
+      "direction": "画面右",
+      "changed": 3012,
+      "outside": 0,
+      "max": 224,
+      "large": 2096
+    },
+    {
+      "eyelid": "half",
+      "direction": "上",
+      "changed": 2960,
+      "outside": 0,
+      "max": 209,
+      "large": 1924
+    },
+    {
+      "eyelid": "half",
+      "direction": "下",
+      "changed": 2990,
+      "outside": 0,
+      "max": 218,
+      "large": 1471
+    },
+    {
+      "eyelid": "half",
+      "direction": "左上",
+      "changed": 3063,
+      "outside": 0,
+      "max": 225,
+      "large": 2179
+    },
+    {
+      "eyelid": "half",
+      "direction": "右上",
+      "changed": 3000,
+      "outside": 0,
+      "max": 218,
+      "large": 2074
+    },
+    {
+      "eyelid": "half",
+      "direction": "左下",
+      "changed": 3126,
+      "outside": 0,
+      "max": 227,
+      "large": 2012
+    },
+    {
+      "eyelid": "half",
+      "direction": "右下",
+      "changed": 3008,
+      "outside": 0,
+      "max": 230,
+      "large": 1909
+    },
+    {
+      "check": "tiny 0.001",
+      "changed": 428,
+      "outside": 0,
+      "max": 2,
+      "large": 0
+    },
+    {
+      "check": "tiny 0.01",
+      "changed": 2601,
+      "outside": 0,
+      "max": 13,
+      "large": 0
+    },
+    {
+      "check": "closed opposite gaze",
+      "changed": 0,
+      "outside": 0,
+      "max": 0,
+      "large": 0
+    }
+  ]
+}

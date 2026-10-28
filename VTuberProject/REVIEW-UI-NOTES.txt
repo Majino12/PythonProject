@@ -1,0 +1,35 @@
+静态结构验收页实现记录
+
+范围：仅在新工作副本新增文件，未改旧 gallery、renderer、正式项目、旧试验副本或 GitHub。
+
+新增文件
+- VTuberProject/character-review.html
+- VTuberProject/character-review.css
+- VTuberProject/character-review.js
+- VTuberProject/character-review-model.js
+- VTuberProject/character-review.test.mjs
+
+实现
+- 左侧固定已确认的正面设计，右侧展示待验收角度。
+- 侧转 / 斜上 / 斜下组别与左右缩略图；各组记住本次选中的角度。
+- 全幅 / 面部放大；原图按实际尺寸 SVG viewBox 显示，不拉伸图像。放大统一取原图短边 64% 的方形窗口，点位只用于居中，不按脸大小自动缩放。
+- 人工标志点开关、眼角关系与鼻口下巴连线。缺少的点保持缺少，页面明确人工记录不证明透视正确。
+- 每张候选画稿具有通过 / 需修改 / 未判断状态与 4000 字以内备注，自动保存于 localStorage。
+- localStorage 被禁用或写入失败时保留内存反馈并提示导出；不会悄悄丢弃当前输入。
+- 一键导出全部判断、备注、原图路径与尺寸、人工点位、参考稿、UTC 时间。导出明确仅静态验收。
+- HTTP / JSON / 图像加载失败与图像实际尺寸不匹配时显示明确错误。frame 初始 valid:false，只有图片加载和尺寸核验同时成功才允许点位显示；失败后再切换倍率或点位开关也不能显示错误点位，过时的异步加载回调通过 frame identity 拦截。
+- 无摄像头，无外部依赖。CSP 禁用 media/object，并只允许同源脚本、样式、图片、清单读取。
+- 适配桌面双栏和手机上下排列；键盘焦点、语义按钮组、实时保存状态。
+
+数据约定
+主程序提供 assets/short-hair-v1/review.json。
+兼容既定 version:1 清单。额外可选 assetRevision 字符串，参与浏览器存储键；更新同名图像时请更新它，避免旧稿判断沿用到新稿。
+referenceId 必须对应 approved:true 且 group:front 的画稿；其余候选按组别展示。
+点位键：eyeOuterViewerLeft, eyeInnerViewerLeft, eyeInnerViewerRight, eyeOuterViewerRight, noseTip, philtrum, upperLip, chin。
+
+验证
+- node --check character-review.js 通过。
+- node --check character-review-model.js 通过。
+- node --test character-review.test.mjs：7/7 通过。
+- 关键验证覆盖：清单边界与本地资源限制、隐藏点不补造、反馈精确往返、原稿无编辑判断、版本隔离、非法状态不会变成通过、导出元数据、放大框包含已见点位且不改点位，以及不同脸部跨度不改变倍率、不同源图尺寸仍使用统一归一化窗口。
+- 尚待清单落地后执行浏览器实际验收；单元测试不代表视觉验收。

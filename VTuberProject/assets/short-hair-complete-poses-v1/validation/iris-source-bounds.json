@@ -1,0 +1,296 @@
+{
+  "view-up": {
+    "eyeRight": {
+      "thresholdBounds": {
+        "1": [
+          55,
+          96,
+          597,
+          1311
+        ],
+        "16": [
+          239,
+          559,
+          456,
+          794
+        ],
+        "128": [
+          240,
+          560,
+          456,
+          793
+        ],
+        "250": [
+          241,
+          561,
+          454,
+          792
+        ]
+      },
+      "irisRect": [
+        236,
+        556,
+        223,
+        241
+      ],
+      "fixedUniformScale": 0.29596412556053814,
+      "irisDestination": [
+        411.0,
+        427.33632286995515,
+        66.0,
+        71.32735426008969
+      ]
+    },
+    "eyeLeft": {
+      "thresholdBounds": {
+        "1": [
+          600,
+          176,
+          1102,
+          1311
+        ],
+        "16": [
+          666,
+          559,
+          883,
+          793
+        ],
+        "128": [
+          667,
+          560,
+          882,
+          792
+        ],
+        "250": [
+          668,
+          562,
+          881,
+          791
+        ]
+      },
+      "irisRect": [
+        663,
+        556,
+        223,
+        240
+      ],
+      "fixedUniformScale": 0.29596412556053814,
+      "irisDestination": [
+        635.0,
+        425.4843049327354,
+        66.0,
+        71.03139013452915
+      ]
+    },
+    "sourceAudit": {
+      "size": [
+        1122,
+        1402
+      ],
+      "outsideSelectedCrops": {
+        "nonzeroAlphaPixelCount": 522,
+        "maxAlpha": 1,
+        "alphaSum": 522,
+        "equivalentOpaquePixelArea": 2.0470588235294116,
+        "alpha16OrHigher": 0
+      },
+      "note": "Native generated file is unchanged. Crop registration selects each painted sprite with 3 source pixels of margin around alpha>=16 extent; scattered near-transparent background speckles are not used."
+    }
+  },
+  "view-down": {
+    "eyeRight": {
+      "thresholdBounds": {
+        "1": [
+          41,
+          21,
+          579,
+          1362
+        ],
+        "16": [
+          220,
+          602,
+          440,
+          818
+        ],
+        "128": [
+          221,
+          603,
+          439,
+          818
+        ],
+        "250": [
+          222,
+          604,
+          438,
+          817
+        ]
+      },
+      "irisRect": [
+        217,
+        599,
+        226,
+        222
+      ],
+      "fixedUniformScale": 0.2920353982300885,
+      "irisDestination": [
+        412.0,
+        524.5840707964602,
+        66.0,
+        64.83185840707965
+      ]
+    },
+    "eyeLeft": {
+      "thresholdBounds": {
+        "1": [
+          616,
+          17,
+          1012,
+          1110
+        ],
+        "16": [
+          689,
+          593,
+          911,
+          811
+        ],
+        "128": [
+          690,
+          593,
+          911,
+          810
+        ],
+        "250": [
+          691,
+          594,
+          910,
+          809
+        ]
+      },
+      "irisRect": [
+        686,
+        590,
+        228,
+        224
+      ],
+      "fixedUniformScale": 0.2894736842105263,
+      "irisDestination": [
+        635.0,
+        516.578947368421,
+        66.0,
+        64.84210526315789
+      ]
+    },
+    "sourceAudit": {
+      "size": [
+        1122,
+        1402
+      ],
+      "outsideSelectedCrops": {
+        "nonzeroAlphaPixelCount": 488,
+        "maxAlpha": 1,
+        "alphaSum": 488,
+        "equivalentOpaquePixelArea": 1.9137254901960785,
+        "alpha16OrHigher": 0
+      },
+      "note": "Native generated file is unchanged. Crop registration selects each painted sprite with 3 source pixels of margin around alpha>=16 extent; scattered near-transparent background speckles are not used."
+    }
+  },
+  "view-right-down": {
+    "eyeRight": {
+      "thresholdBounds": {
+        "1": [
+          295,
+          474,
+          585,
+          1187
+        ],
+        "16": [
+          419,
+          501,
+          582,
+          677
+        ],
+        "128": [
+          420,
+          502,
+          582,
+          676
+        ],
+        "250": [
+          421,
+          503,
+          581,
+          675
+        ]
+      },
+      "irisRect": [
+        416,
+        498,
+        169,
+        182
+      ],
+      "fixedUniformScale": 0.3609467455621302,
+      "irisDestination": [
+        590.5,
+        484.15384615384613,
+        61.0,
+        65.6923076923077
+      ]
+    },
+    "eyeLeft": {
+      "thresholdBounds": {
+        "1": [
+          662,
+          497,
+          1038,
+          744
+        ],
+        "16": [
+          810,
+          587,
+          918,
+          741
+        ],
+        "128": [
+          811,
+          588,
+          917,
+          741
+        ],
+        "250": [
+          812,
+          589,
+          916,
+          740
+        ]
+      },
+      "irisRect": [
+        807,
+        584,
+        114,
+        160
+      ],
+      "fixedUniformScale": 0.4298245614035088,
+      "irisDestination": [
+        764.5,
+        528.6140350877193,
+        49.0,
+        68.7719298245614
+      ]
+    },
+    "sourceAudit": {
+      "size": [
+        1122,
+        1402
+      ],
+      "outsideSelectedCrops": {
+        "nonzeroAlphaPixelCount": 133,
+        "maxAlpha": 1,
+        "alphaSum": 133,
+        "equivalentOpaquePixelArea": 0.5215686274509804,
+        "alpha16OrHigher": 0
+      },
+      "note": "Native generated file is unchanged. Crop registration selects each painted sprite with 3 source pixels of margin around alpha>=16 extent; scattered near-transparent background speckles are not used."
+    }
+  }
+}

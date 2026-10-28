@@ -6,7 +6,10 @@ const CELL = Object.freeze({ width: 350, height: 290 });
 const controls = document.querySelector("#galleryControls");
 const gallery = document.querySelector("#paintedGallery");
 const status = document.querySelector("#galleryStatus");
+const mouthSupport = document.querySelector("#galleryMouthSupport");
 const presetButtons = [...document.querySelectorAll("[data-gallery-preset]")];
+const gazeButtons = [...document.querySelectorAll("[data-gallery-gaze]")];
+const browButtons = [...document.querySelectorAll("[data-gallery-brow]")];
 const sliders = Object.fromEntries([...document.querySelectorAll("[data-gallery-channel]")]
   .map((input) => [input.dataset.galleryChannel, input]));
 const direction = document.querySelector("#galleryPuckerDirection");
@@ -20,6 +23,8 @@ const presets = Object.freeze({
   neutral: { blink: 0, jaw: 0, pucker: 0, press: 0, direction: "center" },
   blink: { blink: 1, jaw: 0, pucker: 0, press: 0, direction: "center" },
   jaw: { blink: 0, jaw: 1, pucker: 0, press: 0, direction: "center" },
+  mouthLeft: { blink: 0, jaw: 0, pucker: 0, press: 0, direction: "left" },
+  mouthRight: { blink: 0, jaw: 0, pucker: 0, press: 0, direction: "right" },
   puckerLeft: { blink: 0, jaw: 0, pucker: .92, press: 0, direction: "left" },
   puckerRight: { blink: 0, jaw: 0, pucker: .92, press: 0, direction: "right" },
   press: { blink: 0, jaw: 0, pucker: 0, press: .92, direction: "center" },
@@ -31,6 +36,8 @@ function syncControls() {
     if (output) output.textContent = `${Math.round(Number(input.value) * 100)}%`;
   }
   for (const button of presetButtons) button.setAttribute("aria-pressed", String(button.dataset.galleryPreset === activePreset));
+  for (const button of gazeButtons) button.setAttribute("aria-pressed", String(Number(button.dataset.galleryGaze) === Number(sliders.gaze.value)));
+  for (const button of browButtons) button.setAttribute("aria-pressed", String(button.dataset.galleryBrow === sliders.browMode.value));
 }
 
 function channelsFromControls() {
@@ -38,6 +45,18 @@ function channelsFromControls() {
   const jaw = Number(sliders.jaw.value);
   const pucker = Number(sliders.pucker.value);
   const press = Number(sliders.press.value);
+  const gaze = Math.max(-1, Math.min(1, Number(sliders.gaze.value) || 0));
+  const brow = Math.max(0, Math.min(1, Number(sliders.brow?.value) || 0));
+  const browMode = sliders.browMode?.value || "neutral";
+  const browChannels = sliders.brow ? {
+    browInnerUp: ["raise", "worried"].includes(browMode) ? brow : 0,
+    browDownLeft: browMode === "frown" ? brow : 0,
+    browDownRight: browMode === "frown" ? brow : 0,
+    browOuterUpLeft: browMode === "outerLeft" ? brow : 0,
+    browOuterUpRight: browMode === "outerRight" ? brow : 0,
+    mouthFrownLeft: browMode === "worried" ? brow : 0,
+    mouthFrownRight: browMode === "worried" ? brow : 0,
+  } : {};
   return {
     eyeBlinkLeft: blink,
     eyeBlinkRight: blink,
@@ -45,8 +64,13 @@ function channelsFromControls() {
     mouthPucker: pucker,
     mouthPressLeft: press,
     mouthPressRight: press,
-    mouthLeft: direction.value === "left" && pucker > 0 ? .8 : 0,
-    mouthRight: direction.value === "right" && pucker > 0 ? .8 : 0,
+    mouthLeft: direction.value === "left" ? .8 : 0,
+    mouthRight: direction.value === "right" ? .8 : 0,
+    eyeLookUpLeft: Math.max(0, gaze),
+    eyeLookUpRight: Math.max(0, gaze),
+    eyeLookDownLeft: Math.max(0, -gaze),
+    eyeLookDownRight: Math.max(0, -gaze),
+    ...browChannels,
   };
 }
 
@@ -100,8 +124,19 @@ function buildCards() {
 }
 
 presetButtons.forEach((button) => button.addEventListener("click", () => applyPreset(button.dataset.galleryPreset)));
-Object.values(sliders).forEach((input) => input.addEventListener("input", () => {
+["blink", "jaw", "pucker", "press"].forEach((key) => sliders[key].addEventListener("input", () => {
   activePreset = null;
+  scheduleRedraw();
+}));
+sliders.gaze.addEventListener("input", scheduleRedraw);
+gazeButtons.forEach((button) => button.addEventListener("click", () => {
+  sliders.gaze.value = button.dataset.galleryGaze;
+  scheduleRedraw();
+}));
+sliders.brow.addEventListener("input", scheduleRedraw);
+sliders.browMode.addEventListener("change", scheduleRedraw);
+browButtons.forEach((button) => button.addEventListener("click", () => {
+  sliders.browMode.value = button.dataset.galleryBrow;
   scheduleRedraw();
 }));
 direction.addEventListener("change", () => {
@@ -117,6 +152,9 @@ try {
   buildCards();
   await renderer.load(LUNA_PAINTED_MANIFEST);
   controls.disabled = false;
+  const left = renderer.channelSupport.mouthLeft === "frame";
+  const right = renderer.channelSupport.mouthRight === "frame";
+  mouthSupport.textContent = `纯左移嘴：${left ? "有独立画稿" : "unsupported（缺少独立画稿）"}；纯右移嘴：${right ? "有独立画稿" : "unsupported（缺少独立画稿）"}。左右噘嘴属于另一组口型；缺少纯移嘴画稿时保留其余嘴型输入。`;
   status.textContent = `已载入 ${manifest.poses.length} 个实际方向；所有格子共用一个解码后的渲染器。`;
   applyPreset("neutral");
 } catch (error) {

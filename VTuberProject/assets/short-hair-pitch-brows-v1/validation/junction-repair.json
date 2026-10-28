@@ -1,0 +1,257 @@
+{
+  "method": {
+    "method": "Fixed soft alpha exclusions preserve approved foreground strands already present underneath. Left-up all states and left-down innerUp/down use masks below their stroke unions. Left-down outerUp uses a narrow opaque-hair taper above y480, below its raised brow crossing, then widens below the original neutral brow. No source PNG changes, no drawing, no runtime movement.",
+    "historicalEvidence": "pixel-checks-before-hair-exclusions.json and *-brows-before-hair-exclusions.jpg record the earlier coarse-protection pass; visual inspection found a fine-strand junction defect despite those passing assertions.",
+    "status": "Internal visual review completed using the real browser compositor, full brow comparisons and native four-times junction closeups. The left-down outerUp kink is eliminated without a restored old brow or clipped new brow. Corrected native diagnostics pass2221 assertions. New eyebrow art remains a user-unapproved candidate; mild color and strength differences remain documented."
+  },
+  "repairs": {
+    "view-left-up": {
+      "group": "browLeft",
+      "exclude": [
+        [
+          547,
+          352
+        ],
+        [
+          563,
+          352
+        ],
+        [
+          573,
+          370
+        ],
+        [
+          580,
+          381
+        ],
+        [
+          569,
+          381
+        ],
+        [
+          559,
+          369
+        ],
+        [
+          550,
+          358
+        ]
+      ],
+      "feather": 1.5,
+      "core": [
+        [
+          554,
+          356
+        ],
+        [
+          558,
+          356
+        ],
+        [
+          560,
+          360
+        ],
+        [
+          557,
+          360
+        ]
+      ],
+      "browSample": [
+        543,
+        349
+      ],
+      "minimumY": 352,
+      "reason": "Generated near-brow paintings slightly thicken the fine foreground strand below the brow. Restore the approved original thin strand below the union of neutral and all new brow strokes."
+    },
+    "view-left-down": {
+      "group": "browLeft",
+      "exclude": [
+        [
+          535,
+          489
+        ],
+        [
+          554,
+          489
+        ],
+        [
+          562,
+          497
+        ],
+        [
+          570,
+          504
+        ],
+        [
+          578,
+          511
+        ],
+        [
+          578,
+          520
+        ],
+        [
+          567,
+          516
+        ],
+        [
+          555,
+          508
+        ],
+        [
+          545,
+          500
+        ],
+        [
+          537,
+          493
+        ]
+      ],
+      "feather": 2.5,
+      "core": [
+        [
+          547,
+          493
+        ],
+        [
+          550,
+          493
+        ],
+        [
+          555,
+          498
+        ],
+        [
+          552,
+          498
+        ]
+      ],
+      "browSample": [
+        540,
+        486
+      ],
+      "minimumY": 489,
+      "reason": "The selected outerUp-v2 source shifts the diagonal fine strand about3 native pixels to the right at y492–498; it visibly snaps back where the local crop ends. Restore its approved original continuation only below all old/new brow strokes.",
+      "outerUpTaper": {
+        "polygon": [
+          [
+            531,
+            470
+          ],
+          [
+            534,
+            470
+          ],
+          [
+            536,
+            473
+          ],
+          [
+            538,
+            476
+          ],
+          [
+            541,
+            478
+          ],
+          [
+            546,
+            480
+          ],
+          [
+            549,
+            484
+          ],
+          [
+            554,
+            489
+          ],
+          [
+            562,
+            497
+          ],
+          [
+            570,
+            504
+          ],
+          [
+            578,
+            511
+          ],
+          [
+            578,
+            520
+          ],
+          [
+            567,
+            516
+          ],
+          [
+            555,
+            508
+          ],
+          [
+            545,
+            500
+          ],
+          [
+            537,
+            493
+          ],
+          [
+            533,
+            487
+          ],
+          [
+            532,
+            483
+          ],
+          [
+            531,
+            480
+          ],
+          [
+            533,
+            478
+          ],
+          [
+            531,
+            475
+          ],
+          [
+            530,
+            472
+          ]
+        ],
+        "minimumY": 470,
+        "protectedOpaqueHairCore": [
+          [
+            535,
+            479
+          ],
+          [
+            539,
+            480
+          ],
+          [
+            543,
+            483
+          ],
+          [
+            539,
+            484
+          ],
+          [
+            536,
+            482
+          ]
+        ],
+        "preservedBrowSample": [
+          540,
+          466
+        ],
+        "reason": "The common lower-only mask left a visible kink at its upper blending edge. This fixed outerUp-specific taper starts inside the opaque foreground hair after the newly raised brow crossing, remains narrow through the original neutral crossing, then broadens below y480 when the old brow has ended."
+      }
+    }
+  }
+}

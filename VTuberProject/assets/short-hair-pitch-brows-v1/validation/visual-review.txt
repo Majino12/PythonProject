@@ -1,0 +1,17 @@
+2026-10-27 · review.12 · internal candidate visual inspection
+
+Scope: actual local browser compositor, three fixed poses (view-left-up, view-right-up, view-left-down), neutral/innerUp/outerUp/down plus independent eyebrows. This is internal inspection, not user visual approval or complete-project acceptance.
+
+The three final brow comparison screenshots are 1156 pixels wide. Neutral and authored brow actions are visibly distinct; single-brow examples keep the opposite eyebrow neutral. Near/far eyebrow lengths and the established pose eye axis remain inherited. No double original/new eyebrow line, rectangular skin edge or clipped eyebrow tip was observed at the inspected display sizes.
+
+Left-down outerUp initially left the far eyebrow neutral; outerUp-v2 raises its visible temple segment. The initial left-down down draft lowered the near brow excessively; down-v2 gives a gentler brow-to-eyelid gap. These two initial PNGs remain as unused evidence with the actual reference chain in provenance.json.
+
+The initial coarse-protection pixel pass did not catch thin foreground-hair discontinuities. Actual browser closeups exposed a thicker left-up strand junction and a left-down outerUp strand offset. Fixed local alpha exclusions restore the underlying approved strand. The first left-down exclusion still left an upper kink at its transition. Its outerUp-specific tapered replacement begins narrowly within opaque hair, widens below the original brow crossing, and removes the visible kink without restoring a neutral eyebrow on exposed skin.
+
+Final 4x nearest-neighbor crops: junction-view-left-up.jpg and junction-view-left-down.jpg. Compared neutral, innerUp, outerUp and down in the same 52x48 native region. The repaired diagonal strands now connect continuously in these inspected regions; the raised brow itself remains present. Full-width left-down comparison confirms no old-brow ghost or truncated new stroke. This does not assert that all hair pixels everywhere are identical to the original.
+
+UI: 102 presets exercised without errors; 22 ARKit-named channels; conflicts, invalid input, version capability isolation, demo stopping and original-versus-rendered exports checked. The visible 12-second cycle included neutral, innerUp, outerUp, down and asymmetric eyebrows. No feedback was marked pass or revise. Screenshots and JSON exports retain candidate status.
+
+Remaining limitations: the left-up far outerUp action is subtle (about 3 native pixels in exposed samples). Left-down down-v2 is slightly lighter/warmer than the neutral eyebrow. Authored action strengths are unequal; each state currently has one drawing rather than continuous strength or in-between frames. Foreground hair is not a separately animated complete layer. Right-down expressions and pure frontal pitch poses remain future work. The initial requested390px viewport did not affect the hidden tab. After displaying the IAB panel, its actual319px CSS width was checked: scrollWidth319 with no horizontal overflow and four version buttons in two rows. This is a check of that panel size, not a claim about all devices; browser-visible-319px.jpg records it.
+
+Evidence: left-up-brows.jpg, right-up-brows.jpg, left-down-brows.jpg, both junction-view-*.jpg, pixel-checks.json, pixel-checks-brows-first.json, browser-ui-checks.json, export-rendered.png/json, export-original.png/json, and ../../../../pitch-brow-review-preview.jpg. Earlier *-before-* files remain historical and are not the final appearance.

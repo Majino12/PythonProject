@@ -1,0 +1,1279 @@
+{
+  "presets": [
+    {
+      "pose": "view-left-up",
+      "group": "mouth",
+      "preset": "pucker",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 噘嘴；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "噘嘴"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "mouth",
+      "preset": "press",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 抿嘴；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "抿嘴"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "mouth",
+      "preset": "shiftLeft",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 角色左移（画面右）；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "角色左移嘴"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "mouth",
+      "preset": "shiftRight",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 角色右移（画面左）；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "角色右移嘴"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "mouth",
+      "preset": "pressHalf",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 抿嘴；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "半闭眼抿嘴"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "mouth",
+      "preset": "puckerGaze",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 噘嘴；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00",
+      "failed": false,
+      "heading": "噘嘴看画面左"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "expression",
+      "preset": "neutral",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "中性"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "expression",
+      "preset": "halfBlink",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "半闭眼"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "expression",
+      "preset": "blink",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 闭眼 / 角色右眼 闭眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "闭眼"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "expression",
+      "preset": "winkLeft",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 闭眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "角色左眼眨眼"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "expression",
+      "preset": "winkRight",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 闭眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "角色右眼眨眼"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "expression",
+      "preset": "openSmall",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 小张；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "小幅张嘴"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "expression",
+      "preset": "openWide",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 大张；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "大幅张嘴"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "expression",
+      "preset": "combination",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 小张；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "半闭眼、小幅张嘴"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "gaze",
+      "preset": "gazeLeft",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00",
+      "failed": false,
+      "heading": "看画面左"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "gaze",
+      "preset": "gazeRight",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.75, 0.00，角色右眼 0.75, 0.00",
+      "failed": false,
+      "heading": "看画面右"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "gaze",
+      "preset": "gazeUp",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, -0.75，角色右眼 0.00, -0.75",
+      "failed": false,
+      "heading": "看上方"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "gaze",
+      "preset": "gazeDown",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.75，角色右眼 0.00, 0.75",
+      "failed": false,
+      "heading": "看下方"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "gaze",
+      "preset": "gazeUpLeft",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 -0.70, -0.70，角色右眼 -0.70, -0.70",
+      "failed": false,
+      "heading": "看左上方"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "gaze",
+      "preset": "gazeUpRight",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.70, -0.70，角色右眼 0.70, -0.70",
+      "failed": false,
+      "heading": "看右上方"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "gaze",
+      "preset": "gazeDownLeft",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 -0.70, 0.70，角色右眼 -0.70, 0.70",
+      "failed": false,
+      "heading": "看左下方"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "gaze",
+      "preset": "gazeDownRight",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.70, 0.70，角色右眼 0.70, 0.70",
+      "failed": false,
+      "heading": "看右下方"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "gaze",
+      "preset": "halfGazeLeft",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 中性；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00",
+      "failed": false,
+      "heading": "半闭眼看画面左"
+    },
+    {
+      "pose": "view-left-up",
+      "group": "gaze",
+      "preset": "closedGazeRight",
+      "canvas": "画面左斜上 · 角色右转抬头，角色左眼 闭眼 / 角色右眼 闭眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.75, 0.00，角色右眼 0.75, 0.00",
+      "failed": false,
+      "heading": "闭眼、视线向画面右"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "mouth",
+      "preset": "pucker",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 噘嘴；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "噘嘴"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "mouth",
+      "preset": "press",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 抿嘴；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "抿嘴"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "mouth",
+      "preset": "shiftLeft",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 角色左移（画面右）；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "角色左移嘴"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "mouth",
+      "preset": "shiftRight",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 角色右移（画面左）；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "角色右移嘴"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "mouth",
+      "preset": "pressHalf",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 抿嘴；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "半闭眼抿嘴"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "mouth",
+      "preset": "puckerGaze",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 噘嘴；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00",
+      "failed": false,
+      "heading": "噘嘴看画面左"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "expression",
+      "preset": "neutral",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "中性"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "expression",
+      "preset": "halfBlink",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "半闭眼"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "expression",
+      "preset": "blink",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 闭眼 / 角色右眼 闭眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "闭眼"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "expression",
+      "preset": "winkLeft",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 闭眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "角色左眼眨眼"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "expression",
+      "preset": "winkRight",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 闭眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "角色右眼眨眼"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "expression",
+      "preset": "openSmall",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 小张；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "小幅张嘴"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "expression",
+      "preset": "openWide",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 大张；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "大幅张嘴"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "expression",
+      "preset": "combination",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 小张；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "半闭眼、小幅张嘴"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "gaze",
+      "preset": "gazeLeft",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00",
+      "failed": false,
+      "heading": "看画面左"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "gaze",
+      "preset": "gazeRight",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.75, 0.00，角色右眼 0.75, 0.00",
+      "failed": false,
+      "heading": "看画面右"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "gaze",
+      "preset": "gazeUp",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, -0.75，角色右眼 0.00, -0.75",
+      "failed": false,
+      "heading": "看上方"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "gaze",
+      "preset": "gazeDown",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.75，角色右眼 0.00, 0.75",
+      "failed": false,
+      "heading": "看下方"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "gaze",
+      "preset": "gazeUpLeft",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 -0.70, -0.70，角色右眼 -0.70, -0.70",
+      "failed": false,
+      "heading": "看左上方"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "gaze",
+      "preset": "gazeUpRight",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.70, -0.70，角色右眼 0.70, -0.70",
+      "failed": false,
+      "heading": "看右上方"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "gaze",
+      "preset": "gazeDownLeft",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 -0.70, 0.70，角色右眼 -0.70, 0.70",
+      "failed": false,
+      "heading": "看左下方"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "gaze",
+      "preset": "gazeDownRight",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.70, 0.70，角色右眼 0.70, 0.70",
+      "failed": false,
+      "heading": "看右下方"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "gaze",
+      "preset": "halfGazeLeft",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 中性；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00",
+      "failed": false,
+      "heading": "半闭眼看画面左"
+    },
+    {
+      "pose": "view-right-up",
+      "group": "gaze",
+      "preset": "closedGazeRight",
+      "canvas": "画面右斜上 · 角色左转抬头，角色左眼 闭眼 / 角色右眼 闭眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.75, 0.00，角色右眼 0.75, 0.00",
+      "failed": false,
+      "heading": "闭眼、视线向画面右"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "mouth",
+      "preset": "pucker",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 噘嘴；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "噘嘴"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "mouth",
+      "preset": "press",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 抿嘴；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "抿嘴"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "mouth",
+      "preset": "shiftLeft",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 角色左移（画面右）；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "角色左移嘴"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "mouth",
+      "preset": "shiftRight",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 角色右移（画面左）；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "角色右移嘴"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "mouth",
+      "preset": "pressHalf",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 抿嘴；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "半闭眼抿嘴"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "mouth",
+      "preset": "puckerGaze",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 噘嘴；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00",
+      "failed": false,
+      "heading": "噘嘴看画面左"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "expression",
+      "preset": "neutral",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "中性"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "expression",
+      "preset": "halfBlink",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "半闭眼"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "expression",
+      "preset": "blink",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 闭眼 / 角色右眼 闭眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "闭眼"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "expression",
+      "preset": "winkLeft",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 闭眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "角色左眼眨眼"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "expression",
+      "preset": "winkRight",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 闭眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "角色右眼眨眼"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "expression",
+      "preset": "openSmall",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 小张；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "小幅张嘴"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "expression",
+      "preset": "openWide",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 大张；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "大幅张嘴"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "expression",
+      "preset": "combination",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 小张；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "failed": false,
+      "heading": "半闭眼、小幅张嘴"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "gaze",
+      "preset": "gazeLeft",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00",
+      "failed": false,
+      "heading": "看画面左"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "gaze",
+      "preset": "gazeRight",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.75, 0.00，角色右眼 0.75, 0.00",
+      "failed": false,
+      "heading": "看画面右"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "gaze",
+      "preset": "gazeUp",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, -0.75，角色右眼 0.00, -0.75",
+      "failed": false,
+      "heading": "看上方"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "gaze",
+      "preset": "gazeDown",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.75，角色右眼 0.00, 0.75",
+      "failed": false,
+      "heading": "看下方"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "gaze",
+      "preset": "gazeUpLeft",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 -0.70, -0.70，角色右眼 -0.70, -0.70",
+      "failed": false,
+      "heading": "看左上方"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "gaze",
+      "preset": "gazeUpRight",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.70, -0.70，角色右眼 0.70, -0.70",
+      "failed": false,
+      "heading": "看右上方"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "gaze",
+      "preset": "gazeDownLeft",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 -0.70, 0.70，角色右眼 -0.70, 0.70",
+      "failed": false,
+      "heading": "看左下方"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "gaze",
+      "preset": "gazeDownRight",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.70, 0.70，角色右眼 0.70, 0.70",
+      "failed": false,
+      "heading": "看右下方"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "gaze",
+      "preset": "halfGazeLeft",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 中性；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00",
+      "failed": false,
+      "heading": "半闭眼看画面左"
+    },
+    {
+      "pose": "view-left-down",
+      "group": "gaze",
+      "preset": "closedGazeRight",
+      "canvas": "画面左斜下 · 角色右转低头，角色左眼 闭眼 / 角色右眼 闭眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.75, 0.00，角色右眼 0.75, 0.00",
+      "failed": false,
+      "heading": "闭眼、视线向画面右"
+    }
+  ],
+  "json": [
+    {
+      "name": "left",
+      "channels": [
+        {
+          "key": "eyeBlinkLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeBlinkRight",
+          "value": "0"
+        },
+        {
+          "key": "jawOpen",
+          "value": "0"
+        },
+        {
+          "key": "mouthClose",
+          "value": "0"
+        },
+        {
+          "key": "mouthPucker",
+          "value": "0"
+        },
+        {
+          "key": "mouthPressLeft",
+          "value": "0"
+        },
+        {
+          "key": "mouthPressRight",
+          "value": "0"
+        },
+        {
+          "key": "mouthLeft",
+          "value": "1"
+        },
+        {
+          "key": "mouthRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookInLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookOutLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookUpLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookDownLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookInRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookOutRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookUpRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookDownRight",
+          "value": "0"
+        }
+      ],
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 角色左移（画面右）；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "已应用 1 个通道；未提供的通道设为 0。导入不会切换姿态或写入评价。"
+    },
+    {
+      "name": "right",
+      "channels": [
+        {
+          "key": "eyeBlinkLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeBlinkRight",
+          "value": "0"
+        },
+        {
+          "key": "jawOpen",
+          "value": "0"
+        },
+        {
+          "key": "mouthClose",
+          "value": "0"
+        },
+        {
+          "key": "mouthPucker",
+          "value": "0"
+        },
+        {
+          "key": "mouthPressLeft",
+          "value": "0"
+        },
+        {
+          "key": "mouthPressRight",
+          "value": "0"
+        },
+        {
+          "key": "mouthLeft",
+          "value": "0"
+        },
+        {
+          "key": "mouthRight",
+          "value": "1"
+        },
+        {
+          "key": "eyeLookInLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookOutLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookUpLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookDownLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookInRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookOutRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookUpRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookDownRight",
+          "value": "0"
+        }
+      ],
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 角色右移（画面左）；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "已应用 1 个通道；未提供的通道设为 0。导入不会切换姿态或写入评价。"
+    },
+    {
+      "name": "cancel",
+      "channels": [
+        {
+          "key": "eyeBlinkLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeBlinkRight",
+          "value": "0"
+        },
+        {
+          "key": "jawOpen",
+          "value": "0"
+        },
+        {
+          "key": "mouthClose",
+          "value": "0"
+        },
+        {
+          "key": "mouthPucker",
+          "value": "0"
+        },
+        {
+          "key": "mouthPressLeft",
+          "value": "0"
+        },
+        {
+          "key": "mouthPressRight",
+          "value": "0"
+        },
+        {
+          "key": "mouthLeft",
+          "value": "1"
+        },
+        {
+          "key": "mouthRight",
+          "value": "1"
+        },
+        {
+          "key": "eyeLookInLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookOutLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookUpLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookDownLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookInRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookOutRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookUpRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookDownRight",
+          "value": "0"
+        }
+      ],
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "已应用 2 个通道；未提供的通道设为 0。导入不会切换姿态或写入评价。"
+    },
+    {
+      "name": "pucker-over-shift",
+      "channels": [
+        {
+          "key": "eyeBlinkLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeBlinkRight",
+          "value": "0"
+        },
+        {
+          "key": "jawOpen",
+          "value": "0"
+        },
+        {
+          "key": "mouthClose",
+          "value": "0"
+        },
+        {
+          "key": "mouthPucker",
+          "value": "1"
+        },
+        {
+          "key": "mouthPressLeft",
+          "value": "0"
+        },
+        {
+          "key": "mouthPressRight",
+          "value": "0"
+        },
+        {
+          "key": "mouthLeft",
+          "value": "1"
+        },
+        {
+          "key": "mouthRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookInLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookOutLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookUpLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookDownLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookInRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookOutRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookUpRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookDownRight",
+          "value": "0"
+        }
+      ],
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 噘嘴；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "已应用 2 个通道；未提供的通道设为 0。导入不会切换姿态或写入评价。"
+    },
+    {
+      "name": "press-over-pucker",
+      "channels": [
+        {
+          "key": "eyeBlinkLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeBlinkRight",
+          "value": "0"
+        },
+        {
+          "key": "jawOpen",
+          "value": "0"
+        },
+        {
+          "key": "mouthClose",
+          "value": "0"
+        },
+        {
+          "key": "mouthPucker",
+          "value": "1"
+        },
+        {
+          "key": "mouthPressLeft",
+          "value": "0"
+        },
+        {
+          "key": "mouthPressRight",
+          "value": "1"
+        },
+        {
+          "key": "mouthLeft",
+          "value": "0"
+        },
+        {
+          "key": "mouthRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookInLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookOutLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookUpLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookDownLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookInRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookOutRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookUpRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookDownRight",
+          "value": "0"
+        }
+      ],
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 抿嘴；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "已应用 2 个通道；未提供的通道设为 0。导入不会切换姿态或写入评价。"
+    },
+    {
+      "name": "close-priority",
+      "channels": [
+        {
+          "key": "eyeBlinkLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeBlinkRight",
+          "value": "0"
+        },
+        {
+          "key": "jawOpen",
+          "value": "1"
+        },
+        {
+          "key": "mouthClose",
+          "value": "1"
+        },
+        {
+          "key": "mouthPucker",
+          "value": "1"
+        },
+        {
+          "key": "mouthPressLeft",
+          "value": "1"
+        },
+        {
+          "key": "mouthPressRight",
+          "value": "0"
+        },
+        {
+          "key": "mouthLeft",
+          "value": "0"
+        },
+        {
+          "key": "mouthRight",
+          "value": "1"
+        },
+        {
+          "key": "eyeLookInLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookOutLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookUpLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookDownLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookInRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookOutRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookUpRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookDownRight",
+          "value": "0"
+        }
+      ],
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "已应用 5 个通道；未提供的通道设为 0。导入不会切换姿态或写入评价。"
+    },
+    {
+      "name": "clamp-and-unknown",
+      "channels": [
+        {
+          "key": "eyeBlinkLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeBlinkRight",
+          "value": "0"
+        },
+        {
+          "key": "jawOpen",
+          "value": "1"
+        },
+        {
+          "key": "mouthClose",
+          "value": "1"
+        },
+        {
+          "key": "mouthPucker",
+          "value": "1"
+        },
+        {
+          "key": "mouthPressLeft",
+          "value": "1"
+        },
+        {
+          "key": "mouthPressRight",
+          "value": "0"
+        },
+        {
+          "key": "mouthLeft",
+          "value": "0"
+        },
+        {
+          "key": "mouthRight",
+          "value": "1"
+        },
+        {
+          "key": "eyeLookInLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookOutLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookUpLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookDownLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookInRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookOutRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookUpRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookDownRight",
+          "value": "0"
+        }
+      ],
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "未应用：mouthLeft 必须是 0–1 之间的有限数字。 当前参数保持不变。"
+    },
+    {
+      "name": "invalid",
+      "channels": [
+        {
+          "key": "eyeBlinkLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeBlinkRight",
+          "value": "0"
+        },
+        {
+          "key": "jawOpen",
+          "value": "1"
+        },
+        {
+          "key": "mouthClose",
+          "value": "1"
+        },
+        {
+          "key": "mouthPucker",
+          "value": "1"
+        },
+        {
+          "key": "mouthPressLeft",
+          "value": "1"
+        },
+        {
+          "key": "mouthPressRight",
+          "value": "0"
+        },
+        {
+          "key": "mouthLeft",
+          "value": "0"
+        },
+        {
+          "key": "mouthRight",
+          "value": "1"
+        },
+        {
+          "key": "eyeLookInLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookOutLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookUpLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookDownLeft",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookInRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookOutRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookUpRight",
+          "value": "0"
+        },
+        {
+          "key": "eyeLookDownRight",
+          "value": "0"
+        }
+      ],
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "未应用：Expected property name or '}' in JSON at position 1 (line 1 column 2) 当前参数保持不变。"
+    }
+  ],
+  "variants": [
+    {
+      "variant": "pitchGaze",
+      "count": 12,
+      "progress": "当前版本 · 当前姿态 0 / 18 项已评价 · 全部姿态 0 / 54 项 · 0 项需修改",
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 小张；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 0.00, 0.00",
+      "status": "已应用 2 个通道；未提供的通道设为 0。已忽略未支持通道：mouthLeft、mouthPucker。导入不会切换姿态或写入评价。"
+    },
+    {
+      "variant": "pitch",
+      "count": 4,
+      "progress": "当前版本 · 当前姿态 0 / 8 项已评价 · 全部姿态 0 / 24 项 · 0 项需修改",
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 小张",
+      "status": "已应用 1 个通道；未提供的通道设为 0。已忽略未支持通道：mouthLeft、mouthPucker、eyeLookInLeft。导入不会切换姿态或写入评价。"
+    }
+  ],
+  "demo": [
+    {
+      "feedbackDisabled": true,
+      "heading": "中性",
+      "note": "12 秒循环 · 中性 · 姿态固定，视线居中",
+      "playing": "true"
+    },
+    {
+      "feedbackDisabled": true,
+      "heading": "噘嘴",
+      "note": "12 秒循环 · 噘嘴 · 姿态固定，视线居中",
+      "playing": "true"
+    },
+    {
+      "feedbackDisabled": true,
+      "heading": "噘嘴",
+      "note": "12 秒循环 · 噘嘴 · 姿态固定，视线居中",
+      "playing": "true"
+    },
+    {
+      "feedbackDisabled": true,
+      "heading": "抿嘴",
+      "note": "12 秒循环 · 抿嘴 · 姿态固定，视线居中",
+      "playing": "true"
+    },
+    {
+      "feedbackDisabled": true,
+      "heading": "抿嘴",
+      "note": "12 秒循环 · 抿嘴 · 姿态固定，视线居中",
+      "playing": "true"
+    },
+    {
+      "feedbackDisabled": true,
+      "heading": "角色左移嘴（画面右）",
+      "note": "12 秒循环 · 角色左移嘴（画面右） · 姿态固定，视线居中",
+      "playing": "true"
+    },
+    {
+      "feedbackDisabled": true,
+      "heading": "角色左移嘴（画面右）",
+      "note": "12 秒循环 · 角色左移嘴（画面右） · 姿态固定，视线居中",
+      "playing": "true"
+    },
+    {
+      "feedbackDisabled": true,
+      "heading": "角色右移嘴（画面左）",
+      "note": "12 秒循环 · 角色右移嘴（画面左） · 姿态固定，视线居中",
+      "playing": "true"
+    },
+    {
+      "feedbackDisabled": true,
+      "heading": "角色右移嘴（画面左）",
+      "note": "12 秒循环 · 角色右移嘴（画面左） · 姿态固定，视线居中",
+      "playing": "true"
+    },
+    {
+      "feedbackDisabled": true,
+      "heading": "回到中性",
+      "note": "12 秒循环 · 回到中性 · 姿态固定，视线居中",
+      "playing": "true"
+    }
+  ],
+  "stop": {
+    "groupStop": {
+      "label": "播放逐稿演示",
+      "playing": "false"
+    },
+    "poseStop": {
+      "playing": "false",
+      "state": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    }
+  },
+  "feedbackIsolation": {
+    "samePresetRestored": "QA 临时隔离检查，未作视觉通过判断",
+    "otherPoseSamePreset": "",
+    "clean": {
+      "note": "",
+      "progress": "当前版本 · 当前姿态 0 / 24 项已评价 · 全部姿态 0 / 72 项 · 0 项需修改",
+      "status": "undecided"
+    }
+  }
+}

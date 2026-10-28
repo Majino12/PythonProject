@@ -1,0 +1,94 @@
+{
+  "view-left": [
+    {
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral"
+      },
+      "changedPixels": 0,
+      "outsideActivePatches": 0,
+      "belowJaw": 0,
+      "nose": 0
+    },
+    {
+      "state": {
+        "eyeLeft": "half",
+        "eyeRight": "half",
+        "mouth": "openSmall"
+      },
+      "changedPixels": 42513,
+      "outsideActivePatches": 0,
+      "belowJaw": 0,
+      "nose": 0
+    },
+    {
+      "state": {
+        "eyeLeft": "closed",
+        "eyeRight": "closed",
+        "mouth": "openWide"
+      },
+      "changedPixels": 42459,
+      "outsideActivePatches": 0,
+      "belowJaw": 0,
+      "nose": 0
+    },
+    {
+      "state": {
+        "eyeLeft": "closed",
+        "eyeRight": "open",
+        "mouth": "neutral"
+      },
+      "changedPixels": 18940,
+      "outsideActivePatches": 0,
+      "belowJaw": 0,
+      "nose": 0
+    }
+  ],
+  "view-right": [
+    {
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral"
+      },
+      "changedPixels": 0,
+      "outsideActivePatches": 0,
+      "belowJaw": 0,
+      "nose": 0
+    },
+    {
+      "state": {
+        "eyeLeft": "half",
+        "eyeRight": "half",
+        "mouth": "openSmall"
+      },
+      "changedPixels": 40378,
+      "outsideActivePatches": 0,
+      "belowJaw": 0,
+      "nose": 0
+    },
+    {
+      "state": {
+        "eyeLeft": "closed",
+        "eyeRight": "closed",
+        "mouth": "openWide"
+      },
+      "changedPixels": 39710,
+      "outsideActivePatches": 0,
+      "belowJaw": 0,
+      "nose": 0
+    },
+    {
+      "state": {
+        "eyeLeft": "closed",
+        "eyeRight": "open",
+        "mouth": "neutral"
+      },
+      "changedPixels": 11886,
+      "outsideActivePatches": 0,
+      "belowJaw": 0,
+      "nose": 0
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "tool": "Built-in image_gen",
+  "createdAt": "2026-10-27",
+  "method": "Nine pose-specific full portrait edits. Only independently registered brow areas are composited at native one-to-one scale. Actual PNG output bytes are preserved without painting or pixel cleanup.",
+  "inherits": {
+    "manifest": "../short-hair-pitch-mouth-v1/manifest.json",
+    "approval": "../short-hair-pitch-mouth-v1/approval.json"
+  },
+  "assets": [
+    {
+      "key": "view-left-up-innerUp",
+      "file": "view-left-up-innerUp.png",
+      "pose": "view-left-up",
+      "reference": "../short-hair-v1/view-left-up.png",
+      "generationId": "exec-8b6afd74-f538-439f-911a-6f623c0d69d2",
+      "prompt": "Use case: identity-preserve. Asset type: one full source portrait for native-size local 2D VTuber eyebrow compositing.\nInput image 1 is the exact EDIT TARGET: approved short blue-gray tomboy-haired character, fixed pose viewer-left-facing with chin raised. Near brow on viewer RIGHT x450..589 y340..366: inner root x450, outer tail x589. Far brow on viewer LEFT x308..364 y365..382: inner root x364, outer tail x308. Preserve original 1122x1402 portrait framing.\nChange ONLY BOTH EYEBROWS and the tiny forehead skin areas needed to cleanly remove their previous strokes. Raise the INNER ends nearest the nose of BOTH eyebrows by about 12–15 source pixels, curving smoothly back to the outer tails which remain nearly fixed. Gentle concerned / pleading brows. Not a uniform translation. The far brow's visible inner segment must also visibly lift.\nKeep the original desaturated gray-violet/gray-brown matte color, fine soft tapered stroke quality, original length and visual weight. Do not turn eyebrows into shining silver hair, black thick makeup or oversized expressive arcs. Preserve the near/far brow perspective. Maintain all foreground bangs at EXACT original coordinates and boundaries; brows lie behind substantial hair, retaining only the original stylized faint visibility through thin hair strands. Do not move hair to expose the brows. Only one clean brow stroke per side, no double old/new marks.\nLOCK ALL OTHER CONTENT: same head pose, face contour, chin, nose, tiny neutral thin-line mouth, open eyes with identical gaze/lids/iris/highlights/crease, skin shading, short hair silhouette and every strand, human ears, clothes, shoulders and lavender-gray background. No head rotation, scaling, crop, mirror, new accessories, text or comparison sheet. Return one same-size full portrait.",
+      "transparentBackground": false,
+      "sha256": "57cd04153d14e2e92dc5676ac2e9021894310f6992ad83f1b9749921cdd790e1"
+    },
+    {
+      "key": "view-left-up-outerUp",
+      "file": "view-left-up-outerUp.png",
+      "pose": "view-left-up",
+      "reference": "../short-hair-v1/view-left-up.png",
+      "generationId": "exec-55d827fb-e5ab-453d-be7f-f42ac1ba8903",
+      "prompt": "Use case: identity-preserve. Asset type: one full source portrait for native-size local 2D VTuber eyebrow compositing.\nInput image 1 is the exact EDIT TARGET: approved short blue-gray tomboy-haired character, fixed pose viewer-left-facing with chin raised. Near brow on viewer RIGHT x450..589 y340..366: inner root x450, outer tail x589. Far brow on viewer LEFT x308..364 y365..382: inner root x364, outer tail x308. Preserve original 1122x1402 portrait framing.\nChange ONLY BOTH EYEBROWS and the tiny forehead skin areas needed to cleanly remove their previous strokes. Raise the OUTER/temple ends of BOTH eyebrows by about 12–15 source pixels, with a soft curious arch and INNER/nose roots staying nearly fixed. Not a uniform translation. The small far eyebrow's visible outer segment must visibly lift too.\nKeep the original desaturated gray-violet/gray-brown matte color, fine soft tapered stroke quality, original length and visual weight. Do not turn eyebrows into shining silver hair, black thick makeup or oversized expressive arcs. Preserve the near/far brow perspective. Maintain all foreground bangs at EXACT original coordinates and boundaries; brows lie behind substantial hair, retaining only the original stylized faint visibility through thin hair strands. Do not move hair to expose the brows. Only one clean brow stroke per side, no double old/new marks.\nLOCK ALL OTHER CONTENT: same head pose, face contour, chin, nose, tiny neutral thin-line mouth, open eyes with identical gaze/lids/iris/highlights/crease, skin shading, short hair silhouette and every strand, human ears, clothes, shoulders and lavender-gray background. No head rotation, scaling, crop, mirror, new accessories, text or comparison sheet. Return one same-size full portrait.",
+      "transparentBackground": false,
+      "sha256": "080eef31edcba45d7803024dbf41dad8b0d26c3e5010976c77fe27bb8e54a6ed"
+    },
+    {
+      "key": "view-left-up-down",
+      "file": "view-left-up-down.png",
+      "pose": "view-left-up",
+      "reference": "../short-hair-v1/view-left-up.png",
+      "generationId": "exec-22ebe2b7-a51a-40ba-bbf3-9a6dd4630028",
+      "prompt": "Use case: identity-preserve. Asset type: one full source portrait for native-size local 2D VTuber eyebrow compositing.\nInput image 1 is the exact EDIT TARGET: approved short blue-gray tomboy-haired character, fixed pose viewer-left-facing with chin raised. Near brow on viewer RIGHT x450..589 y340..366: inner root x450, outer tail x589. Far brow on viewer LEFT x308..364 y365..382: inner root x364, outer tail x308. Preserve original 1122x1402 portrait framing.\nChange ONLY BOTH EYEBROWS and the tiny forehead skin areas needed to cleanly remove their previous strokes. Lower the INNER/nose halves of BOTH eyebrows by about 8–10 source pixels and very subtly draw them inward, curving back to nearly fixed outer tails. Mild determination, not anger. Keep a clear skin gap above eyelids and creases; do not thicken brows or draw wrinkles.\nKeep the original desaturated gray-violet/gray-brown matte color, fine soft tapered stroke quality, original length and visual weight. Do not turn eyebrows into shining silver hair, black thick makeup or oversized expressive arcs. Preserve the near/far brow perspective. Maintain all foreground bangs at EXACT original coordinates and boundaries; brows lie behind substantial hair, retaining only the original stylized faint visibility through thin hair strands. Do not move hair to expose the brows. Only one clean brow stroke per side, no double old/new marks.\nLOCK ALL OTHER CONTENT: same head pose, face contour, chin, nose, tiny neutral thin-line mouth, open eyes with identical gaze/lids/iris/highlights/crease, skin shading, short hair silhouette and every strand, human ears, clothes, shoulders and lavender-gray background. No head rotation, scaling, crop, mirror, new accessories, text or comparison sheet. Return one same-size full portrait.",
+      "transparentBackground": false,
+      "sha256": "2e7b48cef4ed42e3fb0575af7080ea69414a9a22bc58e5effef672b8fb67adbd"
+    },
+    {
+      "key": "view-right-up-innerUp",
+      "file": "view-right-up-innerUp.png",
+      "pose": "view-right-up",
+      "reference": "../short-hair-v1/view-right-up.png",
+      "generationId": "exec-f1400518-0c84-4e7f-8120-64aee1c6a990",
+      "prompt": "Use case: identity-preserve. Asset type: one full source portrait for native-size local 2D VTuber eyebrow compositing.\nInput image 1 is the exact EDIT TARGET: approved short blue-gray tomboy-haired character, fixed pose viewer-right-facing with chin raised. Near brow on viewer LEFT x500..624 y360..382: inner root x624, outer tail x500. Far brow on viewer RIGHT x717..791 y353..378: inner root x717, outer tail x791. Preserve original 1122x1402 portrait framing.\nChange ONLY BOTH EYEBROWS and the tiny forehead skin areas needed to cleanly remove their previous strokes. Raise the INNER ends nearest the nose of BOTH eyebrows by about 12–15 source pixels, curving smoothly back to the outer tails which remain nearly fixed. Gentle concerned / pleading brows. Not a uniform translation. The far brow's visible inner segment must also visibly lift.\nKeep the original desaturated gray-violet/gray-brown matte color, fine soft tapered stroke quality, original length and visual weight. Do not turn eyebrows into shining silver hair, black thick makeup or oversized expressive arcs. Preserve the near/far brow perspective. Maintain all foreground bangs at EXACT original coordinates and boundaries; brows lie behind substantial hair, retaining only the original stylized faint visibility through thin hair strands. Do not move hair to expose the brows. Only one clean brow stroke per side, no double old/new marks.\nLOCK ALL OTHER CONTENT: same head pose, face contour, chin, nose, tiny neutral thin-line mouth, open eyes with identical gaze/lids/iris/highlights/crease, skin shading, short hair silhouette and every strand, human ears, clothes, shoulders and lavender-gray background. No head rotation, scaling, crop, mirror, new accessories, text or comparison sheet. Return one same-size full portrait.",
+      "transparentBackground": false,
+      "sha256": "2015edddbead11fcbe413558068105c7a6a1b902b65db0da8fe1f42e73e66d2d"
+    },
+    {
+      "key": "view-right-up-outerUp",
+      "file": "view-right-up-outerUp.png",
+      "pose": "view-right-up",
+      "reference": "../short-hair-v1/view-right-up.png",
+      "generationId": "exec-ab75bef1-3aec-431b-b969-07257c247f38",
+      "prompt": "Use case: identity-preserve. Asset type: one full source portrait for native-size local 2D VTuber eyebrow compositing.\nInput image 1 is the exact EDIT TARGET: approved short blue-gray tomboy-haired character, fixed pose viewer-right-facing with chin raised. Near brow on viewer LEFT x500..624 y360..382: inner root x624, outer tail x500. Far brow on viewer RIGHT x717..791 y353..378: inner root x717, outer tail x791. Preserve original 1122x1402 portrait framing.\nChange ONLY BOTH EYEBROWS and the tiny forehead skin areas needed to cleanly remove their previous strokes. Raise the OUTER/temple ends of BOTH eyebrows by about 12–15 source pixels, with a soft curious arch and INNER/nose roots staying nearly fixed. Not a uniform translation. The small far eyebrow's visible outer segment must visibly lift too.\nKeep the original desaturated gray-violet/gray-brown matte color, fine soft tapered stroke quality, original length and visual weight. Do not turn eyebrows into shining silver hair, black thick makeup or oversized expressive arcs. Preserve the near/far brow perspective. Maintain all foreground bangs at EXACT original coordinates and boundaries; brows lie behind substantial hair, retaining only the original stylized faint visibility through thin hair strands. Do not move hair to expose the brows. Only one clean brow stroke per side, no double old/new marks.\nLOCK ALL OTHER CONTENT: same head pose, face contour, chin, nose, tiny neutral thin-line mouth, open eyes with identical gaze/lids/iris/highlights/crease, skin shading, short hair silhouette and every strand, human ears, clothes, shoulders and lavender-gray background. No head rotation, scaling, crop, mirror, new accessories, text or comparison sheet. Return one same-size full portrait.",
+      "transparentBackground": false,
+      "sha256": "a774cc052ac300de8221849701be00901a5735e710c8c0c4397854d7ff4f9243"
+    },
+    {
+      "key": "view-right-up-down",
+      "file": "view-right-up-down.png",
+      "pose": "view-right-up",
+      "reference": "../short-hair-v1/view-right-up.png",
+      "generationId": "exec-dab4ba6b-ec27-4b40-a494-0d14e395739a",
+      "prompt": "Use case: identity-preserve. Asset type: one full source portrait for native-size local 2D VTuber eyebrow compositing.\nInput image 1 is the exact EDIT TARGET: approved short blue-gray tomboy-haired character, fixed pose viewer-right-facing with chin raised. Near brow on viewer LEFT x500..624 y360..382: inner root x624, outer tail x500. Far brow on viewer RIGHT x717..791 y353..378: inner root x717, outer tail x791. Preserve original 1122x1402 portrait framing.\nChange ONLY BOTH EYEBROWS and the tiny forehead skin areas needed to cleanly remove their previous strokes. Lower the INNER/nose halves of BOTH eyebrows by about 8–10 source pixels and very subtly draw them inward, curving back to nearly fixed outer tails. Mild determination, not anger. Keep a clear skin gap above eyelids and creases; do not thicken brows or draw wrinkles.\nKeep the original desaturated gray-violet/gray-brown matte color, fine soft tapered stroke quality, original length and visual weight. Do not turn eyebrows into shining silver hair, black thick makeup or oversized expressive arcs. Preserve the near/far brow perspective. Maintain all foreground bangs at EXACT original coordinates and boundaries; brows lie behind substantial hair, retaining only the original stylized faint visibility through thin hair strands. Do not move hair to expose the brows. Only one clean brow stroke per side, no double old/new marks.\nLOCK ALL OTHER CONTENT: same head pose, face contour, chin, nose, tiny neutral thin-line mouth, open eyes with identical gaze/lids/iris/highlights/crease, skin shading, short hair silhouette and every strand, human ears, clothes, shoulders and lavender-gray background. No head rotation, scaling, crop, mirror, new accessories, text or comparison sheet. Return one same-size full portrait.",
+      "transparentBackground": false,
+      "sha256": "c6ad82f3f21b33b4720a1c21c3a4129c6e041253cb00551323ef28aab9858f6e"
+    },
+    {
+      "key": "view-left-down-innerUp",
+      "file": "view-left-down-innerUp.png",
+      "pose": "view-left-down",
+      "reference": "../short-hair-v1/view-left-down.png",
+      "generationId": "exec-8e311a13-692b-4cd9-b299-384551d51d33",
+      "prompt": "Use case: identity-preserve. Asset type: one full source portrait for native-size local 2D VTuber eyebrow compositing.\nInput image 1 is the exact EDIT TARGET: approved short blue-gray tomboy-haired character, fixed pose viewer-left-facing with chin lowered. Near brow on viewer RIGHT x443..590 y468..505: inner root x443, outer tail x590. Far brow on viewer LEFT x279..346 y490..515: inner root x346, outer tail x279. Preserve original 1122x1402 portrait framing.\nChange ONLY BOTH EYEBROWS and the tiny forehead skin areas needed to cleanly remove their previous strokes. Raise the INNER ends nearest the nose of BOTH eyebrows by about 12–15 source pixels, curving smoothly back to the outer tails which remain nearly fixed. Gentle concerned / pleading brows. Not a uniform translation. The far brow's visible inner segment must also visibly lift.\nKeep the original desaturated gray-violet/gray-brown matte color, fine soft tapered stroke quality, original length and visual weight. Do not turn eyebrows into shining silver hair, black thick makeup or oversized expressive arcs. Preserve the near/far brow perspective. Maintain all foreground bangs at EXACT original coordinates and boundaries; brows lie behind substantial hair, retaining only the original stylized faint visibility through thin hair strands. Do not move hair to expose the brows. Only one clean brow stroke per side, no double old/new marks.\nLOCK ALL OTHER CONTENT: same head pose, face contour, chin, nose, tiny neutral thin-line mouth, open eyes with identical gaze/lids/iris/highlights/crease, skin shading, short hair silhouette and every strand, human ears, clothes, shoulders and lavender-gray background. No head rotation, scaling, crop, mirror, new accessories, text or comparison sheet. Return one same-size full portrait.",
+      "transparentBackground": false,
+      "sha256": "521d778e22cb5dec93389f64a5687c2e4e61aeb2b7edac155bbb782629e18fe8"
+    },
+    {
+      "key": "view-left-down-outerUp",
+      "file": "view-left-down-outerUp-v2.png",
+      "pose": "view-left-down",
+      "reference": "view-left-down-outerUp.png",
+      "generationId": "exec-557dce6e-26da-4849-91a9-b7e7757ae3d4",
+      "prompt": "Use case: identity-preserve. Image 1 is the exact EDIT TARGET, the already painted left-down outer-brow-raise portrait. Keep its existing correct near eyebrow on VIEWER RIGHT unchanged. Correct ONLY the small FAR EYEBROW on VIEWER LEFT. The visible outer/temple third around canvas x305..323 currently lies near y497..501 and has not lifted. Raise that exposed segment by 9-11 pixels, toward y487..491, flowing smoothly back to the nearly fixed inner root near x340,y507. This is an OUTER-tail lifting expression, not inner-root raising; create a gentle visible arch, do not uniformly translate the whole brow. Remove the former stroke cleanly, one brow only. Preserve this same fine tapered matte desaturated gray-violet color and weight. Keep every hair strand and hair/skin boundary unchanged; retain natural original faint visibility through thin hair, behind thick foreground bangs. Do not move hair or eyes. Lock all other content exactly: already-correct viewer-right eyebrow, both open eyes/lids/crease/gaze, face, neutral mouth, nose, clothing, background, head pose and full1122x1402 framing. No accessories or text. Return single full portrait.",
+      "transparentBackground": false,
+      "sha256": "501a1dc2cbff2e7a62fe8761c278b1e657e9122fe6c3330155f676baf0dabba8"
+    },
+    {
+      "key": "view-left-down-down",
+      "file": "view-left-down-down-v2.png",
+      "pose": "view-left-down",
+      "reference": "../short-hair-v1/view-left-down.png",
+      "generationId": "exec-cf58f9d5-40a2-4978-bfbd-ea1bbc4812bd",
+      "prompt": "Use case: identity-preserve. Input 1 is the exact EDIT TARGET: approved neutral left-down short-haired VTuber portrait. Make a very restrained eyebrow-only adjustment. Lower only the inner/nose third of BOTH eyebrows by just6–8sourcepixels on this1122x1402portrait, and leave the outer/temple halves nearly fixed. The large near eyebrow on VIEWER RIGHT has its inner root at x443,y501: finalroot should be aroundx443,y507, noty525. Its midsection x500,y483 should remain near y487. Preserve the brow's slightly curved natural slope: do NOT rotate whole eyebrow into a steep angry slash or draw toward the eyelid. The small far eyebrow on VIEWER LEFT inner part nearx340,y509 may lower about6pixels; keep a clear skin gap above eyelid crease. Both eyes and eyelid creases must remain absolutely unchanged. Keep original desaturated gray-violet matte thin tapered stroke/color/length and sourceperspective. Clean old stroke, no doublebrow or wrinkles. Preserve every forehead hair and fine strand exactly. All else locked: original down-left head pose, face contour/nose/mouth/gaze/eye shape, shorttomboyhairstyle, human ears, clothing, lavendergraybackground and full1122x1402framing. Return onefullportrait, no text, noaccessories.",
+      "transparentBackground": false,
+      "sha256": "04ac3d576b1b082ed94474d76c5d281344d9a06a69b2b7c92217822142ae9ddf"
+    }
+  ],
+  "intermediateSources": [
+    {
+      "key": "view-left-down-outerUp",
+      "file": "view-left-down-outerUp.png",
+      "pose": "view-left-down",
+      "reference": "../short-hair-v1/view-left-down.png",
+      "generationId": "exec-7d1852e6-5d85-404d-b4d0-3a304305be1d",
+      "prompt": "Use case: identity-preserve. Asset type: one full source portrait for native-size local 2D VTuber eyebrow compositing.\nInput image 1 is the exact EDIT TARGET: approved short blue-gray tomboy-haired character, fixed pose viewer-left-facing with chin lowered. Near brow on viewer RIGHT x443..590 y468..505: inner root x443, outer tail x590. Far brow on viewer LEFT x279..346 y490..515: inner root x346, outer tail x279. Preserve original 1122x1402 portrait framing.\nChange ONLY BOTH EYEBROWS and the tiny forehead skin areas needed to cleanly remove their previous strokes. Raise the OUTER/temple ends of BOTH eyebrows by about 12–15 source pixels, with a soft curious arch and INNER/nose roots staying nearly fixed. Not a uniform translation. The small far eyebrow's visible outer segment must visibly lift too.\nKeep the original desaturated gray-violet/gray-brown matte color, fine soft tapered stroke quality, original length and visual weight. Do not turn eyebrows into shining silver hair, black thick makeup or oversized expressive arcs. Preserve the near/far brow perspective. Maintain all foreground bangs at EXACT original coordinates and boundaries; brows lie behind substantial hair, retaining only the original stylized faint visibility through thin hair strands. Do not move hair to expose the brows. Only one clean brow stroke per side, no double old/new marks.\nLOCK ALL OTHER CONTENT: same head pose, face contour, chin, nose, tiny neutral thin-line mouth, open eyes with identical gaze/lids/iris/highlights/crease, skin shading, short hair silhouette and every strand, human ears, clothes, shoulders and lavender-gray background. No head rotation, scaling, crop, mirror, new accessories, text or comparison sheet. Return one same-size full portrait.",
+      "transparentBackground": false,
+      "sha256": "6aed0c0977f62d56210166c9cec1a0cdaa6bea10f685c4a9e5595510ab94bf34",
+      "reasonNotUsed": "Far eyebrow exposed segment did not lift; its refinement outerUp-v2 is selected. This original generated file is the actual reference for that refinement."
+    },
+    {
+      "key": "view-left-down-down",
+      "file": "view-left-down-down.png",
+      "pose": "view-left-down",
+      "reference": "../short-hair-v1/view-left-down.png",
+      "generationId": "exec-86643bee-3f8c-41c0-bafd-90bd3b06e2f3",
+      "prompt": "Use case: identity-preserve. Asset type: one full source portrait for native-size local 2D VTuber eyebrow compositing.\nInput image 1 is the exact EDIT TARGET: approved short blue-gray tomboy-haired character, fixed pose viewer-left-facing with chin lowered. Near brow on viewer RIGHT x443..590 y468..505: inner root x443, outer tail x590. Far brow on viewer LEFT x279..346 y490..515: inner root x346, outer tail x279. Preserve original 1122x1402 portrait framing.\nChange ONLY BOTH EYEBROWS and the tiny forehead skin areas needed to cleanly remove their previous strokes. Lower the INNER/nose halves of BOTH eyebrows by about 8–10 source pixels and very subtly draw them inward, curving back to nearly fixed outer tails. Mild determination, not anger. Keep a clear skin gap above eyelids and creases; do not thicken brows or draw wrinkles.\nKeep the original desaturated gray-violet/gray-brown matte color, fine soft tapered stroke quality, original length and visual weight. Do not turn eyebrows into shining silver hair, black thick makeup or oversized expressive arcs. Preserve the near/far brow perspective. Maintain all foreground bangs at EXACT original coordinates and boundaries; brows lie behind substantial hair, retaining only the original stylized faint visibility through thin hair strands. Do not move hair to expose the brows. Only one clean brow stroke per side, no double old/new marks.\nLOCK ALL OTHER CONTENT: same head pose, face contour, chin, nose, tiny neutral thin-line mouth, open eyes with identical gaze/lids/iris/highlights/crease, skin shading, short hair silhouette and every strand, human ears, clothes, shoulders and lavender-gray background. No head rotation, scaling, crop, mirror, new accessories, text or comparison sheet. Return one same-size full portrait.",
+      "transparentBackground": false,
+      "sha256": "58846b0eed18b6baec4d1e7a10f73dd09b7483f15d1a32a996337e540a640fc2",
+      "reasonNotUsed": "Near eyebrow lowered too deeply (about 26 pixels at the root) and the full source also altered the eye; a more restrained edit from the approved original is selected."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+VTuberProject 0.15.0 — release validation, 2026-10-28
+
+Default: short-haired 2D avatar studio with nine prepared head poses, painted eye/mouth/brow expressions, independent gaze, 22 ARKit-named coefficients, optional camera tracking and local project/JSON/PNG/video export. No 3D changes in this release.
+
+Changes in 0.15.0:
+- Eight non-front poses now have five eye-opening and jaw-opening stages instead of three, using 16 selected new source portraits. Front retains its existing five stages.
+- Eye and jaw motions advance through adjacent prepared artwork, including reversals from the currently displayed stage. This does not synthesize missing art by stretching or crossfading.
+- The studio offers 30/60 fps targets, reports successful drawing measurements and uses the selected target for video capture. Requested fps is not guaranteed output or a count of distinct source drawings.
+
+Validation:
+- npm test: 589 passed, 0 failed, 0 skipped; npm run check passed.
+- Focused lifecycle/timing tests: 48 passed (10 camera, 24 studio, 14 timing). Real camera hardware was not activated.
+- Browser frame diagnostics: 718 native-pixel comparisons, 1060 assertions, 0 failures; includes all nine five-stage poses, upper-lip registration, extreme gaze clipping and exact inheritance of existing named states.
+- All nine five-stage contact sheets and two new combined eye/mouth/gaze examples were visually inspected by the developer; no blocking compositing issue was found. This does not create a new user artwork-approval record.
+- Right-down timing after the new artwork was enabled showed all five stages without skipped stages. Under the measured load: 60 fps target yielded about 55.93 fps; 30 fps target about 30.26 fps. Earlier front measurements were 60.0/30.0 fps. These measurements apply only to the tested session.
+- A front VP9 recording contained 1694 video blocks over 28.224 seconds (about 59.98 fps), at 630x460. This front recording preceded activation of the new artwork and does not establish video performance for every pose or device.
+- Release dependency audit: all 23 studio modules and 224 referenced asset paths exist; the server binds loopback and camera startup remains explicit.
+
+Evidence: assets/short-hair-frame-art-v1/validation/ contains the new source audit, native diagnostics, contact sheets, timing measurements and release-validation.json. TEST-RESULTS.txt contains the complete automated test output. Earlier checks under other artwork packs and the README section explicitly marked 0.14.0 are historical evidence, not fresh 0.15.0 measurements.
+
+Source history: selected and rejected generated sources, prompts, generation identifiers and hashes are retained. Existing artwork approval/freeze records remain intact. Local filesystem references in public documentation are normalized to portable source identifiers; that editorial cleanup does not change artwork or visual review outcomes.
+
+Known limits: nine discrete prepared poses rather than continuous head rotation; no independent artwork for every possible coefficient combination; no compound pucker-plus-lateral mouth artwork; front brow motions share a whole-brow approximation; painted backgrounds remain; no virtual camera, iPhone receiver or VTube Studio connection. Real camera tracking quality remains untested. Stop and save recordings before closing the page.
+
+Local publication: the previous formal 0.14.0 project was fully backed up before the 0.15.0 update; all 548 release files were verified by SHA256 after copying. Subsequent documentation cleanup is backed up and verified separately. Machine-specific backup locations and GitHub synchronization receipts are kept outside the release; the repository commit identifies the synchronized source revision.

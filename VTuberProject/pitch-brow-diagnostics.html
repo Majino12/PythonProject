@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>俯仰眉毛 · 原生像素与局部对照</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #21323b; background: #f3f7f8; }
+    * { box-sizing: border-box; } body { margin: 0; padding: 28px; } main { max-width: 1400px; margin: auto; }
+    a { color: #265d71; } h1 { font-size: 26px; } h2 { font-size: 20px; margin-top: 38px; } p { line-height: 1.65; }
+    figure { margin: 0; padding: 8px; color: #21323b; background: #fff; border: 1px solid #cbd9df; border-radius: 8px; }
+    canvas { display: block; width: 100%; height: auto; }
+    figcaption { color: #21323b; padding: 10px 3px 4px; font-size: 15px; font-weight: 600; line-height: 1.5; }
+    .brows,.faces { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; max-width: 1156px; }
+    .faces { margin: 20px 0; } #summary { padding: 14px; background: #e5eef1; color: #21323b; border-radius: 8px; }
+    .junctions { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
+    .junctions figure { flex: 0 0 auto; width: 226px; }
+    .junctions canvas { max-width: none; image-rendering: pixelated; }
+    #summary[data-state="failed"] { background: #fff0e8; } details { margin: 24px 0; } summary { cursor: pointer; }
+    pre { font-size: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+    @media(max-width:600px) { body { padding: 16px; } .brows,.faces { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <p><a href="./pitch-expression-review.html">← 返回俯仰表情与眉毛</a></p>
+    <h1>俯仰眉毛 · 原生像素与局部对照</h1>
+    <p>每个姿态用同一范围展示中性、眉头抬起、眉尾抬起、压眉，以及左右独立组合。左右以角色自身为准。局部画稿保持原生尺寸，眉形和动作幅度仍需看图判断。</p>
+    <p>检查已确认嘴型与视线的全部 315 组组合；再检查 336 组眉毛组合，覆盖全部 16 种双眉搭配和七种嘴型、五种眼睑状态。RGBA 像素应严格留在眉毛登记区域，并保护眼睑、嘴、鼻和已登记刘海区域。通过这些检查不代表视觉验收通过。</p>
+    <p id="loadOrder">加载顺序：两版本并行。</p>
+    <p id="summary" role="status" aria-live="polite">正在读取眉毛候选、已确认嘴型和保护区登记…</p>
+    <div id="comparisons"></div>
+    <details><summary>原生像素检查数据（JSON）</summary><pre id="result">{"status":"loading"}</pre></details>
+  </main>
+  <script type="module" src="./pitch-brow-diagnostics.js"></script>
+</body>
+</html>

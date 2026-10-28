@@ -1,0 +1,318 @@
+{
+  "version": 1,
+  "assetRevision": "short-hair-structure-v1-reviewed",
+  "characterName": "短发角色",
+  "referenceId": "front",
+  "poseAngleNote": "方向为绘制目标，不注册为对称的实测 yaw/pitch。",
+  "landmarkMethod": "人工视觉估读的可见点，仅供检查；没有补造被刘海遮住的鼻根或未画出的沟槽。",
+  "poses": [
+    {
+      "id": "front",
+      "label": "已确认正面",
+      "group": "front",
+      "src": "./assets/short-hair-v1/front.png",
+      "width": 1122,
+      "height": 1402,
+      "approved": true,
+      "notes": [
+        "用户已确认正面与六个角度的静态设计；表情、视线和连续转头仍待单独验证。",
+        "标志点是人工估读，供观察可见眼角、鼻尖、唇线与下巴。"
+      ],
+      "landmarks": {
+        "eyeOuterViewerLeft": [
+          365,
+          491
+        ],
+        "eyeInnerViewerLeft": [
+          493,
+          529
+        ],
+        "eyeInnerViewerRight": [
+          624,
+          527
+        ],
+        "eyeOuterViewerRight": [
+          750,
+          488
+        ],
+        "noseTip": [
+          558,
+          618
+        ],
+        "upperLip": [
+          558,
+          673
+        ],
+        "chin": [
+          558,
+          771
+        ]
+      }
+    },
+    {
+      "id": "view-left",
+      "label": "画面左转 · 角色右转",
+      "group": "yaw",
+      "src": "./assets/short-hair-v1/view-left.png",
+      "width": 1122,
+      "height": 1402,
+      "approved": true,
+      "notes": [
+        "本角度的静态画稿已获用户确认；表情、视线和连续转头仍待单独验证。",
+        "角度是作画目标而非实测；请检查眼鼻口关系与下颌轮廓。",
+        "未登记被刘海遮住的鼻根及未明确画出的人中沟。"
+      ],
+      "landmarks": {
+        "eyeOuterViewerLeft": [
+          300,
+          490
+        ],
+        "eyeInnerViewerLeft": [
+          404,
+          529
+        ],
+        "eyeInnerViewerRight": [
+          496,
+          503
+        ],
+        "eyeOuterViewerRight": [
+          642,
+          465
+        ],
+        "noseTip": [
+          399,
+          591
+        ],
+        "upperLip": [
+          461,
+          654
+        ],
+        "chin": [
+          464,
+          754
+        ]
+      }
+    },
+    {
+      "id": "view-right",
+      "label": "画面右转 · 角色左转",
+      "group": "yaw",
+      "src": "./assets/short-hair-v1/view-right.png",
+      "width": 1122,
+      "height": 1402,
+      "approved": true,
+      "notes": [
+        "本角度的静态画稿已获用户确认；表情、视线和连续转头仍待单独验证。",
+        "角度是作画目标而非实测；请检查眼鼻口关系与下颌轮廓。",
+        "未登记被刘海遮住的鼻根及未明确画出的人中沟。"
+      ],
+      "landmarks": {
+        "eyeOuterViewerLeft": [
+          461,
+          484
+        ],
+        "eyeInnerViewerLeft": [
+          606,
+          522
+        ],
+        "eyeInnerViewerRight": [
+          716,
+          507
+        ],
+        "eyeOuterViewerRight": [
+          802,
+          465
+        ],
+        "noseTip": [
+          714,
+          581
+        ],
+        "upperLip": [
+          661,
+          655
+        ],
+        "chin": [
+          650,
+          754
+        ]
+      }
+    },
+    {
+      "id": "view-left-up",
+      "label": "画面左转＋抬头",
+      "group": "up",
+      "src": "./assets/short-hair-v1/view-left-up.png",
+      "width": 1122,
+      "height": 1402,
+      "approved": true,
+      "notes": [
+        "本角度的静态画稿已获用户确认；表情、视线和连续转头仍待单独验证。",
+        "角度是作画目标而非实测；请检查眼鼻口关系与下颌轮廓。",
+        "未登记被刘海遮住的鼻根及未明确画出的人中沟。"
+      ],
+      "landmarks": {
+        "eyeOuterViewerLeft": [
+          296,
+          429
+        ],
+        "eyeInnerViewerLeft": [
+          368,
+          468
+        ],
+        "eyeInnerViewerRight": [
+          468,
+          444
+        ],
+        "eyeOuterViewerRight": [
+          620,
+          409
+        ],
+        "noseTip": [
+          346,
+          483
+        ],
+        "upperLip": [
+          405,
+          577
+        ],
+        "chin": [
+          387,
+          700
+        ]
+      }
+    },
+    {
+      "id": "view-right-up",
+      "label": "画面右转＋抬头",
+      "group": "up",
+      "src": "./assets/short-hair-v1/view-right-up.png",
+      "width": 1122,
+      "height": 1402,
+      "approved": true,
+      "notes": [
+        "本角度的静态画稿已获用户确认；表情、视线和连续转头仍待单独验证。",
+        "角度是作画目标而非实测；请检查眼鼻口关系与下颌轮廓。",
+        "未登记被刘海遮住的鼻根及未明确画出的人中沟。"
+      ],
+      "landmarks": {
+        "eyeOuterViewerLeft": [
+          470,
+          436
+        ],
+        "eyeInnerViewerLeft": [
+          615,
+          471
+        ],
+        "eyeInnerViewerRight": [
+          728,
+          456
+        ],
+        "eyeOuterViewerRight": [
+          810,
+          412
+        ],
+        "noseTip": [
+          734,
+          508
+        ],
+        "upperLip": [
+          690,
+          590
+        ],
+        "chin": [
+          708,
+          698
+        ]
+      }
+    },
+    {
+      "id": "view-left-down",
+      "label": "画面左转＋低头",
+      "group": "down",
+      "src": "./assets/short-hair-v1/view-left-down.png",
+      "width": 1122,
+      "height": 1402,
+      "approved": true,
+      "notes": [
+        "本角度的静态画稿已获用户确认；表情、视线和连续转头仍待单独验证。",
+        "角度是作画目标而非实测；请检查眼鼻口关系与下颌轮廓。",
+        "未登记被刘海遮住的鼻根及未明确画出的人中沟。"
+      ],
+      "landmarks": {
+        "eyeOuterViewerLeft": [
+          279,
+          547
+        ],
+        "eyeInnerViewerLeft": [
+          370,
+          585
+        ],
+        "eyeInnerViewerRight": [
+          468,
+          563
+        ],
+        "eyeOuterViewerRight": [
+          622,
+          527
+        ],
+        "noseTip": [
+          383,
+          660
+        ],
+        "upperLip": [
+          454,
+          710
+        ],
+        "chin": [
+          472,
+          791
+        ]
+      }
+    },
+    {
+      "id": "view-right-down",
+      "label": "画面右转＋低头",
+      "group": "down",
+      "src": "./assets/short-hair-v1/view-right-down.png",
+      "width": 1122,
+      "height": 1402,
+      "approved": true,
+      "notes": [
+        "本角度的静态画稿已获用户确认；表情、视线和连续转头仍待单独验证。",
+        "角度是作画目标而非实测；请检查眼鼻口关系与下颌轮廓。",
+        "未登记被刘海遮住的鼻根及未明确画出的人中沟。",
+        "本稿较其他稿的肩领位置略有变化；已获静态确认；接入姿态切换前仍须锁定躯干。"
+      ],
+      "landmarks": {
+        "eyeOuterViewerLeft": [
+          518,
+          506
+        ],
+        "eyeInnerViewerLeft": [
+          664,
+          541
+        ],
+        "eyeInnerViewerRight": [
+          754,
+          562
+        ],
+        "eyeOuterViewerRight": [
+          845,
+          515
+        ],
+        "noseTip": [
+          744,
+          637
+        ],
+        "upperLip": [
+          673,
+          684
+        ],
+        "chin": [
+          651,
+          757
+        ]
+      }
+    }
+  ]
+}

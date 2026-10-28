@@ -1,0 +1,121 @@
+{
+  "schema": "side-brow-validation-v1",
+  "date": "2026-10-26",
+  "version": "0.13.1-review.8",
+  "status": "internal-checks-passed; candidate-not-user-approved",
+  "sources": {
+    "newFinalPaintings": 6,
+    "newCrops": 12,
+    "totalSources": 24,
+    "sha256Verified": true,
+    "sourcePngFilesUnchanged": true,
+    "poses": 2,
+    "states": [
+      "innerUp",
+      "outerUp",
+      "down"
+    ]
+  },
+  "automated": {
+    "syntax": "npm run check passed",
+    "command": "npm test",
+    "tests": 434,
+    "pass": 434,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "log": "../../../TEST-RESULTS.txt"
+  },
+  "pixelComparison": {
+    "cases": 98,
+    "neutralOrOriginalIdentityCases": 8,
+    "maxChangedProtectedPixels": {
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    "evidence": "pixel-check.json",
+    "scope": "Compared with approved side-mouth version using identical eye, mouth and gaze inputs. Eyes and selected coarse/fine hair protection use registration polygons; lowerFace is y>=555. Zero selected-region differences does not mean every hair pixel is unchanged."
+  },
+  "browser": {
+    "supportedChannels": 22,
+    "presetsPerPose": 34,
+    "feedbackItems": 68,
+    "feedbackStatus": "All undecided; QA notes removed",
+    "variants": [
+      "brows",
+      "mouth",
+      "gaze",
+      "approved"
+    ],
+    "checked": [
+      "Independent left/right outerUp inputs",
+      "Conflict priority down > innerUp > outerUp combined with half blink, shiftRight and gaze",
+      "Old three variants ignore unsupported brow channels with explanation",
+      "Rapid variant switching resolves to the latest selection",
+      "12-second brow demo and stop on group switch",
+      "Pose and variant feedback isolation",
+      "JSON visible/target state in preview and original modes",
+      "Face and full-canvas PNG export"
+    ],
+    "consoleWarnings": 0,
+    "consoleErrors": 0,
+    "cameraEnabled": false,
+    "inputEvidence": "browser-input-checks.json",
+    "jsonEvidence": [
+      "feedback-export.json",
+      "original-export.json"
+    ],
+    "pngEvidence": [
+      "preview-export.png",
+      "full-preview-export.png"
+    ],
+    "preview": "../../../../side-brow-review-preview.png",
+    "comparisons": "../../../../side-brow-comparisons.png"
+  },
+  "visual": {
+    "review": "visual-review.txt",
+    "junctionBefore": "junctions-before.png",
+    "junctionAfter": "junctions-after.png",
+    "result": "No blocking issue found in internal review; eyebrow candidates still await user judgement",
+    "repair": "Two fixed native-coordinate exclusions below the brow stroke union, shared across three states of each right-pose brow, with 1.5 px feather. Approved fine-hair cores retained; no source edit or runtime deformation."
+  },
+  "limitations": [
+    "Two fixed side poses only. Every new brow state has one painting per pose; no graded strength or in-between drawings.",
+    "The two eyebrows are independently cropped from each pose-specific bilateral painting, enabling asymmetric combinations without mirroring.",
+    "Each eyebrow selects one state with priority down > innerUp > outerUp. Simultaneous inner and outer raising does not create a combined painting.",
+    "The approved style includes faint brow visibility through some thin bangs. Foreground hair is not an independently animated layer.",
+    "Full source portraits are generated; only registered local brow patches are used by the renderer.",
+    "At 4.5x nearest-neighbor inspection, the far outerUp fine-hair upper segment retains a slight line-width/color difference. The fixed exclusions restore the lower junction cores, not the entire original hair strand."
+  ],
+  "hashes": {
+    "manifest.json": "dfdeacfdb08db9ddaf558860d37535fbfe9ceaefe37cf97af7ab732e664435aa",
+    "provenance.json": "31685fd7a4f813d36545724d24c04146682ef1e406a88ad004264a30efaa6884",
+    "validation/registration.json": "e963849ca904cd0f9210ac2b22695c4fc312333d692b3ad555a5b4457da7c625",
+    "../../side-brow-model.js": "14688fd60a17c963e40c5cd7cf24dbeafb3da052cf5c2341b83440679cca9c18",
+    "../../side-brow-exclusion.js": "85ab0b404736b405bccd65e6a8e34db5a50c41de54b426defeeff41356ac78e6",
+    "../../side-expression-renderer.js": "9eb4f7c9b77318552b398050fcbd15dd0f95d1782d932d68dccc585f08b0d8b0",
+    "../../side-expression-review.js": "1c4e08569dcac43cc036101d1930a217d39e6b36fb8d6a3ce422a12891741b8f",
+    "../../side-expression-review.html": "a94893004e1673cb5d376736e2428a4886656a48898aed663c170c8fccf3f036",
+    "../../side-expression-review.css": "14c1c21f4f7856477ee29480c5e984d830ddf7253b30347d16cc81fdad1afca3",
+    "../../side-brow-diagnostics.js": "febf437d1627d484b128aa3e00b47868ab548b028e8bc56bbf1e953822b60043",
+    "../../side-brow-assets.test.mjs": "bb7cfa538dc70c370393fc84a29d523bc6315f7b5e24815649612564df08d2a1",
+    "../../TEST-RESULTS.txt": "54479e8ec8bb0a5e5edcaaa3d26ca48d311d0d42238c660be35c4a1ac4d15ab2"
+  },
+  "evidenceHashes": {
+    "pixel-check.json": "543a96df3edaa75f03ce9afc5de8a8fc3171622d85e9505db69aaad6da381b19",
+    "browser-input-checks.json": "502f8a8a51db922751a653e6e5a240ed33f67d2d9b1cebe67b2f68c15d668608",
+    "feedback-export.json": "74e73bc7dd62d824a10ef7e646c9ecae5b30719883807a7b8ee13e2024b89346",
+    "original-export.json": "d5baa5af8b86a90304c061698a45a55b05c45f5b7efc4e7f0718831ceae05f65",
+    "preview-export.png": "d1b8a5c6fc96d3557943bf4e0bab3a06573c165785938cef4e43742225c32d71",
+    "full-preview-export.png": "6d636f31b42452ebc660ce74f9fe0042e707e0150183020b06bcb5fce2380504",
+    "junction-proposal.json": "b3fffe49dd398ed610121b43aa04781832f3721f4c3e03c18efba05bc1cb2530",
+    "junctions-before.png": "d2bbe929d9c188d575be9f0066dc3976e46f7f6d23ea430f13223b94060a1983",
+    "junctions-after.png": "39460cf9afb26c1718e662fd49e6f1d71d1f4660f7862d9e85d04a4910604ec4",
+    "left-brow-detail.png": "c6bd04dd50c55c0175f8052569d3459ca671f9437239b73f053d7765f5d7fadd",
+    "right-brow-detail.png": "dd5b60691f1817784cfc26934a440ac93f66e147e5177b7ea2538a73011d5659",
+    "registration.json": "e963849ca904cd0f9210ac2b22695c4fc312333d692b3ad555a5b4457da7c625",
+    "visual-review.txt": "8ac41506ab1b2c5911274509eb6a87db5083f614c2b045f44e40d420bd8b0313"
+  }
+}

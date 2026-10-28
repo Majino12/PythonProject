@@ -1,0 +1,1886 @@
+{
+  "schema": "pitch-expression-registration-proposal-v1",
+  "status": "internally-verified-candidate; user judgement pending",
+  "canvas": [
+    1122,
+    1402
+  ],
+  "method": "Direct view_image inspection of unchanged source PNGs and read-only source pixel measurements. Eyes use native one-to-one coordinates, with per-pose fixed clipping. Mouth source crops are translated only by the measured upper-lip delta, with equal size; no dynamic deformation.",
+  "sourceHashes": {
+    "view-left-down-closed-wide": "28f9db5ec0d0e96ae6f4ffcca612399b3470c895c3a99d597e7d4ac4acd6d40e",
+    "view-left-down-half-small": "fd2f28ad951ab56ad311f1badb61a359aad61b6e3fd5e7b5513316c65fc1a477",
+    "view-left-up-closed-wide": "a88279c58a30476f67e89f4fb275b286da33c070ce57adf10c1cb8868b9cbcfb",
+    "view-left-up-half-small": "d9dc3086a16deee386d7fa767f53d9784ce153b5f78201710e7cf9ab2c580f83",
+    "view-right-up-closed-wide": "3c3a7114b6febb025f1a1bb1ddc4ea27ee5007177d208ba75c7060479a9c835e",
+    "view-right-up-half-small": "930f48e4715527b3c4ca13fff1fea2220d5f2b316e3befe157ce18609e666606"
+  },
+  "poses": {
+    "view-left-up": {
+      "label": "画面左斜上 · 角色右转抬头",
+      "directionNote": "画面右眼是角色左眼（近眼），画面左眼是角色右眼（远眼）。保持原画斜向眼轴与鼻口中线。",
+      "reference": "view-left-up-neutral",
+      "faceView": [
+        240,
+        300,
+        630,
+        460
+      ],
+      "mouthReference": [
+        405,
+        574
+      ],
+      "detailViews": {
+        "eyes": [
+          272,
+          336,
+          382,
+          164
+        ],
+        "mouth": [
+          330,
+          538,
+          160,
+          130
+        ]
+      },
+      "patches": {
+        "eyeLeft": {
+          "half": {
+            "source": "view-left-up-half-small",
+            "rect": [
+              451,
+              365,
+              193,
+              110
+            ],
+            "destination": [
+              451,
+              365,
+              193,
+              110
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                464,
+                384
+              ],
+              [
+                488,
+                369
+              ],
+              [
+                523,
+                365
+              ],
+              [
+                559,
+                366
+              ],
+              [
+                592,
+                378
+              ],
+              [
+                619,
+                392
+              ],
+              [
+                638,
+                403
+              ],
+              [
+                634,
+                430
+              ],
+              [
+                619,
+                454
+              ],
+              [
+                597,
+                470
+              ],
+              [
+                548,
+                474
+              ],
+              [
+                496,
+                468
+              ],
+              [
+                470,
+                456
+              ],
+              [
+                452,
+                437
+              ],
+              [
+                451,
+                410
+              ]
+            ]
+          },
+          "closed": {
+            "source": "view-left-up-closed-wide",
+            "rect": [
+              451,
+              365,
+              193,
+              110
+            ],
+            "destination": [
+              451,
+              365,
+              193,
+              110
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                464,
+                384
+              ],
+              [
+                488,
+                369
+              ],
+              [
+                523,
+                365
+              ],
+              [
+                559,
+                366
+              ],
+              [
+                592,
+                378
+              ],
+              [
+                619,
+                392
+              ],
+              [
+                638,
+                403
+              ],
+              [
+                634,
+                430
+              ],
+              [
+                619,
+                454
+              ],
+              [
+                597,
+                470
+              ],
+              [
+                548,
+                474
+              ],
+              [
+                496,
+                468
+              ],
+              [
+                470,
+                456
+              ],
+              [
+                452,
+                437
+              ],
+              [
+                451,
+                410
+              ]
+            ]
+          }
+        },
+        "eyeRight": {
+          "half": {
+            "source": "view-left-up-half-small",
+            "rect": [
+              281,
+              391,
+              115,
+              95
+            ],
+            "destination": [
+              281,
+              391,
+              115,
+              95
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                299,
+                394
+              ],
+              [
+                366,
+                394
+              ],
+              [
+                377,
+                414
+              ],
+              [
+                381,
+                438
+              ],
+              [
+                378,
+                461
+              ],
+              [
+                367,
+                475
+              ],
+              [
+                348,
+                480
+              ],
+              [
+                325,
+                480
+              ],
+              [
+                306,
+                468
+              ],
+              [
+                282,
+                442
+              ],
+              [
+                282,
+                418
+              ]
+            ]
+          },
+          "closed": {
+            "source": "view-left-up-closed-wide",
+            "rect": [
+              281,
+              391,
+              115,
+              95
+            ],
+            "destination": [
+              281,
+              391,
+              115,
+              95
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                299,
+                394
+              ],
+              [
+                366,
+                394
+              ],
+              [
+                377,
+                414
+              ],
+              [
+                381,
+                438
+              ],
+              [
+                378,
+                461
+              ],
+              [
+                367,
+                475
+              ],
+              [
+                348,
+                480
+              ],
+              [
+                325,
+                480
+              ],
+              [
+                306,
+                468
+              ],
+              [
+                282,
+                442
+              ],
+              [
+                282,
+                418
+              ]
+            ]
+          }
+        },
+        "mouth": {
+          "openSmall": {
+            "source": "view-left-up-half-small",
+            "rect": [
+              342,
+              548,
+              132,
+              100
+            ],
+            "destination": [
+              342,
+              552,
+              132,
+              100
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                347,
+                552
+              ],
+              [
+                474,
+                552
+              ],
+              [
+                474,
+                636
+              ],
+              [
+                454,
+                651
+              ],
+              [
+                379,
+                651
+              ],
+              [
+                360,
+                630
+              ],
+              [
+                350,
+                603
+              ],
+              [
+                342,
+                580
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                405,
+                570
+              ],
+              "destination": [
+                405,
+                574
+              ]
+            }
+          },
+          "openWide": {
+            "source": "view-left-up-closed-wide",
+            "rect": [
+              342,
+              537,
+              132,
+              100
+            ],
+            "destination": [
+              342,
+              552,
+              132,
+              100
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                347,
+                552
+              ],
+              [
+                474,
+                552
+              ],
+              [
+                474,
+                636
+              ],
+              [
+                454,
+                651
+              ],
+              [
+                379,
+                651
+              ],
+              [
+                360,
+                630
+              ],
+              [
+                350,
+                603
+              ],
+              [
+                342,
+                580
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                405,
+                559
+              ],
+              "destination": [
+                405,
+                574
+              ]
+            }
+          }
+        }
+      },
+      "protection": {
+        "nose": [
+          [
+            [
+              343,
+              485
+            ],
+            [
+              355,
+              486
+            ],
+            [
+              366,
+              522
+            ],
+            [
+              356,
+              527
+            ],
+            [
+              345,
+              503
+            ]
+          ],
+          [
+            [
+              366,
+              502
+            ],
+            [
+              383,
+              503
+            ],
+            [
+              383,
+              515
+            ],
+            [
+              366,
+              514
+            ]
+          ]
+        ],
+        "chin": [
+          [
+            [
+              368,
+              682
+            ],
+            [
+              392,
+              684
+            ],
+            [
+              428,
+              674
+            ],
+            [
+              441,
+              684
+            ],
+            [
+              398,
+              706
+            ],
+            [
+              374,
+              706
+            ]
+          ]
+        ],
+        "hair": [
+          [
+            [
+              371,
+              300
+            ],
+            [
+              407,
+              300
+            ],
+            [
+              427,
+              359
+            ],
+            [
+              407,
+              403
+            ],
+            [
+              386,
+              419
+            ],
+            [
+              375,
+              384
+            ]
+          ],
+          [
+            [
+              648,
+              366
+            ],
+            [
+              683,
+              389
+            ],
+            [
+              669,
+              470
+            ],
+            [
+              623,
+              520
+            ],
+            [
+              610,
+              509
+            ],
+            [
+              636,
+              463
+            ]
+          ]
+        ],
+        "brows": [
+          [
+            [
+              455,
+              348
+            ],
+            [
+              486,
+              342
+            ],
+            [
+              535,
+              339
+            ],
+            [
+              575,
+              343
+            ],
+            [
+              603,
+              351
+            ],
+            [
+              602,
+              360
+            ],
+            [
+              574,
+              352
+            ],
+            [
+              534,
+              348
+            ],
+            [
+              485,
+              352
+            ],
+            [
+              458,
+              361
+            ]
+          ],
+          [
+            [
+              312,
+              370
+            ],
+            [
+              337,
+              368
+            ],
+            [
+              362,
+              372
+            ],
+            [
+              368,
+              383
+            ],
+            [
+              339,
+              378
+            ],
+            [
+              314,
+              380
+            ]
+          ]
+        ]
+      },
+      "measurements": {
+        "actualNeutralUpperLip": [
+          405,
+          574
+        ],
+        "historicalManualUpperLip": [
+          405,
+          577
+        ],
+        "sourceUpperLip": {
+          "openSmall": [
+            405,
+            570
+          ],
+          "openWide": [
+            405,
+            559
+          ]
+        },
+        "registrationDY": {
+          "openSmall": 4,
+          "openWide": 15
+        },
+        "notes": "近眼与远眼不共享 y。上唇以中央可见线为锚点；历史静态估读不改。斜上闭眼为温和笑意弧线。"
+      }
+    },
+    "view-right-up": {
+      "label": "画面右斜上 · 角色左转抬头",
+      "directionNote": "画面左眼是角色右眼（近眼），画面右眼是角色左眼（远眼）。两眼分别按本姿态原生位置裁切。",
+      "reference": "view-right-up-neutral",
+      "faceView": [
+        290,
+        300,
+        630,
+        460
+      ],
+      "mouthReference": [
+        690,
+        588
+      ],
+      "detailViews": {
+        "eyes": [
+          442,
+          350,
+          389,
+          158
+        ],
+        "mouth": [
+          608,
+          548,
+          170,
+          130
+        ]
+      },
+      "patches": {
+        "eyeLeft": {
+          "half": {
+            "source": "view-right-up-half-small",
+            "rect": [
+              708,
+              382,
+              111,
+              110
+            ],
+            "destination": [
+              708,
+              382,
+              111,
+              110
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                718,
+                386
+              ],
+              [
+                798,
+                386
+              ],
+              [
+                819,
+                407
+              ],
+              [
+                815,
+                445
+              ],
+              [
+                806,
+                475
+              ],
+              [
+                786,
+                489
+              ],
+              [
+                742,
+                489
+              ],
+              [
+                713,
+                470
+              ],
+              [
+                708,
+                432
+              ]
+            ]
+          },
+          "closed": {
+            "source": "view-right-up-closed-wide",
+            "rect": [
+              708,
+              382,
+              111,
+              110
+            ],
+            "destination": [
+              708,
+              382,
+              111,
+              110
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                718,
+                386
+              ],
+              [
+                798,
+                386
+              ],
+              [
+                819,
+                407
+              ],
+              [
+                815,
+                445
+              ],
+              [
+                806,
+                475
+              ],
+              [
+                786,
+                489
+              ],
+              [
+                742,
+                489
+              ],
+              [
+                713,
+                470
+              ],
+              [
+                708,
+                432
+              ]
+            ]
+          }
+        },
+        "eyeRight": {
+          "half": {
+            "source": "view-right-up-half-small",
+            "rect": [
+              449,
+              389,
+              186,
+              115
+            ],
+            "destination": [
+              449,
+              389,
+              186,
+              115
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                449,
+                389
+              ],
+              [
+                635,
+                389
+              ],
+              [
+                635,
+                504
+              ],
+              [
+                449,
+                504
+              ]
+            ]
+          },
+          "closed": {
+            "source": "view-right-up-closed-wide",
+            "rect": [
+              449,
+              389,
+              186,
+              115
+            ],
+            "destination": [
+              449,
+              389,
+              186,
+              115
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                449,
+                389
+              ],
+              [
+                635,
+                389
+              ],
+              [
+                635,
+                504
+              ],
+              [
+                449,
+                504
+              ]
+            ]
+          }
+        },
+        "mouth": {
+          "openSmall": {
+            "source": "view-right-up-half-small",
+            "rect": [
+              623,
+              559,
+              132,
+              88
+            ],
+            "destination": [
+              623,
+              565,
+              132,
+              88
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                623,
+                565
+              ],
+              [
+                752,
+                565
+              ],
+              [
+                754,
+                610
+              ],
+              [
+                748,
+                636
+              ],
+              [
+                733,
+                653
+              ],
+              [
+                649,
+                653
+              ],
+              [
+                623,
+                635
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                690,
+                582
+              ],
+              "destination": [
+                690,
+                588
+              ]
+            }
+          },
+          "openWide": {
+            "source": "view-right-up-closed-wide",
+            "rect": [
+              623,
+              552,
+              132,
+              88
+            ],
+            "destination": [
+              623,
+              565,
+              132,
+              88
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                623,
+                565
+              ],
+              [
+                752,
+                565
+              ],
+              [
+                754,
+                610
+              ],
+              [
+                748,
+                636
+              ],
+              [
+                733,
+                653
+              ],
+              [
+                649,
+                653
+              ],
+              [
+                623,
+                635
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                690,
+                575
+              ],
+              "destination": [
+                690,
+                588
+              ]
+            }
+          }
+        }
+      },
+      "protection": {
+        "nose": [
+          [
+            [
+              724,
+              501
+            ],
+            [
+              738,
+              501
+            ],
+            [
+              739,
+              518
+            ],
+            [
+              730,
+              538
+            ],
+            [
+              720,
+              536
+            ]
+          ]
+        ],
+        "chin": [
+          [
+            [
+              668,
+              683
+            ],
+            [
+              700,
+              688
+            ],
+            [
+              722,
+              682
+            ],
+            [
+              728,
+              696
+            ],
+            [
+              710,
+              706
+            ],
+            [
+              681,
+              701
+            ]
+          ]
+        ],
+        "hair": [
+          [
+            [
+              641,
+              294
+            ],
+            [
+              689,
+              293
+            ],
+            [
+              704,
+              345
+            ],
+            [
+              691,
+              389
+            ],
+            [
+              671,
+              418
+            ],
+            [
+              650,
+              390
+            ]
+          ],
+          [
+            [
+              826,
+              397
+            ],
+            [
+              848,
+              410
+            ],
+            [
+              845,
+              488
+            ],
+            [
+              817,
+              530
+            ],
+            [
+              808,
+              516
+            ],
+            [
+              822,
+              480
+            ]
+          ]
+        ],
+        "brows": [
+          [
+            [
+              499,
+              368
+            ],
+            [
+              534,
+              361
+            ],
+            [
+              577,
+              361
+            ],
+            [
+              615,
+              367
+            ],
+            [
+              619,
+              378
+            ],
+            [
+              577,
+              372
+            ],
+            [
+              535,
+              373
+            ],
+            [
+              499,
+              380
+            ]
+          ],
+          [
+            [
+              721,
+              369
+            ],
+            [
+              742,
+              358
+            ],
+            [
+              774,
+              354
+            ],
+            [
+              790,
+              357
+            ],
+            [
+              792,
+              365
+            ],
+            [
+              774,
+              364
+            ],
+            [
+              746,
+              368
+            ],
+            [
+              722,
+              380
+            ]
+          ]
+        ]
+      },
+      "measurements": {
+        "actualNeutralUpperLip": [
+          690,
+          588
+        ],
+        "historicalManualUpperLip": [
+          690,
+          590
+        ],
+        "sourceUpperLip": {
+          "openSmall": [
+            690,
+            582
+          ],
+          "openWide": [
+            690,
+            575
+          ]
+        },
+        "registrationDY": {
+          "openSmall": 6,
+          "openWide": 13
+        },
+        "notes": "上唇只作固定纵向登记，不将源稿升高的嘴直接贴入。斜上闭眼为温和笑意弧线。"
+      }
+    },
+    "view-left-down": {
+      "label": "画面左斜下 · 角色右转低头",
+      "directionNote": "画面右眼是角色左眼（近眼），画面左眼是角色右眼（远眼）。原画低头眼裂与下视基线保留。",
+      "reference": "view-left-down-neutral",
+      "faceView": [
+        240,
+        390,
+        630,
+        460
+      ],
+      "mouthReference": [
+        454,
+        711
+      ],
+      "detailViews": {
+        "eyes": [
+          262,
+          468,
+          390,
+          161
+        ],
+        "mouth": [
+          384,
+          675,
+          151,
+          112
+        ]
+      },
+      "patches": {
+        "eyeLeft": {
+          "half": {
+            "source": "view-left-down-half-small",
+            "rect": [
+              450,
+              493,
+              194,
+              117
+            ],
+            "destination": [
+              450,
+              493,
+              194,
+              117
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                465,
+                515
+              ],
+              [
+                490,
+                503
+              ],
+              [
+                530,
+                493
+              ],
+              [
+                571,
+                493
+              ],
+              [
+                604,
+                502
+              ],
+              [
+                641,
+                510
+              ],
+              [
+                636,
+                553
+              ],
+              [
+                617,
+                585
+              ],
+              [
+                594,
+                605
+              ],
+              [
+                539,
+                609
+              ],
+              [
+                494,
+                598
+              ],
+              [
+                464,
+                581
+              ],
+              [
+                450,
+                552
+              ]
+            ]
+          },
+          "closed": {
+            "source": "view-left-down-closed-wide",
+            "rect": [
+              450,
+              493,
+              194,
+              117
+            ],
+            "destination": [
+              450,
+              493,
+              194,
+              117
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                465,
+                515
+              ],
+              [
+                490,
+                503
+              ],
+              [
+                530,
+                493
+              ],
+              [
+                571,
+                493
+              ],
+              [
+                604,
+                502
+              ],
+              [
+                641,
+                510
+              ],
+              [
+                636,
+                553
+              ],
+              [
+                617,
+                585
+              ],
+              [
+                594,
+                605
+              ],
+              [
+                539,
+                609
+              ],
+              [
+                494,
+                598
+              ],
+              [
+                464,
+                581
+              ],
+              [
+                450,
+                552
+              ]
+            ]
+          }
+        },
+        "eyeRight": {
+          "half": {
+            "source": "view-left-down-half-small",
+            "rect": [
+              267,
+              516,
+              132,
+              103
+            ],
+            "destination": [
+              267,
+              516,
+              132,
+              103
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                275,
+                521
+              ],
+              [
+                318,
+                516
+              ],
+              [
+                347,
+                525
+              ],
+              [
+                369,
+                546
+              ],
+              [
+                378,
+                571
+              ],
+              [
+                378,
+                594
+              ],
+              [
+                358,
+                610
+              ],
+              [
+                327,
+                610
+              ],
+              [
+                303,
+                594
+              ],
+              [
+                286,
+                572
+              ],
+              [
+                267,
+                550
+              ]
+            ]
+          },
+          "closed": {
+            "source": "view-left-down-closed-wide",
+            "rect": [
+              267,
+              516,
+              132,
+              103
+            ],
+            "destination": [
+              267,
+              516,
+              132,
+              103
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                275,
+                521
+              ],
+              [
+                318,
+                516
+              ],
+              [
+                347,
+                525
+              ],
+              [
+                369,
+                546
+              ],
+              [
+                378,
+                571
+              ],
+              [
+                378,
+                594
+              ],
+              [
+                358,
+                610
+              ],
+              [
+                327,
+                610
+              ],
+              [
+                303,
+                594
+              ],
+              [
+                286,
+                572
+              ],
+              [
+                267,
+                550
+              ]
+            ]
+          }
+        },
+        "mouth": {
+          "openSmall": {
+            "source": "view-left-down-half-small",
+            "rect": [
+              399,
+              685,
+              118,
+              78
+            ],
+            "destination": [
+              399,
+              690,
+              118,
+              78
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                408,
+                690
+              ],
+              [
+                517,
+                690
+              ],
+              [
+                517,
+                746
+              ],
+              [
+                497,
+                766
+              ],
+              [
+                446,
+                766
+              ],
+              [
+                425,
+                744
+              ],
+              [
+                407,
+                721
+              ],
+              [
+                399,
+                706
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                454,
+                706
+              ],
+              "destination": [
+                454,
+                711
+              ]
+            }
+          },
+          "openWide": {
+            "source": "view-left-down-closed-wide",
+            "rect": [
+              399,
+              673,
+              118,
+              78
+            ],
+            "destination": [
+              399,
+              690,
+              118,
+              78
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                408,
+                690
+              ],
+              [
+                517,
+                690
+              ],
+              [
+                517,
+                746
+              ],
+              [
+                497,
+                766
+              ],
+              [
+                446,
+                766
+              ],
+              [
+                425,
+                744
+              ],
+              [
+                407,
+                721
+              ],
+              [
+                399,
+                706
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                454,
+                694
+              ],
+              "destination": [
+                454,
+                711
+              ]
+            }
+          }
+        }
+      },
+      "protection": {
+        "nose": [
+          [
+            [
+              382,
+              644
+            ],
+            [
+              396,
+              643
+            ],
+            [
+              393,
+              656
+            ],
+            [
+              408,
+              676
+            ],
+            [
+              397,
+              681
+            ],
+            [
+              379,
+              665
+            ]
+          ],
+          [
+            [
+              408,
+              661
+            ],
+            [
+              422,
+              662
+            ],
+            [
+              422,
+              673
+            ],
+            [
+              408,
+              671
+            ]
+          ]
+        ],
+        "chin": [
+          [
+            [
+              447,
+              779
+            ],
+            [
+              470,
+              781
+            ],
+            [
+              490,
+              775
+            ],
+            [
+              496,
+              787
+            ],
+            [
+              476,
+              797
+            ],
+            [
+              457,
+              794
+            ]
+          ]
+        ],
+        "hair": [
+          [
+            [
+              355,
+              420
+            ],
+            [
+              402,
+              419
+            ],
+            [
+              424,
+              480
+            ],
+            [
+              414,
+              525
+            ],
+            [
+              392,
+              552
+            ],
+            [
+              375,
+              522
+            ]
+          ],
+          [
+            [
+              651,
+              497
+            ],
+            [
+              687,
+              498
+            ],
+            [
+              674,
+              580
+            ],
+            [
+              632,
+              646
+            ],
+            [
+              614,
+              645
+            ],
+            [
+              643,
+              580
+            ]
+          ]
+        ],
+        "brows": [
+          [
+            [
+              447,
+              495
+            ],
+            [
+              485,
+              482
+            ],
+            [
+              530,
+              471
+            ],
+            [
+              577,
+              465
+            ],
+            [
+              593,
+              471
+            ],
+            [
+              574,
+              477
+            ],
+            [
+              533,
+              483
+            ],
+            [
+              490,
+              493
+            ],
+            [
+              449,
+              507
+            ]
+          ],
+          [
+            [
+              283,
+              490
+            ],
+            [
+              308,
+              491
+            ],
+            [
+              335,
+              498
+            ],
+            [
+              354,
+              506
+            ],
+            [
+              357,
+              514
+            ],
+            [
+              332,
+              507
+            ],
+            [
+              308,
+              501
+            ],
+            [
+              282,
+              500
+            ]
+          ]
+        ]
+      },
+      "measurements": {
+        "actualNeutralUpperLip": [
+          454,
+          711
+        ],
+        "historicalManualUpperLip": [
+          454,
+          710
+        ],
+        "sourceUpperLip": {
+          "openSmall": [
+            454,
+            706
+          ],
+          "openWide": [
+            454,
+            694
+          ]
+        },
+        "registrationDY": {
+          "openSmall": 5,
+          "openWide": 17
+        },
+        "notes": "中性嘴实际中央线 y=711。大张嘴落到约 y=752，嘴部遮罩在下巴边界以上收窄。闭眼较接近垂睑，不重定位中性下视虹膜。"
+      }
+    }
+  },
+  "limitations": [
+    "Two upward closed-eye sources depict gentle happy arcs; they are not claimed to be neutral physiological blinks.",
+    "Three fixed diagonal poses only, two expression paintings per pose; no intermediate frames, no continuous head rotation.",
+    "Eye crops may contain the source-painted thin bang strands crossing the eye; coarse foreground hair and brows are protected separately. Actual runtime composite inspection is required to detect local source-painting junction drift.",
+    "Current protection polygons are anatomical untouched-region checks, not proof of visual quality.",
+    "Original static review landmark estimates are retained unchanged; the new mouth references come from the visible neutral line measured in this batch."
+  ]
+}

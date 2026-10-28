@@ -1,0 +1,67 @@
+{
+  "createdAt": "2026-10-26",
+  "tool": "Built-in image_gen",
+  "status": "candidate",
+  "assets": [
+    {
+      "key": "left-eye-whites",
+      "file": "left-eye-whites.png",
+      "reference": "../short-hair-v1/view-left.png",
+      "generationId": "exec-947b31f4-6ac6-4ffb-a44c-3c85c286c2a0",
+      "prompt": "Use case: precise-object-edit.\nAsset type: angle-specific sclera clean plate for a layered 2D VTuber.\nInput Image 1 is the EDIT TARGET: approved three-quarter portrait facing VIEWER'S LEFT. Preserve its exact 1122 x 1402 canvas, every drawing position, pose, eye corners, head, nose, thin smile, hair strands, brows, clothes and background.\nChange ONLY the inner surfaces of BOTH open eyes: completely remove teal irises, pupils, colored rings and all white highlights and paint uninterrupted natural warm off-white sclera with subtle upper-eyelid shadow. Preserve original eyelids and eyelashes with their exact perspective and asymmetric widths/heights. Keep foreground bangs overlapping the eyes unchanged. No pupil ghosts, circular outlines, inner blue tint or added highlights. Do not reposition, enlarge, equalize or flatten the eyes. This intentional blank-eye drawing is a technical layer; everything outside the sclera must stay unchanged. No text, labels, watermark, symbols or panels."
+    },
+    {
+      "key": "left-irises",
+      "file": "left-irises-fill.png",
+      "reference": "../short-hair-v1/view-left.png",
+      "generationId": "exec-9f34be07-c436-43f6-8ed3-6593c1b88aa9",
+      "prompt": "Use case: precise-object-edit.\nAsset type: technical complete iris fill sprites on true transparency for 2D gaze compositing.\nInput Image 1 is the exact EDIT TARGET: two isolated painted teal iris-and-pupil sprites on a transparent 1122 x 1402 canvas.\nMake ONE targeted change only: remove EVERY white or near-white specular highlight / reflected light spot on both iris paintings, including the large white upper dot, all small white dots, and the bright white side wedges. Replace each small highlight area with smooth matching local teal iris pigment and the continuation of the surrounding iris texture. Retain the pale mint lower iris COLOR gradient, but no sharp white or off-white glints or catchlights at all. The original portrait's own catchlights will be overlaid separately by the renderer, so these sprites must have none.\nPreserve the exact original canvas, transparent alpha background, two sprite positions and silhouette boundaries, respective sizes and elliptical perspectives, dark outer iris edge, dark pupil positions and shapes, and existing non-highlight gradients/paint texture. Do not move, resize, recenter, redraw, enlarge or duplicate the irises. Do not change their shape or surrounding transparency. No sclera, eyelid, face, skin, hair, text, labels, marks or checkerboard pixels.",
+      "editTarget": "left-irises.png",
+      "purpose": "Complete iris edge/hidden arcs without highlights; only approved original core contributes catchlights."
+    },
+    {
+      "key": "right-eye-whites",
+      "file": "right-eye-whites.png",
+      "reference": "../short-hair-v1/view-right.png",
+      "generationId": "exec-a1177a86-e1ff-4b1a-8d8a-f490bfb4bb6b",
+      "prompt": "Use case: precise-object-edit.\nAsset type: angle-specific sclera clean plate for a layered 2D VTuber.\nInput Image 1 is the EDIT TARGET: approved three-quarter portrait facing VIEWER'S RIGHT. Preserve its exact 1122 x 1402 canvas, every drawing position, pose, eye corners, head, nose, thin smile, hair strands, brows, clothes and background.\nChange ONLY the inner surfaces of BOTH open eyes: completely remove teal irises, pupils, colored rings and all white highlights and paint uninterrupted natural warm off-white sclera with subtle upper-eyelid shadow. Preserve original eyelids and eyelashes with their exact perspective and asymmetric widths/heights. Keep foreground bangs overlapping the eyes unchanged. No pupil ghosts, circular outlines, inner blue tint or added highlights. Do not reposition, enlarge, equalize or flatten the eyes. This intentional blank-eye drawing is a technical layer; everything outside the sclera must stay unchanged. No text, labels, watermark, symbols or panels."
+    },
+    {
+      "key": "right-irises",
+      "file": "right-irises-fill.png",
+      "reference": "../short-hair-v1/view-right.png",
+      "generationId": "exec-dd4fecfb-af04-4220-a3cc-17ca18242056",
+      "prompt": "Use case: precise-object-edit.\nAsset type: technical complete iris fill sprites on true transparency for 2D gaze compositing.\nInput Image 1 is the exact EDIT TARGET: two isolated painted teal iris-and-pupil sprites on a transparent 1122 x 1402 canvas.\nMake ONE targeted change only: remove EVERY white or near-white specular highlight / reflected light spot on both iris paintings, including the large white upper dot, all small white dots, and the bright white side wedges. Replace each small highlight area with smooth matching local teal iris pigment and the continuation of the surrounding iris texture. Retain the pale mint lower iris COLOR gradient, but no sharp white or off-white glints or catchlights at all. The original portrait's own catchlights will be overlaid separately by the renderer, so these sprites must have none.\nPreserve the exact original canvas, transparent alpha background, two sprite positions and silhouette boundaries, respective sizes and elliptical perspectives, dark outer iris edge, dark pupil positions and shapes, and existing non-highlight gradients/paint texture. Do not move, resize, recenter, redraw, enlarge or duplicate the irises. Do not change their shape or surrounding transparency. No sclera, eyelid, face, skin, hair, text, labels, marks or checkerboard pixels.",
+      "editTarget": "right-irises.png",
+      "purpose": "Complete iris edge/hidden arcs without highlights; only approved original core contributes catchlights."
+    }
+  ],
+  "processing": "Source PNG bytes copied unchanged. Browser extracts complete transparent irises, overlays the corresponding approved open-iris interior, cleans old iris color inside the state-specific eye aperture, then translates one shared eyeball per eye. Registration scale is fixed and uniform; dynamic movement does not scale or warp.",
+  "notes": [
+    "Four separate new images: distinct sclera and complete irises for each approved side pose.",
+    "Generated sprite positions and sizes differ from requests; final registration was measured from saved PNGs. User approval of side expressions does not automatically cover new gaze layers.",
+    "First iris sprites retained as generation provenance but not consumed. Highlight-free edits are used to prevent duplicate specular points; source PNGs remain unmodified."
+  ],
+  "intermediateSources": [
+    {
+      "key": "left-irises",
+      "file": "left-irises.png",
+      "reference": "../short-hair-v1/view-left.png",
+      "generationId": "exec-c670aca8-6dcd-4c2a-8e31-3865c70f3605",
+      "prompt": "Use case: background-extraction.\nAsset type: TWO independent transparent complete iris-and-pupil sprites matching this exact side-angle 2D character, for gaze translation behind original lids.\nInput Image 1 is the EDIT TARGET. Preserve the exact 1122 x 1402 canvas. Remove all portrait content and leave ONLY the two teal iris/pupil paintings at their existing eye locations. Viewer-left is the FAR eye: iris centered approximately (371,509), about 48 pixels wide by 63 pixels high. Viewer-right is the NEAR eye: centered (558,490), about 66 pixels wide by 72 pixels high.\nReconstruct hidden upper and lower arcs as complete smooth vertically oval irises with delicate dark limbal edges, matching the source's own foreshortening, teal upper shade and pale mint lower region. Match each eye's individual pupil shape, gradient, small white catchlights and painted detail; do not mirror or duplicate one eye. No rotation, no recentering, no equalizing size. The near and far iris have distinct widths. Preserve original look direction and light source. Surround both sprites by real transparent alpha. NO eye white, eyelid, eyelash, skin, brow, face, hair, text, checkerboard pattern, labels or extra symbols. Two separate complete iris/pupil paintings only.",
+      "status": "not-used-by-renderer",
+      "reason": "New sprite highlights overlapped original core highlights; replaced by highlight-free fill."
+    },
+    {
+      "key": "right-irises",
+      "file": "right-irises.png",
+      "reference": "../short-hair-v1/view-right.png",
+      "generationId": "exec-3a6555a8-6802-4405-b009-2f45507db329",
+      "prompt": "Use case: background-extraction.\nAsset type: TWO independent transparent complete iris-and-pupil sprites matching this exact side-angle 2D character, for gaze translation behind original lids.\nInput Image 1 is the EDIT TARGET. Preserve the exact 1122 x 1402 canvas. Remove all portrait content and leave ONLY the two teal iris/pupil paintings at their existing eye locations. Viewer-left is the NEAR eye: iris centered approximately (558,504), about 62 pixels wide by 70 pixels high. Viewer-right is the FAR eye: centered (750,490), about 45 pixels wide by 65 pixels high.\nReconstruct hidden upper and lower arcs as complete smooth vertically oval irises with delicate dark limbal edges, matching the source's own foreshortening, teal upper shade and pale mint lower region. Match each eye's individual pupil shape, gradient, small white catchlights and painted detail; do not mirror or duplicate one eye. No rotation, no recentering, no equalizing size. The near and far iris have distinct widths. Preserve original look direction and light source. Surround both sprites by real transparent alpha. NO eye white, eyelid, eyelash, skin, brow, face, hair, text, checkerboard pattern, labels or extra symbols. Two separate complete iris/pupil paintings only.",
+      "status": "not-used-by-renderer",
+      "reason": "New sprite highlights overlapped original core highlights; replaced by highlight-free fill."
+    }
+  ],
+  "validation": "validation/checks.json",
+  "registration": "validation/registration-review.json"
+}

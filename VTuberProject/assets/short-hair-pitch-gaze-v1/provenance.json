@@ -1,0 +1,74 @@
+{
+  "tool": "Built-in image_gen",
+  "mode": "reference image editing; true-alpha complete iris fills",
+  "createdAt": "2026-10-26",
+  "assetId": "short-hair-pitch-gaze-v1",
+  "assets": [
+    {
+      "key": "view-left-up-eye-whites",
+      "file": "view-left-up-eye-whites.png",
+      "reference": "../short-hair-v1/view-left-up.png",
+      "generationId": "exec-6b8d783c-7ef2-4f7a-89dc-b8611781e391",
+      "prompt": "Use case: precise-object-edit. Asset type: pose-specific sclera clean plate for layered 2D gaze compositing. Input Image 1 is the EXACT EDIT TARGET: the approved anime portrait facing image left with the chin lifted. Preserve its exact 1122 x 1402 canvas, image framing, every drawing position and this specific tilted perspective. Change ONLY the inner visible white surfaces of BOTH open eyes: remove ALL teal/mint irises, pupils, limbal rings, colored fragments and catchlights, and fill those areas with uninterrupted natural warm off-white sclera. Match the existing sclera around them, including subtle gray shadow just beneath the upper lids. This is an intentional blank-eye technical layer. Preserve the original eyelid contours, eye corners, eyelashes, near/far asymmetry, foreground hair crossing the eyes, brows, face, nose, mouth, ears, neck, body, clothing and background EXACTLY. Do not reposition, enlarge, flatten, equalize or rotate the eyes. No pupil ghosts, iris outlines, blue tint, white specular dots or new makeup. No text, labels, symbols, border or panels.",
+      "transparentBackground": false,
+      "sha256": "0ef6530e253f232c44d6ea727e46c1ea4092713dfd38c4c325bbfadd046a18a1"
+    },
+    {
+      "key": "view-left-up-irises-fill",
+      "file": "view-left-up-irises-fill.png",
+      "reference": "../short-hair-v1/view-left-up.png",
+      "generationId": "exec-9a804bab-de6f-4e64-8f5f-4ae7a36d0f23",
+      "prompt": "Use case: background-extraction. Asset type: two separate complete iris fill sprites on TRUE TRANSPARENCY for layered 2D gaze. Input Image 1 is the exact reference/edit target: approved anime character facing image left with the chin lifted. Keep the same 1122 x 1402 canvas. Remove all portrait content and leave ONLY the TWO teal iris-and-pupil paintings, independently matching this image's near/far iris perspectives. Approximate source locations are viewer-left far iris around (350,445), about 42 by 60 px; viewer-right near iris around (520,421), about 58 by 72 px. Preserve their relative positions and their unequal foreshortened shapes; no mirroring or duplication. Reconstruct each hidden upper and lower iris arc into a complete smooth vertical oval with a fine dark limbal edge. Keep the original dark teal upper pigment, pale muted mint lower gradient and dark pupil shape/direction. CRITICAL: these are highlight-FREE fill layers. Do NOT include any white or off-white catchlight dots, specular spots, reflections or side wedges; the approved portrait's original iris core/highlights will be composited separately. Fill those glint locations with matching local iris pigment. Preserve iris texture but no luminous white spots. The entire background must be actual transparent alpha. No sclera, eyelids, eyelashes, skin, face, hair, text, guides, labels, border, checkerboard pixels or extra objects. Exactly two complete iris/pupil paintings only. Do not add drop shadows around them.",
+      "transparentBackground": true,
+      "sha256": "06835700c9820a1ce4ecb25f02e2fb27e02aa008244670d35a101759f4de1bec"
+    },
+    {
+      "key": "view-right-up-eye-whites",
+      "file": "view-right-up-eye-whites.png",
+      "reference": "../short-hair-v1/view-right-up.png",
+      "generationId": "exec-fa9468ed-bdba-410b-b4c8-691a63016878",
+      "prompt": "Use case: precise-object-edit. Asset type: pose-specific sclera clean plate for layered 2D gaze compositing. Input Image 1 is the EXACT EDIT TARGET: the approved anime portrait facing image right with the chin lifted. Preserve its exact 1122 x 1402 canvas, image framing, every drawing position and this specific tilted perspective. Change ONLY the inner visible white surfaces of BOTH open eyes: remove ALL teal/mint irises, pupils, limbal rings, colored fragments and catchlights, and fill those areas with uninterrupted natural warm off-white sclera. Match the existing sclera around them, including subtle gray shadow just beneath the upper lids. This is an intentional blank-eye technical layer. Preserve the original eyelid contours, eye corners, eyelashes, near/far asymmetry, foreground hair crossing the eyes, brows, face, nose, mouth, ears, neck, body, clothing and background EXACTLY. Do not reposition, enlarge, flatten, equalize or rotate the eyes. No pupil ghosts, iris outlines, blue tint, white specular dots or new makeup. No text, labels, symbols, border or panels.",
+      "transparentBackground": false,
+      "sha256": "dfc14bf9ce9afd7ed45a0bff7a02da8411c3650384c53ba4022b776a1de6441f"
+    },
+    {
+      "key": "view-right-up-irises-fill",
+      "file": "view-right-up-irises-fill.png",
+      "reference": "../short-hair-v1/view-right-up.png",
+      "generationId": "exec-9bf83e46-a928-47ce-978a-78682a498e91",
+      "prompt": "Use case: background-extraction. Asset type: two separate complete iris fill sprites on TRUE TRANSPARENCY for layered 2D gaze. Input Image 1 is the exact reference/edit target: approved anime character facing image right with the chin lifted. Keep the same 1122 x 1402 canvas. Remove all portrait content and leave ONLY the TWO teal iris-and-pupil paintings, independently matching this image's near/far iris perspectives. Approximate source locations are viewer-left near iris around (575,449), about 62 by 74 px; viewer-right far iris around (761,437), about 45 by 64 px. Preserve their relative positions and their unequal foreshortened shapes; no mirroring or duplication. Reconstruct each hidden upper and lower iris arc into a complete smooth vertical oval with a fine dark limbal edge. Keep the original dark teal upper pigment, pale muted mint lower gradient and dark pupil shape/direction. CRITICAL: these are highlight-FREE fill layers. Do NOT include any white or off-white catchlight dots, specular spots, reflections or side wedges; the approved portrait's original iris core/highlights will be composited separately. Fill those glint locations with matching local iris pigment. Preserve iris texture but no luminous white spots. The entire background must be actual transparent alpha. No sclera, eyelids, eyelashes, skin, face, hair, text, guides, labels, border, checkerboard pixels or extra objects. Exactly two complete iris/pupil paintings only. Do not add drop shadows around them.",
+      "transparentBackground": true,
+      "sha256": "e923ea91e408007ad9eb1633b3c6cab287780d32f2cb6e61810283275105968d"
+    },
+    {
+      "key": "view-left-down-eye-whites",
+      "file": "view-left-down-eye-whites.png",
+      "reference": "../short-hair-v1/view-left-down.png",
+      "generationId": "exec-e68bfd6f-3ab8-467c-8e9c-8a507ffc6855",
+      "prompt": "Use case: precise-object-edit. Asset type: pose-specific sclera clean plate for layered 2D gaze compositing. Input Image 1 is the EXACT EDIT TARGET: the approved anime portrait facing image left with the chin lowered and the original gentle downward gaze. Preserve its exact 1122 x 1402 canvas, image framing, every drawing position and this specific tilted perspective. Change ONLY the inner visible white surfaces of BOTH open eyes: remove ALL teal/mint irises, pupils, limbal rings, colored fragments and catchlights, and fill those areas with uninterrupted natural warm off-white sclera. Match the existing sclera around them, including subtle gray shadow just beneath the upper lids. This is an intentional blank-eye technical layer. Preserve the original eyelid contours, eye corners, eyelashes, near/far asymmetry, foreground hair crossing the eyes, brows, face, nose, mouth, ears, neck, body, clothing and background EXACTLY. Do not reposition, enlarge, flatten, equalize or rotate the eyes. No pupil ghosts, iris outlines, blue tint, white specular dots or new makeup. No text, labels, symbols, border or panels.",
+      "transparentBackground": false,
+      "sha256": "0716fba826f777516994274b2b8b01e3f171b86f727bb52e2a7d22acad461524"
+    },
+    {
+      "key": "view-left-down-irises-fill",
+      "file": "view-left-down-irises-fill.png",
+      "reference": "../short-hair-v1/view-left-down.png",
+      "generationId": "exec-4cb2e242-a427-411f-9bea-89fcd01a75b9",
+      "prompt": "Use case: background-extraction. Asset type: two separate complete iris fill sprites on TRUE TRANSPARENCY for layered 2D gaze. Input Image 1 is the exact reference/edit target: approved anime character facing image left with the chin lowered and the original gentle downward gaze. Keep the same 1122 x 1402 canvas. Remove all portrait content and leave ONLY the TWO teal iris-and-pupil paintings, independently matching this image's near/far iris perspectives. Approximate source locations are viewer-left far iris around (350,570), about 46 by 64 px; viewer-right near iris around (527,554), about 62 by 74 px. Preserve their relative positions and their unequal foreshortened shapes; no mirroring or duplication. Reconstruct each hidden upper and lower iris arc into a complete smooth vertical oval with a fine dark limbal edge. Keep the original dark teal upper pigment, pale muted mint lower gradient and dark pupil shape/direction. CRITICAL: these are highlight-FREE fill layers. Do NOT include any white or off-white catchlight dots, specular spots, reflections or side wedges; the approved portrait's original iris core/highlights will be composited separately. Fill those glint locations with matching local iris pigment. Preserve iris texture but no luminous white spots. The entire background must be actual transparent alpha. No sclera, eyelids, eyelashes, skin, face, hair, text, guides, labels, border, checkerboard pixels or extra objects. Exactly two complete iris/pupil paintings only. Do not add drop shadows around them.",
+      "transparentBackground": true,
+      "sha256": "ba5a3313c43062e1ac63a095b4b2e597093e2284468a702322e549a49781b6df"
+    }
+  ],
+  "preparation": "Generated PNGs copied byte-for-byte. Each iris uses one fixed uniform preparation scale; motion uses only bounded translation. Original approved iris interior and highlights are overlaid on the complete fill; open/half apertures stay pose-specific.",
+  "limitations": [
+    "三个已确认斜向基础姿态和九张源稿保持原样；新独立视线为候选，尚未获得用户视觉验收。",
+    "近眼、远眼各自登记完整虹膜及眼裂；补全虹膜固定等比准备，动态仅作受限平移，不伸缩或扭曲。",
+    "新候选在中心与非零视线使用同一合成路径；睁眼和半闭共用原睁眼虹膜内核。与已确认半闭源稿存在细微绘画差异，基础版保留供对照。",
+    "完全闭眼不绘制视线层；单眼眨眼时该眼独立隐藏虹膜。",
+    "左斜下沿用原画下视原点和较小的向下范围，没有强制拉回水平视线。",
+    "目前共四个基础表情通道与八个ARKit视线通道；俯仰眉毛、噘嘴、抿嘴和左右移嘴尚未接入。",
+    "仅左斜上、右斜上、左斜下三个固定姿态。右斜下尚未接入，不构成连续转头模型。",
+    "眼睛三档、张嘴三档仍由有限画稿表现；图像生成素材不等同人工逐帧绘制。",
+    "新虹膜补全后的下半轮廓比已确认基础稿略饱满（左斜上近眼较明显），边缘纹理也略有差异；零视线不宣称与原画逐像素或外观完全一致。"
+  ]
+}

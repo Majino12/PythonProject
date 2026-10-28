@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'self'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+  <title>短发角色 · 俯仰眉毛小样</title>
+  <link rel="stylesheet" href="./expression-review.css" />
+  <link rel="stylesheet" href="./pitch-expression-review.css" />
+</head>
+<body>
+  <main>
+    <header class="page-header">
+      <div>
+        <nav class="review-links" aria-label="其他验收页"><a class="back-link" href="./short-hair-studio.html">← 角色工作台</a><a class="back-link" href="./side-expression-review.html">已确认侧转表情</a><a class="back-link" href="./expression-review.html">正面表情</a><a class="back-link" href="./character-review.html">静态原画</a></nav>
+        <p class="eyebrow">CHARACTER STUDY · 11 · review.12</p>
+        <h1>抬头与低头时的眉毛</h1>
+        <p class="intro">三个固定姿态的嘴型与视线已获确认。这一步加入眉头抬起、眉尾抬起与压眉，观察眉形、刘海遮挡和组合表情。</p>
+      </div>
+      <div class="phase"><span class="phase-dot"></span><strong id="variantStatus">俯仰眉毛小样</strong><span id="scopeSummary">嘴型与视线已确认 · 新增眉毛待验收</span></div>
+    </header>
+
+    <div class="variant-bar asset-variants" role="group" aria-label="素材版本"><button type="button" data-variant="pitchBrows" aria-pressed="true">俯仰眉毛小样<span>新增三种眉形与组合</span></button><button type="button" data-variant="pitchMouth" aria-pressed="false">已确认俯仰嘴型<span>保留原画眉毛</span></button><button type="button" data-variant="pitchGaze" aria-pressed="false">已确认俯仰视线<span>基础表情与独立视线</span></button><button type="button" data-variant="pitch" aria-pressed="false">已确认俯仰基础表情<span>保留原画视线</span></button></div>
+    <div id="poseButtons" class="variant-bar pose-bar" role="group" aria-label="俯仰姿态"></div>
+    <div id="loadStatus" class="load-status" role="status" aria-live="polite">正在载入三个姿态的独立眉毛…</div>
+    <button id="retryLoad" class="retry-load" type="button" hidden>重新载入画稿</button>
+
+    <fieldset id="workspaceControls" class="workspace" disabled>
+      <legend class="sr-only">俯仰表情预览与验收</legend>
+      <div class="workspace-toolbar">
+        <div class="segments" role="group" aria-label="预览范围"><button type="button" data-view="face" aria-pressed="true">脸部</button><button type="button" data-view="full" aria-pressed="false">全幅</button></div>
+        <div class="display-toggles"><label><input id="guidesToggle" type="checkbox" />辅助线</label><label><input id="originalToggle" type="checkbox" />看原画</label></div>
+      </div>
+
+      <div class="review-layout">
+        <section class="canvas-panel" aria-labelledby="previewHeading">
+          <div class="panel-heading"><div><span id="poseCaption" class="panel-kicker">PITCH EXPRESSION PREVIEW</span><h2 id="previewHeading">中性</h2></div><span id="previewBadge" class="badge">静止预览</span></div>
+          <div class="canvas-stage"><canvas id="expressionCanvas" width="720" height="720" aria-label="当前俯仰表情预览" hidden></canvas><p id="canvasPlaceholder">等待画稿载入</p></div>
+          <p id="guidesCaption" class="guides-caption" hidden>细线：当前姿态的固定上唇参考位置 · 方框：局部画稿区域</p>
+          <div class="demo-row"><button id="demoToggle" type="button" aria-pressed="false">播放眉毛演示</button><p id="motionStatus" role="status" aria-live="polite">12 秒眉毛观察；演示时姿态固定、视线居中。</p></div>
+        </section>
+
+        <aside class="side-panel">
+          <section class="reference-card" aria-labelledby="referenceHeading">
+            <div class="reference-image"><canvas id="referenceCanvas" width="224" height="280" aria-label="当前姿态的已确认原画" hidden></canvas></div>
+            <div><span class="panel-kicker">APPROVED REFERENCE</span><h2 id="referenceHeading">已确认静态原画</h2><p>对照眉毛走向、眼睛透视与刘海遮挡。</p><span class="badge approved">静态设计已确认</span></div>
+          </section>
+          <section class="presets-panel" aria-labelledby="presetsHeading">
+            <h2 id="presetsHeading">选择动作</h2>
+            <div id="presetGroups" class="group-tabs pitch-groups has-mouth has-brows" role="group" aria-label="动作分组"><button id="browGroupButton" type="button" data-group="brows" aria-pressed="true">眉毛</button><button id="mouthGroupButton" type="button" data-group="mouth" aria-pressed="false">嘴型</button><button type="button" data-group="expression" aria-pressed="false">表情</button><button type="button" data-group="gaze" aria-pressed="false">视线与组合</button></div>
+            <div id="presetButtons" class="preset-buttons" role="group" aria-label="表情预设"></div>
+            <p id="browDirectionHint" class="direction-note">左右眉按角色自身区分；每侧独立选择眉头抬、眉尾抬或压眉画稿。</p>
+            <p id="mouthDirectionHint" class="direction-note" hidden>移嘴左右按角色自身区分；噘嘴、抿嘴和移嘴各选一张独立画稿。</p>
+            <p id="gazeDirectionHint" class="direction-note" hidden>视线预设的左、右指画面方向；头部保持当前俯仰姿态。</p>
+            <p id="directionNote" class="direction-note">左右眼按角色自身区分。</p>
+          </section>
+          <section class="feedback-panel" aria-labelledby="feedbackHeading">
+            <h2 id="feedbackHeading">中性 · 可选反馈</h2><p id="feedbackHint" class="feedback-hint">各姿态分别保存，默认未判断。</p>
+            <fieldset id="feedbackControls" class="feedback-controls">
+              <legend class="sr-only">当前姿态与预设评价</legend>
+              <div class="status-options"><label><input type="radio" name="feedbackStatus" value="pass" /><span>通过</span></label><label><input type="radio" name="feedbackStatus" value="revise" /><span>需修改</span></label><label><input type="radio" name="feedbackStatus" value="undecided" checked /><span>未判断</span></label></div>
+              <label class="note-label" for="feedbackNote">备注</label><textarea id="feedbackNote" maxlength="4000" rows="3" placeholder="例如：眉形幅度、左右动作或刘海遮挡需要调整…"></textarea>
+            </fieldset>
+            <p id="saveStatus" class="save-status" role="status" aria-live="polite">尚未记录评价。</p>
+          </section>
+        </aside>
+      </div>
+
+      <section class="export-row" aria-label="导出预览与反馈"><p id="reviewProgress">各姿态的评价保留在本浏览器。</p><div><button id="exportFeedback" type="button">导出反馈 JSON ↗</button><button id="exportPng" type="button">保存当前 PNG ↗</button></div></section>
+      <details id="sequenceReview" class="detail-panel sequence-panel"><summary>查看当前姿态的画稿顺序 <span id="sequenceScope">眼睛 · 张嘴 · 嘴型 · 眉毛并排</span></summary><p class="detail-intro">保持相同的局部范围与显示倍率，点击画稿可选择对应预设。</p><div id="sequenceRows"></div></details>
+      <details id="advancedControls" class="detail-panel">
+        <summary>高级控制 <span id="channelCount">22 个 ARKit 通道 · JSON 导入</span></summary>
+        <p id="channelHelp" class="detail-intro">眉头抬起同时作用于双眉；眉尾抬起与压眉可按角色左右独立选择。</p>
+        <p id="stateReadout" class="state-readout">载入后显示当前表情。</p><div id="channelSliders" class="channel-sliders"></div>
+        <div class="json-import"><label for="channelJson">导入通道 JSON <span>也可粘贴本页导出的反馈 JSON。</span></label><textarea id="channelJson" rows="4" spellcheck="false" placeholder='{"browInnerUp":1,"eyeBlinkLeft":0.5,"mouthPucker":1}'></textarea><div><button id="applyJson" type="button">应用 JSON</button><p id="importStatus" role="status" aria-live="polite">未支持的通道会明确列出并忽略。</p></div></div>
+      </details>
+      <details id="capabilityPanel" class="detail-panel capability-panel">
+        <summary>本轮范围 <span>3 个固定姿态</span></summary>
+        <p id="capabilityIntro">画面左上、画面右上、画面左下三个固定姿态的表情、嘴型与视线已获确认。本轮新增眉头抬起、眉尾抬起与压眉，每姿态 34 个预设，共 102 项可选反馈；新增眉毛仍待视觉验收。</p>
+        <p id="gazeCapability">各姿态分别使用对应眼白、虹膜与眼裂遮挡。睁眼和半闭眼复用同一眼球，闭眼时不绘制虹膜；每只眼睛的移动范围随原有姿态登记，视线动作不改变眼轴或头部姿态。</p>
+        <p id="gazeDifferenceNote">视线版补全的虹膜下缘比基础版略饱满，半闭眼复用睁眼虹膜后也有细微差异；可切换已确认基础版对照。</p>
+        <p>斜上闭眼稿带轻微笑意，尚未区分中性眨眼与开心闭眼；低头闭眼稿更接近垂睑。这里的闭眼预设表示当前画稿，不代表所有姿态都已具备中性眨眼。</p>
+        <p>画面右下尚未接入。这里没有纯正面抬头或低头，也不代表连续俯仰模型。演示只更换所选姿态的局部画稿，不自动切换整幅头部或身体。</p>
+        <p id="mouthCapability">嘴型来自各姿态实际准备的有限画稿，连同源图局部肤色一起固定合成。单侧抿嘴通道近似为整嘴抿嘴；输入冲突按闭嘴、抿嘴、噘嘴、左右移嘴、张嘴的优先级选择画稿，没有噘嘴叠加移嘴的独立组合稿。左右移嘴以角色自身为准，上唇登记仅允许固定的横向偏移。</p>
+        <p id="browCapability">各姿态分别使用眉头抬起、眉尾抬起与压眉画稿，左右眉可独立组合。每种眉形目前只有一张强度稿，系数跨阈值时选择画稿，尚无连续强度中间帧；每侧冲突按压低、眉头抬、眉尾抬的顺序选择。</p>
+        <p>眉毛组与嘴型组各有 12 秒逐稿演示；表情和视线分组保留 10 秒眨眼与张嘴演示。演示期间姿态固定、视线居中，不自动播放。切换姿态或版本时回到中性。</p>
+        <p>基础版保留原画视线与 24 项反馈；已确认视线版保留 54 项反馈；已确认嘴型版保留 72 项反馈；眉毛小样独立保存 102 项反馈。批准记录和浏览器逐预设评价分别保存，默认未判断，不会自动标记通过。</p>
+      </details>
+    </fieldset>
+    <footer>本页不启用摄像头。反馈只保存在本浏览器；导出 JSON 可保存当前素材的全部姿态记录。</footer>
+    <noscript><p class="load-status error">请启用 JavaScript 以查看俯仰表情与记录评价。</p></noscript>
+  </main>
+  <script type="module" src="./pitch-expression-review.js"></script>
+</body>
+</html>

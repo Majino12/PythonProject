@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data: blob:; connect-src 'self' https://cdn.jsdelivr.net https://storage.googleapis.com; media-src 'self' blob:; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'" />
+  <title>MoeMotion · 短发角色工作台</title>
+  <link rel="stylesheet" href="./short-hair-studio.css" />
+</head>
+<body>
+  <main>
+    <header class="studio-header">
+      <div><a class="brand" href="./short-hair-studio.html">MoeMotion <span>2D</span></a><h1>让她动起来。</h1><p>选一个方向，搭配表情，开始演示或跟随你的脸。</p></div>
+      <nav aria-label="项目与原画"><a href="./character-review.html">原画对照 ↗</a><a href="./pitch-expression-review.html">精细验收 ↗</a><a href="./frame-motion-diagnostics.html">五档对照 ↗</a></nav>
+    </header>
+    <section class="project-bar" aria-label="项目">
+      <label for="projectName">我的角色<input id="projectName" maxlength="60" value="我的短发角色" disabled /></label>
+      <span id="saveStatus" role="status">只保存在本机</span>
+      <div><button id="openProject" type="button" disabled>打开项目</button><button id="saveProject" type="button" disabled>下载项目</button></div>
+      <input id="projectFile" type="file" accept="application/json,.json,.moemotion" hidden />
+    </section>
+    <p id="loadStatus" class="notice" role="status">正在准备角色画稿…</p><button id="retryLoad" type="button" hidden>重新载入</button>
+    <fieldset id="studioControls" disabled>
+      <legend class="sr-only">角色工作台</legend>
+      <div class="studio-layout">
+        <section class="stage-panel" aria-labelledby="poseTitle">
+          <div class="stage-heading"><div><span class="overline">LIVE PORTRAIT</span><h2 id="poseTitle">正面</h2></div><span id="sourceBadge" class="pill">手动 · 静止</span></div>
+          <div class="stage"><canvas id="studioCanvas" width="630" height="460" aria-label="短发角色预览"></canvas><p id="stagePlaceholder">画稿载入后显示</p></div>
+          <div class="stage-tools"><div class="segments" role="group" aria-label="画面范围"><button data-view="face" type="button" aria-pressed="true">脸部</button><button data-view="full" type="button" aria-pressed="false">全幅</button></div><label class="toggle"><input id="originalToggle" type="checkbox" />看原画</label><button id="savePng" type="button">保存 PNG</button></div>
+          <div class="source-controls" role="group" aria-label="动作来源"><button id="manualButton" type="button" aria-pressed="true">手动控制</button><button id="demoButton" type="button" aria-pressed="false">播放演示</button><button id="cameraButton" type="button" aria-pressed="false">开启摄像头</button></div>
+          <p id="motionStatus" class="motion-status" role="status" aria-live="polite">选择右侧动作，可以自由组合眼睛、嘴巴和眉毛。</p>
+          <div class="source-options"><label><input id="tourPoses" type="checkbox" />演示时切换方向</label><label><input id="followHead" type="checkbox" />摄像头跟随转头</label><button id="calibrateButton" type="button" disabled>重新校准</button></div>
+          <div id="cameraPanel" class="camera-panel" hidden><video id="cameraVideo" playsinline muted aria-label="本机摄像头画面"></video><p>画面只在本机处理。<br />跟踪丢失时表情回到自然状态。</p><button id="stopCamera" type="button">关闭摄像头</button></div>
+          <div class="record-row"><button id="recordButton" type="button" aria-pressed="false">录制动画</button><span id="recordStatus" role="status">录制角色画面，不录制声音。</span></div>
+          <div class="frame-rate-row"><label for="renderRate">流畅度<select id="renderRate"><option value="60" selected>60 fps</option><option value="30">30 fps · 节能</option></select></label><output id="frameStats" aria-live="off">静止 · 目标 60 fps</output></div>
+          <p class="camera-note">摄像头默认关闭；点击后才下载面部识别模型并请求权限。麦克风不启用。</p>
+        </section>
+        <aside class="controls-panel">
+          <section><div class="section-heading"><h2>方向</h2><span>以画面左右为准</span></div><div id="poseButtons" class="pose-grid" role="group" aria-label="角色方向"></div></section>
+          <section><div class="section-heading"><h2>表情</h2><button id="resetExpression" class="text-button" type="button">全部放松</button></div><p class="hint">眼睛、嘴巴、眉毛可以叠加选择；动作左右按角色自身区分。</p><div id="quickActions"></div></section>
+          <section><div class="section-heading"><h2>视线</h2><span>保持当前方向</span></div><div id="gazeButtons" class="gaze-grid" role="group" aria-label="视线方向"></div></section>
+        </aside>
+      </div>
+      <details id="advancedControls" class="details-panel"><summary>精细控制 <span>22 个 ARKit 通道</span></summary><p id="stateReadout" class="state-readout"></p><div id="channelSliders" class="channel-sliders"></div><div class="frame-import"><label for="frameJson">粘贴 ARKit 系数<textarea id="frameJson" rows="4" spellcheck="false" placeholder='{"jawOpen":0.7,"eyeBlinkLeft":0.5,"browInnerUp":1}'></textarea></label><div><button id="applyFrame" type="button">应用 JSON</button><button id="openFrame" type="button">打开单帧</button><button id="exportFrame" type="button">导出当前单帧</button></div><input id="frameFile" type="file" accept="application/json,.json" hidden /><p id="importStatus" role="status">系数范围 0–1；未提供通道设为 0，未支持通道会明确提示。</p></div></details>
+      <details class="details-panel"><summary>当前角色的动作范围</summary><div class="scope-copy"><p>九个方向分别使用对应画稿。转向时选择另一张画稿，尚不是连续转头模型；身体与发型也可能随方向有绘画差异。</p><p id="frameArtSummary">眨眼与张嘴按各方向实际准备的画稿逐张变化。正面的眉头抬与眉尾抬共用整眉抬起稿。抿嘴暂以整嘴动作近似，尚无噘嘴叠加移嘴的组合画稿。</p><p>30／60 fps 是请求的渲染帧率，实际值在动作播放时按完成绘制的画面统计；设备性能、窗口刷新率与录像编码会影响结果，不代表每秒有同样多张独立表情原稿。摄像头识别与画面渲染分别运行。录像沿用开始时所选帧率，录制中不能更改。</p><p>项目文件保存方向、手动系数和查看设置；不会保存摄像头画面、权限或持续跟踪状态，重新打开时保持静止。下载文件需要与本软件配套使用，画稿保留在项目目录。</p><p>当前画稿包含原有背景，PNG 和录像会保留该背景。这里没有透明抠图、虚拟摄像头或 VTube Studio 接口。</p><p id="assetSummary">载入后显示素材状态。</p></div></details>
+    </fieldset>
+    <footer>MoeMotion 0.15.0 · 本地 2D 工作台 · 未启用 3D · <a href="./README.md">项目说明</a></footer>
+    <noscript><p class="notice error">请启用 JavaScript 以运行角色工作台。</p></noscript>
+  </main>
+  <script type="module" src="./short-hair-studio.js"></script>
+</body>
+</html>

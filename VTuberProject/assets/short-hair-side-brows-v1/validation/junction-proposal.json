@@ -1,0 +1,34 @@
+{
+  "schema": "side-brow-junction-proposal-v1",
+  "status": "confirmed source/clip join issue; proposal pending runtime comparison",
+  "pose": "view-right",
+  "evidence": "junctions-before.png confirms new steps where source-drifted fine strands meet the original lower strand. Revised outerUp has near strand about1–2px canvas-left and far strand about2px canvas-right of neutral. Coarse-hair checks do not include these crossing strands.",
+  "method": "Read-only RGB rows of original and all3 final sources, plus actual4.5x nearest-neighbor composition. No PNG edited.",
+  "restoreSource": "approved underlying eye/mouth composite, not the full open-eye base portrait",
+  "proposal": {
+    "browRight": {
+      "role": "near eyebrow; canvas left",
+      "appliesTo": ["innerUp", "outerUp", "down"],
+      "exclude": [[[513,431],[528,431],[525,438],[522,445],[520,450],[509,450],[511,441]]],
+      "suggestedNativeEdgeFeather": 1.5,
+      "eyebrowUnionEvidence": "Neutral horizontal brow at this strand ends byy428; innerUp/down new intersections end aroundy430. Starting exclusion aty431 avoids restoring the old neutral brow bar.",
+      "originalStrandSamples": [[515,430,526],[515,434,525],[515,438,523],[514,442,522],[513,446,520]],
+      "sourceOffset": "outerUp left strand edge is1–2px left of original belowy432; fixed crop hard-join near y442 makes the visible notch."
+    },
+    "browLeft": {
+      "role": "far eyebrow; canvas right",
+      "appliesTo": ["innerUp", "outerUp", "down"],
+      "exclude": [[[768,419],[777,419],[783,431],[785,439],[777,439],[772,429],[768,422]]],
+      "suggestedNativeEdgeFeather": 1.5,
+      "eyebrowUnionEvidence": "Neutral brow around this strand has ended byy414; the innerUp/down sources have their last horizontal/diagonal bar at abouty417–418. Starting exclusion aty419 avoids a frozen old eyebrow fragment.",
+      "originalStrandSamples": [[769,418,774],[770,422,776],[772,426,777],[774,430,779],[776,434,781]],
+      "sourceOffset": "outerUp strand isabout2px right of original near y424–430. The lower polygon boundary introduces a new inward step absent from the neutral source."
+    }
+  },
+  "notes": [
+    "Exclude only these lower junctions, not the whole strand through the brow. The original style visibly draws brows through translucent thin strands; restoring the whole original strand would restore its neutral brow stripe.",
+    "Polygons include small anti-alias margins around both native and drifted source strand positions. A roughly1–1.5px soft exclusion edge is preferred over creating another hard seam at the top.",
+    "If the existing renderer only supports hard excludes, first compare outerUp with these masks; do not claim success merely because the join moves upward. A fixed local alpha transition is acceptable, but dynamic movement/warping of eyebrow paintings is unnecessary.",
+    "Keep geometry.json unchanged until the actual composition is inspected. Check that the current eyebrow line is intact, no old horizontal brow fragment returns, and open/half/closed eyelids remain untouched."
+  ]
+}

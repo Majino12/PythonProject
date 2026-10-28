@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "status": "internal-checks-passed",
+  "userVisualApprovalRecorded": false,
+  "selectedSourceCount": 16,
+  "retainedRawSourceCount": 23,
+  "sourceHashesVerified": true,
+  "allSixteenEyesStrictlyDecreasingApertureAreas": true,
+  "focusedTests": {
+    "command": "node --test frame-art-assets.test.mjs frame-art-model.test.mjs",
+    "passed": 10,
+    "failed": 0
+  },
+  "browser": {
+    "assertions": 1060,
+    "failedAssertions": 0,
+    "pixelComparisons": 718
+  },
+  "sequence": [
+    {
+      "targetFps": 60,
+      "measuredFps": 55.93168199279505,
+      "poseId": "view-right-down",
+      "passed": true,
+      "lanes": {
+        "eyeLeft": {
+          "visited": [
+            "open",
+            "quarter",
+            "half",
+            "threeQuarter",
+            "closed"
+          ],
+          "allStagesVisited": true,
+          "noSkippedStage": true
+        },
+        "eyeRight": {
+          "visited": [
+            "open",
+            "quarter",
+            "half",
+            "threeQuarter",
+            "closed"
+          ],
+          "allStagesVisited": true,
+          "noSkippedStage": true
+        },
+        "mouth": {
+          "visited": [
+            "neutral",
+            "parted",
+            "openSmall",
+            "openMedium",
+            "openWide"
+          ],
+          "allStagesVisited": true,
+          "noSkippedStage": true
+        }
+      }
+    },
+    {
+      "targetFps": 30,
+      "measuredFps": 30.256332676070215,
+      "poseId": "view-right-down",
+      "passed": true,
+      "lanes": {
+        "eyeLeft": {
+          "visited": [
+            "open",
+            "quarter",
+            "half",
+            "threeQuarter",
+            "closed"
+          ],
+          "allStagesVisited": true,
+          "noSkippedStage": true
+        },
+        "eyeRight": {
+          "visited": [
+            "open",
+            "quarter",
+            "half",
+            "threeQuarter",
+            "closed"
+          ],
+          "allStagesVisited": true,
+          "noSkippedStage": true
+        },
+        "mouth": {
+          "visited": [
+            "neutral",
+            "parted",
+            "openSmall",
+            "openMedium",
+            "openWide"
+          ],
+          "allStagesVisited": true,
+          "noSkippedStage": true
+        }
+      }
+    }
+  ],
+  "hashes": {
+    "manifest.json": "7cc76f79f6bcb7706f9307a37b8b2429fa67a10eea5171c8bccf99e793734887",
+    "registration.json": "7de3e551abce9afac8cbb74c9bfca292f822b909bd304a974c088e758e002306",
+    "provenance.json": "8311630e2c9d8560e801e293f8cf4cce8343fb6347a2b2ea6616786a6ed509aa",
+    "validation/aperture-progression.json": "b3762cf3f566eb5973c0a7688dfbb53a1c0df76575082790c1bc633885971c0a",
+    "validation/source-inspection.json": "d5ba0c6f3ed50c4ff3f457ce8280325d8601406ffae42abf41ffc5d5b21ea12d",
+    "validation/selected-sources.json": "b23c46914e3949894138e282fdf1269677220ab951c186bb1c98f29fe73cc0cd",
+    "validation/frame-motion-checks.json": "d0cc2247c89d7121ee66df98d659990d63d01758702b98c52d6b083e73babdb5",
+    "validation/visual-review.json": "e9875827cf5560681f13bc1d028d36b2cf5f4fd08b2f1b42552aefe0f2d4c4f5"
+  },
+  "moduleHashes": {
+    "frame-art-model.js": "2871ff92315923b6f1828456af20911c9a326bc24bfb2c645d7ad455cc62c177",
+    "frame-art-renderer.js": "743ce4770c4473b55011e5ba06b2d8757250fff4cb31641922115074900e1f12",
+    "short-hair-studio-renderer.js": "f7090c299c36dd9cd590ef8852dfb59096ff0aa93ee826ca04156e6e6a0dae38",
+    "frame-art-assets.test.mjs": "c791bbbac6b520de2b5c3dc27ea9bc6ed143b81e3cbf317425ebdf99ad1ad9c8",
+    "frame-art-model.test.mjs": "7f1b1af68821a7ce2e0b78f096290387e6bd1c799ba2978719b140656afac827"
+  }
+}

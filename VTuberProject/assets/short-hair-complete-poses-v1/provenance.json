@@ -1,0 +1,582 @@
+{
+  "schemaVersion": 1,
+  "tool": "Built-in image_gen",
+  "createdAt": "2026-10-27",
+  "method": "Three independent fixed-pose datasets. New neutral portraits are structurally reviewed before expression edits. Full generated source images remain byte-identical; only registered eyes, mouths and eyebrows are composited at fixed native scale. Each actual multi-reference generation and refinement chain is preserved.",
+  "behaviorReference": {
+    "manifest": "../short-hair-pitch-brows-v1/manifest.json",
+    "approval": "../short-hair-pitch-brows-v1/approval.json"
+  },
+  "originalReferenceSources": [
+    {
+      "file": "../short-hair-v1/front.png",
+      "sha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822"
+    },
+    {
+      "file": "../short-hair-v1/view-right-down.png",
+      "sha256": "502b668ec8c8f33cc48c15e747a12a44306487fc5639e6153d9edf4ef2bdde2d"
+    },
+    {
+      "file": "../short-hair-v1/view-left-down.png",
+      "sha256": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983"
+    }
+  ],
+  "assets": [
+    {
+      "key": "view-up-neutral",
+      "file": "view-up-neutral.png",
+      "pose": "view-up",
+      "state": "neutral",
+      "references": [
+        "../short-hair-v1/front.png"
+      ],
+      "generationId": "exec-3add89b5-f294-4115-b65a-0c279ca13663",
+      "prompt": "Use case: identity-preserve. Asset type: neutral pose source portrait for an existing2DVTubercharacter.\nImage1 is the EDIT TARGET. Keep head facing straight toward viewer (yaw0, roll0), gently lift the chin approximately12–15degrees. This must be a real newly drawn frontal upward head angle: correct subtle underside of chin and nose, slightly foreshortened forehead, balanced eyes on the frontal face plane; not just moving features or looking up with eyeballs. Both open relaxed eyes look toward the viewer. Preserve image1's exact torso/shoulder/collar coordinates, neck base fixed (jacket collar top near y790, shirt neckline near y990), and naturally redraw upper neck connection. Keep lips comfortably below the nose with natural philtrum space, not crowded upward.\nPreserve the approved character identity: same short tousled tomboy blue-gray hairstyle without ornaments, same softlyangular ovalface, palegreen/teal eyes, fine gray-violet tapered brows, small delicate low-saturation closed slight-smile mouth line. No thick lips, lipstick, lip shine, new clothing or accessories, no cat ears. Preserve illustration linework, brush shading, lavender-gray background, clothing and overall scale. Face should be natural and attractive, not a new person. Head-to-body scale remains exactly like image1, no zoom/crop/mirror, no shoulders/body movement. Return one 1122x1402 full portrait on original opaque background, no sheet, labels or text.",
+      "transparentBackground": false,
+      "sha256": "252ba6a46b0121ee0c9f94b37180ba4745158da6f2bb230aff5efa0894cb23d6"
+    },
+    {
+      "key": "view-up-half-small",
+      "file": "view-up-half-small.png",
+      "pose": "view-up",
+      "state": "half-small",
+      "references": [
+        "view-up-neutral.png"
+      ],
+      "generationId": "exec-fe5ff80a-8121-4221-bb25-0a80aacb9a0b",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lifted, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY BOTH eyelids to a natural HALF-CLOSED relaxed blink and mouth to a SMALL speaking opening. Original eye bounds: viewer LEFT x370..495 y428..496; viewer RIGHT x620..744 y424..495. Maintain exact eye corners, original lower lids and gaze, lower upper lids naturally without flattening the tilted faceplane. NOT a happy squint, no smile-induced cheek motion. Mouth about45–55pxwide and16–22pxhigh. Central UPPER LIP reference stays approximately(558,604); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep eyebrows and all face geometry unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "88a0e8973a7f2a65926d6c3b20a0215cdd7f2f3deb87fd4177ff91819590378a"
+    },
+    {
+      "key": "view-up-closed-wide",
+      "file": "view-up-closed-wide-v2.png",
+      "pose": "view-up",
+      "state": "closed-wide",
+      "references": [
+        "view-up-closed-wide.png"
+      ],
+      "generationId": "exec-5c081904-0d6d-43b3-8a92-9c79fa4e865d",
+      "prompt": "Use case: precise-object-edit. Inputimage1 is exactEDITTARGET, same1122x1402portrait. Correct ONLY the speaking mouth and surrounding lip skin. Current mouth's UPPER edge was wrongly lifted and it is too wide. Erase currentmouth completely and redraw one delicate moderately open speakingmouth STRICTLY in x527..589 y603..645. Top-centralupperlip MUST be at y604, near x558; no mouthpixel above y602. Mouth unfolds DOWNWARD from this fixedupperlip, about62pxwide and38pxhigh. This is a location/size correction, not newemotion. Thin muted rose-gray outerline, small darkmouthcavity andsofttongue, MATTE surrounding skin. NO white teeth strip, bright lip underline, white dots, glossy highlights, lipstick, thicklip, or doubledoldmouth. Do notmove nose/chin/face/head, don'talter neckbody. Preserve all eyes/eyelashes, brows, hair, skin, clothes, background at exactexisting coordinates. Also correct the closed eyelids to a NATURAL neutral downward blink curve with eyelid center lower than corners, not a happy upward arch; no cheek lift, preserveexactcorners andlashes. No zoomcrop/mirror/text. One full portrait.",
+      "transparentBackground": false,
+      "sha256": "ac0c0738c88f2d9c052817c1e3fd89edc7e707f62021b52c97a672caa818648f"
+    },
+    {
+      "key": "view-up-pucker",
+      "file": "view-up-pucker-v2.png",
+      "pose": "view-up",
+      "state": "pucker",
+      "references": [
+        "view-up-pucker.png"
+      ],
+      "generationId": "exec-1c2093c6-6244-457e-8ede-696fd2b5d646",
+      "prompt": "Use case: precise-object-edit. Input is EXACTEDITTARGET. It already has correct small closed pursed-mouth crease. Make ONE correction: remove tiny white glossy dots and brightunderline directly BELOW lips near centerx558 y608, restoring plain MATTE skin matching adjacentcheek. Keep thin lipcrease exact shape/color/size/location; no thickerline or makeup. No new highlights of any kind. All other portraitcontent exactlyfixed. Same1122x1402 canvas, no text/crop.",
+      "transparentBackground": false,
+      "sha256": "a58476e2d0036edfcfb665ada803ab29c87f9bfcecd70f468f10c4415fef7d71"
+    },
+    {
+      "key": "view-up-press",
+      "file": "view-up-press.png",
+      "pose": "view-up",
+      "state": "press",
+      "references": [
+        "view-up-neutral.png"
+      ],
+      "generationId": "exec-45b6709d-e78d-414a-b7cc-42b567f299e6",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lifted, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY the mouth and tiny immediately adjacent skin. Draw lips pressed together and tucked inward: noticeably SHORTER flat tight CLOSED crease about60–66pxwide, slight downward corner tension. Remove smile hooks; distinguish from neutral. Extremely faint compression shadow below, no open hole. Central UPPER LIP reference stays approximately(558,604); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep both eyes/gaze and eyebrows unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "2ab4fc1b4b70490c787be79d9029cb2c09fd79a7381a98a3b7841be42826b6ab"
+    },
+    {
+      "key": "view-up-shiftLeft",
+      "file": "view-up-shiftLeft.png",
+      "pose": "view-up",
+      "state": "shiftLeft",
+      "references": [
+        "view-up-neutral.png"
+      ],
+      "generationId": "exec-1ca24075-7352-4ef9-9056-10ff4da67243",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lifted, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY the mouth and tiny immediately adjacent skin. Redraw subtle CLOSED mouth pulled toward CHARACTER LEFT = VIEWER RIGHT. Crease center must move about11sourcepixels VIEWER RIGHT of neutral (558,604), verticallevel stable. Viewer-right corner gently tugs laterally, opposite corner relaxes; no extreme smirk. Approximately original neutral width. This is genuinely different from right-shift. Central UPPER LIP reference stays approximately(558,604); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep both eyes/gaze and eyebrows unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "7b9dd1283e2de6732c73f31b947ce96518e2f0454d0c745ca1939ec44ef71248"
+    },
+    {
+      "key": "view-up-shiftRight",
+      "file": "view-up-shiftRight.png",
+      "pose": "view-up",
+      "state": "shiftRight",
+      "references": [
+        "view-up-neutral.png"
+      ],
+      "generationId": "exec-229ef4a3-fcbd-42fd-a2c7-d04e80065c94",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lifted, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY the mouth and tiny immediately adjacent skin. Redraw subtle CLOSED mouth pulled toward CHARACTER RIGHT = VIEWER LEFT. Crease center must move about11sourcepixels VIEWER LEFT of neutral (558,604), verticallevel stable. Viewer-left corner gently tugs laterally, opposite corner relaxes; no extreme smirk. Approximately original neutral width. This is genuinely different from left-shift. Central UPPER LIP reference stays approximately(558,604); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep both eyes/gaze and eyebrows unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "68150a4b72cd5a0b389a7e8782f4d0c22fb1c4fe93d1d48bd39643a576388d95"
+    },
+    {
+      "key": "view-up-innerUp",
+      "file": "view-up-innerUp.png",
+      "pose": "view-up",
+      "state": "innerUp",
+      "references": [
+        "view-up-neutral.png"
+      ],
+      "generationId": "exec-34d788cf-507b-40b3-b7f1-be85976749ce",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lifted, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY BOTH EYEBROWS and tinyforeheadskin to remove oldstrokes. Original bounds: viewer-left brow x389..493 y375..395, inner nose end x493; viewer-right brow x620..735 y373..393, inner nose end x620. Raise INNER/nose ends of BOTH eyebrows by12–15sourcepixels, smoothly returning to nearly fixed outer tails. Gentle concerned/pleading look; not uniform translation.\nKeep original fine soft tapered desaturated gray-violet matte strokes, length and visualweight. No shining silverhair/black thickmakeup. Keep original near/far perspective and all foreground bangs EXACTLY in place; brows behind opaque hair and onlyoriginalfaintvisibility throughthin strands. Only one cleanstroke perbrow, no doubleold/new marks. LOCK openeyes, gaze, creases, neutral thinmouth.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "43d3a2616b7c06545aa1e355dbd8840ab5b5bd5c0b44b968478113ab9a13befe"
+    },
+    {
+      "key": "view-up-outerUp",
+      "file": "view-up-outerUp.png",
+      "pose": "view-up",
+      "state": "outerUp",
+      "references": [
+        "view-up-neutral.png"
+      ],
+      "generationId": "exec-c35ef7bc-0ad9-42b4-93eb-754dcaa38521",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lifted, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY BOTH EYEBROWS and tinyforeheadskin to remove oldstrokes. Original bounds: viewer-left brow x389..493 y375..395, inner nose end x493; viewer-right brow x620..735 y373..393, inner nose end x620. Raise OUTER/temple ends of BOTH eyebrows by12–15sourcepixels with a soft curious arch; inner nose roots nearlyfixed. Visible far segment also lifts; not uniform translation.\nKeep original fine soft tapered desaturated gray-violet matte strokes, length and visualweight. No shining silverhair/black thickmakeup. Keep original near/far perspective and all foreground bangs EXACTLY in place; brows behind opaque hair and onlyoriginalfaintvisibility throughthin strands. Only one cleanstroke perbrow, no doubleold/new marks. LOCK openeyes, gaze, creases, neutral thinmouth.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "d9f6af8625abed59f63a58bbd2bce0bdec4ea6424501fe380b4e3499eced6950"
+    },
+    {
+      "key": "view-up-down",
+      "file": "view-up-down.png",
+      "pose": "view-up",
+      "state": "down",
+      "references": [
+        "view-up-neutral.png"
+      ],
+      "generationId": "exec-a4b5695e-522c-4906-b129-af031baffa71",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lifted, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY BOTH EYEBROWS and tinyforeheadskin to remove oldstrokes. Original bounds: viewer-left brow x389..493 y375..395, inner nose end x493; viewer-right brow x620..735 y373..393, inner nose end x620. Lower INNER/nose halves of BOTH eyebrows by8–10sourcepixels and very subtly inward, smoothly returning to nearlyfixed outer tails. Mild determination, notanger. Clear skin gap above eyelids; no wrinkles.\nKeep original fine soft tapered desaturated gray-violet matte strokes, length and visualweight. No shining silverhair/black thickmakeup. Keep original near/far perspective and all foreground bangs EXACTLY in place; brows behind opaque hair and onlyoriginalfaintvisibility throughthin strands. Only one cleanstroke perbrow, no doubleold/new marks. LOCK openeyes, gaze, creases, neutral thinmouth.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "a88fef6897da5a1f16ee72e0f61be1ad77e49d6ce3dd929ed932d9bd37d47f47"
+    },
+    {
+      "key": "view-up-eye-whites",
+      "file": "view-up-eye-whites.png",
+      "pose": "view-up",
+      "state": "eye-whites",
+      "references": [
+        "view-up-neutral.png"
+      ],
+      "generationId": "exec-ca0fff63-75c2-46b1-b3ed-a67180aa19c7",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lifted, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY inner white surfaces of BOTH OPEN eyes: remove ALL tealirises,pupils,limbal rings,coloredfragments,catchlights; fill uninterrupted natural warm off-white sclera matching surround and upperlidshadow. Intentional blank-eye technical layer. Original eye bounds: viewer LEFT x370..495 y428..496; viewer RIGHT x620..744 y424..495. Preserve eyelids/corners/lashes/crease/brows and foregroundhair EXACTLY. No pupilghosts,irisoutlines,blue tint orwhitedots.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "1a1166721d358f6830da33288d56a1b128ff35c79e5746e3079a3855b5e5e760"
+    },
+    {
+      "key": "view-up-irises-fill",
+      "file": "view-up-irises-fill.png",
+      "pose": "view-up",
+      "state": "irises-fill",
+      "references": [
+        "view-up-neutral.png"
+      ],
+      "generationId": "exec-77db8dfd-55c5-4f05-be25-14b7ad8102bc",
+      "prompt": "Use case: background-extraction. Asset type: two isolated complete iris fill sprites on TRUE TRANSPARENCY for layered2Dgaze. Inputimage1 exactreference:straight frontal with chin gently lifted, zero yaw and roll. Same1122x1402 canvas. Remove allportraitcontent except TWO independently matching teal iris+pupilpaintings at originalpositions: viewer-left iris around (445,461),64x64 pixels; viewer-right iris around (668,460),64x64 pixels. Preserve unequal perspective, no mirroring/duplication. Reconstruct hiddenupper/lowerarcs ascomplete smooth verticalovals, fine darklimbaledge. Keeporiginaldarktealupperpigment,palemutedmintlowergradient,pupilshape/direction.\nCRITICAL highlight-FREE fill layers: no white/offwhitecatchlights/specularspots/reflections/sidewedges. Originalportraitcore/highlights composited separately; fill glintlocations withmatchingirispigment. True transparentalpha everywhereelse. No sclera,lids,lashes,skin,hair,text,guides,checkerboardpixels,dropshadows. Exactlytwoirispaintings only.",
+      "transparentBackground": true,
+      "sha256": "ac2f3c05ab732793ca11952da6ff6998e0dc70d3cd94865ee3800997ec0da245"
+    },
+    {
+      "key": "view-down-neutral",
+      "file": "view-down-neutral.png",
+      "pose": "view-down",
+      "state": "neutral",
+      "references": [
+        "../short-hair-v1/front.png"
+      ],
+      "generationId": "exec-9aa6c293-d35a-4ed1-86ea-3688dbd5dbd4",
+      "prompt": "Use case: identity-preserve. Asset type: neutral pose source portrait for an existing2DVTubercharacter.\nImage1 is the EDIT TARGET. Keep head facing straight toward viewer (yaw0, roll0), gently lower the chin approximately12–15degrees. This must be a real newly drawn frontal downward head angle with naturally more visible crown/forehead, correctly foreshortened lower face, nose-mouth-chin centerline and eyelids; not merely lowering gaze or shifting coordinates. Both open relaxed eyes look toward the viewer, not crossed or staring down. Preserve image1's exact torso/shoulder/collar coordinates, neck base fixed (jacket collar top near y790, shirt neckline near y990), and naturally redraw upper neck connection; don't shrug shoulders or raise neckline.\nPreserve the approved character identity: same short tousled tomboy blue-gray hairstyle without ornaments, same softlyangular ovalface, palegreen/teal eyes, fine gray-violet tapered brows, small delicate low-saturation closed slight-smile mouth line. No thick lips, lipstick, lip shine, new clothing or accessories, no cat ears. Preserve illustration linework, brush shading, lavender-gray background, clothing and overall scale. Face should be natural and attractive, not a new person. Head-to-body scale remains exactly like image1, no zoom/crop/mirror, no shoulders/body movement. Return one 1122x1402 full portrait on original opaque background, no sheet, labels or text.",
+      "transparentBackground": false,
+      "sha256": "f9e6315e19b09a121d3d1216611dd0759020f21a5d3fab9827adebb9eceb9d4f"
+    },
+    {
+      "key": "view-down-half-small",
+      "file": "view-down-half-small.png",
+      "pose": "view-down",
+      "state": "half-small",
+      "references": [
+        "view-down-neutral.png"
+      ],
+      "generationId": "exec-30a33991-6773-4121-912b-90ffe848003e",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lowered, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY BOTH eyelids to a natural HALF-CLOSED relaxed blink and mouth to a SMALL speaking opening. Original eye bounds: viewer LEFT x375..493 y527..589; viewer RIGHT x622..743 y515..583. Maintain exact eye corners, original lower lids and gaze, lower upper lids naturally without flattening the tilted faceplane. NOT a happy squint, no smile-induced cheek motion. Mouth about45–55pxwide and16–22pxhigh. Central UPPER LIP reference stays approximately(559,714); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep eyebrows and all face geometry unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "5e90b193bbebedb69da423f9f0c6b54df015d32bfae6fe974a7da6ae7645d0c5"
+    },
+    {
+      "key": "view-down-closed-wide",
+      "file": "view-down-closed-wide-v2.png",
+      "pose": "view-down",
+      "state": "closed-wide",
+      "references": [
+        "view-down-closed-wide.png"
+      ],
+      "generationId": "exec-0a82e8c4-e2b7-4b4a-91c4-22c59fce52aa",
+      "prompt": "Use case: precise-object-edit. Inputimage1 is exactEDITTARGET, same1122x1402portrait. Correct ONLY the speaking mouth and surrounding lip skin. Current mouth's UPPER edge was wrongly lifted and it is too wide. Erase currentmouth completely and redraw one delicate moderately open speakingmouth STRICTLY in x527..591 y713..751. Top-centralupperlip MUST be at y714, near x559; no mouthpixel above y712. Mouth unfolds DOWNWARD from this fixedupperlip, about62pxwide and38pxhigh. This is a location/size correction, not newemotion. Thin muted rose-gray outerline, small darkmouthcavity andsofttongue, MATTE surrounding skin. NO white teeth strip, bright lip underline, white dots, glossy highlights, lipstick, thicklip, or doubledoldmouth. Do notmove nose/chin/face/head, don'talter neckbody. Preserve all eyes/eyelashes, brows, hair, skin, clothes, background at exactexisting coordinates. No zoomcrop/mirror/text. One full portrait.",
+      "transparentBackground": false,
+      "sha256": "3573d68e381fc4eb434ad3845972912f7c14f5c3d892dffc5a48278e52dd6a9f"
+    },
+    {
+      "key": "view-down-pucker",
+      "file": "view-down-pucker-v2.png",
+      "pose": "view-down",
+      "state": "pucker",
+      "references": [
+        "view-down-pucker.png"
+      ],
+      "generationId": "exec-90198b01-f140-461c-b485-dead6edb2417",
+      "prompt": "Use case: precise-object-edit. Input is EXACTEDITTARGET. It already has correct small closed pursed-mouth crease. Make ONE correction: remove tiny white glossy dots and brightunderline directly BELOW lips near centerx558 y725, restoring plain MATTE skin matching adjacentcheek. Keep thin lipcrease exact shape/color/size/location; no thickerline or makeup. No new highlights of any kind. All other portraitcontent exactlyfixed. Same1122x1402 canvas, no text/crop.",
+      "transparentBackground": false,
+      "sha256": "eb89df2e9a61e0942d05cc046d9bcc96723a1ce6c8170ad7e521826dc9c9c24b"
+    },
+    {
+      "key": "view-down-press",
+      "file": "view-down-press.png",
+      "pose": "view-down",
+      "state": "press",
+      "references": [
+        "view-down-neutral.png"
+      ],
+      "generationId": "exec-e72c78b0-633f-4dae-8ff7-3fa456043321",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lowered, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY the mouth and tiny immediately adjacent skin. Draw lips pressed together and tucked inward: noticeably SHORTER flat tight CLOSED crease about60–66pxwide, slight downward corner tension. Remove smile hooks; distinguish from neutral. Extremely faint compression shadow below, no open hole. Central UPPER LIP reference stays approximately(559,714); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep both eyes/gaze and eyebrows unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "5752b188938c37af2fec6470c2b84cfd1c81ba180d7d91e8d8ac5ed0a9f66fee"
+    },
+    {
+      "key": "view-down-shiftLeft",
+      "file": "view-down-shiftLeft.png",
+      "pose": "view-down",
+      "state": "shiftLeft",
+      "references": [
+        "view-down-neutral.png"
+      ],
+      "generationId": "exec-c4220585-0ebc-443f-bdab-b9fc71aefcfb",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lowered, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY the mouth and tiny immediately adjacent skin. Redraw subtle CLOSED mouth pulled toward CHARACTER LEFT = VIEWER RIGHT. Crease center must move about11sourcepixels VIEWER RIGHT of neutral (559,714), verticallevel stable. Viewer-right corner gently tugs laterally, opposite corner relaxes; no extreme smirk. Approximately original neutral width. This is genuinely different from right-shift. Central UPPER LIP reference stays approximately(559,714); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep both eyes/gaze and eyebrows unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "fbb143d4c0ca782df56c1c4c68f81e9ad95a320163c269b1a6c8c27f1cb0a956"
+    },
+    {
+      "key": "view-down-shiftRight",
+      "file": "view-down-shiftRight.png",
+      "pose": "view-down",
+      "state": "shiftRight",
+      "references": [
+        "view-down-neutral.png"
+      ],
+      "generationId": "exec-f543b128-0123-4fb4-b8cc-9a1441acac55",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lowered, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY the mouth and tiny immediately adjacent skin. Redraw subtle CLOSED mouth pulled toward CHARACTER RIGHT = VIEWER LEFT. Crease center must move about11sourcepixels VIEWER LEFT of neutral (559,714), verticallevel stable. Viewer-left corner gently tugs laterally, opposite corner relaxes; no extreme smirk. Approximately original neutral width. This is genuinely different from left-shift. Central UPPER LIP reference stays approximately(559,714); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep both eyes/gaze and eyebrows unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "b76ed45c1b704ea00cd86ace725c053c7ae70f50afb598eb16c6fd6578172b66"
+    },
+    {
+      "key": "view-down-innerUp",
+      "file": "view-down-innerUp.png",
+      "pose": "view-down",
+      "state": "innerUp",
+      "references": [
+        "view-down-neutral.png"
+      ],
+      "generationId": "exec-1449deb7-0251-4894-ad07-3974184c0d1a",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lowered, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY BOTH EYEBROWS and tinyforeheadskin to remove oldstrokes. Original bounds: viewer-left brow x389..492 y487..511, inner nose end x492; viewer-right brow x625..746 y476..499, inner nose end x625. Raise INNER/nose ends of BOTH eyebrows by12–15sourcepixels, smoothly returning to nearly fixed outer tails. Gentle concerned/pleading look; not uniform translation.\nKeep original fine soft tapered desaturated gray-violet matte strokes, length and visualweight. No shining silverhair/black thickmakeup. Keep original near/far perspective and all foreground bangs EXACTLY in place; brows behind opaque hair and onlyoriginalfaintvisibility throughthin strands. Only one cleanstroke perbrow, no doubleold/new marks. LOCK openeyes, gaze, creases, neutral thinmouth.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "88791f47cdd9ce8c327026184a8dad1a459b124a84d783376e42b6d95ae85abd"
+    },
+    {
+      "key": "view-down-outerUp",
+      "file": "view-down-outerUp.png",
+      "pose": "view-down",
+      "state": "outerUp",
+      "references": [
+        "view-down-neutral.png"
+      ],
+      "generationId": "exec-4114e499-cc5f-436e-9ade-60bba23f32b5",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lowered, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY BOTH EYEBROWS and tinyforeheadskin to remove oldstrokes. Original bounds: viewer-left brow x389..492 y487..511, inner nose end x492; viewer-right brow x625..746 y476..499, inner nose end x625. Raise OUTER/temple ends of BOTH eyebrows by12–15sourcepixels with a soft curious arch; inner nose roots nearlyfixed. Visible far segment also lifts; not uniform translation.\nKeep original fine soft tapered desaturated gray-violet matte strokes, length and visualweight. No shining silverhair/black thickmakeup. Keep original near/far perspective and all foreground bangs EXACTLY in place; brows behind opaque hair and onlyoriginalfaintvisibility throughthin strands. Only one cleanstroke perbrow, no doubleold/new marks. LOCK openeyes, gaze, creases, neutral thinmouth.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "f8779d724ec2c64444395719167dda9fd3258b9f405bb17ae351ce7f139fdf31"
+    },
+    {
+      "key": "view-down-down",
+      "file": "view-down-down.png",
+      "pose": "view-down",
+      "state": "down",
+      "references": [
+        "view-down-neutral.png"
+      ],
+      "generationId": "exec-8b26eb6f-8f87-402e-8fb8-9ebdb43566d5",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lowered, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY BOTH EYEBROWS and tinyforeheadskin to remove oldstrokes. Original bounds: viewer-left brow x389..492 y487..511, inner nose end x492; viewer-right brow x625..746 y476..499, inner nose end x625. Lower INNER/nose halves of BOTH eyebrows by8–10sourcepixels and very subtly inward, smoothly returning to nearlyfixed outer tails. Mild determination, notanger. Clear skin gap above eyelids; no wrinkles.\nKeep original fine soft tapered desaturated gray-violet matte strokes, length and visualweight. No shining silverhair/black thickmakeup. Keep original near/far perspective and all foreground bangs EXACTLY in place; brows behind opaque hair and onlyoriginalfaintvisibility throughthin strands. Only one cleanstroke perbrow, no doubleold/new marks. LOCK openeyes, gaze, creases, neutral thinmouth.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "7a585126395789a4337a3adfef1cdacc276213628b5519781f4cc4b880a2c236"
+    },
+    {
+      "key": "view-down-eye-whites",
+      "file": "view-down-eye-whites.png",
+      "pose": "view-down",
+      "state": "eye-whites",
+      "references": [
+        "view-down-neutral.png"
+      ],
+      "generationId": "exec-c0410443-35a0-4897-9001-afbd4a7fdb29",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lowered, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY inner white surfaces of BOTH OPEN eyes: remove ALL tealirises,pupils,limbal rings,coloredfragments,catchlights; fill uninterrupted natural warm off-white sclera matching surround and upperlidshadow. Intentional blank-eye technical layer. Original eye bounds: viewer LEFT x375..493 y527..589; viewer RIGHT x622..743 y515..583. Preserve eyelids/corners/lashes/crease/brows and foregroundhair EXACTLY. No pupilghosts,irisoutlines,blue tint orwhitedots.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "816b353153afc665eb5891feb45ad3bbd0500747dff77d5e580fef8f46ae3e1c"
+    },
+    {
+      "key": "view-down-irises-fill",
+      "file": "view-down-irises-fill.png",
+      "pose": "view-down",
+      "state": "irises-fill",
+      "references": [
+        "view-down-neutral.png"
+      ],
+      "generationId": "exec-a8d20cae-b3a6-4380-a94f-a35b4da56370",
+      "prompt": "Use case: background-extraction. Asset type: two isolated complete iris fill sprites on TRUE TRANSPARENCY for layered2Dgaze. Inputimage1 exactreference:straight frontal with chin gently lowered, zero yaw and roll. Same1122x1402 canvas. Remove allportraitcontent except TWO independently matching teal iris+pupilpaintings at originalpositions: viewer-left iris around (445,556),64x64 pixels; viewer-right iris around (667,548),64x64 pixels. Preserve unequal perspective, no mirroring/duplication. Reconstruct hiddenupper/lowerarcs ascomplete smooth verticalovals, fine darklimbaledge. Keeporiginaldarktealupperpigment,palemutedmintlowergradient,pupilshape/direction.\nCRITICAL highlight-FREE fill layers: no white/offwhitecatchlights/specularspots/reflections/sidewedges. Originalportraitcore/highlights composited separately; fill glintlocations withmatchingirispigment. True transparentalpha everywhereelse. No sclera,lids,lashes,skin,hair,text,guides,checkerboardpixels,dropshadows. Exactlytwoirispaintings only.",
+      "transparentBackground": true,
+      "sha256": "04bd947129a9eb1bca1759637bc385d22960f722f391fcb46424710461fab892"
+    },
+    {
+      "key": "view-right-down-neutral",
+      "file": "view-right-down-neutral.png",
+      "pose": "view-right-down",
+      "state": "neutral",
+      "references": [
+        "../short-hair-v1/front.png",
+        "../short-hair-v1/view-right-down.png",
+        "../short-hair-v1/view-left-down.png"
+      ],
+      "generationId": "exec-051e540a-41d6-4fb3-8dc8-ef11e3cf4920",
+      "prompt": "Use case: identity-preserve. Asset type: neutral pose source portrait for an existing2DVTubercharacter.\nImage1 is the EDIT TARGET and fixed body/composition. Image2 is reference ONLY for this same character's viewer-RIGHT-facing three-quarter chin-lowered head. Image3 is reference ONLY for the gentle amount of downward head tilt. Turn ONLY image1's head toward VIEWER RIGHT about30degrees and lower chin about12–15degrees, no roll. The old image2 body is wrongly shrugged up: do NOT inherit its shoulders/neckline. Keep image1's torso, collar and shoulders at exactly their existing coordinates (jacket collar top near y790, shirt neckline near y990), with neck base fixed, and redraw the upper neck naturally to join the tilted head. Draw anatomically coherent near/far eyes on the tilted face plane. Near eye on viewer LEFT is broader; far eye on viewer RIGHT is foreshortened and placed near the bridge correctly. Both OPEN relaxed eyes gaze toward the viewer, no strong down-gaze or inward/cross-eyed convergence. Retain natural face perspective, not equalizing the eye centers mechanically.\nPreserve the approved character identity: same short tousled tomboy blue-gray hairstyle without ornaments, same softlyangular ovalface, palegreen/teal eyes, fine gray-violet tapered brows, small delicate low-saturation closed slight-smile mouth line. No thick lips, lipstick, lip shine, new clothing or accessories, no cat ears. Preserve illustration linework, brush shading, lavender-gray background, clothing and overall scale. Face should be natural and attractive, not a new person. Head-to-body scale remains exactly like image1, no zoom/crop/mirror, no shoulders/body movement. Return one 1122x1402 full portrait on original opaque background, no sheet, labels or text.",
+      "transparentBackground": false,
+      "sha256": "5845cf6909248321f234bff531c16b231017d95fcd92de1e24789328b79e0b71"
+    },
+    {
+      "key": "view-right-down-half-small",
+      "file": "view-right-down-half-small.png",
+      "pose": "view-right-down",
+      "state": "half-small",
+      "references": [
+        "view-right-down-neutral.png"
+      ],
+      "generationId": "exec-9faf6408-c620-4338-a397-61835d81e9a5",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose viewer-right-facing three-quarter with chin lowered. Preserve same1122x1402 full portrait framing.\nChange ONLY BOTH eyelids to a natural HALF-CLOSED relaxed blink and mouth to a SMALL speaking opening. Original eye bounds: near on viewer LEFT x550..682 y478..550; far on viewer RIGHT x755..840 y531..590. Maintain exact eye corners, original lower lids and gaze, lower upper lids naturally without flattening the tilted faceplane. NOT a happy squint, no smile-induced cheek motion. Mouth about45–55pxwide and16–22pxhigh. Central UPPER LIP reference stays approximately(674,690); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep eyebrows and all face geometry unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "3ad207d1355b119018caacf2bf9547a34b7c99ed79d724524c295af42edcb41f"
+    },
+    {
+      "key": "view-right-down-closed-wide",
+      "file": "view-right-down-closed-wide-v2.png",
+      "pose": "view-right-down",
+      "state": "closed-wide",
+      "references": [
+        "view-right-down-closed-wide.png"
+      ],
+      "generationId": "exec-90ef0bda-8d53-4151-9d5b-83a507d1ede2",
+      "prompt": "Use case: precise-object-edit. Inputimage1 is exactEDITTARGET, same1122x1402portrait. Correct ONLY the speaking mouth and surrounding lip skin. Current mouth's UPPER edge was wrongly lifted and it is too wide. Erase currentmouth completely and redraw one delicate moderately open speakingmouth STRICTLY in x642..706 y689..732. Top-centralupperlip MUST be at y690, near x674; no mouthpixel above y688. Mouth unfolds DOWNWARD from this fixedupperlip, about62pxwide and38pxhigh. This is a location/size correction, not newemotion. Thin muted rose-gray outerline, small darkmouthcavity andsofttongue, MATTE surrounding skin. NO white teeth strip, bright lip underline, white dots, glossy highlights, lipstick, thicklip, or doubledoldmouth. Do notmove nose/chin/face/head, don'talter neckbody. Preserve all eyes/eyelashes, brows, hair, skin, clothes, background at exactexisting coordinates. No zoomcrop/mirror/text. One full portrait.",
+      "transparentBackground": false,
+      "sha256": "73bc4e3eb531a5046ab4d2d84fafcb7087aea5d29b6364f22ee4f0609de02023"
+    },
+    {
+      "key": "view-right-down-pucker",
+      "file": "view-right-down-pucker.png",
+      "pose": "view-right-down",
+      "state": "pucker",
+      "references": [
+        "view-right-down-neutral.png"
+      ],
+      "generationId": "exec-9f59e3f7-2f6f-434a-b52d-41d227f85763",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose viewer-right-facing three-quarter with chin lowered. Preserve same1122x1402 full portrait framing.\nChange ONLY the mouth and tiny immediately adjacent skin. Draw a small CLOSED pursed mouth as if preparing a soft kiss: delicate central w-shaped pinch about28–34pxwide, sealed lips, faint lower shadow, notanopenO. Central UPPER LIP reference stays approximately(674,690); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep both eyes/gaze and eyebrows unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "565e16b8d5a6e848bf6aa9e2df5dee38ef50c9c865c45bf365dd000f58b7db3f"
+    },
+    {
+      "key": "view-right-down-press",
+      "file": "view-right-down-press.png",
+      "pose": "view-right-down",
+      "state": "press",
+      "references": [
+        "view-right-down-neutral.png"
+      ],
+      "generationId": "exec-acf01830-ebe6-4583-93bc-27c8d78bad07",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose viewer-right-facing three-quarter with chin lowered. Preserve same1122x1402 full portrait framing.\nChange ONLY the mouth and tiny immediately adjacent skin. Draw lips pressed together and tucked inward: noticeably SHORTER flat tight CLOSED crease about60–66pxwide, slight downward corner tension. Remove smile hooks; distinguish from neutral. Extremely faint compression shadow below, no open hole. Central UPPER LIP reference stays approximately(674,690); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep both eyes/gaze and eyebrows unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "8ce566cb96dd4a3bb6a0e9098ebd3fa4c71e215ac149d70d3720137704895efa"
+    },
+    {
+      "key": "view-right-down-shiftLeft",
+      "file": "view-right-down-shiftLeft.png",
+      "pose": "view-right-down",
+      "state": "shiftLeft",
+      "references": [
+        "view-right-down-neutral.png"
+      ],
+      "generationId": "exec-40ba349b-f31b-4e85-847a-a99043626835",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose viewer-right-facing three-quarter with chin lowered. Preserve same1122x1402 full portrait framing.\nChange ONLY the mouth and tiny immediately adjacent skin. Redraw subtle CLOSED mouth pulled toward CHARACTER LEFT = VIEWER RIGHT. Crease center must move about11sourcepixels VIEWER RIGHT of neutral (674,690), verticallevel stable. Viewer-right corner gently tugs laterally, opposite corner relaxes; no extreme smirk. Approximately original neutral width. This is genuinely different from right-shift. Central UPPER LIP reference stays approximately(674,690); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep both eyes/gaze and eyebrows unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "8f7e71dcf45448032ee72a2da504d580528bb932e926b29fef280e1f3cd66c18"
+    },
+    {
+      "key": "view-right-down-shiftRight",
+      "file": "view-right-down-shiftRight.png",
+      "pose": "view-right-down",
+      "state": "shiftRight",
+      "references": [
+        "view-right-down-neutral.png"
+      ],
+      "generationId": "exec-bd155b5f-c20d-4c9c-87c4-c105e807bb18",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose viewer-right-facing three-quarter with chin lowered. Preserve same1122x1402 full portrait framing.\nChange ONLY the mouth and tiny immediately adjacent skin. Redraw subtle CLOSED mouth pulled toward CHARACTER RIGHT = VIEWER LEFT. Crease center must move about11sourcepixels VIEWER LEFT of neutral (674,690), verticallevel stable. Viewer-left corner gently tugs laterally, opposite corner relaxes; no extreme smirk. Approximately original neutral width. This is genuinely different from left-shift. Central UPPER LIP reference stays approximately(674,690); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep both eyes/gaze and eyebrows unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "786f9ebb492709b282fe72bcd39630d8e84c88c46d191e43b9f97772b9b05ec1"
+    },
+    {
+      "key": "view-right-down-innerUp",
+      "file": "view-right-down-innerUp.png",
+      "pose": "view-right-down",
+      "state": "innerUp",
+      "references": [
+        "view-right-down-neutral.png"
+      ],
+      "generationId": "exec-ff594866-8427-4950-b7ad-5fa04e734fdc",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose viewer-right-facing three-quarter with chin lowered. Preserve same1122x1402 full portrait framing.\nChange ONLY BOTH EYEBROWS and tinyforeheadskin to remove oldstrokes. Original bounds: near on viewer LEFT x566..708 y432..485 (inner nose end x708); far on viewer RIGHT x786..851 y494..510 (inner nose end x786). Raise INNER/nose ends of BOTH eyebrows by12–15sourcepixels, smoothly returning to nearly fixed outer tails. Gentle concerned/pleading look; not uniform translation.\nKeep original fine soft tapered desaturated gray-violet matte strokes, length and visualweight. No shining silverhair/black thickmakeup. Keep original near/far perspective and all foreground bangs EXACTLY in place; brows behind opaque hair and onlyoriginalfaintvisibility throughthin strands. Only one cleanstroke perbrow, no doubleold/new marks. LOCK openeyes, gaze, creases, neutral thinmouth.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "1d575a77e476ae362e31b3a553cca8bcdd5c646e73abe35be8f9cd770483ec9d"
+    },
+    {
+      "key": "view-right-down-outerUp",
+      "file": "view-right-down-outerUp-v2.png",
+      "pose": "view-right-down",
+      "state": "outerUp",
+      "references": [
+        "view-right-down-outerUp.png"
+      ],
+      "generationId": "exec-4a265958-d11b-4b7f-86b1-8aa5abe0a7bf",
+      "prompt": "Use case: precise-object-edit. Input is EDITTARGET of right-facing chin-lowered portrait. Correct ONLY eyebrows; current outer-up looks unchanged. Visibly lift near eyebrow's exposed outer/body segment near x635..660 by8–10pixels, and far eyebrow's exposed outer segment near x835..845 by6–8pixels. Keep nose-side roots anchored. A curious arched expression, not worried inner-up. Preserve fine soft tapered matte gray-violet stroke and same length/weight. Clean oldstroke, no doublebrow. Preserve opaque foregroundbangs exactly, eyebrowsbehindhair. No eye/crease/gaze/nose/mouth/head/neck/clothes/backgroundchange. Same1122x1402 framing; returnonefullportrait.",
+      "transparentBackground": false,
+      "sha256": "dc78bb751ea785c133879bab192bcb3d0d499a6f717843c76ace2eb72b918311"
+    },
+    {
+      "key": "view-right-down-down",
+      "file": "view-right-down-down.png",
+      "pose": "view-right-down",
+      "state": "down",
+      "references": [
+        "view-right-down-neutral.png"
+      ],
+      "generationId": "exec-4dd069d8-384b-42db-aae2-cfb39cc042e5",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose viewer-right-facing three-quarter with chin lowered. Preserve same1122x1402 full portrait framing.\nChange ONLY BOTH EYEBROWS and tinyforeheadskin to remove oldstrokes. Original bounds: near on viewer LEFT x566..708 y432..485 (inner nose end x708); far on viewer RIGHT x786..851 y494..510 (inner nose end x786). Lower INNER/nose halves of BOTH eyebrows by8–10sourcepixels and very subtly inward, smoothly returning to nearlyfixed outer tails. Mild determination, notanger. Clear skin gap above eyelids; no wrinkles.\nKeep original fine soft tapered desaturated gray-violet matte strokes, length and visualweight. No shining silverhair/black thickmakeup. Keep original near/far perspective and all foreground bangs EXACTLY in place; brows behind opaque hair and onlyoriginalfaintvisibility throughthin strands. Only one cleanstroke perbrow, no doubleold/new marks. LOCK openeyes, gaze, creases, neutral thinmouth.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "2c24f392edad85bd1022079d721c313ab11239516397d4939265ee820623d82c"
+    },
+    {
+      "key": "view-right-down-eye-whites",
+      "file": "view-right-down-eye-whites.png",
+      "pose": "view-right-down",
+      "state": "eye-whites",
+      "references": [
+        "view-right-down-neutral.png"
+      ],
+      "generationId": "exec-4f167a25-d584-4d8e-98bf-92497634108c",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose viewer-right-facing three-quarter with chin lowered. Preserve same1122x1402 full portrait framing.\nChange ONLY inner white surfaces of BOTH OPEN eyes: remove ALL tealirises,pupils,limbal rings,coloredfragments,catchlights; fill uninterrupted natural warm off-white sclera matching surround and upperlidshadow. Intentional blank-eye technical layer. Original eye bounds: near on viewer LEFT x550..682 y478..550; far on viewer RIGHT x755..840 y531..590. Preserve eyelids/corners/lashes/crease/brows and foregroundhair EXACTLY. No pupilghosts,irisoutlines,blue tint orwhitedots.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "6cb0a6c9c5c6dc45e4a1ceafcda62905f3525267b1f417834ce2295dd30991e3"
+    },
+    {
+      "key": "view-right-down-irises-fill",
+      "file": "view-right-down-irises-fill.png",
+      "pose": "view-right-down",
+      "state": "irises-fill",
+      "references": [
+        "view-right-down-neutral.png"
+      ],
+      "generationId": "exec-287503ad-2952-4925-82a6-84d82affd7cf",
+      "prompt": "Use case: background-extraction. Asset type: two isolated complete iris fill sprites on TRUE TRANSPARENCY for layered2Dgaze. Inputimage1 exactreference:viewer-right-facing three-quarter with chin lowered. Same1122x1402 canvas. Remove allportraitcontent except TWO independently matching teal iris+pupilpaintings at originalpositions: viewer-left near iris around (621,519), 57x65 pixels; viewer-right far iris around (788,563), 39x57 pixels. Preserve unequal perspective, no mirroring/duplication. Reconstruct hiddenupper/lowerarcs ascomplete smooth verticalovals, fine darklimbaledge. Keeporiginaldarktealupperpigment,palemutedmintlowergradient,pupilshape/direction.\nCRITICAL highlight-FREE fill layers: no white/offwhitecatchlights/specularspots/reflections/sidewedges. Originalportraitcore/highlights composited separately; fill glintlocations withmatchingirispigment. True transparentalpha everywhereelse. No sclera,lids,lashes,skin,hair,text,guides,checkerboardpixels,dropshadows. Exactlytwoirispaintings only.",
+      "transparentBackground": true,
+      "sha256": "c40b6ad393b8ebdb6c8c37c89eeef946de8ecea6c0b6c0cc4ab80cc58c92ba43"
+    }
+  ],
+  "intermediateSources": [
+    {
+      "key": "view-right-down-closed-wide",
+      "file": "view-right-down-closed-wide.png",
+      "pose": "view-right-down",
+      "state": "closed-wide",
+      "references": [
+        "view-right-down-neutral.png"
+      ],
+      "generationId": "exec-869ba659-4dcb-4169-bce7-2c3cb283362d",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose viewer-right-facing three-quarter with chin lowered. Preserve same1122x1402 full portrait framing.\nChange ONLY BOTH eyes to a natural fully CLOSED neutral blink and mouth to a moderately WIDE speaking opening. Original eye bounds: near on viewer LEFT x550..682 y478..550; far on viewer RIGHT x755..840 y531..590. Upper eyelid gently descends to lower lid location, soft downward-curving resting lids, NOT happy upward arched eyes, no cheek lift. Preserve original eye corners and lashes. Mouthabout60–70pxwide and35–44pxhigh, upper edge stable, with dark muted mouth cavity and subtly colored tongue at bottom, no visible teeth needed. Central UPPER LIP reference stays approximately(674,690); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep eyebrows and chin geometry unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "4d1be17dd0717efe2c0bcb5c1c9b9ae8b88ef7f2afb0dacb88e7881bdea55a9d",
+      "reasonNotUsed": "Initial opening was broader than intended with a raised upper-lip edge. The v2 source moderates the opening; fixed native crop translation aligns its measured central upper lip [670,675] to the actual neutral crease center [671,691]."
+    },
+    {
+      "key": "view-right-down-outerUp",
+      "file": "view-right-down-outerUp.png",
+      "pose": "view-right-down",
+      "state": "outerUp",
+      "references": [
+        "view-right-down-neutral.png"
+      ],
+      "generationId": "exec-36365bd9-9d67-4ff3-ac02-d5e824437512",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose viewer-right-facing three-quarter with chin lowered. Preserve same1122x1402 full portrait framing.\nChange ONLY BOTH EYEBROWS and tinyforeheadskin to remove oldstrokes. Original bounds: near on viewer LEFT x566..708 y432..485 (inner nose end x708); far on viewer RIGHT x786..851 y494..510 (inner nose end x786). Raise OUTER/temple ends of BOTH eyebrows by12–15sourcepixels with a soft curious arch; inner nose roots nearlyfixed. Visible far segment also lifts; not uniform translation.\nKeep original fine soft tapered desaturated gray-violet matte strokes, length and visualweight. No shining silverhair/black thickmakeup. Keep original near/far perspective and all foreground bangs EXACTLY in place; brows behind opaque hair and onlyoriginalfaintvisibility throughthin strands. Only one cleanstroke perbrow, no doubleold/new marks. LOCK openeyes, gaze, creases, neutral thinmouth.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "3fc69fcc1a5f55b8e5625eeb0e53a13db72a4c20e3e3dc915071d4a709ecdaf9",
+      "reasonNotUsed": "Both exposed eyebrows rose only about2–3nativepixels, too close to neutral. The selected v2 creates a clearer upward outer/body shape in both visible brows."
+    },
+    {
+      "key": "view-up-closed-wide",
+      "file": "view-up-closed-wide.png",
+      "pose": "view-up",
+      "state": "closed-wide",
+      "references": [
+        "view-up-neutral.png"
+      ],
+      "generationId": "exec-e124058a-ab7a-4352-b085-86bd93ef9332",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lifted, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY BOTH eyes to a natural fully CLOSED neutral blink and mouth to a moderately WIDE speaking opening. Original eye bounds: viewer LEFT x370..495 y428..496; viewer RIGHT x620..744 y424..495. Upper eyelid gently descends to lower lid location, soft downward-curving resting lids, NOT happy upward arched eyes, no cheek lift. Preserve original eye corners and lashes. Mouthabout60–70pxwide and35–44pxhigh, upper edge stable, with dark muted mouth cavity and subtly colored tongue at bottom, no visible teeth needed. Central UPPER LIP reference stays approximately(558,604); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep eyebrows and chin geometry unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "9dd4c37f4486d49836eff4d6419cb95b0ecdea14ae570c659c446ce0dde10a3b",
+      "reasonNotUsed": "Initial opening was about96px wide with center upper edge at y581, substantially above the neutral y604 anchor; the v2 source is narrower and its closed eyelids are more neutral. The v2 source still uses a measured fixed native translation of its mouth crop."
+    },
+    {
+      "key": "view-up-pucker",
+      "file": "view-up-pucker.png",
+      "pose": "view-up",
+      "state": "pucker",
+      "references": [
+        "view-up-neutral.png"
+      ],
+      "generationId": "exec-cf6c68e4-adac-49d1-b22d-3f0404f5de1e",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lifted, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY the mouth and tiny immediately adjacent skin. Draw a small CLOSED pursed mouth as if preparing a soft kiss: delicate central w-shaped pinch about28–34pxwide, sealed lips, faint lower shadow, notanopenO. Central UPPER LIP reference stays approximately(558,604); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep both eyes/gaze and eyebrows unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "5ec4ff651d1bdf9b6d5a3c39859af3515441448d805e7c50adf24d651ad9b915",
+      "reasonNotUsed": "Initial source had conspicuous small bright lip dots; v2 was selected for a softer low-saturation treatment. Tiny residual highlights remain in the generated source and are documented rather than digitally painted away."
+    },
+    {
+      "key": "view-down-closed-wide",
+      "file": "view-down-closed-wide.png",
+      "pose": "view-down",
+      "state": "closed-wide",
+      "references": [
+        "view-down-neutral.png"
+      ],
+      "generationId": "exec-53ff4ad1-e14b-4215-b7f4-37a196cd0529",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lowered, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY BOTH eyes to a natural fully CLOSED neutral blink and mouth to a moderately WIDE speaking opening. Original eye bounds: viewer LEFT x375..493 y527..589; viewer RIGHT x622..743 y515..583. Upper eyelid gently descends to lower lid location, soft downward-curving resting lids, NOT happy upward arched eyes, no cheek lift. Preserve original eye corners and lashes. Mouthabout60–70pxwide and35–44pxhigh, upper edge stable, with dark muted mouth cavity and subtly colored tongue at bottom, no visible teeth needed. Central UPPER LIP reference stays approximately(559,714); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep eyebrows and chin geometry unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "c0a169551ab4c39f8886da2913912ffb7aaf3e08047506bd7a8546115403a308",
+      "reasonNotUsed": "Initial opening was broader than intended and its center upper edge was at y696 instead of the neutral y714 level. The v2 source moderates the mouth size; measured native crop translation retains the original upper-lip level."
+    },
+    {
+      "key": "view-down-pucker",
+      "file": "view-down-pucker.png",
+      "pose": "view-down",
+      "state": "pucker",
+      "references": [
+        "view-down-neutral.png"
+      ],
+      "generationId": "exec-68eb8e5b-185d-4931-95d5-5a651fe4536e",
+      "prompt": "Use case: identity-preserve. Asset type: one native-size local 2D VTuber expression source. Input image1 is the EXACT EDIT TARGET, this character in fixed pose straight frontal with chin gently lowered, zero yaw and roll. Preserve same1122x1402 full portrait framing.\nChange ONLY the mouth and tiny immediately adjacent skin. Draw a small CLOSED pursed mouth as if preparing a soft kiss: delicate central w-shaped pinch about28–34pxwide, sealed lips, faint lower shadow, notanopenO. Central UPPER LIP reference stays approximately(559,714); changes open DOWNWARD from this stable level, not by lifting or moving the entire mouth. Preserve nose-mouth-chin spacing. Tiny delicate low-saturation rose-gray line, matte skin, no thick lips, lipstick, white shine, teeth grin or extra bright underline. Keep both eyes/gaze and eyebrows unchanged.\nKeep all other content exactly registered: same face contour, nose, chin, jawline, short blue-gray tomboy hair, every foreground strand, ears, neck, shoulders, clothing, opaque lavender-gray background. No mirror, zoom, rotation, reframe, body change, added accessories or text. Match fine delicate anime illustration and muted colors. Return one full portrait, not a sheet. Only local crops at native1:1 pixel scale will be used.",
+      "transparentBackground": false,
+      "sha256": "36d1c31163179f3a1b131e214bd38b26154e0cca5c0ab182792443ea10a71d6d",
+      "reasonNotUsed": "Initial source had small bright lip dots; v2 was selected for a softer low-saturation treatment. Tiny residual highlights remain in the generated source and are documented rather than digitally painted away."
+    }
+  ]
+}

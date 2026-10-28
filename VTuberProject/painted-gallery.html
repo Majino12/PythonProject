@@ -15,8 +15,10 @@
     .intro { margin: 0 0 18px; color: #c6bedb; line-height: 1.55; }
     fieldset { margin: 0 0 18px; padding: 14px; border: 1px solid #46405d; border-radius: 14px; background: rgba(20, 17, 34, .88); }
     legend { padding: 0 8px; font-weight: 700; }
-    .presets, .sliders { display: flex; flex-wrap: wrap; align-items: end; gap: 10px; }
+    .presets, .sliders, .gaze-controls, .brow-controls { display: flex; flex-wrap: wrap; align-items: end; gap: 10px; }
     .presets { margin-bottom: 14px; }
+    .gaze-controls, .brow-controls { width: 100%; margin-top: 4px; padding-top: 12px; border-top: 1px solid #39334e; }
+    .gaze-controls p, .brow-controls p { flex: 1 1 260px; margin: 0 0 5px; color: #aaa0c3; font-size: .82rem; line-height: 1.45; }
     button, select, input { font: inherit; }
     button, select { min-height: 38px; border: 1px solid #5b5377; border-radius: 9px; background: #211c35; color: inherit; padding: 7px 11px; }
     button:hover:not(:disabled), button[aria-pressed="true"] { border-color: #bd9cff; background: #362b55; }
@@ -25,8 +27,10 @@
     label span { display: flex; justify-content: space-between; gap: 10px; font-size: .86rem; }
     input[type="range"] { width: 180px; accent-color: #b38cff; }
     #galleryStatus { min-height: 1.5em; margin: 0 0 12px; color: #bfe9d5; }
+    #galleryMouthSupport { color: #f0d69e; font-size: .86rem; line-height: 1.55; }
     #galleryStatus.error { color: #ffb4bd; }
     .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+    .gallery figure:first-child { grid-column: 1 / -1; width: min(100%, 350px); justify-self: center; }
     figure { margin: 0; overflow: hidden; border: 1px solid #39334e; border-radius: 12px; background: #161326; box-shadow: 0 10px 25px rgba(0, 0, 0, .18); }
     canvas { display: block; width: 100%; height: auto; aspect-ratio: 700 / 580; background-color: #f0edf7; background-image: linear-gradient(45deg, #d9d3e8 25%, transparent 25%), linear-gradient(-45deg, #d9d3e8 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #d9d3e8 75%), linear-gradient(-45deg, transparent 75%, #d9d3e8 75%); background-position: 0 0, 0 10px, 10px -10px, -10px 0; background-size: 20px 20px; }
     figcaption { display: flex; justify-content: space-between; gap: 8px; padding: 8px 10px; color: #ded7ef; font: 600 .78rem ui-monospace, SFMono-Regular, Menlo, monospace; }
@@ -37,14 +41,16 @@
 </head>
 <body>
   <main>
-    <h1>绘制角色验收画廊</h1>
-    <p class="intro">开发 / 验收专用：从 Luna 的同一份本地 manifest 读取全部头部画稿。每格固定截取源画布 x=180、y=200、w=700、h=580；页面不启用摄像头，也不访问外网。</p>
+    <h1>旧 Luna 试验素材检查</h1>
+    <p class="intro">旧版素材排查页，视觉尚未通过验收，不代表新短发角色效果。从 Luna 的同一份本地 manifest 读取全部头部画稿。方向名中的 right / left 指鼻尖朝画面右 / 左；斜侧面较宽面颊上的眼睛是近眼。每格固定截取源画布 x=180、y=200、w=700、h=580；页面不启用摄像头，也不访问外网。</p>
     <fieldset id="galleryControls" disabled>
       <legend>统一检查全部方向</legend>
       <div class="presets" role="group" aria-label="表情预设">
         <button type="button" data-gallery-preset="neutral" aria-pressed="true">中性</button>
         <button type="button" data-gallery-preset="blink" aria-pressed="false">闭眼</button>
         <button type="button" data-gallery-preset="jaw" aria-pressed="false">张嘴</button>
+        <button type="button" data-gallery-preset="mouthLeft" aria-pressed="false">纯左移嘴</button>
+        <button type="button" data-gallery-preset="mouthRight" aria-pressed="false">纯右移嘴</button>
         <button type="button" data-gallery-preset="puckerLeft" aria-pressed="false">左噘嘴</button>
         <button type="button" data-gallery-preset="puckerRight" aria-pressed="false">右噘嘴</button>
         <button type="button" data-gallery-preset="press" aria-pressed="false">抿嘴</button>
@@ -54,13 +60,45 @@
         <label><span>张嘴 <output for="galleryJaw">0%</output></span><input id="galleryJaw" data-gallery-channel="jaw" type="range" min="0" max="1" step=".01" value="0" /></label>
         <label><span>噘嘴 <output for="galleryPucker">0%</output></span><input id="galleryPucker" data-gallery-channel="pucker" type="range" min="0" max="1" step=".01" value="0" /></label>
         <label><span>抿嘴 <output for="galleryPress">0%</output></span><input id="galleryPress" data-gallery-channel="press" type="range" min="0" max="1" step=".01" value="0" /></label>
-        <label>噘嘴方向
+        <label>移嘴方向（角色自身）
           <select id="galleryPuckerDirection">
             <option value="center">居中</option>
             <option value="left">角色左侧</option>
             <option value="right">角色右侧</option>
           </select>
         </label>
+        <p id="galleryMouthSupport" role="status" aria-live="polite">正在检查独立移嘴画稿。方向信号独立于噘嘴；缺稿时保留其余嘴型。</p>
+        <div class="gaze-controls">
+          <label><span>上下视线 <output for="galleryGaze">0%</output></span><input id="galleryGaze" data-gallery-channel="gaze" type="range" min="-1" max="1" step=".01" value="0" /></label>
+          <div class="presets" role="group" aria-label="上下视线快捷" style="margin-bottom:0">
+            <button type="button" data-gallery-gaze="1" aria-pressed="false">看上</button>
+            <button type="button" data-gallery-gaze="0" aria-pressed="true">居中</button>
+            <button type="button" data-gallery-gaze="-1" aria-pressed="false">看下</button>
+          </div>
+          <p>视线独立于表情：调整后会锁定同一输入并同步重绘全部方向，不会清除当前眨眼、张嘴或噘嘴。</p>
+        </div>
+        <div class="brow-controls">
+          <label><span>眉毛强度 <output for="galleryBrow">60%</output></span><input id="galleryBrow" data-gallery-channel="brow" type="range" min="0" max="1" step=".01" value=".6" /></label>
+          <label>眉毛动作
+            <select id="galleryBrowMode" data-gallery-channel="browMode">
+              <option value="neutral">中性</option>
+              <option value="raise">抬眉</option>
+              <option value="frown">皱眉</option>
+              <option value="worried">委屈</option>
+              <option value="outerLeft">角色左挑眉</option>
+              <option value="outerRight">角色右挑眉</option>
+            </select>
+          </label>
+          <div class="presets" role="group" aria-label="眉毛动作快捷" style="margin-bottom:0">
+            <button type="button" data-gallery-brow="neutral" aria-pressed="true">眉毛中性</button>
+            <button type="button" data-gallery-brow="raise" aria-pressed="false">抬眉</button>
+            <button type="button" data-gallery-brow="frown" aria-pressed="false">皱眉</button>
+            <button type="button" data-gallery-brow="worried" aria-pressed="false">委屈</button>
+            <button type="button" data-gallery-brow="outerLeft" aria-pressed="false">角色左挑眉</button>
+            <button type="button" data-gallery-brow="outerRight" aria-pressed="false">角色右挑眉</button>
+          </div>
+          <p>眉毛独立于上方眼睛、嘴型和视线输入；可用同一强度比较 13 个方向。左右均按角色自身方向。</p>
+        </div>
       </div>
     </fieldset>
     <p id="galleryStatus" role="status" aria-live="polite">正在加载本地画稿…</p>

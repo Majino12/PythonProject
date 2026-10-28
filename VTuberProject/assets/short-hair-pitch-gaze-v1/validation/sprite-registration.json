@@ -1,0 +1,234 @@
+{
+  "schema": "pitch-gaze-sprite-registration-v1",
+  "method": "Read-only RGBA alpha connected components and direct visual pupil-center registration. Exact alpha bounds are measured from source PNG; sourcePupil is a visually inspected ellipse-center estimate, not a claimed exact segmentation. Each eye uses one fixed uniform scale. The original approved iris core retains its pigment, pupil and sole highlight.",
+  "poses": {
+    "view-left-up": {
+      "eyeLeft": {
+        "sourcePosition": "viewerRight",
+        "sourcePupil": [
+          783.5,
+          684
+        ],
+        "pupilReference": [
+          519.5,
+          420
+        ],
+        "uniformScale": 0.2,
+        "irisRect": [
+          642,
+          495,
+          304,
+          402
+        ],
+        "irisDestination": [
+          491.2,
+          382.2,
+          60.800000000000004,
+          80.4
+        ],
+        "alpha128Rect": [
+          649,
+          501,
+          290,
+          390
+        ],
+        "alpha1Rect": [
+          644,
+          497,
+          300,
+          398
+        ],
+        "opaquePixelCount": 89635
+      },
+      "eyeRight": {
+        "sourcePosition": "viewerLeft",
+        "sourcePupil": [
+          313.5,
+          707.5
+        ],
+        "pupilReference": [
+          352,
+          441
+        ],
+        "uniformScale": 0.18,
+        "irisRect": [
+          204,
+          551,
+          217,
+          337
+        ],
+        "irisDestination": [
+          332.29,
+          412.83,
+          39.059999999999995,
+          60.66
+        ],
+        "alpha128Rect": [
+          211,
+          557,
+          205,
+          325
+        ],
+        "alpha1Rect": [
+          206,
+          553,
+          213,
+          333
+        ],
+        "opaquePixelCount": 52542
+      }
+    },
+    "view-right-up": {
+      "eyeRight": {
+        "sourcePosition": "viewerLeft",
+        "sourcePupil": [
+          479,
+          623.5
+        ],
+        "pupilReference": [
+          576.5,
+          443
+        ],
+        "uniformScale": 0.29,
+        "irisRect": [
+          360,
+          504,
+          221,
+          248
+        ],
+        "irisDestination": [
+          541.99,
+          408.345,
+          64.08999999999999,
+          71.92
+        ],
+        "alpha128Rect": [
+          367,
+          509,
+          209,
+          237
+        ],
+        "alpha1Rect": [
+          362,
+          506,
+          217,
+          244
+        ],
+        "opaquePixelCount": 39474
+      },
+      "eyeLeft": {
+        "sourcePosition": "viewerRight",
+        "sourcePupil": [
+          796.5,
+          625.5
+        ],
+        "pupilReference": [
+          759,
+          434
+        ],
+        "uniformScale": 0.32,
+        "irisRect": [
+          719,
+          525,
+          147,
+          212
+        ],
+        "irisDestination": [
+          734.2,
+          401.84,
+          47.04,
+          67.84
+        ],
+        "alpha128Rect": [
+          726,
+          530,
+          134,
+          200
+        ],
+        "alpha1Rect": [
+          721,
+          527,
+          143,
+          208
+        ],
+        "opaquePixelCount": 21288
+      }
+    },
+    "view-left-down": {
+      "eyeLeft": {
+        "sourcePosition": "viewerRight",
+        "sourcePupil": [
+          745.5,
+          705
+        ],
+        "pupilReference": [
+          524.5,
+          553.5
+        ],
+        "uniformScale": 0.25,
+        "irisRect": [
+          630,
+          570,
+          240,
+          266
+        ],
+        "irisDestination": [
+          495.625,
+          519.75,
+          60,
+          66.5
+        ],
+        "alpha128Rect": [
+          637,
+          576,
+          228,
+          253
+        ],
+        "alpha1Rect": [
+          632,
+          572,
+          236,
+          262
+        ],
+        "opaquePixelCount": 45939
+      },
+      "eyeRight": {
+        "sourcePosition": "viewerLeft",
+        "sourcePupil": [
+          319.5,
+          713
+        ],
+        "pupilReference": [
+          347.5,
+          566.5
+        ],
+        "uniformScale": 0.27,
+        "irisRect": [
+          214,
+          590,
+          191,
+          236
+        ],
+        "irisDestination": [
+          319.015,
+          533.29,
+          51.57,
+          63.720000000000006
+        ],
+        "alpha128Rect": [
+          220,
+          595,
+          181,
+          225
+        ],
+        "alpha1Rect": [
+          216,
+          592,
+          187,
+          232
+        ],
+        "opaquePixelCount": 27950
+      }
+    }
+  }
+}

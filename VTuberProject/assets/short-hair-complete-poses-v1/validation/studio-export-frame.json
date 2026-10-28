@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "kind": "moemotion-short-hair-frame",
+  "characterId": "short-hair-v1",
+  "poseId": "view-right-down",
+  "coefficients": {
+    "eyeBlinkLeft": 1,
+    "eyeBlinkRight": 0,
+    "eyeLookInLeft": 0,
+    "eyeLookOutLeft": 0,
+    "eyeLookUpLeft": 0,
+    "eyeLookDownLeft": 0,
+    "eyeLookInRight": 0,
+    "eyeLookOutRight": 0.6,
+    "eyeLookUpRight": 0,
+    "eyeLookDownRight": 0,
+    "jawOpen": 0.8,
+    "mouthClose": 0,
+    "mouthPucker": 0,
+    "mouthPressLeft": 0,
+    "mouthPressRight": 0,
+    "mouthLeft": 0,
+    "mouthRight": 0,
+    "browInnerUp": 0,
+    "browOuterUpLeft": 0,
+    "browOuterUpRight": 1,
+    "browDownLeft": 0,
+    "browDownRight": 0
+  },
+  "supportedChannels": [
+    "eyeBlinkLeft",
+    "eyeBlinkRight",
+    "eyeLookInLeft",
+    "eyeLookOutLeft",
+    "eyeLookUpLeft",
+    "eyeLookDownLeft",
+    "eyeLookInRight",
+    "eyeLookOutRight",
+    "eyeLookUpRight",
+    "eyeLookDownRight",
+    "jawOpen",
+    "mouthClose",
+    "mouthPucker",
+    "mouthPressLeft",
+    "mouthPressRight",
+    "mouthLeft",
+    "mouthRight",
+    "browInnerUp",
+    "browOuterUpLeft",
+    "browOuterUpRight",
+    "browDownLeft",
+    "browDownRight"
+  ],
+  "renderedState": {
+    "eyeLeft": "closed",
+    "eyeRight": "open",
+    "mouth": "openWide",
+    "browLeft": "neutral",
+    "browRight": "outerUp"
+  },
+  "renderedGaze": {
+    "eyeLeft": {
+      "x": 0,
+      "y": 0
+    },
+    "eyeRight": {
+      "x": -0.6,
+      "y": 0
+    }
+  },
+  "targetState": {
+    "eyeLeft": "closed",
+    "eyeRight": "open",
+    "mouth": "openWide",
+    "browLeft": "neutral",
+    "browRight": "outerUp"
+  },
+  "targetGaze": {
+    "eyeLeft": {
+      "x": 0,
+      "y": 0
+    },
+    "eyeRight": {
+      "x": -0.6,
+      "y": 0
+    }
+  },
+  "preview": {
+    "faceOnly": true,
+    "original": false
+  },
+  "source": "manual",
+  "exportedAt": "2026-10-27T01:43:15.955Z"
+}

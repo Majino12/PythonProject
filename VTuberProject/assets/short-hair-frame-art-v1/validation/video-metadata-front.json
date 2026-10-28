@@ -1,0 +1,12 @@
+{
+  "file": "short-hair-2026-10-28T07-09-29-087Z.webm",
+  "bytes": 5596679,
+  "videoBlocks": 1694,
+  "timecodeScaleNs": 1000000,
+  "codec": "V_VP9",
+  "width": 630,
+  "height": 460,
+  "timestampSpanSeconds": 28.224,
+  "encodedMeanFps": 59.984410430839,
+  "uniqueTimestamps": 1694
+}

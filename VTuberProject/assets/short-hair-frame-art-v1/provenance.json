@@ -1,0 +1,445 @@
+{
+  "schemaVersion": 1,
+  "tool": "Built-in image_gen",
+  "createdAt": "2026-10-28",
+  "method": "Eight fixed-pose source pairs add quarter/three-quarter closed eyes and parted/medium-open mouths. Full generated portraits are preserved byte-identically; runtime uses registered local native-scale crops and fixed upper-lip translations. No synthetic morph, scaling or opacity crossfade is used to create expression frames. Each source can provide separate left eye, right eye and mouth states. Selection and actual measured geometry are in manifest.json. Prior side candidates are retained to document rejected or corrected source stages.",
+  "assets": [
+    {
+      "key": "view-left-quarter",
+      "file": "view-left-quarter-parted.png",
+      "pose": "view-left",
+      "stage": "quarter",
+      "references": [
+        {
+          "file": "../short-hair-v1/view-left.png",
+          "sha256": "23da31b12da3e50550519db9d95077e107d20755ca72fdab8b82335a961206b6"
+        },
+        {
+          "file": "../short-hair-side-expressions-v1/left-half-small.png",
+          "sha256": "59f1706eaa93de6b178a6e17cc392f4335964328a3cadfd1a6f5215a23a2ad6c"
+        },
+        {
+          "file": "../short-hair-side-expressions-v1/left-closed-wide.png",
+          "sha256": "e5d2c2a619b810a383a89cee75fd419310bb70d00b75abc90b5d39179950aeac"
+        }
+      ],
+      "generationId": "exec-d9a41489-a2bb-43c0-9c6a-a53e772f80ec",
+      "prompt": "Use case: identity-preserve. Asset type: one precise intermediate 2D VTuber expression painting, same native 1122 x 1402 canvas.\nInput images: Image 1 is the neutral EDIT TARGET and immutable registration reference; image 2 supports the existing half-closed-eye/small-open-mouth endpoint; image 3 supports the existing fully-closed-eye/wide-open-mouth endpoint. Produce ONE full portrait, not a sheet.\nKeep the exact character identity, 画面左转 · 角色右转 head pose, head size, near/far perspective, face contour, nose, eyebrows, short blue-gray hair including every strand crossing the eyes, ears, neck, jacket, white shirt, lighting, palette and background of IMAGE 1.\nChange ONLY both upper eyelids and the mouth interior, creating a genuinely newly drawn intermediate frame:\nEYELIDS: 25% closed, approximately halfway between the fully open eyes of image 1 and half-closed eyes of image 2. Both apertures must be visibly more open than image 2, about 75% of the neutral vertical opening. Keep eye corners, lower lids and eyeballs stationary. MOUTH: lips just parted in a very narrow gentle slit, only about 10–14 native pixels tall, visibly smaller than image 2; retain the original soft smile width and subtle low-saturation line.\nThe upper-lip reference remains fixed at approximately (461,654) on the neutral image, and the opening unfolds DOWNWARD. Do not lift the mouth, change the face silhouette, introduce thick lips, lipstick, glossy highlights, stronger blush, eyebrow motion or new decorations. Keep exactly the existing iris shape/color/center behind the eyelids; do not resize eyes or move pupils. Do not blend two eyes/lips on top of each other; draw one crisp edge per eyelid or lip. Preserve composition and original illustration style. No text, labels, borders, cat ears, accessories, extra objects, or collage.",
+      "transparentBackground": false,
+      "sha256": "d4325aeb6cffc689d54247eebb0fba9465e0bf4fd07e57276d39a97d3f984235",
+      "selected": false,
+      "selectionNote": "Retained correction-chain source; runtime selects the later validated per-pose source in manifest.json."
+    },
+    {
+      "key": "view-left-threeQuarter",
+      "file": "view-left-three-quarter-medium.png",
+      "pose": "view-left",
+      "stage": "threeQuarter",
+      "references": [
+        {
+          "file": "../short-hair-v1/view-left.png",
+          "sha256": "23da31b12da3e50550519db9d95077e107d20755ca72fdab8b82335a961206b6"
+        },
+        {
+          "file": "../short-hair-side-expressions-v1/left-half-small.png",
+          "sha256": "59f1706eaa93de6b178a6e17cc392f4335964328a3cadfd1a6f5215a23a2ad6c"
+        },
+        {
+          "file": "../short-hair-side-expressions-v1/left-closed-wide.png",
+          "sha256": "e5d2c2a619b810a383a89cee75fd419310bb70d00b75abc90b5d39179950aeac"
+        }
+      ],
+      "generationId": "exec-0e76ea11-1d85-4249-93da-5ed8c3983859",
+      "prompt": "Use case: identity-preserve. Asset type: one precise intermediate 2D VTuber expression painting, same native 1122 x 1402 canvas.\nInput images: Image 1 is the neutral EDIT TARGET and immutable registration reference; image 2 supports the existing half-closed-eye/small-open-mouth endpoint; image 3 supports the existing fully-closed-eye/wide-open-mouth endpoint. Produce ONE full portrait, not a sheet.\nKeep the exact character identity, 画面左转 · 角色右转 head pose, head size, near/far perspective, face contour, nose, eyebrows, short blue-gray hair including every strand crossing the eyes, ears, neck, jacket, white shirt, lighting, palette and background of IMAGE 1.\nChange ONLY both upper eyelids and the mouth interior, creating a genuinely newly drawn intermediate frame:\nEYELIDS: 75% closed, approximately halfway between the half-closed eyes of image 2 and fully closed eyes of image 3. A narrow remaining aperture, about 20–25% of the neutral vertical opening, must still reveal a small sliver of the existing iris and eye white; NOT fully closed and NOT a smile squint. Keep corners, lower lids and eyeballs stationary. MOUTH: medium opening, clearly between the small mouth of image 2 and wide mouth of image 3, approximately 38–40 native pixels tall. Draw a modest dark interior, restrained tongue and thin upper tooth edge matching existing artwork.\nThe upper-lip reference remains fixed at approximately (461,654) on the neutral image, and the opening unfolds DOWNWARD. Do not lift the mouth, change the face silhouette, introduce thick lips, lipstick, glossy highlights, stronger blush, eyebrow motion or new decorations. Keep exactly the existing iris shape/color/center behind the eyelids; do not resize eyes or move pupils. Do not blend two eyes/lips on top of each other; draw one crisp edge per eyelid or lip. Preserve composition and original illustration style. No text, labels, borders, cat ears, accessories, extra objects, or collage.",
+      "transparentBackground": false,
+      "sha256": "41231b39f1819e4f03b557dbf27991e65f022d08b1a2732047542f7e585f6671",
+      "selected": false,
+      "selectionNote": "Retained correction-chain source; runtime selects the later validated per-pose source in manifest.json."
+    },
+    {
+      "key": "view-right-quarter",
+      "file": "view-right-quarter-parted.png",
+      "pose": "view-right",
+      "stage": "quarter",
+      "references": [
+        {
+          "file": "../short-hair-v1/view-right.png",
+          "sha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3"
+        },
+        {
+          "file": "../short-hair-side-expressions-v1/right-half-small.png",
+          "sha256": "27ce8524fd491ad5ed2197895e48afe2c096adb29678c04780f3a781e599731b"
+        },
+        {
+          "file": "../short-hair-side-expressions-v1/right-closed-wide.png",
+          "sha256": "03f9b19971df7136402430e183f1a49d74af87b6e41227197df10643a43735e7"
+        }
+      ],
+      "generationId": "exec-bd86333b-3eb1-48d2-bbb4-b462d7219a0b",
+      "prompt": "Use case: identity-preserve. Asset type: one precise intermediate 2D VTuber expression painting, same native 1122 x 1402 canvas.\nInput images: Image 1 is the neutral EDIT TARGET and immutable registration reference; image 2 supports the existing half-closed-eye/small-open-mouth endpoint; image 3 supports the existing fully-closed-eye/wide-open-mouth endpoint. Produce ONE full portrait, not a sheet.\nKeep the exact character identity, 画面右转 · 角色左转 head pose, head size, near/far perspective, face contour, nose, eyebrows, short blue-gray hair including every strand crossing the eyes, ears, neck, jacket, white shirt, lighting, palette and background of IMAGE 1.\nChange ONLY both upper eyelids and the mouth interior, creating a genuinely newly drawn intermediate frame:\nEYELIDS: 25% closed, approximately halfway between the fully open eyes of image 1 and half-closed eyes of image 2. Both apertures must be visibly more open than image 2, about 75% of the neutral vertical opening. Keep eye corners, lower lids and eyeballs stationary. MOUTH: lips just parted in a very narrow gentle slit, only about 10–14 native pixels tall, visibly smaller than image 2; retain the original soft smile width and subtle low-saturation line.\nThe upper-lip reference remains fixed at approximately (661,655) on the neutral image, and the opening unfolds DOWNWARD. Do not lift the mouth, change the face silhouette, introduce thick lips, lipstick, glossy highlights, stronger blush, eyebrow motion or new decorations. Keep exactly the existing iris shape/color/center behind the eyelids; do not resize eyes or move pupils. Do not blend two eyes/lips on top of each other; draw one crisp edge per eyelid or lip. Preserve composition and original illustration style. No text, labels, borders, cat ears, accessories, extra objects, or collage.",
+      "transparentBackground": false,
+      "sha256": "4df9fc4cc492c7e5aa0a9596fadc09c25d9ce1ba65f03510e19d074109629c5d",
+      "selected": false,
+      "selectionNote": "Retained correction-chain source; runtime selects the later validated per-pose source in manifest.json."
+    },
+    {
+      "key": "view-right-threeQuarter",
+      "file": "view-right-three-quarter-medium.png",
+      "pose": "view-right",
+      "stage": "threeQuarter",
+      "references": [
+        {
+          "file": "../short-hair-v1/view-right.png",
+          "sha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3"
+        },
+        {
+          "file": "../short-hair-side-expressions-v1/right-half-small.png",
+          "sha256": "27ce8524fd491ad5ed2197895e48afe2c096adb29678c04780f3a781e599731b"
+        },
+        {
+          "file": "../short-hair-side-expressions-v1/right-closed-wide.png",
+          "sha256": "03f9b19971df7136402430e183f1a49d74af87b6e41227197df10643a43735e7"
+        }
+      ],
+      "generationId": "exec-6791efb0-ec30-4025-98da-b10729c6a6f8",
+      "prompt": "Use case: identity-preserve. Asset type: one precise intermediate 2D VTuber expression painting, same native 1122 x 1402 canvas.\nInput images: Image 1 is the neutral EDIT TARGET and immutable registration reference; image 2 supports the existing half-closed-eye/small-open-mouth endpoint; image 3 supports the existing fully-closed-eye/wide-open-mouth endpoint. Produce ONE full portrait, not a sheet.\nKeep the exact character identity, 画面右转 · 角色左转 head pose, head size, near/far perspective, face contour, nose, eyebrows, short blue-gray hair including every strand crossing the eyes, ears, neck, jacket, white shirt, lighting, palette and background of IMAGE 1.\nChange ONLY both upper eyelids and the mouth interior, creating a genuinely newly drawn intermediate frame:\nEYELIDS: 75% closed, approximately halfway between the half-closed eyes of image 2 and fully closed eyes of image 3. A narrow remaining aperture, about 20–25% of the neutral vertical opening, must still reveal a small sliver of the existing iris and eye white; NOT fully closed and NOT a smile squint. Keep corners, lower lids and eyeballs stationary. MOUTH: medium opening, clearly between the small mouth of image 2 and wide mouth of image 3, approximately 38–40 native pixels tall. Draw a modest dark interior, restrained tongue and thin upper tooth edge matching existing artwork.\nThe upper-lip reference remains fixed at approximately (661,655) on the neutral image, and the opening unfolds DOWNWARD. Do not lift the mouth, change the face silhouette, introduce thick lips, lipstick, glossy highlights, stronger blush, eyebrow motion or new decorations. Keep exactly the existing iris shape/color/center behind the eyelids; do not resize eyes or move pupils. Do not blend two eyes/lips on top of each other; draw one crisp edge per eyelid or lip. Preserve composition and original illustration style. No text, labels, borders, cat ears, accessories, extra objects, or collage.",
+      "transparentBackground": false,
+      "sha256": "1836fa69fa23e8ffcbc81ae084f72c81279e8a60a52235c4d5af16e22f2d54df",
+      "selected": false,
+      "selectionNote": "Retained correction-chain source; runtime selects the later validated per-pose source in manifest.json."
+    },
+    {
+      "key": "view-left-up-quarter",
+      "file": "view-left-up-quarter-parted.png",
+      "pose": "view-left-up",
+      "stage": "quarter",
+      "references": [
+        {
+          "file": "../short-hair-v1/view-left-up.png",
+          "sha256": "614ea3f4df961ffefefe4ae054eea45fe6c42a0cf5ae25cb3f6e88d5f6ca8637"
+        }
+      ],
+      "generationId": "exec-435c84d9-d6b0-4910-857d-9d5427d900a7",
+      "prompt": "Use case: identity-preserve. Asset: one newly drawn intermediate animation frame for an existing 2D VTuber portrait. Image 1 is the EDIT TARGET. Return exactly one 1122x1402 full portrait on the same background, no sheet.\nKeep the entire 画面左斜上 · 角色右转抬头 head pose, face silhouette, neutral eyebrow position, nose, hair, ear, neck, clothes, lighting, skin and background precisely unchanged. Edit only both UPPER EYELIDS and the MOUTH, in place, without moving either eye corner or lower eyelid.\nStarting from these fully open eyes: lower each upper eyelid by only ONE QUARTER of its original vertical eye opening. 75% of the original eye aperture remains visible. This is a light blink onset, visibly closer to fully open than to half closed. Preserve the underlying stationary iris scale and gaze direction. Part the original smile into a very small 10–12 pixel-tall mouth opening, a narrow gentle slit with restrained interior color, while keeping the original thin upper lip in place.\nUpper-lip anatomical reference is (405,574); it must remain fixed relative to the nose while the lower lip descends. Do not shift the mouth upward. Keep a single crisp dark lip line, low-saturation color, no thick lips or glossy makeup. No change to head/body geometry, no widening or resizing the eyes, no pupil movement, no new eyelashes, no text, no borders, no accessories or cat ears. Preserve every foreground hair strand crossing the eye. This frame will be cropped and registered exactly to the unchanged neutral portrait; precision matters more than dramatizing the expression.",
+      "transparentBackground": false,
+      "sha256": "d8ada72d7662e5738efa4ab5221fcf47d5367e22797c562119688f561663c4c9",
+      "selected": true
+    },
+    {
+      "key": "view-left-up-threeQuarter",
+      "file": "view-left-up-three-quarter-medium.png",
+      "pose": "view-left-up",
+      "stage": "threeQuarter",
+      "references": [
+        {
+          "file": "../short-hair-pitch-expressions-v1/view-left-up-half-small.png",
+          "sha256": "d9dc3086a16deee386d7fa767f53d9784ce153b5f78201710e7cf9ab2c580f83"
+        }
+      ],
+      "generationId": "exec-ecee8618-6920-46f6-89da-aad73f28453b",
+      "prompt": "Use case: identity-preserve. Asset: one newly drawn intermediate animation frame for an existing 2D VTuber portrait. Image 1 is the EDIT TARGET. Return exactly one 1122x1402 full portrait on the same background, no sheet.\nKeep the entire 画面左斜上 · 角色右转抬头 head pose, face silhouette, neutral eyebrow position, nose, hair, ear, neck, clothes, lighting, skin and background precisely unchanged. Edit only both UPPER EYELIDS and the MOUTH, in place, without moving either eye corner or lower eyelid.\nStarting from these HALF CLOSED eyes and SMALL OPEN mouth: lower each upper eyelid further until the vertical opening is HALF of the currently visible opening (overall three-quarters closed); retain a visible tiny slit of the existing iris/eye white. Not fully closed, not a happy squint. Enlarge the current small mouth opening DOWNWARD by about 8–10 pixels only, making a medium opening. Preserve the upper lip and mouth corners exactly; keep the same subtle tongue and upper tooth design. Medium mouth must be visibly taller than current small mouth but not a large laughing mouth.\nUpper-lip anatomical reference is (405,574); it must remain fixed relative to the nose while the lower lip descends. Do not shift the mouth upward. Keep a single crisp dark lip line, low-saturation color, no thick lips or glossy makeup. No change to head/body geometry, no widening or resizing the eyes, no pupil movement, no new eyelashes, no text, no borders, no accessories or cat ears. Preserve every foreground hair strand crossing the eye. This frame will be cropped and registered exactly to the unchanged neutral portrait; precision matters more than dramatizing the expression.",
+      "transparentBackground": false,
+      "sha256": "b23f197157208100c910cde8143601fd98067b5716a24a1c5660a18757455f70",
+      "selected": true
+    },
+    {
+      "key": "view-right-up-quarter",
+      "file": "view-right-up-quarter-parted.png",
+      "pose": "view-right-up",
+      "stage": "quarter",
+      "references": [
+        {
+          "file": "../short-hair-v1/view-right-up.png",
+          "sha256": "900d998244e371021320ead30a823661d8759b516d72ad6390c2c62d3fd21037"
+        }
+      ],
+      "generationId": "exec-e1766e5c-90fb-4ed0-8d66-2478f7bd4530",
+      "prompt": "Use case: identity-preserve. Asset: one newly drawn intermediate animation frame for an existing 2D VTuber portrait. Image 1 is the EDIT TARGET. Return exactly one 1122x1402 full portrait on the same background, no sheet.\nKeep the entire 画面右斜上 · 角色左转抬头 head pose, face silhouette, neutral eyebrow position, nose, hair, ear, neck, clothes, lighting, skin and background precisely unchanged. Edit only both UPPER EYELIDS and the MOUTH, in place, without moving either eye corner or lower eyelid.\nStarting from these fully open eyes: lower each upper eyelid by only ONE QUARTER of its original vertical eye opening. 75% of the original eye aperture remains visible. This is a light blink onset, visibly closer to fully open than to half closed. Preserve the underlying stationary iris scale and gaze direction. Part the original smile into a very small 10–12 pixel-tall mouth opening, a narrow gentle slit with restrained interior color, while keeping the original thin upper lip in place.\nUpper-lip anatomical reference is (690,588); it must remain fixed relative to the nose while the lower lip descends. Do not shift the mouth upward. Keep a single crisp dark lip line, low-saturation color, no thick lips or glossy makeup. No change to head/body geometry, no widening or resizing the eyes, no pupil movement, no new eyelashes, no text, no borders, no accessories or cat ears. Preserve every foreground hair strand crossing the eye. This frame will be cropped and registered exactly to the unchanged neutral portrait; precision matters more than dramatizing the expression.",
+      "transparentBackground": false,
+      "sha256": "4e6c6e0c093ec531d0fb155aa3107703e13fad1b74886cce9b79eec4d9e48833",
+      "selected": true
+    },
+    {
+      "key": "view-right-up-threeQuarter",
+      "file": "view-right-up-three-quarter-medium.png",
+      "pose": "view-right-up",
+      "stage": "threeQuarter",
+      "references": [
+        {
+          "file": "../short-hair-pitch-expressions-v1/view-right-up-half-small.png",
+          "sha256": "930f48e4715527b3c4ca13fff1fea2220d5f2b316e3befe157ce18609e666606"
+        }
+      ],
+      "generationId": "exec-67863648-956f-44db-8b91-6b76b3796c51",
+      "prompt": "Use case: identity-preserve. Asset: one newly drawn intermediate animation frame for an existing 2D VTuber portrait. Image 1 is the EDIT TARGET. Return exactly one 1122x1402 full portrait on the same background, no sheet.\nKeep the entire 画面右斜上 · 角色左转抬头 head pose, face silhouette, neutral eyebrow position, nose, hair, ear, neck, clothes, lighting, skin and background precisely unchanged. Edit only both UPPER EYELIDS and the MOUTH, in place, without moving either eye corner or lower eyelid.\nStarting from these HALF CLOSED eyes and SMALL OPEN mouth: lower each upper eyelid further until the vertical opening is HALF of the currently visible opening (overall three-quarters closed); retain a visible tiny slit of the existing iris/eye white. Not fully closed, not a happy squint. Enlarge the current small mouth opening DOWNWARD by about 8–10 pixels only, making a medium opening. Preserve the upper lip and mouth corners exactly; keep the same subtle tongue and upper tooth design. Medium mouth must be visibly taller than current small mouth but not a large laughing mouth.\nUpper-lip anatomical reference is (690,588); it must remain fixed relative to the nose while the lower lip descends. Do not shift the mouth upward. Keep a single crisp dark lip line, low-saturation color, no thick lips or glossy makeup. No change to head/body geometry, no widening or resizing the eyes, no pupil movement, no new eyelashes, no text, no borders, no accessories or cat ears. Preserve every foreground hair strand crossing the eye. This frame will be cropped and registered exactly to the unchanged neutral portrait; precision matters more than dramatizing the expression.",
+      "transparentBackground": false,
+      "sha256": "452075292d9d3d7cd40005705b999d282ac50eb4f03d619dc662283adc8a4eaf",
+      "selected": true
+    },
+    {
+      "key": "view-left-down-quarter",
+      "file": "view-left-down-quarter-parted.png",
+      "pose": "view-left-down",
+      "stage": "quarter",
+      "references": [
+        {
+          "file": "../short-hair-v1/view-left-down.png",
+          "sha256": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983"
+        }
+      ],
+      "generationId": "exec-3663aa4b-f6cd-446f-91d9-a062b41da830",
+      "prompt": "Use case: identity-preserve. Asset: one newly drawn intermediate animation frame for an existing 2D VTuber portrait. Image 1 is the EDIT TARGET. Return exactly one 1122x1402 full portrait on the same background, no sheet.\nKeep the entire 画面左斜下 · 角色右转低头 head pose, face silhouette, neutral eyebrow position, nose, hair, ear, neck, clothes, lighting, skin and background precisely unchanged. Edit only both UPPER EYELIDS and the MOUTH, in place, without moving either eye corner or lower eyelid.\nStarting from these fully open eyes: lower each upper eyelid by only ONE QUARTER of its original vertical eye opening. 75% of the original eye aperture remains visible. This is a light blink onset, visibly closer to fully open than to half closed. Preserve the underlying stationary iris scale and gaze direction. Part the original smile into a very small 10–12 pixel-tall mouth opening, a narrow gentle slit with restrained interior color, while keeping the original thin upper lip in place.\nUpper-lip anatomical reference is (454,711); it must remain fixed relative to the nose while the lower lip descends. Do not shift the mouth upward. Keep a single crisp dark lip line, low-saturation color, no thick lips or glossy makeup. No change to head/body geometry, no widening or resizing the eyes, no pupil movement, no new eyelashes, no text, no borders, no accessories or cat ears. Preserve every foreground hair strand crossing the eye. This frame will be cropped and registered exactly to the unchanged neutral portrait; precision matters more than dramatizing the expression.",
+      "transparentBackground": false,
+      "sha256": "4481cc535f635eb16bca11dde1c73c50afada8676dec09d3595483591172ede5",
+      "selected": true
+    },
+    {
+      "key": "view-left-down-threeQuarter",
+      "file": "view-left-down-three-quarter-medium.png",
+      "pose": "view-left-down",
+      "stage": "threeQuarter",
+      "references": [
+        {
+          "file": "../short-hair-pitch-expressions-v1/view-left-down-half-small.png",
+          "sha256": "fd2f28ad951ab56ad311f1badb61a359aad61b6e3fd5e7b5513316c65fc1a477"
+        }
+      ],
+      "generationId": "exec-c093d7f0-3bc3-4613-a9cb-f4a34b3dbd93",
+      "prompt": "Use case: identity-preserve. Asset: one newly drawn intermediate animation frame for an existing 2D VTuber portrait. Image 1 is the EDIT TARGET. Return exactly one 1122x1402 full portrait on the same background, no sheet.\nKeep the entire 画面左斜下 · 角色右转低头 head pose, face silhouette, neutral eyebrow position, nose, hair, ear, neck, clothes, lighting, skin and background precisely unchanged. Edit only both UPPER EYELIDS and the MOUTH, in place, without moving either eye corner or lower eyelid.\nStarting from these HALF CLOSED eyes and SMALL OPEN mouth: lower each upper eyelid further until the vertical opening is HALF of the currently visible opening (overall three-quarters closed); retain a visible tiny slit of the existing iris/eye white. Not fully closed, not a happy squint. Enlarge the current small mouth opening DOWNWARD by about 8–10 pixels only, making a medium opening. Preserve the upper lip and mouth corners exactly; keep the same subtle tongue and upper tooth design. Medium mouth must be visibly taller than current small mouth but not a large laughing mouth.\nUpper-lip anatomical reference is (454,711); it must remain fixed relative to the nose while the lower lip descends. Do not shift the mouth upward. Keep a single crisp dark lip line, low-saturation color, no thick lips or glossy makeup. No change to head/body geometry, no widening or resizing the eyes, no pupil movement, no new eyelashes, no text, no borders, no accessories or cat ears. Preserve every foreground hair strand crossing the eye. This frame will be cropped and registered exactly to the unchanged neutral portrait; precision matters more than dramatizing the expression.",
+      "transparentBackground": false,
+      "sha256": "6bd9bff3535d2310cf3011c39377ab1d441950f287cf257704a2ca47b76bd9cd",
+      "selected": true
+    },
+    {
+      "key": "view-up-quarter",
+      "file": "view-up-quarter-parted.png",
+      "pose": "view-up",
+      "stage": "quarter",
+      "references": [
+        {
+          "file": "../short-hair-complete-poses-v1/view-up-neutral.png",
+          "sha256": "252ba6a46b0121ee0c9f94b37180ba4745158da6f2bb230aff5efa0894cb23d6"
+        }
+      ],
+      "generationId": "exec-2a63ccc7-327b-4cbc-8126-7cf8ae2f343e",
+      "prompt": "Use case: identity-preserve. Asset: one newly drawn intermediate animation frame for an existing 2D VTuber portrait. Image 1 is the EDIT TARGET. Return exactly one 1122x1402 full portrait on the same background, no sheet.\nKeep the entire 正面抬头 head pose, face silhouette, neutral eyebrow position, nose, hair, ear, neck, clothes, lighting, skin and background precisely unchanged. Edit only both UPPER EYELIDS and the MOUTH, in place, without moving either eye corner or lower eyelid.\nStarting from these fully open eyes: lower each upper eyelid by only ONE QUARTER of its original vertical eye opening. 75% of the original eye aperture remains visible. This is a light blink onset, visibly closer to fully open than to half closed. Preserve the underlying stationary iris scale and gaze direction. Part the original smile into a very small 10–12 pixel-tall mouth opening, a narrow gentle slit with restrained interior color, while keeping the original thin upper lip in place.\nUpper-lip anatomical reference is (558,604); it must remain fixed relative to the nose while the lower lip descends. Do not shift the mouth upward. Keep a single crisp dark lip line, low-saturation color, no thick lips or glossy makeup. No change to head/body geometry, no widening or resizing the eyes, no pupil movement, no new eyelashes, no text, no borders, no accessories or cat ears. Preserve every foreground hair strand crossing the eye. This frame will be cropped and registered exactly to the unchanged neutral portrait; precision matters more than dramatizing the expression.",
+      "transparentBackground": false,
+      "sha256": "bb531326da80b56c0b580c13338762cdd8653e63acd4811640fc6266178908a5",
+      "selected": true
+    },
+    {
+      "key": "view-up-threeQuarter",
+      "file": "view-up-three-quarter-medium.png",
+      "pose": "view-up",
+      "stage": "threeQuarter",
+      "references": [
+        {
+          "file": "../short-hair-complete-poses-v1/view-up-half-small.png",
+          "sha256": "88a0e8973a7f2a65926d6c3b20a0215cdd7f2f3deb87fd4177ff91819590378a"
+        }
+      ],
+      "generationId": "exec-1032769d-906e-4c7a-aafa-4aed9cdd9bb6",
+      "prompt": "Use case: identity-preserve. Asset: one newly drawn intermediate animation frame for an existing 2D VTuber portrait. Image 1 is the EDIT TARGET. Return exactly one 1122x1402 full portrait on the same background, no sheet.\nKeep the entire 正面抬头 head pose, face silhouette, neutral eyebrow position, nose, hair, ear, neck, clothes, lighting, skin and background precisely unchanged. Edit only both UPPER EYELIDS and the MOUTH, in place, without moving either eye corner or lower eyelid.\nStarting from these HALF CLOSED eyes and SMALL OPEN mouth: lower each upper eyelid further until the vertical opening is HALF of the currently visible opening (overall three-quarters closed); retain a visible tiny slit of the existing iris/eye white. Not fully closed, not a happy squint. Enlarge the current small mouth opening DOWNWARD by about 8–10 pixels only, making a medium opening. Preserve the upper lip and mouth corners exactly; keep the same subtle tongue and upper tooth design. Medium mouth must be visibly taller than current small mouth but not a large laughing mouth.\nUpper-lip anatomical reference is (558,604); it must remain fixed relative to the nose while the lower lip descends. Do not shift the mouth upward. Keep a single crisp dark lip line, low-saturation color, no thick lips or glossy makeup. No change to head/body geometry, no widening or resizing the eyes, no pupil movement, no new eyelashes, no text, no borders, no accessories or cat ears. Preserve every foreground hair strand crossing the eye. This frame will be cropped and registered exactly to the unchanged neutral portrait; precision matters more than dramatizing the expression.",
+      "transparentBackground": false,
+      "sha256": "be3e876f0264fc9005f7b3cbb4c6498aa939fb48b963a545305d145ce9b2cd33",
+      "selected": true
+    },
+    {
+      "key": "view-down-quarter",
+      "file": "view-down-quarter-parted.png",
+      "pose": "view-down",
+      "stage": "quarter",
+      "references": [
+        {
+          "file": "../short-hair-complete-poses-v1/view-down-neutral.png",
+          "sha256": "f9e6315e19b09a121d3d1216611dd0759020f21a5d3fab9827adebb9eceb9d4f"
+        }
+      ],
+      "generationId": "exec-83ca463b-bcaf-4b2e-b390-b5e766004b35",
+      "prompt": "Use case: identity-preserve. Asset: one newly drawn intermediate animation frame for an existing 2D VTuber portrait. Image 1 is the EDIT TARGET. Return exactly one 1122x1402 full portrait on the same background, no sheet.\nKeep the entire 正面低头 head pose, face silhouette, neutral eyebrow position, nose, hair, ear, neck, clothes, lighting, skin and background precisely unchanged. Edit only both UPPER EYELIDS and the MOUTH, in place, without moving either eye corner or lower eyelid.\nStarting from these fully open eyes: lower each upper eyelid by only ONE QUARTER of its original vertical eye opening. 75% of the original eye aperture remains visible. This is a light blink onset, visibly closer to fully open than to half closed. Preserve the underlying stationary iris scale and gaze direction. Part the original smile into a very small 10–12 pixel-tall mouth opening, a narrow gentle slit with restrained interior color, while keeping the original thin upper lip in place.\nUpper-lip anatomical reference is (559,714); it must remain fixed relative to the nose while the lower lip descends. Do not shift the mouth upward. Keep a single crisp dark lip line, low-saturation color, no thick lips or glossy makeup. No change to head/body geometry, no widening or resizing the eyes, no pupil movement, no new eyelashes, no text, no borders, no accessories or cat ears. Preserve every foreground hair strand crossing the eye. This frame will be cropped and registered exactly to the unchanged neutral portrait; precision matters more than dramatizing the expression.",
+      "transparentBackground": false,
+      "sha256": "ab2c3d882ed044015a830b6b20ca93f790d274d853e9ad17c7ceb0d9aa1838c3",
+      "selected": true
+    },
+    {
+      "key": "view-down-threeQuarter",
+      "file": "view-down-three-quarter-medium.png",
+      "pose": "view-down",
+      "stage": "threeQuarter",
+      "references": [
+        {
+          "file": "../short-hair-complete-poses-v1/view-down-half-small.png",
+          "sha256": "5e90b193bbebedb69da423f9f0c6b54df015d32bfae6fe974a7da6ae7645d0c5"
+        }
+      ],
+      "generationId": "exec-cf3ff11b-a383-47d1-9ba9-6d8a8d9d568f",
+      "prompt": "Use case: identity-preserve. Asset: one newly drawn intermediate animation frame for an existing 2D VTuber portrait. Image 1 is the EDIT TARGET. Return exactly one 1122x1402 full portrait on the same background, no sheet.\nKeep the entire 正面低头 head pose, face silhouette, neutral eyebrow position, nose, hair, ear, neck, clothes, lighting, skin and background precisely unchanged. Edit only both UPPER EYELIDS and the MOUTH, in place, without moving either eye corner or lower eyelid.\nStarting from these HALF CLOSED eyes and SMALL OPEN mouth: lower each upper eyelid further until the vertical opening is HALF of the currently visible opening (overall three-quarters closed); retain a visible tiny slit of the existing iris/eye white. Not fully closed, not a happy squint. Enlarge the current small mouth opening DOWNWARD by about 8–10 pixels only, making a medium opening. Preserve the upper lip and mouth corners exactly; keep the same subtle tongue and upper tooth design. Medium mouth must be visibly taller than current small mouth but not a large laughing mouth.\nUpper-lip anatomical reference is (559,714); it must remain fixed relative to the nose while the lower lip descends. Do not shift the mouth upward. Keep a single crisp dark lip line, low-saturation color, no thick lips or glossy makeup. No change to head/body geometry, no widening or resizing the eyes, no pupil movement, no new eyelashes, no text, no borders, no accessories or cat ears. Preserve every foreground hair strand crossing the eye. This frame will be cropped and registered exactly to the unchanged neutral portrait; precision matters more than dramatizing the expression.",
+      "transparentBackground": false,
+      "sha256": "1f4641028278566993ab6b5df5593591c2ca2b3e3e90fc9cb89eb6d4b1c130da",
+      "selected": true
+    },
+    {
+      "key": "view-right-down-quarter",
+      "file": "view-right-down-quarter-parted.png",
+      "pose": "view-right-down",
+      "stage": "quarter",
+      "references": [
+        {
+          "file": "../short-hair-complete-poses-v1/view-right-down-neutral.png",
+          "sha256": "5845cf6909248321f234bff531c16b231017d95fcd92de1e24789328b79e0b71"
+        }
+      ],
+      "generationId": "exec-c9708194-3439-4843-8426-63f51133a47c",
+      "prompt": "Use case: identity-preserve. Asset: one newly drawn intermediate animation frame for an existing 2D VTuber portrait. Image 1 is the EDIT TARGET. Return exactly one 1122x1402 full portrait on the same background, no sheet.\nKeep the entire 画面右斜下 · 角色左转低头 head pose, face silhouette, neutral eyebrow position, nose, hair, ear, neck, clothes, lighting, skin and background precisely unchanged. Edit only both UPPER EYELIDS and the MOUTH, in place, without moving either eye corner or lower eyelid.\nStarting from these fully open eyes: lower each upper eyelid by only ONE QUARTER of its original vertical eye opening. 75% of the original eye aperture remains visible. This is a light blink onset, visibly closer to fully open than to half closed. Preserve the underlying stationary iris scale and gaze direction. Part the original smile into a very small 10–12 pixel-tall mouth opening, a narrow gentle slit with restrained interior color, while keeping the original thin upper lip in place.\nUpper-lip anatomical reference is (671,691); it must remain fixed relative to the nose while the lower lip descends. Do not shift the mouth upward. Keep a single crisp dark lip line, low-saturation color, no thick lips or glossy makeup. No change to head/body geometry, no widening or resizing the eyes, no pupil movement, no new eyelashes, no text, no borders, no accessories or cat ears. Preserve every foreground hair strand crossing the eye. This frame will be cropped and registered exactly to the unchanged neutral portrait; precision matters more than dramatizing the expression.",
+      "transparentBackground": false,
+      "sha256": "b31380b11089d16fa3c90ffdb8067351348dd7423cf4a7df1fe0e733bb6a09ff",
+      "selected": false,
+      "selectionNote": "Retained correction-chain source; runtime selects the later validated per-pose source in manifest.json."
+    },
+    {
+      "key": "view-right-down-threeQuarter",
+      "file": "view-right-down-three-quarter-medium.png",
+      "pose": "view-right-down",
+      "stage": "threeQuarter",
+      "references": [
+        {
+          "file": "../short-hair-complete-poses-v1/view-right-down-half-small.png",
+          "sha256": "3ad207d1355b119018caacf2bf9547a34b7c99ed79d724524c295af42edcb41f"
+        }
+      ],
+      "generationId": "exec-6589fec6-7960-4cb7-b301-a064f0933354",
+      "prompt": "Use case: identity-preserve. Asset: one newly drawn intermediate animation frame for an existing 2D VTuber portrait. Image 1 is the EDIT TARGET. Return exactly one 1122x1402 full portrait on the same background, no sheet.\nKeep the entire 画面右斜下 · 角色左转低头 head pose, face silhouette, neutral eyebrow position, nose, hair, ear, neck, clothes, lighting, skin and background precisely unchanged. Edit only both UPPER EYELIDS and the MOUTH, in place, without moving either eye corner or lower eyelid.\nStarting from these HALF CLOSED eyes and SMALL OPEN mouth: lower each upper eyelid further until the vertical opening is HALF of the currently visible opening (overall three-quarters closed); retain a visible tiny slit of the existing iris/eye white. Not fully closed, not a happy squint. Enlarge the current small mouth opening DOWNWARD by about 8–10 pixels only, making a medium opening. Preserve the upper lip and mouth corners exactly; keep the same subtle tongue and upper tooth design. Medium mouth must be visibly taller than current small mouth but not a large laughing mouth.\nUpper-lip anatomical reference is (671,691); it must remain fixed relative to the nose while the lower lip descends. Do not shift the mouth upward. Keep a single crisp dark lip line, low-saturation color, no thick lips or glossy makeup. No change to head/body geometry, no widening or resizing the eyes, no pupil movement, no new eyelashes, no text, no borders, no accessories or cat ears. Preserve every foreground hair strand crossing the eye. This frame will be cropped and registered exactly to the unchanged neutral portrait; precision matters more than dramatizing the expression.",
+      "transparentBackground": false,
+      "sha256": "c12b6e2ca49fd726d306c167056b8ebc5fa20dc83f51d675a106a9a70dbd284f",
+      "selected": true
+    },
+    {
+      "key": "view-left-quarter-v2",
+      "file": "view-left-quarter-parted-v2.png",
+      "pose": "view-left",
+      "stage": "quarter",
+      "references": [
+        {
+          "file": "view-left-quarter-parted.png",
+          "sha256": "d4325aeb6cffc689d54247eebb0fba9465e0bf4fd07e57276d39a97d3f984235"
+        }
+      ],
+      "generationId": "exec-35e4cc32-71e5-4d67-a190-e383510ac638",
+      "prompt": "Use case: precise-object-edit. Correct only the following small features of this exact 1122x1402 2D avatar illustration. Preserve everything else pixel-aligned: head pose, face, nose, brows, hair crossing eyes, lower eyelids, iris centers and sizes, clothing, background.\nThe eyes are currently too closed. Raise ONLY the upper eyelid of the large eye on the RIGHT side of the image by about 10–12 native pixels, and raise the upper eyelid of the smaller eye on the LEFT by about 5–6 pixels. The new eyes should be clearly three-quarters open with visible iris heights about 39 pixels (large) and 24 pixels (small). Preserve both corners and lower lid and do not enlarge the eyeball. Keep the existing small parted mouth EXACTLY UNCHANGED.\nDraw one clean lip/eyelid edge, not transparency blending, no duplicate lines. Same anatomy and palette. ONE full portrait, no text, no new accessories, no collage. Precision correction only.",
+      "transparentBackground": false,
+      "sha256": "b5e481284928c25400b986d9fc1720b7b09a27b45172fd52f3bfd9796161d0c6",
+      "selected": true
+    },
+    {
+      "key": "view-left-threeQuarter-v2",
+      "file": "view-left-three-quarter-medium-v2.png",
+      "pose": "view-left",
+      "stage": "threeQuarter",
+      "references": [
+        {
+          "file": "view-left-three-quarter-medium.png",
+          "sha256": "41231b39f1819e4f03b557dbf27991e65f022d08b1a2732047542f7e585f6671"
+        }
+      ],
+      "generationId": "exec-bfd8195e-c53f-4e70-8e91-2d774014b3bf",
+      "prompt": "Use case: precise-object-edit. Correct only the following small features of this exact 1122x1402 2D avatar illustration. Preserve everything else pixel-aligned: head pose, face, nose, brows, hair crossing eyes, lower eyelids, iris centers and sizes, clothing, background.\nThe mouth is currently too widely open. Keep its UPPER LIP LINE and mouth corners EXACTLY in their current positions. Redraw its LOWER LIP about 13 native pixels HIGHER, reducing the vertical mouth interior from approximately 52 pixels to 38–40 pixels. Keep a modest medium opening, not a broad laughing mouth, no glossy lower-lip highlight. Also slightly raise only the upper eyelids so the narrow remaining iris openings are about 11 pixels in the large RIGHT eye and 8 pixels in the small LEFT eye. Still three-quarters closed, clearly narrower than half closed and not completely closed. Do not move lower eyelids or eye corners.\nDraw one clean lip/eyelid edge, not transparency blending, no duplicate lines. Same anatomy and palette. ONE full portrait, no text, no new accessories, no collage. Precision correction only.",
+      "transparentBackground": false,
+      "sha256": "1169474dcf13fc1e64e283943297388f2e88f7ac37f523dc89f2acd025c1933c",
+      "selected": true
+    },
+    {
+      "key": "view-right-quarter-v2",
+      "file": "view-right-quarter-parted-v2.png",
+      "pose": "view-right",
+      "stage": "quarter",
+      "references": [
+        {
+          "file": "view-right-quarter-parted.png",
+          "sha256": "4df9fc4cc492c7e5aa0a9596fadc09c25d9ce1ba65f03510e19d074109629c5d"
+        }
+      ],
+      "generationId": "exec-a7eb6068-8f54-42e0-b6b1-ef336e8e6aa6",
+      "prompt": "Use case: precise-object-edit. Correct only the following small features of this exact 1122x1402 2D avatar illustration. Preserve everything else pixel-aligned: head pose, face, nose, brows, hair crossing eyes, lower eyelids, iris centers and sizes, clothing, background.\nThe eyes are currently too closed. Raise ONLY the upper eyelid of the large eye on the LEFT side of the image by about 13–14 native pixels, and raise the upper eyelid of the smaller eye on the RIGHT by about 7–8 pixels. The new eyes should be clearly three-quarters open with visible iris heights about 37 pixels (large) and 27 pixels (small). Preserve both corners and lower lid and do not enlarge the eyeball. Keep the existing small parted mouth EXACTLY UNCHANGED.\nDraw one clean lip/eyelid edge, not transparency blending, no duplicate lines. Same anatomy and palette. ONE full portrait, no text, no new accessories, no collage. Precision correction only.",
+      "transparentBackground": false,
+      "sha256": "e4ecc2035b2b7f60f6269e2c0231f55c08b70a0276dc368bde9649cce9c2ddb7",
+      "selected": false,
+      "selectionNote": "Retained correction-chain source; runtime selects the later validated per-pose source in manifest.json."
+    },
+    {
+      "key": "view-right-threeQuarter-v2",
+      "file": "view-right-three-quarter-medium-v2.png",
+      "pose": "view-right",
+      "stage": "threeQuarter",
+      "references": [
+        {
+          "file": "view-right-three-quarter-medium.png",
+          "sha256": "1836fa69fa23e8ffcbc81ae084f72c81279e8a60a52235c4d5af16e22f2d54df"
+        }
+      ],
+      "generationId": "exec-9bc3c990-ce1e-41d9-839b-fa58a9858ddc",
+      "prompt": "Use case: precise-object-edit. Correct only the following small features of this exact 1122x1402 2D avatar illustration. Preserve everything else pixel-aligned: head pose, face, nose, brows, hair crossing eyes, lower eyelids, iris centers and sizes, clothing, background.\nThe mouth is currently too widely open. Keep its UPPER LIP LINE and mouth corners EXACTLY in their current positions. Redraw its LOWER LIP about 11 native pixels HIGHER, reducing the vertical mouth interior from approximately 50 pixels to 38–40 pixels. Keep a modest medium opening, not a broad laughing mouth, no glossy lower-lip highlight. Also slightly raise only the upper eyelids so the narrow remaining iris openings are about 11 pixels in the large LEFT eye and 8 pixels in the small RIGHT eye. Still three-quarters closed, clearly narrower than half closed and not completely closed. Do not move lower eyelids or eye corners.\nDraw one clean lip/eyelid edge, not transparency blending, no duplicate lines. Same anatomy and palette. ONE full portrait, no text, no new accessories, no collage. Precision correction only.",
+      "transparentBackground": false,
+      "sha256": "85f3a3fdeea52395caac9d5438051025159c749ecaca4e342a25c0bf33f54124",
+      "selected": true
+    },
+    {
+      "key": "view-right-quarter-v3",
+      "file": "view-right-quarter-parted-v3.png",
+      "pose": "view-right",
+      "stage": "quarter",
+      "references": [
+        {
+          "file": "view-right-quarter-parted-v2.png",
+          "sha256": "e4ecc2035b2b7f60f6269e2c0231f55c08b70a0276dc368bde9649cce9c2ddb7"
+        }
+      ],
+      "generationId": "exec-625056a8-0791-49ae-91ff-bbc7cf873851",
+      "prompt": "Use case: precise-object-edit. Input image is the exact edit target, one 1122x1402 fixed 2D VTuber portrait. Make ONE SMALL CORRECTION ONLY to the larger eye on VIEWER LEFT, centered around x559 y505. Its eye opening is currently too high. Redraw only the upper and lower eyelid inner edges and small adjacent sclera/iris occlusion so that at center x559 the upper inner eyelid edge is at y486 and lower inner eyelid edge is at y526. Desired eyelid opening about40px: this is a QUARTER-CLOSED blink, between fully open and half-closed. Original larger eye neutral has upper edge y479 and lower y529; this intermediate must close downward from that upper edge, NOT open upward. Keep eye corners, iris center, pupil/gaze and eyebrows anatomically in place. Preserve the exact original fine lashes and naturally curved eyelid; no mechanically flat or stretched eye. DO NOT change the far/smaller eye on VIEWER RIGHT. DO NOT alter mouth: preserve exact tiny parted mouth and upper lip. Preserve all hair strands and foreground occlusion, face, nose, cheeks, jaw, neck, body, jacket, background, scale and framing exactly. No mirror, rotation, zoom, repositioning of entire eye, new expression, labels, arrows or guides. Return same full native-size opaque portrait.",
+      "transparentBackground": false,
+      "sha256": "c6bce8114df7565d68ce820e68dcf6b169ded0eb233cfdb75927221bab952ecc",
+      "selected": false,
+      "selectionNote": "Retained correction-chain source; runtime selects the later validated per-pose source in manifest.json."
+    },
+    {
+      "key": "view-right-quarter-v4",
+      "file": "view-right-quarter-parted-v4.png",
+      "pose": "view-right",
+      "stage": "quarter",
+      "references": [
+        {
+          "file": "view-right-quarter-parted-v3.png",
+          "sha256": "c6bce8114df7565d68ce820e68dcf6b169ded0eb233cfdb75927221bab952ecc"
+        },
+        {
+          "file": "../short-hair-v1/view-right.png",
+          "sha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3"
+        }
+      ],
+      "generationId": "exec-7011ce93-9706-4487-a9b2-fee7bfda3cac",
+      "prompt": "Use case: precise-object-edit. Image1 is the exact EDIT TARGET, same 1122x1402 fixed portrait. Image2 is ONLY a reference for the LOWER EYELID of the larger eye on VIEWER LEFT. In image1 that eye's lower eyelid was wrongly lifted too far upward. Redraw ONLY this larger eye's lower eyelid and lower lashes DOWNWARD by about10 pixels to match the lower eyelid height in image2. At iris center column x559, keep upper eyelid exactly at image1's current y487; restore lower eyelid to y526 (about9–10px below image1's current y516). The resulting opening must be about39 pixels tall, visibly MORE OPEN than image1, with more lower iris and sclera exposed. Keep upper eyelid, upper lashes, crease, eye corners, iris/pupil center and gaze fixed. Reconstruct the newly exposed lower iris naturally. This is a quarter-closed blink with low upper lid and relaxed lower lid, not a squint. DO NOT raise the lower lid. DO NOT change the other far eye on VIEWER RIGHT or mouth from image1. All hair, eyebrows, nose, skin, jaw, body, background and native framing remain exactly image1. Only the lower border and exposed contents of that single larger eye change. Return full-size opaque portrait, no annotations.",
+      "transparentBackground": false,
+      "sha256": "96ab85e9e2420667160824f5d926008a207a594120ecb51b17077c352b3d6d19",
+      "selected": true
+    },
+    {
+      "key": "view-right-down-quarter-v2",
+      "file": "view-right-down-quarter-parted-v2.png",
+      "pose": "view-right-down",
+      "stage": "quarter",
+      "references": [
+        {
+          "file": "view-right-down-quarter-parted.png",
+          "sha256": "b31380b11089d16fa3c90ffdb8067351348dd7423cf4a7df1fe0e733bb6a09ff"
+        }
+      ],
+      "generationId": "exec-3c75d279-a5ab-486c-ba8e-85a29c9fce4f",
+      "prompt": "Use case: precise-object-edit. Input is exact EDIT TARGET, 1122x1402 fixed portrait. Change ONLY the SMALL FAR EYE on VIEWER RIGHT (center approx x789 y568), which is currently too closed compared with the larger near eye. Gently RAISE that far eye's upper eyelid edge by4pixels and lower its bottom eye edge by2pixels. At x789 target eye aperture upper inner edge y554 and lower inner edge y583, about30pixels tall. Current edges approximately y558 and581. This is a QUARTER-CLOSED blink, not half closed: expose a little more teal iris while keeping its center and gaze, corners and natural perspective fixed. Keep all bangs over this eye exactly where they are. Preserve the larger near eye on VIEWER LEFT exactly. Preserve existing parted mouth, its outline, tiny opening and location exactly. No brow, nose, face plane, cheek, jaw, head, hairstyle, body, clothing, background, framing or color changes. No zoom, mirroring, eye translation or stretching. Return single opaque full portrait with precise local eye correction, no text/marks.",
+      "transparentBackground": false,
+      "sha256": "d744e922bd7c61b8fdac1c297995a940a2c2d93f82c043ae67d718d5d0409f4d",
+      "selected": true
+    }
+  ],
+  "visualApproval": "New intermediate sources have not yet received user visual approval; prior acceptance of old poses is not transferred to new art.",
+  "selectedSources": 16,
+  "retainedCorrectionSources": 7
+}

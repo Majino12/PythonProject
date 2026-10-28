@@ -1,0 +1,1294 @@
+{
+  "version": 1,
+  "id": "short-hair-pitch-expressions-v1",
+  "status": "approved",
+  "poseFamily": "pitch",
+  "createdAt": "2026-10-26",
+  "width": 1122,
+  "height": 1402,
+  "sources": {
+    "view-left-up-neutral": {
+      "src": "./assets/short-hair-v1/view-left-up.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "614ea3f4df961ffefefe4ae054eea45fe6c42a0cf5ae25cb3f6e88d5f6ca8637"
+    },
+    "view-left-up-half-small": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-left-up-half-small.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "d9dc3086a16deee386d7fa767f53d9784ce153b5f78201710e7cf9ab2c580f83"
+    },
+    "view-left-up-closed-wide": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-left-up-closed-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "a88279c58a30476f67e89f4fb275b286da33c070ce57adf10c1cb8868b9cbcfb"
+    },
+    "view-right-up-neutral": {
+      "src": "./assets/short-hair-v1/view-right-up.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "900d998244e371021320ead30a823661d8759b516d72ad6390c2c62d3fd21037"
+    },
+    "view-right-up-half-small": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-right-up-half-small.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "930f48e4715527b3c4ca13fff1fea2220d5f2b316e3befe157ce18609e666606"
+    },
+    "view-right-up-closed-wide": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-right-up-closed-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "3c3a7114b6febb025f1a1bb1ddc4ea27ee5007177d208ba75c7060479a9c835e"
+    },
+    "view-left-down-neutral": {
+      "src": "./assets/short-hair-v1/view-left-down.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983"
+    },
+    "view-left-down-half-small": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-left-down-half-small.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "fd2f28ad951ab56ad311f1badb61a359aad61b6e3fd5e7b5513316c65fc1a477"
+    },
+    "view-left-down-closed-wide": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-left-down-closed-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "28f9db5ec0d0e96ae6f4ffcca612399b3470c895c3a99d597e7d4ac4acd6d40e"
+    }
+  },
+  "poses": {
+    "view-left-up": {
+      "label": "画面左斜上 · 角色右转抬头",
+      "directionNote": "画面右眼是角色左眼（近眼），画面左眼是角色右眼（远眼）。保持原画斜向眼轴与鼻口中线。",
+      "reference": "view-left-up-neutral",
+      "faceView": [
+        240,
+        300,
+        630,
+        460
+      ],
+      "mouthReference": [
+        405,
+        574
+      ],
+      "detailViews": {
+        "eyes": [
+          272,
+          336,
+          382,
+          164
+        ],
+        "mouth": [
+          330,
+          538,
+          160,
+          130
+        ]
+      },
+      "patches": {
+        "eyeLeft": {
+          "half": {
+            "source": "view-left-up-half-small",
+            "rect": [
+              451,
+              365,
+              193,
+              110
+            ],
+            "destination": [
+              451,
+              365,
+              193,
+              110
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                464,
+                384
+              ],
+              [
+                488,
+                369
+              ],
+              [
+                523,
+                365
+              ],
+              [
+                559,
+                366
+              ],
+              [
+                592,
+                378
+              ],
+              [
+                619,
+                392
+              ],
+              [
+                638,
+                403
+              ],
+              [
+                634,
+                430
+              ],
+              [
+                619,
+                454
+              ],
+              [
+                597,
+                470
+              ],
+              [
+                548,
+                474
+              ],
+              [
+                496,
+                468
+              ],
+              [
+                470,
+                456
+              ],
+              [
+                452,
+                437
+              ],
+              [
+                451,
+                410
+              ]
+            ]
+          },
+          "closed": {
+            "source": "view-left-up-closed-wide",
+            "rect": [
+              451,
+              365,
+              193,
+              110
+            ],
+            "destination": [
+              451,
+              365,
+              193,
+              110
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                464,
+                384
+              ],
+              [
+                488,
+                369
+              ],
+              [
+                523,
+                365
+              ],
+              [
+                559,
+                366
+              ],
+              [
+                592,
+                378
+              ],
+              [
+                619,
+                392
+              ],
+              [
+                638,
+                403
+              ],
+              [
+                634,
+                430
+              ],
+              [
+                619,
+                454
+              ],
+              [
+                597,
+                470
+              ],
+              [
+                548,
+                474
+              ],
+              [
+                496,
+                468
+              ],
+              [
+                470,
+                456
+              ],
+              [
+                452,
+                437
+              ],
+              [
+                451,
+                410
+              ]
+            ]
+          }
+        },
+        "eyeRight": {
+          "half": {
+            "source": "view-left-up-half-small",
+            "rect": [
+              281,
+              391,
+              115,
+              95
+            ],
+            "destination": [
+              281,
+              391,
+              115,
+              95
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                299,
+                394
+              ],
+              [
+                366,
+                394
+              ],
+              [
+                377,
+                414
+              ],
+              [
+                381,
+                438
+              ],
+              [
+                378,
+                461
+              ],
+              [
+                367,
+                475
+              ],
+              [
+                348,
+                480
+              ],
+              [
+                325,
+                480
+              ],
+              [
+                306,
+                468
+              ],
+              [
+                282,
+                442
+              ],
+              [
+                282,
+                418
+              ]
+            ]
+          },
+          "closed": {
+            "source": "view-left-up-closed-wide",
+            "rect": [
+              281,
+              391,
+              115,
+              95
+            ],
+            "destination": [
+              281,
+              391,
+              115,
+              95
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                299,
+                394
+              ],
+              [
+                366,
+                394
+              ],
+              [
+                377,
+                414
+              ],
+              [
+                381,
+                438
+              ],
+              [
+                378,
+                461
+              ],
+              [
+                367,
+                475
+              ],
+              [
+                348,
+                480
+              ],
+              [
+                325,
+                480
+              ],
+              [
+                306,
+                468
+              ],
+              [
+                282,
+                442
+              ],
+              [
+                282,
+                418
+              ]
+            ]
+          }
+        },
+        "mouth": {
+          "openSmall": {
+            "source": "view-left-up-half-small",
+            "rect": [
+              342,
+              548,
+              132,
+              100
+            ],
+            "destination": [
+              342,
+              552,
+              132,
+              100
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                347,
+                552
+              ],
+              [
+                474,
+                552
+              ],
+              [
+                474,
+                636
+              ],
+              [
+                454,
+                651
+              ],
+              [
+                379,
+                651
+              ],
+              [
+                360,
+                630
+              ],
+              [
+                350,
+                603
+              ],
+              [
+                342,
+                580
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                405,
+                570
+              ],
+              "destination": [
+                405,
+                574
+              ]
+            }
+          },
+          "openWide": {
+            "source": "view-left-up-closed-wide",
+            "rect": [
+              342,
+              537,
+              132,
+              100
+            ],
+            "destination": [
+              342,
+              552,
+              132,
+              100
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                347,
+                552
+              ],
+              [
+                474,
+                552
+              ],
+              [
+                474,
+                636
+              ],
+              [
+                454,
+                651
+              ],
+              [
+                379,
+                651
+              ],
+              [
+                360,
+                630
+              ],
+              [
+                350,
+                603
+              ],
+              [
+                342,
+                580
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                405,
+                559
+              ],
+              "destination": [
+                405,
+                574
+              ]
+            }
+          }
+        }
+      }
+    },
+    "view-right-up": {
+      "label": "画面右斜上 · 角色左转抬头",
+      "directionNote": "画面左眼是角色右眼（近眼），画面右眼是角色左眼（远眼）。两眼分别按本姿态原生位置裁切。",
+      "reference": "view-right-up-neutral",
+      "faceView": [
+        290,
+        300,
+        630,
+        460
+      ],
+      "mouthReference": [
+        690,
+        588
+      ],
+      "detailViews": {
+        "eyes": [
+          442,
+          350,
+          389,
+          158
+        ],
+        "mouth": [
+          608,
+          548,
+          170,
+          130
+        ]
+      },
+      "patches": {
+        "eyeLeft": {
+          "half": {
+            "source": "view-right-up-half-small",
+            "rect": [
+              708,
+              382,
+              111,
+              110
+            ],
+            "destination": [
+              708,
+              382,
+              111,
+              110
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                718,
+                386
+              ],
+              [
+                798,
+                386
+              ],
+              [
+                819,
+                407
+              ],
+              [
+                815,
+                445
+              ],
+              [
+                806,
+                475
+              ],
+              [
+                786,
+                489
+              ],
+              [
+                742,
+                489
+              ],
+              [
+                713,
+                470
+              ],
+              [
+                708,
+                432
+              ]
+            ]
+          },
+          "closed": {
+            "source": "view-right-up-closed-wide",
+            "rect": [
+              708,
+              382,
+              111,
+              110
+            ],
+            "destination": [
+              708,
+              382,
+              111,
+              110
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                718,
+                386
+              ],
+              [
+                798,
+                386
+              ],
+              [
+                819,
+                407
+              ],
+              [
+                815,
+                445
+              ],
+              [
+                806,
+                475
+              ],
+              [
+                786,
+                489
+              ],
+              [
+                742,
+                489
+              ],
+              [
+                713,
+                470
+              ],
+              [
+                708,
+                432
+              ]
+            ]
+          }
+        },
+        "eyeRight": {
+          "half": {
+            "source": "view-right-up-half-small",
+            "rect": [
+              449,
+              389,
+              186,
+              115
+            ],
+            "destination": [
+              449,
+              389,
+              186,
+              115
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                449,
+                389
+              ],
+              [
+                635,
+                389
+              ],
+              [
+                635,
+                504
+              ],
+              [
+                449,
+                504
+              ]
+            ]
+          },
+          "closed": {
+            "source": "view-right-up-closed-wide",
+            "rect": [
+              449,
+              389,
+              186,
+              115
+            ],
+            "destination": [
+              449,
+              389,
+              186,
+              115
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                449,
+                389
+              ],
+              [
+                635,
+                389
+              ],
+              [
+                635,
+                504
+              ],
+              [
+                449,
+                504
+              ]
+            ]
+          }
+        },
+        "mouth": {
+          "openSmall": {
+            "source": "view-right-up-half-small",
+            "rect": [
+              623,
+              559,
+              132,
+              88
+            ],
+            "destination": [
+              623,
+              565,
+              132,
+              88
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                623,
+                565
+              ],
+              [
+                752,
+                565
+              ],
+              [
+                754,
+                610
+              ],
+              [
+                748,
+                636
+              ],
+              [
+                733,
+                653
+              ],
+              [
+                649,
+                653
+              ],
+              [
+                623,
+                635
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                690,
+                582
+              ],
+              "destination": [
+                690,
+                588
+              ]
+            }
+          },
+          "openWide": {
+            "source": "view-right-up-closed-wide",
+            "rect": [
+              623,
+              552,
+              132,
+              88
+            ],
+            "destination": [
+              623,
+              565,
+              132,
+              88
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                623,
+                565
+              ],
+              [
+                752,
+                565
+              ],
+              [
+                754,
+                610
+              ],
+              [
+                748,
+                636
+              ],
+              [
+                733,
+                653
+              ],
+              [
+                649,
+                653
+              ],
+              [
+                623,
+                635
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                690,
+                575
+              ],
+              "destination": [
+                690,
+                588
+              ]
+            }
+          }
+        }
+      }
+    },
+    "view-left-down": {
+      "label": "画面左斜下 · 角色右转低头",
+      "directionNote": "画面右眼是角色左眼（近眼），画面左眼是角色右眼（远眼）。原画低头眼裂与下视基线保留。",
+      "reference": "view-left-down-neutral",
+      "faceView": [
+        240,
+        390,
+        630,
+        460
+      ],
+      "mouthReference": [
+        454,
+        711
+      ],
+      "detailViews": {
+        "eyes": [
+          262,
+          468,
+          390,
+          161
+        ],
+        "mouth": [
+          384,
+          675,
+          151,
+          112
+        ]
+      },
+      "patches": {
+        "eyeLeft": {
+          "half": {
+            "source": "view-left-down-half-small",
+            "rect": [
+              450,
+              493,
+              194,
+              117
+            ],
+            "destination": [
+              450,
+              493,
+              194,
+              117
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                465,
+                515
+              ],
+              [
+                490,
+                503
+              ],
+              [
+                530,
+                493
+              ],
+              [
+                571,
+                493
+              ],
+              [
+                604,
+                502
+              ],
+              [
+                641,
+                510
+              ],
+              [
+                636,
+                553
+              ],
+              [
+                617,
+                585
+              ],
+              [
+                594,
+                605
+              ],
+              [
+                539,
+                609
+              ],
+              [
+                494,
+                598
+              ],
+              [
+                464,
+                581
+              ],
+              [
+                450,
+                552
+              ]
+            ]
+          },
+          "closed": {
+            "source": "view-left-down-closed-wide",
+            "rect": [
+              450,
+              493,
+              194,
+              117
+            ],
+            "destination": [
+              450,
+              493,
+              194,
+              117
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                465,
+                515
+              ],
+              [
+                490,
+                503
+              ],
+              [
+                530,
+                493
+              ],
+              [
+                571,
+                493
+              ],
+              [
+                604,
+                502
+              ],
+              [
+                641,
+                510
+              ],
+              [
+                636,
+                553
+              ],
+              [
+                617,
+                585
+              ],
+              [
+                594,
+                605
+              ],
+              [
+                539,
+                609
+              ],
+              [
+                494,
+                598
+              ],
+              [
+                464,
+                581
+              ],
+              [
+                450,
+                552
+              ]
+            ]
+          }
+        },
+        "eyeRight": {
+          "half": {
+            "source": "view-left-down-half-small",
+            "rect": [
+              267,
+              516,
+              132,
+              103
+            ],
+            "destination": [
+              267,
+              516,
+              132,
+              103
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                275,
+                521
+              ],
+              [
+                318,
+                516
+              ],
+              [
+                347,
+                525
+              ],
+              [
+                369,
+                546
+              ],
+              [
+                378,
+                571
+              ],
+              [
+                378,
+                594
+              ],
+              [
+                358,
+                610
+              ],
+              [
+                327,
+                610
+              ],
+              [
+                303,
+                594
+              ],
+              [
+                286,
+                572
+              ],
+              [
+                267,
+                550
+              ]
+            ]
+          },
+          "closed": {
+            "source": "view-left-down-closed-wide",
+            "rect": [
+              267,
+              516,
+              132,
+              103
+            ],
+            "destination": [
+              267,
+              516,
+              132,
+              103
+            ],
+            "transform": "translation-only",
+            "feather": 5,
+            "clip": [
+              [
+                275,
+                521
+              ],
+              [
+                318,
+                516
+              ],
+              [
+                347,
+                525
+              ],
+              [
+                369,
+                546
+              ],
+              [
+                378,
+                571
+              ],
+              [
+                378,
+                594
+              ],
+              [
+                358,
+                610
+              ],
+              [
+                327,
+                610
+              ],
+              [
+                303,
+                594
+              ],
+              [
+                286,
+                572
+              ],
+              [
+                267,
+                550
+              ]
+            ]
+          }
+        },
+        "mouth": {
+          "openSmall": {
+            "source": "view-left-down-half-small",
+            "rect": [
+              399,
+              685,
+              118,
+              78
+            ],
+            "destination": [
+              399,
+              690,
+              118,
+              78
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                408,
+                690
+              ],
+              [
+                517,
+                690
+              ],
+              [
+                517,
+                746
+              ],
+              [
+                497,
+                766
+              ],
+              [
+                446,
+                766
+              ],
+              [
+                425,
+                744
+              ],
+              [
+                407,
+                721
+              ],
+              [
+                399,
+                706
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                454,
+                706
+              ],
+              "destination": [
+                454,
+                711
+              ]
+            }
+          },
+          "openWide": {
+            "source": "view-left-down-closed-wide",
+            "rect": [
+              399,
+              673,
+              118,
+              78
+            ],
+            "destination": [
+              399,
+              690,
+              118,
+              78
+            ],
+            "transform": "translation-only",
+            "feather": 7,
+            "clip": [
+              [
+                408,
+                690
+              ],
+              [
+                517,
+                690
+              ],
+              [
+                517,
+                746
+              ],
+              [
+                497,
+                766
+              ],
+              [
+                446,
+                766
+              ],
+              [
+                425,
+                744
+              ],
+              [
+                407,
+                721
+              ],
+              [
+                399,
+                706
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                454,
+                694
+              ],
+              "destination": [
+                454,
+                711
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "provenance": "./assets/short-hair-pitch-expressions-v1/provenance.json",
+  "limitations": [
+    "斜上闭眼稿带轻微笑意，低头稿更接近垂睑，尚未分开中性生理眨眼和开心闭眼。",
+    "三个固定斜向姿态：左斜上、右斜上、左斜下；不包含右斜下或正面纯俯仰，不代表连续转头。",
+    "每姿态各两张新源稿，分离眼嘴裁切后提供睁/半闭/闭眼和闭/小/大张嘴三档，没有中间帧。",
+    "仅支持 eyeBlinkLeft、eyeBlinkRight、jawOpen、mouthClose。俯仰姿态的独立视线、眉动作、噘嘴、抿嘴与移嘴尚未制作。",
+    "低头中性眼裂与视线属于已批准姿态原画的一部分，未把下视基线重新定义为居中视线。",
+    "局部保留源稿肤色和画出的发丝，尚无独立前景头发层；上唇仅按测得点作固定平移配准，动态不改变尺寸或位置。",
+    "不同姿态只供独立观察；每次切换回中性，躯干差异未经连续动作配准。"
+  ],
+  "approval": "./assets/short-hair-pitch-expressions-v1/approval.json"
+}

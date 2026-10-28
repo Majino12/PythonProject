@@ -1,0 +1,823 @@
+{
+  "schema": "side-mouth-registration-proposal-v1",
+  "status": "Internally reviewed at final composition scale; eight sources registered. New mouth set remains candidate pending user visual review.",
+  "canvas": [
+    1122,
+    1402
+  ],
+  "method": "Direct source image inspection and read-only RGB seam scanlines; native 1:1 pixel crops and fixed per-drawing translation only. No source images edited.",
+  "direction": "mouthLeft / shiftLeft is anatomical character-left = viewer-right; mouthRight / shiftRight is character-right = viewer-left.",
+  "poses": {
+    "view-left": {
+      "reference": "left-neutral",
+      "mouthReference": [
+        461,
+        654
+      ],
+      "noseReference": [
+        399,
+        591
+      ],
+      "chinReference": [
+        464,
+        754
+      ],
+      "neutralVisibleSeamBounds": [
+        419,
+        647,
+        86,
+        11
+      ],
+      "neutralSeamCenterX": 461.5,
+      "destination": [
+        395,
+        630,
+        153,
+        60
+      ],
+      "clip": [
+        [
+          395,
+          630
+        ],
+        [
+          548,
+          630
+        ],
+        [
+          548,
+          668
+        ],
+        [
+          526,
+          689
+        ],
+        [
+          430,
+          689
+        ],
+        [
+          412,
+          674
+        ],
+        [
+          395,
+          654
+        ]
+      ],
+      "states": {
+        "pucker": {
+          "source": "left-pucker",
+          "sourceAnchor": [
+            457,
+            652
+          ],
+          "destinationAnchor": [
+            461,
+            654
+          ],
+          "visibleSeamBounds": [
+            435,
+            645,
+            44,
+            15
+          ],
+          "rationale": "Central pursed upper-lip cusp is x457/y652; align this actual lip landmark, not the source crop center. Soft 44px line, no thick lips.",
+          "patch": {
+            "source": "left-pucker",
+            "rect": [
+              391,
+              628,
+              153,
+              60
+            ],
+            "destination": [
+              395,
+              630,
+              153,
+              60
+            ],
+            "transform": "translation-only",
+            "feather": 6,
+            "clip": [
+              [
+                395,
+                630
+              ],
+              [
+                548,
+                630
+              ],
+              [
+                548,
+                668
+              ],
+              [
+                526,
+                689
+              ],
+              [
+                430,
+                689
+              ],
+              [
+                412,
+                674
+              ],
+              [
+                395,
+                654
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                457,
+                652
+              ],
+              "destination": [
+                461,
+                654
+              ]
+            }
+          },
+          "registeredVisibleSeamBounds": [
+            439,
+            647,
+            44,
+            15
+          ],
+          "registeredVisibleSeamCenterX": 460.5,
+          "sourceSha256": "ecff8974b416a59545dd1578915a1500e003ef4ad086810759c52280a0a8b037"
+        },
+        "press": {
+          "source": "left-press",
+          "sourceAnchor": [
+            461,
+            653
+          ],
+          "destinationAnchor": [
+            461,
+            654
+          ],
+          "visibleSeamBounds": [
+            422,
+            651,
+            80,
+            8
+          ],
+          "rationale": "Thin compressed seam; central lip line differs by about 1px vertically.",
+          "patch": {
+            "source": "left-press",
+            "rect": [
+              395,
+              629,
+              153,
+              60
+            ],
+            "destination": [
+              395,
+              630,
+              153,
+              60
+            ],
+            "transform": "translation-only",
+            "feather": 6,
+            "clip": [
+              [
+                395,
+                630
+              ],
+              [
+                548,
+                630
+              ],
+              [
+                548,
+                668
+              ],
+              [
+                526,
+                689
+              ],
+              [
+                430,
+                689
+              ],
+              [
+                412,
+                674
+              ],
+              [
+                395,
+                654
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                461,
+                653
+              ],
+              "destination": [
+                461,
+                654
+              ]
+            }
+          },
+          "registeredVisibleSeamBounds": [
+            422,
+            652,
+            80,
+            8
+          ],
+          "registeredVisibleSeamCenterX": 461.5,
+          "sourceSha256": "cef6cafcaed9c37eb059690a9d48d201896497c045fcc5cd8c3d8eaa7442799f"
+        },
+        "shiftLeft": {
+          "source": "left-shiftLeft",
+          "sourceAnchor": [
+            466,
+            653
+          ],
+          "destinationAnchor": [
+            466,
+            654
+          ],
+          "visibleSeamBounds": [
+            419,
+            638,
+            95,
+            20
+          ],
+          "rationale": "The source has real viewer-right corner traction and raised corner; its visible bbox center is 466px vs neutral461.5. Keep this native +4.5px offset; no invented +12px translation.",
+          "patch": {
+            "source": "left-shiftLeft",
+            "rect": [
+              395,
+              629,
+              153,
+              60
+            ],
+            "destination": [
+              395,
+              630,
+              153,
+              60
+            ],
+            "transform": "translation-only",
+            "feather": 6,
+            "clip": [
+              [
+                395,
+                630
+              ],
+              [
+                548,
+                630
+              ],
+              [
+                548,
+                668
+              ],
+              [
+                526,
+                689
+              ],
+              [
+                430,
+                689
+              ],
+              [
+                412,
+                674
+              ],
+              [
+                395,
+                654
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                466,
+                653
+              ],
+              "destination": [
+                466,
+                654
+              ]
+            }
+          },
+          "registeredVisibleSeamBounds": [
+            419,
+            639,
+            95,
+            20
+          ],
+          "registeredVisibleSeamCenterX": 466,
+          "sourceSha256": "eec07de2b4c74b99935bdcc9ef3cb57c62aa0382e42c520b2c0ebf81a57a7b55"
+        },
+        "shiftRight": {
+          "source": "left-shiftRight",
+          "sourceAnchor": [
+            458,
+            651
+          ],
+          "destinationAnchor": [
+            458,
+            654
+          ],
+          "visibleSeamBounds": [
+            417,
+            640,
+            83,
+            16
+          ],
+          "sourceSha256": "6d865f6f12bb3d525ed325720c6123d7800d9df057ee98c123c011b5584a15c1",
+          "rationale": "Third source has a real shortened and viewer-left-pulled closed seam. Visible bounds417..499 give native center458, 3.5px viewer-left of neutral461.5. Preserve its x exactly; only fixed +3px vertical registration puts central upper seam y651 on approved y654. Corner crease remains darker/deeper than opposite shift, but contains no tooth-white opening.",
+          "patch": {
+            "source": "left-shiftRight",
+            "rect": [
+              395,
+              627,
+              153,
+              60
+            ],
+            "destination": [
+              395,
+              630,
+              153,
+              60
+            ],
+            "transform": "translation-only",
+            "feather": 6,
+            "clip": [
+              [
+                395,
+                630
+              ],
+              [
+                548,
+                630
+              ],
+              [
+                548,
+                668
+              ],
+              [
+                526,
+                689
+              ],
+              [
+                430,
+                689
+              ],
+              [
+                412,
+                674
+              ],
+              [
+                395,
+                654
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                458,
+                651
+              ],
+              "destination": [
+                458,
+                654
+              ]
+            }
+          },
+          "registeredVisibleSeamBounds": [
+            417,
+            643,
+            83,
+            16
+          ],
+          "registeredVisibleSeamCenterX": 458
+        }
+      }
+    },
+    "view-right": {
+      "reference": "right-neutral",
+      "mouthReference": [
+        661,
+        655
+      ],
+      "noseReference": [
+        714,
+        581
+      ],
+      "chinReference": [
+        650,
+        754
+      ],
+      "neutralVisibleSeamBounds": [
+        618,
+        648,
+        86,
+        10
+      ],
+      "neutralSeamCenterX": 660.5,
+      "destination": [
+        590,
+        630,
+        140,
+        60
+      ],
+      "clip": [
+        [
+          590,
+          630
+        ],
+        [
+          730,
+          630
+        ],
+        [
+          730,
+          653
+        ],
+        [
+          714,
+          674
+        ],
+        [
+          697,
+          689
+        ],
+        [
+          610,
+          689
+        ],
+        [
+          590,
+          672
+        ]
+      ],
+      "states": {
+        "pucker": {
+          "source": "right-pucker",
+          "sourceAnchor": [
+            670,
+            654
+          ],
+          "destinationAnchor": [
+            661,
+            655
+          ],
+          "visibleSeamBounds": [
+            645,
+            648,
+            50,
+            11
+          ],
+          "rationale": "Central upper-lip pursing cusp at x670/y654, distinct from the nose-facing outer corner nearx690. Fixed -9/+1 registration aligns it to the accepted oral center.",
+          "patch": {
+            "source": "right-pucker",
+            "rect": [
+              599,
+              629,
+              140,
+              60
+            ],
+            "destination": [
+              590,
+              630,
+              140,
+              60
+            ],
+            "transform": "translation-only",
+            "feather": 6,
+            "clip": [
+              [
+                590,
+                630
+              ],
+              [
+                730,
+                630
+              ],
+              [
+                730,
+                653
+              ],
+              [
+                714,
+                674
+              ],
+              [
+                697,
+                689
+              ],
+              [
+                610,
+                689
+              ],
+              [
+                590,
+                672
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                670,
+                654
+              ],
+              "destination": [
+                661,
+                655
+              ]
+            }
+          },
+          "registeredVisibleSeamBounds": [
+            636,
+            649,
+            50,
+            11
+          ],
+          "registeredVisibleSeamCenterX": 660.5,
+          "sourceSha256": "6c7b89e82b7085c83e479fba4bfafb288575292ff29d8dd973e5ab6313a881e8"
+        },
+        "press": {
+          "source": "right-press",
+          "sourceAnchor": [
+            663,
+            656
+          ],
+          "destinationAnchor": [
+            661,
+            655
+          ],
+          "visibleSeamBounds": [
+            630,
+            654,
+            67,
+            8
+          ],
+          "rationale": "Central pressed seam is near x663/y656. Fixed -2/-1 registration removes source preparation drift without dynamic movement.",
+          "patch": {
+            "source": "right-press",
+            "rect": [
+              592,
+              631,
+              140,
+              60
+            ],
+            "destination": [
+              590,
+              630,
+              140,
+              60
+            ],
+            "transform": "translation-only",
+            "feather": 6,
+            "clip": [
+              [
+                590,
+                630
+              ],
+              [
+                730,
+                630
+              ],
+              [
+                730,
+                653
+              ],
+              [
+                714,
+                674
+              ],
+              [
+                697,
+                689
+              ],
+              [
+                610,
+                689
+              ],
+              [
+                590,
+                672
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                663,
+                656
+              ],
+              "destination": [
+                661,
+                655
+              ]
+            }
+          },
+          "registeredVisibleSeamBounds": [
+            628,
+            653,
+            67,
+            8
+          ],
+          "registeredVisibleSeamCenterX": 661,
+          "sourceSha256": "d80b073d1c9ca8db9f2e004a6be7119272a9d4e44ec492c0d5a68d82735c8b97"
+        },
+        "shiftLeft": {
+          "source": "right-shiftLeft",
+          "sourceAnchor": [
+            665,
+            654
+          ],
+          "destinationAnchor": [
+            665,
+            655
+          ],
+          "visibleSeamBounds": [
+            621,
+            640,
+            88,
+            20
+          ],
+          "rationale": "The source has real viewer-right corner traction and raised corner; bbox center664.5 vs neutral660.5. Keep this native +4px offset; no invented +12px translation.",
+          "patch": {
+            "source": "right-shiftLeft",
+            "rect": [
+              590,
+              629,
+              140,
+              60
+            ],
+            "destination": [
+              590,
+              630,
+              140,
+              60
+            ],
+            "transform": "translation-only",
+            "feather": 6,
+            "clip": [
+              [
+                590,
+                630
+              ],
+              [
+                730,
+                630
+              ],
+              [
+                730,
+                653
+              ],
+              [
+                714,
+                674
+              ],
+              [
+                697,
+                689
+              ],
+              [
+                610,
+                689
+              ],
+              [
+                590,
+                672
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                665,
+                654
+              ],
+              "destination": [
+                665,
+                655
+              ]
+            }
+          },
+          "registeredVisibleSeamBounds": [
+            621,
+            641,
+            88,
+            20
+          ],
+          "registeredVisibleSeamCenterX": 664.5,
+          "sourceSha256": "a4b1787bbc58f40d415a372f968f33c6fb1c3393c50c06354de0e21999f33780"
+        },
+        "shiftRight": {
+          "source": "right-shiftRight",
+          "sourceAnchor": [
+            655,
+            655
+          ],
+          "destinationAnchor": [
+            655,
+            655
+          ],
+          "visibleSeamBounds": [
+            611,
+            648,
+            89,
+            9
+          ],
+          "rationale": "Replacement is a closed thin asymmetric lip seam, with no former tooth wedge. Native visible center655 is 5.5px viewer-left of neutral660.5; preserve the actual directional drawing with no horizontal or vertical translation.",
+          "patch": {
+            "source": "right-shiftRight",
+            "rect": [
+              590,
+              630,
+              140,
+              60
+            ],
+            "destination": [
+              590,
+              630,
+              140,
+              60
+            ],
+            "transform": "translation-only",
+            "feather": 6,
+            "clip": [
+              [
+                590,
+                630
+              ],
+              [
+                730,
+                630
+              ],
+              [
+                730,
+                653
+              ],
+              [
+                714,
+                674
+              ],
+              [
+                697,
+                689
+              ],
+              [
+                610,
+                689
+              ],
+              [
+                590,
+                672
+              ]
+            ],
+            "anchor": {
+              "kind": "upper-lip",
+              "source": [
+                655,
+                655
+              ],
+              "destination": [
+                655,
+                655
+              ]
+            }
+          },
+          "registeredVisibleSeamBounds": [
+            611,
+            648,
+            89,
+            9
+          ],
+          "registeredVisibleSeamCenterX": 655,
+          "sourceSha256": "c6ec1fe5a2608d3362b372de4bd76e51b053c915b7b6a5cc61ae45daafd1df4a"
+        }
+      }
+    }
+  },
+  "qa": [
+    "The 60px-high closed-mouth patch covers the entire old smile including both corners, and leaves nose/chin outside. Its conservative clip is narrower at lower cheek corners to keep source jaw edges out even with fixed registration offsets.",
+    "Do not replace approved openSmall/openWide patches or mouthReference. These crop proposals apply only to the four new closed-mouth expression states.",
+    "Review actual compositions at zero gaze, close-up and with eyes blinking; source per-pixel skin shades may differ and need boundary QA.",
+    "Earlier left-shiftRight drawings had a neutral-looking seam or incorrect center direction; earlier right-shiftRight had a tooth wedge. Final sources were remeasured after replacement. Left native seam center458 is viewer-left of neutral461.5; right center655 is viewer-left of neutral660.5. No horizontal registration is used for any directional state.",
+    "Directional anchors retain real native source lateral displacement; never register both shift sources back to neutral mouthReference.x.",
+    "Final left shiftRight corner has a slightly stronger closed crease than the other three shifts. Its material is uniformly dark, without a tooth-white patch; verify final 3x composition for stylistic balance. Do not equate metadata/native bounds tests with user visual acceptance."
+  ],
+  "seamMeasurement": {
+    "method": "Read-only RGB dark seam mask within isolated mouth ROI",
+    "rgbStrictUpperBounds": [
+      205,
+      155,
+      155
+    ],
+    "boundsConvention": "[x,y,width,height], inclusive last visible pixel is x+width-1,y+height-1",
+    "centerConvention": "x+(width-1)/2; used only to check real drawn lateral direction, not as substitute for an anatomical upper-lip anchor",
+    "limitation": "Threshold bbox includes dark traction crease, but not light blush and skin shadows."
+  }
+}

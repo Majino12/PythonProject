@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#12101c" />
+    <title>MoeMotion — 一张图，动起来</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/",
+          "@pixiv/three-vrm": "https://cdn.jsdelivr.net/npm/@pixiv/three-vrm@3.5.5/lib/three-vrm.module.min.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="MoeMotion 首页">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
+        <span>MoeMotion <small>结构验收副本</small></span>
+      </a>
+      <div class="top-actions">
+        <span class="privacy"><span></span> 摄像头仅在本机处理</span>
+        <button class="ghost-button" id="helpButton">不会用？</button>
+        <a class="ghost-link" href="README.md" target="_blank">项目说明 ↗</a>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="workspace-heading">
+        <h1>旧素材功能测试</h1>
+        <p>这里保留旧素材用于行为回归，不是已确认的新角色。<a href="./character-review.html">打开短发角色结构验收 →</a></p>
+      </section>
+
+      <section class="project-bar" aria-label="项目保存与恢复">
+        <label class="project-name" for="projectName"><span>项目名称</span><input id="projectName" type="text" maxlength="60" value="我的角色" autocomplete="off" /></label>
+        <span class="save-state" id="saveState" role="status">本机自动保存</span>
+        <div class="project-actions">
+          <button class="utility-button" id="openProjectButton" title="打开之前下载的项目文件">打开项目</button>
+          <button class="utility-button" id="exportProjectButton" title="备份角色图片和设置，不包含 API 密钥或摄像头画面">下载项目</button>
+        </div>
+        <input id="projectInput" class="hidden" type="file" accept=".moemotion,.json" aria-label="选择 MoeMotion 项目文件" />
+      </section>
+
+      <section class="studio" aria-label="虚拟形象工作台">
+        <aside class="controls">
+          <div class="step-block active" id="imageStep">
+            <div class="step-title"><span>01</span><div><b>创建角色</b><small>AI 生成或导入图片</small></div></div>
+            <button class="utility-button demo-avatar-button" id="demoAvatarButton">✧ 使用高清分层角色 · 月见 Luna</button>
+            <button class="ai-create-button" id="aiOpenButton"><i>✦</i><span><b>让 AI 帮我画角色</b><small>描述外观，自动生成适合动捕的立绘</small></span><em>→</em></button>
+            <div class="or-divider"><span>或者导入现有图片</span></div>
+            <label class="dropzone" id="dropzone" for="fileInput" tabindex="0">
+              <input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp" />
+              <span class="upload-icon">↗</span>
+              <b>把立绘拖到这里</b>
+              <small>或点击选择文件 · 建议正脸、清晰五官</small>
+            </label>
+            <div class="file-row hidden" id="fileRow">
+              <div class="file-thumb"><img id="fileThumb" alt="已导入角色缩略图" /></div>
+              <div><b id="fileName">角色图片</b><small id="fileMeta">等待分析</small></div>
+              <button id="replaceButton" class="icon-button" aria-label="替换图片">↻</button>
+            </div>
+            <details class="quality-card hidden" id="qualityCard">
+              <summary class="quality-head"><span>素材体检 · 展开建议</span><b id="qualityScore">优秀</b></summary>
+              <ul id="qualityList"></ul>
+            </details>
+          </div>
+
+          <div class="step-block" id="trackingStep">
+            <div class="step-title"><span>02</span><div><b>动作来源</b><small>摄像头或自动演示</small></div></div>
+            <div class="source-grid">
+              <button class="source-button" id="cameraButton" aria-pressed="false">
+                <span class="source-icon">◉</span><b>开启摄像头</b><small>脸部 + 肢体</small>
+              </button>
+              <button class="source-button selected" id="demoButton" aria-pressed="true">
+                <span class="source-icon">✦</span><b>自动演示</b><small>无需摄像头</small>
+              </button>
+            </div>
+            <video id="camera" playsinline muted></video>
+            <label class="compact-field" for="demoMotion"><span>演示动作</span><select id="demoMotion"><option value="idle">自然待机</option><option value="greeting">轻轻打招呼</option><option value="speaking">聊天表情</option></select></label>
+            <div class="camera-actions">
+              <button class="utility-button" id="recalibrateButton" disabled title="坐姿或摄像头位置变化后，重新正视镜头约 3 秒">重新校准</button>
+              <button class="utility-button" id="stopCameraButton" disabled>关闭摄像头</button>
+            </div>
+          </div>
+
+          <details class="tuning face-editor" id="faceEditor">
+            <summary>2D 表情精修 <span>ARKit · 52</span></summary>
+            <p class="face-intro">Luna 使用独立绘制的 11 段眨眼、24 种嘴型与有限角度头部画稿。虹膜在各帧眼白内移动，支持上下左右视线；俯视有专用眼睑画稿，不靠拉伸闭眼。头部仍是有限画稿，不是 360° 旋转。</p>
+            <label class="face-check"><input type="checkbox" id="faceFocus" />面部特写 · 看清五官细节</label>
+            <section class="head-pose-panel" aria-labelledby="headPoseTitle">
+              <div class="head-pose-head"><b id="headPoseTitle">试头部方向</b><output id="headPoseValue" aria-live="polite">跟随 · 当前画稿：正面</output></div>
+              <label class="face-check"><input type="checkbox" id="headPoseManual" />固定手动方向 · 表情仍可单独测试</label>
+              <div class="head-direction-pad" role="group" aria-label="九宫格头部方向；箭头表示画面方向">
+                <button type="button" data-head-pose data-yaw="-.62" data-pitch=".62" aria-label="看向画面左上">↖</button>
+                <button type="button" data-head-pose data-yaw="0" data-pitch=".62" aria-label="抬头">↑</button>
+                <button type="button" data-head-pose data-yaw=".62" data-pitch=".62" aria-label="看向画面右上">↗</button>
+                <button type="button" data-head-pose data-yaw="-.62" data-pitch="0" aria-label="看向画面左侧">←</button>
+                <button type="button" data-head-pose data-yaw="0" data-pitch="0" aria-label="正面">正</button>
+                <button type="button" data-head-pose data-yaw=".62" data-pitch="0" aria-label="看向画面右侧">→</button>
+                <button type="button" data-head-pose data-yaw="-.62" data-pitch="-.62" aria-label="看向画面左下">↙</button>
+                <button type="button" data-head-pose data-yaw="0" data-pitch="-.62" aria-label="低头">↓</button>
+                <button type="button" data-head-pose data-yaw=".62" data-pitch="-.62" aria-label="看向画面右下">↘</button>
+              </div>
+              <div class="head-profile-actions" role="group" aria-label="更强侧面画稿">
+                <button type="button" data-head-pose data-yaw="-1" data-pitch="0" aria-label="画面左侧强侧面">左侧面</button>
+                <button type="button" data-head-pose data-yaw="1" data-pitch="0" aria-label="画面右侧强侧面">右侧面</button>
+              </div>
+              <p class="face-hint">点击方向会临时固定 2D 头部画稿；可继续点下面的表情。画稿之间只做有限角度选择，不补画背面。</p>
+            </section>
+            <div class="face-presets" role="group" aria-label="快速试表情">
+              <button type="button" data-face-test="neutral">自然</button>
+              <button type="button" data-face-test="blink">闭眼</button>
+              <button type="button" data-face-test="wink">眨单眼</button>
+              <button type="button" data-face-test="lookUp">眼睛看上</button>
+              <button type="button" data-face-test="lookDown">眼睛看下</button>
+              <button type="button" data-face-test="open">张嘴</button>
+              <button type="button" data-face-test="smile">微笑</button>
+              <button type="button" data-face-test="funnel">圆嘴</button>
+              <button type="button" data-face-test="pucker">噘嘴</button>
+              <button type="button" data-face-test="puckerLeft">向左噘嘴</button>
+              <button type="button" data-face-test="puckerRight">向右噘嘴</button>
+              <button type="button" data-face-test="press">抿嘴</button>
+              <button type="button" data-face-test="brow">挑眉</button>
+              <button type="button" data-face-test="sad">委屈</button>
+              <button type="button" data-transition-preview aria-pressed="false">检查过渡</button>
+            </div>
+            <label class="face-channel-label" for="faceChannel">选择要调整的通道<select id="faceChannel"></select></label>
+            <p class="face-hint" id="faceChannelHint"></p>
+            <div class="face-values"><span>输入 <output id="faceRaw">0.000</output></span><span>映射输出 <output id="faceMapped">0.000</output></span></div>
+            <svg class="face-curve" viewBox="0 0 220 130" role="img" aria-label="输入与输出响应曲线，圆点表示当前系数">
+              <path d="M10 10V110H210 M10 60H210 M110 10V110" class="face-curve-grid" />
+              <path id="faceCurvePath" d="M10 110L210 10" />
+              <circle id="faceCurveDot" cx="10" cy="110" r="4" />
+              <text x="10" y="125">0</text><text x="202" y="125">1</text>
+            </svg>
+            <div class="face-range-fields">
+              <label>输入下限<input aria-label="输入下限" data-face-setting="inputMin" type="number" min="0" max="1" step=".01" value="0" /></label>
+              <label>输入上限<input aria-label="输入上限" data-face-setting="inputMax" type="number" min="0" max="1" step=".01" value="1" /></label>
+              <label>输出下限<input aria-label="输出下限" data-face-setting="outputMin" type="number" min="0" max="1" step=".01" value="0" /></label>
+              <label>输出上限<input aria-label="输出上限" data-face-setting="outputMax" type="number" min="0" max="1" step=".01" value="1" /></label>
+            </div>
+            <label class="compact-field">响应曲线<select data-face-setting="curve" aria-label="响应曲线"><option value="linear">线性</option><option value="smooth">柔和 S 曲线</option><option value="easeIn">渐进增强</option><option value="easeOut">轻动即响应</option></select></label>
+            <label class="compact-field">平滑（毫秒）<input data-face-setting="smoothing" aria-label="平滑毫秒" type="number" min="0" max="400" step="10" value="60" /></label>
+            <label class="face-check"><input id="faceManual" type="checkbox" />手动试调 · 暂停自动表情</label>
+            <label class="face-test-label">测试数值 <output id="faceTestOutput">80%</output><input id="faceTestValue" aria-label="测试数值" type="range" min="0" max="1" step=".01" value=".8" /></label>
+            <p id="faceInputSource" class="face-source">自动演示系数 · 无需摄像头</p>
+            <div class="face-actions"><button class="utility-button" id="faceExitTest">退出试调</button><button class="utility-button" id="faceResetChannel">重置此通道</button></div>
+            <div class="face-actions"><button class="utility-button" id="faceImportFrame">导入系数 JSON</button><button class="utility-button" id="faceResetAll">恢复全部默认</button></div>
+            <input type="file" id="faceFrameFile" accept=".json,application/json" class="hidden" />
+            <p class="face-hint">拖动滑杆只测试所选通道。JSON 可查看一组本机系数单帧，不是模型或手机连接。普通摄像头提供 51 个同名通道，不含伸舌。映射输出仍受全局动作幅度影响。</p>
+          </details>
+          <details class="tuning">
+            <summary>动作微调 <span>⌄</span></summary>
+            <label>头部转向范围 <output id="headOutput">90%</output><input id="headRange" type="range" min="0" max="140" value="90" /></label>
+            <label>眨眼灵敏度 <output id="blinkOutput">85%</output><input id="blinkRange" type="range" min="20" max="150" value="85" /></label>
+            <label>口型幅度 <output id="mouthOutput">90%</output><input id="mouthRange" type="range" min="20" max="150" value="90" /></label>
+            <label>表情丰富度 <output id="expressionOutput">100%</output><input id="expressionRange" type="range" min="20" max="150" value="100" /></label>
+            <label>肢体幅度 <output id="bodyOutput">75%</output><input id="bodyRange" type="range" min="0" max="140" value="75" /></label>
+            <button class="utility-button reset-tuning" id="resetTuningButton">恢复默认动作</button>
+          </details>
+          <details class="tuning appearance-tuning">
+            <summary>3D 外观微调 <span>⌄</span></summary>
+            <label class="compact-field" for="modelStyle"><span>模型</span><select id="modelStyle"><option value="studio">精细模型 · 推荐</option><option value="light">轻量模型 · 可换发型</option></select></label>
+            <p id="appearanceHint">精细模型参考图片配色，保留模板的发型和服装。不是原图的完整重建；原图不会改变。</p>
+            <label class="compact-field" for="hairStyle"><span>发型</span><select id="hairStyle"><option value="auto">跟随图片</option><option value="short">利落短发</option><option value="bob">齐肩中发</option><option value="long">柔顺长发</option></select></label>
+            <div class="appearance-colors"><label for="hairColor">发色<input id="hairColor" type="color" value="#bcb5c9" /></label><label for="outfitColor">服装<input id="outfitColor" type="color" value="#39374e" /></label><label for="eyesColor">眼睛<input id="eyesColor" type="color" value="#9571bc" /></label></div>
+            <button class="utility-button reset-tuning" id="resetAppearance">重新使用图片外观</button>
+          </details>
+        </aside>
+
+        <section class="preview-card">
+          <div class="preview-toolbar">
+            <div class="status" id="status" role="status" aria-live="polite"><span></span><b>演示模式</b><small>使用内置动作</small></div>
+            <div class="dimension-toggle" role="group" aria-label="预览形态">
+              <button class="selected" data-view="2d" aria-pressed="true" title="保留原画风，适合中小角度动作">2D</button>
+              <button data-view="3d" aria-pressed="false" title="精细动漫模型，参考原图配色，支持大角度转身">3D</button>
+            </div>
+            <div class="framing-toggle segmented" role="group" aria-label="取景"><button data-framing="portrait" class="selected" aria-pressed="true">近景</button><button data-framing="full" aria-pressed="false" title="显示素材的完整范围，不补画身体">完整立绘</button></div>
+            <div class="tracking-badges hidden"><span id="faceBadge">脸部</span><span id="bodyBadge">肢体</span></div>
+            <div class="segmented" aria-label="背景颜色">
+              <button class="selected" data-background="gradient" title="渐变背景" aria-label="渐变背景" aria-pressed="true">◒</button>
+              <button data-background="transparent" title="透明背景" aria-label="透明背景" aria-pressed="false">◇</button>
+              <button data-background="green" title="绿幕背景" aria-label="绿幕背景" aria-pressed="false">■</button>
+            </div>
+          </div>
+          <div class="canvas-shell" id="canvasShell">
+            <button class="face-test-indicator hidden" id="faceTestIndicator" title="恢复自动演示或摄像头的 2D 表情与头部方向">正在试表情 · 点击退出</button>
+            <button class="exit-preview-button hidden" id="exitPreviewButton">退出预览 <kbd>Esc</kbd></button>
+            <canvas id="avatarCanvas" width="1080" height="1080" aria-label="2D 分层画稿表情与有限角度头部方向预览"></canvas>
+            <canvas id="threeCanvas" class="hidden" tabindex="0" aria-label="3D 虚拟形象；左右方向键旋转，回车、空格或 Home 键回正"></canvas>
+            <div class="scan-state hidden" id="scanState" role="status" aria-live="polite"><i></i><span>正在识别五官…</span></div>
+            <div class="three-loading hidden" id="threeLoading" role="status" aria-live="polite"><i></i><span><b>正在自动构建 3D 角色</b><small>提取配色 · 创建模型 · 绑定动作</small></span></div>
+            <div class="calibration hidden" id="calibration" role="status" aria-live="polite">
+              <div class="face-guide"><i></i><i></i><i></i><i></i><span id="calibrationCount">3</span></div>
+              <b>保持正脸，正在自动校准</b>
+              <small>不用做任何操作</small>
+            </div>
+            <div class="landmark-pill" id="landmarkPill">✦ 示例角色已自动绑定</div>
+          </div>
+          <div class="preview-footer">
+            <div class="face-quick" id="faceQuick" role="group" aria-label="直接试表情">
+              <span>试表情</span>
+              <button type="button" data-face-test="neutral">自然</button>
+              <button type="button" data-face-test="blink">闭眼</button>
+              <button type="button" data-face-test="open">张嘴</button>
+              <button type="button" data-face-test="pucker">噘嘴</button>
+              <button type="button" data-face-test="puckerLeft">左噘</button>
+              <button type="button" data-face-test="puckerRight">右噘</button>
+              <button type="button" data-face-test="press">抿嘴</button>
+              <button type="button" data-face-test="smile">微笑</button>
+              <button type="button" data-transition-preview aria-pressed="false">检查过渡</button>
+              <button type="button" data-face-resume>恢复动作</button>
+            </div>
+            <div class="meters">
+              <span>眼睛 <i><b id="eyeMeter"></b></i></span>
+              <span>口型 <i><b id="mouthMeter"></b></i></span>
+              <span>头部 <i><b id="headMeter"></b></i></span>
+              <span>肢体 <i><b id="bodyMeter"></b></i></span>
+            </div>
+            <div class="output-actions">
+              <button class="utility-button" id="previewButton" aria-pressed="false" title="隐藏控制面板，适合展示或窗口采集">纯净预览</button>
+              <button class="utility-button" id="screenshotButton" title="保存当前角色画面为 PNG">截图</button>
+              <button class="export-button hidden" id="exportModelButton" title="下载单文件 GLB"><span aria-hidden="true">⬡</span> 下载 3D 模型</button>
+              <button class="record-button" id="recordButton" aria-pressed="false"><i></i><span>录制视频</span></button>
+            </div>
+          </div>
+          <p class="mode-note">Luna 使用分层眼睑、独立虹膜、24 种嘴型和有限角度头部画稿；ARKit 视线控制虹膜在眼白内移动，闭眼时遮住虹膜。不等于 52 套独立表情或 360° 模型。上传单图保留静态五官；3D 不变。<a href="assets/THIRD_PARTY_NOTICES.txt" target="_blank" rel="noopener">模型来源与许可 ↗</a></p>
+        </section>
+      </section>
+    </main>
+
+    <footer><span>角色与设置保存在当前浏览器，建议下载项目备份。</span><span>MoeMotion 0.13.1-review.12 · 未发布</span></footer>
+    <div class="toast" id="toast" role="status"></div>
+
+    <dialog class="help-dialog" id="helpDialog" aria-labelledby="helpTitle">
+      <button class="dialog-close" data-close-dialog aria-label="关闭">×</button>
+      <span class="dialog-kicker">一分钟上手</span>
+      <h2 id="helpTitle">从角色到可用画面</h2>
+      <ol>
+        <li><i>01</i><div><b>AI 生成或导入角色图</b><p>描述外观即可让 AI 画，也可使用 PNG、JPG、WEBP。人物居中、五官无遮挡效果最好。</p></div></li>
+        <li><i>02</i><div><b>先试高清分层角色</b><p>点击“使用高清分层角色”，展开“2D 表情精修”即可试闭眼、张嘴、噘嘴、抿嘴和实际绘制的有限头部方向，也可检查表情过渡。上传单图暂时只做整体动作，不自动生成表情或侧脸图层。开启摄像头前会询问同意，随时可关闭。</p></div></li>
+        <li><i>03</i><div><b>展示、录制，下次接着用</b><p>“纯净预览”隐藏面板，按 Esc 返回。可以截图、录制视频或下载 3D 模型。角色和设置会在本机自动保存，“下载项目”可备份或换设备继续。</p></div></li>
+      </ol>
+      <div class="help-tip"><span>放心使用</span> 自动保存和项目备份不包含 API 密钥或摄像头画面。清理浏览器数据会删除本机存档，请提前下载项目。录制只包含角色画面，不录制声音。</div>
+      <button class="dialog-primary" data-close-dialog>知道了，开始使用</button>
+    </dialog>
+
+    <dialog class="ai-dialog" id="aiDialog" aria-labelledby="aiTitle">
+      <button class="dialog-close" data-close-dialog aria-label="关闭">×</button>
+      <span class="dialog-kicker">GPT IMAGE 2 · 角色工坊</span>
+      <h2 id="aiTitle">描述一下，AI 帮你画。</h2>
+      <p>此入口生成单张立绘，尚不自动生成眼、眉、嘴分层。想体验完整绘制表情，请使用内置高清 Luna。3D 只参考图片配色。</p>
+      <label class="field-label" for="characterPrompt">你的角色是什么样子？</label>
+      <textarea id="characterPrompt" maxlength="800" placeholder="例如：银色短发的猫耳少女，紫色眼睛，黑白未来感夹克，性格冷静"></textarea>
+      <div class="prompt-examples">
+        <button data-prompt="粉色双马尾的元气魔法少女，星星发饰，白金色制服">魔法少女</button>
+        <button data-prompt="蓝黑短发的未来都市少年，琥珀色眼睛，机能风外套">未来少年</button>
+        <button data-prompt="白发红瞳的优雅吸血鬼少女，哥特礼服，银色首饰">暗夜贵族</button>
+      </div>
+      <label class="field-label">选择画风</label>
+      <div class="style-options" role="group" aria-label="角色画风">
+        <button class="selected" data-style="anime" aria-pressed="true"><i>AN</i><span><b>现代动画</b><small>线条清晰</small></span></button>
+        <button data-style="soft" aria-pressed="false"><i>SO</i><span><b>柔和日系</b><small>轻盈淡彩</small></span></button>
+        <button data-style="game" aria-pressed="false"><i>GM</i><span><b>游戏立绘</b><small>细节丰富</small></span></button>
+      </div>
+      <label class="field-label" for="apiKey">OpenAI API Key</label>
+      <div class="api-key-field"><input id="apiKey" type="password" autocomplete="off" placeholder="sk-..." /><button id="toggleApiKey" aria-label="显示或隐藏 API Key">显示</button></div>
+      <div class="api-note"><i>⌁</i><span><b>密钥仅用于这一次生成</b><small>通过本机服务直接发送给 OpenAI，不写入源码、不永久保存。</small></span></div>
+      <label class="cost-consent"><input id="apiConsent" type="checkbox" /><span>我知道生成图片会调用 OpenAI API，并可能产生账户费用。</span></label>
+      <button class="dialog-primary ai-generate-button" id="generateButton" disabled><span>生成可动角色立绘</span><b>大约需要 30–90 秒 →</b></button>
+      <div class="generation-progress hidden" id="generationProgress"><i></i><span><b>AI 正在设计角色…</b><small id="generationHint">正在整理五官与身体结构</small></span></div>
+    </dialog>
+
+    <dialog class="camera-consent-dialog" id="cameraConsentDialog" aria-labelledby="cameraConsentTitle">
+      <button class="dialog-close" data-close-dialog aria-label="关闭">×</button>
+      <span class="dialog-kicker">摄像头使用说明</span>
+      <h2 id="cameraConsentTitle">开始动作捕捉前，<br />需要你的同意。</h2>
+      <div class="camera-privacy-visual"><div><i></i><span>画面</span></div><em>→</em><div><i></i><span>本机处理</span></div><em class="blocked">×</em><div class="cloud"><i></i><span>不会上传</span></div></div>
+      <ul class="camera-rules">
+        <li><b>用途</b><span>识别侧脸、视线、表情、肩肘手腕与身体动作</span></li>
+        <li><b>范围</b><span>仅在当前页面打开期间使用</span></li>
+        <li><b>数据</b><span>摄像头帧不会保存，也不会发送到服务器</span></li>
+      </ul>
+      <div class="camera-framing"><i>◯</i><span><b>为了让动作更自然</b><small>请让头部、肩膀和双手尽量入镜，并先自然正视约 3 秒。</small></span></div>
+      <label class="cost-consent camera-check"><input id="cameraConsent" type="checkbox" /><span>我已阅读并同意在本次使用期间启用摄像头。</span></label>
+      <button class="dialog-primary" id="cameraConsentButton" disabled><span>同意并请求摄像头权限</span><b>继续 →</b></button>
+      <button class="dialog-secondary" data-close-dialog>暂不开启，继续使用自动演示</button>
+    </dialog>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

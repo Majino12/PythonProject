@@ -1,0 +1,275 @@
+{
+  "compiledDifferences": [
+    {
+      "delta": {
+        "alphaChanged": 401,
+        "changed": 1342,
+        "localBounds": [
+          46,
+          27,
+          59,
+          65
+        ],
+        "maxAlphaDelta": 54,
+        "maxDelta": 255,
+        "rgbChanged": 1308,
+        "sourceBounds": [
+          496,
+          520,
+          59,
+          65
+        ]
+      },
+      "eye": "eyeLeft",
+      "layer": "irisComposite",
+      "pose": "view-left-down"
+    }
+  ],
+  "status": "complete",
+  "summary": {
+    "assertions": 1146,
+    "combinations": 315,
+    "comparisons": 516,
+    "failedAssertions": 30,
+    "failures": [
+      {
+        "changed": 189,
+        "check": "before-after-repeatability",
+        "maxDelta": 40,
+        "pose": "view-left-up",
+        "probe": "open-center"
+      },
+      {
+        "changed": 1306,
+        "check": "before-after-repeatability",
+        "maxDelta": 44,
+        "pose": "view-left-up",
+        "probe": "winkLeft-up-left"
+      },
+      {
+        "changed": 2207,
+        "check": "before-after-repeatability",
+        "maxDelta": 52,
+        "pose": "view-left-up",
+        "probe": "half-down-right"
+      },
+      {
+        "changed": 688,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "center",
+        "mouth": "neutral",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 688,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "center",
+        "mouth": "openSmall",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 688,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "center",
+        "mouth": "openWide",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 696,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "up-left",
+        "mouth": "neutral",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 696,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "up-left",
+        "mouth": "openSmall",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 696,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "up-left",
+        "mouth": "openWide",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 749,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "down-right",
+        "mouth": "neutral",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 749,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "down-right",
+        "mouth": "openSmall",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 749,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "down-right",
+        "mouth": "openWide",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 235,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "center",
+        "mouth": "neutral",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 235,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "center",
+        "mouth": "openSmall",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 235,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "center",
+        "mouth": "openWide",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 277,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "up-left",
+        "mouth": "neutral",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 277,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "up-left",
+        "mouth": "openSmall",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 277,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "up-left",
+        "mouth": "openWide",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 248,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "down-right",
+        "mouth": "neutral",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 248,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "down-right",
+        "mouth": "openSmall",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 248,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "down-right",
+        "mouth": "openWide",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 688,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "center",
+        "mouth": "neutral",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 688,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "center",
+        "mouth": "openSmall",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 688,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "center",
+        "mouth": "openWide",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 696,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "up-left",
+        "mouth": "neutral",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 696,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "up-left",
+        "mouth": "openSmall",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 696,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "up-left",
+        "mouth": "openWide",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 749,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "down-right",
+        "mouth": "neutral",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 749,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "down-right",
+        "mouth": "openSmall",
+        "pose": "view-left-down"
+      },
+      {
+        "changed": 749,
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "down-right",
+        "mouth": "openWide",
+        "pose": "view-left-down"
+      }
+    ],
+    "passed": false
+  }
+}

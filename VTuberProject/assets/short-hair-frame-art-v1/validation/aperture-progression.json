@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "method": "Polygon areas calculated from independently source-traced eye apertures. Used with actual source inspection, not a substitute for visual assessment.",
+  "eyeAreas": {
+    "view-left-up": {
+      "eyeLeft": {
+        "order": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "areas": [
+          4377.5,
+          3792.5,
+          2801,
+          1264.5,
+          0
+        ],
+        "strictlyDecreasing": true
+      },
+      "eyeRight": {
+        "order": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "areas": [
+          1802,
+          1697,
+          1045,
+          428.5,
+          0
+        ],
+        "strictlyDecreasing": true
+      }
+    },
+    "view-right-up": {
+      "eyeLeft": {
+        "order": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "areas": [
+          2467.5,
+          1800.5,
+          1506.5,
+          554.5,
+          0
+        ],
+        "strictlyDecreasing": true
+      },
+      "eyeRight": {
+        "order": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "areas": [
+          4449.5,
+          3750.5,
+          2783.5,
+          1417.5,
+          0
+        ],
+        "strictlyDecreasing": true
+      }
+    },
+    "view-left": {
+      "eyeLeft": {
+        "order": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "areas": [
+          4634.5,
+          4349.5,
+          2762.5,
+          1011,
+          0
+        ],
+        "strictlyDecreasing": true
+      },
+      "eyeRight": {
+        "order": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "areas": [
+          2728.5,
+          2534,
+          1580,
+          603,
+          0
+        ],
+        "strictlyDecreasing": true
+      }
+    },
+    "view-right": {
+      "eyeLeft": {
+        "order": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "areas": [
+          2570.5,
+          2078,
+          1332,
+          485,
+          0
+        ],
+        "strictlyDecreasing": true
+      },
+      "eyeRight": {
+        "order": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "areas": [
+          4468,
+          3262.5,
+          2504.5,
+          860,
+          0
+        ],
+        "strictlyDecreasing": true
+      }
+    },
+    "view-left-down": {
+      "eyeLeft": {
+        "order": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "areas": [
+          4024.5,
+          2880.5,
+          1894.5,
+          876.5,
+          0
+        ],
+        "strictlyDecreasing": true
+      },
+      "eyeRight": {
+        "order": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "areas": [
+          1755.5,
+          1303.5,
+          662,
+          452,
+          0
+        ],
+        "strictlyDecreasing": true
+      }
+    },
+    "view-up": {
+      "eyeLeft": {
+        "order": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "areas": [
+          4054.5,
+          2809.5,
+          1873.5,
+          932,
+          0
+        ],
+        "strictlyDecreasing": true
+      },
+      "eyeRight": {
+        "order": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "areas": [
+          3690,
+          2888.5,
+          1930.5,
+          952.5,
+          0
+        ],
+        "strictlyDecreasing": true
+      }
+    },
+    "view-down": {
+      "eyeLeft": {
+        "order": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "areas": [
+          4056.5,
+          2865.5,
+          1981.5,
+          913,
+          0
+        ],
+        "strictlyDecreasing": true
+      },
+      "eyeRight": {
+        "order": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "areas": [
+          3320.5,
+          2500,
+          1591,
+          1001,
+          0
+        ],
+        "strictlyDecreasing": true
+      }
+    },
+    "view-right-down": {
+      "eyeLeft": {
+        "order": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "areas": [
+          2045,
+          1267,
+          1159,
+          518.5,
+          0
+        ],
+        "strictlyDecreasing": true
+      },
+      "eyeRight": {
+        "order": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "areas": [
+          3292,
+          2548.5,
+          1196,
+          532,
+          0
+        ],
+        "strictlyDecreasing": true
+      }
+    }
+  }
+}

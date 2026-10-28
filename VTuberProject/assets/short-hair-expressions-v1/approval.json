@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "userFeedback": "效果太棒了！很满意，可以继续进行下去了",
+  "assetId": "short-hair-expression-v1",
+  "acceptedScope": "Front expression sample v1 as displayed in expression-review.html: existing eyelid, jaw, pucker, press, directional mouth and brow paintings and combinations.",
+  "pendingScope": "New in-between drawings, natural timing improvements, gaze and dynamic multi-angle expressions are not covered by this approval.",
+  "approvedManifestBeforeMetadataUpdate": "1df4c425c970fa59009f53db78fb58b26efa5666c225644ceeb8d65d06aedb53",
+  "approvedSources": {
+    "neutral": {
+      "src": "./assets/short-hair-v1/front.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822"
+    },
+    "closed-open-wide": {
+      "src": "./assets/short-hair-expressions-v1/closed-open-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "ecb6aad1c10e0d3d4a740cf93f87fd878f15bfa395da20606020319567568cbe"
+    },
+    "half-open-small": {
+      "src": "./assets/short-hair-expressions-v1/half-open-small.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "731c623f1a5155a2c183cad2056827b6205691869e5668596258ff0febb90b07"
+    },
+    "pucker-flat": {
+      "src": "./assets/short-hair-expressions-v1/pucker-flat.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "6b4242b3873b55032f6f186e7ad34cc53be019a5c945eb90a1391df4a92b523f"
+    },
+    "press-brow-down": {
+      "src": "./assets/short-hair-expressions-v1/press-brow-down.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "2019c5448e75bd24b7d19ae6545f0d0e014c11b6eed5e629e62173fb89e83c82"
+    },
+    "shift-left": {
+      "src": "./assets/short-hair-expressions-v1/shift-left.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "62585a54c81da1a92c7e1eae64117d7273827dd251fd2887c6e15703a3d1d625"
+    },
+    "shift-right": {
+      "src": "./assets/short-hair-expressions-v1/shift-right.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "4ab95924f8a27e1255cb2a935d37818be3ff4017bba510e9aab1e7cbb83f6cd0"
+    }
+  },
+  "approvedPatchesSha256": "32e842b478deab34eeba0960ff29c724cbbfae24842aeeed8e966d55ab37382a"
+}

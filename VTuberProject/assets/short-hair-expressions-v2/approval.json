@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "userFeedback": "太好了！请继续！",
+  "assetId": "short-hair-expression-v2",
+  "acceptedScope": "Front expression v2 five-stage eye/jaw paintings and natural timing shown in expression-review.html. Previously approved artwork remains approved.",
+  "pendingScope": "Independent gaze, multi-angle expressions and continuous head motion are not covered.",
+  "approvedManifestBeforeMetadataUpdate": "55a3d5545ecc55f643549c53087a5d5f6280d42792ec4cf405924fc241a56082",
+  "approvedSources": {
+    "neutral": {
+      "src": "./assets/short-hair-v1/front.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822"
+    },
+    "closed-open-wide": {
+      "src": "./assets/short-hair-expressions-v1/closed-open-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "ecb6aad1c10e0d3d4a740cf93f87fd878f15bfa395da20606020319567568cbe"
+    },
+    "half-open-small": {
+      "src": "./assets/short-hair-expressions-v1/half-open-small.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "731c623f1a5155a2c183cad2056827b6205691869e5668596258ff0febb90b07"
+    },
+    "pucker-flat": {
+      "src": "./assets/short-hair-expressions-v1/pucker-flat.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "6b4242b3873b55032f6f186e7ad34cc53be019a5c945eb90a1391df4a92b523f"
+    },
+    "press-brow-down": {
+      "src": "./assets/short-hair-expressions-v1/press-brow-down.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "2019c5448e75bd24b7d19ae6545f0d0e014c11b6eed5e629e62173fb89e83c82"
+    },
+    "shift-left": {
+      "src": "./assets/short-hair-expressions-v1/shift-left.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "62585a54c81da1a92c7e1eae64117d7273827dd251fd2887c6e15703a3d1d625"
+    },
+    "shift-right": {
+      "src": "./assets/short-hair-expressions-v1/shift-right.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "4ab95924f8a27e1255cb2a935d37818be3ff4017bba510e9aab1e7cbb83f6cd0"
+    },
+    "quarter-parted": {
+      "src": "./assets/short-hair-expressions-v2/quarter-parted.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "3000e72355aaaf6b0664a23f5ed421272d208031838063595bc9aa8331ea29fd"
+    },
+    "three-quarter-medium": {
+      "src": "./assets/short-hair-expressions-v2/three-quarter-medium.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "20e1e001925477361aba84216b33497f88e7f53f907f0307d0f65af9c1806ef7"
+    }
+  },
+  "approvedPatchesSha256": "920ee7b2c6f0a443f4026786325bb21db08dff8512bc10311a71867c89511fe7",
+  "approvedMotionSha256": "eaed3077094a8efa8d5fec4540ac34a809106e2e2a361d5a13bd53999e172dff"
+}

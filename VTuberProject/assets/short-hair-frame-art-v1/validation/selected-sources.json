@@ -1,0 +1,51 @@
+{
+  "selected": {
+    "view-left-quarter-parted": "view-left-quarter-parted-v2.png",
+    "view-left-three-quarter-medium": "view-left-three-quarter-medium-v2.png",
+    "view-right-quarter-parted": "view-right-quarter-parted-v4.png",
+    "view-right-three-quarter-medium": "view-right-three-quarter-medium-v2.png",
+    "view-left-up-quarter-parted": "view-left-up-quarter-parted.png",
+    "view-left-up-three-quarter-medium": "view-left-up-three-quarter-medium.png",
+    "view-right-up-quarter-parted": "view-right-up-quarter-parted.png",
+    "view-right-up-three-quarter-medium": "view-right-up-three-quarter-medium.png",
+    "view-left-down-quarter-parted": "view-left-down-quarter-parted.png",
+    "view-left-down-three-quarter-medium": "view-left-down-three-quarter-medium.png",
+    "view-up-quarter-parted": "view-up-quarter-parted.png",
+    "view-up-three-quarter-medium": "view-up-three-quarter-medium.png",
+    "view-down-quarter-parted": "view-down-quarter-parted.png",
+    "view-down-three-quarter-medium": "view-down-three-quarter-medium.png",
+    "view-right-down-quarter-parted": "view-right-down-quarter-parted-v2.png",
+    "view-right-down-three-quarter-medium": "view-right-down-three-quarter-medium.png"
+  },
+  "retainedCandidates": [
+    {
+      "file": "view-left-quarter-parted.png",
+      "sha256": "d4325aeb6cffc689d54247eebb0fba9465e0bf4fd07e57276d39a97d3f984235"
+    },
+    {
+      "file": "view-left-three-quarter-medium.png",
+      "sha256": "41231b39f1819e4f03b557dbf27991e65f022d08b1a2732047542f7e585f6671"
+    },
+    {
+      "file": "view-right-quarter-parted.png",
+      "sha256": "4df9fc4cc492c7e5aa0a9596fadc09c25d9ce1ba65f03510e19d074109629c5d"
+    },
+    {
+      "file": "view-right-three-quarter-medium.png",
+      "sha256": "1836fa69fa23e8ffcbc81ae084f72c81279e8a60a52235c4d5af16e22f2d54df"
+    },
+    {
+      "file": "view-right-down-quarter-parted.png",
+      "sha256": "b31380b11089d16fa3c90ffdb8067351348dd7423cf4a7df1fe0e733bb6a09ff"
+    },
+    {
+      "file": "view-right-quarter-parted-v2.png",
+      "sha256": "e4ecc2035b2b7f60f6269e2c0231f55c08b70a0276dc368bde9649cce9c2ddb7"
+    },
+    {
+      "file": "view-right-quarter-parted-v3.png",
+      "sha256": "c6bce8114df7565d68ce820e68dcf6b169ded0eb233cfdb75927221bab952ecc"
+    }
+  ],
+  "method": "New eye apertures and baked-iris fragments traced from actual native source paintings. Patches keep native scale; speaking source anchors are measured and translated once to accepted upper-lip targets."
+}

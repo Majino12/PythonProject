@@ -1,0 +1,92 @@
+{
+  "date": "2026-10-26",
+  "version": "0.13.1-review.11",
+  "assetId": "short-hair-pitch-mouth-v1",
+  "status": "candidate; internal checks passed, user visual approval pending",
+  "tests": {
+    "syntax": "npm run check passed",
+    "command": "npm test",
+    "total": 495,
+    "passed": 495,
+    "failed": 0,
+    "log": "../../../TEST-RESULTS.txt",
+    "logSha256": "b96b6170db448f39d564561947f6950877d4c323e9d9884aba95e27391cb367c"
+  },
+  "browser": {
+    "reports": {
+      "pixel-checks.json": {
+        "loadOrder": "parallel",
+        "summary": {
+          "passed": true,
+          "combinations": 315,
+          "comparisons": 516,
+          "assertions": 1146,
+          "failedAssertions": 0,
+          "failures": []
+        },
+        "compiledLayerComparisons": 180
+      },
+      "pixel-checks-mouth-first.json": {
+        "loadOrder": "mouth-first",
+        "summary": {
+          "passed": true,
+          "combinations": 315,
+          "comparisons": 516,
+          "assertions": 1146,
+          "failedAssertions": 0,
+          "failures": []
+        },
+        "compiledLayerComparisons": 180
+      }
+    },
+    "presetsVisited": 72,
+    "supportedChannels": 17,
+    "gazeRegression": "Same source/registration fingerprint shares 18 immutable ImageBitmap layers. Exact zero-difference checks validate inheritance and repeated drawing; they do not claim independent compilations were identical.",
+    "uiChecks": "browser-ui-checks.json",
+    "consoleWarningsOrErrors": 0,
+    "originalExportRetainsTargetAndShowsNeutral": true,
+    "feedbackAfterQA": "All entries remain undecided; temporary QA note cleared."
+  },
+  "exports": {
+    "export-mouth-face.png": {
+      "width": 630,
+      "height": 460,
+      "sha256": "70e470fe74379f28110fda8a9559130f0902341183993d89d5ffd82e666d8fc9"
+    },
+    "export-mouth-full.png": {
+      "width": 1122,
+      "height": 1402,
+      "sha256": "eae1524c8f573f8c1fbfcf643541ce04f6c07ffcb05e667c78c4197bb3119b2e"
+    },
+    "export-original.png": {
+      "width": 630,
+      "height": 460,
+      "sha256": "ee2aa961912d54a2d422a2bfb0ea4880ddc793edf36fd688bc4dc468a7d4d98c"
+    }
+  },
+  "generation": {
+    "tool": "Built-in image_gen",
+    "saved": 16,
+    "adopted": 12,
+    "intermediatesOrRejected": 4,
+    "allCopiesByteIdentical": true,
+    "provenance": "../provenance.json"
+  },
+  "visualReview": "visual-review.txt",
+  "runtimeStability": "runtime-stability.txt",
+  "runtimeSha256": {
+    "side-expression-renderer.js": "eeebceebadf872b9dc4fd9d86cc90d360d59c4c80fe24f323da7f369b123e4c6",
+    "pitch-gaze-snapshot.js": "7743bff62e18b8e4f7f72d4f3098b2980d3aace5b0b915953faefef9c1147f43",
+    "pitch-expression-review.js": "526bd13dc4732a8f620145c494d93b47a477f72dabb247c1643afd976fd5ef12",
+    "pitch-expression-review.html": "e94ba1177d91b975bb37fa2e813177f793cf3ff7d1cb8fbd20f5c368da154e7e",
+    "pitch-expression-review.css": "a3974ee7902a0cedc2ecbc9868a83cc912ca6b8993ffff4beec733ea42ff8bd3",
+    "pitch-mouth-diagnostics.js": "df9e979244120ad987aade01274e16f493698ebf6bbe84bea96be0d1c90733d6",
+    "pitch-mouth-diagnostics.html": "b222cec77482d8348e8b7d81b55e87f0f607e4488a06c8b567afec2a66a80b61",
+    "pitch-gaze.js": "48e3c5242d5ac96d7fd04ea98e40454707e52cddc9367c828bacfa9b82769b0f",
+    "side-gaze.js": "2a2c245f45b03c95ff31e9789a003e27410f08e8cd1d5df49d1c457da6dc9c3d",
+    "side-expression-model.js": "13ede8e1067805ab664768b99716ef59a6d083416c8cc97a1d39d175ce9c97bf",
+    "side-mouth-model.js": "62a6998da471ece81f5b2067de64d9441c1a76f6f15344581495f53ed53fa164"
+  },
+  "formalProjectUpdated": false,
+  "githubUpdated": false
+}

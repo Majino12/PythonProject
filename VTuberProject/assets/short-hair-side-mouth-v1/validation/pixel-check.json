@@ -1,0 +1,132 @@
+{
+  "view-left": [
+    {
+      "mouth": "neutral",
+      "changed": 0,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    },
+    {
+      "mouth": "openSmall",
+      "changed": 0,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    },
+    {
+      "mouth": "openWide",
+      "changed": 0,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    },
+    {
+      "mouth": "pucker",
+      "changed": 8064,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    },
+    {
+      "mouth": "press",
+      "changed": 8055,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    },
+    {
+      "mouth": "shiftRight",
+      "changed": 8006,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    },
+    {
+      "mouth": "shiftLeft",
+      "changed": 7951,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    },
+    {
+      "combination": "噘嘴＋看画面右",
+      "changed": 8064,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    },
+    {
+      "combination": "抿嘴＋半闭眼",
+      "changed": 8055,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    }
+  ],
+  "view-right": [
+    {
+      "mouth": "neutral",
+      "changed": 0,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    },
+    {
+      "mouth": "openSmall",
+      "changed": 0,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    },
+    {
+      "mouth": "openWide",
+      "changed": 0,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    },
+    {
+      "mouth": "pucker",
+      "changed": 7208,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    },
+    {
+      "mouth": "press",
+      "changed": 7000,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    },
+    {
+      "mouth": "shiftRight",
+      "changed": 7115,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    },
+    {
+      "mouth": "shiftLeft",
+      "changed": 6713,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    },
+    {
+      "combination": "噘嘴＋看画面右",
+      "changed": 7208,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    },
+    {
+      "combination": "抿嘴＋半闭眼",
+      "changed": 7000,
+      "outside": 0,
+      "nose": 0,
+      "belowJaw": 0
+    }
+  ]
+}

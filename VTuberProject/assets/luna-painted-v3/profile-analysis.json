@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "purpose": "Read-only pixel analysis; source images have not been edited. Rectangles are [x,y,width,height]. Aperture points are normalized to their own fixed-size source rectangle, not to the white-area bounding box.",
+  "profile": {
+    "source": "./eyes-profile.png",
+    "size": [1536,1024],
+    "grid": [4,3],
+    "alpha": {"min":0,"max":254,"zeroPixels":1080197,"atMost2Pixels":1372536,"atLeast200Pixels":148880,"totalPixels":1572864},
+    "frameSize": [320,192],
+    "registration": {
+      "method": "Shared medial tear-corner tip at local [302,140] pixels, with integer crop translation only. Width and height never change. Small painted changes in the lateral lid junction remain; no per-frame bbox fitting or image deformation is suggested.",
+      "anchor": [0.94375,0.72916667],
+      "orientation": "Outer lashes point left; pink medial tear corner is on the right. Mirror only when the destination eye requires the opposite orientation.",
+      "closedAnchor": "The closed frame has no pink tear corner, so its rightmost lower lash endpoint supplies the corresponding anchor. Happy-closed uses its pink tear-corner tip.",
+      "destinationScale": "Use a single uniform scale for all 12 rectangles; destination height = destination width * 0.6. Visible full feature spans about 274-289 source pixels. Destination width 130 produces a feature about 111-117 pixels wide. Do not fit each white-area bounding box to a destination."
+    },
+    "apertureMethod": "Largest 4-connected white component per frame: alpha > 200, min(R,G,B) > 195, max(R,G,B)-min(R,G,B) < 24. Sampled 11 columns and inset within the visible white region, yielding 22 polygon points. Separate pale upper-lid highlights and tear-corner highlights are excluded. Closed/happy-closed deliberately have no aperture.",
+    "frames": {
+      "open": [32,83,320,192],
+      "blink10": [415,83,320,192],
+      "blink20": [799,84,320,192],
+      "blink30": [1182,85,320,192],
+      "blink40": [32,407,320,192],
+      "half": [414,406,320,192],
+      "blink60": [798,406,320,192],
+      "blink70": [1182,406,320,192],
+      "blink80": [30,727,320,192],
+      "blink90": [415,727,320,192],
+      "closed": [803,726,320,192],
+      "happyClosed": [1180,739,320,192]
+    },
+    "aliases": {"quarter":"blink20","threeQuarter":"blink70","blink50":"half"},
+    "apertures": {
+      "open": [[0.29844,0.55599],[0.35781,0.50391],[0.41406,0.46745],[0.47031,0.4362],[0.52969,0.41536],[0.58906,0.39974],[0.64531,0.39453],[0.70156,0.39453],[0.76094,0.41016],[0.82031,0.46745],[0.87656,0.59245],[0.87656,0.70443],[0.82031,0.77214],[0.76094,0.80859],[0.70156,0.83464],[0.64531,0.85026],[0.58906,0.86068],[0.52969,0.85547],[0.47031,0.83984],[0.41406,0.80339],[0.35781,0.74089],[0.29844,0.60547]],
+      "blink10": [[0.32031,0.58724],[0.37656,0.5612],[0.43281,0.54036],[0.48594,0.51953],[0.54219,0.50911],[0.59844,0.4987],[0.65469,0.49349],[0.71094,0.49349],[0.76406,0.50391],[0.82031,0.53516],[0.87656,0.61849],[0.87656,0.72005],[0.82031,0.76693],[0.76406,0.79297],[0.71094,0.8138],[0.65469,0.83464],[0.59844,0.84505],[0.54219,0.84505],[0.48594,0.83464],[0.43281,0.80859],[0.37656,0.7513],[0.32031,0.6263]],
+      "blink20": [[0.31406,0.6237],[0.37031,0.60286],[0.42656,0.58724],[0.48281,0.57161],[0.53906,0.5612],[0.59531,0.55078],[0.65156,0.54557],[0.70781,0.54557],[0.76406,0.55078],[0.82031,0.56641],[0.87656,0.62891],[0.87656,0.72005],[0.82031,0.76693],[0.76406,0.79297],[0.70781,0.81901],[0.65156,0.83984],[0.59531,0.85026],[0.53906,0.85547],[0.48281,0.84505],[0.42656,0.81901],[0.37031,0.76693],[0.31406,0.64714]],
+      "blink30": [[0.31719,0.65495],[0.37344,0.63932],[0.42969,0.62891],[0.48594,0.61849],[0.54219,0.61328],[0.59531,0.60286],[0.65156,0.59766],[0.70781,0.59766],[0.76406,0.60286],[0.82031,0.61328],[0.87656,0.64974],[0.87656,0.72005],[0.82031,0.75651],[0.76406,0.78255],[0.70781,0.80859],[0.65156,0.82943],[0.59531,0.84505],[0.54219,0.85026],[0.48594,0.84505],[0.42969,0.82422],[0.37344,0.77214],[0.31719,0.67318]],
+      "blink40": [[0.31406,0.66016],[0.37031,0.66016],[0.42656,0.66016],[0.47969,0.65495],[0.53594,0.65495],[0.59219,0.64974],[0.64844,0.64453],[0.70469,0.64453],[0.75781,0.64453],[0.81406,0.64974],[0.87031,0.66536],[0.87031,0.72005],[0.81406,0.75651],[0.75781,0.77734],[0.70469,0.79818],[0.64844,0.81901],[0.59219,0.82943],[0.53594,0.83464],[0.47969,0.82943],[0.42656,0.80859],[0.37031,0.77214],[0.31406,0.67839]],
+      "half": [[0.32344,0.68099],[0.37969,0.68099],[0.43281,0.68099],[0.48906,0.67578],[0.54219,0.67578],[0.59844,0.67057],[0.65469,0.67057],[0.70781,0.66536],[0.76406,0.66536],[0.81719,0.66536],[0.87344,0.68099],[0.87344,0.72526],[0.81719,0.75651],[0.76406,0.77734],[0.70781,0.80339],[0.65469,0.81901],[0.59844,0.82943],[0.54219,0.83464],[0.48906,0.82943],[0.43281,0.8138],[0.37969,0.77734],[0.32344,0.69401]],
+      "blink60": [[0.32031,0.6862],[0.37656,0.69661],[0.42969,0.69661],[0.48594,0.69661],[0.54219,0.69661],[0.59531,0.69141],[0.65156,0.69141],[0.70781,0.6862],[0.76406,0.6862],[0.81719,0.6862],[0.87344,0.69141],[0.87344,0.72526],[0.81719,0.75651],[0.76406,0.77214],[0.70781,0.79297],[0.65156,0.80859],[0.59531,0.81901],[0.54219,0.82422],[0.48594,0.82422],[0.42969,0.80859],[0.37656,0.77734],[0.32031,0.69922]],
+      "blink70": [[0.32344,0.70182],[0.37656,0.71224],[0.43281,0.71745],[0.48906,0.72266],[0.54219,0.72266],[0.59531,0.72266],[0.65156,0.72266],[0.70781,0.71745],[0.76094,0.71745],[0.81406,0.71745],[0.87031,0.71224],[0.87031,0.73047],[0.81406,0.75651],[0.76094,0.77214],[0.70781,0.79297],[0.65156,0.80859],[0.59531,0.81901],[0.54219,0.82422],[0.48906,0.82422],[0.43281,0.80859],[0.37656,0.77734],[0.32344,0.70964]],
+      "blink80": [[0.32656,0.71224],[0.37969,0.72266],[0.43594,0.72786],[0.48906,0.73307],[0.54531,0.73307],[0.59844,0.73307],[0.65156,0.72786],[0.70781,0.72266],[0.76094,0.72266],[0.81719,0.71745],[0.87031,0.71224],[0.87031,0.72526],[0.81719,0.74609],[0.76094,0.76693],[0.70781,0.78255],[0.65156,0.79818],[0.59844,0.80859],[0.54531,0.8138],[0.48906,0.8138],[0.43594,0.80339],[0.37969,0.77214],[0.32656,0.72005]],
+      "blink90": [[0.35781,0.75391],[0.40781,0.76432],[0.45781,0.76953],[0.51094,0.77474],[0.56094,0.77474],[0.61094,0.76953],[0.66094,0.76432],[0.71094,0.75391],[0.76406,0.74349],[0.81406,0.73828],[0.86406,0.72786],[0.86406,0.73047],[0.81406,0.74609],[0.76406,0.75651],[0.71094,0.77214],[0.66094,0.78255],[0.61094,0.79818],[0.56094,0.80339],[0.51094,0.80339],[0.45781,0.79818],[0.40781,0.78255],[0.35781,0.75651]],
+      "closed": [],
+      "happyClosed": []
+    },
+    "whiteAreaBounds": {
+      "open":[125,157,190,92],"blink10":[515,177,183,69],"blink20":[897,187,185,62],"blink30":[1281,199,184,50],
+      "blink40":[130,530,183,38],"half":[515,533,181,34],"blink60":[898,537,182,29],"blink70":[1283,540,180,25],
+      "blink80":[132,863,179,22],"blink90":[527,866,167,16],"closed":null,"happyClosed":null
+    },
+    "notes": [
+      "Copy both the frame rectangle and aperture when adding quarter/threeQuarter/blink50 aliases to the renderer manifest; its gaze validation requires an aperture for every actual frame key.",
+      "Transparent pixels contain dark gray RGB and a few alpha 1-2 pixels. They are not an opaque gray backing. Do not use RGB alone to classify this asset as a solid background.",
+      "The open-to-first-intermediate white-area height drops from 92 to 69 source pixels, more than a precise 10% step. Later stages are progressively smaller. These are painted stages rather than equally spaced geometric closure; do not rescale to compensate.",
+      "The pale arc above the lash is painted eyelid highlight, not an iris aperture. Small pink skin/tear-corner edges are retained intentionally."
+    ]
+  },
+  "iris": {
+    "source": "./iris.png",
+    "size": [2172,724],
+    "alpha": {"min":0,"max":255,"zeroPixels":1060943,"atMost2Pixels":1073907,"atLeast200Pixels":489226,"totalPixels":1572528},
+    "order": ["front","threeQuarter","profile","down"],
+    "drawings": {
+      "front": {"bboxAlpha32":[64,133,427,422],"bboxAlpha200":[65,134,425,420],"recommendedRect":[62,131,431,426]},
+      "threeQuarter": {"bboxAlpha32":[638,120,382,447],"bboxAlpha200":[639,121,380,445],"recommendedRect":[636,118,386,451]},
+      "profile": {"bboxAlpha32":[1229,113,258,464],"bboxAlpha200":[1230,114,256,462],"recommendedRect":[1227,111,262,468]},
+      "down": {"bboxAlpha32":[1665,177,459,347],"bboxAlpha200":[1666,178,457,345],"recommendedRect":[1663,175,463,351]}
+    },
+    "notes": [
+      "Pose names describe the visibly drawn shape: nearly circular, oblique ellipse, narrow vertical profile ellipse, wide low-angle ellipse. These are descriptive assignments, not image metadata.",
+      "Recommended rectangles add two source pixels of breathing room around alpha >= 32 bounds. A few almost invisible alpha 2 speckles extend farther and are intentionally excluded. No image has been trimmed or modified.",
+      "Keep each iris drawing at a fixed pose-specific size and translate it inside the corresponding aperture. Do not resize it as eye closure changes."
+    ]
+  }
+}

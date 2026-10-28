@@ -1,0 +1,1891 @@
+{
+  "version": 1,
+  "id": "short-hair-expression-v3",
+  "status": "approved",
+  "width": 1122,
+  "height": 1402,
+  "reference": "neutral",
+  "faceView": [
+    245,
+    350,
+    630,
+    460
+  ],
+  "sources": {
+    "neutral": {
+      "src": "./assets/short-hair-v1/front.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "closed-open-wide": {
+      "src": "./assets/short-hair-expressions-v1/closed-open-wide.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "half-open-small": {
+      "src": "./assets/short-hair-expressions-v1/half-open-small.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "pucker-flat": {
+      "src": "./assets/short-hair-expressions-v1/pucker-flat.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "press-brow-down": {
+      "src": "./assets/short-hair-expressions-v1/press-brow-down.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "shift-left": {
+      "src": "./assets/short-hair-expressions-v1/shift-left.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "shift-right": {
+      "src": "./assets/short-hair-expressions-v1/shift-right.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "quarter-parted": {
+      "src": "./assets/short-hair-expressions-v2/quarter-parted.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "three-quarter-medium": {
+      "src": "./assets/short-hair-expressions-v2/three-quarter-medium.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "eye-whites": {
+      "src": "./assets/short-hair-gaze-v1/eye-whites.png",
+      "width": 1122,
+      "height": 1402
+    },
+    "irises": {
+      "src": "./assets/short-hair-gaze-v1/irises.png",
+      "width": 1122,
+      "height": 1402
+    }
+  },
+  "mouthReference": [
+    558,
+    674
+  ],
+  "registration": "Local crops retain source pixel scale. Only fixed per-drawing translation; no morphing, mirroring, rotation or expression-dependent scaling. Upper lip anchors are visually registered estimates, not automated visual acceptance.",
+  "patches": {
+    "eyeLeft": {
+      "half": {
+        "source": "half-open-small",
+        "rect": [
+          606,
+          448,
+          155,
+          116
+        ],
+        "destination": [
+          606,
+          448,
+          155,
+          116
+        ],
+        "feather": 6,
+        "transform": "translation-only"
+      },
+      "closed": {
+        "source": "closed-open-wide",
+        "rect": [
+          606,
+          448,
+          155,
+          116
+        ],
+        "destination": [
+          606,
+          448,
+          155,
+          116
+        ],
+        "feather": 6,
+        "transform": "translation-only"
+      },
+      "quarter": {
+        "source": "quarter-parted",
+        "rect": [
+          606,
+          448,
+          155,
+          116
+        ],
+        "destination": [
+          606,
+          448,
+          155,
+          116
+        ],
+        "feather": 6,
+        "transform": "translation-only"
+      },
+      "threeQuarter": {
+        "source": "three-quarter-medium",
+        "rect": [
+          606,
+          448,
+          155,
+          116
+        ],
+        "destination": [
+          606,
+          448,
+          155,
+          116
+        ],
+        "feather": 6,
+        "transform": "translation-only"
+      }
+    },
+    "eyeRight": {
+      "half": {
+        "source": "half-open-small",
+        "rect": [
+          347,
+          448,
+          167,
+          116
+        ],
+        "destination": [
+          347,
+          448,
+          167,
+          116
+        ],
+        "feather": 6,
+        "transform": "translation-only"
+      },
+      "closed": {
+        "source": "closed-open-wide",
+        "rect": [
+          347,
+          448,
+          167,
+          116
+        ],
+        "destination": [
+          347,
+          448,
+          167,
+          116
+        ],
+        "feather": 6,
+        "transform": "translation-only"
+      },
+      "quarter": {
+        "source": "quarter-parted",
+        "rect": [
+          347,
+          448,
+          167,
+          116
+        ],
+        "destination": [
+          347,
+          448,
+          167,
+          116
+        ],
+        "feather": 6,
+        "transform": "translation-only"
+      },
+      "threeQuarter": {
+        "source": "three-quarter-medium",
+        "rect": [
+          347,
+          448,
+          167,
+          116
+        ],
+        "destination": [
+          347,
+          448,
+          167,
+          116
+        ],
+        "feather": 6,
+        "transform": "translation-only"
+      }
+    },
+    "browLeft": {
+      "up": {
+        "source": "pucker-flat",
+        "rect": [
+          592,
+          395,
+          158,
+          69
+        ],
+        "destination": [
+          592,
+          395,
+          158,
+          69
+        ],
+        "feather": 6,
+        "transform": "translation-only",
+        "clip": [
+          [
+            592,
+            395
+          ],
+          [
+            750,
+            395
+          ],
+          [
+            750,
+            450
+          ],
+          [
+            705,
+            450
+          ],
+          [
+            655,
+            458
+          ],
+          [
+            608,
+            463
+          ],
+          [
+            592,
+            463
+          ]
+        ]
+      },
+      "down": {
+        "source": "press-brow-down",
+        "rect": [
+          592,
+          395,
+          158,
+          69
+        ],
+        "destination": [
+          592,
+          395,
+          158,
+          69
+        ],
+        "feather": 6,
+        "transform": "translation-only",
+        "clip": [
+          [
+            592,
+            395
+          ],
+          [
+            750,
+            395
+          ],
+          [
+            750,
+            450
+          ],
+          [
+            705,
+            450
+          ],
+          [
+            655,
+            458
+          ],
+          [
+            608,
+            463
+          ],
+          [
+            592,
+            463
+          ]
+        ]
+      }
+    },
+    "browRight": {
+      "up": {
+        "source": "pucker-flat",
+        "rect": [
+          368,
+          397,
+          138,
+          67
+        ],
+        "destination": [
+          368,
+          397,
+          138,
+          67
+        ],
+        "feather": 6,
+        "transform": "translation-only",
+        "clip": [
+          [
+            368,
+            397
+          ],
+          [
+            506,
+            397
+          ],
+          [
+            506,
+            464
+          ],
+          [
+            468,
+            461
+          ],
+          [
+            420,
+            453
+          ],
+          [
+            368,
+            450
+          ]
+        ]
+      },
+      "down": {
+        "source": "press-brow-down",
+        "rect": [
+          368,
+          397,
+          138,
+          67
+        ],
+        "destination": [
+          368,
+          397,
+          138,
+          67
+        ],
+        "feather": 6,
+        "transform": "translation-only",
+        "clip": [
+          [
+            368,
+            397
+          ],
+          [
+            506,
+            397
+          ],
+          [
+            506,
+            464
+          ],
+          [
+            468,
+            461
+          ],
+          [
+            420,
+            453
+          ],
+          [
+            368,
+            450
+          ]
+        ]
+      }
+    },
+    "mouth": {
+      "openSmall": {
+        "source": "half-open-small",
+        "rect": [
+          468,
+          635,
+          194,
+          98
+        ],
+        "destination": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "feather": 6,
+        "anchor": {
+          "source": [
+            558,
+            663
+          ],
+          "destination": [
+            558,
+            674
+          ],
+          "kind": "upper-lip"
+        },
+        "transform": "translation-only",
+        "clip": [
+          [
+            468,
+            646
+          ],
+          [
+            662,
+            646
+          ],
+          [
+            662,
+            692
+          ],
+          [
+            618,
+            724
+          ],
+          [
+            589,
+            744
+          ],
+          [
+            527,
+            744
+          ],
+          [
+            510,
+            724
+          ],
+          [
+            468,
+            692
+          ]
+        ]
+      },
+      "openWide": {
+        "source": "closed-open-wide",
+        "rect": [
+          468,
+          630,
+          194,
+          98
+        ],
+        "destination": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "feather": 6,
+        "anchor": {
+          "source": [
+            558,
+            658
+          ],
+          "destination": [
+            558,
+            674
+          ],
+          "kind": "upper-lip"
+        },
+        "transform": "translation-only",
+        "clip": [
+          [
+            468,
+            646
+          ],
+          [
+            662,
+            646
+          ],
+          [
+            662,
+            692
+          ],
+          [
+            618,
+            724
+          ],
+          [
+            589,
+            744
+          ],
+          [
+            527,
+            744
+          ],
+          [
+            510,
+            724
+          ],
+          [
+            468,
+            692
+          ]
+        ]
+      },
+      "pucker": {
+        "source": "pucker-flat",
+        "rect": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "destination": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "feather": 6,
+        "anchor": {
+          "source": [
+            558,
+            674
+          ],
+          "destination": [
+            558,
+            674
+          ],
+          "kind": "mouth-seam"
+        },
+        "transform": "translation-only",
+        "clip": [
+          [
+            468,
+            646
+          ],
+          [
+            662,
+            646
+          ],
+          [
+            662,
+            692
+          ],
+          [
+            618,
+            724
+          ],
+          [
+            589,
+            744
+          ],
+          [
+            527,
+            744
+          ],
+          [
+            510,
+            724
+          ],
+          [
+            468,
+            692
+          ]
+        ]
+      },
+      "press": {
+        "source": "press-brow-down",
+        "rect": [
+          468,
+          645,
+          194,
+          98
+        ],
+        "destination": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "feather": 6,
+        "anchor": {
+          "source": [
+            558,
+            673
+          ],
+          "destination": [
+            558,
+            674
+          ],
+          "kind": "mouth-seam"
+        },
+        "transform": "translation-only",
+        "clip": [
+          [
+            468,
+            646
+          ],
+          [
+            662,
+            646
+          ],
+          [
+            662,
+            692
+          ],
+          [
+            618,
+            724
+          ],
+          [
+            589,
+            744
+          ],
+          [
+            527,
+            744
+          ],
+          [
+            510,
+            724
+          ],
+          [
+            468,
+            692
+          ]
+        ]
+      },
+      "shiftLeft": {
+        "source": "shift-left",
+        "rect": [
+          468,
+          643,
+          194,
+          98
+        ],
+        "destination": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "feather": 6,
+        "anchor": {
+          "source": [
+            580,
+            671
+          ],
+          "destination": [
+            580,
+            674
+          ],
+          "kind": "directional-mouth-seam"
+        },
+        "transform": "translation-only",
+        "clip": [
+          [
+            468,
+            646
+          ],
+          [
+            662,
+            646
+          ],
+          [
+            662,
+            692
+          ],
+          [
+            618,
+            724
+          ],
+          [
+            589,
+            744
+          ],
+          [
+            527,
+            744
+          ],
+          [
+            510,
+            724
+          ],
+          [
+            468,
+            692
+          ]
+        ]
+      },
+      "shiftRight": {
+        "source": "shift-right",
+        "rect": [
+          482,
+          645,
+          194,
+          98
+        ],
+        "destination": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "feather": 6,
+        "anchor": {
+          "source": [
+            550,
+            673
+          ],
+          "destination": [
+            536,
+            674
+          ],
+          "kind": "directional-mouth-seam"
+        },
+        "transform": "translation-only",
+        "clip": [
+          [
+            468,
+            646
+          ],
+          [
+            662,
+            646
+          ],
+          [
+            662,
+            692
+          ],
+          [
+            618,
+            724
+          ],
+          [
+            589,
+            744
+          ],
+          [
+            527,
+            744
+          ],
+          [
+            510,
+            724
+          ],
+          [
+            468,
+            692
+          ]
+        ]
+      },
+      "parted": {
+        "source": "quarter-parted",
+        "rect": [
+          468,
+          643,
+          194,
+          98
+        ],
+        "destination": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "feather": 6,
+        "anchor": {
+          "source": [
+            558,
+            671
+          ],
+          "destination": [
+            558,
+            674
+          ],
+          "kind": "upper-lip"
+        },
+        "transform": "translation-only",
+        "clip": [
+          [
+            468,
+            646
+          ],
+          [
+            662,
+            646
+          ],
+          [
+            662,
+            692
+          ],
+          [
+            618,
+            724
+          ],
+          [
+            589,
+            744
+          ],
+          [
+            527,
+            744
+          ],
+          [
+            510,
+            724
+          ],
+          [
+            468,
+            692
+          ]
+        ]
+      },
+      "openMedium": {
+        "source": "three-quarter-medium",
+        "rect": [
+          468,
+          629,
+          194,
+          98
+        ],
+        "destination": [
+          468,
+          646,
+          194,
+          98
+        ],
+        "feather": 6,
+        "anchor": {
+          "source": [
+            558,
+            657
+          ],
+          "destination": [
+            558,
+            674
+          ],
+          "kind": "upper-lip"
+        },
+        "transform": "translation-only",
+        "clip": [
+          [
+            468,
+            646
+          ],
+          [
+            662,
+            646
+          ],
+          [
+            662,
+            692
+          ],
+          [
+            618,
+            724
+          ],
+          [
+            589,
+            744
+          ],
+          [
+            527,
+            744
+          ],
+          [
+            510,
+            724
+          ],
+          [
+            468,
+            692
+          ]
+        ]
+      }
+    }
+  },
+  "limitations": [
+    "已确认正面五档眼睑和五档张嘴；噘/抿/左右移嘴及眉毛沿用已确认基础。",
+    "眉头/眉尾输入复用整眉；单侧抿嘴输入复用整嘴；左右侧移含单侧嘴角上扬，强度不完全对称。",
+    "正面支持独立虹膜平移，原眼睑画稿分档遮挡；尚未支持动态转头及斜向表情。",
+    "眉部源稿保留画出的刘海遮挡；尚无可独立运动的前景头发层。",
+    "局部贴片带静态皮肤底色，边缘用固定透明度遮罩融合；后续需细化为正式分层资产。",
+    "本轮视线分层和眨眼组合已确认；五档眼睑、张嘴及原自然动作已获确认。",
+    "完整虹膜素材以固定等比0.5登记，原画可见虹膜片保留原像素；视线只作有限平移、不旋转或动态缩放。眼白仅填原虹膜区域。",
+    "视线版本使用统一眼球跨五档眼睑，零视线也使用同一眼球层以保持连续；部分闭眼的高光按遮挡消失，与原逐档高光重画有所不同。已确认v2保留原样。",
+    "2026-10-26用户确认正面视线效果；本批准不覆盖新侧向表情。"
+  ],
+  "basedOn": "short-hair-expression-v2",
+  "extensions": {
+    "eyes": true,
+    "jaw": true,
+    "gaze": true
+  },
+  "gaze": {
+    "version": 1,
+    "whiteSource": "eye-whites",
+    "irisSource": "irises",
+    "method": "single-eyeball-all-lids; generated-complete-iris-plus-approved-open-core",
+    "maxShift": {
+      "x": 10,
+      "up": 6,
+      "down": 5
+    },
+    "eyes": {
+      "eyeRight": {
+        "irisRect": [
+          358,
+          587,
+          131,
+          147
+        ],
+        "irisDestination": [
+          413.5,
+          478,
+          65.5,
+          73.5
+        ],
+        "registration": "fixed-uniform-scale-0.5; gaze uses translation only",
+        "frames": {
+          "open": {
+            "source": "neutral",
+            "aperture": [
+              [
+                380,
+                509
+              ],
+              [
+                398,
+                495
+              ],
+              [
+                423,
+                490
+              ],
+              [
+                447,
+                491
+              ],
+              [
+                473,
+                503
+              ],
+              [
+                493,
+                520
+              ],
+              [
+                480,
+                536
+              ],
+              [
+                450,
+                544
+              ],
+              [
+                420,
+                544
+              ],
+              [
+                396,
+                536
+              ]
+            ],
+            "fragment": [
+              [
+                415,
+                493
+              ],
+              [
+                424,
+                490
+              ],
+              [
+                439,
+                490
+              ],
+              [
+                454,
+                493
+              ],
+              [
+                466,
+                500
+              ],
+              [
+                472,
+                511
+              ],
+              [
+                475,
+                522
+              ],
+              [
+                471,
+                532
+              ],
+              [
+                462,
+                538
+              ],
+              [
+                449,
+                543
+              ],
+              [
+                439,
+                545
+              ],
+              [
+                428,
+                541
+              ],
+              [
+                420,
+                536
+              ],
+              [
+                415,
+                529
+              ],
+              [
+                411,
+                517
+              ],
+              [
+                410,
+                505
+              ]
+            ]
+          },
+          "quarter": {
+            "source": "quarter-parted",
+            "aperture": [
+              [
+                383,
+                516
+              ],
+              [
+                399,
+                508
+              ],
+              [
+                424,
+                502
+              ],
+              [
+                447,
+                503
+              ],
+              [
+                472,
+                509
+              ],
+              [
+                493,
+                522
+              ],
+              [
+                478,
+                534
+              ],
+              [
+                450,
+                540
+              ],
+              [
+                421,
+                541
+              ],
+              [
+                399,
+                534
+              ]
+            ],
+            "fragment": [
+              [
+                413,
+                507
+              ],
+              [
+                427,
+                503
+              ],
+              [
+                444,
+                503
+              ],
+              [
+                460,
+                506
+              ],
+              [
+                469,
+                512
+              ],
+              [
+                474,
+                522
+              ],
+              [
+                471,
+                531
+              ],
+              [
+                463,
+                536
+              ],
+              [
+                449,
+                540
+              ],
+              [
+                435,
+                539
+              ],
+              [
+                425,
+                537
+              ],
+              [
+                418,
+                532
+              ],
+              [
+                413,
+                525
+              ],
+              [
+                410,
+                516
+              ]
+            ]
+          },
+          "half": {
+            "source": "half-open-small",
+            "aperture": [
+              [
+                384,
+                523
+              ],
+              [
+                400,
+                519
+              ],
+              [
+                424,
+                516
+              ],
+              [
+                449,
+                517
+              ],
+              [
+                474,
+                523
+              ],
+              [
+                492,
+                527
+              ],
+              [
+                479,
+                535
+              ],
+              [
+                452,
+                540
+              ],
+              [
+                424,
+                540
+              ],
+              [
+                400,
+                534
+              ]
+            ],
+            "fragment": [
+              [
+                411,
+                520
+              ],
+              [
+                427,
+                516
+              ],
+              [
+                444,
+                516
+              ],
+              [
+                459,
+                518
+              ],
+              [
+                472,
+                522
+              ],
+              [
+                476,
+                529
+              ],
+              [
+                469,
+                535
+              ],
+              [
+                455,
+                539
+              ],
+              [
+                441,
+                541
+              ],
+              [
+                427,
+                539
+              ],
+              [
+                417,
+                534
+              ],
+              [
+                412,
+                528
+              ]
+            ]
+          },
+          "threeQuarter": {
+            "source": "three-quarter-medium",
+            "aperture": [
+              [
+                413,
+                532
+              ],
+              [
+                428,
+                529
+              ],
+              [
+                446,
+                528
+              ],
+              [
+                463,
+                528
+              ],
+              [
+                477,
+                530
+              ],
+              [
+                472,
+                534
+              ],
+              [
+                452,
+                536
+              ],
+              [
+                430,
+                536
+              ],
+              [
+                416,
+                534
+              ]
+            ],
+            "fragment": [
+              [
+                414,
+                532
+              ],
+              [
+                427,
+                529
+              ],
+              [
+                444,
+                528
+              ],
+              [
+                461,
+                529
+              ],
+              [
+                475,
+                530
+              ],
+              [
+                473,
+                533
+              ],
+              [
+                459,
+                536
+              ],
+              [
+                442,
+                537
+              ],
+              [
+                428,
+                536
+              ],
+              [
+                418,
+                534
+              ]
+            ]
+          }
+        },
+        "core": [
+          [
+            416.8,
+            494.74
+          ],
+          [
+            425.28,
+            492.15
+          ],
+          [
+            439.15,
+            492.5
+          ],
+          [
+            452.81,
+            495.2
+          ],
+          [
+            463.95,
+            501.44
+          ],
+          [
+            469.56,
+            511.53
+          ],
+          [
+            472.52,
+            521.7
+          ],
+          [
+            468.73,
+            530.94
+          ],
+          [
+            460.18,
+            536.28
+          ],
+          [
+            448.21,
+            538
+          ],
+          [
+            439.15,
+            538
+          ],
+          [
+            429.2,
+            538
+          ],
+          [
+            421.88,
+            534.35
+          ],
+          [
+            417.29,
+            528.0
+          ],
+          [
+            413.5,
+            517.07
+          ],
+          [
+            412.31,
+            505.96
+          ]
+        ],
+        "coreNote": "Original iris interior only: lower limbal ring excluded; fixed 1px alpha edge feather, no animation blending."
+      },
+      "eyeLeft": {
+        "irisRect": [
+          634,
+          586,
+          131,
+          147
+        ],
+        "irisDestination": [
+          635,
+          475,
+          65.5,
+          73.5
+        ],
+        "registration": "fixed-uniform-scale-0.5; gaze uses translation only",
+        "frames": {
+          "open": {
+            "source": "neutral",
+            "aperture": [
+              [
+                620,
+                518
+              ],
+              [
+                638,
+                500
+              ],
+              [
+                653,
+                491
+              ],
+              [
+                674,
+                487
+              ],
+              [
+                697,
+                490
+              ],
+              [
+                720,
+                496
+              ],
+              [
+                729,
+                506
+              ],
+              [
+                719,
+                524
+              ],
+              [
+                700,
+                536
+              ],
+              [
+                675,
+                540
+              ],
+              [
+                647,
+                536
+              ],
+              [
+                629,
+                529
+              ]
+            ],
+            "fragment": [
+              [
+                644,
+                492
+              ],
+              [
+                654,
+                488
+              ],
+              [
+                670,
+                487
+              ],
+              [
+                685,
+                489
+              ],
+              [
+                694,
+                495
+              ],
+              [
+                700,
+                505
+              ],
+              [
+                701,
+                516
+              ],
+              [
+                697,
+                529
+              ],
+              [
+                690,
+                536
+              ],
+              [
+                678,
+                540
+              ],
+              [
+                666,
+                539
+              ],
+              [
+                653,
+                536
+              ],
+              [
+                645,
+                530
+              ],
+              [
+                640,
+                520
+              ],
+              [
+                639,
+                507
+              ]
+            ]
+          },
+          "quarter": {
+            "source": "quarter-parted",
+            "aperture": [
+              [
+                620,
+                520
+              ],
+              [
+                638,
+                509
+              ],
+              [
+                654,
+                502
+              ],
+              [
+                672,
+                500
+              ],
+              [
+                696,
+                502
+              ],
+              [
+                718,
+                509
+              ],
+              [
+                728,
+                516
+              ],
+              [
+                717,
+                525
+              ],
+              [
+                700,
+                534
+              ],
+              [
+                674,
+                538
+              ],
+              [
+                650,
+                535
+              ],
+              [
+                631,
+                528
+              ]
+            ],
+            "fragment": [
+              [
+                643,
+                505
+              ],
+              [
+                656,
+                502
+              ],
+              [
+                671,
+                501
+              ],
+              [
+                686,
+                502
+              ],
+              [
+                697,
+                508
+              ],
+              [
+                701,
+                518
+              ],
+              [
+                697,
+                529
+              ],
+              [
+                689,
+                535
+              ],
+              [
+                676,
+                538
+              ],
+              [
+                662,
+                537
+              ],
+              [
+                650,
+                534
+              ],
+              [
+                642,
+                527
+              ],
+              [
+                638,
+                518
+              ]
+            ]
+          },
+          "half": {
+            "source": "half-open-small",
+            "aperture": [
+              [
+                623,
+                527
+              ],
+              [
+                640,
+                520
+              ],
+              [
+                655,
+                516
+              ],
+              [
+                674,
+                516
+              ],
+              [
+                695,
+                517
+              ],
+              [
+                716,
+                521
+              ],
+              [
+                728,
+                525
+              ],
+              [
+                715,
+                532
+              ],
+              [
+                691,
+                536
+              ],
+              [
+                670,
+                536
+              ],
+              [
+                646,
+                534
+              ],
+              [
+                628,
+                531
+              ]
+            ],
+            "fragment": [
+              [
+                640,
+                520
+              ],
+              [
+                653,
+                516
+              ],
+              [
+                668,
+                515
+              ],
+              [
+                684,
+                516
+              ],
+              [
+                698,
+                520
+              ],
+              [
+                701,
+                526
+              ],
+              [
+                697,
+                534
+              ],
+              [
+                686,
+                537
+              ],
+              [
+                671,
+                536
+              ],
+              [
+                655,
+                535
+              ],
+              [
+                645,
+                531
+              ],
+              [
+                639,
+                526
+              ]
+            ]
+          },
+          "threeQuarter": {
+            "source": "three-quarter-medium",
+            "aperture": [
+              [
+                626,
+                529
+              ],
+              [
+                641,
+                528
+              ],
+              [
+                660,
+                527
+              ],
+              [
+                679,
+                528
+              ],
+              [
+                696,
+                530
+              ],
+              [
+                692,
+                533
+              ],
+              [
+                674,
+                535
+              ],
+              [
+                654,
+                533
+              ],
+              [
+                638,
+                531
+              ]
+            ],
+            "fragment": [
+              [
+                638,
+                530
+              ],
+              [
+                650,
+                528
+              ],
+              [
+                667,
+                527
+              ],
+              [
+                685,
+                529
+              ],
+              [
+                700,
+                530
+              ],
+              [
+                696,
+                534
+              ],
+              [
+                681,
+                535
+              ],
+              [
+                664,
+                534
+              ],
+              [
+                647,
+                533
+              ]
+            ]
+          }
+        },
+        "core": [
+          [
+            645.92,
+            493.6
+          ],
+          [
+            655.34,
+            490.11
+          ],
+          [
+            670.04,
+            489.5
+          ],
+          [
+            683.74,
+            491.16
+          ],
+          [
+            692.05,
+            496.56
+          ],
+          [
+            697.61,
+            505.72
+          ],
+          [
+            698.51,
+            515.83
+          ],
+          [
+            694.82,
+            527.77
+          ],
+          [
+            688.34,
+            534
+          ],
+          [
+            677.3,
+            534
+          ],
+          [
+            666.43,
+            534
+          ],
+          [
+            654.55,
+            534
+          ],
+          [
+            647.11,
+            528.66
+          ],
+          [
+            642.45,
+            519.51
+          ],
+          [
+            641.44,
+            507.54
+          ]
+        ],
+        "coreNote": "Original iris interior only: lower limbal ring excluded; fixed 1px alpha edge feather, no animation blending."
+      }
+    }
+  },
+  "approval": "./assets/short-hair-gaze-v1/approval.json"
+}

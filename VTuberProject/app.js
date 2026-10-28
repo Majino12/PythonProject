@@ -2,7 +2,7 @@ import { extractFaceMotion, extractPoseMotion, normalizeExpressions } from "./mo
 import { createProject, parseProject, normalizePreferences, saveProject, loadProject } from "./project-store.js";
 import { extractAppearance } from "./appearance.js";
 import { createDemoMotion } from "./demo-motion.js";
-import { PaintedAvatar, PAINTED_CHANNEL_SUPPORT } from "./painted-avatar.js";
+import { PaintedAvatar } from "./painted-avatar.js";
 import { LUNA_PAINTED_MANIFEST, LUNA_PAINTED_RIG } from "./painted-luna.js";
 import { createAvatar3D } from "./avatar-loader.js";
 import { FaceSession, normalizeHeadPose } from "./face-session.js";
@@ -1869,7 +1869,7 @@ faceEditor = new FaceEditor(ui.faceEditorRoot, state.face2d, {
   quickRoot: $("#faceQuick"),
   onChange: savePreferences, onMessage: toast,
   indicator: $("#faceTestIndicator"), is2D: () => state.viewMode === "2d",
-  getSupport: () => state.avatar2dKind === "painted" ? PAINTED_CHANNEL_SUPPORT : {},
+  getSupport: () => state.avatar2dKind === "painted" ? state.paintedAvatar?.channelSupport || {} : {},
   canPose: () => state.avatar2dKind === "painted",
   getPose: () => ({ input: currentPaintedHeadPose(), rendered: state.paintedAvatar?.pose || null }),
 });

@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-27",
+  "timezone": "Asia/Seoul",
+  "userFeedback": "不错，进展目前不错，请继续进步，且可以进行下一步了",
+  "assetId": "short-hair-pitch-mouth-v1",
+  "acceptedScope": "The delivered pucker, whole-mouth press, character-left and character-right mouth paintings for the three fixed view-left-up, view-right-up and view-left-down poses, including their shown combinations with the previously approved eyelids and independent gaze. Acceptance includes the displayed subtle and asymmetric shift strengths, mild left-up press and faint left-up lower-lip highlight. All earlier appearance, static-pose and expression approvals remain valid.",
+  "pendingScope": "New pitch eyebrow paintings, right-down expressions and gaze, further in-between or combined-action paintings, continuous head movement and final integrated software acceptance remain outside this approval. The original project has not been replaced.",
+  "approvedManifestBeforeMetadataUpdate": "4adea00d3d6460eb55ef0c6e53d2316aa1aedd499fbb2ff975e2955d5e628e9f",
+  "approvedSources": {
+    "view-left-up-neutral": {
+      "src": "./assets/short-hair-v1/view-left-up.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "614ea3f4df961ffefefe4ae054eea45fe6c42a0cf5ae25cb3f6e88d5f6ca8637"
+    },
+    "view-left-up-half-small": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-left-up-half-small.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "d9dc3086a16deee386d7fa767f53d9784ce153b5f78201710e7cf9ab2c580f83"
+    },
+    "view-left-up-closed-wide": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-left-up-closed-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "a88279c58a30476f67e89f4fb275b286da33c070ce57adf10c1cb8868b9cbcfb"
+    },
+    "view-right-up-neutral": {
+      "src": "./assets/short-hair-v1/view-right-up.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "900d998244e371021320ead30a823661d8759b516d72ad6390c2c62d3fd21037"
+    },
+    "view-right-up-half-small": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-right-up-half-small.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "930f48e4715527b3c4ca13fff1fea2220d5f2b316e3befe157ce18609e666606"
+    },
+    "view-right-up-closed-wide": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-right-up-closed-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "3c3a7114b6febb025f1a1bb1ddc4ea27ee5007177d208ba75c7060479a9c835e"
+    },
+    "view-left-down-neutral": {
+      "src": "./assets/short-hair-v1/view-left-down.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983"
+    },
+    "view-left-down-half-small": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-left-down-half-small.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "fd2f28ad951ab56ad311f1badb61a359aad61b6e3fd5e7b5513316c65fc1a477"
+    },
+    "view-left-down-closed-wide": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-left-down-closed-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "28f9db5ec0d0e96ae6f4ffcca612399b3470c895c3a99d597e7d4ac4acd6d40e"
+    },
+    "view-left-up-eye-whites": {
+      "src": "./assets/short-hair-pitch-gaze-v1/view-left-up-eye-whites.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "0ef6530e253f232c44d6ea727e46c1ea4092713dfd38c4c325bbfadd046a18a1"
+    },
+    "view-left-up-irises-fill": {
+      "src": "./assets/short-hair-pitch-gaze-v1/view-left-up-irises-fill.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "06835700c9820a1ce4ecb25f02e2fb27e02aa008244670d35a101759f4de1bec"
+    },
+    "view-right-up-eye-whites": {
+      "src": "./assets/short-hair-pitch-gaze-v1/view-right-up-eye-whites.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "dfc14bf9ce9afd7ed45a0bff7a02da8411c3650384c53ba4022b776a1de6441f"
+    },
+    "view-right-up-irises-fill": {
+      "src": "./assets/short-hair-pitch-gaze-v1/view-right-up-irises-fill.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "e923ea91e408007ad9eb1633b3c6cab287780d32f2cb6e61810283275105968d"
+    },
+    "view-left-down-eye-whites": {
+      "src": "./assets/short-hair-pitch-gaze-v1/view-left-down-eye-whites.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "0716fba826f777516994274b2b8b01e3f171b86f727bb52e2a7d22acad461524"
+    },
+    "view-left-down-irises-fill": {
+      "src": "./assets/short-hair-pitch-gaze-v1/view-left-down-irises-fill.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "ba5a3313c43062e1ac63a095b4b2e597093e2284468a702322e549a49781b6df"
+    },
+    "view-left-up-pucker": {
+      "src": "./assets/short-hair-pitch-mouth-v1/view-left-up-pucker-v3.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "db5a610d3a19b2d5ada10f6d166e04e1857819ee77d46cb203fbcdf6fd7a0abf"
+    },
+    "view-left-up-press": {
+      "src": "./assets/short-hair-pitch-mouth-v1/view-left-up-press-v2.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "c8848c9a8551f351dda558c2bf073522bad93e46c68ee791fe0f1f861f2d6723"
+    },
+    "view-left-up-shiftLeft": {
+      "src": "./assets/short-hair-pitch-mouth-v1/view-left-up-shiftLeft.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "c47d7a64b863e698d8b15546e1f3db0e46f9cddd9fd712d31b45912db3786566"
+    },
+    "view-left-up-shiftRight": {
+      "src": "./assets/short-hair-pitch-mouth-v1/view-left-up-shiftRight.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "27664a11ab30b4de96f57cf0f9d9c49abeb2898e32964941b49d1918e2dd7ed9"
+    },
+    "view-right-up-pucker": {
+      "src": "./assets/short-hair-pitch-mouth-v1/view-right-up-pucker.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "89f07af7097c98744c8a229cd94f1c1b2ecc5985b415242dc8100e11376087f1"
+    },
+    "view-right-up-press": {
+      "src": "./assets/short-hair-pitch-mouth-v1/view-right-up-press.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "afb047e0f47240ff10aada2a51672e3945f9a5e5d2ec9db59c0ed0b48fa334dd"
+    },
+    "view-right-up-shiftLeft": {
+      "src": "./assets/short-hair-pitch-mouth-v1/view-right-up-shiftLeft-v2.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "0d04be0dae84af34a15c7f6631f6b8b3558f0b99f03dadc3f76baa02bb809e00"
+    },
+    "view-right-up-shiftRight": {
+      "src": "./assets/short-hair-pitch-mouth-v1/view-right-up-shiftRight.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "e1aa96e0386314ff3a4f5ac99bce9fc27c71fe46d323a53a78d1b58721db664b"
+    },
+    "view-left-down-pucker": {
+      "src": "./assets/short-hair-pitch-mouth-v1/view-left-down-pucker.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "36febec4a736803946ac62c0426cd9bb26bec7503a1fc083605916f4ea9397fb"
+    },
+    "view-left-down-press": {
+      "src": "./assets/short-hair-pitch-mouth-v1/view-left-down-press.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "989fcfa970fb5dac928ffc2a9ebf5c048ea2abf5092aa7a7dec96ef8bb92deaf"
+    },
+    "view-left-down-shiftLeft": {
+      "src": "./assets/short-hair-pitch-mouth-v1/view-left-down-shiftLeft.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "a465c13e17559cbfaf4278c0722e8b63ce29babd4421d566f28e8307c84d4a7d"
+    },
+    "view-left-down-shiftRight": {
+      "src": "./assets/short-hair-pitch-mouth-v1/view-left-down-shiftRight.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "5a3cb455af480bed5b75021df67d328370c5f8d50ead3601056051023ab093ba"
+    }
+  },
+  "approvedPosesSha256": "aa8d59cae1637137be56f89c5d6180b59f57735735f15e4a41be99fa0f9d2ecc",
+  "approvedGazeSha256": "9b51811d54a26e684ef5e46fbc6cdb71be5fec6ef3ccd78eb11742896896b628",
+  "approvedMouthArtSha256": "4ca26450b93696d7c70e8209bec875d1e1f69014560ce92c288e16df9500501d",
+  "approvedGazeRuntimePath": "./pitch-gaze.js",
+  "approvedGazeRuntimeSha256": "48e3c5242d5ac96d7fd04ea98e40454707e52cddc9367c828bacfa9b82769b0f",
+  "approvedSharedGazeRuntimePath": "./side-gaze.js",
+  "approvedSharedGazeRuntimeSha256": "2a2c245f45b03c95ff31e9789a003e27410f08e8cd1d5df49d1c457da6dc9c3d",
+  "approvedExpressionRuntimePath": "./side-expression-model.js",
+  "approvedExpressionRuntimeSha256": "13ede8e1067805ab664768b99716ef59a6d083416c8cc97a1d39d175ce9c97bf",
+  "approvedMouthRuntimePath": "./side-mouth-model.js",
+  "approvedMouthRuntimeSha256": "62a6998da471ece81f5b2067de64d9441c1a76f6f15344581495f53ed53fa164",
+  "approvedGazeSnapshotRuntimePath": "./pitch-gaze-snapshot.js",
+  "approvedGazeSnapshotRuntimeSha256": "7743bff62e18b8e4f7f72d4f3098b2980d3aace5b0b915953faefef9c1147f43"
+}

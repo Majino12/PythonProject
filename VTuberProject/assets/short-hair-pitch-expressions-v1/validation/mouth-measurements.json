@@ -1,0 +1,134 @@
+{
+  "view-left-up": {
+    "neutral": {
+      "upperLip": [
+        405,
+        574
+      ],
+      "darkComponentBBox": [
+        386,
+        573,
+        444,
+        576
+      ],
+      "darkPixels": 102,
+      "method": "connected component intersecting measured upper-lip point; RGB threshold 205/155/155; read-only; antialiased outer lip may extend 1–2 px"
+    },
+    "half-small": {
+      "upperLip": [
+        405,
+        570
+      ],
+      "darkComponentBBox": [
+        361,
+        570,
+        443,
+        588
+      ],
+      "darkPixels": 718,
+      "method": "connected component intersecting measured upper-lip point; RGB threshold 205/155/155; read-only; antialiased outer lip may extend 1–2 px"
+    },
+    "closed-wide": {
+      "upperLip": [
+        405,
+        559
+      ],
+      "darkComponentBBox": [
+        362,
+        558,
+        449,
+        621
+      ],
+      "darkPixels": 2089,
+      "method": "connected component intersecting measured upper-lip point; RGB threshold 205/155/155; read-only; antialiased outer lip may extend 1–2 px"
+    }
+  },
+  "view-right-up": {
+    "neutral": {
+      "upperLip": [
+        690,
+        588
+      ],
+      "darkComponentBBox": [
+        648,
+        587,
+        698,
+        592
+      ],
+      "darkPixels": 105,
+      "method": "connected component intersecting measured upper-lip point; RGB threshold 205/155/155; read-only; antialiased outer lip may extend 1–2 px"
+    },
+    "half-small": {
+      "upperLip": [
+        690,
+        582
+      ],
+      "darkComponentBBox": [
+        648,
+        580,
+        732,
+        599
+      ],
+      "darkPixels": 732,
+      "method": "connected component intersecting measured upper-lip point; RGB threshold 205/155/155; read-only; antialiased outer lip may extend 1–2 px"
+    },
+    "closed-wide": {
+      "upperLip": [
+        690,
+        575
+      ],
+      "darkComponentBBox": [
+        641,
+        574,
+        736,
+        621
+      ],
+      "darkPixels": 1869,
+      "method": "connected component intersecting measured upper-lip point; RGB threshold 205/155/155; read-only; antialiased outer lip may extend 1–2 px"
+    }
+  },
+  "view-left-down": {
+    "neutral": {
+      "upperLip": [
+        454,
+        711
+      ],
+      "darkComponentBBox": [
+        447,
+        701,
+        499,
+        712
+      ],
+      "darkPixels": 84,
+      "method": "connected component intersecting measured upper-lip point; RGB threshold 205/155/155; read-only; antialiased outer lip may extend 1–2 px"
+    },
+    "half-small": {
+      "upperLip": [
+        454,
+        706
+      ],
+      "darkComponentBBox": [
+        417,
+        702,
+        499,
+        722
+      ],
+      "darkPixels": 508,
+      "method": "connected component intersecting measured upper-lip point; RGB threshold 205/155/155; read-only; antialiased outer lip may extend 1–2 px"
+    },
+    "closed-wide": {
+      "upperLip": [
+        454,
+        694
+      ],
+      "darkComponentBBox": [
+        411,
+        691,
+        499,
+        734
+      ],
+      "darkPixels": 1111,
+      "method": "connected component intersecting measured upper-lip point; RGB threshold 205/155/155; read-only; antialiased outer lip may extend 1–2 px"
+    }
+  }
+}

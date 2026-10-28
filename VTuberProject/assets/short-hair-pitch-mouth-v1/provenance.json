@@ -1,0 +1,190 @@
+{
+  "tool": "Built-in image_gen",
+  "mode": "reference image editing; pose-specific native-scale mouth paintings",
+  "createdAt": "2026-10-26",
+  "assetId": "short-hair-pitch-mouth-v1",
+  "assets": [
+    {
+      "key": "view-left-up-pucker",
+      "file": "view-left-up-pucker-v3.png",
+      "pose": "view-left-up",
+      "reference": "./view-left-up-pucker.png",
+      "generationId": "exec-57065304-645a-4cdd-ad6c-f869c07c5f67",
+      "prompt": "Use case: precise-object-edit. This supplied image is the EDIT TARGET, not a style reference. It already has the correct delicate little CLOSED pursed-mouth shape. Make exactly ONE small correction: remove the tiny white glossy dots and white bright underline on the skin directly BELOW the little mouth (around x375–400, y582–594), restoring plain matte skin sampled in appearance from the adjacent cheek. Keep the thin closed lip crease itself EXACTLY the same shape, color, size and location. Do not widen the mouth, add wrinkles, change its corners, or add new highlights. All other pixels and portrait geometry stay unchanged, including eyes, brows, nose, chin, hair, shoulders, clothing and background. Keep the same full 1122x1402 portrait canvas. No other alterations. No text, no watermark.",
+      "transparentBackground": false,
+      "sha256": "db5a610d3a19b2d5ada10f6d166e04e1857819ee77d46cb203fbcdf6fd7a0abf",
+      "supersedes": "view-left-up-pucker-v2"
+    },
+    {
+      "key": "view-left-up-press",
+      "file": "view-left-up-press-v2.png",
+      "pose": "view-left-up",
+      "reference": "../short-hair-v1/view-left-up.png",
+      "generationId": "exec-d56aa815-7a32-4b8b-b29c-d1d84368c7a5",
+      "prompt": "Use case: precise-object-edit.\nAsset type: one independently painted mouth state for this exact fixed 2D VTuber pose.\nInput Image 1 is the EDIT TARGET, the approved portrait facing VIEWER'S LEFT and UP (a fixed three-quarter upturned head). Return exactly one full portrait at the same native 1122 x 1402 canvas and framing, not a sheet or collage.\nPrimary edit: change ONLY the small mouth and immediately adjacent lip skin, with the original central upper-lip reference at approximately (405,574). Draw lips gently pressed together and tucked inward: a restrained thin straight-to-slightly-tense closed crease, about 68–80 source pixels wide. Remove the friendly smile's upturned corners; use tiny restrained downward corner tension and an extremely faint lower-lip shadow to show sealed pressed lips. Keep the central upper lip at the original smile level. No open hole, teeth, grin, thick lips, lipstick or glossy highlights.\nPreserve this pose's existing tilt, facial plane and foreshortening. Keep the nose-to-mouth and mouth-to-chin spacing; in upturned poses do not pull the mouth upward toward the nose. Use the source's delicate muted warm gray/rose-brown lip line and softly shaded pale skin. No new heavy lip paint, specular lip highlights or extra crease underneath.\nHard invariants: keep the eyes, gaze, eyebrows, nose, jawline, chin, head shape, ears, hair strands, neck, shoulders, clothing and background unchanged in their exact positions. Do not crop, zoom, reframe, rotate or redesign the head. Do not move the lower face or chin to simulate mouth movement. No accessories, animal ears, text, watermark, labels or extra faces. The output will be used only as a local mouth crop at original pixel scale; only the mouth expression should change.\nCritical correction for this revision: the previous result was indistinguishable from a smile. This time redraw the crease as a noticeably SHORTER, flat tight CLOSED lip line (about 65 pixels wide), its center x405 y574, with slightly downturned/tucked-in corners. Both ends must lose the original smile hooks. Add a very faint thin warm-gray compression shadow below, never a white highlight. It must read as lips pressed inward, not the old smile, a grin or a pout.",
+      "transparentBackground": false,
+      "sha256": "c8848c9a8551f351dda558c2bf073522bad93e46c68ee791fe0f1f861f2d6723",
+      "supersedes": "view-left-up-press"
+    },
+    {
+      "key": "view-left-up-shiftLeft",
+      "file": "view-left-up-shiftLeft.png",
+      "pose": "view-left-up",
+      "reference": "../short-hair-v1/view-left-up.png",
+      "generationId": "exec-486adff7-9278-4467-8832-a08a09e895a3",
+      "prompt": "Use case: precise-object-edit.\nAsset type: one independently painted mouth state for this exact fixed 2D VTuber pose.\nInput Image 1 is the EDIT TARGET, the approved portrait facing VIEWER'S LEFT and UP (a fixed three-quarter upturned head). Return exactly one full portrait at the same native 1122 x 1402 canvas and framing, not a sheet or collage.\nPrimary edit: change ONLY the small mouth and immediately adjacent lip skin, with the original central upper-lip reference at approximately (405,574). Draw a subtle asymmetric CLOSED mouth pulled toward the CHARACTER'S LEFT, which appears toward the VIEWER'S RIGHT. The visible crease center must move about 10 source pixels to the VIEWER'S RIGHT of the original smile center, keeping its central upper-lip vertical level stable. Redraw the actual asymmetric lip expression: viewer-right corner tugs laterally and only slightly up; opposite corner relaxes. Keep approximately the original width and gentle low-saturation line. No deep hooked corner, extreme smirk, open hole, lipstick, thickness or glossy lip. Do not simply draw the unchanged neutral smile.\nPreserve this pose's existing tilt, facial plane and foreshortening. Keep the nose-to-mouth and mouth-to-chin spacing; in upturned poses do not pull the mouth upward toward the nose. Use the source's delicate muted warm gray/rose-brown lip line and softly shaded pale skin. No new heavy lip paint, specular lip highlights or extra crease underneath.\nHard invariants: keep the eyes, gaze, eyebrows, nose, jawline, chin, head shape, ears, hair strands, neck, shoulders, clothing and background unchanged in their exact positions. Do not crop, zoom, reframe, rotate or redesign the head. Do not move the lower face or chin to simulate mouth movement. No accessories, animal ears, text, watermark, labels or extra faces. The output will be used only as a local mouth crop at original pixel scale; only the mouth expression should change.",
+      "transparentBackground": false,
+      "sha256": "c47d7a64b863e698d8b15546e1f3db0e46f9cddd9fd712d31b45912db3786566"
+    },
+    {
+      "key": "view-left-up-shiftRight",
+      "file": "view-left-up-shiftRight.png",
+      "pose": "view-left-up",
+      "reference": "../short-hair-v1/view-left-up.png",
+      "generationId": "exec-ea148850-707d-43a1-a24c-b16eb8048426",
+      "prompt": "Use case: precise-object-edit.\nAsset type: one independently painted mouth state for this exact fixed 2D VTuber pose.\nInput Image 1 is the EDIT TARGET, the approved portrait facing VIEWER'S LEFT and UP (a fixed three-quarter upturned head). Return exactly one full portrait at the same native 1122 x 1402 canvas and framing, not a sheet or collage.\nPrimary edit: change ONLY the small mouth and immediately adjacent lip skin, with the original central upper-lip reference at approximately (405,574). Draw a subtle asymmetric CLOSED mouth pulled toward the CHARACTER'S RIGHT, which appears toward the VIEWER'S LEFT. The visible crease center must move about 10 source pixels to the VIEWER'S LEFT of the original smile center, keeping its central upper-lip vertical level stable. Redraw the actual asymmetric lip expression: viewer-left corner tugs laterally and only slightly up; opposite corner relaxes. Keep approximately the original width and gentle low-saturation line. No deep hooked corner, extreme smirk, open hole, lipstick, thickness or glossy lip. Do not simply draw the unchanged neutral smile.\nPreserve this pose's existing tilt, facial plane and foreshortening. Keep the nose-to-mouth and mouth-to-chin spacing; in upturned poses do not pull the mouth upward toward the nose. Use the source's delicate muted warm gray/rose-brown lip line and softly shaded pale skin. No new heavy lip paint, specular lip highlights or extra crease underneath.\nHard invariants: keep the eyes, gaze, eyebrows, nose, jawline, chin, head shape, ears, hair strands, neck, shoulders, clothing and background unchanged in their exact positions. Do not crop, zoom, reframe, rotate or redesign the head. Do not move the lower face or chin to simulate mouth movement. No accessories, animal ears, text, watermark, labels or extra faces. The output will be used only as a local mouth crop at original pixel scale; only the mouth expression should change.",
+      "transparentBackground": false,
+      "sha256": "27664a11ab30b4de96f57cf0f9d9c49abeb2898e32964941b49d1918e2dd7ed9"
+    },
+    {
+      "key": "view-right-up-pucker",
+      "file": "view-right-up-pucker.png",
+      "pose": "view-right-up",
+      "reference": "../short-hair-v1/view-right-up.png",
+      "generationId": "exec-bb7d3f23-96c5-43fd-87a8-df28738d1b59",
+      "prompt": "Use case: precise-object-edit.\nAsset type: one independently painted mouth state for this exact fixed 2D VTuber pose.\nInput Image 1 is the EDIT TARGET, the approved portrait facing VIEWER'S RIGHT and UP (a fixed three-quarter upturned head). Return exactly one full portrait at the same native 1122 x 1402 canvas and framing, not a sheet or collage.\nPrimary edit: change ONLY the small mouth and immediately adjacent lip skin, with the original central upper-lip reference at approximately (690,588). Draw a gentle pursed CLOSED mouth as if preparing a soft kiss or saying 'u' with sealed lips. Compress the original smile into a delicate, very small central w-shaped pinch, about 28–36 source pixels wide, with subtle rounded lip tension. Keep the central upper lip at the original smile level. Only a thin muted rose-brown crease and faint lower-lip shadow; this is a small soft anime pout, NOT an open O hole, lipstick, thick lips, or duck lips.\nPreserve this pose's existing tilt, facial plane and foreshortening. Keep the nose-to-mouth and mouth-to-chin spacing; in upturned poses do not pull the mouth upward toward the nose. Use the source's delicate muted warm gray/rose-brown lip line and softly shaded pale skin. No new heavy lip paint, specular lip highlights or extra crease underneath.\nHard invariants: keep the eyes, gaze, eyebrows, nose, jawline, chin, head shape, ears, hair strands, neck, shoulders, clothing and background unchanged in their exact positions. Do not crop, zoom, reframe, rotate or redesign the head. Do not move the lower face or chin to simulate mouth movement. No accessories, animal ears, text, watermark, labels or extra faces. The output will be used only as a local mouth crop at original pixel scale; only the mouth expression should change.\nCritical surface treatment: completely matte natural skin around this tiny lip pinch. Absolutely no white dots, bright lip underline, shiny gloss or white specular pixels beneath the mouth. Avoid lip makeup.",
+      "transparentBackground": false,
+      "sha256": "89f07af7097c98744c8a229cd94f1c1b2ecc5985b415242dc8100e11376087f1"
+    },
+    {
+      "key": "view-right-up-press",
+      "file": "view-right-up-press.png",
+      "pose": "view-right-up",
+      "reference": "../short-hair-v1/view-right-up.png",
+      "generationId": "exec-2e357c5e-21fc-4465-bd78-b0b66e3c085e",
+      "prompt": "Use case: precise-object-edit.\nAsset type: one independently painted mouth state for this exact fixed 2D VTuber pose.\nInput Image 1 is the EDIT TARGET, the approved portrait facing VIEWER'S RIGHT and UP (a fixed three-quarter upturned head). Return exactly one full portrait at the same native 1122 x 1402 canvas and framing, not a sheet or collage.\nPrimary edit: change ONLY the small mouth and immediately adjacent lip skin, with the original central upper-lip reference at approximately (690,588). Draw lips gently pressed together and tucked inward: a restrained thin straight-to-slightly-tense closed crease, about 68–80 source pixels wide. Remove the friendly smile's upturned corners; use tiny restrained downward corner tension and an extremely faint lower-lip shadow to show sealed pressed lips. Keep the central upper lip at the original smile level. No open hole, teeth, grin, thick lips, lipstick or glossy highlights.\nPreserve this pose's existing tilt, facial plane and foreshortening. Keep the nose-to-mouth and mouth-to-chin spacing; in upturned poses do not pull the mouth upward toward the nose. Use the source's delicate muted warm gray/rose-brown lip line and softly shaded pale skin. No new heavy lip paint, specular lip highlights or extra crease underneath.\nHard invariants: keep the eyes, gaze, eyebrows, nose, jawline, chin, head shape, ears, hair strands, neck, shoulders, clothing and background unchanged in their exact positions. Do not crop, zoom, reframe, rotate or redesign the head. Do not move the lower face or chin to simulate mouth movement. No accessories, animal ears, text, watermark, labels or extra faces. The output will be used only as a local mouth crop at original pixel scale; only the mouth expression should change.\nCritical visible change: this must NOT look like the original smiling mouth. Shorten the crease moderately to about 65–72 pixels; create a visibly horizontal sealed line with the two corners slightly downward and tucked inward. No upturned smile corners at all. The central crease remains at the original upper-lip height, with matte skin and no bright line beneath.",
+      "transparentBackground": false,
+      "sha256": "afb047e0f47240ff10aada2a51672e3945f9a5e5d2ec9db59c0ed0b48fa334dd"
+    },
+    {
+      "key": "view-right-up-shiftLeft",
+      "file": "view-right-up-shiftLeft-v2.png",
+      "pose": "view-right-up",
+      "reference": "../short-hair-v1/view-right-up.png",
+      "generationId": "exec-35b2a36b-dd23-4024-afd0-30a9f0656244",
+      "prompt": "Use case: precise-object-edit. Input is the exact approved 1122x1402 portrait with head facing viewer-right and up. Change ONLY the thin CLOSED mouth into a gentle lateral lip pull toward the CHARACTER'S LEFT, i.e. toward the VIEWER'S RIGHT. Important correction: moving only the right corner upwards is insufficient. Move the whole visible mouth crease horizontally about 10 pixels right: the left endpoint should move from about x648 to x658, the right endpoint from about x734 to x744. Its middle is around x701, y588. Keep upper-lip vertical level at y588, approximate original width ~86px, and only a very mild asymmetric lateral tension at viewer-right corner. Do not create an exaggerated upward smirk. Keep original fine muted rose-brown linework, flat natural skin, no thick lips, lip gloss, white underline, teeth or open hole. Preserve all positions of eyes, brows, nose, jawline, chin, hair, neck, shoulders, clothes and background exactly; do not move or reshape the head. No cropping, zoom, labels or watermark. One full portrait, not a sheet.",
+      "transparentBackground": false,
+      "sha256": "0d04be0dae84af34a15c7f6631f6b8b3558f0b99f03dadc3f76baa02bb809e00",
+      "supersedes": "view-right-up-shiftLeft"
+    },
+    {
+      "key": "view-right-up-shiftRight",
+      "file": "view-right-up-shiftRight.png",
+      "pose": "view-right-up",
+      "reference": "../short-hair-v1/view-right-up.png",
+      "generationId": "exec-0acae9ef-99ed-4419-bf0c-e4c2ddfd2186",
+      "prompt": "Use case: precise-object-edit.\nAsset type: one independently painted mouth state for this exact fixed 2D VTuber pose.\nInput Image 1 is the EDIT TARGET, the approved portrait facing VIEWER'S RIGHT and UP (a fixed three-quarter upturned head). Return exactly one full portrait at the same native 1122 x 1402 canvas and framing, not a sheet or collage.\nPrimary edit: change ONLY the small mouth and immediately adjacent lip skin, with the original central upper-lip reference at approximately (690,588). Draw a subtle asymmetric CLOSED mouth pulled toward the CHARACTER'S RIGHT, which appears toward the VIEWER'S LEFT. The visible crease center must move about 10 source pixels to the VIEWER'S LEFT of the original smile center, keeping its central upper-lip vertical level stable. Redraw the actual asymmetric lip expression: viewer-left corner tugs laterally and only slightly up; opposite corner relaxes. Keep approximately the original width and gentle low-saturation line. No deep hooked corner, extreme smirk, open hole, lipstick, thickness or glossy lip. Do not simply draw the unchanged neutral smile.\nPreserve this pose's existing tilt, facial plane and foreshortening. Keep the nose-to-mouth and mouth-to-chin spacing; in upturned poses do not pull the mouth upward toward the nose. Use the source's delicate muted warm gray/rose-brown lip line and softly shaded pale skin. No new heavy lip paint, specular lip highlights or extra crease underneath.\nHard invariants: keep the eyes, gaze, eyebrows, nose, jawline, chin, head shape, ears, hair strands, neck, shoulders, clothing and background unchanged in their exact positions. Do not crop, zoom, reframe, rotate or redesign the head. Do not move the lower face or chin to simulate mouth movement. No accessories, animal ears, text, watermark, labels or extra faces. The output will be used only as a local mouth crop at original pixel scale; only the mouth expression should change.",
+      "transparentBackground": false,
+      "sha256": "e1aa96e0386314ff3a4f5ac99bce9fc27c71fe46d323a53a78d1b58721db664b"
+    },
+    {
+      "key": "view-left-down-pucker",
+      "file": "view-left-down-pucker.png",
+      "pose": "view-left-down",
+      "reference": "../short-hair-v1/view-left-down.png",
+      "generationId": "exec-a1207e9c-74dd-4366-8f1d-bfea881a9395",
+      "prompt": "Use case: precise-object-edit.\nAsset type: one independently painted mouth state for this exact fixed 2D VTuber pose.\nInput Image 1 is the EDIT TARGET, the approved portrait facing VIEWER'S LEFT and DOWN (a fixed three-quarter bowed head). Return exactly one full portrait at the same native 1122 x 1402 canvas and framing, not a sheet or collage.\nPrimary edit: change ONLY the small mouth and immediately adjacent lip skin, with the original central upper-lip reference at approximately (454,711). Draw a gentle pursed CLOSED mouth as if preparing a soft kiss or saying 'u' with sealed lips. Compress the original smile into a delicate, very small central w-shaped pinch, about 28–36 source pixels wide, with subtle rounded lip tension. Keep the central upper lip at the original smile level. Only a thin muted rose-brown crease and faint lower-lip shadow; this is a small soft anime pout, NOT an open O hole, lipstick, thick lips, or duck lips.\nPreserve this pose's existing tilt, facial plane and foreshortening. Keep the nose-to-mouth and mouth-to-chin spacing; in upturned poses do not pull the mouth upward toward the nose. Use the source's delicate muted warm gray/rose-brown lip line and softly shaded pale skin. No new heavy lip paint, specular lip highlights or extra crease underneath.\nHard invariants: keep the eyes, gaze, eyebrows, nose, jawline, chin, head shape, ears, hair strands, neck, shoulders, clothing and background unchanged in their exact positions. Do not crop, zoom, reframe, rotate or redesign the head. Do not move the lower face or chin to simulate mouth movement. No accessories, animal ears, text, watermark, labels or extra faces. The output will be used only as a local mouth crop at original pixel scale; only the mouth expression should change.\nCritical surface treatment: completely matte natural skin around this tiny lip pinch. Absolutely no white dots, bright lip underline, shiny gloss or white specular pixels beneath the mouth. Avoid lip makeup.",
+      "transparentBackground": false,
+      "sha256": "36febec4a736803946ac62c0426cd9bb26bec7503a1fc083605916f4ea9397fb"
+    },
+    {
+      "key": "view-left-down-press",
+      "file": "view-left-down-press.png",
+      "pose": "view-left-down",
+      "reference": "../short-hair-v1/view-left-down.png",
+      "generationId": "exec-c18df33b-70d4-4754-be0d-5deed2d5323b",
+      "prompt": "Use case: precise-object-edit.\nAsset type: one independently painted mouth state for this exact fixed 2D VTuber pose.\nInput Image 1 is the EDIT TARGET, the approved portrait facing VIEWER'S LEFT and DOWN (a fixed three-quarter bowed head). Return exactly one full portrait at the same native 1122 x 1402 canvas and framing, not a sheet or collage.\nPrimary edit: change ONLY the small mouth and immediately adjacent lip skin, with the original central upper-lip reference at approximately (454,711). Draw lips gently pressed together and tucked inward: a restrained thin straight-to-slightly-tense closed crease, about 68–80 source pixels wide. Remove the friendly smile's upturned corners; use tiny restrained downward corner tension and an extremely faint lower-lip shadow to show sealed pressed lips. Keep the central upper lip at the original smile level. No open hole, teeth, grin, thick lips, lipstick or glossy highlights.\nPreserve this pose's existing tilt, facial plane and foreshortening. Keep the nose-to-mouth and mouth-to-chin spacing; in upturned poses do not pull the mouth upward toward the nose. Use the source's delicate muted warm gray/rose-brown lip line and softly shaded pale skin. No new heavy lip paint, specular lip highlights or extra crease underneath.\nHard invariants: keep the eyes, gaze, eyebrows, nose, jawline, chin, head shape, ears, hair strands, neck, shoulders, clothing and background unchanged in their exact positions. Do not crop, zoom, reframe, rotate or redesign the head. Do not move the lower face or chin to simulate mouth movement. No accessories, animal ears, text, watermark, labels or extra faces. The output will be used only as a local mouth crop at original pixel scale; only the mouth expression should change.\nCritical visible change: this must NOT look like the original smiling mouth. Shorten the crease moderately to about 65–72 pixels; create a visibly horizontal sealed line with the two corners slightly downward and tucked inward. No upturned smile corners at all. The central crease remains at the original upper-lip height, with matte skin and no bright line beneath.",
+      "transparentBackground": false,
+      "sha256": "989fcfa970fb5dac928ffc2a9ebf5c048ea2abf5092aa7a7dec96ef8bb92deaf"
+    },
+    {
+      "key": "view-left-down-shiftLeft",
+      "file": "view-left-down-shiftLeft.png",
+      "pose": "view-left-down",
+      "reference": "../short-hair-v1/view-left-down.png",
+      "generationId": "exec-724f7778-3d37-43ee-b3bd-3b8d4725d81c",
+      "prompt": "Use case: precise-object-edit.\nAsset type: one independently painted mouth state for this exact fixed 2D VTuber pose.\nInput Image 1 is the EDIT TARGET, the approved portrait facing VIEWER'S LEFT and DOWN (a fixed three-quarter bowed head). Return exactly one full portrait at the same native 1122 x 1402 canvas and framing, not a sheet or collage.\nPrimary edit: change ONLY the small mouth and immediately adjacent lip skin, with the original central upper-lip reference at approximately (454,711). Draw a subtle asymmetric CLOSED mouth pulled toward the CHARACTER'S LEFT, which appears toward the VIEWER'S RIGHT. The visible crease center must move about 10 source pixels to the VIEWER'S RIGHT of the original smile center, keeping its central upper-lip vertical level stable. Redraw the actual asymmetric lip expression: viewer-right corner tugs laterally and only slightly up; opposite corner relaxes. Keep approximately the original width and gentle low-saturation line. No deep hooked corner, extreme smirk, open hole, lipstick, thickness or glossy lip. Do not simply draw the unchanged neutral smile.\nPreserve this pose's existing tilt, facial plane and foreshortening. Keep the nose-to-mouth and mouth-to-chin spacing; in upturned poses do not pull the mouth upward toward the nose. Use the source's delicate muted warm gray/rose-brown lip line and softly shaded pale skin. No new heavy lip paint, specular lip highlights or extra crease underneath.\nHard invariants: keep the eyes, gaze, eyebrows, nose, jawline, chin, head shape, ears, hair strands, neck, shoulders, clothing and background unchanged in their exact positions. Do not crop, zoom, reframe, rotate or redesign the head. Do not move the lower face or chin to simulate mouth movement. No accessories, animal ears, text, watermark, labels or extra faces. The output will be used only as a local mouth crop at original pixel scale; only the mouth expression should change.",
+      "transparentBackground": false,
+      "sha256": "a465c13e17559cbfaf4278c0722e8b63ce29babd4421d566f28e8307c84d4a7d"
+    },
+    {
+      "key": "view-left-down-shiftRight",
+      "file": "view-left-down-shiftRight.png",
+      "pose": "view-left-down",
+      "reference": "../short-hair-v1/view-left-down.png",
+      "generationId": "exec-ef1c3674-ea10-4641-8d63-802900cc376e",
+      "prompt": "Use case: precise-object-edit.\nAsset type: one independently painted mouth state for this exact fixed 2D VTuber pose.\nInput Image 1 is the EDIT TARGET, the approved portrait facing VIEWER'S LEFT and DOWN (a fixed three-quarter bowed head). Return exactly one full portrait at the same native 1122 x 1402 canvas and framing, not a sheet or collage.\nPrimary edit: change ONLY the small mouth and immediately adjacent lip skin, with the original central upper-lip reference at approximately (454,711). Draw a subtle asymmetric CLOSED mouth pulled toward the CHARACTER'S RIGHT, which appears toward the VIEWER'S LEFT. The visible crease center must move about 10 source pixels to the VIEWER'S LEFT of the original smile center, keeping its central upper-lip vertical level stable. Redraw the actual asymmetric lip expression: viewer-left corner tugs laterally and only slightly up; opposite corner relaxes. Keep approximately the original width and gentle low-saturation line. No deep hooked corner, extreme smirk, open hole, lipstick, thickness or glossy lip. Do not simply draw the unchanged neutral smile.\nPreserve this pose's existing tilt, facial plane and foreshortening. Keep the nose-to-mouth and mouth-to-chin spacing; in upturned poses do not pull the mouth upward toward the nose. Use the source's delicate muted warm gray/rose-brown lip line and softly shaded pale skin. No new heavy lip paint, specular lip highlights or extra crease underneath.\nHard invariants: keep the eyes, gaze, eyebrows, nose, jawline, chin, head shape, ears, hair strands, neck, shoulders, clothing and background unchanged in their exact positions. Do not crop, zoom, reframe, rotate or redesign the head. Do not move the lower face or chin to simulate mouth movement. No accessories, animal ears, text, watermark, labels or extra faces. The output will be used only as a local mouth crop at original pixel scale; only the mouth expression should change.",
+      "transparentBackground": false,
+      "sha256": "5a3cb455af480bed5b75021df67d328370c5f8d50ead3601056051023ab093ba"
+    }
+  ],
+  "intermediateSources": [
+    {
+      "key": "view-left-up-pucker",
+      "file": "view-left-up-pucker.png",
+      "pose": "view-left-up",
+      "reference": "../short-hair-v1/view-left-up.png",
+      "generationId": "exec-12fdc2e4-eff3-4b32-9bc1-f9e9869dced5",
+      "prompt": "Use case: precise-object-edit.\nAsset type: one independently painted mouth state for this exact fixed 2D VTuber pose.\nInput Image 1 is the EDIT TARGET, the approved portrait facing VIEWER'S LEFT and UP (a fixed three-quarter upturned head). Return exactly one full portrait at the same native 1122 x 1402 canvas and framing, not a sheet or collage.\nPrimary edit: change ONLY the small mouth and immediately adjacent lip skin, with the original central upper-lip reference at approximately (405,574). Draw a gentle pursed CLOSED mouth as if preparing a soft kiss or saying 'u' with sealed lips. Compress the original smile into a delicate, very small central w-shaped pinch, about 28–36 source pixels wide, with subtle rounded lip tension. Keep the central upper lip at the original smile level. Only a thin muted rose-brown crease and faint lower-lip shadow; this is a small soft anime pout, NOT an open O hole, lipstick, thick lips, or duck lips.\nPreserve this pose's existing tilt, facial plane and foreshortening. Keep the nose-to-mouth and mouth-to-chin spacing; in upturned poses do not pull the mouth upward toward the nose. Use the source's delicate muted warm gray/rose-brown lip line and softly shaded pale skin. No new heavy lip paint, specular lip highlights or extra crease underneath.\nHard invariants: keep the eyes, gaze, eyebrows, nose, jawline, chin, head shape, ears, hair strands, neck, shoulders, clothing and background unchanged in their exact positions. Do not crop, zoom, reframe, rotate or redesign the head. Do not move the lower face or chin to simulate mouth movement. No accessories, animal ears, text, watermark, labels or extra faces. The output will be used only as a local mouth crop at original pixel scale; only the mouth expression should change.",
+      "transparentBackground": false,
+      "sha256": "ff8b5262e496151b0256530c666f46d3d01cd3d76af482adbbd5f60ec0e8b9c0",
+      "reasonNotAdopted": "原始噘嘴稿下方有细小亮点；保留为 v3 的真实编辑参考。"
+    },
+    {
+      "key": "view-left-up-press",
+      "file": "view-left-up-press.png",
+      "pose": "view-left-up",
+      "reference": "../short-hair-v1/view-left-up.png",
+      "generationId": "exec-4ff9a1f5-28b6-44dd-a61b-41eb3ee99e84",
+      "prompt": "Use case: precise-object-edit.\nAsset type: one independently painted mouth state for this exact fixed 2D VTuber pose.\nInput Image 1 is the EDIT TARGET, the approved portrait facing VIEWER'S LEFT and UP (a fixed three-quarter upturned head). Return exactly one full portrait at the same native 1122 x 1402 canvas and framing, not a sheet or collage.\nPrimary edit: change ONLY the small mouth and immediately adjacent lip skin, with the original central upper-lip reference at approximately (405,574). Draw lips gently pressed together and tucked inward: a restrained thin straight-to-slightly-tense closed crease, about 68–80 source pixels wide. Remove the friendly smile's upturned corners; use tiny restrained downward corner tension and an extremely faint lower-lip shadow to show sealed pressed lips. Keep the central upper lip at the original smile level. No open hole, teeth, grin, thick lips, lipstick or glossy highlights.\nPreserve this pose's existing tilt, facial plane and foreshortening. Keep the nose-to-mouth and mouth-to-chin spacing; in upturned poses do not pull the mouth upward toward the nose. Use the source's delicate muted warm gray/rose-brown lip line and softly shaded pale skin. No new heavy lip paint, specular lip highlights or extra crease underneath.\nHard invariants: keep the eyes, gaze, eyebrows, nose, jawline, chin, head shape, ears, hair strands, neck, shoulders, clothing and background unchanged in their exact positions. Do not crop, zoom, reframe, rotate or redesign the head. Do not move the lower face or chin to simulate mouth movement. No accessories, animal ears, text, watermark, labels or extra faces. The output will be used only as a local mouth crop at original pixel scale; only the mouth expression should change.",
+      "transparentBackground": false,
+      "sha256": "05810a99a21b38b1089a2474ea95346ab09e232c41de9b3c19464d0fa09b64b3",
+      "reasonNotAdopted": "与中性微笑差异不足，未采用。"
+    },
+    {
+      "key": "view-right-up-shiftLeft",
+      "file": "view-right-up-shiftLeft.png",
+      "pose": "view-right-up",
+      "reference": "../short-hair-v1/view-right-up.png",
+      "generationId": "exec-d1fbef5e-54b6-411b-8bd7-d0010049457d",
+      "prompt": "Use case: precise-object-edit.\nAsset type: one independently painted mouth state for this exact fixed 2D VTuber pose.\nInput Image 1 is the EDIT TARGET, the approved portrait facing VIEWER'S RIGHT and UP (a fixed three-quarter upturned head). Return exactly one full portrait at the same native 1122 x 1402 canvas and framing, not a sheet or collage.\nPrimary edit: change ONLY the small mouth and immediately adjacent lip skin, with the original central upper-lip reference at approximately (690,588). Draw a subtle asymmetric CLOSED mouth pulled toward the CHARACTER'S LEFT, which appears toward the VIEWER'S RIGHT. The visible crease center must move about 10 source pixels to the VIEWER'S RIGHT of the original smile center, keeping its central upper-lip vertical level stable. Redraw the actual asymmetric lip expression: viewer-right corner tugs laterally and only slightly up; opposite corner relaxes. Keep approximately the original width and gentle low-saturation line. No deep hooked corner, extreme smirk, open hole, lipstick, thickness or glossy lip. Do not simply draw the unchanged neutral smile.\nPreserve this pose's existing tilt, facial plane and foreshortening. Keep the nose-to-mouth and mouth-to-chin spacing; in upturned poses do not pull the mouth upward toward the nose. Use the source's delicate muted warm gray/rose-brown lip line and softly shaded pale skin. No new heavy lip paint, specular lip highlights or extra crease underneath.\nHard invariants: keep the eyes, gaze, eyebrows, nose, jawline, chin, head shape, ears, hair strands, neck, shoulders, clothing and background unchanged in their exact positions. Do not crop, zoom, reframe, rotate or redesign the head. Do not move the lower face or chin to simulate mouth movement. No accessories, animal ears, text, watermark, labels or extra faces. The output will be used only as a local mouth crop at original pixel scale; only the mouth expression should change.",
+      "transparentBackground": false,
+      "sha256": "2a11e4b63c0fc55b88e12eb9ea457b4888d80eb200940151e0425ab4b06a8b2b",
+      "reasonNotAdopted": "仅嘴角上挑，口线中心未向角色左侧移动，未采用。"
+    },
+    {
+      "key": "view-left-up-pucker",
+      "file": "view-left-up-pucker-v2.png",
+      "pose": "view-left-up",
+      "reference": "../short-hair-v1/view-left-up.png",
+      "generationId": "exec-b9d209e1-8406-4f83-a87e-374f2f2a15d7",
+      "prompt": "Use case: precise-object-edit.\nAsset type: one independently painted mouth state for this exact fixed 2D VTuber pose.\nInput Image 1 is the EDIT TARGET, the approved portrait facing VIEWER'S LEFT and UP (a fixed three-quarter upturned head). Return exactly one full portrait at the same native 1122 x 1402 canvas and framing, not a sheet or collage.\nPrimary edit: change ONLY the small mouth and immediately adjacent lip skin, with the original central upper-lip reference at approximately (405,574). Draw a gentle pursed CLOSED mouth as if preparing a soft kiss or saying 'u' with sealed lips. Compress the original smile into a delicate, very small central w-shaped pinch, about 28–36 source pixels wide, with subtle rounded lip tension. Keep the central upper lip at the original smile level. Only a thin muted rose-brown crease and faint lower-lip shadow; this is a small soft anime pout, NOT an open O hole, lipstick, thick lips, or duck lips.\nPreserve this pose's existing tilt, facial plane and foreshortening. Keep the nose-to-mouth and mouth-to-chin spacing; in upturned poses do not pull the mouth upward toward the nose. Use the source's delicate muted warm gray/rose-brown lip line and softly shaded pale skin. No new heavy lip paint, specular lip highlights or extra crease underneath.\nHard invariants: keep the eyes, gaze, eyebrows, nose, jawline, chin, head shape, ears, hair strands, neck, shoulders, clothing and background unchanged in their exact positions. Do not crop, zoom, reframe, rotate or redesign the head. Do not move the lower face or chin to simulate mouth movement. No accessories, animal ears, text, watermark, labels or extra faces. The output will be used only as a local mouth crop at original pixel scale; only the mouth expression should change.\nCritical correction for this revision: The visible tiny mouth crease must be centered on canvas x405 at y574, not x385. Treat the mouth center as locked to the original philtrum/upper lip. Draw a tiny subtle w pinch with uniformly matte natural skin underneath. No white pixels/dots/highlight/bright underline or glossy lower lip. Leave the lower lip unpainted except a barely perceptible warm-gray shadow.",
+      "transparentBackground": false,
+      "sha256": "04fd2c5e910bd5d24916fe7d686455f9bedf49d72a0b4af84ddf86d0bd6db1b3",
+      "supersedes": "view-left-up-pucker",
+      "reasonNotAdopted": "修订仍有亮点，且嘴角增加了较深折痕，未采用。"
+    }
+  ],
+  "preparation": "Generated PNGs copied byte-for-byte. Only registered native-scale local crops are composited. Fixed source-to-anatomical-anchor translations do not animate or deform the source painting. No PNG retouching, mirroring or programmatic painted substitutes.",
+  "limitations": [
+    "三个已确认固定俯仰姿态的视线、眼睑、原有张嘴画稿与登记保持原样。本轮新增12张独立口型稿为候选，尚未获用户视觉验收。",
+    "每个姿态分别准备噘嘴、抿嘴和角色左右移嘴，固定1:1配准后局部合成；不镜像、不复用其他姿态、不动态伸缩或扭曲嘴图。",
+    "非移嘴口型保持已确认上唇锚点，移嘴保持上唇高度并保留源画稿的实际横向变化。",
+    "左右移嘴幅度较轻，左右强度并不完全对称；左斜下向角色右移的幅度最小。",
+    "左斜上噘嘴稿仍保留很淡的下唇亮点；修订减弱了部分亮点，但不能称为完全哑光。",
+    "抿嘴是整嘴画稿，单侧 mouthPress 输入不等于独立单侧压唇；噘嘴与移嘴同时输入时优先噘嘴，没有复合画稿。",
+    "这是离散口型状态选择，尚无中间帧或逐强度画稿序列；生成素材不等同人工逐帧绘制。",
+    "继承已确认视线版的完整虹膜合成，睁眼和半闭共用原睁眼虹膜内核，完全闭眼不绘制虹膜；与基础原画仍有已说明的细微绘画差异。",
+    "共17个ARKit命名通道。俯仰眉毛和右斜下尚未接入，且不构成连续转头模型。"
+  ]
+}

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>补全姿态 · 原生合成检查</title>
+  <style>
+    :root {color-scheme: light; font-family: system-ui,sans-serif; color:#21323b; background:#f3f7f8}
+    * {box-sizing:border-box} body {margin:0;padding:28px} main {max-width:1280px;margin:auto} a {color:#265d71}
+    h1 {font-size:26px} h2 {font-size:21px;margin-top:36px} p {line-height:1.6} summary {cursor:pointer}
+    .row {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:18px 0}
+    figure {margin:0;padding:8px;background:white;border:1px solid #cad9df;border-radius:8px}
+    canvas {display:block;width:100%;height:auto} figcaption {padding:8px 2px 2px;font-size:14px;line-height:1.5}
+    #summary {padding:14px;background:#e5eef1;border-radius:8px} #summary[data-state=failed] {background:#fff0e8}
+    pre {font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere} details {margin:20px 0}
+    @media(max-width:700px) {.row {grid-template-columns:repeat(2,minmax(0,1fr))} body {padding:16px}}
+  </style>
+</head>
+<body><main>
+  <p><a href="./short-hair-studio.html">← 返回短发角色工作台</a></p>
+  <h1>正面抬头、低头与右下 · 原生合成检查</h1>
+  <p>三个新姿态各用本角度独立画稿。检查嘴型、眉毛、视线的变化边界、闭眼遮挡及原画导出。以下图片来自实际运行时；每档动作的形状、自然度及发丝连续性仍需视觉检查。</p>
+  <p id="summary" role="status" aria-live="polite">正在加载新姿态画稿与结构登记…</p>
+  <div id="comparisons"></div>
+  <details><summary>原生像素数据（JSON）</summary><pre id="result">{"status":"loading"}</pre></details>
+</main><script type="module" src="./complete-pose-diagnostics.js"></script></body>
+</html>

@@ -1,0 +1,21 @@
+name: VTuberProject 2D studio
+on:
+  push:
+    paths: ['VTuberProject/**', '.github/workflows/vtuberproject.yml']
+  pull_request:
+    paths: ['VTuberProject/**', '.github/workflows/vtuberproject.yml']
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: VTuberProject
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm run check
+      - run: npm test

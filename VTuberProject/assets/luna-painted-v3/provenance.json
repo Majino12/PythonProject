@@ -1,0 +1,33 @@
+{
+  "version": 3,
+  "created": "2026-10-23",
+  "method": "Built-in image generation, referenced original Luna; no downloaded third-party character art",
+  "references": ["../demo-luna-v1.png"],
+  "promptAssembly": "Each socket prompt is common + suffix. The iris prompt is standalone.",
+  "commonInitial": "Use case: identity-preserve. Asset: original Luna 2D VTuber eye socket animation atlas. Image1 is STYLE/IDENTITY reference, NOT a target to copy the whole portrait. Closely match her original understated elegant anime eyes: thin dark plum upper eyeliner, just2 or3 short outer lashes, delicate lower lid, very subtle warm shadow. NO thick mascara, NO giant fan lashes, NO glossy swollen pink upper eyelid, NO heavy makeup. Paint ONLY the isolated eyelids, lashes and clean ivory-white eyeball sclera, with NO IRIS and NO PUPIL because the iris will be another moving painted layer. Each open eye has a softly almond-shaped white opening. All twelve are SAME eye size and identical corner locations. Animate actual upper eyelid progressively descending with slight natural lower-lid rise; NEVER squash an eye. EXACT4 columns x3rows12sprites, rowmajor fullyopen,10%closed,20%closed,30%closed;40%,50%,60%,70%;80%,90%,fullyclosed,happyclosed. Each sprite is completely inside its equalcell, centered, occupies at most70% of cellwidth and40% ofcellheight with generous transparent gutters. Small subtle eyelid skin edge only, NO skin rectangle or cheek patch. Genuinealpha0 transparent background, no text/numbers/borders, no other features. High quality painterly anime illustration same originalLuna, not photorealistic.",
+  "commonRefined": "Create a clean anime eye animation SPRITE SHEET, transparent background. Match restrained violet-haired Luna from reference, thin dark plum liner, two short lashes, natural elegant almond eye, delicate flat cel shading. Only eyelids, eyelash line and opaque ivory WHITE SCLERA. NO IRIS OR PUPIL. NO broad skin patch, NO shadow/glow or haze outside eye, no text. 4columns3rows12sprites exactgrid. Same anchored inner/outer eye corners allcells. Rowmajor: fullyopen,10percentclosed,20,30;40,50,60,70;80,90,fullyclosed,happyclosed. Progressive upper lid descent drawn separately, not squashing, lowerlid remains consistent. Each sprite fits within central70percentwidth and40percentheight ofcell leaving wide transparentgutters. Entire background zeroalpha; opaqueeyeinterior.",
+  "prompts": {
+    "eyes-front": {"common":"commonInitial","suffix":"FRONTAL view, one character's LEFT eye percell: inner tear duct corner atLEFT, short outer lashes atRIGHT. White aperture width about2.4times its openheight; gentle elegant eye shape like original, not round doll eyes. Allframes sameanchoredcorners."},
+    "eyes-side": {"common":"commonInitial","suffix":"THREE-QUARTER head turned toward VIEWER RIGHT40degrees, one NEAR eye percell (character's RIGHT eye). IMPORTANT anatomical orientation: INNER tear duct atRIGHT towardnose, OUTER lashcorner atLEFT towardear. Do NOT mirror the wrong eye. Draw true perspective eye curving around the head, delicately wider near outer region tapering naturally to nose. Whiteopening width about2.6times height. Separate far eye will be drawn elsewhere, so ONLYone eye percell."},
+    "eyes-far": {"common":"commonInitial","suffix":"THREE-QUARTER head turned toward VIEWER RIGHT40degrees, one FAR eye percell (character's LEFT eye). IMPORTANT INNER tear duct atLEFT towardnose, OUTER lashcorner atRIGHT towardtemple. True independently drawn far-eye perspective: smaller narrower almond compared to near eye, with far corner curving away naturally, NO steep vertical oval; whiteopening width about1.8timesheight. NOT a frontal eye squeezed. Onlyonefar eye percell."},
+    "eyes-profile": {"common":"commonRefined","suffix":"65degree nearPROFILE looking toward VIEWER RIGHT. Character RIGHT eye only. INNER tear duct atRIGHT, OUTER lashesLEFT. True independently drawn profile eye perspective, not squeezed front. Eye opening width2.3timesheight."},
+    "eyes-down": {"common":"commonRefined","suffix":"FRONTAL head tilting DOWN20degrees so viewer sees eyes FROM ABOVE. CharacterLEFT eye only: INNERcornerLEFT OUTERlashesRIGHT. Draw top plane ofupper eyelid and shallow whiteeye aperture, anatomicallyaccurate viewedfromabove not stretchedfront. Whiteopeningwidth3timesheight."},
+    "eyes-side-down": {"common":"commonRefined","suffix":"THREEQUARTER head pointing VIEWER RIGHT40degrees and tilted DOWN20degrees, camera looking FROM ABOVE. One NEARcharacterRIGHTeye percell: INNERtear ductRIGHT OUTERlashesLEFT. Top plane upperlid visible, asymmetric shallow whiteaperture following face contour, whiteopeningwidth3timesheight."},
+    "iris": "Use reference original Luna identity and purple iris color, create4 isolated painted ANIME IRISES ONLY in a SINGLE horizontal ROW 4equalcells on fully transparentzeroalpha background. NO eyelid, NO sclera, NO lashes, NO skin. Rich muted lilac gradient violet irises with dark circular pupil, fine radial lines and two small neat highlights, elegant understated same reference. Cell1 frontview circular iris;cell2 threequarter40degree iris near-circle slightlyelliptical;cell3 65degree profile iris verticallyellipse width65percentofheight;cell4 downview subtleellipse width110percentofheight. All four standalone paintedirisdiscs with clearly defined opaque edges; outsidealpha0, no halo or glow. Each centered sameheight300px and occupies60percentofcell, generousgutters. No text."
+  },
+  "files": {
+    "eyes-front.png":"a7e09c77-e6af-42fd-8a06-a1577962e60e",
+    "eyes-side.png":"c9c4b858-b818-4fda-bf44-483f263758e7",
+    "eyes-far.png":"64bef941-e6c1-4978-94be-de992b95d0c9",
+    "eyes-profile.png":"1f0495f9-d955-4241-945f-e10f8818ba80",
+    "eyes-down.png":"b883b1db-a3e4-4f1f-bb95-8869b554bdad",
+    "eyes-side-down.png":"4131f5c4-f52e-4dd2-b5ea-f68c646cdec6",
+    "iris.png":"98417e72-bc07-4a93-ace3-4b54b62b03f7"
+  },
+  "notes": [
+    "The source PNGs are retained unmodified. Rectangles and aperture polygons are registration metadata, not bitmap warps.",
+    "Each eye uses 11 blink drawings and happyClosed. The independent painted iris translates behind a per-drawing aperture; fully closed drawings never reveal it.",
+    "front/far/down use anatomical-left canonical art; side/profile/side-down use anatomical-right canonical art. Their mirror rules are explicit in painted-luna.js.",
+    "13 head base drawings remain finite poses. Gaze is a bounded 2D approximation, not anatomical eyeball rotation or 52 independent facial drawings."
+  ]
+}

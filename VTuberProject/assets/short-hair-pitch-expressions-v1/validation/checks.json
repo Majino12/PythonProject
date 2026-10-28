@@ -1,0 +1,109 @@
+{
+  "schema": "pitch-expression-validation-v1",
+  "date": "2026-10-26",
+  "version": "0.13.1-review.9",
+  "status": "internal-checks-passed; candidate-not-user-approved",
+  "sourceFiles": {
+    "approvedBases": 3,
+    "newPaintings": 6,
+    "total": 9,
+    "nativeCrops": 18,
+    "sha256Verified": true,
+    "allPngUnchanged": true
+  },
+  "automated": {
+    "syntax": "npm run check passed",
+    "command": "npm test",
+    "tests": 452,
+    "pass": 452,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "log": "../../../TEST-RESULTS.txt"
+  },
+  "pixelComparison": {
+    "cases": 84,
+    "neutralOrOriginalIdentityCases": 6,
+    "outsideActivePatchChanges": 0,
+    "registeredProtectedRegionChanges": 0,
+    "inactiveFeatureChanges": 0,
+    "evidence": "pixel-check.json",
+    "scope": "All 27 combinations of independent three-state left eye, right eye and mouth per pose plus original override. Selected nose/chin/hair/brow regions are explicit polygons in registration.json; zero differences do not guarantee every pixel inside a patch matches original style."
+  },
+  "browser": {
+    "evidence": "browser-checks.json",
+    "feedbackItems": 24,
+    "supportedChannels": 4,
+    "preview": "../../../../pitch-expression-review-preview.jpg",
+    "comparisons": "../../../../pitch-expression-comparisons.jpg",
+    "exportEvidence": [
+      "feedback-export.json",
+      "original-export.json",
+      "preview-export.png",
+      "full-preview-export.png"
+    ],
+    "pngDimensions": {
+      "preview-export.png": [
+        630,
+        460
+      ],
+      "full-preview-export.png": [
+        1122,
+        1402
+      ]
+    },
+    "consoleWarnings": 0,
+    "consoleErrors": 0,
+    "cameraEnabled": false,
+    "previewDimensions": [
+      1280,
+      1435
+    ]
+  },
+  "visual": {
+    "structure": "structure-review.txt",
+    "review": "visual-review.txt",
+    "eyeDetails": [
+      "view-left-up-eyes.jpg",
+      "view-right-up-eyes.jpg",
+      "view-left-down-eyes.jpg"
+    ],
+    "mouthMeasurements": "mouth-measurements.json"
+  },
+  "limitations": [
+    "斜上闭眼稿带轻微笑意，低头稿更接近垂睑，尚未分开中性生理眨眼和开心闭眼。",
+    "三个固定斜向姿态：左斜上、右斜上、左斜下；不包含右斜下或正面纯俯仰，不代表连续转头。",
+    "每姿态各两张新源稿，分离眼嘴裁切后提供睁/半闭/闭眼和闭/小/大张嘴三档，没有中间帧。",
+    "仅支持 eyeBlinkLeft、eyeBlinkRight、jawOpen、mouthClose。俯仰姿态的独立视线、眉动作、噘嘴、抿嘴与移嘴尚未制作。",
+    "低头中性眼裂与视线属于已批准姿态原画的一部分，未把下视基线重新定义为居中视线。",
+    "局部保留源稿肤色和画出的发丝，尚无独立前景头发层；上唇仅按测得点作固定平移配准，动态不改变尺寸或位置。",
+    "不同姿态只供独立观察；每次切换回中性，躯干差异未经连续动作配准。"
+  ],
+  "hashes": {
+    "manifest.json": "484a69a5b75a531c2c6884fac88b77da6ea9cee070a14078ba1fe70236999610",
+    "provenance.json": "dea012c8e7c796867baab7edc3b7e41b03621d5c222107e421878c0611d2c2dd",
+    "validation/registration.json": "82c788b3b64b5d5111aebeb7c4d8df75d93fbc5822d1397294df0203425ed135",
+    "../../side-expression-renderer.js": "1760fdbf82d9343cd9bd212cd8880fbcb795a788d06c070e7d5fa83674e8ae5f",
+    "../../side-expression-model.js": "13ede8e1067805ab664768b99716ef59a6d083416c8cc97a1d39d175ce9c97bf",
+    "../../pitch-expression-review.js": "9ddda764bedc5a7f11f8d5fc5e881e2a53572e3a99b479b7f2b49506803665b3",
+    "../../pitch-expression-review.html": "f982f50341c46cba07dc87695c75e45e0cdef32089e56da8ae9d001ebdb05958",
+    "../../pitch-expression-review.css": "84a022a2ab0c40798f2c86e0e5b974969b09e6d38cbd4717d7475fd061ce571c",
+    "../../pitch-expression-diagnostics.js": "311b84aadeafa14ba85973cc411389a40fbcab35534dd931d79aabeb386fb43e",
+    "../../pitch-expression-assets.test.mjs": "5213a9184f35c95814d3310c4fe43d3869155a0e0f98f26ce2baad897f08c26a",
+    "../../TEST-RESULTS.txt": "890d9d664bf798ca1f919931252ac4cf55abaac2baadf0c098b34425fb28196b"
+  },
+  "evidenceHashes": {
+    "structure-review.txt": "982fc5826cffd552807270bd71e9a7a51ef4c61f8fb246647a8865edf9c255f2",
+    "visual-review.txt": "c64fb8daa1f29f27ccc9599a80e3c5f8e4b2fdf7305d240a12f127b39d98a558",
+    "pixel-check.json": "7be3c5fb70c26f2f387fb3866bf253f9a2001784f0f19d2a5718d6f2d9eebb37",
+    "browser-checks.json": "b0ce4c93693cd27537c6b1b16fa8513261e0ac82976a33793000dba61792b62a",
+    "feedback-export.json": "db1333a819fdccfed4266a71439f9ac9fca331be20a2ca233bff73f3e04fdc4e",
+    "original-export.json": "47f3ba0d8af77c41d0ea293c6fc61513d78f7fdbbe3c2398e56cbf7dffcbdaeb",
+    "preview-export.png": "0fd52c948b40d78e0d0fdab26277128199ced4bd178b6aa8e0c5c562fe8cc529",
+    "full-preview-export.png": "cfcbb55b62f15c68cb1711aa8fa38c7396c09ddbffb8bb219b2e8c8f9ad63aec",
+    "mouth-measurements.json": "e2978833e5080f3b3b84f82bd4ceac3378ace9301679cece31224e0ea87f47a4",
+    "view-left-up-eyes.jpg": "b321e64d9b93507d6a18cc76aca8f25b0cf00f6a2eb291eff0f1bc2222ec32ff",
+    "view-right-up-eyes.jpg": "912ef402e32611c74d301da9f20f999015684bb61f54b9c737849317f6fbebd3",
+    "view-left-down-eyes.jpg": "452fd5836c4d41acb29001d99ca5aecb028b176c852143cd0a8a4445c688fc0e"
+  }
+}

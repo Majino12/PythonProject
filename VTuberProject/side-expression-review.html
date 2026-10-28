@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'self'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+  <title>短发角色 · 已确认侧转表情</title>
+  <link rel="stylesheet" href="./expression-review.css" />
+  <link rel="stylesheet" href="./side-expression-review.css" />
+</head>
+<body>
+  <main>
+    <header class="page-header">
+      <div>
+        <a class="back-link" href="./short-hair-studio.html">← 角色工作台</a>
+        <a class="back-link" href="./expression-review.html">← 已确认正面表情与视线</a>
+        <a class="back-link" href="./pitch-expression-review.html">下一步：俯仰眉毛 →</a>
+        <p class="eyebrow">CHARACTER STUDY · 07</p>
+        <h1>回看已确认的侧转表情</h1>
+        <p class="intro">侧转眨眼、嘴型、视线与眉毛均已获确认。这里保留四版对照与组合控制，下一步继续抬头和低头姿态。</p>
+      </div>
+      <div class="phase"><span class="phase-dot"></span><strong id="variantStatus">已确认侧转眉毛</strong><span id="variantScope">侧转眉毛与组合表情已确认</span></div>
+    </header>
+
+    <div class="variant-bar asset-variants" role="group" aria-label="素材版本">
+      <button type="button" data-variant="brows" aria-pressed="true">已确认侧转眉毛<span>眉头抬 · 眉尾抬 · 压眉</span></button>
+      <button type="button" data-variant="mouth" aria-pressed="false">已确认侧转嘴型<span>噘嘴 · 抿嘴 · 左右移嘴</span></button>
+      <button type="button" data-variant="gaze" aria-pressed="false">已确认侧转视线<span>保留独立视线版本</span></button>
+      <button type="button" data-variant="approved" aria-pressed="false">已确认侧转表情<span>保留已确认版本</span></button>
+    </div>
+    <div id="poseButtons" class="variant-bar" role="group" aria-label="侧转姿态"></div>
+    <div id="loadStatus" class="load-status" role="status" aria-live="polite">正在载入已确认的侧转画稿…</div>
+    <button id="retryLoad" class="retry-load" type="button" hidden>重新载入画稿</button>
+
+    <fieldset id="workspaceControls" class="workspace" disabled>
+      <legend class="sr-only">侧转表情预览与验收</legend>
+      <div class="workspace-toolbar">
+        <div class="segments" role="group" aria-label="预览范围">
+          <button type="button" data-view="face" aria-pressed="true">脸部</button>
+          <button type="button" data-view="full" aria-pressed="false">全幅</button>
+        </div>
+        <div class="display-toggles">
+          <label><input id="guidesToggle" type="checkbox" />辅助线</label>
+          <label><input id="originalToggle" type="checkbox" />看原画</label>
+        </div>
+      </div>
+
+      <div class="review-layout">
+        <section class="canvas-panel" aria-labelledby="previewHeading">
+          <div class="panel-heading"><div><span id="poseCaption" class="panel-kicker">SIDE EXPRESSION PREVIEW</span><h2 id="previewHeading">中性</h2></div><span id="previewBadge" class="badge">静止预览</span></div>
+          <div class="canvas-stage"><canvas id="expressionCanvas" width="720" height="720" aria-label="当前侧转表情预览" hidden></canvas><p id="canvasPlaceholder">等待画稿载入</p></div>
+          <p id="guidesCaption" class="guides-caption" hidden>细线：该姿态的固定上唇参考位置 · 方框：局部画稿区域</p>
+          <div class="demo-row"><button id="demoToggle" type="button" aria-pressed="false">播放眉毛演示</button><p id="motionStatus" role="status" aria-live="polite">12 秒眉毛观察；逐稿演示眉头抬、眉尾抬、压眉与不对称组合，演示时视线居中。</p></div>
+        </section>
+
+        <aside class="side-panel">
+          <section class="reference-card" aria-labelledby="referenceHeading">
+            <div class="reference-image"><canvas id="referenceCanvas" width="224" height="280" aria-label="当前姿态的已确认原画" hidden></canvas></div>
+            <div><span class="panel-kicker">APPROVED REFERENCE</span><h2 id="referenceHeading">已确认侧转原画</h2><p>保持鼻口关系、眼睛透视与脸部轮廓。</p><span class="badge approved">静态设计已确认</span></div>
+          </section>
+
+          <section class="presets-panel" aria-labelledby="presetsHeading">
+            <h2 id="presetsHeading">选择动作</h2>
+            <div id="presetGroups" class="group-tabs side-groups" role="group" aria-label="动作分组">
+              <button type="button" data-group="expression" aria-pressed="true">表情</button>
+              <button type="button" data-group="gaze" aria-pressed="false">视线与组合</button>
+              <button id="mouthGroupButton" type="button" data-group="mouth" aria-pressed="false">嘴型与组合</button>
+              <button id="browGroupButton" type="button" data-group="brows" aria-pressed="false">眉毛与组合</button>
+            </div>
+            <div id="presetButtons" class="preset-buttons" role="group" aria-label="表情预设"></div>
+            <p id="gazeDirectionHint" class="direction-note">视线预设的左、右指画面方向；头部保持当前侧转姿态。</p>
+            <p id="mouthDirectionHint" class="direction-note">移嘴方向按角色自身：左移对应画面右。使用有限独立画稿；抿嘴为整嘴动作近似。</p>
+            <p id="browDirectionHint" class="direction-note">左右眉按角色自身。每种动作只有一档画稿；眉头与眉尾的表现需结合此姿态观察。</p>
+            <p id="directionNote" class="direction-note">左右眼均以角色自身为准。</p>
+          </section>
+
+          <section class="feedback-panel" aria-labelledby="feedbackHeading">
+            <h2 id="feedbackHeading">中性 · 你的判断</h2>
+            <p id="feedbackHint" class="feedback-hint">两种姿态分别记录，默认未判断。</p>
+            <fieldset id="feedbackControls" class="feedback-controls">
+              <legend class="sr-only">当前姿态与预设评价</legend>
+              <div class="status-options">
+                <label><input type="radio" name="feedbackStatus" value="pass" /><span>通过</span></label>
+                <label><input type="radio" name="feedbackStatus" value="revise" /><span>需修改</span></label>
+                <label><input type="radio" name="feedbackStatus" value="undecided" checked /><span>未判断</span></label>
+              </div>
+              <label class="note-label" for="feedbackNote">备注</label>
+              <textarea id="feedbackNote" maxlength="4000" rows="3" placeholder="例如：眉毛颜色太深、眉头与眉尾区别不清、刘海边缘接缝…"></textarea>
+            </fieldset>
+            <p id="saveStatus" class="save-status" role="status" aria-live="polite">尚未记录评价。</p>
+          </section>
+        </aside>
+      </div>
+
+      <section class="export-row" aria-label="导出预览与反馈">
+        <p id="reviewProgress">两侧的预设评价保留在本浏览器。</p>
+        <div><button id="exportFeedback" type="button">导出反馈 JSON ↗</button><button id="exportPng" type="button">保存当前 PNG ↗</button></div>
+      </section>
+
+      <details id="sequenceReview" class="detail-panel sequence-panel">
+        <summary>查看当前姿态的画稿顺序 <span id="sequenceSummary">眼睛 · 张嘴 · 嘴型 · 眉毛并排</span></summary>
+        <p class="detail-intro">每行保持相同的局部范围与显示倍率。点击画稿可选择对应预设；左右姿态各有独立源稿。</p>
+        <div id="sequenceRows"></div>
+      </details>
+
+      <details id="advancedControls" class="detail-panel">
+        <summary>高级控制 <span id="channelCount">22 个 ARKit 通道 · JSON 导入</span></summary>
+        <p id="channelHelp" class="detail-intro">左右眼可以独立闭合，也可以独立控制视线。未列出的通道不参与本页预览。</p>
+        <p id="stateReadout" class="state-readout">载入后显示当前画稿与系数。</p>
+        <div id="channelSliders" class="channel-sliders"></div>
+        <div class="json-import">
+          <label for="channelJson">导入通道 JSON <span>可粘贴通道对象，或本页导出的完整反馈 JSON。</span></label>
+          <textarea id="channelJson" rows="4" spellcheck="false" placeholder='{"eyeBlinkLeft":0.5,"jawOpen":0.4}'></textarea>
+          <div><button id="applyJson" type="button">应用 JSON</button><p id="importStatus" role="status" aria-live="polite">未列出的通道会明确列出并忽略。</p></div>
+        </div>
+      </details>
+
+      <details id="capabilityPanel" class="detail-panel capability-panel">
+        <summary>本轮范围 <span>先验证两个固定姿态</span></summary>
+        <p id="capabilityIntro">侧转表情、视线、嘴型与眉毛已获用户确认。各版保留独立素材和浏览器反馈。</p>
+        <p id="browCapability">眉毛来自两侧分别准备的有限画稿。眉头抬起同时作用于双眉，眉尾抬起与压眉可按左右独立选择；单侧冲突优先级为压眉、眉头抬、眉尾抬。每种动作只有一档强度，不把系数变化当作连续形变，眉头与眉尾的视觉区分仍需逐姿态检查。</p>
+        <p id="mouthCapability">嘴型来自两侧分别准备的有限画稿，不靠拉伸一张嘴图表现动作。单侧抿嘴通道近似为整嘴抿紧；多种嘴型同时输入时，按“闭合嘴巴、抿嘴、噘嘴、左右移嘴、张嘴”优先级选一张稿，没有噘嘴加移嘴的独立组合画稿。</p>
+        <p>眉毛组与嘴型组各有 12 秒逐稿演示，其他分组保留 10 秒眨眼张嘴演示。只逐张选择真实画稿，不补帧；演示时姿态固定、视线居中。切换分组会暂停，有限静态姿态不代表连续转头或固定、精确的转头角度。</p>
+        <p>抬头与低头的基础表情已另设小样页，可从上方链接查看；尚未覆盖全部姿态。侧转前三版保留原画眉毛，正面已确认能力也可随时回看。</p>
+        <p>近眼与远眼各自使用对应姿态的素材及移动范围；闭眼时隐藏虹膜。批准记录与本浏览器的逐预设反馈分别保存，本页不会自动标记通过。</p>
+      </details>
+    </fieldset>
+    <footer>本页不启用摄像头。所有反馈仅保存在本浏览器；导出 JSON 保存当前版本两侧的记录，版本之间独立保留。</footer>
+    <noscript><p class="load-status error">请启用 JavaScript 以查看侧转表情画稿与记录评价。</p></noscript>
+  </main>
+  <script type="module" src="./side-expression-review.js"></script>
+</body>
+</html>

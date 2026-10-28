@@ -1,0 +1,1413 @@
+{
+  "schema": 1,
+  "date": "2026-10-27",
+  "assetId": "short-hair-pitch-brows-v1",
+  "presets": [
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "browsInnerUp",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉头抬 / 右眉 眉头抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "browsOuterUp",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 眉尾抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "browsDown",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 压低 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "browOuterLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "browOuterRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 眉尾抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "browDownLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 压低 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "browDownRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "browAsymLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "browAsymRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 压低 / 右眉 眉尾抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "browCombination",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 噘嘴 · 左眉 眉头抬 / 右眉 眉头抬；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "pucker",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 噘嘴 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "press",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 抿嘴 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "shiftLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 角色左移（画面右） · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "shiftRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 角色右移（画面左） · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "pressHalf",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 抿嘴 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "puckerGaze",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 噘嘴 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "neutral",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "halfBlink",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "blink",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 闭眼 / 角色右眼 闭眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "winkLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 闭眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "winkRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 闭眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "openSmall",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 小张 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "openWide",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 大张 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "combination",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 小张 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "gazeLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "gazeRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.75, 0.00，角色右眼 0.75, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "gazeUp",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, -0.75，角色右眼 0.00, -0.75"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "gazeDown",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.75，角色右眼 0.00, 0.75"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "gazeUpLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 -0.70, -0.70，角色右眼 -0.70, -0.70"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "gazeUpRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.70, -0.70，角色右眼 0.70, -0.70"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "gazeDownLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 -0.70, 0.70，角色右眼 -0.70, 0.70"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "gazeDownRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.70, 0.70，角色右眼 0.70, 0.70"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "halfGazeLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-up",
+      "preset": "closedGazeRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 闭眼 / 角色右眼 闭眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.75, 0.00，角色右眼 0.75, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "browsInnerUp",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉头抬 / 右眉 眉头抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "browsOuterUp",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 眉尾抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "browsDown",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 压低 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "browOuterLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "browOuterRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 眉尾抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "browDownLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 压低 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "browDownRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "browAsymLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "browAsymRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 压低 / 右眉 眉尾抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "browCombination",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 噘嘴 · 左眉 眉头抬 / 右眉 眉头抬；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "pucker",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 噘嘴 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "press",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 抿嘴 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "shiftLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 角色左移（画面右） · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "shiftRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 角色右移（画面左） · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "pressHalf",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 抿嘴 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "puckerGaze",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 噘嘴 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "neutral",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "halfBlink",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "blink",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 闭眼 / 角色右眼 闭眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "winkLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 闭眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "winkRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 闭眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "openSmall",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 小张 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "openWide",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 大张 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "combination",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 小张 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "gazeLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "gazeRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.75, 0.00，角色右眼 0.75, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "gazeUp",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, -0.75，角色右眼 0.00, -0.75"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "gazeDown",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.75，角色右眼 0.00, 0.75"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "gazeUpLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 -0.70, -0.70，角色右眼 -0.70, -0.70"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "gazeUpRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.70, -0.70，角色右眼 0.70, -0.70"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "gazeDownLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 -0.70, 0.70，角色右眼 -0.70, 0.70"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "gazeDownRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.70, 0.70，角色右眼 0.70, 0.70"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "halfGazeLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-right-up",
+      "preset": "closedGazeRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 闭眼 / 角色右眼 闭眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.75, 0.00，角色右眼 0.75, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "browsInnerUp",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉头抬 / 右眉 眉头抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "browsOuterUp",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 眉尾抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "browsDown",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 压低 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "browOuterLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "browOuterRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 眉尾抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "browDownLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 压低 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "browDownRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "browAsymLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "browAsymRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 压低 / 右眉 眉尾抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "browCombination",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 噘嘴 · 左眉 眉头抬 / 右眉 眉头抬；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "pucker",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 噘嘴 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "press",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 抿嘴 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "shiftLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 角色左移（画面右） · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "shiftRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 角色右移（画面左） · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "pressHalf",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 抿嘴 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "puckerGaze",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 噘嘴 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "neutral",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "halfBlink",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "blink",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 闭眼 / 角色右眼 闭眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "winkLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 闭眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "winkRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 闭眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "openSmall",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 小张 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "openWide",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 大张 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "combination",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 小张 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "gazeLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "gazeRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.75, 0.00，角色右眼 0.75, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "gazeUp",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, -0.75，角色右眼 0.00, -0.75"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "gazeDown",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.75，角色右眼 0.00, 0.75"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "gazeUpLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 -0.70, -0.70，角色右眼 -0.70, -0.70"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "gazeUpRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.70, -0.70，角色右眼 0.70, -0.70"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "gazeDownLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 -0.70, 0.70，角色右眼 -0.70, 0.70"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "gazeDownRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.70, 0.70，角色右眼 0.70, 0.70"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "halfGazeLeft",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00"
+    },
+    {
+      "canvasHidden": false,
+      "error": null,
+      "pose": "view-left-down",
+      "preset": "closedGazeRight",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "sliders": 22,
+      "state": "画面左斜下 · 角色右转低头\n角色左眼 闭眼 / 角色右眼 闭眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.75, 0.00，角色右眼 0.75, 0.00"
+    }
+  ],
+  "json": [
+    {
+      "input": "{\"browOuterUpLeft\":1,\"browDownRight\":1}",
+      "channels": {
+        "browDownLeft": "0",
+        "browDownRight": "1",
+        "browInnerUp": "0",
+        "browOuterUpLeft": "1",
+        "browOuterUpRight": "0",
+        "eyeBlinkLeft": "0",
+        "eyeBlinkRight": "0",
+        "eyeLookDownLeft": "0",
+        "eyeLookDownRight": "0",
+        "eyeLookInLeft": "0",
+        "eyeLookInRight": "0",
+        "eyeLookOutLeft": "0",
+        "eyeLookOutRight": "0",
+        "eyeLookUpLeft": "0",
+        "eyeLookUpRight": "0",
+        "jawOpen": "0",
+        "mouthClose": "0",
+        "mouthLeft": "0",
+        "mouthPressLeft": "0",
+        "mouthPressRight": "0",
+        "mouthPucker": "0",
+        "mouthRight": "0"
+      },
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "已应用 2 个通道；未提供的通道设为 0。导入不会切换姿态或写入评价。"
+    },
+    {
+      "input": "{\"browInnerUp\":1,\"browOuterUpLeft\":1,\"browOuterUpRight\":1,\"browDownRight\":1,\"mouthPucker\":1,\"eyeBlinkLeft\":0.5,\"eyeLookInLeft\":0.75,\"eyeLookOutRight\":0.75}",
+      "channels": {
+        "browDownLeft": "0",
+        "browDownRight": "1",
+        "browInnerUp": "1",
+        "browOuterUpLeft": "1",
+        "browOuterUpRight": "1",
+        "eyeBlinkLeft": "0.5",
+        "eyeBlinkRight": "0",
+        "eyeLookDownLeft": "0",
+        "eyeLookDownRight": "0",
+        "eyeLookInLeft": "0.75",
+        "eyeLookInRight": "0",
+        "eyeLookOutLeft": "0",
+        "eyeLookOutRight": "0.75",
+        "eyeLookUpLeft": "0",
+        "eyeLookUpRight": "0",
+        "jawOpen": "0",
+        "mouthClose": "0",
+        "mouthLeft": "0",
+        "mouthPressLeft": "0",
+        "mouthPressRight": "0",
+        "mouthPucker": "1",
+        "mouthRight": "0"
+      },
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 半闭 / 角色右眼 睁眼 · 嘴 噘嘴 · 左眉 眉头抬 / 右眉 压低；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00",
+      "status": "已应用 8 个通道；未提供的通道设为 0。导入不会切换姿态或写入评价。"
+    },
+    {
+      "input": "{\"browInnerUp\":1.2}",
+      "channels": {
+        "browDownLeft": "0",
+        "browDownRight": "1",
+        "browInnerUp": "1",
+        "browOuterUpLeft": "1",
+        "browOuterUpRight": "1",
+        "eyeBlinkLeft": "0.5",
+        "eyeBlinkRight": "0",
+        "eyeLookDownLeft": "0",
+        "eyeLookDownRight": "0",
+        "eyeLookInLeft": "0.75",
+        "eyeLookInRight": "0",
+        "eyeLookOutLeft": "0",
+        "eyeLookOutRight": "0.75",
+        "eyeLookUpLeft": "0",
+        "eyeLookUpRight": "0",
+        "jawOpen": "0",
+        "mouthClose": "0",
+        "mouthLeft": "0",
+        "mouthPressLeft": "0",
+        "mouthPressRight": "0",
+        "mouthPucker": "1",
+        "mouthRight": "0"
+      },
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 半闭 / 角色右眼 睁眼 · 嘴 噘嘴 · 左眉 眉头抬 / 右眉 压低；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00",
+      "status": "未应用：browInnerUp 必须是 0–1 之间的有限数字。 当前参数保持不变。"
+    },
+    {
+      "input": "{\"browInnerUp\":\"1\"}",
+      "channels": {
+        "browDownLeft": "0",
+        "browDownRight": "1",
+        "browInnerUp": "1",
+        "browOuterUpLeft": "1",
+        "browOuterUpRight": "1",
+        "eyeBlinkLeft": "0.5",
+        "eyeBlinkRight": "0",
+        "eyeLookDownLeft": "0",
+        "eyeLookDownRight": "0",
+        "eyeLookInLeft": "0.75",
+        "eyeLookInRight": "0",
+        "eyeLookOutLeft": "0",
+        "eyeLookOutRight": "0.75",
+        "eyeLookUpLeft": "0",
+        "eyeLookUpRight": "0",
+        "jawOpen": "0",
+        "mouthClose": "0",
+        "mouthLeft": "0",
+        "mouthPressLeft": "0",
+        "mouthPressRight": "0",
+        "mouthPucker": "1",
+        "mouthRight": "0"
+      },
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 半闭 / 角色右眼 睁眼 · 嘴 噘嘴 · 左眉 眉头抬 / 右眉 压低；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00",
+      "status": "未应用：browInnerUp 必须是 0–1 之间的有限数字。 当前参数保持不变。"
+    },
+    {
+      "input": "{\"browDownLeft\":null}",
+      "channels": {
+        "browDownLeft": "0",
+        "browDownRight": "1",
+        "browInnerUp": "1",
+        "browOuterUpLeft": "1",
+        "browOuterUpRight": "1",
+        "eyeBlinkLeft": "0.5",
+        "eyeBlinkRight": "0",
+        "eyeLookDownLeft": "0",
+        "eyeLookDownRight": "0",
+        "eyeLookInLeft": "0.75",
+        "eyeLookInRight": "0",
+        "eyeLookOutLeft": "0",
+        "eyeLookOutRight": "0.75",
+        "eyeLookUpLeft": "0",
+        "eyeLookUpRight": "0",
+        "jawOpen": "0",
+        "mouthClose": "0",
+        "mouthLeft": "0",
+        "mouthPressLeft": "0",
+        "mouthPressRight": "0",
+        "mouthPucker": "1",
+        "mouthRight": "0"
+      },
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 半闭 / 角色右眼 睁眼 · 嘴 噘嘴 · 左眉 眉头抬 / 右眉 压低；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00",
+      "status": "未应用：browDownLeft 必须是 0–1 之间的有限数字。 当前参数保持不变。"
+    },
+    {
+      "input": "{invalid",
+      "channels": {
+        "browDownLeft": "0",
+        "browDownRight": "1",
+        "browInnerUp": "1",
+        "browOuterUpLeft": "1",
+        "browOuterUpRight": "1",
+        "eyeBlinkLeft": "0.5",
+        "eyeBlinkRight": "0",
+        "eyeLookDownLeft": "0",
+        "eyeLookDownRight": "0",
+        "eyeLookInLeft": "0.75",
+        "eyeLookInRight": "0",
+        "eyeLookOutLeft": "0",
+        "eyeLookOutRight": "0.75",
+        "eyeLookUpLeft": "0",
+        "eyeLookUpRight": "0",
+        "jawOpen": "0",
+        "mouthClose": "0",
+        "mouthLeft": "0",
+        "mouthPressLeft": "0",
+        "mouthPressRight": "0",
+        "mouthPucker": "1",
+        "mouthRight": "0"
+      },
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 半闭 / 角色右眼 睁眼 · 嘴 噘嘴 · 左眉 眉头抬 / 右眉 压低；视线以画面右、下为正，角色左眼 -0.75, 0.00，角色右眼 -0.75, 0.00",
+      "status": "未应用：Expected property name or '}' in JSON at position 1 (line 1 column 2) 当前参数保持不变。"
+    },
+    {
+      "input": "{\"browInnerUp\":1,\"tongueOut\":0.5}",
+      "channels": {
+        "browDownLeft": "0",
+        "browDownRight": "0",
+        "browInnerUp": "1",
+        "browOuterUpLeft": "0",
+        "browOuterUpRight": "0",
+        "eyeBlinkLeft": "0",
+        "eyeBlinkRight": "0",
+        "eyeLookDownLeft": "0",
+        "eyeLookDownRight": "0",
+        "eyeLookInLeft": "0",
+        "eyeLookInRight": "0",
+        "eyeLookOutLeft": "0",
+        "eyeLookOutRight": "0",
+        "eyeLookUpLeft": "0",
+        "eyeLookUpRight": "0",
+        "jawOpen": "0",
+        "mouthClose": "0",
+        "mouthLeft": "0",
+        "mouthPressLeft": "0",
+        "mouthPressRight": "0",
+        "mouthPucker": "0",
+        "mouthRight": "0"
+      },
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉头抬 / 右眉 眉头抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "已应用 1 个通道；未提供的通道设为 0。已忽略未支持通道：tongueOut。导入不会切换姿态或写入评价。"
+    }
+  ],
+  "variants": [
+    {
+      "browsHidden": true,
+      "channels": 17,
+      "mouthHidden": false,
+      "playing": "false",
+      "progress": "当前版本 · 当前姿态 0 / 24 项已评价 · 全部姿态 0 / 72 项 · 0 项需修改",
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "variant": "pitchMouth"
+    },
+    {
+      "browsHidden": true,
+      "channels": 12,
+      "mouthHidden": true,
+      "playing": "false",
+      "progress": "当前版本 · 当前姿态 0 / 18 项已评价 · 全部姿态 0 / 54 项 · 0 项需修改",
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "variant": "pitchGaze"
+    },
+    {
+      "browsHidden": true,
+      "channels": 4,
+      "mouthHidden": true,
+      "playing": "false",
+      "progress": "当前版本 · 当前姿态 0 / 8 项已评价 · 全部姿态 0 / 24 项 · 0 项需修改",
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性",
+      "variant": "pitch"
+    },
+    {
+      "browsHidden": false,
+      "channels": 22,
+      "mouthHidden": false,
+      "playing": "false",
+      "progress": "当前版本 · 当前姿态 0 / 34 项已评价 · 全部姿态 0 / 102 项 · 0 项需修改",
+      "state": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "variant": "pitchBrows"
+    }
+  ],
+  "demoSamples": [
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 中性 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 中性 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 中性 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉头抬 / 右眉 眉头抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉眉头抬起 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉头抬 / 右眉 眉头抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉眉头抬起 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉头抬 / 右眉 眉头抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉眉头抬起 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉头抬 / 右眉 眉头抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉眉头抬起 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉头抬 / 右眉 眉头抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉眉头抬起 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 回到中性 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 眉尾抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉眉尾抬起 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 眉尾抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉眉尾抬起 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 眉尾抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉眉尾抬起 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 眉尾抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉眉尾抬起 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 眉尾抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉眉尾抬起 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 眉尾抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉眉尾抬起 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 回到中性 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 压低 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉压低 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 压低 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉压低 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 压低 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉压低 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 压低 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉压低 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 压低 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉压低 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 压低 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉压低 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 回到中性 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 左眉尾抬、右眉压低 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 左眉尾抬、右眉压低 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 左眉尾抬、右眉压低 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 左眉尾抬、右眉压低 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 左眉尾抬、右眉压低 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉尾抬 / 右眉 压低；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 左眉尾抬、右眉压低 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 回到中性 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 回到中性 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 回到中性 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 回到中性 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 中性 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 中性 / 右眉 中性；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 中性 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉头抬 / 右眉 眉头抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉眉头抬起 · 姿态固定，视线居中"
+    },
+    {
+      "playing": "true",
+      "state": "画面右斜上 · 角色左转抬头\n角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性 · 左眉 眉头抬 / 右眉 眉头抬；视线以画面右、下为正，角色左眼 0.00, 0.00，角色右眼 0.00, 0.00",
+      "status": "12 秒循环 · 双眉眉头抬起 · 姿态固定，视线居中"
+    }
+  ],
+  "stopChecks": [
+    {
+      "action": "switchGroup",
+      "playing": "false"
+    },
+    {
+      "action": "switchPose",
+      "playing": "false"
+    },
+    {
+      "action": "original",
+      "playing": "false"
+    },
+    {
+      "action": "export",
+      "playing": "false"
+    },
+    {
+      "action": "switchVariant",
+      "playing": "false"
+    }
+  ],
+  "responsive": {
+    "requested390": "override did not affect hidden test tab",
+    "actualVisible319": {
+      "buttons": [
+        {
+          "text": "俯仰眉毛小样新增三种眉形与组合",
+          "width": 142,
+          "x": 14,
+          "y": 176.984375
+        },
+        {
+          "text": "已确认俯仰嘴型保留原画眉毛",
+          "width": 142,
+          "x": 163,
+          "y": 176.984375
+        },
+        {
+          "text": "已确认俯仰视线基础表情与独立视线",
+          "width": 142,
+          "x": 14,
+          "y": 231.984375
+        },
+        {
+          "text": "已确认俯仰基础表情保留原画视线",
+          "width": 142,
+          "x": 163,
+          "y": 231.984375
+        }
+      ],
+      "scrollWidth": 319,
+      "width": 319
+    },
+    "horizontalOverflow": false,
+    "verification": "Visible IAB panel has319pxCSSwidth, nohorizontaloverflow; fourversionbuttonsform2x2rows. Screenshotrecorded; no broaderdeviceclaim."
+  },
+  "feedback": "No feedback written or autoapproved"
+}

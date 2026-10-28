@@ -1,0 +1,207 @@
+{
+  "presets": [
+    {
+      "pose": "view-left-up",
+      "preset": "neutral",
+      "visible": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性"
+    },
+    {
+      "pose": "view-left-up",
+      "preset": "halfBlink",
+      "visible": "画面左斜上 · 角色右转抬头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 中性"
+    },
+    {
+      "pose": "view-left-up",
+      "preset": "blink",
+      "visible": "画面左斜上 · 角色右转抬头，角色左眼 闭眼 / 角色右眼 闭眼 · 嘴 中性"
+    },
+    {
+      "pose": "view-left-up",
+      "preset": "winkLeft",
+      "visible": "画面左斜上 · 角色右转抬头，角色左眼 闭眼 / 角色右眼 睁眼 · 嘴 中性"
+    },
+    {
+      "pose": "view-left-up",
+      "preset": "winkRight",
+      "visible": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 闭眼 · 嘴 中性"
+    },
+    {
+      "pose": "view-left-up",
+      "preset": "openSmall",
+      "visible": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 小张"
+    },
+    {
+      "pose": "view-left-up",
+      "preset": "openWide",
+      "visible": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 大张"
+    },
+    {
+      "pose": "view-left-up",
+      "preset": "combination",
+      "visible": "画面左斜上 · 角色右转抬头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 小张"
+    },
+    {
+      "pose": "view-right-up",
+      "preset": "neutral",
+      "visible": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性"
+    },
+    {
+      "pose": "view-right-up",
+      "preset": "halfBlink",
+      "visible": "画面右斜上 · 角色左转抬头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 中性"
+    },
+    {
+      "pose": "view-right-up",
+      "preset": "blink",
+      "visible": "画面右斜上 · 角色左转抬头，角色左眼 闭眼 / 角色右眼 闭眼 · 嘴 中性"
+    },
+    {
+      "pose": "view-right-up",
+      "preset": "winkLeft",
+      "visible": "画面右斜上 · 角色左转抬头，角色左眼 闭眼 / 角色右眼 睁眼 · 嘴 中性"
+    },
+    {
+      "pose": "view-right-up",
+      "preset": "winkRight",
+      "visible": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 闭眼 · 嘴 中性"
+    },
+    {
+      "pose": "view-right-up",
+      "preset": "openSmall",
+      "visible": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 小张"
+    },
+    {
+      "pose": "view-right-up",
+      "preset": "openWide",
+      "visible": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 大张"
+    },
+    {
+      "pose": "view-right-up",
+      "preset": "combination",
+      "visible": "画面右斜上 · 角色左转抬头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 小张"
+    },
+    {
+      "pose": "view-left-down",
+      "preset": "neutral",
+      "visible": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性"
+    },
+    {
+      "pose": "view-left-down",
+      "preset": "halfBlink",
+      "visible": "画面左斜下 · 角色右转低头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 中性"
+    },
+    {
+      "pose": "view-left-down",
+      "preset": "blink",
+      "visible": "画面左斜下 · 角色右转低头，角色左眼 闭眼 / 角色右眼 闭眼 · 嘴 中性"
+    },
+    {
+      "pose": "view-left-down",
+      "preset": "winkLeft",
+      "visible": "画面左斜下 · 角色右转低头，角色左眼 闭眼 / 角色右眼 睁眼 · 嘴 中性"
+    },
+    {
+      "pose": "view-left-down",
+      "preset": "winkRight",
+      "visible": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 闭眼 · 嘴 中性"
+    },
+    {
+      "pose": "view-left-down",
+      "preset": "openSmall",
+      "visible": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 小张"
+    },
+    {
+      "pose": "view-left-down",
+      "preset": "openWide",
+      "visible": "画面左斜下 · 角色右转低头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 大张"
+    },
+    {
+      "pose": "view-left-down",
+      "preset": "combination",
+      "visible": "画面左斜下 · 角色右转低头，角色左眼 半闭 / 角色右眼 半闭 · 嘴 小张"
+    }
+  ],
+  "inputs": [
+    {
+      "input": {
+        "eyeBlinkLeft": 1
+      },
+      "visible": "画面左斜上 · 角色右转抬头\n角色左眼 闭眼 / 角色右眼 睁眼 · 嘴 中性",
+      "status": "已应用 1 个通道；未提供的通道设为 0。导入不会切换姿态或写入评价。"
+    },
+    {
+      "input": {
+        "eyeBlinkRight": 1
+      },
+      "visible": "画面左斜上 · 角色右转抬头\n角色左眼 睁眼 / 角色右眼 闭眼 · 嘴 中性",
+      "status": "已应用 1 个通道；未提供的通道设为 0。导入不会切换姿态或写入评价。"
+    },
+    {
+      "input": {
+        "eyeBlinkLeft": 1,
+        "eyeBlinkRight": 0.5,
+        "jawOpen": 1,
+        "mouthClose": 1
+      },
+      "visible": "画面左斜上 · 角色右转抬头\n角色左眼 闭眼 / 角色右眼 半闭 · 嘴 中性",
+      "status": "已应用 4 个通道；未提供的通道设为 0。导入不会切换姿态或写入评价。"
+    },
+    {
+      "input": {
+        "jawOpen": 0.4,
+        "eyeBlinkLeft": 0.5,
+        "eyeBlinkRight": 0.5
+      },
+      "visible": "画面左斜上 · 角色右转抬头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 小张",
+      "status": "已应用 3 个通道；未提供的通道设为 0。导入不会切换姿态或写入评价。"
+    },
+    {
+      "input": {
+        "browInnerUp": 1
+      },
+      "visible": "画面左斜上 · 角色右转抬头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 小张",
+      "status": "已忽略未支持通道：browInnerUp。没有本页支持的通道，当前参数保持不变。"
+    },
+    {
+      "input": {
+        "jawOpen": 2
+      },
+      "visible": "画面左斜上 · 角色右转抬头\n角色左眼 半闭 / 角色右眼 半闭 · 嘴 小张",
+      "status": "未应用：jawOpen 必须是 0–1 之间的有限数字。 当前参数保持不变。"
+    }
+  ],
+  "feedback": {
+    "otherPose": "",
+    "restored": "QA：俯仰姿态反馈隔离",
+    "cleared": ""
+  },
+  "exports": {
+    "feedback": "pitch-expression-feedback-2026-10-26T07-55-20-593Z.json",
+    "face": "pitch-expression-view-right-up-combination-2026-10-26T07-55-45-176Z.png",
+    "full": "pitch-expression-view-right-up-combination-2026-10-26T07-55-45-744Z.png",
+    "original": "pitch-expression-feedback-2026-10-26T07-55-46-296Z.json"
+  },
+  "demoStart": {
+    "playing": "true",
+    "status": "10 秒循环 · 中性 · 姿态保持固定"
+  },
+  "demoLater": {
+    "playing": "true",
+    "status": "10 秒循环 · 回到中性 · 姿态保持固定",
+    "visible": "画面左斜上 · 角色右转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性"
+  },
+  "poseStopsDemo": {
+    "playing": "false",
+    "visible": "画面右斜上 · 角色左转抬头，角色左眼 睁眼 / 角色右眼 睁眼 · 嘴 中性"
+  },
+  "originalMode": {
+    "visible": "画面右斜上 · 角色左转抬头，已确认原画",
+    "feedbackDisabled": true
+  },
+  "console": {
+    "preview": [],
+    "diagnostics": [],
+    "eyes": []
+  },
+  "cameraEnabled": false
+}

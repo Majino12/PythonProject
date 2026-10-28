@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "status": "internal-review-completed",
+  "approvalType": "Internal implementation review; not new user visual approval.",
+  "reviewedBy": {
+    "root": "All nine native five-stage contact sheets, native pixel comparisons, and actual 30/60Hz sequence playback.",
+    "geometry": "Selected source drawings and actual source-coordinate traces; independent final right/right-down/up/down composite sheets."
+  },
+  "result": "Five distinguishable authored stages are registered for both eyes and speaking mouth in every fixed pose. No blocking foreground-hair junction, nose fragment, upper-lip jump, or reversed final eyelid trajectory was identified in the inspected contact sheets.",
+  "knownLimits": [
+    "Five discrete painted eye and speaking-mouth states per pose; not a continuous mesh deformation model.",
+    "Neighboring stages have unequal visual spacing; source-traced geometry is not fabricated by interpolation.",
+    "Source portraits were generated with image_gen and registered using local crops, source-traced apertures, and fixed upper-lip translation.",
+    "Visible spacing between neighboring stages is unequal; some weak intermediate steps are deliberately retained as real paintings.",
+    "Minor color and line-weight variations remain between independently generated sources.",
+    "30/60Hz drawing is playback cadence, not 30/60 unique expression drawings or guaranteed presentation FPS."
+  ],
+  "evidence": [
+    "frame-art-front-five-stages.png",
+    "frame-art-view-left-up-five-stages.png",
+    "frame-art-view-right-up-five-stages.png",
+    "frame-art-view-left-five-stages.png",
+    "frame-art-view-right-five-stages.png",
+    "frame-art-view-left-down-five-stages.png",
+    "frame-art-view-up-five-stages.png",
+    "frame-art-view-down-five-stages.png",
+    "frame-art-view-right-down-five-stages.png"
+  ]
+}

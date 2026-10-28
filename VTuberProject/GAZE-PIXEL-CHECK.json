@@ -1,0 +1,160 @@
+{
+  "zeroVsOriginal": {
+    "changed": 2724,
+    "over20": 1176,
+    "max": 201,
+    "outsideEyes": 0,
+    "sum": 102488
+  },
+  "tiny001VsCenter": {
+    "changed": 723,
+    "over20": 0,
+    "max": 2,
+    "outsideEyes": 0,
+    "sum": 780
+  },
+  "tiny01VsCenter": {
+    "changed": 3271,
+    "over20": 0,
+    "max": 17,
+    "outsideEyes": 0,
+    "sum": 7747
+  },
+  "closedLeftVsRight": {
+    "changed": 0,
+    "over20": 0,
+    "max": 0,
+    "outsideEyes": 0,
+    "sum": 0
+  },
+  "cases": [
+    {
+      "label": "向画面左",
+      "changed": 6796,
+      "over20": 4864,
+      "max": 194,
+      "outsideEyes": 0,
+      "sum": 408092
+    },
+    {
+      "label": "向画面右",
+      "changed": 6721,
+      "over20": 4833,
+      "max": 205,
+      "outsideEyes": 0,
+      "sum": 401643
+    },
+    {
+      "label": "上看",
+      "changed": 6092,
+      "over20": 3547,
+      "max": 208,
+      "outsideEyes": 0,
+      "sum": 236717
+    },
+    {
+      "label": "下看",
+      "changed": 6170,
+      "over20": 3051,
+      "max": 209,
+      "outsideEyes": 0,
+      "sum": 201997
+    },
+    {
+      "label": "轻闭左看",
+      "changed": 4848,
+      "over20": 3459,
+      "max": 188,
+      "outsideEyes": 0,
+      "sum": 262428
+    },
+    {
+      "label": "轻闭右看",
+      "changed": 4812,
+      "over20": 3430,
+      "max": 205,
+      "outsideEyes": 0,
+      "sum": 261074
+    },
+    {
+      "label": "半闭上看",
+      "changed": 2430,
+      "over20": 1149,
+      "max": 189,
+      "outsideEyes": 0,
+      "sum": 86798
+    },
+    {
+      "label": "半闭下看",
+      "changed": 2536,
+      "over20": 1193,
+      "max": 184,
+      "outsideEyes": 0,
+      "sum": 81184
+    },
+    {
+      "label": "半闭左看",
+      "changed": 2725,
+      "over20": 2024,
+      "max": 186,
+      "outsideEyes": 0,
+      "sum": 148711
+    },
+    {
+      "label": "半闭右看",
+      "changed": 2688,
+      "over20": 1994,
+      "max": 189,
+      "outsideEyes": 0,
+      "sum": 148043
+    },
+    {
+      "label": "近闭上看",
+      "changed": 762,
+      "over20": 192,
+      "max": 185,
+      "outsideEyes": 0,
+      "sum": 18031
+    },
+    {
+      "label": "近闭下看",
+      "changed": 776,
+      "over20": 270,
+      "max": 175,
+      "outsideEyes": 0,
+      "sum": 15032
+    },
+    {
+      "label": "近闭左看",
+      "changed": 799,
+      "over20": 576,
+      "max": 179,
+      "outsideEyes": 0,
+      "sum": 36567
+    },
+    {
+      "label": "近闭右看",
+      "changed": 763,
+      "over20": 536,
+      "max": 186,
+      "outsideEyes": 0,
+      "sum": 33151
+    },
+    {
+      "label": "完全闭眼左看",
+      "changed": 0,
+      "over20": 0,
+      "max": 0,
+      "outsideEyes": 0,
+      "sum": 0
+    },
+    {
+      "label": "完全闭眼右看",
+      "changed": 0,
+      "over20": 0,
+      "max": 0,
+      "outsideEyes": 0,
+      "sum": 0
+    }
+  ]
+}

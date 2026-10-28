@@ -1,0 +1,2066 @@
+{
+  "schema": "pitch-gaze-geometry-proposal-v1",
+  "status": "registered candidate; six actual-render magnified comparisons internally reviewed; not user approved",
+  "canvas": [
+    1122,
+    1402
+  ],
+  "coordinateSpace": "full native portrait pixels; no normalized shared eye axis, no mirror reuse",
+  "method": "Direct inspection of approved originals and half sources, read-only RGB scanlines and visible-iris/highlight measurements. Masks are manually registered interior polygons; only the old iris region is cleaned. The generated complete iris registration will be measured separately.",
+  "approvedBase": {
+    "id": "short-hair-pitch-expressions-v1",
+    "posesSha256": "b2e279fd8972cb4714848f7781bfebd5c46cc765df442d41ae0c57c13b5e4c61",
+    "sources": {
+      "view-left-up-neutral": {
+        "src": "./assets/short-hair-v1/view-left-up.png",
+        "width": 1122,
+        "height": 1402,
+        "pose": "view-left-up",
+        "sha256": "614ea3f4df961ffefefe4ae054eea45fe6c42a0cf5ae25cb3f6e88d5f6ca8637"
+      },
+      "view-left-up-half-small": {
+        "src": "./assets/short-hair-pitch-expressions-v1/view-left-up-half-small.png",
+        "width": 1122,
+        "height": 1402,
+        "pose": "view-left-up",
+        "sha256": "d9dc3086a16deee386d7fa767f53d9784ce153b5f78201710e7cf9ab2c580f83"
+      },
+      "view-left-up-closed-wide": {
+        "src": "./assets/short-hair-pitch-expressions-v1/view-left-up-closed-wide.png",
+        "width": 1122,
+        "height": 1402,
+        "pose": "view-left-up",
+        "sha256": "a88279c58a30476f67e89f4fb275b286da33c070ce57adf10c1cb8868b9cbcfb"
+      },
+      "view-right-up-neutral": {
+        "src": "./assets/short-hair-v1/view-right-up.png",
+        "width": 1122,
+        "height": 1402,
+        "pose": "view-right-up",
+        "sha256": "900d998244e371021320ead30a823661d8759b516d72ad6390c2c62d3fd21037"
+      },
+      "view-right-up-half-small": {
+        "src": "./assets/short-hair-pitch-expressions-v1/view-right-up-half-small.png",
+        "width": 1122,
+        "height": 1402,
+        "pose": "view-right-up",
+        "sha256": "930f48e4715527b3c4ca13fff1fea2220d5f2b316e3befe157ce18609e666606"
+      },
+      "view-right-up-closed-wide": {
+        "src": "./assets/short-hair-pitch-expressions-v1/view-right-up-closed-wide.png",
+        "width": 1122,
+        "height": 1402,
+        "pose": "view-right-up",
+        "sha256": "3c3a7114b6febb025f1a1bb1ddc4ea27ee5007177d208ba75c7060479a9c835e"
+      },
+      "view-left-down-neutral": {
+        "src": "./assets/short-hair-v1/view-left-down.png",
+        "width": 1122,
+        "height": 1402,
+        "pose": "view-left-down",
+        "sha256": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983"
+      },
+      "view-left-down-half-small": {
+        "src": "./assets/short-hair-pitch-expressions-v1/view-left-down-half-small.png",
+        "width": 1122,
+        "height": 1402,
+        "pose": "view-left-down",
+        "sha256": "fd2f28ad951ab56ad311f1badb61a359aad61b6e3fd5e7b5513316c65fc1a477"
+      },
+      "view-left-down-closed-wide": {
+        "src": "./assets/short-hair-pitch-expressions-v1/view-left-down-closed-wide.png",
+        "width": 1122,
+        "height": 1402,
+        "pose": "view-left-down",
+        "sha256": "28f9db5ec0d0e96ae6f4ffcca612399b3470c895c3a99d597e7d4ac4acd6d40e"
+      }
+    }
+  },
+  "poses": {
+    "view-left-up": {
+      "reference": "view-left-up-neutral",
+      "whiteSource": "view-left-up-eye-whites",
+      "irisSource": "view-left-up-irises",
+      "directionNote": "Viewer-left/up: anatomical left eye is the near eye at canvas right. Each eye uses its own aperture axis.",
+      "eyes": {
+        "eyeLeft": {
+          "perspective": "near",
+          "bounds": [
+            451,
+            365,
+            193,
+            110
+          ],
+          "visibleIrisBounds": [
+            491,
+            397,
+            62,
+            53
+          ],
+          "visibleIrisWidth": 62,
+          "visibleIrisHeight": 53,
+          "pupilReference": [
+            519.5,
+            420
+          ],
+          "maxShift": {
+            "x": 6,
+            "up": 3.5,
+            "down": 2.5
+          },
+          "basis": {
+            "horizontal": [
+              1,
+              -0.13
+            ],
+            "vertical": [
+              0,
+              1
+            ]
+          },
+          "frames": {
+            "open": {
+              "source": "view-left-up-neutral",
+              "aperture": [
+                [
+                  476,
+                  430
+                ],
+                [
+                  483,
+                  419
+                ],
+                [
+                  493,
+                  410
+                ],
+                [
+                  504,
+                  403
+                ],
+                [
+                  515,
+                  399
+                ],
+                [
+                  531,
+                  397
+                ],
+                [
+                  545,
+                  398
+                ],
+                [
+                  559,
+                  401
+                ],
+                [
+                  574,
+                  406
+                ],
+                [
+                  585,
+                  412
+                ],
+                [
+                  595,
+                  416
+                ],
+                [
+                  588,
+                  427
+                ],
+                [
+                  578,
+                  436
+                ],
+                [
+                  565,
+                  443
+                ],
+                [
+                  549,
+                  446
+                ],
+                [
+                  529,
+                  447
+                ],
+                [
+                  508,
+                  447
+                ],
+                [
+                  490,
+                  445
+                ],
+                [
+                  480,
+                  439
+                ]
+              ],
+              "fragment": [
+                [
+                  500,
+                  397
+                ],
+                [
+                  519,
+                  394
+                ],
+                [
+                  540,
+                  396
+                ],
+                [
+                  550,
+                  405
+                ],
+                [
+                  553,
+                  420
+                ],
+                [
+                  549,
+                  434
+                ],
+                [
+                  540,
+                  446
+                ],
+                [
+                  522,
+                  451
+                ],
+                [
+                  504,
+                  449
+                ],
+                [
+                  493,
+                  439
+                ],
+                [
+                  490,
+                  424
+                ],
+                [
+                  493,
+                  408
+                ]
+              ]
+            },
+            "half": {
+              "source": "view-left-up-half-small",
+              "aperture": [
+                [
+                  478,
+                  432
+                ],
+                [
+                  490,
+                  426
+                ],
+                [
+                  502,
+                  420
+                ],
+                [
+                  516,
+                  415
+                ],
+                [
+                  532,
+                  412
+                ],
+                [
+                  548,
+                  413
+                ],
+                [
+                  564,
+                  414
+                ],
+                [
+                  581,
+                  417
+                ],
+                [
+                  594,
+                  420
+                ],
+                [
+                  588,
+                  429
+                ],
+                [
+                  578,
+                  436
+                ],
+                [
+                  563,
+                  442
+                ],
+                [
+                  546,
+                  446
+                ],
+                [
+                  527,
+                  446
+                ],
+                [
+                  508,
+                  444
+                ],
+                [
+                  490,
+                  444
+                ],
+                [
+                  480,
+                  438
+                ]
+              ],
+              "fragment": [
+                [
+                  503,
+                  411
+                ],
+                [
+                  522,
+                  409
+                ],
+                [
+                  541,
+                  411
+                ],
+                [
+                  550,
+                  417
+                ],
+                [
+                  552,
+                  430
+                ],
+                [
+                  542,
+                  443
+                ],
+                [
+                  525,
+                  449
+                ],
+                [
+                  505,
+                  448
+                ],
+                [
+                  494,
+                  439
+                ],
+                [
+                  490,
+                  426
+                ],
+                [
+                  495,
+                  418
+                ]
+              ]
+            }
+          },
+          "core": [
+            [
+              503,
+              405
+            ],
+            [
+              515,
+              400
+            ],
+            [
+              533,
+              400
+            ],
+            [
+              543,
+              404
+            ],
+            [
+              547,
+              418
+            ],
+            [
+              545,
+              429
+            ],
+            [
+              538,
+              441
+            ],
+            [
+              526,
+              445
+            ],
+            [
+              511,
+              445
+            ],
+            [
+              501,
+              438
+            ],
+            [
+              497,
+              428
+            ],
+            [
+              499,
+              416
+            ]
+          ],
+          "notes": [
+            "Original main highlight occupies x517–522/y404–411 and remains inside the original core.",
+            "Horizontal translation follows the local aperture from the lower nasal corner toward the higher outer corner; it is not a shared eye-axis adjustment."
+          ],
+          "irisRect": [
+            642,
+            495,
+            304,
+            402
+          ],
+          "irisDestination": [
+            491.2,
+            382.2,
+            60.800000000000004,
+            80.4
+          ]
+        },
+        "eyeRight": {
+          "perspective": "far",
+          "bounds": [
+            281,
+            391,
+            115,
+            95
+          ],
+          "visibleIrisBounds": [
+            332,
+            420,
+            39,
+            50
+          ],
+          "visibleIrisWidth": 39,
+          "visibleIrisHeight": 50,
+          "pupilReference": [
+            352,
+            441
+          ],
+          "maxShift": {
+            "x": 3,
+            "up": 2.5,
+            "down": 1.75
+          },
+          "basis": {
+            "horizontal": [
+              1,
+              0.2
+            ],
+            "vertical": [
+              0,
+              1
+            ]
+          },
+          "frames": {
+            "open": {
+              "source": "view-left-up-neutral",
+              "aperture": [
+                [
+                  321,
+                  436
+                ],
+                [
+                  327,
+                  428
+                ],
+                [
+                  336,
+                  424
+                ],
+                [
+                  348,
+                  422
+                ],
+                [
+                  359,
+                  426
+                ],
+                [
+                  365,
+                  433
+                ],
+                [
+                  368,
+                  444
+                ],
+                [
+                  370,
+                  453
+                ],
+                [
+                  363,
+                  464
+                ],
+                [
+                  349,
+                  468
+                ],
+                [
+                  333,
+                  468
+                ],
+                [
+                  325,
+                  461
+                ],
+                [
+                  321,
+                  449
+                ]
+              ],
+              "fragment": [
+                [
+                  337,
+                  421
+                ],
+                [
+                  349,
+                  419
+                ],
+                [
+                  361,
+                  424
+                ],
+                [
+                  367,
+                  435
+                ],
+                [
+                  371,
+                  450
+                ],
+                [
+                  366,
+                  462
+                ],
+                [
+                  356,
+                  470
+                ],
+                [
+                  342,
+                  471
+                ],
+                [
+                  333,
+                  460
+                ],
+                [
+                  331,
+                  445
+                ],
+                [
+                  333,
+                  431
+                ]
+              ]
+            },
+            "half": {
+              "source": "view-left-up-half-small",
+              "aperture": [
+                [
+                  322,
+                  447
+                ],
+                [
+                  330,
+                  443
+                ],
+                [
+                  340,
+                  439
+                ],
+                [
+                  350,
+                  437
+                ],
+                [
+                  359,
+                  440
+                ],
+                [
+                  365,
+                  443
+                ],
+                [
+                  369,
+                  451
+                ],
+                [
+                  364,
+                  462
+                ],
+                [
+                  351,
+                  467
+                ],
+                [
+                  335,
+                  467
+                ],
+                [
+                  326,
+                  460
+                ]
+              ],
+              "fragment": [
+                [
+                  337,
+                  435
+                ],
+                [
+                  350,
+                  433
+                ],
+                [
+                  364,
+                  439
+                ],
+                [
+                  371,
+                  450
+                ],
+                [
+                  367,
+                  461
+                ],
+                [
+                  356,
+                  469
+                ],
+                [
+                  342,
+                  470
+                ],
+                [
+                  333,
+                  461
+                ],
+                [
+                  332,
+                  448
+                ]
+              ]
+            }
+          },
+          "core": [
+            [
+              341,
+              427
+            ],
+            [
+              349,
+              425
+            ],
+            [
+              358,
+              428
+            ],
+            [
+              363,
+              436
+            ],
+            [
+              365,
+              447
+            ],
+            [
+              362,
+              457
+            ],
+            [
+              356,
+              463
+            ],
+            [
+              346,
+              465
+            ],
+            [
+              340,
+              460
+            ],
+            [
+              337,
+              451
+            ],
+            [
+              336,
+              440
+            ],
+            [
+              338,
+              432
+            ]
+          ],
+          "notes": [
+            "Narrow far-eye aperture is partly hidden by the middle fringe; do not include purple-gray bang pixels at x374–380 in the eye aperture.",
+            "Original highlight x354–357/y427–432 is retained. Far horizontal travel is half the near-eye travel."
+          ],
+          "irisRect": [
+            204,
+            551,
+            217,
+            337
+          ],
+          "irisDestination": [
+            332.29,
+            412.83,
+            39.059999999999995,
+            60.66
+          ]
+        }
+      }
+    },
+    "view-right-up": {
+      "reference": "view-right-up-neutral",
+      "whiteSource": "view-right-up-eye-whites",
+      "irisSource": "view-right-up-irises",
+      "directionNote": "Viewer-right/up: anatomical right eye is the near eye at canvas left; the far eye has its own negative-slope aperture.",
+      "eyes": {
+        "eyeRight": {
+          "perspective": "near",
+          "bounds": [
+            449,
+            389,
+            186,
+            115
+          ],
+          "visibleIrisBounds": [
+            542,
+            420,
+            61,
+            57
+          ],
+          "visibleIrisWidth": 61,
+          "visibleIrisHeight": 57,
+          "pupilReference": [
+            576.5,
+            443
+          ],
+          "maxShift": {
+            "x": 6,
+            "up": 3.5,
+            "down": 2.5
+          },
+          "basis": {
+            "horizontal": [
+              1,
+              0.04
+            ],
+            "vertical": [
+              0,
+              1
+            ]
+          },
+          "frames": {
+            "open": {
+              "source": "view-right-up-neutral",
+              "aperture": [
+                [
+                  499,
+                  448
+                ],
+                [
+                  508,
+                  441
+                ],
+                [
+                  519,
+                  435
+                ],
+                [
+                  531,
+                  430
+                ],
+                [
+                  544,
+                  426
+                ],
+                [
+                  557,
+                  423
+                ],
+                [
+                  569,
+                  422
+                ],
+                [
+                  580,
+                  424
+                ],
+                [
+                  591,
+                  428
+                ],
+                [
+                  603,
+                  435
+                ],
+                [
+                  613,
+                  447
+                ],
+                [
+                  612,
+                  455
+                ],
+                [
+                  601,
+                  465
+                ],
+                [
+                  586,
+                  471
+                ],
+                [
+                  569,
+                  475
+                ],
+                [
+                  546,
+                  477
+                ],
+                [
+                  527,
+                  474
+                ],
+                [
+                  512,
+                  464
+                ],
+                [
+                  503,
+                  456
+                ]
+              ],
+              "fragment": [
+                [
+                  550,
+                  423
+                ],
+                [
+                  567,
+                  419
+                ],
+                [
+                  583,
+                  422
+                ],
+                [
+                  595,
+                  431
+                ],
+                [
+                  603,
+                  445
+                ],
+                [
+                  602,
+                  458
+                ],
+                [
+                  595,
+                  470
+                ],
+                [
+                  581,
+                  477
+                ],
+                [
+                  564,
+                  478
+                ],
+                [
+                  551,
+                  471
+                ],
+                [
+                  544,
+                  459
+                ],
+                [
+                  541,
+                  444
+                ],
+                [
+                  545,
+                  430
+                ]
+              ]
+            },
+            "half": {
+              "source": "view-right-up-half-small",
+              "aperture": [
+                [
+                  507,
+                  455
+                ],
+                [
+                  517,
+                  448
+                ],
+                [
+                  531,
+                  444
+                ],
+                [
+                  546,
+                  441
+                ],
+                [
+                  560,
+                  438
+                ],
+                [
+                  575,
+                  436
+                ],
+                [
+                  590,
+                  436
+                ],
+                [
+                  603,
+                  439
+                ],
+                [
+                  614,
+                  442
+                ],
+                [
+                  610,
+                  453
+                ],
+                [
+                  597,
+                  463
+                ],
+                [
+                  582,
+                  469
+                ],
+                [
+                  561,
+                  472
+                ],
+                [
+                  538,
+                  472
+                ],
+                [
+                  522,
+                  469
+                ],
+                [
+                  512,
+                  464
+                ]
+              ],
+              "fragment": [
+                [
+                  555,
+                  436
+                ],
+                [
+                  571,
+                  432
+                ],
+                [
+                  589,
+                  434
+                ],
+                [
+                  601,
+                  442
+                ],
+                [
+                  605,
+                  454
+                ],
+                [
+                  599,
+                  466
+                ],
+                [
+                  586,
+                  473
+                ],
+                [
+                  566,
+                  475
+                ],
+                [
+                  552,
+                  470
+                ],
+                [
+                  547,
+                  458
+                ],
+                [
+                  547,
+                  444
+                ]
+              ]
+            }
+          },
+          "core": [
+            [
+              551,
+              428
+            ],
+            [
+              563,
+              424
+            ],
+            [
+              579,
+              425
+            ],
+            [
+              590,
+              431
+            ],
+            [
+              597,
+              442
+            ],
+            [
+              599,
+              453
+            ],
+            [
+              593,
+              465
+            ],
+            [
+              581,
+              471
+            ],
+            [
+              567,
+              473
+            ],
+            [
+              555,
+              468
+            ],
+            [
+              548,
+              458
+            ],
+            [
+              545,
+              447
+            ],
+            [
+              546,
+              436
+            ]
+          ],
+          "notes": [
+            "Original highlight x572–578/y427–435 is retained.",
+            "The half source draws the iris several pixels farther canvas-right; motion must use one original open core across both lid states, without moving the approved eye patch."
+          ],
+          "irisRect": [
+            360,
+            504,
+            221,
+            248
+          ],
+          "irisDestination": [
+            541.99,
+            408.345,
+            64.08999999999999,
+            71.92
+          ]
+        },
+        "eyeLeft": {
+          "perspective": "far",
+          "bounds": [
+            708,
+            382,
+            111,
+            110
+          ],
+          "visibleIrisBounds": [
+            737,
+            410,
+            45,
+            55
+          ],
+          "visibleIrisWidth": 45,
+          "visibleIrisHeight": 55,
+          "pupilReference": [
+            759,
+            434
+          ],
+          "maxShift": {
+            "x": 3.25,
+            "up": 2.5,
+            "down": 1.75
+          },
+          "basis": {
+            "horizontal": [
+              1,
+              -0.2
+            ],
+            "vertical": [
+              0,
+              1
+            ]
+          },
+          "frames": {
+            "open": {
+              "source": "view-right-up-neutral",
+              "aperture": [
+                [
+                  722,
+                  443
+                ],
+                [
+                  730,
+                  430
+                ],
+                [
+                  739,
+                  420
+                ],
+                [
+                  750,
+                  415
+                ],
+                [
+                  761,
+                  412
+                ],
+                [
+                  771,
+                  414
+                ],
+                [
+                  780,
+                  418
+                ],
+                [
+                  787,
+                  424
+                ],
+                [
+                  788,
+                  437
+                ],
+                [
+                  783,
+                  451
+                ],
+                [
+                  774,
+                  461
+                ],
+                [
+                  761,
+                  463
+                ],
+                [
+                  748,
+                  461
+                ],
+                [
+                  735,
+                  457
+                ],
+                [
+                  726,
+                  451
+                ]
+              ],
+              "fragment": [
+                [
+                  745,
+                  414
+                ],
+                [
+                  758,
+                  409
+                ],
+                [
+                  770,
+                  412
+                ],
+                [
+                  779,
+                  421
+                ],
+                [
+                  782,
+                  435
+                ],
+                [
+                  778,
+                  450
+                ],
+                [
+                  770,
+                  462
+                ],
+                [
+                  756,
+                  467
+                ],
+                [
+                  744,
+                  460
+                ],
+                [
+                  737,
+                  448
+                ],
+                [
+                  736,
+                  433
+                ],
+                [
+                  739,
+                  421
+                ]
+              ]
+            },
+            "half": {
+              "source": "view-right-up-half-small",
+              "aperture": [
+                [
+                  722,
+                  443
+                ],
+                [
+                  733,
+                  436
+                ],
+                [
+                  746,
+                  431
+                ],
+                [
+                  759,
+                  429
+                ],
+                [
+                  772,
+                  429
+                ],
+                [
+                  785,
+                  432
+                ],
+                [
+                  788,
+                  442
+                ],
+                [
+                  782,
+                  453
+                ],
+                [
+                  770,
+                  459
+                ],
+                [
+                  754,
+                  460
+                ],
+                [
+                  740,
+                  457
+                ],
+                [
+                  729,
+                  451
+                ]
+              ],
+              "fragment": [
+                [
+                  748,
+                  428
+                ],
+                [
+                  761,
+                  425
+                ],
+                [
+                  774,
+                  428
+                ],
+                [
+                  782,
+                  437
+                ],
+                [
+                  781,
+                  451
+                ],
+                [
+                  773,
+                  461
+                ],
+                [
+                  758,
+                  464
+                ],
+                [
+                  746,
+                  460
+                ],
+                [
+                  740,
+                  449
+                ],
+                [
+                  741,
+                  436
+                ]
+              ]
+            }
+          },
+          "core": [
+            [
+              747,
+              418
+            ],
+            [
+              758,
+              414
+            ],
+            [
+              769,
+              415
+            ],
+            [
+              775,
+              422
+            ],
+            [
+              777,
+              435
+            ],
+            [
+              775,
+              448
+            ],
+            [
+              770,
+              458
+            ],
+            [
+              760,
+              460
+            ],
+            [
+              749,
+              455
+            ],
+            [
+              743,
+              445
+            ],
+            [
+              742,
+              434
+            ],
+            [
+              744,
+              425
+            ]
+          ],
+          "notes": [
+            "Original highlight x755–759/y418–426 is retained.",
+            "The far eye is narrower than the near eye; independent source sprite and smaller travel are mandatory."
+          ],
+          "irisRect": [
+            719,
+            525,
+            147,
+            212
+          ],
+          "irisDestination": [
+            734.2,
+            401.84,
+            47.04,
+            67.84
+          ]
+        }
+      }
+    },
+    "view-left-down": {
+      "reference": "view-left-down-neutral",
+      "whiteSource": "view-left-down-eye-whites",
+      "irisSource": "view-left-down-irises",
+      "directionNote": "Viewer-left/down: keep the approved down-looking iris baseline. Anatomical left eye is the near eye at canvas right.",
+      "eyes": {
+        "eyeLeft": {
+          "perspective": "near",
+          "bounds": [
+            450,
+            493,
+            194,
+            117
+          ],
+          "visibleIrisBounds": [
+            497,
+            530,
+            59,
+            50
+          ],
+          "visibleIrisWidth": 59,
+          "visibleIrisHeight": 50,
+          "pupilReference": [
+            524.5,
+            553.5
+          ],
+          "maxShift": {
+            "x": 5.5,
+            "up": 3,
+            "down": 1.75
+          },
+          "basis": {
+            "horizontal": [
+              1,
+              -0.23
+            ],
+            "vertical": [
+              0,
+              1
+            ]
+          },
+          "frames": {
+            "open": {
+              "source": "view-left-down-neutral",
+              "aperture": [
+                [
+                  481,
+                  560
+                ],
+                [
+                  489,
+                  549
+                ],
+                [
+                  501,
+                  541
+                ],
+                [
+                  513,
+                  536
+                ],
+                [
+                  526,
+                  533
+                ],
+                [
+                  540,
+                  532
+                ],
+                [
+                  555,
+                  530
+                ],
+                [
+                  575,
+                  530
+                ],
+                [
+                  597,
+                  532
+                ],
+                [
+                  591,
+                  546
+                ],
+                [
+                  583,
+                  559
+                ],
+                [
+                  573,
+                  568
+                ],
+                [
+                  558,
+                  574
+                ],
+                [
+                  540,
+                  577
+                ],
+                [
+                  521,
+                  578
+                ],
+                [
+                  504,
+                  576
+                ],
+                [
+                  490,
+                  571
+                ]
+              ],
+              "fragment": [
+                [
+                  505,
+                  535
+                ],
+                [
+                  525,
+                  529
+                ],
+                [
+                  544,
+                  533
+                ],
+                [
+                  554,
+                  542
+                ],
+                [
+                  556,
+                  557
+                ],
+                [
+                  551,
+                  570
+                ],
+                [
+                  539,
+                  580
+                ],
+                [
+                  519,
+                  580
+                ],
+                [
+                  504,
+                  572
+                ],
+                [
+                  496,
+                  558
+                ],
+                [
+                  498,
+                  544
+                ]
+              ]
+            },
+            "half": {
+              "source": "view-left-down-half-small",
+              "aperture": [
+                [
+                  486,
+                  563
+                ],
+                [
+                  499,
+                  558
+                ],
+                [
+                  512,
+                  554
+                ],
+                [
+                  527,
+                  552
+                ],
+                [
+                  543,
+                  551
+                ],
+                [
+                  557,
+                  549
+                ],
+                [
+                  572,
+                  546
+                ],
+                [
+                  585,
+                  545
+                ],
+                [
+                  595,
+                  543
+                ],
+                [
+                  591,
+                  552
+                ],
+                [
+                  581,
+                  560
+                ],
+                [
+                  566,
+                  568
+                ],
+                [
+                  548,
+                  572
+                ],
+                [
+                  530,
+                  574
+                ],
+                [
+                  510,
+                  574
+                ],
+                [
+                  494,
+                  572
+                ]
+              ],
+              "fragment": [
+                [
+                  505,
+                  542
+                ],
+                [
+                  524,
+                  539
+                ],
+                [
+                  544,
+                  541
+                ],
+                [
+                  554,
+                  550
+                ],
+                [
+                  556,
+                  560
+                ],
+                [
+                  548,
+                  572
+                ],
+                [
+                  532,
+                  577
+                ],
+                [
+                  512,
+                  577
+                ],
+                [
+                  501,
+                  569
+                ],
+                [
+                  497,
+                  557
+                ],
+                [
+                  500,
+                  547
+                ]
+              ]
+            }
+          },
+          "core": [
+            [
+              509,
+              539
+            ],
+            [
+              519,
+              537
+            ],
+            [
+              536,
+              536
+            ],
+            [
+              546,
+              541
+            ],
+            [
+              552,
+              551
+            ],
+            [
+              550,
+              562
+            ],
+            [
+              544,
+              573
+            ],
+            [
+              530,
+              576
+            ],
+            [
+              516,
+              575
+            ],
+            [
+              506,
+              569
+            ],
+            [
+              501,
+              557
+            ],
+            [
+              502,
+              547
+            ]
+          ],
+          "notes": [
+            "Original down-looking pupil and highlight x517–522/y540–544 are the zero reference; do not recenter the iris vertically.",
+            "Downward motion is smaller than upward motion because the approved lower lid already occludes the bottom of the iris."
+          ],
+          "irisRect": [
+            630,
+            570,
+            240,
+            266
+          ],
+          "irisDestination": [
+            495.625,
+            519.75,
+            60,
+            66.5
+          ]
+        },
+        "eyeRight": {
+          "perspective": "far",
+          "bounds": [
+            267,
+            516,
+            132,
+            103
+          ],
+          "visibleIrisBounds": [
+            320,
+            546,
+            51,
+            46
+          ],
+          "visibleIrisWidth": 51,
+          "visibleIrisHeight": 46,
+          "pupilReference": [
+            347.5,
+            566.5
+          ],
+          "maxShift": {
+            "x": 2.75,
+            "up": 2,
+            "down": 1.25
+          },
+          "basis": {
+            "horizontal": [
+              1,
+              0.43
+            ],
+            "vertical": [
+              0,
+              1
+            ]
+          },
+          "frames": {
+            "open": {
+              "source": "view-left-down-neutral",
+              "aperture": [
+                [
+                  310,
+                  550
+                ],
+                [
+                  318,
+                  547
+                ],
+                [
+                  329,
+                  547
+                ],
+                [
+                  340,
+                  550
+                ],
+                [
+                  350,
+                  554
+                ],
+                [
+                  359,
+                  560
+                ],
+                [
+                  368,
+                  566
+                ],
+                [
+                  376,
+                  574
+                ],
+                [
+                  370,
+                  583
+                ],
+                [
+                  357,
+                  590
+                ],
+                [
+                  344,
+                  589
+                ],
+                [
+                  330,
+                  583
+                ],
+                [
+                  320,
+                  572
+                ],
+                [
+                  314,
+                  560
+                ]
+              ],
+              "fragment": [
+                [
+                  322,
+                  546
+                ],
+                [
+                  333,
+                  545
+                ],
+                [
+                  346,
+                  550
+                ],
+                [
+                  357,
+                  556
+                ],
+                [
+                  366,
+                  565
+                ],
+                [
+                  370,
+                  579
+                ],
+                [
+                  366,
+                  590
+                ],
+                [
+                  353,
+                  592
+                ],
+                [
+                  339,
+                  586
+                ],
+                [
+                  328,
+                  574
+                ],
+                [
+                  320,
+                  561
+                ]
+              ]
+            },
+            "half": {
+              "source": "view-left-down-half-small",
+              "aperture": [
+                [
+                  317,
+                  566
+                ],
+                [
+                  329,
+                  568
+                ],
+                [
+                  341,
+                  570
+                ],
+                [
+                  354,
+                  570
+                ],
+                [
+                  366,
+                  572
+                ],
+                [
+                  376,
+                  575
+                ],
+                [
+                  368,
+                  581
+                ],
+                [
+                  356,
+                  586
+                ],
+                [
+                  341,
+                  585
+                ],
+                [
+                  328,
+                  579
+                ],
+                [
+                  320,
+                  573
+                ]
+              ],
+              "fragment": [
+                [
+                  330,
+                  567
+                ],
+                [
+                  344,
+                  566
+                ],
+                [
+                  360,
+                  568
+                ],
+                [
+                  370,
+                  575
+                ],
+                [
+                  369,
+                  585
+                ],
+                [
+                  356,
+                  590
+                ],
+                [
+                  342,
+                  589
+                ],
+                [
+                  331,
+                  580
+                ],
+                [
+                  327,
+                  573
+                ]
+              ]
+            }
+          },
+          "core": [
+            [
+              330,
+              550
+            ],
+            [
+              337,
+              551
+            ],
+            [
+              345,
+              554
+            ],
+            [
+              353,
+              559
+            ],
+            [
+              361,
+              568
+            ],
+            [
+              365,
+              580
+            ],
+            [
+              361,
+              587
+            ],
+            [
+              350,
+              585
+            ],
+            [
+              341,
+              578
+            ],
+            [
+              334,
+              569
+            ],
+            [
+              328,
+              558
+            ]
+          ],
+          "notes": [
+            "This oblique far-eye aperture is strongly tilted and only about 15px tall in the half state. Use the conservative travel range.",
+            "Original upper highlight near x342–345/y554–558 is partially covered by the natural upper lid; preserve its original core rather than generating an extra white spot.",
+            "The original pupil baseline remains down-looking; x movement follows this eye’s local tilt, not the near-eye axis."
+          ],
+          "irisRect": [
+            214,
+            590,
+            191,
+            236
+          ],
+          "irisDestination": [
+            319.015,
+            533.29,
+            51.57,
+            63.720000000000006
+          ]
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Apertures are candidates until white-cleanplate and extreme-direction runtime inspection; color threshold measurements inform but do not replace eyelid-edge inspection.",
+    "No closed-state aperture: closed eyes must contain no gaze pixels.",
+    "Original half drawings differ slightly in iris placement; the new gaze candidate uses the original open core across lids through the same compositing path at zero and every nonzero input. The approved base pack remains separately available and unchanged.",
+    "Complete generated sprites must be registered with one fixed uniform scale per eye; do not stretch to match a clipped visible-iris rectangle.",
+    "The left-down pose retains its approved downward gaze baseline."
+  ],
+  "zeroInputPolicy": "Always use the same cleanplate plus complete-iris/original-core composite at zero and nonzero gaze. Never switch back to the approved base at zero. Approved basic expressions remain a separate immutable reference."
+}

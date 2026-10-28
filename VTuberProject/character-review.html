@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; media-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+  <title>短发角色 · 已确认静态设计</title>
+  <link rel="stylesheet" href="./character-review.css" />
+</head>
+<body>
+  <main>
+    <header class="page-header">
+      <div>
+        <a class="back-link" href="./short-hair-studio.html">← 角色工作台</a>
+        <a class="back-link" href="./legacy-studio.html">旧素材功能测试 ↗</a>
+        <p class="eyebrow">CHARACTER STUDY · 01</p>
+        <h1>静态设计已确认，继续表情优化</h1>
+        <p class="intro">正面与六个角度已获得你的确认。此页保留原稿对照与补充反馈，正面与侧转表情、独立视线也已确认；三个斜向姿态的表情、嘴型和视线已确认，眉毛另页检查，连续转头尚未制作。</p>
+      </div>
+      <div class="phase"><span class="phase-dot"></span>静态设计已确认<span>正面与侧转表情已确认</span><a class="next-step" href="./pitch-expression-review.html">下一步：俯仰眉毛 →</a><a class="next-step" href="./side-expression-review.html">回看侧转表情 →</a><a class="next-step" href="./expression-review.html">回看正面表情 →</a></div>
+    </header>
+
+    <p id="loadStatus" class="loading" role="status" aria-live="polite">正在读取本地画稿…</p>
+    <section id="reviewApp" hidden>
+      <p id="approvalSummary" class="approval-summary"></p>
+      <div class="toolbar">
+        <div class="groups" role="group" aria-label="角度组别">
+          <button type="button" data-group="yaw" aria-pressed="true">侧转</button>
+          <button type="button" data-group="up" aria-pressed="false">斜上</button>
+          <button type="button" data-group="down" aria-pressed="false">斜下</button>
+        </div>
+        <div class="view-controls">
+          <div class="segments" role="group" aria-label="查看范围">
+            <button type="button" data-view="full" aria-pressed="true">全幅</button>
+            <button type="button" data-view="face" aria-pressed="false">面部放大 · 固定倍率</button>
+          </div>
+          <label class="overlay-toggle"><input id="showLandmarks" type="checkbox" />人工标志点</label>
+        </div>
+      </div>
+
+      <p id="zoomGuide" class="zoom-guide" hidden>固定倍率：每张画稿均取原图短边 64% 的方形窗口，仅移动视窗中心，不按五官大小自动缩放。</p>
+      <div class="comparison">
+        <section class="art-panel reference-panel" aria-labelledby="referenceHeading">
+          <div class="panel-heading"><div><span class="panel-kicker">DESIGN REFERENCE</span><h2 id="referenceHeading">正面参考</h2></div><span class="badge approved">静态设计已确认</span></div>
+          <div id="referenceArt" class="art-frame"></div>
+          <p class="panel-caption">已确认的短发、灰蓝配色与细柔笑线，是后续表情制作的外观参照。</p>
+        </section>
+
+        <section class="art-panel candidate-panel" aria-labelledby="candidateHeading">
+          <div class="panel-heading"><div><span class="panel-kicker">ANGLE STUDY</span><h2 id="candidateHeading">已确认角度</h2></div><span id="candidateBadge" class="badge approved">静态设计已确认</span></div>
+          <div id="candidateArt" class="art-frame"></div>
+          <div id="posePicker" class="pose-picker" role="group" aria-label="选择该组的画稿"></div>
+        </section>
+      </div>
+
+      <div id="landmarkGuide" class="landmark-guide" hidden>
+        <p><strong>标志点是人工记录。</strong>连线用于观察已标出的五官关系，不能自动证明透视正确；被遮挡、无法可靠判断的位置不补画。</p>
+        <div class="landmark-key"><span><i class="eye-key"></i>1–4 眼角（从画面左到右）</span><span><i class="center-key"></i>5 鼻尖 · 6 人中 · 7 上唇中点 · 8 下巴</span></div>
+      </div>
+
+      <section class="feedback-section" aria-labelledby="feedbackHeading">
+        <div class="review-checks">
+          <h2>回看原稿，补充观察</h2>
+          <p>静态设计已获确认。制作表情时，继续留意双眼所在的面部平面、远眼遮挡，以及鼻口中线、上唇和下巴的关系。</p>
+          <details id="poseNotes" hidden><summary>此角度的观察记录</summary><ul id="notesList"></ul></details>
+          <p class="progress" id="reviewProgress"></p>
+        </div>
+        <div class="feedback-form">
+          <h2 id="feedbackHeading">当前补充反馈（本浏览器）</h2>
+          <p id="feedbackState" class="feedback-state">补充判断：未判断</p>
+          <fieldset class="status-options"><legend class="sr-only">补充判断；不改写已确认的静态记录</legend>
+            <label><input type="radio" name="reviewStatus" value="pass" /><span>通过</span></label>
+            <label><input type="radio" name="reviewStatus" value="revise" /><span>需修改</span></label>
+            <label><input type="radio" name="reviewStatus" value="undecided" checked /><span>未判断</span></label>
+          </fieldset>
+          <label for="reviewNote" class="note-label">备注 <span>例如：远眼偏高、嘴巴离鼻子太近</span></label>
+          <textarea id="reviewNote" rows="3" maxlength="4000" placeholder="写下你看到的具体问题…"></textarea>
+          <div class="save-row"><p id="saveStatus" role="status" aria-live="polite">补充反馈自动保存在本浏览器。</p><button id="exportReview" type="button">导出全部反馈 <span aria-hidden="true">↗</span></button></div>
+        </div>
+      </section>
+      <footer>作品确认来自对话中的人工批准，保存在 <a href="./assets/short-hair-v1/design-approval.json">确认记录</a>。本浏览器的补充判断独立保存；新增中间画稿、视线和连续转头仍需验收。</footer>
+    </section>
+    <noscript><p class="error">请启用 JavaScript 以加载本地图片和保存反馈。本页不启用摄像头。</p></noscript>
+  </main>
+  <script type="module" src="./character-review.js"></script>
+</body>
+</html>

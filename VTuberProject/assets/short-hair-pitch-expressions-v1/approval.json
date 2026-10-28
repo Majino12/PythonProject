@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-26",
+  "timezone": "Asia/Seoul",
+  "userFeedback": "太棒了，若已完成请修改原项目，若还有需要进行的，请先运行",
+  "assetId": "short-hair-pitch-expressions-v1",
+  "acceptedScope": "The delivered independent eye and mouth paintings for three fixed diagonal poses (view-left-up, view-right-up and view-left-down), including open/half/closed eyes, neutral/small/wide mouth and shown independent eye/mouth combinations. Previous appearance, static-pose, front and side expression approvals remain valid.",
+  "pendingScope": "New pitch gaze, pitch eyebrow actions, pitch pucker/press/directional mouths, right-down expressions, further in-between paintings, continuous head movement and final integrated software acceptance are outside this approval. The overall project is unfinished; no replacement of the original project is implied at this stage.",
+  "approvedManifestBeforeMetadataUpdate": "484a69a5b75a531c2c6884fac88b77da6ea9cee070a14078ba1fe70236999610",
+  "approvedSources": {
+    "view-left-up-neutral": {
+      "src": "./assets/short-hair-v1/view-left-up.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "614ea3f4df961ffefefe4ae054eea45fe6c42a0cf5ae25cb3f6e88d5f6ca8637"
+    },
+    "view-left-up-half-small": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-left-up-half-small.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "d9dc3086a16deee386d7fa767f53d9784ce153b5f78201710e7cf9ab2c580f83"
+    },
+    "view-left-up-closed-wide": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-left-up-closed-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "a88279c58a30476f67e89f4fb275b286da33c070ce57adf10c1cb8868b9cbcfb"
+    },
+    "view-right-up-neutral": {
+      "src": "./assets/short-hair-v1/view-right-up.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "900d998244e371021320ead30a823661d8759b516d72ad6390c2c62d3fd21037"
+    },
+    "view-right-up-half-small": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-right-up-half-small.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "930f48e4715527b3c4ca13fff1fea2220d5f2b316e3befe157ce18609e666606"
+    },
+    "view-right-up-closed-wide": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-right-up-closed-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "3c3a7114b6febb025f1a1bb1ddc4ea27ee5007177d208ba75c7060479a9c835e"
+    },
+    "view-left-down-neutral": {
+      "src": "./assets/short-hair-v1/view-left-down.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983"
+    },
+    "view-left-down-half-small": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-left-down-half-small.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "fd2f28ad951ab56ad311f1badb61a359aad61b6e3fd5e7b5513316c65fc1a477"
+    },
+    "view-left-down-closed-wide": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-left-down-closed-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "28f9db5ec0d0e96ae6f4ffcca612399b3470c895c3a99d597e7d4ac4acd6d40e"
+    }
+  },
+  "approvedPosesSha256": "b2e279fd8972cb4714848f7781bfebd5c46cc765df442d41ae0c57c13b5e4c61",
+  "approvedExpressionRuntimePath": "./side-expression-model.js",
+  "approvedExpressionRuntimeSha256": "13ede8e1067805ab664768b99716ef59a6d083416c8cc97a1d39d175ce9c97bf"
+}

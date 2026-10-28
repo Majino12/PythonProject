@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-26T08:22:19.336Z",
+  "assetId": "short-hair-pitch-gaze-v1",
+  "status": "internally-verified-candidate",
+  "userVisualApproval": false,
+  "version": "0.13.1-review.10",
+  "sourceCount": 15,
+  "newSources": 6,
+  "manifestSha256": "0e0c5e862672983af83acd1e437a70e6f75c4a481124ccb52ce5223e6bd98197",
+  "provenanceSha256": "589d9f42fc7432aa3572211a6d5806e8be29252b750913c653179ff6b3607942",
+  "tests": {
+    "syntax": "passed",
+    "total": 470,
+    "pass": 470,
+    "fail": 0,
+    "skipped": 0,
+    "output": "../../../TEST-RESULTS.txt",
+    "outputSha256": "d4be2d04755901f6a03c2fabaea1bb2a172a9ea8397bab8d9aae7580e1ecae54"
+  },
+  "pixelChecks": {
+    "passed": true,
+    "comparisons": 441,
+    "assertions": 489,
+    "failedAssertions": 0,
+    "failures": [],
+    "report": "pixel-checks.json",
+    "scope": "native RGBA 1122x1402: eye-bounds isolation, double/single closed-eye protection, center and 8 extrema, near-zero continuity"
+  },
+  "ui": {
+    "presets": 54,
+    "report": "ui-checks.json",
+    "consoleWarnings": 0,
+    "consoleErrors": 0,
+    "feedbackReset": true,
+    "cameraEnabled": false
+  },
+  "visual": {
+    "review": "structure-review.txt",
+    "magnifiedGroups": 6,
+    "blockingFindings": 0,
+    "limitations": [
+      "三个已确认斜向基础姿态和九张源稿保持原样；新独立视线为候选，尚未获得用户视觉验收。",
+      "近眼、远眼各自登记完整虹膜及眼裂；补全虹膜固定等比准备，动态仅作受限平移，不伸缩或扭曲。",
+      "新候选在中心与非零视线使用同一合成路径；睁眼和半闭共用原睁眼虹膜内核。与已确认半闭源稿存在细微绘画差异，基础版保留供对照。",
+      "完全闭眼不绘制视线层；单眼眨眼时该眼独立隐藏虹膜。",
+      "左斜下沿用原画下视原点和较小的向下范围，没有强制拉回水平视线。",
+      "目前共四个基础表情通道与八个ARKit视线通道；俯仰眉毛、噘嘴、抿嘴和左右移嘴尚未接入。",
+      "仅左斜上、右斜上、左斜下三个固定姿态。右斜下尚未接入，不构成连续转头模型。",
+      "眼睛三档、张嘴三档仍由有限画稿表现；图像生成素材不等同人工逐帧绘制。",
+      "新虹膜补全后的下半轮廓比已确认基础稿略饱满（左斜上近眼较明显），边缘纹理也略有差异；零视线不宣称与原画逐像素或外观完全一致。"
+    ]
+  },
+  "exports": [
+    {
+      "file": "export-half-gaze-face.png",
+      "width": 630,
+      "height": 460,
+      "sha256": "005139c3a019b21562fd5fe244d57f230682f5f6803ffdcbd08a377c81e21aa5"
+    },
+    {
+      "file": "export-half-gaze-full.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "aabbe4e55e32f55ade6908cac9317f438ec32142783c21fc9977c640fadfa65c"
+    }
+  ],
+  "runtimeFingerprints": {
+    "pitch-gaze.js": "48e3c5242d5ac96d7fd04ea98e40454707e52cddc9367c828bacfa9b82769b0f",
+    "pitch-gaze.test.mjs": "6ea69fc6817733632da83e42309aff36034a504c87eb57406a7a9c0d9b1b9165",
+    "pitch-gaze-assets.test.mjs": "5ced313a4357a662362c2ed552037a3be21ec7e685763a6e74203f52bd20b4d6",
+    "side-expression-renderer.js": "8eeb0e9f355b255e8022a59338a7d3311a05c53e49444ff0eb085dbc3f7e04a5",
+    "side-expression-model.js": "13ede8e1067805ab664768b99716ef59a6d083416c8cc97a1d39d175ce9c97bf",
+    "side-gaze.js": "2a2c245f45b03c95ff31e9789a003e27410f08e8cd1d5df49d1c457da6dc9c3d",
+    "pitch-expression-review.html": "c2bcd389820c41113083a17f922e1388c0fc7e92d636a643e3b9cdfedfcaf038",
+    "pitch-expression-review.js": "375db44cb2f035acdd455d255b04f9dcd65538e5bf65c26f35857bbe092ab8a8",
+    "pitch-expression-review.css": "68c529128cf25e9303945dcea264c7b812910b4bbbfb617365541148cd51a295",
+    "pitch-gaze-diagnostics.html": "4c2d00053168be5bdd12d4af46f268e6c4936907a2b05382098eecb673e0b7ff",
+    "pitch-gaze-diagnostics.js": "c4cd65a51d140219382ac5f14d99d8760cf194e86b0343a8d04e3ae09907a286"
+  },
+  "approvedSourcesPreserved": {
+    "view-left-up-neutral": "614ea3f4df961ffefefe4ae054eea45fe6c42a0cf5ae25cb3f6e88d5f6ca8637",
+    "view-left-up-half-small": "d9dc3086a16deee386d7fa767f53d9784ce153b5f78201710e7cf9ab2c580f83",
+    "view-left-up-closed-wide": "a88279c58a30476f67e89f4fb275b286da33c070ce57adf10c1cb8868b9cbcfb",
+    "view-right-up-neutral": "900d998244e371021320ead30a823661d8759b516d72ad6390c2c62d3fd21037",
+    "view-right-up-half-small": "930f48e4715527b3c4ca13fff1fea2220d5f2b316e3befe157ce18609e666606",
+    "view-right-up-closed-wide": "3c3a7114b6febb025f1a1bb1ddc4ea27ee5007177d208ba75c7060479a9c835e",
+    "view-left-down-neutral": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983",
+    "view-left-down-half-small": "fd2f28ad951ab56ad311f1badb61a359aad61b6e3fd5e7b5513316c65fc1a477",
+    "view-left-down-closed-wide": "28f9db5ec0d0e96ae6f4ffcca612399b3470c895c3a99d597e7d4ac4acd6d40e"
+  },
+  "delivery": {
+    "formalProjectUpdated": false,
+    "githubUploaded": false,
+    "next": "俯仰更多嘴型与眉毛、右斜下与整体整合"
+  }
+}

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>俯仰嘴型 · 原生像素与局部对照</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #21323b; background: #f3f7f8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 28px; }
+    main { max-width: 1400px; margin: auto; }
+    a { color: #265d71; }
+    h1 { font-size: 26px; } h2 { font-size: 20px; margin-top: 38px; }
+    p { line-height: 1.65; }
+    figure { margin: 0; padding: 8px; color: #21323b; background: #fff; border: 1px solid #cbd9df; border-radius: 8px; }
+    canvas { display: block; width: 100%; height: auto; }
+    figcaption { color: #21323b; padding: 10px 3px 4px; font-size: 15px; font-weight: 600; line-height: 1.5; }
+    .mouths { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; max-width: 1156px; }
+    .faces { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; max-width: 1156px; margin: 20px 0; }
+    #summary { padding: 14px; background: #e5eef1; color: #21323b; border-radius: 8px; }
+    #summary[data-state="failed"] { background: #fff0e8; }
+    details { margin: 24px 0; } summary { cursor: pointer; } pre { font-size: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+    @media(max-width:600px) { body { padding: 16px; } .mouths,.faces { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <p><a href="./pitch-expression-review.html">← 返回俯仰表情与嘴型</a></p>
+    <h1>俯仰嘴型 · 原生像素与局部对照</h1>
+    <p>每个姿态以同一口部范围展示中性、噘嘴、抿嘴、角色左移和右移。左右按角色自身标注，画面方向一并列出。宽屏下每张口部画面约 550 像素宽。</p>
+    <p>检查实际渲染器在原生分辨率下的 RGBA 像素：七种嘴状态分别组合睁眼、半闭、闭眼及左右单眼闭合，再组合居中、左上和右下视线。像素检查不代替嘴型美观与锚点的视觉验收。</p>
+    <p id="loadOrder">加载顺序：两版本并行。</p>
+    <p id="summary" role="status" aria-live="polite">正在读取嘴型候选、已确认视线和保护区登记…</p>
+    <div id="comparisons"></div>
+    <details><summary>原生像素检查数据（JSON）</summary><pre id="result">{"status":"loading"}</pre></details>
+  </main>
+  <script type="module" src="./pitch-mouth-diagnostics.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>九向工作台 · 独立渲染对照</title>
+  <style>
+    :root {color-scheme:light;font-family:system-ui,sans-serif;color:#21323b;background:#f3f7f8}
+    * {box-sizing:border-box} body {margin:0;padding:28px} main {max-width:1180px;margin:auto}
+    a {color:#265d71} h1 {font-size:26px} h2 {font-size:21px;margin-top:32px} p {line-height:1.6}
+    #summary {padding:14px;background:#e5eef1;border-radius:8px} #summary[data-state=failed] {background:#fff0e8}
+    .row {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}
+    figure {margin:0;padding:8px;background:white;border:1px solid #cad9df;border-radius:8px}
+    canvas {display:block;width:100%;height:auto} figcaption {padding:8px 2px;font-size:14px;line-height:1.5}
+    pre {font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere} summary {cursor:pointer}
+    @media(max-width:700px) {.row {grid-template-columns:1fr} body {padding:16px}}
+  </style>
+</head>
+<body><main>
+  <p><a href="./short-hair-studio.html">← 返回短发角色工作台</a></p>
+  <h1>九个方向 · 工作台与独立渲染器逐像素对照</h1>
+  <p>实际工作台载入器完成局部画稿准备后，仅保留九张完整中性原画。此页另行逐组载入未裁减的素材，调用各组原有的表情选择器与渲染器，比对脸部、全图和原画模式。不会开启摄像头。</p>
+  <p id="summary" role="status" aria-live="polite">正在准备工作台与独立参考素材…</p>
+  <div id="comparisons"></div>
+  <details><summary>原生像素数据（JSON）</summary><pre id="result">{"status":"loading"}</pre></details>
+</main><script type="module" src="./studio-diagnostics.js"></script></body>
+</html>

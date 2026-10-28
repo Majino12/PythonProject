@@ -113,6 +113,8 @@ export class FaceEditor {
       neutral: { jawOpen: 0 },
       blink: { eyeBlinkLeft: 1, eyeBlinkRight: 1 },
       wink: { eyeBlinkLeft: 1 },
+      lookUp: { eyeLookUpLeft: .9, eyeLookUpRight: .9 },
+      lookDown: { eyeLookDownLeft: .9, eyeLookDownRight: .9 },
       open: { jawOpen: .8 },
       smile: { mouthSmileLeft: .8, mouthSmileRight: .8, cheekSquintLeft: .15, cheekSquintRight: .15 },
       funnel: { mouthFunnel: .8, jawOpen: .3 },
@@ -120,8 +122,8 @@ export class FaceEditor {
       puckerLeft: { mouthPucker: .9, mouthLeft: .78 },
       puckerRight: { mouthPucker: .9, mouthRight: .78 },
       press: { mouthPressLeft: .9, mouthPressRight: .9 },
-      brow: { browOuterUpLeft: .9 },
-      sad: { browInnerUp: .8, mouthFrownLeft: .8, mouthFrownRight: .8 },
+      brow: { browOuterUpLeft: .6 },
+      sad: { browInnerUp: .6, mouthFrownLeft: .6, mouthFrownRight: .6 },
     };
     const presetButtons = [...root.querySelectorAll("[data-face-test]"), ...quickRoot?.querySelectorAll("[data-face-test]") || []];
     presetButtons.forEach((button) => {
@@ -234,6 +236,8 @@ export class FaceEditor {
     const definition = CHANNEL_DEFINITIONS.find((item) => item.key === key);
     this.hint.textContent = support === "unsupported"
       ? `${definition.label}：保留标准系数；当前角色没有此动作的独立画稿，不会用拉伸冒充。${definition.mediapipe ? "" : "普通摄像头也不提供此通道。"}`
+      : key.startsWith("eyeLook")
+      ? `${definition.label}：独立虹膜在已绘眼白内移动，并由当前眼睑遮住；属于有限范围的 2D 视线近似。左右按角色自身方向，不拉伸眼睛。`
       : `${definition.label}：${support === "approximate" ? "使用最接近的已有画稿（部分动作共用）" : "独立绘制的关键帧"}，不拉伸五官。左右按角色自身方向；曲线控制画稿响应，幅度不改变图层大小。`;
     const points = Array.from({ length: 61 }, (_, i) => {
       const x = i / 60;

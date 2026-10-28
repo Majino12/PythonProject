@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "assetId": "short-hair-complete-poses-v1",
+  "status": "internal-review-complete",
+  "reviewedAt": "2026-10-27T02:04:36.014Z",
+  "userArtisticApproval": "Not recorded for this new pack. Earlier pitch-brow approval and authorization to finish then update the formal project are preserved separately.",
+  "manifestStatus": "candidate",
+  "scope": {
+    "newPoses": [
+      "view-up",
+      "view-down",
+      "view-right-down"
+    ],
+    "runtimeSources": 36,
+    "retainedAlternatives": 6,
+    "studioPoses": 9
+  },
+  "method": [
+    "Full native diagnostic sheets reviewed for overall proportion and pose identity.",
+    "Existing rendered eye/gaze tiles inspected at 1:1, brow/hair tiles at 2x nearest-neighbor, mouth tiles at 3x. Inspection crops were temporary and did not modify source or runtime art.",
+    "All nine combined-expression studio faces inspected at native630x460; approved neighboring poses and original references remain present in the contact sheet."
+  ],
+  "findings": [
+    {
+      "area": "eyes-and-gaze",
+      "result": "pass",
+      "details": "All3poses: original/open/half/closed/winks and9 gaze directions checked; no visible duplicate iris, iris leakage, eyelid seam or broken foreground-hair ordering."
+    },
+    {
+      "area": "brows-and-hair",
+      "result": "pass",
+      "details": "Neutral/innerUp/outerUp/down inspected in all3poses. Exposed eyebrows change independently beneath the original hair crossings. No visible kink, split strand or old-brow ghost."
+    },
+    {
+      "area": "mouths",
+      "result": "pass-after-local-boundary-repair",
+      "details": "All7mouths in all3poses inspected. Stable registered upper-lip level, true left/right paintings and clear jaw spacing. Final down-wide central notch removes copied source nose fragment while preserving original corner clearing; final3x crop shows neither artifact."
+    },
+    {
+      "area": "pose-structure",
+      "result": "pass-with-finite-pose-limit",
+      "details": "New up/down have coherent bilateral planes; right-down retains near/far eye geometry and repaired body/neck placement. Nine native studio faces remain coherently framed. They remain discrete paintings, not a continuous head model."
+    }
+  ],
+  "knownLimitations": [
+    "Only open/half/closed eyelids and one primary drawing for each mouth/brow action are prepared; continuous intermediate artwork is not provided.",
+    "Up outerUp and right-down shiftLeft are intentionally mild and action strength varies by pose/hair visibility.",
+    "Up/down pucker retain tiny pale source highlights; no source pixels were manually repainted.",
+    "Pucker with lateral input selects the pucker painting; compound directional pucker and independent single-side press art are not available."
+  ],
+  "numericChecks": {
+    "native": {
+      "passed": true,
+      "mouthCombinations": 315,
+      "browCombinations": 336,
+      "gazeCombinations": 135,
+      "comparisons": 1344,
+      "assertions": 2781,
+      "failedAssertions": 0,
+      "failures": []
+    },
+    "studio": {
+      "passed": true,
+      "poses": 9,
+      "scenarios": 33,
+      "comparisons": 648,
+      "assertions": 1957,
+      "failedAssertions": 0,
+      "failures": []
+    },
+    "focusedAssetTests": {
+      "passed": 6,
+      "failed": 0
+    }
+  },
+  "evidence": [
+    {
+      "file": "view-up-native-inspection.png",
+      "sha256": "94eb934ba0d9f1b2f98d56eb17ca10ad821b10dbd07847b272aadbf052f7f8d3"
+    },
+    {
+      "file": "view-down-native-inspection.png",
+      "sha256": "9a474c0ae27ebfcc651719f78f067380e39d455ca8255aef5da923acfd741775"
+    },
+    {
+      "file": "view-right-down-native-inspection.png",
+      "sha256": "7f54e9140d7ec22e564bdd3b426b6889cceadd2157caa2e2a8b3b2532fb425c8"
+    },
+    {
+      "file": "studio-nine-poses-native-inspection.png",
+      "sha256": "f25927e8f3aeb449f75863ead59d4daaa19a232f4538412bae64745f705d3c81"
+    },
+    {
+      "file": "studio-export-rendered.png",
+      "sha256": "f78b3fc345c865e7da0d2ec62de8e28cf40c97858216e97e633f44fb45ff0569"
+    },
+    {
+      "file": "pixel-checks.json",
+      "sha256": "fb9a502a57fcad522f3780b22843789119de326c6d3edf16120fc8fa93f83a22"
+    },
+    {
+      "file": "studio-pixel-checks.json",
+      "sha256": "c1bf0d9196a3164762a862d85d6e1562f73d3395f167528b679318efd3d235c7"
+    },
+    {
+      "file": "structure-review.txt",
+      "sha256": "7bc29a81820b93812d5fa0760a5ea0793538324a0dec2abed7b1b8dfc2c8821e"
+    }
+  ],
+  "reviewedManifestSha256": "846844ef8d0876cde1b5c06a871bd1312da614531a147d04df8c3f9f6f10ae56",
+  "reviewedRegistrationSha256": "33cd38fcc01c3ff9dbb340fc341317acfd58c830b45dc6713c4fd37e867bbb70",
+  "reviewedProvenanceSha256": "26d1412252e3b70eddb29a38a91fb41165bdd554ffe5eb7f3285d9dea2710777",
+  "sourceArtworkEdited": false,
+  "productionRendererChangedForFinalRepairs": false,
+  "unresolvedVisualDefects": [],
+  "userApprovalInferred": false
+}

@@ -1,0 +1,28 @@
+{
+  "version": "0.15.0",
+  "automatedTests": {
+    "passed": 589,
+    "failed": 0,
+    "skipped": 0
+  },
+  "browser": {
+    "pixelComparisons": 718,
+    "assertions": 1060,
+    "failedAssertions": 0
+  },
+  "developerVisualReview": {
+    "ninePoseFiveStageSheets": true,
+    "combinedNewEyeMouthGazeSpots": 2,
+    "blockingIssueFound": false
+  },
+  "measuredRenderFps": {
+    "frontTarget60": 60.0,
+    "frontTarget30": 30.0,
+    "rightDownTarget60": 55.93168199279505,
+    "rightDownTarget30": 30.256332676070215
+  },
+  "encodedFrontVideoFps": 59.984410430839,
+  "scope": "New intermediate eye/jaw art and 2D timing. Nine fixed head directions; unchanged 3D files. Frame-rate targets are requests, measurements reflect this session only.",
+  "cameraActivated": false,
+  "userVisualApprovalOfNewIntermediateFrames": false
+}

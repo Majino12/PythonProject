@@ -1,0 +1,982 @@
+{
+  "view-left": [
+    {
+      "eye": "open",
+      "browLeft": "neutral",
+      "browRight": "neutral",
+      "changed": 0,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "neutral",
+      "browRight": "innerUp",
+      "changed": 3520,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "neutral",
+      "browRight": "outerUp",
+      "changed": 3521,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "neutral",
+      "browRight": "down",
+      "changed": 3517,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "innerUp",
+      "browRight": "neutral",
+      "changed": 6358,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "innerUp",
+      "browRight": "innerUp",
+      "changed": 9878,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "innerUp",
+      "browRight": "outerUp",
+      "changed": 9879,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "innerUp",
+      "browRight": "down",
+      "changed": 9875,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "outerUp",
+      "browRight": "neutral",
+      "changed": 6396,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "outerUp",
+      "browRight": "innerUp",
+      "changed": 9916,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "outerUp",
+      "browRight": "outerUp",
+      "changed": 9917,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "outerUp",
+      "browRight": "down",
+      "changed": 9913,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "down",
+      "browRight": "neutral",
+      "changed": 6385,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "down",
+      "browRight": "innerUp",
+      "changed": 9905,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "down",
+      "browRight": "outerUp",
+      "changed": 9906,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "down",
+      "browRight": "down",
+      "changed": 9902,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "neutral",
+      "browRight": "neutral",
+      "changed": 0,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "neutral",
+      "browRight": "innerUp",
+      "changed": 3520,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "neutral",
+      "browRight": "outerUp",
+      "changed": 3521,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "neutral",
+      "browRight": "down",
+      "changed": 3517,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "innerUp",
+      "browRight": "neutral",
+      "changed": 6361,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "innerUp",
+      "browRight": "innerUp",
+      "changed": 9881,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "innerUp",
+      "browRight": "outerUp",
+      "changed": 9882,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "innerUp",
+      "browRight": "down",
+      "changed": 9878,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "outerUp",
+      "browRight": "neutral",
+      "changed": 6385,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "outerUp",
+      "browRight": "innerUp",
+      "changed": 9905,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "outerUp",
+      "browRight": "outerUp",
+      "changed": 9906,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "outerUp",
+      "browRight": "down",
+      "changed": 9902,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "down",
+      "browRight": "neutral",
+      "changed": 6376,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "down",
+      "browRight": "innerUp",
+      "changed": 9896,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "down",
+      "browRight": "outerUp",
+      "changed": 9897,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "down",
+      "browRight": "down",
+      "changed": 9893,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "neutral",
+      "browRight": "neutral",
+      "changed": 0,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "neutral",
+      "browRight": "innerUp",
+      "changed": 3520,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "neutral",
+      "browRight": "outerUp",
+      "changed": 3521,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "neutral",
+      "browRight": "down",
+      "changed": 3517,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "innerUp",
+      "browRight": "neutral",
+      "changed": 6363,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "innerUp",
+      "browRight": "innerUp",
+      "changed": 9883,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "innerUp",
+      "browRight": "outerUp",
+      "changed": 9884,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "innerUp",
+      "browRight": "down",
+      "changed": 9880,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "outerUp",
+      "browRight": "neutral",
+      "changed": 6393,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "outerUp",
+      "browRight": "innerUp",
+      "changed": 9913,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "outerUp",
+      "browRight": "outerUp",
+      "changed": 9914,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "outerUp",
+      "browRight": "down",
+      "changed": 9910,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "down",
+      "browRight": "neutral",
+      "changed": 6388,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "down",
+      "browRight": "innerUp",
+      "changed": 9908,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "down",
+      "browRight": "outerUp",
+      "changed": 9909,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "down",
+      "browRight": "down",
+      "changed": 9905,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "original": true,
+      "changed": 0,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    }
+  ],
+  "view-right": [
+    {
+      "eye": "open",
+      "browLeft": "neutral",
+      "browRight": "neutral",
+      "changed": 0,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "neutral",
+      "browRight": "innerUp",
+      "changed": 7978,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "neutral",
+      "browRight": "outerUp",
+      "changed": 7997,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "neutral",
+      "browRight": "down",
+      "changed": 7976,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "innerUp",
+      "browRight": "neutral",
+      "changed": 3894,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "innerUp",
+      "browRight": "innerUp",
+      "changed": 11872,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "innerUp",
+      "browRight": "outerUp",
+      "changed": 11891,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "innerUp",
+      "browRight": "down",
+      "changed": 11870,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "outerUp",
+      "browRight": "neutral",
+      "changed": 3906,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "outerUp",
+      "browRight": "innerUp",
+      "changed": 11884,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "outerUp",
+      "browRight": "outerUp",
+      "changed": 11903,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "outerUp",
+      "browRight": "down",
+      "changed": 11882,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "down",
+      "browRight": "neutral",
+      "changed": 3893,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "down",
+      "browRight": "innerUp",
+      "changed": 11871,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "down",
+      "browRight": "outerUp",
+      "changed": 11890,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "open",
+      "browLeft": "down",
+      "browRight": "down",
+      "changed": 11869,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "neutral",
+      "browRight": "neutral",
+      "changed": 0,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "neutral",
+      "browRight": "innerUp",
+      "changed": 7974,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "neutral",
+      "browRight": "outerUp",
+      "changed": 7997,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "neutral",
+      "browRight": "down",
+      "changed": 7973,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "innerUp",
+      "browRight": "neutral",
+      "changed": 3892,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "innerUp",
+      "browRight": "innerUp",
+      "changed": 11866,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "innerUp",
+      "browRight": "outerUp",
+      "changed": 11889,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "innerUp",
+      "browRight": "down",
+      "changed": 11865,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "outerUp",
+      "browRight": "neutral",
+      "changed": 3905,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "outerUp",
+      "browRight": "innerUp",
+      "changed": 11879,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "outerUp",
+      "browRight": "outerUp",
+      "changed": 11902,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "outerUp",
+      "browRight": "down",
+      "changed": 11878,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "down",
+      "browRight": "neutral",
+      "changed": 3889,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "down",
+      "browRight": "innerUp",
+      "changed": 11863,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "down",
+      "browRight": "outerUp",
+      "changed": 11886,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "half",
+      "browLeft": "down",
+      "browRight": "down",
+      "changed": 11862,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "neutral",
+      "browRight": "neutral",
+      "changed": 0,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "neutral",
+      "browRight": "innerUp",
+      "changed": 7979,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "neutral",
+      "browRight": "outerUp",
+      "changed": 7997,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "neutral",
+      "browRight": "down",
+      "changed": 7978,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "innerUp",
+      "browRight": "neutral",
+      "changed": 3900,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "innerUp",
+      "browRight": "innerUp",
+      "changed": 11879,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "innerUp",
+      "browRight": "outerUp",
+      "changed": 11897,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "innerUp",
+      "browRight": "down",
+      "changed": 11878,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "outerUp",
+      "browRight": "neutral",
+      "changed": 3907,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "outerUp",
+      "browRight": "innerUp",
+      "changed": 11886,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "outerUp",
+      "browRight": "outerUp",
+      "changed": 11904,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "outerUp",
+      "browRight": "down",
+      "changed": 11885,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "down",
+      "browRight": "neutral",
+      "changed": 3891,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "down",
+      "browRight": "innerUp",
+      "changed": 11870,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "down",
+      "browRight": "outerUp",
+      "changed": 11888,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "eye": "closed",
+      "browLeft": "down",
+      "browRight": "down",
+      "changed": 11869,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    },
+    {
+      "original": true,
+      "changed": 0,
+      "outside": 0,
+      "eyes": 0,
+      "hair": 0,
+      "lowerFace": 0
+    }
+  ]
+}

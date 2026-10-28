@@ -1,0 +1,469 @@
+{
+  "schemaVersion": 1,
+  "scope": "三个固定俯仰姿态的基础表情；画面右下未接入，不代表连续俯仰模型。",
+  "assetId": "short-hair-pitch-expressions-v1",
+  "assetVersion": 1,
+  "assetStatus": "candidate",
+  "exportedAt": "2026-10-26T07:55:20.593Z",
+  "currentPose": "view-right-up",
+  "poseLabel": "画面右斜上 · 角色左转抬头",
+  "directionNote": "画面左眼是角色右眼（近眼），画面右眼是角色左眼（远眼）。两眼分别按本姿态原生位置裁切。",
+  "coefficients": {
+    "eyeBlinkLeft": 0.5,
+    "eyeBlinkRight": 0.5,
+    "jawOpen": 0.4,
+    "mouthClose": 0
+  },
+  "renderedState": {
+    "eyeLeft": "half",
+    "eyeRight": "half",
+    "mouth": "openSmall"
+  },
+  "targetState": {
+    "eyeLeft": "half",
+    "eyeRight": "half",
+    "mouth": "openSmall"
+  },
+  "supportedChannels": [
+    "eyeBlinkLeft",
+    "eyeBlinkRight",
+    "jawOpen",
+    "mouthClose"
+  ],
+  "mode": "static",
+  "playing": false,
+  "currentPreset": "combination",
+  "visibleContent": "renderedState",
+  "preview": {
+    "faceOnly": false,
+    "guides": false,
+    "original": false
+  },
+  "sources": {
+    "view-left-up-neutral": {
+      "src": "./assets/short-hair-v1/view-left-up.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "614ea3f4df961ffefefe4ae054eea45fe6c42a0cf5ae25cb3f6e88d5f6ca8637"
+    },
+    "view-left-up-half-small": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-left-up-half-small.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "d9dc3086a16deee386d7fa767f53d9784ce153b5f78201710e7cf9ab2c580f83"
+    },
+    "view-left-up-closed-wide": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-left-up-closed-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-up",
+      "sha256": "a88279c58a30476f67e89f4fb275b286da33c070ce57adf10c1cb8868b9cbcfb"
+    },
+    "view-right-up-neutral": {
+      "src": "./assets/short-hair-v1/view-right-up.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "900d998244e371021320ead30a823661d8759b516d72ad6390c2c62d3fd21037"
+    },
+    "view-right-up-half-small": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-right-up-half-small.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "930f48e4715527b3c4ca13fff1fea2220d5f2b316e3befe157ce18609e666606"
+    },
+    "view-right-up-closed-wide": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-right-up-closed-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-right-up",
+      "sha256": "3c3a7114b6febb025f1a1bb1ddc4ea27ee5007177d208ba75c7060479a9c835e"
+    },
+    "view-left-down-neutral": {
+      "src": "./assets/short-hair-v1/view-left-down.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983"
+    },
+    "view-left-down-half-small": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-left-down-half-small.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "fd2f28ad951ab56ad311f1badb61a359aad61b6e3fd5e7b5513316c65fc1a477"
+    },
+    "view-left-down-closed-wide": {
+      "src": "./assets/short-hair-pitch-expressions-v1/view-left-down-closed-wide.png",
+      "width": 1122,
+      "height": 1402,
+      "pose": "view-left-down",
+      "sha256": "28f9db5ec0d0e96ae6f4ffcca612399b3470c895c3a99d597e7d4ac4acd6d40e"
+    }
+  },
+  "feedback": [
+    {
+      "poseId": "view-left-up",
+      "poseLabel": "画面左斜上 · 角色右转抬头",
+      "id": "neutral",
+      "label": "中性",
+      "coefficients": {
+        "eyeBlinkLeft": 0,
+        "eyeBlinkRight": 0,
+        "jawOpen": 0,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-left-up",
+      "poseLabel": "画面左斜上 · 角色右转抬头",
+      "id": "halfBlink",
+      "label": "半闭眼",
+      "coefficients": {
+        "eyeBlinkLeft": 0.5,
+        "eyeBlinkRight": 0.5,
+        "jawOpen": 0,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": "2026-10-26T07:52:16.827Z"
+    },
+    {
+      "poseId": "view-left-up",
+      "poseLabel": "画面左斜上 · 角色右转抬头",
+      "id": "blink",
+      "label": "闭眼",
+      "coefficients": {
+        "eyeBlinkLeft": 1,
+        "eyeBlinkRight": 1,
+        "jawOpen": 0,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-left-up",
+      "poseLabel": "画面左斜上 · 角色右转抬头",
+      "id": "winkLeft",
+      "label": "角色左眼眨眼",
+      "coefficients": {
+        "eyeBlinkLeft": 1,
+        "eyeBlinkRight": 0,
+        "jawOpen": 0,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-left-up",
+      "poseLabel": "画面左斜上 · 角色右转抬头",
+      "id": "winkRight",
+      "label": "角色右眼眨眼",
+      "coefficients": {
+        "eyeBlinkLeft": 0,
+        "eyeBlinkRight": 1,
+        "jawOpen": 0,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-left-up",
+      "poseLabel": "画面左斜上 · 角色右转抬头",
+      "id": "openSmall",
+      "label": "小幅张嘴",
+      "coefficients": {
+        "eyeBlinkLeft": 0,
+        "eyeBlinkRight": 0,
+        "jawOpen": 0.4,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-left-up",
+      "poseLabel": "画面左斜上 · 角色右转抬头",
+      "id": "openWide",
+      "label": "大幅张嘴",
+      "coefficients": {
+        "eyeBlinkLeft": 0,
+        "eyeBlinkRight": 0,
+        "jawOpen": 0.95,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-left-up",
+      "poseLabel": "画面左斜上 · 角色右转抬头",
+      "id": "combination",
+      "label": "半闭眼、小幅张嘴",
+      "coefficients": {
+        "eyeBlinkLeft": 0.5,
+        "eyeBlinkRight": 0.5,
+        "jawOpen": 0.4,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-right-up",
+      "poseLabel": "画面右斜上 · 角色左转抬头",
+      "id": "neutral",
+      "label": "中性",
+      "coefficients": {
+        "eyeBlinkLeft": 0,
+        "eyeBlinkRight": 0,
+        "jawOpen": 0,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-right-up",
+      "poseLabel": "画面右斜上 · 角色左转抬头",
+      "id": "halfBlink",
+      "label": "半闭眼",
+      "coefficients": {
+        "eyeBlinkLeft": 0.5,
+        "eyeBlinkRight": 0.5,
+        "jawOpen": 0,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-right-up",
+      "poseLabel": "画面右斜上 · 角色左转抬头",
+      "id": "blink",
+      "label": "闭眼",
+      "coefficients": {
+        "eyeBlinkLeft": 1,
+        "eyeBlinkRight": 1,
+        "jawOpen": 0,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-right-up",
+      "poseLabel": "画面右斜上 · 角色左转抬头",
+      "id": "winkLeft",
+      "label": "角色左眼眨眼",
+      "coefficients": {
+        "eyeBlinkLeft": 1,
+        "eyeBlinkRight": 0,
+        "jawOpen": 0,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-right-up",
+      "poseLabel": "画面右斜上 · 角色左转抬头",
+      "id": "winkRight",
+      "label": "角色右眼眨眼",
+      "coefficients": {
+        "eyeBlinkLeft": 0,
+        "eyeBlinkRight": 1,
+        "jawOpen": 0,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-right-up",
+      "poseLabel": "画面右斜上 · 角色左转抬头",
+      "id": "openSmall",
+      "label": "小幅张嘴",
+      "coefficients": {
+        "eyeBlinkLeft": 0,
+        "eyeBlinkRight": 0,
+        "jawOpen": 0.4,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-right-up",
+      "poseLabel": "画面右斜上 · 角色左转抬头",
+      "id": "openWide",
+      "label": "大幅张嘴",
+      "coefficients": {
+        "eyeBlinkLeft": 0,
+        "eyeBlinkRight": 0,
+        "jawOpen": 0.95,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-right-up",
+      "poseLabel": "画面右斜上 · 角色左转抬头",
+      "id": "combination",
+      "label": "半闭眼、小幅张嘴",
+      "coefficients": {
+        "eyeBlinkLeft": 0.5,
+        "eyeBlinkRight": 0.5,
+        "jawOpen": 0.4,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-left-down",
+      "poseLabel": "画面左斜下 · 角色右转低头",
+      "id": "neutral",
+      "label": "中性",
+      "coefficients": {
+        "eyeBlinkLeft": 0,
+        "eyeBlinkRight": 0,
+        "jawOpen": 0,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-left-down",
+      "poseLabel": "画面左斜下 · 角色右转低头",
+      "id": "halfBlink",
+      "label": "半闭眼",
+      "coefficients": {
+        "eyeBlinkLeft": 0.5,
+        "eyeBlinkRight": 0.5,
+        "jawOpen": 0,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-left-down",
+      "poseLabel": "画面左斜下 · 角色右转低头",
+      "id": "blink",
+      "label": "闭眼",
+      "coefficients": {
+        "eyeBlinkLeft": 1,
+        "eyeBlinkRight": 1,
+        "jawOpen": 0,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-left-down",
+      "poseLabel": "画面左斜下 · 角色右转低头",
+      "id": "winkLeft",
+      "label": "角色左眼眨眼",
+      "coefficients": {
+        "eyeBlinkLeft": 1,
+        "eyeBlinkRight": 0,
+        "jawOpen": 0,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-left-down",
+      "poseLabel": "画面左斜下 · 角色右转低头",
+      "id": "winkRight",
+      "label": "角色右眼眨眼",
+      "coefficients": {
+        "eyeBlinkLeft": 0,
+        "eyeBlinkRight": 1,
+        "jawOpen": 0,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-left-down",
+      "poseLabel": "画面左斜下 · 角色右转低头",
+      "id": "openSmall",
+      "label": "小幅张嘴",
+      "coefficients": {
+        "eyeBlinkLeft": 0,
+        "eyeBlinkRight": 0,
+        "jawOpen": 0.4,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-left-down",
+      "poseLabel": "画面左斜下 · 角色右转低头",
+      "id": "openWide",
+      "label": "大幅张嘴",
+      "coefficients": {
+        "eyeBlinkLeft": 0,
+        "eyeBlinkRight": 0,
+        "jawOpen": 0.95,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    },
+    {
+      "poseId": "view-left-down",
+      "poseLabel": "画面左斜下 · 角色右转低头",
+      "id": "combination",
+      "label": "半闭眼、小幅张嘴",
+      "coefficients": {
+        "eyeBlinkLeft": 0.5,
+        "eyeBlinkRight": 0.5,
+        "jawOpen": 0.4,
+        "mouthClose": 0
+      },
+      "status": "undecided",
+      "note": "",
+      "updatedAt": null
+    }
+  ]
+}

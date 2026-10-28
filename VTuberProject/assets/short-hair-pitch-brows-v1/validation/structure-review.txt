@@ -1,0 +1,40 @@
+Pitch eyebrow structure review — 2026-10-27
+
+Scope
+Three fixed poses only: view-left-up, view-right-up and view-left-down. The existing mouth stage was accepted by the user's latest feedback. New eyebrow paintings are candidates and have not been accepted by the user.
+
+Approved appearance and coordinates
+The originals are the corresponding PNGs in assets/short-hair-v1. These retain the approved short blue-gray tomboy hairstyle and desaturated gray-violet, tapered eyebrows. The eyebrow tone already present in this approved character is the reference; it should not be confused with the silver-haired failed earlier character or recolored to white hair strands.
+
+Anatomical left and right
+On every current pose, character-left brow is canvas-right. Near/far perspective differs by pose: left-up and left-down have the near brow on canvas-right, right-up has the near brow on canvas-left. Source drawings are independently generated for each pose, without mirroring. The original diagonal brow/eye relationship is retained. Equal canvas y coordinates are not used as a structural rule.
+
+Construction
+Each state has a full source portrait containing both eyebrow actions. Only two independently registered local areas are used, at native 1:1 source position. Neither the entire face nor its eyes are replaced by the eyebrow source. Anatomical left and right actions can select different drawings. This provides one authored action per state, not continuous strength frames or new compound brow anatomy.
+
+Hair and eyelids
+Protect actual eyelid/crease, iris/white, nose, mouth and thick foreground-hair interiors independently of the eyebrow crop. Old eye crop rectangles are oversized and include some forehead; using those whole rectangles as eye protection would incorrectly exclude a real eyebrow region. Thin hair crossings require close-up inspection of the real composite. Any corrective exclusion must remain outside the union of old and new brow strokes so that it does not restore an old brow on top of a new one.
+
+Measured left-up sources
+At exposed near-brow x480, the native gray-violet run is y346–356 neutral, y334–344 innerUp and y358–366 down. At near x520, outerUp changes y341–348 to y331–339. At exposed far x350, innerUp changes y366–374 to y356–365 and down to y380–386. Far outerUp is milder: at x340 it changes y366–374 to y363–371. It is a distinct painted action but approximately 3 pixels at this sample compared with approximately 10 pixels at near x520. The prompt's requested 12–15 pixels must not be reported as the achieved amplitude.
+
+Measured right-up sources
+At the exposed near-brow x570, the neutral run y363–372 changes to y351–359 for outerUp and y376–383 for down. InnerUp stays close to neutral at this middle sample and rises toward the nasal end. At far x740, neutral y360–368 changes to innerUp y349–357, outerUp y347–350 and down y373–382. All three actions have distinct source paintings; they are not equivalent translations.
+
+Left-down source refinements and final measurements
+The initial outerUp failed to lift the exposed far eyebrow. Its v2 refinement uses that first generated outerUp image as the actual reference and raises far x310 from neutral y493–500 to y483–489. The near action remains raised, though its exact amplitude differs slightly from the initial variant. The initial down moved the near root too deeply, about26 pixels at x450, and also visibly changed the source eye. The selected down-v2 was therefore generated from the approved original, not from the discarded down. Its near x450 stroke is now y507–513 versus y495–503 neutral; near x480 is y498–508 versus y483–493 neutral. It is more restrained but still not a uniform6–8 pixel movement. The new near down stroke is somewhat lighter and warmer than the original. The full source eye is not used: the local lower clip ends above the actual original eyelid/crease.
+
+Integrity and registration checks
+The final manifest adds nine source PNGs and eighteen anatomical brow patches to the27 accepted mouth sources. All36 source dimensions and hashes match. All11 generated PNGs, including the2 unused first variants, are preserved byte-for-byte with actual prompt/reference provenance. Removing only the brow patches and brows detail view restores the approved pose registration exactly. The seven focused asset tests pass. Independent native polygon sampling found no intersections between any of the6 brow clip shapes and their registered eyes/mouth/nose/thick-hair/chin protection regions.
+
+Fine-hair junction correction after the first live composite
+The first real-browser run passed its2221 assertions, including the coarse hair protection regions. Close-up visual review nevertheless found a genuine problem: the left-down outerUp-v2 source shifts the thin diagonal strand about3 pixels right around native y492–498, then the strand abruptly resumes its original position below the crop. A subtler source thickening was visible below the left-up near-brow crossing as well. This demonstrates why broad protected regions and passing structural tests do not replace visual review.
+
+The first correction used fixed soft exclusions below the union of all original/new brow strokes: left-down at y489 with2.5px inner feather and left-up at y352 with1.5px inner feather. That restored the lower strand and passed all2221 pixel assertions, but4x inspection showed an outerUp kink remaining at the upper edge of the left-down mask. Passing those tests was insufficient for visual acceptance.
+
+The second correction keeps the left-up mask and left-down innerUp/down masks unchanged. Left-down outerUp now uses a state-specific, fixed taper beginning at y470 inside the opaque hair core, narrowly following the strand through the old neutral eyebrow crossing, then widening below y480 after the original brow ends. This avoids a broad top band that could restore old eyebrow pixels on skin. Its raised-brow sample[540,466] remains fully painted; the other near-brow samples[540,486] and[543,349] also remain intact in their corresponding states. The original lower hair cores stay fully transparent in the patch mask, and an additional original opaque-hair core near y479–484 is fully transparent for outerUp. The eight focused asset tests pass. Source images, native crop scale and positions, eyes, gaze and mouth registration are unchanged.
+
+Historical files ending in before-hair-exclusions preserve the first passing pixel result, registration and screenshots. The pixel-checks-after-lower-hair-exclusion.json, registration-before-outer-taper.json and junction-view-left-down-before-taper.jpg files preserve the first repair that still had the upper kink. They are historical evidence, not the final corrected result.
+
+Internal final visual review
+The corrected real-browser four-times junction closeups and full eyebrow comparisons were inspected. The left-down outerUp diagonal strand now continues smoothly through the former upper kink, without restoring a visible old eyebrow or cutting the newly painted eyebrow. The left-up crossing is also continuous. The corrected native diagnostics pass2221 assertions, covering315 inherited combinations and336 brow combinations; root verification separately records load-order checks. All source bytes and accepted eye/mouth/gaze registrations remain unchanged. The known subtle far outerUp amplitude and lighter/warmer left-down down stroke remain documented. This completes internal visual review of the delivered candidate; it does not grant user visual approval or imply completion of the remaining avatar/software stages.

@@ -1,9 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
-  FaceSession, normalizeHeadPose, parseBlendshapeFrame, transitionPreviewFrame,
+  demoBrowLift, FaceSession, normalizeHeadPose, parseBlendshapeFrame, transitionPreviewFrame,
 } from "./face-session.js";
 import { FaceEditor } from "./face-editor.js";
+import { createDemoMotion } from "./demo-motion.js";
 
 test("JSON single-frame reader only accepts bounded numeric ARKit data", () => {
   const frame = parseBlendshapeFrame('{"blendshapes":{"jawOpen":0.7,"secret":"never","_neutral":1}}');
@@ -42,11 +43,62 @@ test("transition preview loops through smooth complete ARKit frames", () => {
   assert.equal(transitionPreviewFrame(3450).mouthPucker, .94);
   assert.equal(transitionPreviewFrame(4975).mouthPressLeft, .92);
   assert.equal(transitionPreviewFrame(4975).mouthPressRight, .92);
+  assert.equal(transitionPreviewFrame(450).browInnerUp, .88);
+  assert.equal(transitionPreviewFrame(1600).browDownLeft, .88);
+  assert.equal(transitionPreviewFrame(1600).browDownRight, .88);
+  assert.equal(transitionPreviewFrame(3100).browInnerUp, .88);
+  assert.equal(transitionPreviewFrame(3100).browDownLeft, 0);
+  assert.equal(transitionPreviewFrame(3100).mouthFrownLeft, .24,
+    "the worried cue must stay below the mouth emotion threshold");
+  assert.equal(transitionPreviewFrame(3100).mouthFrownRight, 0);
+  assert.equal(transitionPreviewFrame(4500).browOuterUpLeft, .88);
+  assert.equal(transitionPreviewFrame(4500).browOuterUpRight, 0);
+  for (const elapsed of [450, 1600, 4500]) {
+    assert.equal(transitionPreviewFrame(elapsed).mouthFrownLeft, 0);
+    assert.equal(transitionPreviewFrame(elapsed).mouthFrownRight, 0);
+  }
 
   const beforePeak = transitionPreviewFrame(3449);
   const atPeak = transitionPreviewFrame(3450);
-  assert.ok(Math.max(...Object.keys(atPeak).map((key) => Math.abs(atPeak[key] - beforePeak[key]))) < .001,
+  assert.ok(Math.max(...["mouthPucker", "mouthLeft", "mouthRight"]
+    .map((key) => Math.abs(atPeak[key] - beforePeak[key]))) < .001,
     "adjacent frames around the pucker peak must not jump between left and right drawings");
+});
+
+test("2D demo brows cross painted stages smoothly while camera and manual input stay untouched", () => {
+  const idle = [], greeting = [], speaking = [];
+  for (let now = 0; now <= 18000; now += 16) {
+    idle.push(demoBrowLift(createDemoMotion(now, "idle").browUp, now));
+    greeting.push(demoBrowLift(createDemoMotion(now, "greeting").browUp, now));
+    speaking.push(demoBrowLift(createDemoMotion(now, "speaking").browUp, now));
+  }
+  assert.ok(Math.min(...idle) >= .02 && Math.max(...idle) <= .20 + 1e-12);
+  assert.ok(Math.max(...idle) > .12, "idle must occasionally reach the first soft painted brow stage");
+  assert.ok(Math.max(...greeting) > .41, "greeting must reach the middle painted brow stage");
+  assert.ok(Math.max(...speaking) > .41, "speaking must reach the middle painted brow stage");
+  for (const [name, values] of [["idle", idle], ["greeting", greeting], ["speaking", speaking]]) {
+    assert.ok(values.every((value) => Number.isFinite(value) && value >= .02 && value <= .48));
+    assert.ok(values.slice(1).every((value, index) => Math.abs(value - values[index]) < .025),
+      `${name} brow motion must remain continuous between display frames`);
+  }
+
+  const demo = new FaceSession();
+  demo.update(createDemoMotion(2400, "idle"), "demo", 2400, 1);
+  assert.ok(Math.abs(demo.raw.browInnerUp - .2) < 1e-12);
+  assert.equal(demo.raw.browOuterUpLeft, demo.raw.browOuterUpRight);
+
+  const camera = new FaceSession();
+  camera.update(createDemoMotion(2400, "speaking"), "camera", 2400, 1);
+  assert.equal(camera.raw.browInnerUp, 0, "camera mode must never receive synthetic demo brows");
+
+  const manual = new FaceSession();
+  manual.test({ jawOpen: .5 });
+  manual.update(createDemoMotion(2400, "speaking"), "demo", 2400, 1);
+  assert.equal(manual.raw.browInnerUp, 0, "manual frames must never receive synthetic demo brows");
+
+  const other = new FaceSession();
+  other.update({ browUp: .02 }, "other", 2400, 1);
+  assert.equal(other.raw.browInnerUp, .02, "only the explicit demo mode may amplify the compact motion bus");
 });
 
 test("manual expression, head pose and transition preview have independent lifecycles", () => {
@@ -206,7 +258,7 @@ function faceEditorHarness() {
     };
   };
   const elements = new Map();
-  const presets = Object.fromEntries(["blink", "open", "smile", "funnel"].map((name) => [name, {
+  const presets = Object.fromEntries(["blink", "open", "smile", "funnel", "brow", "sad"].map((name) => [name, {
     ...element(), dataset: { faceTest: name },
   }]));
   const root = {
@@ -355,6 +407,8 @@ test("browsing any quick preset preserves all of its coordinated channels", () =
     open: { jawOpen: .8 },
     smile: { mouthSmileLeft: .8, mouthSmileRight: .8, cheekSquintLeft: .15, cheekSquintRight: .15 },
     funnel: { mouthFunnel: .8, jawOpen: .3 },
+    brow: { browOuterUpLeft: .6 },
+    sad: { browInnerUp: .6, mouthFrownLeft: .6, mouthFrownRight: .6 },
   };
   for (const [preset, coefficients] of Object.entries(expected)) {
     const h = faceEditorHarness();

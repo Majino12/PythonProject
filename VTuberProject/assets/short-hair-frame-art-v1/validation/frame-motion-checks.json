@@ -1,0 +1,8076 @@
+{
+  "schemaVersion": 1,
+  "version": "0.15.0",
+  "status": "complete",
+  "generatedAt": "2026-10-28T07:19:13.196Z",
+  "criteria": {
+    "pixels": "Exact native RGBA comparison; display CSS sizing is excluded.",
+    "stages": "Five real registered states per eye and jaw, distinct adjacent output pixels.",
+    "anchors": "Every jaw patch keeps the registered upper-lip destination and uses equal-size translation only; this does not evaluate lip anatomy.",
+    "gaze": "Center versus eight extreme inputs: no changed pixel outside the rasterized union of the current eye apertures; closed eyes remain identical.",
+    "legacy": "Independent frozen family loaders and renderers, using the same named old states. New coefficient thresholds intentionally select additional states.",
+    "timing": "Actual successful draw cadence; never RAF callback count, unique source count, camera inference, display presentation, or encoded video FPS.",
+    "visualApproval": "Not evaluated. No approval/feedback is written."
+  },
+  "poses": {
+    "view-left-up": {
+      "stages": {
+        "eyeLeft": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "eyeRight": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ]
+      },
+      "distinct": [
+        {
+          "group": "eyeLeft",
+          "state": "quarter",
+          "changed": 13513,
+          "outside": 0,
+          "firstDifference": {
+            "x": 275,
+            "y": 65
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "half",
+          "changed": 14509,
+          "outside": 0,
+          "firstDifference": {
+            "x": 275,
+            "y": 65
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "threeQuarter",
+          "changed": 15215,
+          "outside": 0,
+          "firstDifference": {
+            "x": 279,
+            "y": 65
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "closed",
+          "changed": 16164,
+          "outside": 0,
+          "firstDifference": {
+            "x": 275,
+            "y": 65
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "quarter",
+          "changed": 5798,
+          "outside": 0,
+          "firstDifference": {
+            "x": 58,
+            "y": 94
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "half",
+          "changed": 6248,
+          "outside": 0,
+          "firstDifference": {
+            "x": 58,
+            "y": 94
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "threeQuarter",
+          "changed": 6754,
+          "outside": 0,
+          "firstDifference": {
+            "x": 58,
+            "y": 94
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "closed",
+          "changed": 7146,
+          "outside": 0,
+          "firstDifference": {
+            "x": 58,
+            "y": 94
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "parted",
+          "changed": 11459,
+          "outside": 0,
+          "firstDifference": {
+            "x": 107,
+            "y": 252
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openSmall",
+          "changed": 11800,
+          "outside": 0,
+          "firstDifference": {
+            "x": 107,
+            "y": 252
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openMedium",
+          "changed": 10944,
+          "outside": 0,
+          "firstDifference": {
+            "x": 109,
+            "y": 252
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openWide",
+          "changed": 11646,
+          "outside": 0,
+          "firstDifference": {
+            "x": 109,
+            "y": 252
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "state": "parted",
+          "reference": [
+            405,
+            574
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              405,
+              572
+            ],
+            "destination": [
+              405,
+              574
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openSmall",
+          "reference": [
+            405,
+            574
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              405,
+              570
+            ],
+            "destination": [
+              405,
+              574
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openMedium",
+          "reference": [
+            405,
+            574
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              405,
+              565
+            ],
+            "destination": [
+              405,
+              574
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openWide",
+          "reference": [
+            405,
+            574
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              405,
+              559
+            ],
+            "destination": [
+              405,
+              574
+            ]
+          },
+          "translationOnly": true
+        }
+      ],
+      "gaze": [
+        {
+          "state": "open",
+          "x": -1,
+          "y": -1,
+          "changed": 4319,
+          "outside": 0,
+          "firstDifference": {
+            "x": 524,
+            "y": 397
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": -1,
+          "changed": 4079,
+          "outside": 0,
+          "firstDifference": {
+            "x": 524,
+            "y": 397
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": -1,
+          "changed": 4268,
+          "outside": 0,
+          "firstDifference": {
+            "x": 524,
+            "y": 397
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 0,
+          "changed": 4392,
+          "outside": 0,
+          "firstDifference": {
+            "x": 524,
+            "y": 397
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 0,
+          "changed": 4345,
+          "outside": 0,
+          "firstDifference": {
+            "x": 524,
+            "y": 397
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 1,
+          "changed": 4352,
+          "outside": 0,
+          "firstDifference": {
+            "x": 524,
+            "y": 397
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": 1,
+          "changed": 4086,
+          "outside": 0,
+          "firstDifference": {
+            "x": 524,
+            "y": 397
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 1,
+          "changed": 4277,
+          "outside": 0,
+          "firstDifference": {
+            "x": 524,
+            "y": 397
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": -1,
+          "changed": 3799,
+          "outside": 0,
+          "firstDifference": {
+            "x": 524,
+            "y": 405
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": -1,
+          "changed": 3567,
+          "outside": 0,
+          "firstDifference": {
+            "x": 524,
+            "y": 405
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": -1,
+          "changed": 3728,
+          "outside": 0,
+          "firstDifference": {
+            "x": 524,
+            "y": 405
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 0,
+          "changed": 3872,
+          "outside": 0,
+          "firstDifference": {
+            "x": 524,
+            "y": 405
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 0,
+          "changed": 3801,
+          "outside": 0,
+          "firstDifference": {
+            "x": 524,
+            "y": 405
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 1,
+          "changed": 3837,
+          "outside": 0,
+          "firstDifference": {
+            "x": 524,
+            "y": 405
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": 1,
+          "changed": 3589,
+          "outside": 0,
+          "firstDifference": {
+            "x": 524,
+            "y": 405
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 1,
+          "changed": 3749,
+          "outside": 0,
+          "firstDifference": {
+            "x": 524,
+            "y": 405
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": -1,
+          "changed": 2717,
+          "outside": 0,
+          "firstDifference": {
+            "x": 527,
+            "y": 412
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": -1,
+          "changed": 2585,
+          "outside": 0,
+          "firstDifference": {
+            "x": 527,
+            "y": 412
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": -1,
+          "changed": 2713,
+          "outside": 0,
+          "firstDifference": {
+            "x": 527,
+            "y": 412
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 0,
+          "changed": 2771,
+          "outside": 0,
+          "firstDifference": {
+            "x": 527,
+            "y": 412
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 0,
+          "changed": 2781,
+          "outside": 0,
+          "firstDifference": {
+            "x": 527,
+            "y": 412
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 1,
+          "changed": 2755,
+          "outside": 0,
+          "firstDifference": {
+            "x": 527,
+            "y": 412
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": 1,
+          "changed": 2613,
+          "outside": 0,
+          "firstDifference": {
+            "x": 527,
+            "y": 412
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 1,
+          "changed": 2743,
+          "outside": 0,
+          "firstDifference": {
+            "x": 527,
+            "y": 412
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": -1,
+          "changed": 1163,
+          "outside": 0,
+          "firstDifference": {
+            "x": 530,
+            "y": 428
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": -1,
+          "changed": 1104,
+          "outside": 0,
+          "firstDifference": {
+            "x": 530,
+            "y": 428
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": -1,
+          "changed": 1161,
+          "outside": 0,
+          "firstDifference": {
+            "x": 530,
+            "y": 428
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 0,
+          "changed": 1190,
+          "outside": 0,
+          "firstDifference": {
+            "x": 530,
+            "y": 428
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 0,
+          "changed": 1194,
+          "outside": 0,
+          "firstDifference": {
+            "x": 530,
+            "y": 428
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 1,
+          "changed": 1185,
+          "outside": 0,
+          "firstDifference": {
+            "x": 530,
+            "y": 428
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": 1,
+          "changed": 1126,
+          "outside": 0,
+          "firstDifference": {
+            "x": 530,
+            "y": 428
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 1,
+          "changed": 1184,
+          "outside": 0,
+          "firstDifference": {
+            "x": 530,
+            "y": 428
+          }
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ],
+      "legacy": [
+        {
+          "id": "open/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "pucker",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "press",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftLeft",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftRight",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/innerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/innerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/outerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/outerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ]
+    },
+    "view-up": {
+      "stages": {
+        "eyeLeft": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "eyeRight": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ]
+      },
+      "distinct": [
+        {
+          "group": "eyeLeft",
+          "state": "quarter",
+          "changed": 11071,
+          "outside": 0,
+          "firstDifference": {
+            "x": 437,
+            "y": 108
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "half",
+          "changed": 11551,
+          "outside": 0,
+          "firstDifference": {
+            "x": 437,
+            "y": 108
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "threeQuarter",
+          "changed": 12436,
+          "outside": 0,
+          "firstDifference": {
+            "x": 437,
+            "y": 108
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "closed",
+          "changed": 13098,
+          "outside": 0,
+          "firstDifference": {
+            "x": 437,
+            "y": 108
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "quarter",
+          "changed": 10324,
+          "outside": 0,
+          "firstDifference": {
+            "x": 187,
+            "y": 110
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "half",
+          "changed": 10913,
+          "outside": 0,
+          "firstDifference": {
+            "x": 191,
+            "y": 110
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "threeQuarter",
+          "changed": 11863,
+          "outside": 0,
+          "firstDifference": {
+            "x": 187,
+            "y": 110
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "closed",
+          "changed": 12666,
+          "outside": 0,
+          "firstDifference": {
+            "x": 187,
+            "y": 110
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "parted",
+          "changed": 9942,
+          "outside": 0,
+          "firstDifference": {
+            "x": 250,
+            "y": 292
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openSmall",
+          "changed": 8963,
+          "outside": 0,
+          "firstDifference": {
+            "x": 256,
+            "y": 292
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openMedium",
+          "changed": 9887,
+          "outside": 0,
+          "firstDifference": {
+            "x": 255,
+            "y": 292
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openWide",
+          "changed": 10106,
+          "outside": 0,
+          "firstDifference": {
+            "x": 249,
+            "y": 292
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "state": "parted",
+          "reference": [
+            558,
+            604
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              558,
+              594
+            ],
+            "destination": [
+              558,
+              604
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openSmall",
+          "reference": [
+            558,
+            604
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              555,
+              594
+            ],
+            "destination": [
+              558,
+              604
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openMedium",
+          "reference": [
+            558,
+            604
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              558,
+              589
+            ],
+            "destination": [
+              558,
+              604
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openWide",
+          "reference": [
+            558,
+            604
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              558,
+              589
+            ],
+            "destination": [
+              558,
+              604
+            ]
+          },
+          "translationOnly": true
+        }
+      ],
+      "gaze": [
+        {
+          "state": "open",
+          "x": -1,
+          "y": -1,
+          "changed": 5964,
+          "outside": 0,
+          "firstDifference": {
+            "x": 660,
+            "y": 440
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": -1,
+          "changed": 5674,
+          "outside": 0,
+          "firstDifference": {
+            "x": 660,
+            "y": 440
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": -1,
+          "changed": 5947,
+          "outside": 0,
+          "firstDifference": {
+            "x": 660,
+            "y": 440
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 0,
+          "changed": 6098,
+          "outside": 0,
+          "firstDifference": {
+            "x": 660,
+            "y": 440
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 0,
+          "changed": 6070,
+          "outside": 0,
+          "firstDifference": {
+            "x": 660,
+            "y": 440
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 1,
+          "changed": 6017,
+          "outside": 0,
+          "firstDifference": {
+            "x": 660,
+            "y": 440
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": 1,
+          "changed": 5717,
+          "outside": 0,
+          "firstDifference": {
+            "x": 660,
+            "y": 440
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 1,
+          "changed": 6005,
+          "outside": 0,
+          "firstDifference": {
+            "x": 661,
+            "y": 440
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": -1,
+          "changed": 4456,
+          "outside": 0,
+          "firstDifference": {
+            "x": 426,
+            "y": 450
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": -1,
+          "changed": 4302,
+          "outside": 0,
+          "firstDifference": {
+            "x": 426,
+            "y": 450
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": -1,
+          "changed": 4520,
+          "outside": 0,
+          "firstDifference": {
+            "x": 426,
+            "y": 450
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 0,
+          "changed": 4533,
+          "outside": 0,
+          "firstDifference": {
+            "x": 426,
+            "y": 450
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 0,
+          "changed": 4639,
+          "outside": 0,
+          "firstDifference": {
+            "x": 426,
+            "y": 450
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 1,
+          "changed": 4503,
+          "outside": 0,
+          "firstDifference": {
+            "x": 426,
+            "y": 450
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": 1,
+          "changed": 4361,
+          "outside": 0,
+          "firstDifference": {
+            "x": 426,
+            "y": 450
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 1,
+          "changed": 4596,
+          "outside": 0,
+          "firstDifference": {
+            "x": 426,
+            "y": 450
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": -1,
+          "changed": 3036,
+          "outside": 0,
+          "firstDifference": {
+            "x": 652,
+            "y": 462
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": -1,
+          "changed": 2902,
+          "outside": 0,
+          "firstDifference": {
+            "x": 652,
+            "y": 462
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": -1,
+          "changed": 3027,
+          "outside": 0,
+          "firstDifference": {
+            "x": 652,
+            "y": 462
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 0,
+          "changed": 3120,
+          "outside": 0,
+          "firstDifference": {
+            "x": 652,
+            "y": 462
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 0,
+          "changed": 3117,
+          "outside": 0,
+          "firstDifference": {
+            "x": 652,
+            "y": 462
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 1,
+          "changed": 3093,
+          "outside": 0,
+          "firstDifference": {
+            "x": 652,
+            "y": 462
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": 1,
+          "changed": 2970,
+          "outside": 0,
+          "firstDifference": {
+            "x": 652,
+            "y": 462
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 1,
+          "changed": 3095,
+          "outside": 0,
+          "firstDifference": {
+            "x": 652,
+            "y": 462
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": -1,
+          "changed": 1448,
+          "outside": 0,
+          "firstDifference": {
+            "x": 646,
+            "y": 470
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": -1,
+          "changed": 1402,
+          "outside": 0,
+          "firstDifference": {
+            "x": 646,
+            "y": 470
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": -1,
+          "changed": 1471,
+          "outside": 0,
+          "firstDifference": {
+            "x": 646,
+            "y": 470
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 0,
+          "changed": 1484,
+          "outside": 0,
+          "firstDifference": {
+            "x": 646,
+            "y": 470
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 0,
+          "changed": 1521,
+          "outside": 0,
+          "firstDifference": {
+            "x": 646,
+            "y": 470
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 1,
+          "changed": 1479,
+          "outside": 0,
+          "firstDifference": {
+            "x": 646,
+            "y": 470
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": 1,
+          "changed": 1438,
+          "outside": 0,
+          "firstDifference": {
+            "x": 646,
+            "y": 470
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 1,
+          "changed": 1512,
+          "outside": 0,
+          "firstDifference": {
+            "x": 646,
+            "y": 470
+          }
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ],
+      "legacy": [
+        {
+          "id": "open/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "pucker",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "press",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftLeft",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftRight",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/innerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/innerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/outerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/outerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ]
+    },
+    "view-right-up": {
+      "stages": {
+        "eyeLeft": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "eyeRight": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ]
+      },
+      "distinct": [
+        {
+          "group": "eyeLeft",
+          "state": "quarter",
+          "changed": 8296,
+          "outside": 0,
+          "firstDifference": {
+            "x": 428,
+            "y": 86
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "half",
+          "changed": 8658,
+          "outside": 0,
+          "firstDifference": {
+            "x": 428,
+            "y": 86
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "threeQuarter",
+          "changed": 9395,
+          "outside": 0,
+          "firstDifference": {
+            "x": 428,
+            "y": 86
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "closed",
+          "changed": 9767,
+          "outside": 0,
+          "firstDifference": {
+            "x": 428,
+            "y": 86
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "quarter",
+          "changed": 18570,
+          "outside": 0,
+          "firstDifference": {
+            "x": 160,
+            "y": 89
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "half",
+          "changed": 19158,
+          "outside": 0,
+          "firstDifference": {
+            "x": 162,
+            "y": 89
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "threeQuarter",
+          "changed": 19900,
+          "outside": 0,
+          "firstDifference": {
+            "x": 159,
+            "y": 89
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "closed",
+          "changed": 20850,
+          "outside": 0,
+          "firstDifference": {
+            "x": 162,
+            "y": 89
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "parted",
+          "changed": 10059,
+          "outside": 0,
+          "firstDifference": {
+            "x": 334,
+            "y": 265
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openSmall",
+          "changed": 9556,
+          "outside": 0,
+          "firstDifference": {
+            "x": 334,
+            "y": 265
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openMedium",
+          "changed": 9785,
+          "outside": 0,
+          "firstDifference": {
+            "x": 337,
+            "y": 265
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openWide",
+          "changed": 10453,
+          "outside": 0,
+          "firstDifference": {
+            "x": 334,
+            "y": 265
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "state": "parted",
+          "reference": [
+            690,
+            588
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              690,
+              586
+            ],
+            "destination": [
+              690,
+              588
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openSmall",
+          "reference": [
+            690,
+            588
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              690,
+              582
+            ],
+            "destination": [
+              690,
+              588
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openMedium",
+          "reference": [
+            690,
+            588
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              690,
+              580
+            ],
+            "destination": [
+              690,
+              588
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openWide",
+          "reference": [
+            690,
+            588
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              690,
+              575
+            ],
+            "destination": [
+              690,
+              588
+            ]
+          },
+          "translationOnly": true
+        }
+      ],
+      "gaze": [
+        {
+          "state": "open",
+          "x": -1,
+          "y": -1,
+          "changed": 4979,
+          "outside": 0,
+          "firstDifference": {
+            "x": 758,
+            "y": 412
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": -1,
+          "changed": 4724,
+          "outside": 0,
+          "firstDifference": {
+            "x": 758,
+            "y": 412
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": -1,
+          "changed": 4898,
+          "outside": 0,
+          "firstDifference": {
+            "x": 758,
+            "y": 412
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 0,
+          "changed": 5128,
+          "outside": 0,
+          "firstDifference": {
+            "x": 759,
+            "y": 412
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 0,
+          "changed": 4979,
+          "outside": 0,
+          "firstDifference": {
+            "x": 758,
+            "y": 412
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 1,
+          "changed": 5050,
+          "outside": 0,
+          "firstDifference": {
+            "x": 758,
+            "y": 412
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": 1,
+          "changed": 4771,
+          "outside": 0,
+          "firstDifference": {
+            "x": 758,
+            "y": 412
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 1,
+          "changed": 4918,
+          "outside": 0,
+          "firstDifference": {
+            "x": 758,
+            "y": 412
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": -1,
+          "changed": 4052,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 421
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": -1,
+          "changed": 3850,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 421
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": -1,
+          "changed": 4004,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 421
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 0,
+          "changed": 4179,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 421
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 0,
+          "changed": 4065,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 421
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 1,
+          "changed": 4115,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 421
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": 1,
+          "changed": 3890,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 421
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 1,
+          "changed": 4017,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 421
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": -1,
+          "changed": 3234,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 429
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": -1,
+          "changed": 3079,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 429
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": -1,
+          "changed": 3206,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 429
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 0,
+          "changed": 3341,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 429
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 0,
+          "changed": 3259,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 429
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 1,
+          "changed": 3300,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 429
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": 1,
+          "changed": 3115,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 429
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 1,
+          "changed": 3218,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 429
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": -1,
+          "changed": 1532,
+          "outside": 0,
+          "firstDifference": {
+            "x": 739,
+            "y": 443
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": -1,
+          "changed": 1463,
+          "outside": 0,
+          "firstDifference": {
+            "x": 739,
+            "y": 443
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": -1,
+          "changed": 1496,
+          "outside": 0,
+          "firstDifference": {
+            "x": 739,
+            "y": 443
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 0,
+          "changed": 1591,
+          "outside": 0,
+          "firstDifference": {
+            "x": 739,
+            "y": 443
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 0,
+          "changed": 1503,
+          "outside": 0,
+          "firstDifference": {
+            "x": 739,
+            "y": 443
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 1,
+          "changed": 1576,
+          "outside": 0,
+          "firstDifference": {
+            "x": 739,
+            "y": 443
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": 1,
+          "changed": 1484,
+          "outside": 0,
+          "firstDifference": {
+            "x": 740,
+            "y": 443
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 1,
+          "changed": 1497,
+          "outside": 0,
+          "firstDifference": {
+            "x": 739,
+            "y": 443
+          }
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ],
+      "legacy": [
+        {
+          "id": "open/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "pucker",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "press",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftLeft",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftRight",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/innerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/innerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/outerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/outerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ]
+    },
+    "view-left": {
+      "stages": {
+        "eyeLeft": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "eyeRight": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ]
+      },
+      "distinct": [
+        {
+          "group": "eyeLeft",
+          "state": "quarter",
+          "changed": 16027,
+          "outside": 0,
+          "firstDifference": {
+            "x": 238,
+            "y": 84
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "half",
+          "changed": 17066,
+          "outside": 0,
+          "firstDifference": {
+            "x": 240,
+            "y": 84
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "threeQuarter",
+          "changed": 18402,
+          "outside": 0,
+          "firstDifference": {
+            "x": 238,
+            "y": 84
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "closed",
+          "changed": 19157,
+          "outside": 0,
+          "firstDifference": {
+            "x": 238,
+            "y": 84
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "quarter",
+          "changed": 10817,
+          "outside": 0,
+          "firstDifference": {
+            "x": 50,
+            "y": 104
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "half",
+          "changed": 11353,
+          "outside": 0,
+          "firstDifference": {
+            "x": 53,
+            "y": 104
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "threeQuarter",
+          "changed": 12097,
+          "outside": 0,
+          "firstDifference": {
+            "x": 50,
+            "y": 104
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "closed",
+          "changed": 12549,
+          "outside": 0,
+          "firstDifference": {
+            "x": 50,
+            "y": 104
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "parted",
+          "changed": 11206,
+          "outside": 0,
+          "firstDifference": {
+            "x": 156,
+            "y": 286
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openSmall",
+          "changed": 11009,
+          "outside": 0,
+          "firstDifference": {
+            "x": 157,
+            "y": 286
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openMedium",
+          "changed": 10822,
+          "outside": 0,
+          "firstDifference": {
+            "x": 156,
+            "y": 286
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openWide",
+          "changed": 11309,
+          "outside": 0,
+          "firstDifference": {
+            "x": 156,
+            "y": 286
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "state": "parted",
+          "reference": [
+            461,
+            654
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              461,
+              644
+            ],
+            "destination": [
+              461,
+              654
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openSmall",
+          "reference": [
+            461,
+            654
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              461,
+              644
+            ],
+            "destination": [
+              461,
+              654
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openMedium",
+          "reference": [
+            461,
+            654
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              461,
+              635
+            ],
+            "destination": [
+              461,
+              654
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openWide",
+          "reference": [
+            461,
+            654
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              461,
+              637
+            ],
+            "destination": [
+              461,
+              654
+            ]
+          },
+          "translationOnly": true
+        }
+      ],
+      "gaze": [
+        {
+          "state": "open",
+          "x": -1,
+          "y": -1,
+          "changed": 5551,
+          "outside": 0,
+          "firstDifference": {
+            "x": 556,
+            "y": 462
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": -1,
+          "changed": 5266,
+          "outside": 0,
+          "firstDifference": {
+            "x": 556,
+            "y": 462
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": -1,
+          "changed": 5452,
+          "outside": 0,
+          "firstDifference": {
+            "x": 556,
+            "y": 462
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 0,
+          "changed": 5731,
+          "outside": 0,
+          "firstDifference": {
+            "x": 556,
+            "y": 462
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 0,
+          "changed": 5559,
+          "outside": 0,
+          "firstDifference": {
+            "x": 556,
+            "y": 462
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 1,
+          "changed": 5636,
+          "outside": 0,
+          "firstDifference": {
+            "x": 556,
+            "y": 462
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": 1,
+          "changed": 5315,
+          "outside": 0,
+          "firstDifference": {
+            "x": 556,
+            "y": 462
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 1,
+          "changed": 5485,
+          "outside": 0,
+          "firstDifference": {
+            "x": 556,
+            "y": 462
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": -1,
+          "changed": 5323,
+          "outside": 0,
+          "firstDifference": {
+            "x": 575,
+            "y": 461
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": -1,
+          "changed": 5055,
+          "outside": 0,
+          "firstDifference": {
+            "x": 575,
+            "y": 461
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": -1,
+          "changed": 5243,
+          "outside": 0,
+          "firstDifference": {
+            "x": 575,
+            "y": 461
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 0,
+          "changed": 5498,
+          "outside": 0,
+          "firstDifference": {
+            "x": 575,
+            "y": 461
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 0,
+          "changed": 5319,
+          "outside": 0,
+          "firstDifference": {
+            "x": 575,
+            "y": 461
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 1,
+          "changed": 5410,
+          "outside": 0,
+          "firstDifference": {
+            "x": 575,
+            "y": 461
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": 1,
+          "changed": 5083,
+          "outside": 0,
+          "firstDifference": {
+            "x": 575,
+            "y": 461
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 1,
+          "changed": 5239,
+          "outside": 0,
+          "firstDifference": {
+            "x": 575,
+            "y": 461
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": -1,
+          "changed": 3539,
+          "outside": 0,
+          "firstDifference": {
+            "x": 560,
+            "y": 473
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": -1,
+          "changed": 3386,
+          "outside": 0,
+          "firstDifference": {
+            "x": 560,
+            "y": 473
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": -1,
+          "changed": 3519,
+          "outside": 0,
+          "firstDifference": {
+            "x": 560,
+            "y": 473
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 0,
+          "changed": 3638,
+          "outside": 0,
+          "firstDifference": {
+            "x": 560,
+            "y": 473
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 0,
+          "changed": 3588,
+          "outside": 0,
+          "firstDifference": {
+            "x": 560,
+            "y": 473
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 1,
+          "changed": 3594,
+          "outside": 0,
+          "firstDifference": {
+            "x": 560,
+            "y": 473
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": 1,
+          "changed": 3414,
+          "outside": 0,
+          "firstDifference": {
+            "x": 560,
+            "y": 473
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 1,
+          "changed": 3541,
+          "outside": 0,
+          "firstDifference": {
+            "x": 560,
+            "y": 473
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": -1,
+          "changed": 1344,
+          "outside": 0,
+          "firstDifference": {
+            "x": 591,
+            "y": 485
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": -1,
+          "changed": 1301,
+          "outside": 0,
+          "firstDifference": {
+            "x": 591,
+            "y": 485
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": -1,
+          "changed": 1354,
+          "outside": 0,
+          "firstDifference": {
+            "x": 598,
+            "y": 484
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 0,
+          "changed": 1378,
+          "outside": 0,
+          "firstDifference": {
+            "x": 591,
+            "y": 485
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 0,
+          "changed": 1382,
+          "outside": 0,
+          "firstDifference": {
+            "x": 598,
+            "y": 484
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 1,
+          "changed": 1371,
+          "outside": 0,
+          "firstDifference": {
+            "x": 591,
+            "y": 485
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": 1,
+          "changed": 1320,
+          "outside": 0,
+          "firstDifference": {
+            "x": 591,
+            "y": 485
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 1,
+          "changed": 1367,
+          "outside": 0,
+          "firstDifference": {
+            "x": 598,
+            "y": 484
+          }
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ],
+      "legacy": [
+        {
+          "id": "open/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "pucker",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "press",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftLeft",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftRight",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/innerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/innerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/outerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/outerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ]
+    },
+    "front": {
+      "stages": {
+        "eyeLeft": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "eyeRight": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ]
+      },
+      "distinct": [
+        {
+          "group": "eyeLeft",
+          "state": "quarter",
+          "changed": 15387,
+          "outside": 0,
+          "firstDifference": {
+            "x": 362,
+            "y": 98
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "half",
+          "changed": 16415,
+          "outside": 0,
+          "firstDifference": {
+            "x": 362,
+            "y": 98
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "threeQuarter",
+          "changed": 17129,
+          "outside": 0,
+          "firstDifference": {
+            "x": 362,
+            "y": 98
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "closed",
+          "changed": 17500,
+          "outside": 0,
+          "firstDifference": {
+            "x": 364,
+            "y": 98
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "quarter",
+          "changed": 16716,
+          "outside": 0,
+          "firstDifference": {
+            "x": 107,
+            "y": 98
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "half",
+          "changed": 17732,
+          "outside": 0,
+          "firstDifference": {
+            "x": 105,
+            "y": 98
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "threeQuarter",
+          "changed": 18551,
+          "outside": 0,
+          "firstDifference": {
+            "x": 106,
+            "y": 98
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "closed",
+          "changed": 18965,
+          "outside": 0,
+          "firstDifference": {
+            "x": 106,
+            "y": 98
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "parted",
+          "changed": 14930,
+          "outside": 0,
+          "firstDifference": {
+            "x": 223,
+            "y": 296
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openSmall",
+          "changed": 14665,
+          "outside": 0,
+          "firstDifference": {
+            "x": 228,
+            "y": 296
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openMedium",
+          "changed": 14562,
+          "outside": 0,
+          "firstDifference": {
+            "x": 224,
+            "y": 296
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openWide",
+          "changed": 15081,
+          "outside": 0,
+          "firstDifference": {
+            "x": 224,
+            "y": 296
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "state": "parted",
+          "reference": [
+            558,
+            674
+          ],
+          "anchor": {
+            "source": [
+              558,
+              671
+            ],
+            "destination": [
+              558,
+              674
+            ],
+            "kind": "upper-lip"
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openSmall",
+          "reference": [
+            558,
+            674
+          ],
+          "anchor": {
+            "source": [
+              558,
+              663
+            ],
+            "destination": [
+              558,
+              674
+            ],
+            "kind": "upper-lip"
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openMedium",
+          "reference": [
+            558,
+            674
+          ],
+          "anchor": {
+            "source": [
+              558,
+              657
+            ],
+            "destination": [
+              558,
+              674
+            ],
+            "kind": "upper-lip"
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openWide",
+          "reference": [
+            558,
+            674
+          ],
+          "anchor": {
+            "source": [
+              558,
+              658
+            ],
+            "destination": [
+              558,
+              674
+            ],
+            "kind": "upper-lip"
+          },
+          "translationOnly": true
+        }
+      ],
+      "gaze": [
+        {
+          "state": "open",
+          "x": -1,
+          "y": -1,
+          "changed": 6516,
+          "outside": 0,
+          "firstDifference": {
+            "x": 669,
+            "y": 487
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": -1,
+          "changed": 6092,
+          "outside": 0,
+          "firstDifference": {
+            "x": 669,
+            "y": 487
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": -1,
+          "changed": 6508,
+          "outside": 0,
+          "firstDifference": {
+            "x": 669,
+            "y": 487
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 0,
+          "changed": 6796,
+          "outside": 0,
+          "firstDifference": {
+            "x": 669,
+            "y": 487
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 0,
+          "changed": 6721,
+          "outside": 0,
+          "firstDifference": {
+            "x": 669,
+            "y": 487
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 1,
+          "changed": 6619,
+          "outside": 0,
+          "firstDifference": {
+            "x": 669,
+            "y": 487
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": 1,
+          "changed": 6170,
+          "outside": 0,
+          "firstDifference": {
+            "x": 669,
+            "y": 487
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 1,
+          "changed": 6561,
+          "outside": 0,
+          "firstDifference": {
+            "x": 669,
+            "y": 487
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": -1,
+          "changed": 4647,
+          "outside": 0,
+          "firstDifference": {
+            "x": 664,
+            "y": 500
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": -1,
+          "changed": 4365,
+          "outside": 0,
+          "firstDifference": {
+            "x": 664,
+            "y": 500
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": -1,
+          "changed": 4662,
+          "outside": 0,
+          "firstDifference": {
+            "x": 664,
+            "y": 500
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 0,
+          "changed": 4848,
+          "outside": 0,
+          "firstDifference": {
+            "x": 664,
+            "y": 500
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 0,
+          "changed": 4812,
+          "outside": 0,
+          "firstDifference": {
+            "x": 664,
+            "y": 500
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 1,
+          "changed": 4767,
+          "outside": 0,
+          "firstDifference": {
+            "x": 664,
+            "y": 500
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": 1,
+          "changed": 4467,
+          "outside": 0,
+          "firstDifference": {
+            "x": 664,
+            "y": 500
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 1,
+          "changed": 4729,
+          "outside": 0,
+          "firstDifference": {
+            "x": 664,
+            "y": 500
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": -1,
+          "changed": 2592,
+          "outside": 0,
+          "firstDifference": {
+            "x": 417,
+            "y": 516
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": -1,
+          "changed": 2430,
+          "outside": 0,
+          "firstDifference": {
+            "x": 417,
+            "y": 516
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": -1,
+          "changed": 2580,
+          "outside": 0,
+          "firstDifference": {
+            "x": 417,
+            "y": 516
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 0,
+          "changed": 2725,
+          "outside": 0,
+          "firstDifference": {
+            "x": 417,
+            "y": 516
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 0,
+          "changed": 2688,
+          "outside": 0,
+          "firstDifference": {
+            "x": 417,
+            "y": 516
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 1,
+          "changed": 2683,
+          "outside": 0,
+          "firstDifference": {
+            "x": 417,
+            "y": 516
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": 1,
+          "changed": 2536,
+          "outside": 0,
+          "firstDifference": {
+            "x": 417,
+            "y": 516
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 1,
+          "changed": 2661,
+          "outside": 0,
+          "firstDifference": {
+            "x": 417,
+            "y": 516
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": -1,
+          "changed": 789,
+          "outside": 0,
+          "firstDifference": {
+            "x": 643,
+            "y": 527
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": -1,
+          "changed": 762,
+          "outside": 0,
+          "firstDifference": {
+            "x": 643,
+            "y": 527
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": -1,
+          "changed": 762,
+          "outside": 0,
+          "firstDifference": {
+            "x": 643,
+            "y": 527
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 0,
+          "changed": 799,
+          "outside": 0,
+          "firstDifference": {
+            "x": 643,
+            "y": 527
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 0,
+          "changed": 763,
+          "outside": 0,
+          "firstDifference": {
+            "x": 643,
+            "y": 527
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 1,
+          "changed": 795,
+          "outside": 0,
+          "firstDifference": {
+            "x": 643,
+            "y": 527
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": 1,
+          "changed": 776,
+          "outside": 0,
+          "firstDifference": {
+            "x": 643,
+            "y": 527
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 1,
+          "changed": 762,
+          "outside": 0,
+          "firstDifference": {
+            "x": 643,
+            "y": 527
+          }
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ],
+      "legacy": [
+        {
+          "id": "open/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "pucker",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "press",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftLeft",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftRight",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/up",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/up",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ]
+    },
+    "view-right": {
+      "stages": {
+        "eyeLeft": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "eyeRight": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ]
+      },
+      "distinct": [
+        {
+          "group": "eyeLeft",
+          "state": "quarter",
+          "changed": 10382,
+          "outside": 0,
+          "firstDifference": {
+            "x": 460,
+            "y": 81
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "half",
+          "changed": 10918,
+          "outside": 0,
+          "firstDifference": {
+            "x": 460,
+            "y": 81
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "threeQuarter",
+          "changed": 11566,
+          "outside": 0,
+          "firstDifference": {
+            "x": 460,
+            "y": 81
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "closed",
+          "changed": 11972,
+          "outside": 0,
+          "firstDifference": {
+            "x": 460,
+            "y": 81
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "quarter",
+          "changed": 16830,
+          "outside": 0,
+          "firstDifference": {
+            "x": 204,
+            "y": 95
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "half",
+          "changed": 17278,
+          "outside": 0,
+          "firstDifference": {
+            "x": 205,
+            "y": 95
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "threeQuarter",
+          "changed": 18037,
+          "outside": 0,
+          "firstDifference": {
+            "x": 205,
+            "y": 95
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "closed",
+          "changed": 18873,
+          "outside": 0,
+          "firstDifference": {
+            "x": 205,
+            "y": 95
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "parted",
+          "changed": 10035,
+          "outside": 0,
+          "firstDifference": {
+            "x": 349,
+            "y": 286
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openSmall",
+          "changed": 9996,
+          "outside": 0,
+          "firstDifference": {
+            "x": 349,
+            "y": 286
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openMedium",
+          "changed": 9378,
+          "outside": 0,
+          "firstDifference": {
+            "x": 351,
+            "y": 286
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openWide",
+          "changed": 9947,
+          "outside": 0,
+          "firstDifference": {
+            "x": 347,
+            "y": 286
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "state": "parted",
+          "reference": [
+            661,
+            655
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              661,
+              646
+            ],
+            "destination": [
+              661,
+              655
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openSmall",
+          "reference": [
+            661,
+            655
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              661,
+              642
+            ],
+            "destination": [
+              661,
+              655
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openMedium",
+          "reference": [
+            661,
+            655
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              661,
+              641
+            ],
+            "destination": [
+              661,
+              655
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openWide",
+          "reference": [
+            661,
+            655
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              661,
+              641
+            ],
+            "destination": [
+              661,
+              655
+            ]
+          },
+          "translationOnly": true
+        }
+      ],
+      "gaze": [
+        {
+          "state": "open",
+          "x": -1,
+          "y": -1,
+          "changed": 5478,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 463
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": -1,
+          "changed": 5197,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 463
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": -1,
+          "changed": 5370,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 463
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 0,
+          "changed": 5685,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 463
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 0,
+          "changed": 5424,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 463
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 1,
+          "changed": 5575,
+          "outside": 0,
+          "firstDifference": {
+            "x": 754,
+            "y": 463
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": 1,
+          "changed": 5259,
+          "outside": 0,
+          "firstDifference": {
+            "x": 753,
+            "y": 463
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 1,
+          "changed": 5385,
+          "outside": 0,
+          "firstDifference": {
+            "x": 756,
+            "y": 463
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": -1,
+          "changed": 4136,
+          "outside": 0,
+          "firstDifference": {
+            "x": 757,
+            "y": 464
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": -1,
+          "changed": 3943,
+          "outside": 0,
+          "firstDifference": {
+            "x": 757,
+            "y": 464
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": -1,
+          "changed": 4115,
+          "outside": 0,
+          "firstDifference": {
+            "x": 757,
+            "y": 464
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 0,
+          "changed": 4266,
+          "outside": 0,
+          "firstDifference": {
+            "x": 757,
+            "y": 464
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 0,
+          "changed": 4173,
+          "outside": 0,
+          "firstDifference": {
+            "x": 757,
+            "y": 464
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 1,
+          "changed": 4185,
+          "outside": 0,
+          "firstDifference": {
+            "x": 758,
+            "y": 464
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": 1,
+          "changed": 3956,
+          "outside": 0,
+          "firstDifference": {
+            "x": 757,
+            "y": 464
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 1,
+          "changed": 4112,
+          "outside": 0,
+          "firstDifference": {
+            "x": 757,
+            "y": 464
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": -1,
+          "changed": 3075,
+          "outside": 0,
+          "firstDifference": {
+            "x": 752,
+            "y": 476
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": -1,
+          "changed": 2923,
+          "outside": 0,
+          "firstDifference": {
+            "x": 752,
+            "y": 476
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": -1,
+          "changed": 3007,
+          "outside": 0,
+          "firstDifference": {
+            "x": 752,
+            "y": 476
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 0,
+          "changed": 3188,
+          "outside": 0,
+          "firstDifference": {
+            "x": 752,
+            "y": 476
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 0,
+          "changed": 3020,
+          "outside": 0,
+          "firstDifference": {
+            "x": 752,
+            "y": 476
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 1,
+          "changed": 3137,
+          "outside": 0,
+          "firstDifference": {
+            "x": 752,
+            "y": 476
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": 1,
+          "changed": 2957,
+          "outside": 0,
+          "firstDifference": {
+            "x": 752,
+            "y": 476
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 1,
+          "changed": 3009,
+          "outside": 0,
+          "firstDifference": {
+            "x": 752,
+            "y": 476
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": -1,
+          "changed": 1190,
+          "outside": 0,
+          "firstDifference": {
+            "x": 770,
+            "y": 488
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": -1,
+          "changed": 1146,
+          "outside": 0,
+          "firstDifference": {
+            "x": 771,
+            "y": 488
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": -1,
+          "changed": 1197,
+          "outside": 0,
+          "firstDifference": {
+            "x": 770,
+            "y": 488
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 0,
+          "changed": 1222,
+          "outside": 0,
+          "firstDifference": {
+            "x": 770,
+            "y": 488
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 0,
+          "changed": 1219,
+          "outside": 0,
+          "firstDifference": {
+            "x": 770,
+            "y": 488
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 1,
+          "changed": 1209,
+          "outside": 0,
+          "firstDifference": {
+            "x": 770,
+            "y": 488
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": 1,
+          "changed": 1166,
+          "outside": 0,
+          "firstDifference": {
+            "x": 770,
+            "y": 488
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 1,
+          "changed": 1207,
+          "outside": 0,
+          "firstDifference": {
+            "x": 770,
+            "y": 488
+          }
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ],
+      "legacy": [
+        {
+          "id": "open/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "pucker",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "press",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftLeft",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftRight",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/innerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/innerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/outerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/outerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ]
+    },
+    "view-left-down": {
+      "stages": {
+        "eyeLeft": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "eyeRight": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ]
+      },
+      "distinct": [
+        {
+          "group": "eyeLeft",
+          "state": "quarter",
+          "changed": 15548,
+          "outside": 0,
+          "firstDifference": {
+            "x": 286,
+            "y": 103
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "half",
+          "changed": 16084,
+          "outside": 0,
+          "firstDifference": {
+            "x": 292,
+            "y": 103
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "threeQuarter",
+          "changed": 16695,
+          "outside": 0,
+          "firstDifference": {
+            "x": 294,
+            "y": 103
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "closed",
+          "changed": 17278,
+          "outside": 0,
+          "firstDifference": {
+            "x": 292,
+            "y": 103
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "quarter",
+          "changed": 6432,
+          "outside": 0,
+          "firstDifference": {
+            "x": 70,
+            "y": 126
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "half",
+          "changed": 6954,
+          "outside": 0,
+          "firstDifference": {
+            "x": 79,
+            "y": 126
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "threeQuarter",
+          "changed": 7227,
+          "outside": 0,
+          "firstDifference": {
+            "x": 70,
+            "y": 126
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "closed",
+          "changed": 7563,
+          "outside": 0,
+          "firstDifference": {
+            "x": 70,
+            "y": 126
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "parted",
+          "changed": 7225,
+          "outside": 0,
+          "firstDifference": {
+            "x": 170,
+            "y": 300
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openSmall",
+          "changed": 6965,
+          "outside": 0,
+          "firstDifference": {
+            "x": 170,
+            "y": 300
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openMedium",
+          "changed": 6733,
+          "outside": 0,
+          "firstDifference": {
+            "x": 223,
+            "y": 300
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openWide",
+          "changed": 7327,
+          "outside": 0,
+          "firstDifference": {
+            "x": 169,
+            "y": 300
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "state": "parted",
+          "reference": [
+            454,
+            711
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              454,
+              706
+            ],
+            "destination": [
+              454,
+              711
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openSmall",
+          "reference": [
+            454,
+            711
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              454,
+              706
+            ],
+            "destination": [
+              454,
+              711
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openMedium",
+          "reference": [
+            454,
+            711
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              454,
+              703
+            ],
+            "destination": [
+              454,
+              711
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openWide",
+          "reference": [
+            454,
+            711
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              454,
+              694
+            ],
+            "destination": [
+              454,
+              711
+            ]
+          },
+          "translationOnly": true
+        }
+      ],
+      "gaze": [
+        {
+          "state": "open",
+          "x": -1,
+          "y": -1,
+          "changed": 3989,
+          "outside": 0,
+          "firstDifference": {
+            "x": 541,
+            "y": 531
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": -1,
+          "changed": 3859,
+          "outside": 0,
+          "firstDifference": {
+            "x": 548,
+            "y": 530
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": -1,
+          "changed": 4046,
+          "outside": 0,
+          "firstDifference": {
+            "x": 548,
+            "y": 530
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 0,
+          "changed": 4123,
+          "outside": 0,
+          "firstDifference": {
+            "x": 541,
+            "y": 531
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 0,
+          "changed": 4140,
+          "outside": 0,
+          "firstDifference": {
+            "x": 548,
+            "y": 530
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 1,
+          "changed": 4058,
+          "outside": 0,
+          "firstDifference": {
+            "x": 541,
+            "y": 531
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": 1,
+          "changed": 3861,
+          "outside": 0,
+          "firstDifference": {
+            "x": 541,
+            "y": 531
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 1,
+          "changed": 4031,
+          "outside": 0,
+          "firstDifference": {
+            "x": 548,
+            "y": 530
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": -1,
+          "changed": 2956,
+          "outside": 0,
+          "firstDifference": {
+            "x": 543,
+            "y": 542
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": -1,
+          "changed": 2858,
+          "outside": 0,
+          "firstDifference": {
+            "x": 543,
+            "y": 542
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": -1,
+          "changed": 2998,
+          "outside": 0,
+          "firstDifference": {
+            "x": 543,
+            "y": 542
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 0,
+          "changed": 3049,
+          "outside": 0,
+          "firstDifference": {
+            "x": 543,
+            "y": 542
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 0,
+          "changed": 3083,
+          "outside": 0,
+          "firstDifference": {
+            "x": 558,
+            "y": 541
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 1,
+          "changed": 3009,
+          "outside": 0,
+          "firstDifference": {
+            "x": 543,
+            "y": 542
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": 1,
+          "changed": 2882,
+          "outside": 0,
+          "firstDifference": {
+            "x": 543,
+            "y": 542
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 1,
+          "changed": 3013,
+          "outside": 0,
+          "firstDifference": {
+            "x": 543,
+            "y": 542
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": -1,
+          "changed": 1809,
+          "outside": 0,
+          "firstDifference": {
+            "x": 551,
+            "y": 549
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": -1,
+          "changed": 1750,
+          "outside": 0,
+          "firstDifference": {
+            "x": 551,
+            "y": 549
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": -1,
+          "changed": 1840,
+          "outside": 0,
+          "firstDifference": {
+            "x": 557,
+            "y": 548
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 0,
+          "changed": 1869,
+          "outside": 0,
+          "firstDifference": {
+            "x": 551,
+            "y": 549
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 0,
+          "changed": 1893,
+          "outside": 0,
+          "firstDifference": {
+            "x": 557,
+            "y": 548
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 1,
+          "changed": 1842,
+          "outside": 0,
+          "firstDifference": {
+            "x": 551,
+            "y": 549
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": 1,
+          "changed": 1765,
+          "outside": 0,
+          "firstDifference": {
+            "x": 551,
+            "y": 549
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 1,
+          "changed": 1846,
+          "outside": 0,
+          "firstDifference": {
+            "x": 557,
+            "y": 548
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": -1,
+          "changed": 945,
+          "outside": 0,
+          "firstDifference": {
+            "x": 553,
+            "y": 562
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": -1,
+          "changed": 920,
+          "outside": 0,
+          "firstDifference": {
+            "x": 553,
+            "y": 562
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": -1,
+          "changed": 967,
+          "outside": 0,
+          "firstDifference": {
+            "x": 553,
+            "y": 562
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 0,
+          "changed": 974,
+          "outside": 0,
+          "firstDifference": {
+            "x": 553,
+            "y": 562
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 0,
+          "changed": 1007,
+          "outside": 0,
+          "firstDifference": {
+            "x": 558,
+            "y": 561
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 1,
+          "changed": 969,
+          "outside": 0,
+          "firstDifference": {
+            "x": 553,
+            "y": 562
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": 1,
+          "changed": 940,
+          "outside": 0,
+          "firstDifference": {
+            "x": 553,
+            "y": 562
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 1,
+          "changed": 982,
+          "outside": 0,
+          "firstDifference": {
+            "x": 553,
+            "y": 562
+          }
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ],
+      "legacy": [
+        {
+          "id": "open/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "pucker",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "press",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftLeft",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftRight",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/innerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/innerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/outerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/outerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ]
+    },
+    "view-down": {
+      "stages": {
+        "eyeLeft": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "eyeRight": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ]
+      },
+      "distinct": [
+        {
+          "group": "eyeLeft",
+          "state": "quarter",
+          "changed": 10854,
+          "outside": 0,
+          "firstDifference": {
+            "x": 421,
+            "y": 126
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "half",
+          "changed": 11451,
+          "outside": 0,
+          "firstDifference": {
+            "x": 421,
+            "y": 126
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "threeQuarter",
+          "changed": 12414,
+          "outside": 0,
+          "firstDifference": {
+            "x": 421,
+            "y": 126
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "closed",
+          "changed": 12976,
+          "outside": 0,
+          "firstDifference": {
+            "x": 421,
+            "y": 126
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "quarter",
+          "changed": 10017,
+          "outside": 0,
+          "firstDifference": {
+            "x": 179,
+            "y": 135
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "half",
+          "changed": 10676,
+          "outside": 0,
+          "firstDifference": {
+            "x": 179,
+            "y": 135
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "threeQuarter",
+          "changed": 11308,
+          "outside": 0,
+          "firstDifference": {
+            "x": 179,
+            "y": 135
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "closed",
+          "changed": 12015,
+          "outside": 0,
+          "firstDifference": {
+            "x": 179,
+            "y": 135
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "parted",
+          "changed": 8633,
+          "outside": 0,
+          "firstDifference": {
+            "x": 249,
+            "y": 318
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openSmall",
+          "changed": 8469,
+          "outside": 0,
+          "firstDifference": {
+            "x": 253,
+            "y": 318
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openMedium",
+          "changed": 9039,
+          "outside": 0,
+          "firstDifference": {
+            "x": 249,
+            "y": 318
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openWide",
+          "changed": 9026,
+          "outside": 0,
+          "firstDifference": {
+            "x": 249,
+            "y": 318
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "state": "parted",
+          "reference": [
+            559,
+            714
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              559,
+              706
+            ],
+            "destination": [
+              559,
+              714
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openSmall",
+          "reference": [
+            559,
+            714
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              560,
+              705
+            ],
+            "destination": [
+              559,
+              714
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openMedium",
+          "reference": [
+            559,
+            714
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              559,
+              700
+            ],
+            "destination": [
+              559,
+              714
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openWide",
+          "reference": [
+            559,
+            714
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              559,
+              696
+            ],
+            "destination": [
+              559,
+              714
+            ]
+          },
+          "translationOnly": true
+        }
+      ],
+      "gaze": [
+        {
+          "state": "open",
+          "x": -1,
+          "y": -1,
+          "changed": 5379,
+          "outside": 0,
+          "firstDifference": {
+            "x": 668,
+            "y": 531
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": -1,
+          "changed": 5148,
+          "outside": 0,
+          "firstDifference": {
+            "x": 668,
+            "y": 531
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": -1,
+          "changed": 5366,
+          "outside": 0,
+          "firstDifference": {
+            "x": 668,
+            "y": 531
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 0,
+          "changed": 5560,
+          "outside": 0,
+          "firstDifference": {
+            "x": 668,
+            "y": 531
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 0,
+          "changed": 5540,
+          "outside": 0,
+          "firstDifference": {
+            "x": 668,
+            "y": 531
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 1,
+          "changed": 5487,
+          "outside": 0,
+          "firstDifference": {
+            "x": 668,
+            "y": 531
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": 1,
+          "changed": 5259,
+          "outside": 0,
+          "firstDifference": {
+            "x": 668,
+            "y": 531
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 1,
+          "changed": 5485,
+          "outside": 0,
+          "firstDifference": {
+            "x": 668,
+            "y": 531
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": -1,
+          "changed": 3872,
+          "outside": 0,
+          "firstDifference": {
+            "x": 672,
+            "y": 542
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": -1,
+          "changed": 3702,
+          "outside": 0,
+          "firstDifference": {
+            "x": 672,
+            "y": 542
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": -1,
+          "changed": 3859,
+          "outside": 0,
+          "firstDifference": {
+            "x": 672,
+            "y": 542
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 0,
+          "changed": 4002,
+          "outside": 0,
+          "firstDifference": {
+            "x": 672,
+            "y": 542
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 0,
+          "changed": 4001,
+          "outside": 0,
+          "firstDifference": {
+            "x": 672,
+            "y": 542
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 1,
+          "changed": 3951,
+          "outside": 0,
+          "firstDifference": {
+            "x": 672,
+            "y": 542
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": 1,
+          "changed": 3792,
+          "outside": 0,
+          "firstDifference": {
+            "x": 672,
+            "y": 542
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 1,
+          "changed": 3949,
+          "outside": 0,
+          "firstDifference": {
+            "x": 672,
+            "y": 542
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": -1,
+          "changed": 2648,
+          "outside": 0,
+          "firstDifference": {
+            "x": 698,
+            "y": 550
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": -1,
+          "changed": 2541,
+          "outside": 0,
+          "firstDifference": {
+            "x": 698,
+            "y": 550
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": -1,
+          "changed": 2643,
+          "outside": 0,
+          "firstDifference": {
+            "x": 698,
+            "y": 550
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 0,
+          "changed": 2728,
+          "outside": 0,
+          "firstDifference": {
+            "x": 698,
+            "y": 550
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 0,
+          "changed": 2744,
+          "outside": 0,
+          "firstDifference": {
+            "x": 698,
+            "y": 550
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 1,
+          "changed": 2694,
+          "outside": 0,
+          "firstDifference": {
+            "x": 698,
+            "y": 550
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": 1,
+          "changed": 2597,
+          "outside": 0,
+          "firstDifference": {
+            "x": 698,
+            "y": 550
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 1,
+          "changed": 2710,
+          "outside": 0,
+          "firstDifference": {
+            "x": 698,
+            "y": 550
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": -1,
+          "changed": 1388,
+          "outside": 0,
+          "firstDifference": {
+            "x": 692,
+            "y": 563
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": -1,
+          "changed": 1332,
+          "outside": 0,
+          "firstDifference": {
+            "x": 692,
+            "y": 563
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": -1,
+          "changed": 1385,
+          "outside": 0,
+          "firstDifference": {
+            "x": 692,
+            "y": 563
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 0,
+          "changed": 1433,
+          "outside": 0,
+          "firstDifference": {
+            "x": 692,
+            "y": 563
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 0,
+          "changed": 1470,
+          "outside": 0,
+          "firstDifference": {
+            "x": 700,
+            "y": 562
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 1,
+          "changed": 1419,
+          "outside": 0,
+          "firstDifference": {
+            "x": 692,
+            "y": 563
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": 1,
+          "changed": 1390,
+          "outside": 0,
+          "firstDifference": {
+            "x": 692,
+            "y": 563
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 1,
+          "changed": 1460,
+          "outside": 0,
+          "firstDifference": {
+            "x": 700,
+            "y": 562
+          }
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ],
+      "legacy": [
+        {
+          "id": "open/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "pucker",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "press",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftLeft",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftRight",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/innerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/innerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/outerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/outerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ]
+    },
+    "view-right-down": {
+      "stages": {
+        "eyeLeft": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "eyeRight": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ]
+      },
+      "distinct": [
+        {
+          "group": "eyeLeft",
+          "state": "quarter",
+          "changed": 6141,
+          "outside": 0,
+          "firstDifference": {
+            "x": 460,
+            "y": 155
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "half",
+          "changed": 6478,
+          "outside": 0,
+          "firstDifference": {
+            "x": 460,
+            "y": 155
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "threeQuarter",
+          "changed": 6850,
+          "outside": 0,
+          "firstDifference": {
+            "x": 460,
+            "y": 155
+          }
+        },
+        {
+          "group": "eyeLeft",
+          "state": "closed",
+          "changed": 7218,
+          "outside": 0,
+          "firstDifference": {
+            "x": 460,
+            "y": 155
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "quarter",
+          "changed": 10361,
+          "outside": 0,
+          "firstDifference": {
+            "x": 202,
+            "y": 99
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "half",
+          "changed": 11554,
+          "outside": 0,
+          "firstDifference": {
+            "x": 202,
+            "y": 99
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "threeQuarter",
+          "changed": 12007,
+          "outside": 0,
+          "firstDifference": {
+            "x": 202,
+            "y": 99
+          }
+        },
+        {
+          "group": "eyeRight",
+          "state": "closed",
+          "changed": 12450,
+          "outside": 0,
+          "firstDifference": {
+            "x": 202,
+            "y": 99
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "parted",
+          "changed": 5567,
+          "outside": 0,
+          "firstDifference": {
+            "x": 265,
+            "y": 305
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openSmall",
+          "changed": 5532,
+          "outside": 0,
+          "firstDifference": {
+            "x": 265,
+            "y": 305
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openMedium",
+          "changed": 5467,
+          "outside": 0,
+          "firstDifference": {
+            "x": 269,
+            "y": 305
+          }
+        },
+        {
+          "group": "mouth",
+          "state": "openWide",
+          "changed": 5563,
+          "outside": 0,
+          "firstDifference": {
+            "x": 266,
+            "y": 305
+          }
+        }
+      ],
+      "anchors": [
+        {
+          "state": "parted",
+          "reference": [
+            671,
+            691
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              671,
+              686
+            ],
+            "destination": [
+              671,
+              691
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openSmall",
+          "reference": [
+            671,
+            691
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              676,
+              683
+            ],
+            "destination": [
+              671,
+              691
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openMedium",
+          "reference": [
+            671,
+            691
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              671,
+              678
+            ],
+            "destination": [
+              671,
+              691
+            ]
+          },
+          "translationOnly": true
+        },
+        {
+          "state": "openWide",
+          "reference": [
+            671,
+            691
+          ],
+          "anchor": {
+            "kind": "upper-lip",
+            "source": [
+              670,
+              675
+            ],
+            "destination": [
+              671,
+              691
+            ]
+          },
+          "translationOnly": true
+        }
+      ],
+      "gaze": [
+        {
+          "state": "open",
+          "x": -1,
+          "y": -1,
+          "changed": 3979,
+          "outside": 0,
+          "firstDifference": {
+            "x": 591,
+            "y": 497
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": -1,
+          "changed": 3829,
+          "outside": 0,
+          "firstDifference": {
+            "x": 595,
+            "y": 497
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": -1,
+          "changed": 3996,
+          "outside": 0,
+          "firstDifference": {
+            "x": 597,
+            "y": 497
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 0,
+          "changed": 4082,
+          "outside": 0,
+          "firstDifference": {
+            "x": 591,
+            "y": 497
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 0,
+          "changed": 4128,
+          "outside": 0,
+          "firstDifference": {
+            "x": 597,
+            "y": 497
+          }
+        },
+        {
+          "state": "open",
+          "x": -1,
+          "y": 1,
+          "changed": 4030,
+          "outside": 0,
+          "firstDifference": {
+            "x": 593,
+            "y": 497
+          }
+        },
+        {
+          "state": "open",
+          "x": 0,
+          "y": 1,
+          "changed": 3896,
+          "outside": 0,
+          "firstDifference": {
+            "x": 597,
+            "y": 497
+          }
+        },
+        {
+          "state": "open",
+          "x": 1,
+          "y": 1,
+          "changed": 4087,
+          "outside": 0,
+          "firstDifference": {
+            "x": 597,
+            "y": 497
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": -1,
+          "changed": 3046,
+          "outside": 0,
+          "firstDifference": {
+            "x": 589,
+            "y": 501
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": -1,
+          "changed": 2916,
+          "outside": 0,
+          "firstDifference": {
+            "x": 593,
+            "y": 502
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": -1,
+          "changed": 3019,
+          "outside": 0,
+          "firstDifference": {
+            "x": 593,
+            "y": 502
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 0,
+          "changed": 3111,
+          "outside": 0,
+          "firstDifference": {
+            "x": 588,
+            "y": 501
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 0,
+          "changed": 3115,
+          "outside": 0,
+          "firstDifference": {
+            "x": 593,
+            "y": 502
+          }
+        },
+        {
+          "state": "quarter",
+          "x": -1,
+          "y": 1,
+          "changed": 3057,
+          "outside": 0,
+          "firstDifference": {
+            "x": 590,
+            "y": 501
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 0,
+          "y": 1,
+          "changed": 2961,
+          "outside": 0,
+          "firstDifference": {
+            "x": 593,
+            "y": 502
+          }
+        },
+        {
+          "state": "quarter",
+          "x": 1,
+          "y": 1,
+          "changed": 3087,
+          "outside": 0,
+          "firstDifference": {
+            "x": 593,
+            "y": 502
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": -1,
+          "changed": 1805,
+          "outside": 0,
+          "firstDifference": {
+            "x": 587,
+            "y": 517
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": -1,
+          "changed": 1744,
+          "outside": 0,
+          "firstDifference": {
+            "x": 591,
+            "y": 518
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": -1,
+          "changed": 1803,
+          "outside": 0,
+          "firstDifference": {
+            "x": 591,
+            "y": 518
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 0,
+          "changed": 1842,
+          "outside": 0,
+          "firstDifference": {
+            "x": 585,
+            "y": 516
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 0,
+          "changed": 1904,
+          "outside": 0,
+          "firstDifference": {
+            "x": 591,
+            "y": 518
+          }
+        },
+        {
+          "state": "half",
+          "x": -1,
+          "y": 1,
+          "changed": 1825,
+          "outside": 0,
+          "firstDifference": {
+            "x": 587,
+            "y": 517
+          }
+        },
+        {
+          "state": "half",
+          "x": 0,
+          "y": 1,
+          "changed": 1805,
+          "outside": 0,
+          "firstDifference": {
+            "x": 591,
+            "y": 518
+          }
+        },
+        {
+          "state": "half",
+          "x": 1,
+          "y": 1,
+          "changed": 1895,
+          "outside": 0,
+          "firstDifference": {
+            "x": 591,
+            "y": 518
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": -1,
+          "changed": 766,
+          "outside": 0,
+          "firstDifference": {
+            "x": 589,
+            "y": 525
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": -1,
+          "changed": 752,
+          "outside": 0,
+          "firstDifference": {
+            "x": 592,
+            "y": 526
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": -1,
+          "changed": 770,
+          "outside": 0,
+          "firstDifference": {
+            "x": 592,
+            "y": 526
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 0,
+          "changed": 765,
+          "outside": 0,
+          "firstDifference": {
+            "x": 588,
+            "y": 525
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 0,
+          "changed": 833,
+          "outside": 0,
+          "firstDifference": {
+            "x": 592,
+            "y": 526
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": -1,
+          "y": 1,
+          "changed": 768,
+          "outside": 0,
+          "firstDifference": {
+            "x": 588,
+            "y": 525
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 0,
+          "y": 1,
+          "changed": 796,
+          "outside": 0,
+          "firstDifference": {
+            "x": 591,
+            "y": 526
+          }
+        },
+        {
+          "state": "threeQuarter",
+          "x": 1,
+          "y": 1,
+          "changed": 839,
+          "outside": 0,
+          "firstDifference": {
+            "x": 592,
+            "y": 526
+          }
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": -1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 0,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": -1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 0,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "state": "closed",
+          "x": 1,
+          "y": 1,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ],
+      "legacy": [
+        {
+          "id": "open/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "open/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "half/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/neutral",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openSmall",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "closed/openWide",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "pucker",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "press",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftLeft",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "shiftRight",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/innerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/innerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/outerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/outerUp",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browLeft/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "browRight/down",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/-1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/0",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/-1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/0/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        },
+        {
+          "id": "gaze/1/1",
+          "dimensionsMatch": true,
+          "changed": 0,
+          "outside": 0,
+          "firstDifference": null
+        }
+      ]
+    }
+  },
+  "timing": {
+    "status": "complete",
+    "runs": [
+      {
+        "targetFps": 60,
+        "measuredFps": 55.93168199279505,
+        "averageRenderMs": 0.10680180177226797,
+        "p95RenderMs": 0.17999999970197678,
+        "sampleCount": 111,
+        "windowDurationMs": 1966.6849999999977,
+        "poseId": "view-right-down",
+        "trace": [
+          {
+            "elapsedMs": 0,
+            "state": {
+              "eyeLeft": "open",
+              "eyeRight": "open",
+              "mouth": "neutral",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 0,
+            "state": {
+              "eyeLeft": "quarter",
+              "eyeRight": "quarter",
+              "mouth": "parted",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 17,
+            "state": {
+              "eyeLeft": "half",
+              "eyeRight": "half",
+              "mouth": "parted",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 33,
+            "state": {
+              "eyeLeft": "threeQuarter",
+              "eyeRight": "threeQuarter",
+              "mouth": "openSmall",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 67,
+            "state": {
+              "eyeLeft": "closed",
+              "eyeRight": "closed",
+              "mouth": "openMedium",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 100,
+            "state": {
+              "eyeLeft": "closed",
+              "eyeRight": "closed",
+              "mouth": "openWide",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 617,
+            "state": {
+              "eyeLeft": "threeQuarter",
+              "eyeRight": "threeQuarter",
+              "mouth": "openMedium",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 633,
+            "state": {
+              "eyeLeft": "half",
+              "eyeRight": "half",
+              "mouth": "openMedium",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 650,
+            "state": {
+              "eyeLeft": "quarter",
+              "eyeRight": "quarter",
+              "mouth": "openSmall",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 683,
+            "state": {
+              "eyeLeft": "open",
+              "eyeRight": "open",
+              "mouth": "parted",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 717,
+            "state": {
+              "eyeLeft": "open",
+              "eyeRight": "open",
+              "mouth": "neutral",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1217,
+            "state": {
+              "eyeLeft": "quarter",
+              "eyeRight": "quarter",
+              "mouth": "parted",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1233,
+            "state": {
+              "eyeLeft": "half",
+              "eyeRight": "half",
+              "mouth": "parted",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1250,
+            "state": {
+              "eyeLeft": "threeQuarter",
+              "eyeRight": "threeQuarter",
+              "mouth": "openSmall",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1283,
+            "state": {
+              "eyeLeft": "closed",
+              "eyeRight": "closed",
+              "mouth": "openMedium",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1317,
+            "state": {
+              "eyeLeft": "closed",
+              "eyeRight": "closed",
+              "mouth": "openWide",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1816,
+            "state": {
+              "eyeLeft": "threeQuarter",
+              "eyeRight": "threeQuarter",
+              "mouth": "openMedium",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1833,
+            "state": {
+              "eyeLeft": "threeQuarter",
+              "eyeRight": "threeQuarter",
+              "mouth": "openSmall",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1850,
+            "state": {
+              "eyeLeft": "half",
+              "eyeRight": "half",
+              "mouth": "openSmall",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1867,
+            "state": {
+              "eyeLeft": "quarter",
+              "eyeRight": "quarter",
+              "mouth": "parted",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1900,
+            "state": {
+              "eyeLeft": "open",
+              "eyeRight": "open",
+              "mouth": "neutral",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 2400,
+            "state": {
+              "eyeLeft": "quarter",
+              "eyeRight": "quarter",
+              "mouth": "parted",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 2417,
+            "state": {
+              "eyeLeft": "half",
+              "eyeRight": "half",
+              "mouth": "parted",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 2433,
+            "state": {
+              "eyeLeft": "threeQuarter",
+              "eyeRight": "threeQuarter",
+              "mouth": "openSmall",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 2467,
+            "state": {
+              "eyeLeft": "closed",
+              "eyeRight": "closed",
+              "mouth": "openMedium",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 2517,
+            "state": {
+              "eyeLeft": "closed",
+              "eyeRight": "closed",
+              "mouth": "openWide",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          }
+        ],
+        "lanes": {
+          "eyeLeft": {
+            "visited": [
+              "open",
+              "quarter",
+              "half",
+              "threeQuarter",
+              "closed"
+            ],
+            "allStagesVisited": true,
+            "noSkippedStage": true
+          },
+          "eyeRight": {
+            "visited": [
+              "open",
+              "quarter",
+              "half",
+              "threeQuarter",
+              "closed"
+            ],
+            "allStagesVisited": true,
+            "noSkippedStage": true
+          },
+          "mouth": {
+            "visited": [
+              "neutral",
+              "parted",
+              "openSmall",
+              "openMedium",
+              "openWide"
+            ],
+            "allStagesVisited": true,
+            "noSkippedStage": true
+          }
+        },
+        "passed": true
+      },
+      {
+        "targetFps": 30,
+        "measuredFps": 30.256332676070215,
+        "averageRenderMs": 0.23666666684051355,
+        "p95RenderMs": 0.3399999998509884,
+        "sampleCount": 60,
+        "windowDurationMs": 1950.00499999999,
+        "poseId": "view-right-down",
+        "trace": [
+          {
+            "elapsedMs": 0,
+            "state": {
+              "eyeLeft": "open",
+              "eyeRight": "open",
+              "mouth": "neutral",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 0,
+            "state": {
+              "eyeLeft": "quarter",
+              "eyeRight": "quarter",
+              "mouth": "parted",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 50,
+            "state": {
+              "eyeLeft": "half",
+              "eyeRight": "half",
+              "mouth": "openSmall",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 83,
+            "state": {
+              "eyeLeft": "threeQuarter",
+              "eyeRight": "threeQuarter",
+              "mouth": "openSmall",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 100,
+            "state": {
+              "eyeLeft": "closed",
+              "eyeRight": "closed",
+              "mouth": "openMedium",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 150,
+            "state": {
+              "eyeLeft": "closed",
+              "eyeRight": "closed",
+              "mouth": "openWide",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 633,
+            "state": {
+              "eyeLeft": "threeQuarter",
+              "eyeRight": "threeQuarter",
+              "mouth": "openMedium",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 667,
+            "state": {
+              "eyeLeft": "half",
+              "eyeRight": "half",
+              "mouth": "openSmall",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 700,
+            "state": {
+              "eyeLeft": "quarter",
+              "eyeRight": "quarter",
+              "mouth": "parted",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 733,
+            "state": {
+              "eyeLeft": "open",
+              "eyeRight": "open",
+              "mouth": "neutral",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1200,
+            "state": {
+              "eyeLeft": "quarter",
+              "eyeRight": "quarter",
+              "mouth": "parted",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1233,
+            "state": {
+              "eyeLeft": "half",
+              "eyeRight": "half",
+              "mouth": "openSmall",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1267,
+            "state": {
+              "eyeLeft": "threeQuarter",
+              "eyeRight": "threeQuarter",
+              "mouth": "openMedium",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1300,
+            "state": {
+              "eyeLeft": "closed",
+              "eyeRight": "closed",
+              "mouth": "openWide",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1833,
+            "state": {
+              "eyeLeft": "threeQuarter",
+              "eyeRight": "threeQuarter",
+              "mouth": "openMedium",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1867,
+            "state": {
+              "eyeLeft": "half",
+              "eyeRight": "half",
+              "mouth": "openSmall",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1900,
+            "state": {
+              "eyeLeft": "quarter",
+              "eyeRight": "quarter",
+              "mouth": "parted",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 1933,
+            "state": {
+              "eyeLeft": "open",
+              "eyeRight": "open",
+              "mouth": "neutral",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 2433,
+            "state": {
+              "eyeLeft": "quarter",
+              "eyeRight": "quarter",
+              "mouth": "parted",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          },
+          {
+            "elapsedMs": 2483,
+            "state": {
+              "eyeLeft": "half",
+              "eyeRight": "half",
+              "mouth": "openSmall",
+              "browLeft": "neutral",
+              "browRight": "neutral"
+            }
+          }
+        ],
+        "lanes": {
+          "eyeLeft": {
+            "visited": [
+              "open",
+              "quarter",
+              "half",
+              "threeQuarter",
+              "closed"
+            ],
+            "allStagesVisited": true,
+            "noSkippedStage": true
+          },
+          "eyeRight": {
+            "visited": [
+              "open",
+              "quarter",
+              "half",
+              "threeQuarter",
+              "closed"
+            ],
+            "allStagesVisited": true,
+            "noSkippedStage": true
+          },
+          "mouth": {
+            "visited": [
+              "neutral",
+              "parted",
+              "openSmall",
+              "openMedium",
+              "openWide"
+            ],
+            "allStagesVisited": true,
+            "noSkippedStage": true
+          }
+        },
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "summary": {
+    "passed": true,
+    "assertions": 1060,
+    "failedAssertions": 0,
+    "pixelComparisons": 718,
+    "failures": []
+  }
+}

@@ -1,0 +1,828 @@
+{
+  "status": "complete",
+  "summary": {
+    "passed": false,
+    "combinations": 315,
+    "comparisons": 516,
+    "assertions": 1146,
+    "failedAssertions": 30,
+    "failures": [
+      {
+        "pose": "view-left-up",
+        "check": "before-after-repeatability",
+        "probe": "open-center",
+        "changed": 189,
+        "maxDelta": 40
+      },
+      {
+        "pose": "view-left-up",
+        "check": "before-after-repeatability",
+        "probe": "winkLeft-up-left",
+        "changed": 1306,
+        "maxDelta": 44
+      },
+      {
+        "pose": "view-left-up",
+        "check": "before-after-repeatability",
+        "probe": "half-down-right",
+        "changed": 2207,
+        "maxDelta": 52
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "center",
+        "mouth": "neutral",
+        "changed": 688
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "center",
+        "mouth": "openSmall",
+        "changed": 688
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "center",
+        "mouth": "openWide",
+        "changed": 688
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "up-left",
+        "mouth": "neutral",
+        "changed": 696
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "up-left",
+        "mouth": "openSmall",
+        "changed": 696
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "up-left",
+        "mouth": "openWide",
+        "changed": 696
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "down-right",
+        "mouth": "neutral",
+        "changed": 749
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "down-right",
+        "mouth": "openSmall",
+        "changed": 749
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "open",
+        "gaze": "down-right",
+        "mouth": "openWide",
+        "changed": 749
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "center",
+        "mouth": "neutral",
+        "changed": 235
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "center",
+        "mouth": "openSmall",
+        "changed": 235
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "center",
+        "mouth": "openWide",
+        "changed": 235
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "up-left",
+        "mouth": "neutral",
+        "changed": 277
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "up-left",
+        "mouth": "openSmall",
+        "changed": 277
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "up-left",
+        "mouth": "openWide",
+        "changed": 277
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "down-right",
+        "mouth": "neutral",
+        "changed": 248
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "down-right",
+        "mouth": "openSmall",
+        "changed": 248
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "half",
+        "gaze": "down-right",
+        "mouth": "openWide",
+        "changed": 248
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "center",
+        "mouth": "neutral",
+        "changed": 688
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "center",
+        "mouth": "openSmall",
+        "changed": 688
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "center",
+        "mouth": "openWide",
+        "changed": 688
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "up-left",
+        "mouth": "neutral",
+        "changed": 696
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "up-left",
+        "mouth": "openSmall",
+        "changed": 696
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "up-left",
+        "mouth": "openWide",
+        "changed": 696
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "down-right",
+        "mouth": "neutral",
+        "changed": 749
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "down-right",
+        "mouth": "openSmall",
+        "changed": 749
+      },
+      {
+        "pose": "view-left-down",
+        "check": "legacy-state-equals-approved",
+        "eyelid": "winkRight",
+        "gaze": "down-right",
+        "mouth": "openWide",
+        "changed": 749
+      }
+    ]
+  },
+  "controlledCompilation": {
+    "pose": "view-left-down",
+    "eye": "eyeLeft",
+    "bounds": [
+      450,
+      493,
+      194,
+      117
+    ],
+    "irisRect": [
+      630,
+      570,
+      240,
+      266
+    ],
+    "irisDestination": [
+      495.625,
+      519.75,
+      60,
+      66.5
+    ],
+    "note": "Diagnostic-only canvases. Four stages use private factories; actual frozen compiler is additionally rerun under a synchronous factory override restored in finally. Existing renderer assets are never replaced.",
+    "stages": {
+      "default": {
+        "rawCrop": {
+          "candidateContext": {
+            "alpha": true,
+            "colorSpace": "srgb",
+            "colorType": "unorm8",
+            "desynchronized": false,
+            "toneMapping": {
+              "mode": "standard"
+            },
+            "willReadFrequently": false
+          },
+          "approvedContext": {
+            "alpha": true,
+            "colorSpace": "srgb",
+            "colorType": "unorm8",
+            "desynchronized": false,
+            "toneMapping": {
+              "mode": "standard"
+            },
+            "willReadFrequently": false
+          },
+          "crossPack": [
+            {
+              "changed": 0,
+              "rgbChanged": 0,
+              "alphaChanged": 0,
+              "maxDelta": 0,
+              "maxAlphaDelta": 0,
+              "localBounds": null,
+              "sourceBounds": null
+            },
+            {
+              "changed": 0,
+              "rgbChanged": 0,
+              "alphaChanged": 0,
+              "maxDelta": 0,
+              "maxAlphaDelta": 0,
+              "localBounds": null,
+              "sourceBounds": null
+            }
+          ],
+          "candidateRebuild": {
+            "changed": 0,
+            "rgbChanged": 0,
+            "alphaChanged": 0,
+            "maxDelta": 0,
+            "maxAlphaDelta": 0,
+            "localBounds": null,
+            "sourceBounds": null
+          },
+          "approvedRebuild": {
+            "changed": 0,
+            "rgbChanged": 0,
+            "alphaChanged": 0,
+            "maxDelta": 0,
+            "maxAlphaDelta": 0,
+            "localBounds": null,
+            "sourceBounds": null
+          }
+        },
+        "scaledFill": {
+          "candidateContext": {
+            "alpha": true,
+            "colorSpace": "srgb",
+            "colorType": "unorm8",
+            "desynchronized": false,
+            "toneMapping": {
+              "mode": "standard"
+            },
+            "willReadFrequently": false
+          },
+          "approvedContext": {
+            "alpha": true,
+            "colorSpace": "srgb",
+            "colorType": "unorm8",
+            "desynchronized": false,
+            "toneMapping": {
+              "mode": "standard"
+            },
+            "willReadFrequently": false
+          },
+          "crossPack": [
+            {
+              "changed": 0,
+              "rgbChanged": 0,
+              "alphaChanged": 0,
+              "maxDelta": 0,
+              "maxAlphaDelta": 0,
+              "localBounds": null,
+              "sourceBounds": null
+            },
+            {
+              "changed": 0,
+              "rgbChanged": 0,
+              "alphaChanged": 0,
+              "maxDelta": 0,
+              "maxAlphaDelta": 0,
+              "localBounds": null,
+              "sourceBounds": null
+            }
+          ],
+          "candidateRebuild": {
+            "changed": 0,
+            "rgbChanged": 0,
+            "alphaChanged": 0,
+            "maxDelta": 0,
+            "maxAlphaDelta": 0,
+            "localBounds": null,
+            "sourceBounds": null
+          },
+          "approvedRebuild": {
+            "changed": 0,
+            "rgbChanged": 0,
+            "alphaChanged": 0,
+            "maxDelta": 0,
+            "maxAlphaDelta": 0,
+            "localBounds": null,
+            "sourceBounds": null
+          }
+        },
+        "blurredCore": {
+          "candidateContext": {
+            "alpha": true,
+            "colorSpace": "srgb",
+            "colorType": "unorm8",
+            "desynchronized": false,
+            "toneMapping": {
+              "mode": "standard"
+            },
+            "willReadFrequently": false
+          },
+          "approvedContext": {
+            "alpha": true,
+            "colorSpace": "srgb",
+            "colorType": "unorm8",
+            "desynchronized": false,
+            "toneMapping": {
+              "mode": "standard"
+            },
+            "willReadFrequently": false
+          },
+          "crossPack": [
+            {
+              "changed": 0,
+              "rgbChanged": 0,
+              "alphaChanged": 0,
+              "maxDelta": 0,
+              "maxAlphaDelta": 0,
+              "localBounds": null,
+              "sourceBounds": null
+            },
+            {
+              "changed": 0,
+              "rgbChanged": 0,
+              "alphaChanged": 0,
+              "maxDelta": 0,
+              "maxAlphaDelta": 0,
+              "localBounds": null,
+              "sourceBounds": null
+            }
+          ],
+          "candidateRebuild": {
+            "changed": 0,
+            "rgbChanged": 0,
+            "alphaChanged": 0,
+            "maxDelta": 0,
+            "maxAlphaDelta": 0,
+            "localBounds": null,
+            "sourceBounds": null
+          },
+          "approvedRebuild": {
+            "changed": 0,
+            "rgbChanged": 0,
+            "alphaChanged": 0,
+            "maxDelta": 0,
+            "maxAlphaDelta": 0,
+            "localBounds": null,
+            "sourceBounds": null
+          }
+        },
+        "composite": {
+          "candidateContext": {
+            "alpha": true,
+            "colorSpace": "srgb",
+            "colorType": "unorm8",
+            "desynchronized": false,
+            "toneMapping": {
+              "mode": "standard"
+            },
+            "willReadFrequently": false
+          },
+          "approvedContext": {
+            "alpha": true,
+            "colorSpace": "srgb",
+            "colorType": "unorm8",
+            "desynchronized": false,
+            "toneMapping": {
+              "mode": "standard"
+            },
+            "willReadFrequently": false
+          },
+          "crossPack": [
+            {
+              "changed": 0,
+              "rgbChanged": 0,
+              "alphaChanged": 0,
+              "maxDelta": 0,
+              "maxAlphaDelta": 0,
+              "localBounds": null,
+              "sourceBounds": null
+            },
+            {
+              "changed": 0,
+              "rgbChanged": 0,
+              "alphaChanged": 0,
+              "maxDelta": 0,
+              "maxAlphaDelta": 0,
+              "localBounds": null,
+              "sourceBounds": null
+            }
+          ],
+          "candidateRebuild": {
+            "changed": 0,
+            "rgbChanged": 0,
+            "alphaChanged": 0,
+            "maxDelta": 0,
+            "maxAlphaDelta": 0,
+            "localBounds": null,
+            "sourceBounds": null
+          },
+          "approvedRebuild": {
+            "changed": 0,
+            "rgbChanged": 0,
+            "alphaChanged": 0,
+            "maxDelta": 0,
+            "maxAlphaDelta": 0,
+            "localBounds": null,
+            "sourceBounds": null
+          }
+        }
+      },
+      "readback": {
+        "rawCrop": {
+          "candidateContext": {
+            "alpha": true,
+            "colorSpace": "srgb",
+            "colorType": "unorm8",
+            "desynchronized": false,
+            "toneMapping": {
+              "mode": "standard"
+            },
+            "willReadFrequently": true
+          },
+          "approvedContext": {
+            "alpha": true,
+            "colorSpace": "srgb",
+            "colorType": "unorm8",
+            "desynchronized": false,
+            "toneMapping": {
+              "mode": "standard"
+            },
+            "willReadFrequently": true
+          },
+          "crossPack": [
+            {
+              "changed": 0,
+              "rgbChanged": 0,
+              "alphaChanged": 0,
+              "maxDelta": 0,
+              "maxAlphaDelta": 0,
+              "localBounds": null,
+              "sourceBounds": null
+            },
+            {
+              "changed": 0,
+              "rgbChanged": 0,
+              "alphaChanged": 0,
+              "maxDelta": 0,
+              "maxAlphaDelta": 0,
+              "localBounds": null,
+              "sourceBounds": null
+            }
+          ],
+          "candidateRebuild": {
+            "changed": 0,
+            "rgbChanged": 0,
+            "alphaChanged": 0,
+            "maxDelta": 0,
+            "maxAlphaDelta": 0,
+            "localBounds": null,
+            "sourceBounds": null
+          },
+          "approvedRebuild": {
+            "changed": 0,
+            "rgbChanged": 0,
+            "alphaChanged": 0,
+            "maxDelta": 0,
+            "maxAlphaDelta": 0,
+            "localBounds": null,
+            "sourceBounds": null
+          }
+        },
+        "scaledFill": {
+          "candidateContext": {
+            "alpha": true,
+            "colorSpace": "srgb",
+            "colorType": "unorm8",
+            "desynchronized": false,
+            "toneMapping": {
+              "mode": "standard"
+            },
+            "willReadFrequently": true
+          },
+          "approvedContext": {
+            "alpha": true,
+            "colorSpace": "srgb",
+            "colorType": "unorm8",
+            "desynchronized": false,
+            "toneMapping": {
+              "mode": "standard"
+            },
+            "willReadFrequently": true
+          },
+          "crossPack": [
+            {
+              "changed": 0,
+              "rgbChanged": 0,
+              "alphaChanged": 0,
+              "maxDelta": 0,
+              "maxAlphaDelta": 0,
+              "localBounds": null,
+              "sourceBounds": null
+            },
+            {
+              "changed": 0,
+              "rgbChanged": 0,
+              "alphaChanged": 0,
+              "maxDelta": 0,
+              "maxAlphaDelta": 0,
+              "localBounds": null,
+              "sourceBounds": null
+            }
+          ],
+          "candidateRebuild": {
+            "changed": 0,
+            "rgbChanged": 0,
+            "alphaChanged": 0,
+            "maxDelta": 0,
+            "maxAlphaDelta": 0,
+            "localBounds": null,
+            "sourceBounds": null
+          },
+          "approvedRebuild": {
+            "changed": 0,
+            "rgbChanged": 0,
+            "alphaChanged": 0,
+            "maxDelta": 0,
+            "maxAlphaDelta": 0,
+            "localBounds": null,
+            "sourceBounds": null
+          }
+        },
+        "blurredCore": {
+          "candidateContext": {
+            "alpha": true,
+            "colorSpace": "srgb",
+            "colorType": "unorm8",
+            "desynchronized": false,
+            "toneMapping": {
+              "mode": "standard"
+            },
+            "willReadFrequently": true
+          },
+          "approvedContext": {
+            "alpha": true,
+            "colorSpace": "srgb",
+            "colorType": "unorm8",
+            "desynchronized": false,
+            "toneMapping": {
+              "mode": "standard"
+            },
+            "willReadFrequently": true
+          },
+          "crossPack": [
+            {
+              "changed": 0,
+              "rgbChanged": 0,
+              "alphaChanged": 0,
+              "maxDelta": 0,
+              "maxAlphaDelta": 0,
+              "localBounds": null,
+              "sourceBounds": null
+            },
+            {
+              "changed": 0,
+              "rgbChanged": 0,
+              "alphaChanged": 0,
+              "maxDelta": 0,
+              "maxAlphaDelta": 0,
+              "localBounds": null,
+              "sourceBounds": null
+            }
+          ],
+          "candidateRebuild": {
+            "changed": 0,
+            "rgbChanged": 0,
+            "alphaChanged": 0,
+            "maxDelta": 0,
+            "maxAlphaDelta": 0,
+            "localBounds": null,
+            "sourceBounds": null
+          },
+          "approvedRebuild": {
+            "changed": 0,
+            "rgbChanged": 0,
+            "alphaChanged": 0,
+            "maxDelta": 0,
+            "maxAlphaDelta": 0,
+            "localBounds": null,
+            "sourceBounds": null
+          }
+        },
+        "composite": {
+          "candidateContext": {
+            "alpha": true,
+            "colorSpace": "srgb",
+            "colorType": "unorm8",
+            "desynchronized": false,
+            "toneMapping": {
+              "mode": "standard"
+            },
+            "willReadFrequently": true
+          },
+          "approvedContext": {
+            "alpha": true,
+            "colorSpace": "srgb",
+            "colorType": "unorm8",
+            "desynchronized": false,
+            "toneMapping": {
+              "mode": "standard"
+            },
+            "willReadFrequently": true
+          },
+          "crossPack": [
+            {
+              "changed": 0,
+              "rgbChanged": 0,
+              "alphaChanged": 0,
+              "maxDelta": 0,
+              "maxAlphaDelta": 0,
+              "localBounds": null,
+              "sourceBounds": null
+            },
+            {
+              "changed": 0,
+              "rgbChanged": 0,
+              "alphaChanged": 0,
+              "maxDelta": 0,
+              "maxAlphaDelta": 0,
+              "localBounds": null,
+              "sourceBounds": null
+            }
+          ],
+          "candidateRebuild": {
+            "changed": 0,
+            "rgbChanged": 0,
+            "alphaChanged": 0,
+            "maxDelta": 0,
+            "maxAlphaDelta": 0,
+            "localBounds": null,
+            "sourceBounds": null
+          },
+          "approvedRebuild": {
+            "changed": 0,
+            "rgbChanged": 0,
+            "alphaChanged": 0,
+            "maxDelta": 0,
+            "maxAlphaDelta": 0,
+            "localBounds": null,
+            "sourceBounds": null
+          }
+        }
+      }
+    },
+    "factoryRestored": true,
+    "frozenCompilerReadback": {
+      "candidateContext": {
+        "alpha": true,
+        "colorSpace": "srgb",
+        "colorType": "unorm8",
+        "desynchronized": false,
+        "toneMapping": {
+          "mode": "standard"
+        },
+        "willReadFrequently": true
+      },
+      "approvedContext": {
+        "alpha": true,
+        "colorSpace": "srgb",
+        "colorType": "unorm8",
+        "desynchronized": false,
+        "toneMapping": {
+          "mode": "standard"
+        },
+        "willReadFrequently": true
+      },
+      "crossPack": [
+        {
+          "changed": 0,
+          "rgbChanged": 0,
+          "alphaChanged": 0,
+          "maxDelta": 0,
+          "maxAlphaDelta": 0,
+          "localBounds": null,
+          "sourceBounds": null
+        },
+        {
+          "changed": 0,
+          "rgbChanged": 0,
+          "alphaChanged": 0,
+          "maxDelta": 0,
+          "maxAlphaDelta": 0,
+          "localBounds": null,
+          "sourceBounds": null
+        }
+      ],
+      "candidateRebuild": {
+        "changed": 0,
+        "rgbChanged": 0,
+        "alphaChanged": 0,
+        "maxDelta": 0,
+        "maxAlphaDelta": 0,
+        "localBounds": null,
+        "sourceBounds": null
+      },
+      "approvedRebuild": {
+        "changed": 0,
+        "rgbChanged": 0,
+        "alphaChanged": 0,
+        "maxDelta": 0,
+        "maxAlphaDelta": 0,
+        "localBounds": null,
+        "sourceBounds": null
+      }
+    },
+    "privateStagesMatchFrozenCompiler": {
+      "changed": 0,
+      "rgbChanged": 0,
+      "alphaChanged": 0,
+      "maxDelta": 0,
+      "maxAlphaDelta": 0,
+      "localBounds": null,
+      "sourceBounds": null
+    }
+  }
+}

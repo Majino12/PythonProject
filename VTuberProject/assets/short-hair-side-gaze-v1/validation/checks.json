@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-26",
+  "packageVersion": "0.13.1-review.6",
+  "syntax": "pass",
+  "tests": {
+    "passed": 382,
+    "failed": 0
+  },
+  "browser": {
+    "directions": 36,
+    "originalComparisons": 4,
+    "pixelCases": 42,
+    "maxChangedOutsideEyeBounds": 0,
+    "closedGazeReversalChangedPixels": 0,
+    "tinyGazeMaxChannelDifference": {
+      "0.001": 2,
+      "0.01": 13
+    },
+    "consoleWarningsOrErrors": 0,
+    "combinedJsonImport": "4 channels applied; separate blink, jaw and gaze visible; no feedback written",
+    "feedbackExport": {
+      "items": 36,
+      "allUndecided": true,
+      "notesEmpty": true,
+      "renderedGazeX": 0.75
+    },
+    "originalExport": {
+      "renderedGazeX": 0,
+      "targetGazeX": 0.75
+    },
+    "pngExport": {
+      "width": 1122,
+      "height": 1402
+    },
+    "approvedVariant": "Source hashes and pose registration unchanged; 4 supported channels and 16 feedback entries retained; gaze channels ignored explicitly",
+    "feedbackIsolation": "Temporary note survived switching back to gaze; absent from approved variant and opposite pose; removed after QA"
+  },
+  "limits": [
+    "Only two fixed side poses, three eyelid drawings and three jaw drawings.",
+    "Side brows, pucker, press, mouth movement and pitch expression work remains.",
+    "Internal QA does not record user approval for this new gaze candidate.",
+    "New complete iris edge is not pixel-identical to the approved original; small antialiased polygon edges remain visible at high magnification."
+  ]
+}

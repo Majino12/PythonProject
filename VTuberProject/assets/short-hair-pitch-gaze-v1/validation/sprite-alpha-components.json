@@ -1,0 +1,98 @@
+{
+  "view-left-up": {
+    "viewerLeft": {
+      "alpha128Rect": [
+        211,
+        557,
+        205,
+        325
+      ],
+      "alpha1Rect": [
+        206,
+        553,
+        213,
+        333
+      ],
+      "opaquePixelCount": 52542
+    },
+    "viewerRight": {
+      "alpha128Rect": [
+        649,
+        501,
+        290,
+        390
+      ],
+      "alpha1Rect": [
+        644,
+        497,
+        300,
+        398
+      ],
+      "opaquePixelCount": 89635
+    }
+  },
+  "view-right-up": {
+    "viewerLeft": {
+      "alpha128Rect": [
+        367,
+        509,
+        209,
+        237
+      ],
+      "alpha1Rect": [
+        362,
+        506,
+        217,
+        244
+      ],
+      "opaquePixelCount": 39474
+    },
+    "viewerRight": {
+      "alpha128Rect": [
+        726,
+        530,
+        134,
+        200
+      ],
+      "alpha1Rect": [
+        721,
+        527,
+        143,
+        208
+      ],
+      "opaquePixelCount": 21288
+    }
+  },
+  "view-left-down": {
+    "viewerLeft": {
+      "alpha128Rect": [
+        220,
+        595,
+        181,
+        225
+      ],
+      "alpha1Rect": [
+        216,
+        592,
+        187,
+        232
+      ],
+      "opaquePixelCount": 27950
+    },
+    "viewerRight": {
+      "alpha128Rect": [
+        637,
+        576,
+        228,
+        253
+      ],
+      "alpha1Rect": [
+        632,
+        572,
+        236,
+        262
+      ],
+      "opaquePixelCount": 45939
+    }
+  }
+}
