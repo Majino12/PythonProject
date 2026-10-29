@@ -78,11 +78,11 @@ python run.py --port 5012
 
 ## API
 
-所有接口使用同源 `/api` 路径。写入请求采用 `Content-Type: application/json`，错误返回 JSON 和相应 HTTP 状态码。
+所有接口使用同源 `/api` 路径。提交文本分析、歌词获取或推荐参数时使用 `Content-Type: application/json`；音频上传的 `POST /api/audio/jobs` 使用 `multipart/form-data`，字段为 `file` 和 `language`。错误返回 JSON 和相应 HTTP 状态码。下表列出曲库与歌词分析接口，音频任务、歌词搜索和音频下载接口见 [音频和搜索 API](AUDIO_AND_SEARCH.md#api)。
 
 | 方法 | 路径 | 用途 |
 | --- | --- | --- |
-| GET | `/api/health` | 服务健康、版本、中韩模型就绪/缺失/错误状态 |
+| GET | `/api/health` | 服务健康、版本、情感模型与音频模型状态 |
 | GET | `/api/library` | 曲库；支持 `q`、`sentiment`、`sort`、`page`、`per_page` |
 | GET | `/api/stats` | 实时曲库统计 |
 | GET | `/api/songs/<id>` | 单首歌曲详情 |
