@@ -1,6 +1,6 @@
 # PythonProject · Web 与 AI 应用实验集
 
-收录三个独立运行的应用原型：绘制式 2D 虚拟形象工具 **MoeMotion**（保留旧 3D 入口）、小说与新闻文本分析工具，以及歌词情感分析与相似歌曲推荐工具。
+收录三个独立运行的应用原型：绘制式 2D 虚拟形象工具 **MoeMotion**（保留旧 3D 入口）、带原文证据的小说全文分析工具，以及 **音绪** 多语歌词与音频工作台。
 
 **项目分类：应用实验 · Web 与 AI**  
 **技术：Python · Flask · JavaScript · Three.js · 自然语言处理**
@@ -16,7 +16,7 @@ cd PythonProject
 | --- | --- | --- | --- |
 | **MoeMotion / VTuberProject** | 九方向短发 2D 角色、五档眼睑／张嘴、独立视线、ARKit 命名通道与可选面部跟踪 | JavaScript、Canvas、Three.js、three-vrm、MediaPipe、Node.js | [项目说明](VTuberProject/README.md) · [源码](VTuberProject/) |
 | **小说全文分析 2.0** | 全文分块、混合模型阅读与证据复核、章节及全书报告 | Python、Flask、Ollama、兼容模型 API | [项目说明](xiaoshuo_web/README.md) · [源码](xiaoshuo_web/) |
-| **歌词情感分析** | 分析歌词情感与词汇特征，保存歌曲并按特征推荐相似歌曲 | Python、Flask、TextBlob、SQLite | [项目说明](yinyue_web/README.md) · [源码](yinyue_web/) |
+| **音绪 / 歌词情感工作台 2.2** | 多语歌词分析、本地音频转写、情绪画像、曲库与相似推荐 | Python、Flask、TextBlob、Transformers、Whisper、SQLite | [项目说明](yinyue_web/README.md) · [音频与搜索](yinyue_web/AUDIO_AND_SEARCH.md) · [源码](yinyue_web/) |
 
 各子目录有独立的运行入口和依赖；仓库根目录没有统一启动命令。
 
@@ -39,7 +39,7 @@ npm start
 
 ## 小说全文分析 · 2.0
 
-完整处理上传原文，支持中英文章节、超长章节分块与全书汇总。推荐本地 Qwen3.5 4B 提取 + 9B 汇总/复核，也能混用兼容云端 API。人物、事件、主题附逐字原文证据；报告展示覆盖范围与失败块。未配置模型时提供明确标注的全文摘录和统计。
+完整处理上传原文，支持中英文章节、超长章节分块与全书汇总。本地默认由 Qwen3.5 9B 负责分块提取、汇总和普通结论复核，4B 专门核验人物描述的直接引文与归属；也能为不同阶段混用兼容云端 API。人物、事件、主题附逐字原文证据；报告展示覆盖范围与失败块。未配置模型时提供明确标注的全文摘录和统计。
 
 需要 Python 3.11+。在仓库根目录执行：
 
@@ -71,7 +71,9 @@ python scripts/setup_models.py
 python run.py
 ```
 
-访问 <http://127.0.0.1:5002>。单个服务提供前端与 API；无需端口 8000 或 CDN。中韩模型首次需下载约 861 MB 权重，之后离线推理。歌词在线查询取决于 lyrics.ovh 的可用性，手动分析可离线运行。
+访问 <http://127.0.0.1:5002>。单个服务提供前端与 API；无需端口 8000 或 CDN。上述步骤安装基础应用与中韩情感模型，首次需下载约 861 MB 权重，之后离线推理。音频转写和十维情绪画像还需各自的依赖与模型，按 [音频和搜索说明](yinyue_web/AUDIO_AND_SEARCH.md#安装) 完成可选安装；仅安装基础依赖时也能运行，界面会明确标注模型回退状态。
+
+按歌手和歌名获取歌词使用 lyrics.ovh，歌词搜索使用 LRCLIB，开放许可音频搜索使用 Wikimedia Commons；这些在线功能取决于对应服务的可用性。手动歌词分析可离线运行。
 
 旧版曾跟踪数据库文件，**Git 拉取升级前请先在仓库外备份 `yinyue_web/data/`，升级后放回**。新版本不再上传曲库、缓存或日志。详细功能、配置与限制见 [音绪说明](yinyue_web/README.md)。
 
@@ -80,8 +82,8 @@ python run.py
 ```text
 PythonProject/
 ├── VTuberProject/   # MoeMotion：短发 2D 工作台与旧版 3D 入口
-├── xiaoshuo_web/    # 小说与新闻文本分析
-└── yinyue_web/      # 歌词情感分析与相似歌曲推荐
+├── xiaoshuo_web/    # 带原文证据的小说全文分析
+└── yinyue_web/      # 音绪：多语歌词、音频转写与曲库
 ```
 
 ## 运行说明
