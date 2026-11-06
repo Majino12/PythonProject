@@ -1,0 +1,70 @@
+[
+  {
+    "poseId": "front",
+    "zipCrcPassed": true,
+    "ownershipFailures": 0,
+    "rgbaFailures": 0,
+    "bothVisible": 0,
+    "features": {
+      "eyeLeft": {
+        "width": 1122,
+        "height": 1402,
+        "visiblePixels": 17980
+      },
+      "eyeRight": {
+        "width": 1122,
+        "height": 1402,
+        "visiblePixels": 19372
+      },
+      "browLeft": {
+        "width": 1122,
+        "height": 1402,
+        "visiblePixels": 10902
+      },
+      "browRight": {
+        "width": 1122,
+        "height": 1402,
+        "visiblePixels": 9246
+      },
+      "mouth": {
+        "width": 1122,
+        "height": 1402,
+        "visiblePixels": 15544
+      }
+    }
+  },
+  {
+    "poseId": "view-right-down",
+    "zipCrcPassed": true,
+    "ownershipFailures": 0,
+    "rgbaFailures": 0,
+    "bothVisible": 0,
+    "features": {
+      "eyeLeft": {
+        "width": 1122,
+        "height": 1402,
+        "visiblePixels": 7292
+      },
+      "eyeRight": {
+        "width": 1122,
+        "height": 1402,
+        "visiblePixels": 18745
+      },
+      "browLeft": {
+        "width": 1122,
+        "height": 1402,
+        "visiblePixels": 3306
+      },
+      "browRight": {
+        "width": 1122,
+        "height": 1402,
+        "visiblePixels": 9877
+      },
+      "mouth": {
+        "width": 1122,
+        "height": 1402,
+        "visiblePixels": 5675
+      }
+    }
+  }
+]

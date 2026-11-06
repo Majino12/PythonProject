@@ -65,3 +65,45 @@ test('demo spans every prepared pose only when touring is enabled and never emit
   }
   assert.equal(seen.size,9);assert.deepEqual(sampleStudioDemo(0),sampleStudioDemo(STUDIO_DEMO_DURATION));
 });
+
+test('continuous project coordinates survive save/load and older projects resolve to their painted vertex',()=>{
+  const project=createStudioProject({headPose:{yaw:.347,pitch:-.693},coefficients:{jawOpen:.4}});
+  assert.equal(project.poseId,'view-down');
+  assert.deepEqual(parseStudioProject(JSON.stringify(project)).headPose,{yaw:.347,pitch:-.693});
+  const legacy={...project,poseId:'view-right-up'};delete legacy.headPose;
+  assert.deepEqual(parseStudioProject(JSON.stringify(legacy)).headPose,{yaw:1,pitch:1});
+  for(const headPose of [null,{yaw:.5},{yaw:1.01,pitch:0},{yaw:'1',pitch:0},{yaw:0,pitch:0,url:'x'}])
+    assert.throws(()=>parseStudioProject(JSON.stringify({...project,headPose})));
+});
+
+test('full frame imports restore fractional coordinates while plain coefficient input keeps pose unspecified',()=>{
+  const parsed=parseStudioFrame(JSON.stringify({schemaVersion:2,kind:'moemotion-short-hair-frame',
+    headPose:{yaw:-.321,pitch:.765},coefficients:{jawOpen:.4}}));
+  assert.deepEqual(parsed.headPose,{yaw:-.321,pitch:.765});assert.equal(parsed.poseId,'view-up');
+  assert.equal(parseStudioFrame('{"jawOpen":0.4}').headPose,undefined);
+  assert.deepEqual(parseStudioFrame('{"poseId":"view-left","coefficients":{"jawOpen":0.4}}').headPose,{yaw:-1,pitch:0});
+  for(const data of [{poseId:'missing',coefficients:{jawOpen:.4}},
+    {headPose:{yaw:5,pitch:0},coefficients:{jawOpen:.4}},
+    {headPose:{yaw:0,pitch:0,video:[]},coefficients:{jawOpen:.4}}])
+    assert.throws(()=>parseStudioFrame(JSON.stringify(data)));
+});
+
+test('transparent projects default on, round-trip false and reject ambiguous imported flags',()=>{
+  assert.equal(createStudioProject().transparent,true);
+  const opaque=createStudioProject({transparent:false});
+  assert.equal(parseStudioProject(JSON.stringify(opaque)).transparent,false);
+  const legacy={...opaque};delete legacy.transparent;
+  assert.equal(parseStudioProject(JSON.stringify(legacy)).transparent,true);
+  for(const value of [null,0,1,'false',{}]) {
+    assert.throws(()=>createStudioProject({transparent:value}));
+    assert.throws(()=>parseStudioProject(JSON.stringify({...opaque,transparent:value})));
+  }
+});
+
+test('v2 single-frame preview restores an explicit transparent flag without changing plain coefficient imports',()=>{
+  const frame={schemaVersion:2,coefficients:{jawOpen:.3},headPose:{yaw:.2,pitch:.4},preview:{transparent:false}};
+  assert.equal(parseStudioFrame(JSON.stringify(frame)).transparent,false);
+  assert.equal(parseStudioFrame('{"jawOpen":0.3}').transparent,undefined);
+  for(const transparent of [null,0,1,'false'])
+    assert.throws(()=>parseStudioFrame(JSON.stringify({...frame,preview:{transparent}})));
+});

@@ -7,6 +7,7 @@ import {createStudioOutputRelay} from './short-hair-studio-relay.mjs';
 import {StudioOutputPublisher} from './short-hair-studio-publisher.js';
 import {validateOutputFrame,validateOutputEnvelope,drawOutputFrame} from './short-hair-studio-output-model.js';
 import {sanitizeChannels} from './expression-model.js';
+import {poseHeadCoordinates} from './short-hair-pose-motion.js';
 
 const senderId='output-test-sender';
 const neutral={eyeLeft:'open',eyeRight:'open',mouth:'neutral',browLeft:'neutral',browRight:'neutral'};
@@ -94,14 +95,56 @@ test('output validates bounded complete painted state and copies supported field
   assert.throws(()=>validateOutputEnvelope({...packet(1),sequence:Number.MAX_SAFE_INTEGER+1}));
 });
 
-test('output fits native aspect ratio inside the fixed canvas without declaring transparency',()=>{
-  const operations=[],context={fillRect:(...args)=>operations.push(['fill',...args]),drawImage:(...args)=>operations.push(['draw',...args])};
+test('output fits native aspect ratio inside the fixed canvas and clears previous alpha before opaque drawing',()=>{
+  const operations=[],context={clearRect:(...args)=>operations.push(['clear',...args]),fillRect:(...args)=>operations.push(['fill',...args]),drawImage:(...args)=>operations.push(['draw',...args])};
   const canvas={width:1280,height:720,getContext:()=>context},source={width:630,height:460};
   drawOutputFrame(canvas,source);
-  assert.equal(context.fillStyle,'#bfc6d3');assert.deepEqual(operations[0],['fill',0,0,1280,720]);
-  const [kind,image,x,y,width,height]=operations[1];
+  assert.equal(context.fillStyle,'#bfc6d3');assert.deepEqual(operations[0],['clear',0,0,1280,720]);
+  assert.deepEqual(operations[1],['fill',0,0,1280,720]);
+  const [kind,image,x,y,width,height]=operations[2];
   assert.equal(kind,'draw');assert.equal(image,source);assert.equal(y,0);assert.equal(height,720);
   assert.ok(Math.abs(width/height-630/460)<1e-12);assert.ok(Math.abs(x-(1280-width)/2)<1e-12);
+});
+
+test('output protocol retains continuous head coordinates and transparency with strict typed bounds',()=>{
+  const value={...frame(),headPose:{yaw:.375,pitch:-.625},transparent:true};
+  const result=validateOutputFrame(value);
+  assert.deepEqual(result,value);assert.notEqual(result.headPose,value.headPose);
+  value.headPose.yaw=1;assert.equal(result.headPose.yaw,.375);
+  for(const headPose of [null,[],{}, {yaw:0}, {yaw:0,pitch:0,roll:0},
+    {yaw:NaN,pitch:0},{yaw:0,pitch:Infinity},{yaw:'0',pitch:0},{yaw:1.001,pitch:0},{yaw:0,pitch:-1.001}])
+    assert.throws(()=>validateOutputFrame({...frame(),headPose}));
+  for(const transparent of [null,0,1,'true',{},[]])assert.throws(()=>validateOutputFrame({...frame(),transparent}));
+  for(const transparent of [true,false])for(const yaw of [-1,0,1])for(const pitch of [-1,0,1])
+    assert.deepEqual(validateOutputFrame({...frame(),headPose:{yaw,pitch},transparent}).headPose,{yaw,pitch});
+  const legacy=validateOutputFrame(frame());assert.equal(Object.hasOwn(legacy,'headPose'),false);assert.equal(Object.hasOwn(legacy,'transparent'),false);
+});
+
+test('transparent output clears old opaque pixels and never paints gray behind the character',()=>{
+  const operations=[],context={clearRect:(...args)=>operations.push(['clear',...args]),
+    fillRect:(...args)=>operations.push(['fill',...args]),drawImage:(...args)=>operations.push(['draw',...args])};
+  const canvas={width:1280,height:720,getContext:()=>context},source={width:1122,height:1402};
+  drawOutputFrame(canvas,source,{transparent:false});operations.length=0;
+  drawOutputFrame(canvas,source,{transparent:true});
+  assert.deepEqual(operations.map(op=>op[0]),['clear','draw']);
+  assert.deepEqual(operations[0],['clear',0,0,1280,720]);
+  assert.equal(operations[1][1],source);assert.equal(operations[1][5],720);
+  assert.ok(Math.abs(operations[1][4]/operations[1][5]-1122/1402)<1e-12);
+});
+
+test('HTTP relay preserves fractional head pose and alpha choice for a separate browser and late OBS receiver',async()=>{
+  await withRelay(async({request,connect})=>{
+    const receiver=await connect();await receiver.next();
+    const sent={...packet(1,'parted'),frame:{...frame('parted'),headPose:{yaw:.375,pitch:-.625},transparent:true}};
+    assert.equal((await request('state',{method:'POST',body:sent})).status,200);
+    const received=await receive(receiver,mouthIs('parted'));
+    assert.deepEqual(received.frame.headPose,sent.frame.headPose);assert.equal(received.frame.transparent,true);
+    const late=await connect(),latest=await late.next();assert.deepEqual(latest.frame.headPose,sent.frame.headPose);assert.equal(latest.frame.transparent,true);
+    for(const bad of [{headPose:{yaw:2,pitch:0}},{headPose:{yaw:0,pitch:0,roll:0}},{transparent:'true'}])
+      assert.equal((await request('state',{method:'POST',body:{...packet(2),frame:{...frame(),...bad}}})).status,400);
+    const unchanged=await connect(),last=await unchanged.next();assert.deepEqual(last.frame.headPose,sent.frame.headPose);
+    assert.equal(last.frame.transparent,true);
+  });
 });
 
 test('HTTP relay broadcasts to separate SSE clients and replays only the last frame to a late client',async()=>{
@@ -302,21 +345,54 @@ test('retry after current-generation failure survives its still-pending cleanup 
 
 async function receiverHarness() {
   const source=readFileSync(new URL('./short-hair-output.js',import.meta.url),'utf8').replace(/^import[^\n]+\n/gm,'');
-  const scheduled=new Map(),draws=[],events={},connections=[],notice={};let nextId=0,clears=0;
-  const canvas={width:1280,height:720,getContext:()=>({fillRect(){clears++;}})};
+  const scheduled=new Map(),draws=[],outputDraws=[],events={},connections=[],notice={};let nextId=0,clears=0,fills=0;
+  const canvas={width:1280,height:720,getContext:()=>({clearRect(){clears++;},fillRect(){fills++;}})};
   const document={hidden:false,title:'',querySelector:selector=>selector==='#outputCanvas'?canvas:notice,
     createElement:()=>({width:630,height:460}),addEventListener(type,callback){events[type]=callback;}};
   const windowEvents={};
   const context=vm.createContext({document,window:{addEventListener(type,callback){windowEvents[type]=callback;}},
-    loadShortHairStudioAssets:async()=>({}),validateOutputFrame,drawOutputFrame(){},
-    renderShortHairStudio(native,assets,poseId,coefficients,previous,options){draws.push({poseId,state:options.stateOverride});},
+    loadContinuousShortHairAssets:async()=>({}),poseHeadCoordinates,validateOutputFrame,
+    drawOutputFrame(target,native,options){outputDraws.push({target,native,options});},
+    renderContinuousShortHairStudio(native,assets,poseId,coefficients,previous,options){draws.push({poseId,state:options.stateOverride,coefficients,options});},
     EventSource:class {constructor(url){this.url=url;this.closed=false;connections.push(this);}close(){this.closed=true;}},
     requestAnimationFrame(callback){scheduled.set(++nextId,callback);return nextId;},cancelAnimationFrame(id){scheduled.delete(id);}});
   vm.runInContext(source,context);await turn();
-  return {notice,document,draws,scheduled,windowEvents,connections,get clears(){return clears;},
+  return {notice,document,draws,outputDraws,scheduled,windowEvents,connections,get clears(){return clears;},get fills(){return fills;},
     send(value){connections[0].onmessage({data:JSON.stringify(value)});},
     step(){const entry=scheduled.entries().next().value;if(entry){scheduled.delete(entry[0]);entry[1]();}}};
 }
+
+test('receiver passes continuous coordinates and transparency through both character rendering and output compositing',async()=>{
+  const h=await receiverHarness();
+  assert.equal(h.fills,0,'receiver startup remains transparent');
+  const value={...frame('openSmall'),headPose:{yaw:-.3125,pitch:.6875},transparent:true};
+  h.send({active:true,frame:value});h.step();
+  assert.equal(h.draws.length,1);assert.deepEqual(h.draws[0].options.headPose,value.headPose);
+  assert.equal(h.draws[0].options.transparent,true);assert.equal(h.outputDraws[0].options.transparent,true);
+  assert.deepEqual(h.draws[0].coefficients,value.coefficients);
+  h.send({active:true,frame:{...value,headPose:{yaw:.125,pitch:-.25},transparent:false}});h.step();
+  assert.deepEqual(h.draws[1].options.headPose,{yaw:.125,pitch:-.25});assert.equal(h.draws[1].options.transparent,false);
+  assert.equal(h.outputDraws[1].options.transparent,false);
+  h.send({active:false,frame:null});assert.equal(h.fills,0,'explicit stop clears rather than filling opaque gray');
+  h.windowEvents.pagehide();
+});
+
+test('receiver accepts legacy discrete packets by assigning their exact grid coordinates',async()=>{
+  const h=await receiverHarness();
+  h.send({active:true,frame:{...frame(),poseId:'view-left-up'}});h.step();
+  assert.deepEqual(h.draws[0].options.headPose,{yaw:-1,pitch:1});
+  assert.equal(h.draws[0].options.transparent,false);assert.equal(h.outputDraws[0].options.transparent,false);
+  h.windowEvents.pagehide();
+});
+
+test('receiver rejects invalid head or alpha packets before any renderer receives them',async()=>{
+  const h=await receiverHarness();
+  for(const bad of [{headPose:{yaw:2,pitch:0}},{headPose:{yaw:0}},{transparent:1}]){
+    h.send({active:true,frame:{...frame(),...bad}});h.step();
+    assert.equal(h.draws.length,0);assert.equal(h.outputDraws.length,0);assert.equal(h.notice.hidden,false);
+  }
+  h.windowEvents.pagehide();
+});
 
 test('receiver renders only the latest pending packet at its next animation frame',async()=>{
   const h=await receiverHarness();assert.equal(h.connections[0].url,'/api/studio-output/events');

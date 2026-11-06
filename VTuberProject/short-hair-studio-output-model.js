@@ -1,3 +1,4 @@
+import {validateHeadPose} from './short-hair-pose-motion.js';
 import {STUDIO_CHANNELS, STUDIO_POSES} from './short-hair-studio-model.js';
 
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -23,7 +24,11 @@ export function validateOutputFrame(value) {
     state[key] = value.state[key];
   }
   if (Object.keys(value.coefficients).length !== STUDIO_CHANNELS.length || Object.keys(value.state).length !== 5) throw new Error('直播状态包含未知通道。');
-  return {poseId:value.poseId, coefficients, state, faceOnly:value.faceOnly, original:value.original};
+  if (value.transparent !== undefined && typeof value.transparent !== 'boolean') throw new Error('直播透明设置无效。');
+  const extra = {};
+  if (value.headPose !== undefined) extra.headPose = validateHeadPose(value.headPose);
+  if (value.transparent !== undefined) extra.transparent = value.transparent;
+  return {poseId:value.poseId, coefficients, state, faceOnly:value.faceOnly, original:value.original, ...extra};
 }
 
 export function validateOutputEnvelope(value) {
@@ -33,10 +38,11 @@ export function validateOutputEnvelope(value) {
 }
 
 /** Fit each native pose into one fixed OBS canvas without stretching it. */
-export function drawOutputFrame(target, source) {
+export function drawOutputFrame(target, source, {transparent=false}={}) {
   const context = target.getContext('2d');
   const scale = Math.min(target.width/source.width, target.height/source.height);
   const width = source.width*scale, height = source.height*scale;
-  context.fillStyle = '#bfc6d3'; context.fillRect(0,0,target.width,target.height);
+  context.clearRect?.(0,0,target.width,target.height);
+  if (!transparent) {context.fillStyle = '#bfc6d3'; context.fillRect(0,0,target.width,target.height);}
   context.drawImage(source,(target.width-width)/2,(target.height-height)/2,width,height);
 }

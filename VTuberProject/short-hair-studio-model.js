@@ -1,12 +1,9 @@
 import {CHANNELS, sanitizeChannels} from './expression-model.js';
+import {STUDIO_HEAD_POSES, poseHeadCoordinates, normalizeHeadPose, validateHeadPose, nearestStudioPoseId} from './short-hair-pose-motion.js';
 
 export const STUDIO_CHANNELS = CHANNELS;
 export const STUDIO_STORAGE_KEY = 'moemotion:short-hair-studio:project:v1';
-export const STUDIO_POSES = Object.freeze([
-  ['view-left-up', -1, 1], ['view-up', 0, 1], ['view-right-up', 1, 1],
-  ['view-left', -1, 0], ['front', 0, 0], ['view-right', 1, 0],
-  ['view-left-down', -1, -1], ['view-down', 0, -1], ['view-right-down', 1, -1],
-].map(([id, yaw, pitch]) => Object.freeze({id, yaw, pitch})));
+export const STUDIO_POSES = STUDIO_HEAD_POSES;
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 const poseIds = new Set(STUDIO_POSES.map(pose => pose.id));
 const channelKeys = new Set(CHANNELS.map(channel => channel.key));
@@ -71,18 +68,32 @@ export function parseStudioFrame(text) {
   for (const key of supported) if (typeof raw[key] !== 'number' || !Number.isFinite(raw[key]) || raw[key] < 0 || raw[key] > 1) {
     throw new Error(`${key} 需要 0–1 之间的数字。`);
   }
-  return {coefficients: sanitizeChannels(raw), ignored: Object.keys(raw).filter(key => !channelKeys.has(key))};
+  let headPose;
+  let transparent;
+  if (object(parsed) && Object.hasOwn(parsed,'poseId') && !poseIds.has(parsed.poseId)) throw new Error('单帧使用了未知姿态。');
+  if (object(parsed) && Object.hasOwn(parsed,'headPose')) headPose = validateHeadPose(parsed.headPose);
+  else if (object(parsed) && Object.hasOwn(parsed,'poseId')) headPose = poseHeadCoordinates(parsed.poseId);
+  if (object(parsed?.preview) && Object.hasOwn(parsed.preview,'transparent')) {
+    if (typeof parsed.preview.transparent !== 'boolean') throw new Error('单帧透明背景设置需要布尔值。');
+    transparent=parsed.preview.transparent;
+  }
+  return {coefficients: sanitizeChannels(raw), ignored: Object.keys(raw).filter(key => !channelKeys.has(key)),
+    ...(headPose ? {headPose,poseId:nearestStudioPoseId(headPose)} : {}),
+    ...(transparent === undefined ? {} : {transparent})};
 }
 
 export function createStudioProject(input = {}) {
   const value = object(input) ? input : {};
+  if (Object.hasOwn(value,'transparent') && typeof value.transparent !== 'boolean') throw new Error('项目透明背景设置需要布尔值。');
   const tracking=object(value.trackingSettings)?value.trackingSettings:{};
   const sensitivity=key=>typeof tracking[key]==='number'&&Number.isFinite(tracking[key])?Math.max(.7,Math.min(1.4,tracking[key])):1;
+  const headPose=normalizeHeadPose(value.headPose,poseHeadCoordinates(poseIds.has(value.poseId)?value.poseId:'front'));
   return {
     schemaVersion: 1, kind: 'moemotion-short-hair-project', characterId: 'short-hair-v1',
     name: typeof value.name === 'string' && value.name.trim() ? value.name.trim().slice(0, 60) : '我的短发角色',
-    poseId: poseIds.has(value.poseId) ? value.poseId : 'front', coefficients: sanitizeChannels(value.coefficients),
+    poseId: nearestStudioPoseId(headPose), headPose, coefficients: sanitizeChannels(value.coefficients),
     faceOnly: value.faceOnly !== false, followHead: value.followHead === true, tourPoses: value.tourPoses === true,
+    transparent:value.transparent !== false,
     motionProfile: value.motionProfile==='quick'?'quick':'natural',
     trackingSettings:{preset:['balanced','responsive','stable'].includes(tracking.preset)?tracking.preset:'balanced',
       eyeSensitivity:sensitivity('eyeSensitivity'),mouthSensitivity:sensitivity('mouthSensitivity')},
@@ -97,6 +108,7 @@ export function parseStudioProject(text) {
     throw new Error('这不是当前短发角色的项目文件。');
   }
   if (!poseIds.has(parsed.poseId)) throw new Error('项目使用了未知姿态。');
+  if (Object.hasOwn(parsed,'headPose')) validateHeadPose(parsed.headPose);
   const {coefficients} = parseStudioFrame(JSON.stringify({coefficients: parsed.coefficients}));
   return createStudioProject({...parsed, coefficients});
 }

@@ -1,0 +1,743 @@
+{
+  "schemaVersion": 1,
+  "kind": "short-hair-continuous-browser-validation",
+  "version": "0.17.0",
+  "startedAt": "2026-11-06T01:26:48.802Z",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "endpoint:view-left-up:neutral:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-left-up:neutral:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-left-up:closed-eyes-open-jaw:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-left-up:closed-eyes-open-jaw:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "alpha:view-left-up",
+      "passed": true,
+      "topCorners": [
+        0,
+        0
+      ],
+      "mouthInterior": 255
+    },
+    {
+      "name": "endpoint:view-up:neutral:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-up:neutral:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-up:closed-eyes-open-jaw:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-up:closed-eyes-open-jaw:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "alpha:view-up",
+      "passed": true,
+      "topCorners": [
+        0,
+        0
+      ],
+      "mouthInterior": 255
+    },
+    {
+      "name": "endpoint:view-right-up:neutral:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-right-up:neutral:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-right-up:closed-eyes-open-jaw:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-right-up:closed-eyes-open-jaw:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "alpha:view-right-up",
+      "passed": true,
+      "topCorners": [
+        0,
+        0
+      ],
+      "mouthInterior": 255
+    },
+    {
+      "name": "endpoint:view-left:neutral:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-left:neutral:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-left:closed-eyes-open-jaw:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-left:closed-eyes-open-jaw:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "alpha:view-left",
+      "passed": true,
+      "topCorners": [
+        0,
+        0
+      ],
+      "mouthInterior": 255
+    },
+    {
+      "name": "endpoint:front:neutral:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:front:neutral:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:front:closed-eyes-open-jaw:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:front:closed-eyes-open-jaw:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "alpha:front",
+      "passed": true,
+      "topCorners": [
+        0,
+        0
+      ],
+      "mouthInterior": 255
+    },
+    {
+      "name": "endpoint:view-right:neutral:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-right:neutral:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-right:closed-eyes-open-jaw:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-right:closed-eyes-open-jaw:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "alpha:view-right",
+      "passed": true,
+      "topCorners": [
+        0,
+        0
+      ],
+      "mouthInterior": 255
+    },
+    {
+      "name": "endpoint:view-left-down:neutral:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-left-down:neutral:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-left-down:closed-eyes-open-jaw:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-left-down:closed-eyes-open-jaw:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "alpha:view-left-down",
+      "passed": true,
+      "topCorners": [
+        0,
+        0
+      ],
+      "mouthInterior": 255
+    },
+    {
+      "name": "endpoint:view-down:neutral:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-down:neutral:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-down:closed-eyes-open-jaw:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-down:closed-eyes-open-jaw:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "alpha:view-down",
+      "passed": true,
+      "topCorners": [
+        0,
+        0
+      ],
+      "mouthInterior": 255
+    },
+    {
+      "name": "endpoint:view-right-down:neutral:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-right-down:neutral:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-right-down:closed-eyes-open-jaw:face",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "endpoint:view-right-down:closed-eyes-open-jaw:full",
+      "passed": true,
+      "metric": {
+        "pixels": 1573044,
+        "differentPixels": 0,
+        "meanAbsoluteDifference": 0,
+        "meanAlphaDifference": 0,
+        "maxDifference": 0
+      }
+    },
+    {
+      "name": "alpha:view-right-down",
+      "passed": true,
+      "topCorners": [
+        0,
+        0
+      ],
+      "mouthInterior": 255
+    },
+    {
+      "name": "seam:vertical-upper:opaque",
+      "passed": true,
+      "epsilon": 0.0001,
+      "meanLimit": 1,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 56382,
+        "meanAbsoluteDifference": 0.04810309829059829,
+        "meanAlphaDifference": 0,
+        "maxDifference": 4
+      }
+    },
+    {
+      "name": "seam:vertical-upper:alpha",
+      "passed": true,
+      "epsilon": 0.0001,
+      "meanLimit": 1,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 55991,
+        "meanAbsoluteDifference": 0.04832464596949998,
+        "meanAlphaDifference": 0.005557692307692308,
+        "maxDifference": 4
+      }
+    },
+    {
+      "name": "seam:vertical-lower:opaque",
+      "passed": true,
+      "epsilon": 0.0001,
+      "meanLimit": 1,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 74566,
+        "meanAbsoluteDifference": 0.07200641025641026,
+        "meanAlphaDifference": 0,
+        "maxDifference": 5
+      }
+    },
+    {
+      "name": "seam:vertical-lower:alpha",
+      "passed": true,
+      "epsilon": 0.0001,
+      "meanLimit": 1,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 74527,
+        "meanAbsoluteDifference": 0.07268520822859242,
+        "meanAlphaDifference": 0.008544871794871794,
+        "maxDifference": 5
+      }
+    },
+    {
+      "name": "seam:horizontal-left:opaque",
+      "passed": true,
+      "epsilon": 0.0001,
+      "meanLimit": 1,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 33951,
+        "meanAbsoluteDifference": 0.02264423076923077,
+        "meanAlphaDifference": 0,
+        "maxDifference": 2
+      }
+    },
+    {
+      "name": "seam:horizontal-left:alpha",
+      "passed": true,
+      "epsilon": 0.0001,
+      "meanLimit": 1,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 33474,
+        "meanAbsoluteDifference": 0.02287674710910056,
+        "meanAlphaDifference": 0.004643162393162393,
+        "maxDifference": 2
+      }
+    },
+    {
+      "name": "seam:horizontal-right:opaque",
+      "passed": true,
+      "epsilon": 0.0001,
+      "meanLimit": 1,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 45238,
+        "meanAbsoluteDifference": 0.03241773504273504,
+        "meanAlphaDifference": 0,
+        "maxDifference": 2
+      }
+    },
+    {
+      "name": "seam:horizontal-right:alpha",
+      "passed": true,
+      "epsilon": 0.0001,
+      "meanLimit": 1,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 44916,
+        "meanAbsoluteDifference": 0.032826818334172086,
+        "meanAlphaDifference": 0.006835470085470086,
+        "maxDifference": 2
+      }
+    },
+    {
+      "name": "seam:diagonal--1-1:opaque",
+      "passed": true,
+      "epsilon": 0.0001,
+      "meanLimit": 1,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 42210,
+        "meanAbsoluteDifference": 0.029751068376068376,
+        "meanAlphaDifference": 0,
+        "maxDifference": 3
+      }
+    },
+    {
+      "name": "seam:diagonal--1-1:alpha",
+      "passed": true,
+      "epsilon": 0.0001,
+      "meanLimit": 1,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 41889,
+        "meanAbsoluteDifference": 0.03014357717446013,
+        "meanAlphaDifference": 0.005767094017094017,
+        "maxDifference": 3
+      }
+    },
+    {
+      "name": "seam:diagonal-0-1:opaque",
+      "passed": true,
+      "epsilon": 0.0001,
+      "meanLimit": 1,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 28182,
+        "meanAbsoluteDifference": 0.018084935897435896,
+        "meanAlphaDifference": 0,
+        "maxDifference": 2
+      }
+    },
+    {
+      "name": "seam:diagonal-0-1:alpha",
+      "passed": true,
+      "epsilon": 0.0001,
+      "meanLimit": 1,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 27935,
+        "meanAbsoluteDifference": 0.018262629881012425,
+        "meanAlphaDifference": 0.002393162393162393,
+        "maxDifference": 2
+      }
+    },
+    {
+      "name": "seam:diagonal--1-0:opaque",
+      "passed": true,
+      "epsilon": 0.0001,
+      "meanLimit": 1,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 32027,
+        "meanAbsoluteDifference": 0.020985576923076923,
+        "meanAlphaDifference": 0,
+        "maxDifference": 2
+      }
+    },
+    {
+      "name": "seam:diagonal--1-0:alpha",
+      "passed": true,
+      "epsilon": 0.0001,
+      "meanLimit": 1,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 31505,
+        "meanAbsoluteDifference": 0.02102627367186217,
+        "meanAlphaDifference": 0.0027521367521367523,
+        "maxDifference": 2
+      }
+    },
+    {
+      "name": "seam:diagonal-0-0:opaque",
+      "passed": true,
+      "epsilon": 0.0001,
+      "meanLimit": 1,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 54415,
+        "meanAbsoluteDifference": 0.03816720085470086,
+        "meanAlphaDifference": 0,
+        "maxDifference": 2
+      }
+    },
+    {
+      "name": "seam:diagonal-0-0:alpha",
+      "passed": true,
+      "epsilon": 0.0001,
+      "meanLimit": 1,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 53977,
+        "meanAbsoluteDifference": 0.03883163021619013,
+        "meanAlphaDifference": 0.008925213675213674,
+        "maxDifference": 2
+      }
+    },
+    {
+      "name": "intermediate-expression:eyes",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 40052,
+        "meanAbsoluteDifference": 2.5344727564102563,
+        "meanAlphaDifference": 0,
+        "maxDifference": 214
+      }
+    },
+    {
+      "name": "intermediate-expression:mouth",
+      "passed": true,
+      "metric": {
+        "pixels": 468000,
+        "differentPixels": 13771,
+        "meanAbsoluteDifference": 0.5782761752136752,
+        "meanAlphaDifference": 0,
+        "maxDifference": 164
+      }
+    },
+    {
+      "name": "output:transparent-corners",
+      "passed": true,
+      "size": [
+        1280,
+        720
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "limitations": [
+    "Pixel continuity is not an artistic-quality or real-camera/OBS acceptance test.",
+    "Model pair fields are extended geometrically to triangle interiors; this is not three-image neural inference.",
+    "Alpha tests check known exterior/interior pixels, not every fine hair boundary."
+  ],
+  "summary": {
+    "checks": 64,
+    "passed": 64,
+    "failed": 0,
+    "endpointComparisons": 36,
+    "seamComparisons": 16
+  },
+  "finishedAt": "2026-11-06T01:26:49.746Z"
+}

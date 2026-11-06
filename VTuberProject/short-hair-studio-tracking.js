@@ -1,4 +1,5 @@
 import {STUDIO_CHANNELS, STUDIO_POSES, selectStudioPose} from './short-hair-studio-model.js';
+import {poseHeadCoordinates, validateHeadPose, nearestStudioPoseId} from './short-hair-pose-motion.js';
 
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
@@ -64,18 +65,22 @@ function exactKeys(value, expected, label) {
     throw new Error(`${label}含缺失或未知字段。`);
   }
 }
-function checkedFrame(frame) {
-  exactKeys(frame, ['poseId','coefficients'], '动作帧');
+function checkedFrame(frame, {withHeadPose = false, requireHeadPose = false} = {}) {
+  const hasHeadPose = object(frame) && Object.hasOwn(frame,'headPose');
+  exactKeys(frame, ['poseId','coefficients',...(hasHeadPose?['headPose']:[])], '动作帧');
+  if (requireHeadPose && !hasHeadPose) throw new Error('连续动作帧缺少头部坐标。');
   if (!poseIds.has(frame.poseId)) throw new Error('动作片段含未知方向。');
   exactKeys(frame.coefficients, keys, '系数');
   for (const key of keys) if (!finite(frame.coefficients[key],0,1)) throw new Error(`${key}需要0–1之间的数字。`);
-  return {poseId:frame.poseId, coefficients:Object.fromEntries(keys.map(key => [key,frame.coefficients[key]]))};
+  const headPose = hasHeadPose ? validateHeadPose(frame.headPose) : poseHeadCoordinates(frame.poseId);
+  return {poseId:frame.poseId, coefficients:Object.fromEntries(keys.map(key => [key,frame.coefficients[key]])),
+    ...(withHeadPose ? {headPose} : {})};
 }
 
 /** A numeric-only, exact schema. No camera frames, paths, model blobs or settings. */
 export function validateTrackingClip(value) {
   exactKeys(value,clipKeys,'动作片段');
-  if (value.schemaVersion !== 1 || value.kind !== 'moemotion-short-hair-tracking-clip' || value.characterId !== 'short-hair-v1') {
+  if (![1,2].includes(value.schemaVersion) || value.kind !== 'moemotion-short-hair-tracking-clip' || value.characterId !== 'short-hair-v1') {
     throw new Error('这不是短发角色的动作片段。');
   }
   if (!finite(value.durationMs,0,TRACKING_CLIP_LIMITS.maxDurationMs)) throw new Error('动作片段最长60秒。');
@@ -83,15 +88,17 @@ export function validateTrackingClip(value) {
     throw new Error('动作片段需要1–1801帧系数。');
   }
   let previous = -1;
+  const withHeadPose = value.schemaVersion === 2;
   const samples = value.samples.map((sample,index) => {
-    exactKeys(sample,sampleKeys,'片段帧');
+    exactKeys(sample,[...sampleKeys,...(withHeadPose?['headPose']:[])],'片段帧');
     if (!finite(sample.t,0,value.durationMs) || sample.t <= previous || index === 0 && sample.t !== 0) {
       throw new Error('时间戳必须从0开始、严格递增且不超过片段时长。');
     }
     previous = sample.t;
-    return {t:sample.t,...checkedFrame({poseId:sample.poseId,coefficients:sample.coefficients})};
+    return {t:sample.t,...checkedFrame({poseId:sample.poseId,coefficients:sample.coefficients,
+      ...(withHeadPose?{headPose:sample.headPose}:{})},{withHeadPose,requireHeadPose:withHeadPose})};
   });
-  return {schemaVersion:1,kind:'moemotion-short-hair-tracking-clip',characterId:'short-hair-v1',durationMs:value.durationMs,samples};
+  return {schemaVersion:value.schemaVersion,kind:'moemotion-short-hair-tracking-clip',characterId:'short-hair-v1',durationMs:value.durationMs,samples};
 }
 
 export function parseTrackingClip(text) {
@@ -118,7 +125,7 @@ export class TrackingClipRecorder {
       this.stop(this.startedAt + TRACKING_CLIP_LIMITS.maxDurationMs); this.stopReason = 'limit'; return false;
     }
     if (previous && t - previous.t < TRACKING_CLIP_LIMITS.sampleIntervalMs - .001) return false;
-    const copy = checkedFrame(frame);
+    const copy = checkedFrame(frame,{withHeadPose:true});
     if (!previous) this.startedAt = now;
     this.samples.push({t:previous ? t : 0,...copy}); this.durationMs = previous ? t : 0;
     return true;
@@ -130,12 +137,15 @@ export class TrackingClipRecorder {
     }
     this.recording = false;
     if (!this.samples.length) return null;
-    return validateTrackingClip({schemaVersion:1,kind:'moemotion-short-hair-tracking-clip',characterId:'short-hair-v1',
+    return validateTrackingClip({schemaVersion:2,kind:'moemotion-short-hair-tracking-clip',characterId:'short-hair-v1',
       durationMs:this.durationMs,samples:this.samples});
   }
 }
 
-/** Sampling holds recorded values; existing painted motion timing owns transitions. */
+/** Painted coefficients keep their recorded samples. V2 continuous coordinates
+ * interpolate between timestamps; V1 recordings retain their discrete timing.
+ * Returned coordinates are displayed coordinates, so replay must not filter
+ * them through the live-camera damping a second time. */
 export class TrackingClipPlayer {
   constructor() {this.playing = false; this.clip = null; this.index = 0;}
   get active() {return this.playing;}
@@ -152,7 +162,16 @@ export class TrackingClipPlayer {
     while (this.index + 1 < this.clip.samples.length && this.clip.samples[this.index + 1].t <= elapsed) this.index++;
     const frame = this.clip.samples[this.index], done = now - this.startedAt >= this.clip.durationMs;
     if (done) this.playing = false;
-    return {...checkedFrame({poseId:frame.poseId,coefficients:frame.coefficients}),elapsedMs:elapsed,durationMs:this.clip.durationMs,done};
+    const result = checkedFrame({poseId:frame.poseId,coefficients:frame.coefficients,
+      ...(this.clip.schemaVersion===2?{headPose:frame.headPose}:{})},{withHeadPose:true});
+    const next = this.clip.samples[this.index + 1];
+    if (this.clip.schemaVersion === 2 && next) {
+      const amount = (elapsed - frame.t) / (next.t - frame.t);
+      result.headPose = Object.fromEntries(['yaw','pitch'].map(key =>
+        [key,frame.headPose[key] + (next.headPose[key] - frame.headPose[key]) * amount]));
+    }
+    if (this.clip.schemaVersion === 2) result.poseId = nearestStudioPoseId(result.headPose);
+    return {...result,elapsedMs:elapsed,durationMs:this.clip.durationMs,done};
   }
   stop() {this.playing = false; this.clip = null; this.index = 0;}
 }

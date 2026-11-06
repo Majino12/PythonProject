@@ -14,7 +14,7 @@ cd PythonProject
 
 | 项目 | 用途 | 主要技术 | 入口 |
 | --- | --- | --- | --- |
-| **MoeMotion / VTuberProject** | 九方向短发 2D 角色、五档眼睑／张嘴、独立视线、ARKit 命名通道与可选面部跟踪 | JavaScript、Canvas、Three.js、three-vrm、MediaPipe、Node.js | [项目说明](VTuberProject/README.md) · [源码](VTuberProject/) |
+| **MoeMotion / VTuberProject** | 连续转头、透明分层、五档眼口、独立视线、面部跟踪与 OBS 输出 | JavaScript、Canvas、Three.js、three-vrm、MediaPipe、Node.js | [项目说明](VTuberProject/README.md) · [源码](VTuberProject/) |
 | **小说全文分析 2.0** | 全文分块、混合模型阅读与证据复核、章节及全书报告 | Python、Flask、Ollama、兼容模型 API | [项目说明](xiaoshuo_web/README.md) · [源码](xiaoshuo_web/) |
 | **音绪 / 歌词情感工作台 2.2** | 多语歌词分析、本地音频转写、情绪画像、曲库与相似推荐 | Python、Flask、TextBlob、Transformers、Whisper、SQLite | [项目说明](yinyue_web/README.md) · [音频与搜索](yinyue_web/AUDIO_AND_SEARCH.md) · [源码](yinyue_web/) |
 
@@ -22,22 +22,24 @@ cd PythonProject
 
 ## MoeMotion
 
-当前子项目版本为 `0.16.0`，默认打开短发角色 2D 工作台：九个准备好的头部方向、五档眼睑与张嘴、眉毛动作、独立视线和 22 个 ARKit 命名通道。本轮增加自然／快速动作衔接、带来源和哈希的素材清单、跟踪手感与眨眼／嘴部灵敏度、最多 60 秒的系数片段记录和重放，以及独立直播画面页。
+版本：`0.17.0`。在 v0.16.0 基础上增加连续转头、真实 RIFE 模型运动场、角色透明遮罩与图层导出。九方向原稿、已登记表情与批准记录保留；仍为 2D，不接入 VTube Studio，不修改旧 3D。
 
-需要 Node.js 18 或更新版本。在仓库根目录执行：
+需要 Node.js 18 或更新版本，在仓库根目录执行：
 
 ```bash
 cd VTuberProject
 npm start
 ```
 
-访问 <http://127.0.0.1:4173>，可手动搭配方向与表情、播放演示或主动开启面部跟踪。首次开启摄像头才下载 MediaPipe 模型；默认不加载 3D、不请求摄像头，也不调用图像生成服务。本地项目、单帧系数 JSON、PNG 和无声录像继续可用。
+打开 <http://127.0.0.1:4173>，使用滑块连续转头。首次主动开启摄像头才下载 MediaPipe；模型运动场和透明遮罩已本地预计算，不逐帧等待神经推理。
 
-直播时在工作台启用输出，将 `http://127.0.0.1:4173/short-hair-output.html` 添加为同机 OBS 浏览器源，画幅 1280×720。独立画面通过本机服务接收角色状态，保留原画背景；具体设置见 [OBS 接入说明](VTuberProject/OBS-SETUP.txt)。
+直播时在工作台启用输出，将 `http://127.0.0.1:4173/short-hair-output.html` 添加为同机 OBS 浏览器源，宽 1280、高 720。透明背景有真实 alpha，可叠加在直播场景上；PNG 支持透明，浏览器录像仍使用固定背景。[OBS 接入说明](VTuberProject/OBS-SETUP.txt)
 
-九方向仍是有限画稿，尚无连续转头、完整透明角色或一图自动建模；本轮未接入补帧模型。30／60 fps 是请求值。真实摄像头质量和实际 OBS 采集未做实机验收；自动测试、浏览器像素回归与输出页检查的范围见 [验证记录](VTuberProject/RELEASE-VALIDATION.txt)。
+图层可导出角色、头部、躯干及眼口眉替换画稿；头发与脸仍同属头部层，无隐藏区域补画。三角形内部采用模型两图运动场的几何组合，细发、衣服和轮廓可能受原稿差异影响。一张图自动建模仍是后续目标。[模型说明](VTuberProject/docs/CONTINUOUS-2D.txt)
 
-旧 Luna／3D 应用保留在 `legacy-studio.html`，本次未修改其功能。许可见 [素材来源与许可](VTuberProject/assets/THIRD_PARTY_NOTICES.txt)，完整能力与限制见 [VTuberProject README](VTuberProject/README.md)。
+770/770 自动测试、64/64 浏览器连续像素检查通过；一次巡回演示录像平均约 57.56 fps（请求60），不代表所有设备。真人摄像头及实际 OBS 尚未实机验收。[验证记录](VTuberProject/RELEASE-VALIDATION.txt)
+
+旧 Luna／3D、原画与批准记录保留。许可见 [原素材](VTuberProject/assets/THIRD_PARTY_NOTICES.txt)、[RIFE](VTuberProject/assets/short-hair-motion-v1/LICENSE-RIFE.txt)、[动漫分割](VTuberProject/assets/short-hair-alpha-v1/LICENSE-anime-seg.txt)。完整能力见 [项目 README](VTuberProject/README.md)。
 
 ## 小说全文分析 · 2.0
 

@@ -7,6 +7,7 @@ import {sanitizeChannels,selectGaze,selectExpression} from './expression-model.j
 import {FaceSession} from './face-session.js';
 import * as timing from './short-hair-studio-timing.js';
 import * as tracking from './short-hair-studio-tracking.js';
+import * as poseMotion from './short-hair-pose-motion.js';
 import {mapBlendshapeValue} from './arkit-blendshapes.js';
 
 const source = readFileSync(new URL('./short-hair-studio.js', import.meta.url),'utf8').replace(/^import[\s\S]*?from ['"][^'"]+['"];\n/gm,'');
@@ -34,21 +35,23 @@ function harness() {
   const document={hidden:false,querySelector:element,querySelectorAll:()=>[],body:{append(){}},
     createElement(tag){
       if(tag==='a')return{click(){calls.filenames.push(this.download);},remove(){}};
-      if(tag==='canvas')return{width:0,height:0,getContext:()=>({fillRect(){},drawImage(){}}),captureStream(fps){const stream={fps,stops:0,getTracks:()=>[{stop(){stream.stops++;}}]};calls.streams.push(stream);return stream;}};
+      if(tag==='canvas')return{width:0,height:0,getContext:()=>({fillRect(){},clearRect(){},drawImage(){}}),captureStream(fps){const stream={fps,stops:0,getTracks:()=>[{stop(){stream.stops++;}}]};calls.streams.push(stream);return stream;}};
       throw new Error(`Unexpected element ${tag}`);
     },addEventListener(type,callback){documentEvents[type]=callback;}};
   Object.assign(element('#studioCanvas'),{width:630,height:460,captureStream(){}});
   const capabilities={extendedEyes:true,extendedJaw:true,shiftLeft:true,shiftRight:true,gaze:true};
   const selector=(assets,poseId,channels,previous={})=>({targetState:selectExpression(channels,previous,capabilities),targetGaze:selectGaze(channels,capabilities),
     availableSequences:{eyeLeft:['open','quarter','half','threeQuarter','closed'],eyeRight:['open','quarter','half','threeQuarter','closed'],mouth:['neutral','parted','openSmall','openMedium','openWide']}});
-  const context=vm.createContext({...model,...timing,...tracking,sanitizeChannels,selectGaze,FaceSession,ShortHairStudioCamera:Camera,StudioOutputPublisher:Publisher,document,
+  const context=vm.createContext({...model,...timing,...tracking,...poseMotion,sanitizeChannels,selectGaze,FaceSession,ShortHairStudioCamera:Camera,StudioOutputPublisher:Publisher,document,
     window:{location:{origin:'http://127.0.0.1:4175'},addEventListener(type,callback){windowEvents[type]=callback;}},localStorage:{getItem:()=>null,setItem(){}},
     performance:{now:()=>calls.now},requestAnimationFrame(callback){frames.set(++frameId,callback);return frameId;},cancelAnimationFrame(id){frames.delete(id);},
-    loadShortHairStudioAssets(){calls.load++;return new Promise(()=>{});},selectShortHairStudioState:selector,
+    loadContinuousShortHairAssets(){calls.load++;return new Promise(()=>{});},selectShortHairStudioState:selector,
+    exportShortHairLayers(){return Promise.resolve([]);},
     loadShortHairCharacterPack(){return Promise.resolve({pack:{}});},summarizeShortHairCharacterPack(){return{poseCount:9,artworkFileCount:0,poses:[]};},
-    renderShortHairStudio(canvas,assets,poseId,channels,previous,options){
+    renderContinuousShortHairStudio(canvas,assets,poseId,channels,previous,options){
       const target=selector(assets,poseId,channels,previous),neutral=selector(assets,poseId,{});
-      const result={...target,state:options.original?neutral.targetState:options.stateOverride || target.targetState,gaze:options.original?neutral.targetGaze:target.targetGaze,didDraw:true};
+      const result={...target,state:options.original?neutral.targetState:options.stateOverride || target.targetState,gaze:options.original?neutral.targetGaze:target.targetGaze,didDraw:true,
+        headPose:options.original?poseMotion.poseHeadCoordinates(poseMotion.nearestStudioPoseId(options.headPose)):{...options.headPose},transparent:options.transparent};
       calls.draws.push({at:calls.now,poseId,...result});return result;
     },extractFaceMotion:result=>result?.faceMotion || null,
     calls,console,Blob,URL:{createObjectURL(blob){calls.downloads.push(blob);return 'blob:test';},revokeObjectURL(){}},setTimeout(callback){callback();return 0;},
@@ -56,7 +59,7 @@ function harness() {
   vm.runInContext(source,context);
   return{context,calls,elements,frames,intervals,document,documentEvents,windowEvents,run:code=>vm.runInContext(code,context),
     step(now){const next=frames.entries().next().value;if(!next)return false;const[id,callback]=next;frames.delete(id);calls.now=now;callback(now);return true;},
-    prepare(){vm.runInContext('assets={poses:[{id:"front",label:"正面"},{id:"view-right",label:"右转"}]};ready=true;paint({snap:true});',context);}};
+    prepare(){vm.runInContext('assets={poses:STUDIO_POSES.map(pose=>({...pose,label:pose.id}))};ready=true;paint({snap:true});',context);}};
 }
 
 test('loading the studio prepares only local art and remains still with no camera start',()=>{
@@ -139,7 +142,7 @@ test('camera ARKit gaze remains unit coefficients and normalized head pitch is c
     {categoryName:'eyeLookOutLeft',score:.8},{categoryName:'eyeLookInRight',score:.8},
     {categoryName:'eyeLookUpLeft',score:.6},{categoryName:'eyeLookUpRight',score:.6}]}]});`);
   h.elements.get('#followHead').checked=true;h.run('cameraFrame(1000,1/60)');
-  assert.equal(h.run('poseId'),'front');h.run('cameraFrame(1080,1/60)');
+  assert.equal(h.run('poseMotion.current.yaw'),0);assert.equal(h.run('poseMotion.target.yaw'),1);h.run('cameraFrame(1080,1/60)');
   assert.equal(h.run('poseId'),'view-right-up');assert.equal(h.run('trackedPose.pitch'),.6);
   const configs=tracking.createFaceSessionSettings().channels;
   assert.equal(h.run('selectGaze(coefficients,{gaze:true}).eyeLeft.x'),mapBlendshapeValue(.8,configs.eyeLookOutLeft));
@@ -199,15 +202,17 @@ test('pausing or hiding a manual transition freezes its actual frame and never r
     callback(500);assert.equal(h.run('rendered.state.mouth'),shown);assert.equal(h.frames.size,0);assert.equal(h.run('transitionPending'),false);
   }
 });
-test('pose selection, original preview and single-frame exports use exact endpoint states',async()=>{
+test('pose selection moves continuously, original preview uses neutral art and exports freeze actual display states',async()=>{
   const h=harness();h.prepare();h.run('setManual({jawOpen:1});choosePose("view-right");');
-  assert.equal(h.run('rendered.state.mouth'),'openWide');assert.equal(h.frames.size,0);
+  assert.notEqual(h.run('rendered.state.mouth'),'openWide');assert.equal(h.run('poseMotion.current.yaw'),0);assert.equal(h.frames.size,1);
   h.elements.get('#originalToggle').checked=true;h.elements.get('#originalToggle').events.change();
   assert.equal(h.run('rendered.state.mouth'),'neutral');assert.equal(h.run('rendered.targetState.mouth'),'openWide');
   h.run('exportFrame();');const original=JSON.parse(await h.calls.downloads[0].text());
   assert.equal(original.renderedState.mouth,'neutral');assert.equal(original.targetState.mouth,'openWide');
   h.elements.get('#originalToggle').checked=false;h.run('setManual({eyeBlinkLeft:1,jawOpen:1});exportFrame();');
-  const exported=JSON.parse(await h.calls.downloads[1].text());assert.equal(exported.renderedState.eyeLeft,'closed');assert.equal(exported.renderedState.mouth,'openWide');
+  const exported=JSON.parse(await h.calls.downloads[1].text());
+  assert.equal(exported.renderedState.eyeLeft,h.run('rendered.state.eyeLeft'));assert.equal(exported.renderedState.mouth,h.run('rendered.state.mouth'));
+  assert.equal(exported.targetState.eyeLeft,'closed');assert.equal(exported.targetState.mouth,'openWide');
   assert.equal(h.frames.size,0);
 });
 test('render scheduling counts successful 30/60 fps draws rather than 120 Hz RAF callbacks',()=>{
@@ -221,11 +226,13 @@ test('render scheduling counts successful 30/60 fps draws rather than 120 Hz RAF
   }
 });
 test('a skipped or failed render cannot commit unseen motion or contribute to measured drawing rate',()=>{
-  const h=harness();h.prepare();h.run('setManual({jawOpen:1});');const before=h.run('frameMotion'),draw=h.context.renderShortHairStudio;
-  h.context.renderShortHairStudio=()=>({didDraw:false});h.step(0);
-  assert.equal(h.run('frameMotion'),before);assert.equal(h.run('frameClock.snapshot(0).sampleCount'),0);assert.equal(h.frames.size,1);
-  h.context.renderShortHairStudio=draw;h.step(17);assert.notEqual(h.run('frameMotion'),before);
-  h.context.renderShortHairStudio=()=>{throw new Error('context lost');};const shown=h.run('rendered.state');h.step(34);
+  const h=harness();h.prepare();h.run('setManual({jawOpen:1});choosePose("view-right");');
+  const before=h.run('frameMotion'),beforePose=h.run('poseMotion'),draw=h.context.renderContinuousShortHairStudio;
+  h.context.renderContinuousShortHairStudio=()=>({didDraw:false});h.step(0);
+  assert.equal(h.run('frameMotion'),before);assert.equal(h.run('poseMotion'),beforePose);
+  assert.equal(h.run('frameClock.snapshot(0).sampleCount'),0);assert.equal(h.frames.size,1);
+  h.context.renderContinuousShortHairStudio=draw;h.step(17);assert.notEqual(h.run('frameMotion'),before);assert.ok(h.run('poseMotion.current.yaw')>0);
+  h.context.renderContinuousShortHairStudio=()=>{throw new Error('context lost');};const shown=h.run('rendered.state');h.step(34);
   assert.equal(h.run('ready'),false);assert.equal(h.run('rendered.state'),shown);assert.equal(h.frames.size,0);assert.equal(h.run('frameClock.snapshot(34).sampleCount'),0);
 });
 test('recording requests the selected fps, locks it until finalization and preserves a paused visible frame',()=>{
@@ -355,14 +362,16 @@ test('tracking reset restores short-hair defaults and recalibrates only an alrea
   assert.equal(h.run('poseStabilizer.candidate'),null);assert.equal(h.run('source'),'camera');
 });
 
-test('camera pose dwell needs a new inference sample and never treats repeated RAF as additional head evidence',()=>{
+test('camera targets preserve fractional angles and stale input returns toward neutral without a hard displayed jump',()=>{
   const h=harness();h.prepare();h.elements.get('#followHead').checked=true;
-  h.run('source="camera";camera.active=true;camera.poll=()=>({faceMotion:{pose:{x:.8,y:0}},faceBlendshapes:[{categories:[]}]});cameraFrame(1000,1/60);camera.poll=()=>null;');
+  h.run('source="camera";camera.active=true;camera.poll=()=>({faceMotion:{pose:{x:.16,y:0}},faceBlendshapes:[{categories:[]}]});cameraFrame(1000,1/60);camera.poll=()=>null;');
+  assert.ok(Math.abs(h.run('poseMotion.target.yaw')-.35)<1e-12);
   for(const now of [1040,1080,1160])h.run(`cameraFrame(${now},1/60)`);
-  assert.equal(h.run('poseId'),'front');
-  h.run('camera.poll=()=>({faceMotion:{pose:{x:.8,y:0}},faceBlendshapes:[{categories:[]}]});cameraFrame(1200,1/60);');
-  assert.equal(h.run('poseId'),'view-right');
-  h.run('camera.poll=()=>null;cameraFrame(1441,1/60);');assert.equal(h.run('poseId'),'front');
+  assert.ok(Math.abs(h.run('poseMotion.target.yaw')-.35)<1e-12);
+  assert.equal(h.run('poseMotion.current.yaw'),0);
+  h.run('paint({dt:.1});');const shown=h.run('poseMotion.current.yaw');assert.ok(shown>0&&shown<.35);
+  h.run('camera.poll=()=>null;cameraFrame(1241,1/60);');assert.equal(h.run('poseMotion.target.yaw'),0);
+  assert.equal(h.run('poseMotion.current.yaw'),shown);
 });
 
 test('output publishing is explicit and page exit clears its heartbeat and publisher',()=>{
@@ -371,4 +380,111 @@ test('output publishing is explicit and page exit clears its heartbeat and publi
   assert.equal(h.calls.published.length,1);assert.equal(h.intervals.size,1);
   assert.equal(h.calls.published[0].poseId,'front');
   h.windowEvents.pagehide();assert.equal(h.intervals.size,0);assert.equal(h.calls.outputStops,1);assert.equal(h.run('publisher.enabled'),false);
+});
+
+test('manual turns and slider reversals start from the displayed fractional angle and pause freezes it',()=>{
+  const h=harness();h.prepare();h.run('choosePose("view-right");');
+  assert.equal(h.run('rendered.headPose.yaw'),0);assert.equal(h.run('poseMotion.target.yaw'),1);
+  for(const now of [0,17,34,51])h.step(now);
+  const first=h.run('rendered.headPose.yaw');assert.ok(first>0&&first<1);
+  h.elements.get('#headYaw').value='-.72';h.elements.get('#headYaw').events.input();
+  assert.equal(h.run('rendered.headPose.yaw'),first);assert.equal(h.run('poseMotion.target.yaw'),-.72);
+  for(let now=68;now<800&&h.frames.size;now+=17)h.step(now);
+  assert.ok(h.run('rendered.headPose.yaw')<0);assert.ok(h.run('rendered.headPose.yaw')>=-.72);
+  const shown=h.run('rendered.headPose.yaw'),callback=[...h.frames.values()][0];
+  h.elements.get('#manualButton').events.click();if(callback)callback(900);
+  assert.equal(h.run('rendered.headPose.yaw'),shown);assert.equal(h.run('poseMotion.target.yaw'),shown);
+  assert.equal(h.frames.size,0);
+});
+
+test('v2 clip playback uses recorded displayed coordinates without live tracking damping a second time',()=>{
+  const h=harness();h.prepare();h.context.testClip={schemaVersion:2,kind:'moemotion-short-hair-tracking-clip',characterId:'short-hair-v1',durationMs:100,
+    samples:[{t:0,poseId:'front',headPose:{yaw:.1,pitch:-.2},coefficients:sanitizeChannels({})},
+      {t:100,poseId:'view-right',headPose:{yaw:.9,pitch:.4},coefficients:sanitizeChannels({})}]};
+  h.run('savedClip=testClip;trackingSettings=normalizeTrackingSettings({preset:"stable"});playClip();');
+  h.step(0);assert.equal(h.run('rendered.headPose.yaw'),.1);
+  h.step(50);assert.equal(h.run('rendered.headPose.yaw'),.5);
+  assert.ok(Math.abs(h.run('rendered.headPose.pitch')-.1)<1e-12);
+  h.step(100);assert.equal(h.run('rendered.headPose.yaw'),.9);assert.equal(h.run('source'),'manual');
+  assert.equal(h.run('camera.starts'),0);
+});
+
+test('PNG, project and frame exports freeze the currently displayed angle instead of finishing its turn',async()=>{
+  const h=harness();h.prepare();h.run('choosePose("view-right");');
+  for(const now of [0,17,34])h.step(now);
+  const yaw=h.run('rendered.headPose.yaw');assert.ok(yaw>0&&yaw<1);
+  let pngPose;h.elements.get('#studioCanvas').toBlob=callback=>{
+    pngPose=h.run('poseMotion.current.yaw');callback(new Blob(['png'],{type:'image/png'}));
+  };
+  h.run('savePng();');assert.equal(pngPose,yaw);assert.equal(h.frames.size,0);
+  h.run('saveProject();exportFrame();');
+  const project=JSON.parse(await h.calls.downloads[1].text()),frame=JSON.parse(await h.calls.downloads[2].text());
+  assert.equal(project.headPose.yaw,yaw);assert.equal(frame.headPose.yaw,yaw);assert.equal(frame.schemaVersion,2);
+  assert.equal(project.transparent,true);assert.equal(frame.preview.transparent,true);
+  assert.equal(h.run('poseMotion.target.yaw'),yaw);assert.equal(h.frames.size,0);
+});
+
+test('continuous recording saves displayed intermediate coordinates and output transmits the same alpha setting',()=>{
+  const h=harness();h.prepare();h.elements.get('#outputToggle').checked=true;h.elements.get('#outputToggle').events.change();
+  h.run('toggleClipRecording();choosePose("view-right");');
+  for(const now of [0,17,34,51,68,85])h.step(now);
+  const displayed=h.run('rendered.headPose.yaw'),published=h.calls.published.at(-1);
+  assert.equal(published.headPose.yaw,displayed);assert.equal(published.transparent,true);
+  assert.ok(h.run('clipRecorder.samples.some(sample=>sample.headPose.yaw>0&&sample.headPose.yaw<1)'));
+  h.elements.get('#transparentToggle').checked=false;h.elements.get('#transparentToggle').events.change();
+  assert.equal(h.calls.published.at(-1).transparent,false);
+  h.run('stopActive();');assert.equal(h.run('savedClip.schemaVersion'),2);
+  assert.ok(h.run('savedClip.samples.some(sample=>sample.headPose.yaw>0&&sample.headPose.yaw<1)'));
+});
+
+test('an invalid continuous frame cannot interrupt a live source or partially change its alpha setting',()=>{
+  const h=harness();h.prepare();h.run('source="demo";transparent=false;');
+  const invalid={schemaVersion:2,headPose:{yaw:1.1,pitch:0},coefficients:{jawOpen:.8},preview:{transparent:true}};
+  h.context.badFrame=JSON.stringify(invalid);h.run('applyFrame(badFrame);');
+  assert.equal(h.run('source'),'demo');assert.equal(h.run('transparent'),false);assert.equal(h.run('coefficients.jawOpen'),0);
+});
+
+test('a valid v2 frame restores its displayed angle and explicit alpha option before painting',()=>{
+  const h=harness();h.prepare();h.context.importedFrame=JSON.stringify({schemaVersion:2,headPose:{yaw:.234,pitch:-.678},
+    coefficients:{jawOpen:.8},preview:{transparent:false}});
+  h.run('source="demo";applyFrame(importedFrame);');
+  assert.equal(h.run('source'),'manual');assert.equal(h.run('rendered.headPose.yaw'),.234);
+  assert.equal(h.run('rendered.headPose.pitch'),-.678);assert.equal(h.run('transparent'),false);
+  assert.equal(h.elements.get('#transparentToggle').checked,false);assert.equal(h.calls.draws.at(-1).transparent,false);
+});
+
+test('original view publishes and exports the exact nearest painting while retaining the continuous return position',async()=>{
+  const h=harness();h.prepare();h.run('poseMotion=createStudioPoseMotion({yaw:.31,pitch:-.22});poseId="view-right";paint({snap:true});');
+  h.elements.get('#outputToggle').checked=true;h.elements.get('#outputToggle').events.change();
+  h.elements.get('#originalToggle').checked=true;h.elements.get('#originalToggle').events.change();
+  assert.equal(h.run('poseMotion.current.yaw'),.31);assert.equal(h.run('rendered.headPose.yaw'),0);
+  assert.equal(h.calls.published.at(-1).poseId,'front');assert.equal(h.calls.published.at(-1).headPose.yaw,0);
+  h.run('exportFrame();');const frame=JSON.parse(await h.calls.downloads[0].text());
+  assert.equal(frame.poseId,'front');assert.deepEqual(frame.headPose,{yaw:0,pitch:0});assert.equal(frame.preview.original,true);
+  h.elements.get('#originalToggle').checked=false;h.elements.get('#originalToggle').events.change();
+  assert.equal(h.run('rendered.headPose.yaw'),.31);assert.equal(h.run('rendered.headPose.pitch'),-.22);
+});
+
+test('a skipped clip frame cannot commit new coordinates or mix a heartbeat with unrendered inputs',()=>{
+  const h=harness();h.prepare();h.context.testClip={schemaVersion:2,kind:'moemotion-short-hair-tracking-clip',characterId:'short-hair-v1',durationMs:100,
+    samples:[{t:0,poseId:'front',headPose:{yaw:0,pitch:0},coefficients:sanitizeChannels({})},
+      {t:100,poseId:'view-right',headPose:{yaw:1,pitch:.4},coefficients:sanitizeChannels({jawOpen:1})}]};
+  h.elements.get('#outputToggle').checked=true;h.elements.get('#outputToggle').events.change();
+  h.run('savedClip=testClip;playClip();');h.step(0);
+  const before=h.run('poseMotion'),committed=structuredClone(h.calls.published.at(-1)),draw=h.context.renderContinuousShortHairStudio;
+  h.context.renderContinuousShortHairStudio=()=>({didDraw:false});h.step(50);
+  assert.equal(h.run('poseMotion'),before);assert.equal(h.run('rendered.headPose.yaw'),0);
+  h.run('publishOutput();');assert.deepEqual(JSON.parse(JSON.stringify(h.calls.published.at(-1))),committed);
+  h.context.renderContinuousShortHairStudio=draw;h.step(67);assert.equal(h.run('rendered.headPose.yaw'),.67);
+});
+
+test('a skipped final clip frame is retried before playback is declared complete',()=>{
+  const h=harness();h.prepare();h.context.testClip={schemaVersion:2,kind:'moemotion-short-hair-tracking-clip',characterId:'short-hair-v1',durationMs:100,
+    samples:[{t:0,poseId:'front',headPose:{yaw:0,pitch:0},coefficients:sanitizeChannels({})},
+      {t:100,poseId:'view-right',headPose:{yaw:1,pitch:.4},coefficients:sanitizeChannels({})}]};
+  h.run('savedClip=testClip;playClip();');h.step(0);const draw=h.context.renderContinuousShortHairStudio;
+  h.context.renderContinuousShortHairStudio=()=>({didDraw:false});h.step(100);
+  assert.equal(h.run('rendered.headPose.yaw'),0);assert.equal(h.run('source'),'clip');assert.equal(h.frames.size,1);
+  h.context.renderContinuousShortHairStudio=draw;h.step(117);
+  assert.equal(h.run('rendered.headPose.yaw'),1);assert.equal(h.run('source'),'manual');assert.equal(h.frames.size,0);
 });

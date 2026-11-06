@@ -1,0 +1,512 @@
+{
+  "schemaVersion": 1,
+  "id": "short-hair-alpha-v1",
+  "status": "derived-candidate",
+  "width": 1122,
+  "height": 1402,
+  "model": {
+    "name": "SkyTNT anime-seg ISNet",
+    "repository": "https://github.com/SkyTNT/anime-segmentation",
+    "weights": "https://huggingface.co/skytnt/anime-seg/resolve/493cb60893f47441b26ec4fb9a306bce9e342982/isnetis.onnx",
+    "revision": "493cb60893f47441b26ec4fb9a306bce9e342982",
+    "sha256": "f15622d853e8260172812b657053460e20806f04b9e05147d49af7bed31a6e99",
+    "license": "Apache-2.0"
+  },
+  "processing": {
+    "input": "RGB / 255; 1024 square letterbox; NCHW float32",
+    "output": "mask only; source RGB is unchanged",
+    "maskEdge": "clamp probabilities below 0.005 to 0 and above 0.995 to 1, resize bilinear, quantize alpha to 8-bit",
+    "layers": "head and torso partition visible pixels at the registered neckline; feature layers remain authored replacement patches"
+  },
+  "layers": [
+    {
+      "id": "character",
+      "kind": "character-matte"
+    },
+    {
+      "id": "head",
+      "kind": "visible-partition"
+    },
+    {
+      "id": "torso",
+      "kind": "visible-partition"
+    },
+    {
+      "id": "eyeLeft",
+      "kind": "authored-replacement-patch"
+    },
+    {
+      "id": "eyeRight",
+      "kind": "authored-replacement-patch"
+    },
+    {
+      "id": "browLeft",
+      "kind": "authored-replacement-patch"
+    },
+    {
+      "id": "browRight",
+      "kind": "authored-replacement-patch"
+    },
+    {
+      "id": "mouth",
+      "kind": "authored-replacement-patch"
+    }
+  ],
+  "limitations": [
+    "Hidden anatomy and cloth behind the head are not completed.",
+    "Hair and face remain together in the visible head layer.",
+    "Fine edge alpha is model-derived and does not add user artwork approval."
+  ],
+  "poses": {
+    "front": {
+      "source": "./assets/short-hair-v1/front.png",
+      "sourceSha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822",
+      "sourceBytes": 1891855,
+      "matte": "./assets/short-hair-alpha-v1/front-matte.png",
+      "matteSha256": "cd0648e0ae8814b87b09d7f4cc35d4359c6f05623c3e84e30d08df0216f4d4d5",
+      "matteBytes": 122331,
+      "neckline": [
+        [
+          0,
+          790
+        ],
+        [
+          420,
+          790
+        ],
+        [
+          470,
+          804
+        ],
+        [
+          650,
+          804
+        ],
+        [
+          700,
+          790
+        ],
+        [
+          1122,
+          790
+        ]
+      ],
+      "coverage": {
+        "transparent": 532305,
+        "opaque": 968169,
+        "edge": 72570
+      },
+      "inference": {
+        "provider": "CPUExecutionProvider",
+        "inferenceMs": 950,
+        "onnxruntime": "1.31.0",
+        "shape": [
+          1,
+          1,
+          1024,
+          1024
+        ]
+      }
+    },
+    "view-left": {
+      "source": "./assets/short-hair-v1/view-left.png",
+      "sourceSha256": "23da31b12da3e50550519db9d95077e107d20755ca72fdab8b82335a961206b6",
+      "sourceBytes": 1902045,
+      "matte": "./assets/short-hair-alpha-v1/view-left-matte.png",
+      "matteSha256": "04f1bef67c95b1e1c407b0c62856f48a85c3c5f08da6b0359e0cfd56bda3f632",
+      "matteBytes": 126541,
+      "neckline": [
+        [
+          0,
+          778
+        ],
+        [
+          405,
+          778
+        ],
+        [
+          510,
+          797
+        ],
+        [
+          703,
+          797
+        ],
+        [
+          770,
+          778
+        ],
+        [
+          1122,
+          778
+        ]
+      ],
+      "coverage": {
+        "transparent": 509992,
+        "opaque": 985644,
+        "edge": 77408
+      },
+      "inference": {
+        "provider": "CPUExecutionProvider",
+        "inferenceMs": 951,
+        "onnxruntime": "1.31.0",
+        "shape": [
+          1,
+          1,
+          1024,
+          1024
+        ]
+      }
+    },
+    "view-right": {
+      "source": "./assets/short-hair-v1/view-right.png",
+      "sourceSha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3",
+      "sourceBytes": 1917113,
+      "matte": "./assets/short-hair-alpha-v1/view-right-matte.png",
+      "matteSha256": "25332ce93d878e8171918e99766fd379b8fdb9c995e68f5fe0eb1bfbd24d7f7a",
+      "matteBytes": 122887,
+      "neckline": [
+        [
+          0,
+          788
+        ],
+        [
+          370,
+          788
+        ],
+        [
+          435,
+          809
+        ],
+        [
+          635,
+          809
+        ],
+        [
+          745,
+          788
+        ],
+        [
+          1122,
+          788
+        ]
+      ],
+      "coverage": {
+        "transparent": 517888,
+        "opaque": 981644,
+        "edge": 73512
+      },
+      "inference": {
+        "provider": "CPUExecutionProvider",
+        "inferenceMs": 942,
+        "onnxruntime": "1.31.0",
+        "shape": [
+          1,
+          1,
+          1024,
+          1024
+        ]
+      }
+    },
+    "view-left-up": {
+      "source": "./assets/short-hair-v1/view-left-up.png",
+      "sourceSha256": "614ea3f4df961ffefefe4ae054eea45fe6c42a0cf5ae25cb3f6e88d5f6ca8637",
+      "sourceBytes": 1882392,
+      "matte": "./assets/short-hair-alpha-v1/view-left-up-matte.png",
+      "matteSha256": "3fd2f4b84c50a7841278b5b5589aa57e672f21693fabefbf71436d5a39b94465",
+      "matteBytes": 130765,
+      "neckline": [
+        [
+          0,
+          790
+        ],
+        [
+          390,
+          790
+        ],
+        [
+          486,
+          811
+        ],
+        [
+          706,
+          811
+        ],
+        [
+          777,
+          790
+        ],
+        [
+          1122,
+          790
+        ]
+      ],
+      "coverage": {
+        "transparent": 499718,
+        "opaque": 991896,
+        "edge": 81430
+      },
+      "inference": {
+        "provider": "CPUExecutionProvider",
+        "inferenceMs": 945,
+        "onnxruntime": "1.31.0",
+        "shape": [
+          1,
+          1,
+          1024,
+          1024
+        ]
+      }
+    },
+    "view-right-up": {
+      "source": "./assets/short-hair-v1/view-right-up.png",
+      "sourceSha256": "900d998244e371021320ead30a823661d8759b516d72ad6390c2c62d3fd21037",
+      "sourceBytes": 1884105,
+      "matte": "./assets/short-hair-alpha-v1/view-right-up-matte.png",
+      "matteSha256": "7529af64ac439ea82f4e53fa5e829c1ee76d07ad9297f49b3ec58ce3df026e2a",
+      "matteBytes": 121687,
+      "neckline": [
+        [
+          0,
+          790
+        ],
+        [
+          360,
+          790
+        ],
+        [
+          430,
+          813
+        ],
+        [
+          650,
+          813
+        ],
+        [
+          760,
+          790
+        ],
+        [
+          1122,
+          790
+        ]
+      ],
+      "coverage": {
+        "transparent": 525444,
+        "opaque": 975098,
+        "edge": 72502
+      },
+      "inference": {
+        "provider": "CPUExecutionProvider",
+        "inferenceMs": 940,
+        "onnxruntime": "1.31.0",
+        "shape": [
+          1,
+          1,
+          1024,
+          1024
+        ]
+      }
+    },
+    "view-left-down": {
+      "source": "./assets/short-hair-v1/view-left-down.png",
+      "sourceSha256": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983",
+      "sourceBytes": 1880125,
+      "matte": "./assets/short-hair-alpha-v1/view-left-down-matte.png",
+      "matteSha256": "38ec8234e3680276baf229dace34039bcba0bf376ed34f564fed3768ee14d5e9",
+      "matteBytes": 121468,
+      "neckline": [
+        [
+          0,
+          790
+        ],
+        [
+          390,
+          790
+        ],
+        [
+          490,
+          812
+        ],
+        [
+          700,
+          812
+        ],
+        [
+          780,
+          790
+        ],
+        [
+          1122,
+          790
+        ]
+      ],
+      "coverage": {
+        "transparent": 487089,
+        "opaque": 1010977,
+        "edge": 74978
+      },
+      "inference": {
+        "provider": "CPUExecutionProvider",
+        "inferenceMs": 950,
+        "onnxruntime": "1.31.0",
+        "shape": [
+          1,
+          1,
+          1024,
+          1024
+        ]
+      }
+    },
+    "view-up": {
+      "source": "./assets/short-hair-complete-poses-v1/view-up-neutral.png",
+      "sourceSha256": "252ba6a46b0121ee0c9f94b37180ba4745158da6f2bb230aff5efa0894cb23d6",
+      "sourceBytes": 1871811,
+      "matte": "./assets/short-hair-alpha-v1/view-up-matte.png",
+      "matteSha256": "bb4c9a38edbc93a298ed1ec6cda1b157fe262b2c83e65577d93118718204713e",
+      "matteBytes": 124537,
+      "neckline": [
+        [
+          0,
+          790
+        ],
+        [
+          405,
+          790
+        ],
+        [
+          465,
+          808
+        ],
+        [
+          655,
+          808
+        ],
+        [
+          720,
+          790
+        ],
+        [
+          1122,
+          790
+        ]
+      ],
+      "coverage": {
+        "transparent": 529613,
+        "opaque": 969543,
+        "edge": 73888
+      },
+      "inference": {
+        "provider": "CPUExecutionProvider",
+        "inferenceMs": 942,
+        "onnxruntime": "1.31.0",
+        "shape": [
+          1,
+          1,
+          1024,
+          1024
+        ]
+      }
+    },
+    "view-down": {
+      "source": "./assets/short-hair-complete-poses-v1/view-down-neutral.png",
+      "sourceSha256": "f9e6315e19b09a121d3d1216611dd0759020f21a5d3fab9827adebb9eceb9d4f",
+      "sourceBytes": 1887913,
+      "matte": "./assets/short-hair-alpha-v1/view-down-matte.png",
+      "matteSha256": "05143c9f7a01a8e500d9744c6aa2796c02fe8314a075fe1b22959953a88815b2",
+      "matteBytes": 124252,
+      "neckline": [
+        [
+          0,
+          790
+        ],
+        [
+          405,
+          790
+        ],
+        [
+          465,
+          808
+        ],
+        [
+          655,
+          808
+        ],
+        [
+          720,
+          790
+        ],
+        [
+          1122,
+          790
+        ]
+      ],
+      "coverage": {
+        "transparent": 532933,
+        "opaque": 965780,
+        "edge": 74331
+      },
+      "inference": {
+        "provider": "CPUExecutionProvider",
+        "inferenceMs": 940,
+        "onnxruntime": "1.31.0",
+        "shape": [
+          1,
+          1,
+          1024,
+          1024
+        ]
+      }
+    },
+    "view-right-down": {
+      "source": "./assets/short-hair-complete-poses-v1/view-right-down-neutral.png",
+      "sourceSha256": "5845cf6909248321f234bff531c16b231017d95fcd92de1e24789328b79e0b71",
+      "sourceBytes": 1869776,
+      "matte": "./assets/short-hair-alpha-v1/view-right-down-matte.png",
+      "matteSha256": "4749fc1908e3353f2bdc6407ad77497f233d0eb83e2b4176846826e22260e8d5",
+      "matteBytes": 121755,
+      "neckline": [
+        [
+          0,
+          784
+        ],
+        [
+          350,
+          784
+        ],
+        [
+          438,
+          807
+        ],
+        [
+          645,
+          807
+        ],
+        [
+          750,
+          784
+        ],
+        [
+          1122,
+          784
+        ]
+      ],
+      "coverage": {
+        "transparent": 515914,
+        "opaque": 983315,
+        "edge": 73815
+      },
+      "inference": {
+        "provider": "CPUExecutionProvider",
+        "inferenceMs": 941,
+        "onnxruntime": "1.31.0",
+        "shape": [
+          1,
+          1,
+          1024,
+          1024
+        ]
+      }
+    }
+  }
+}

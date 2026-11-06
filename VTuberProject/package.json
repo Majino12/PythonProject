@@ -1,9 +1,9 @@
 {
   "name": "moemotion",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "private": true,
   "type": "module",
-  "description": "Local 2D short-haired avatar studio with nine prepared poses, painted expressions, gaze, ARKit-named coefficients, optional camera tracking and local exports.",
+  "description": "Local 2D avatar studio with continuous neural-flow head motion, authored expressions, transparent layers and OBS browser output.",
   "scripts": {
     "dev": "node server.mjs",
     "start": "node server.mjs",

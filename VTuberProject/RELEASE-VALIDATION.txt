@@ -1,58 +1,22 @@
-VTuberProject 0.16.0 — release validation, 2026-11-06 (Asia/Seoul)
+MoeMotion v0.17.0 · 发布验证 · 2026-11-06（Asia/Seoul）
 
-Scope: the existing short-haired 2D studio, based on the released 0.15.0 artwork. This iteration improves four areas: authored motion timing, verifiable asset inventory, tracking controls and numerical replay, and an independent local output page. It does not claim that the complete long-term product or one-image character generation is finished. No 3D or VTube Studio work was added.
+基线
+正式文件与v0.16验收副本563个发布文件SHA256一致，GitHub main=a7a2811cf646db72b37cfbb1021ddfff43552c7d。已完整备份正式目录583个文件，包括历史交接材料和本机额外文件。v0.17在独立副本完成开发与验收后更新正式目录。
 
-Changes:
-- Natural/quick motion profiles use separate eye-opening/closing and jaw-opening/closing timing. Authored special mouth shapes pass through the actual neutral painting. Reversals start from the displayed state, and continuous manual input retains elapsed hold time. No image interpolation, warping, crossfade or new artwork is introduced.
-- character-pack.json inventories nine poses, 123 selected PNGs and 135 files with byte lengths and SHA256. It registers source manifests, crops, anchors, gaze, approval scope and explicit gaps. Browser startup verifies metadata and checks loaded layers; full artwork-byte hashing belongs to the complete file-verification checks. This inventory is not a generic character importer, packed model, new renderer, or a new approval.
-- Balanced/responsive/stable tracking presets and 0.7–1.4 blink/mouth sensitivity reuse FaceSession's single existing filter. Nine-direction pose confirmation requires fresh inference samples. Existing calibration can be restarted. Inference rate/cost and face-signal staleness are measured separately from successful canvas drawing.
-- Numeric clip recording is explicit and memory-only, bounded to 60 seconds, 1801 samples and 2 MB. Its exact schema contains timestamped full 22-channel coefficients and prepared pose IDs, not image/audio/model data. Replay closes the camera and uses recorded timestamps plus the currently selected painted-motion profile; it is not pixel-identical video playback. Imports reject unknown fields, missing channels, invalid ranges and non-monotonic timestamps.
-- short-hair-output.html receives the displayed state through the same loopback HTTP/SSE service, across browser processes. Its output canvas is fixed at 1280x720. The visible controller must explicitly enable output; a one-second heartbeat keeps static output active. Explicit stop clears the receiver. The relay sends a status heartbeat every second and marks the source stale after more than five seconds without a controller update. A stale source or receiver connection error preserves the last drawn frame with a bottom-right signal-interruption notice; new data hides that notice. Slow delivery replaces pending old states with the latest state. The receiver requests no camera or microphone.
+自动验证
+Node.js22.20.0，npm run check通过。npm test：770/770通过；失败、取消、跳过均0。包含真实本机HTTP/SSE接收、非法协议、并发停启、帧提交、clip最终帧重试、项目迁移与原有3D/2D回归。完整日志见TEST-RESULTS.txt。
 
-Current validation:
-- Full npm test: 668 passed, 0 failed, 0 skipped, 0 cancelled; npm run check passed (Node.js v22.20.0).
-- Browser integration verified: character inventory matches compiled assets; the independent output canvas is 1280x720; direction, expression and full-image framing synchronize; explicit output stop clears the receiver; recording the demo succeeds. Stale-source warnings and recovery were also verified in the browser. Re-running the preserved artwork diagnostic produced 718 native-pixel comparisons, 1060 assertions, and zero failures. These checks do not establish actual OBS capture, real camera quality or all-device frame rates.
-- Completed focused tracking/camera/studio lifecycle/FaceSession checks: 86 passed. This includes recording and replay interruption, stale file reads, hardware-disconnect finalization, deliberate camera-to-manual recording continuity, pose sample confirmation and output cleanup.
-- Real camera hardware was not activated. Actual OBS installation/capture was not tested. Browser checks and simulated lifecycle tests must not be presented as either result.
+真实浏览器
+short-hair-continuous-diagnostics：64/64通过，0失败。36项九原稿端点RGBA比较、9项角色alpha、16项网格/三角接缝前后像素比较、2项中间转角动态眼口、1项透明直播画布。原有renderer保持未改。报告validation/v0.17-continuous-browser.json。
+工作台实际操作水平0.5、水平0.5+俯仰0.35、水平0.35+俯仰-0.25等连续角度，眼口响应、独立输出同步、全图、透明设置、图层ZIP准备成功；控制台无error/warn。未请求真人摄像头或麦克风。
+VP9录制：780×600，11568视频块，时间戳跨度200.941秒，均值57.564fps，请求60fps，无声音。巡回九姿态与表情。该数字仅代表一次浏览器演示录制，不代表真人跟踪、OBS或所有设备。报告validation/v0.17-video-metadata.json。
 
-One front-only VP9 recording: 630x460, 18438 video blocks over a 321.307-second timestamp span, encoded mean about 57.38 fps with a 60 fps request. This is one browser session, not an OBS/camera/all-pose performance claim. The local recording is retained outside the public repository.
+神经模型及图层
+RIFE v4.6：16组相邻姿态×7t=112次真实神经推理，编译35.354秒，发布字段26,127,360字节。额外48组网络输出复核，压缩字段重建平均RGB误差0.002190（约0.56/255），最差case平均约1.01/255。
+动漫分割9组遮罩总计1,116,223字节；保留源RGB，原有画稿/批准记录不改。源SHA和派生素材SHA均校验。
+正面与右下两个真实ZIP样例CRC通过：头部+躯干可见像素重组角色RGBA差异0、遗漏0、重叠0；五官层全非空。原稿合法眼口与跨方向眉型映射已测试。
+模型权重不打入网页，首次启动不下载这些模型；CPU离线重建脚本、固定依赖、来源与许可随源码保留。
 
-Operating notes:
-- Formal service: http://127.0.0.1:4173/short-hair-studio.html
-- This iteration's review service: http://127.0.0.1:4177/short-hair-studio.html
-- The independent output uses the same service/port, at /short-hair-output.html. Keep the controller tab visible. OBS setup and failure behavior are documented in OBS-SETUP.txt.
-- Source backgrounds remain. There is no full-character alpha, transparent video or virtual-camera output. Nine poses remain discrete. Compound pucker/lateral mouth art, independent front inner/outer brow art and true unilateral lip press remain missing. Existing per-pose selector semantics have not all been unified.
-- RIFE/FILM were researched but not installed or integrated. No one-image automatic character pipeline is implemented.
-- Project JSON saves manual settings, motion profile and tracking preferences, not live camera state, output permission, clip data or media. Restart stays manual and output remains disabled.
-
-Artwork and history:
-The source PNGs and existing approval/provenance files remain the 0.15.0 artwork baseline. The character inventory preserves acceptedScope/pendingScope and candidate status. Passing tests or displaying inventory coverage does not approve candidate art. iteration-prep-2026-10-29 is local historical evidence, not a new runtime asset source. Before formal publication, compare and back up the original, validate the review copy, then verify copied files and synchronize the intended GitHub paths only.
-
------ HISTORICAL 0.15.0 RELEASE RECORD BELOW -----
-The following is retained evidence from the previous release; its test counts, frame rates, browser measurements and publication statements are not fresh 0.16.0 measurements.
-
-VTuberProject 0.15.0 — release validation, 2026-10-28
-
-Default: short-haired 2D avatar studio with nine prepared head poses, painted eye/mouth/brow expressions, independent gaze, 22 ARKit-named coefficients, optional camera tracking and local project/JSON/PNG/video export. No 3D changes in this release.
-
-Changes in 0.15.0:
-- Eight non-front poses now have five eye-opening and jaw-opening stages instead of three, using 16 selected new source portraits. Front retains its existing five stages.
-- Eye and jaw motions advance through adjacent prepared artwork, including reversals from the currently displayed stage. This does not synthesize missing art by stretching or crossfading.
-- The studio offers 30/60 fps targets, reports successful drawing measurements and uses the selected target for video capture. Requested fps is not guaranteed output or a count of distinct source drawings.
-
-Validation:
-- npm test: 589 passed, 0 failed, 0 skipped; npm run check passed.
-- Focused lifecycle/timing tests: 48 passed (10 camera, 24 studio, 14 timing). Real camera hardware was not activated.
-- Browser frame diagnostics: 718 native-pixel comparisons, 1060 assertions, 0 failures; includes all nine five-stage poses, upper-lip registration, extreme gaze clipping and exact inheritance of existing named states.
-- All nine five-stage contact sheets and two new combined eye/mouth/gaze examples were visually inspected by the developer; no blocking compositing issue was found. This does not create a new user artwork-approval record.
-- Right-down timing after the new artwork was enabled showed all five stages without skipped stages. Under the measured load: 60 fps target yielded about 55.93 fps; 30 fps target about 30.26 fps. Earlier front measurements were 60.0/30.0 fps. These measurements apply only to the tested session.
-- A front VP9 recording contained 1694 video blocks over 28.224 seconds (about 59.98 fps), at 630x460. This front recording preceded activation of the new artwork and does not establish video performance for every pose or device.
-- Release dependency audit: all 23 studio modules and 224 referenced asset paths exist; the server binds loopback and camera startup remains explicit.
-
-Evidence: assets/short-hair-frame-art-v1/validation/ contains the new source audit, native diagnostics, contact sheets, timing measurements and release-validation.json. TEST-RESULTS.txt contains the complete automated test output. Earlier checks under other artwork packs and the README section explicitly marked 0.14.0 are historical evidence, not fresh 0.15.0 measurements.
-
-Source history: selected and rejected generated sources, prompts, generation identifiers and hashes are retained. Existing artwork approval/freeze records remain intact. Local filesystem references in public documentation are normalized to portable source identifiers; that editorial cleanup does not change artwork or visual review outcomes.
-
-Known limits: nine discrete prepared poses rather than continuous head rotation; no independent artwork for every possible coefficient combination; no compound pucker-plus-lateral mouth artwork; front brow motions share a whole-brow approximation; painted backgrounds remain; no virtual camera, iPhone receiver or VTube Studio connection. Real camera tracking quality remains untested. Stop and save recordings before closing the page.
-
-Local publication: the previous formal 0.14.0 project was fully backed up before the 0.15.0 update; all 548 release files were verified by SHA256 after copying. Subsequent documentation cleanup is backed up and verified separately. Machine-specific backup locations and GitHub synchronization receipts are kept outside the release; the repository commit identifies the synchronized source revision.
+边界
+三角形内是模型两图运动场的几何组合，非三图神经推理。细发/衣服/轮廓仍可能受独立原稿差异影响。头发与脸同属头部可见层，没有被遮挡区域补画或完整可动发层。透明PNG与OBS画布支持alpha；浏览器视频仍固定背景。实际OBS安装、真人摄像头、长期稳定性未验收。
+本轮未修改旧3D、原画批准范围或历史iteration-prep证据。

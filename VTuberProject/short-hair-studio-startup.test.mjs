@@ -43,6 +43,19 @@ test('studio startup static dependencies are local and exclude legacy, 3D and bo
   }
   for (const old of ['app.js','avatar3d.js','studio-avatar.js','avatar-loader.js','project-store.js']) assert.equal(seen.has(old), false, old);
   assert.ok(seen.has('short-hair-studio-camera.js'));
+  assert.ok(seen.has('short-hair-pose-motion.js'));
+  assert.ok(seen.has('short-hair-continuous-renderer.js'));
   assert.doesNotMatch(read('short-hair-studio.html'), /preconnect|importmap|<script[^>]*src=["']https?:/);
   assert.doesNotMatch(read('short-hair-studio-camera.js'), /PoseLandmarker|pose_landmarker/);
+});
+
+test('the workbench exposes continuous coordinates, alpha preview and layer export as explicit controls',()=>{
+  const html=read('short-hair-studio.html');
+  for(const id of ['headYaw','headPitch','headYawValue','headPitchValue','transparentToggle','interpolationStatus','exportLayers'])
+    assert.match(html,new RegExp(`id=["']${id}["']`),id);
+  for(const id of ['headYaw','headPitch']) {
+    const input=html.match(new RegExp(`<input[^>]*id=["']${id}["'][^>]*>`))?.[0];
+    assert.ok(input,id);assert.match(input,/type=["']range["']/);
+    assert.match(input,/min=["']-1["']/);assert.match(input,/max=["']1["']/);
+  }
 });

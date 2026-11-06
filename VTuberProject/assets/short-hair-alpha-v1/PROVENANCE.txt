@@ -1,0 +1,32 @@
+透明角色与可见图层来源
+
+2026-11-06，基于当前短发角色九个中性姿态建立独立透明遮罩。
+源 RGB 图片没有改写，也没有新增用户画稿批准。
+
+模型作者：SkyTNT
+代码：https://github.com/SkyTNT/anime-segmentation
+模型：https://huggingface.co/skytnt/anime-seg
+固定版本：493cb60893f47441b26ec4fb9a306bce9e342982
+权重文件：isnetis.onnx
+权重 SHA256：f15622d853e8260172812b657053460e20806f04b9e05147d49af7bed31a6e99
+模型卡明确标记 Apache-2.0；许可证全文随本目录保存。
+176 MB 模型仅用于离线开发处理，不随网页分发，不在浏览器加载。
+
+工具：tools/prepare-alpha.mjs 与 tools/infer-alpha.py。
+Node/sharp 负责图像读写和预览；ONNX Runtime CPU 只读写浮点 tensor。
+输入等比缩放并补零到 1024×1024，RGB/255，NCHW。
+输出仅保留 alpha；低于 0.005 置零，高于 0.995 置一，恢复原图尺寸后保存 RGBA matte。
+九个姿态的源文件路径/长度/SHA256、遮罩文件长度/SHA256 和颈线均在 manifest.json。
+
+头部/躯干以登记颈线分割当前可见像素，相互补集，没有插补隐藏区域。
+头发和脸仍在同一头部层；眼/口/眉沿用既有实际局部替换画稿，包含皮肤及画稿遮挡。
+导出图层不等于已补全隐藏内容的通用绑定模型。
+深色、白色和洋红背景用于检查发丝边缘；原背景抗锯齿色仍可能保留在细发边缘。
+
+复现示例（依赖安装在独立工具目录；不要改写系统 Python）：
+  npm install --prefix /path/tool-deps sharp
+  /path/python -m pip install numpy onnxruntime
+  SHARP_MODULE=/path/tool-deps/node_modules/sharp/lib/index.js node tools/prepare-alpha.mjs \
+    --model /path/isnetis.onnx --python /path/python \
+    --license assets/short-hair-alpha-v1/LICENSE-anime-seg.txt --preview-dir /path/review-previews
+新版 sharp 的模块入口可为 dist/index.mjs，请以安装版本 package.json 的 exports 为准。

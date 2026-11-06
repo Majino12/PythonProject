@@ -1,0 +1,460 @@
+{
+  "model": "RIFE v4.6",
+  "commit": "a7532fc3f9f8f008cd6eecd6f2ffe2a9698e0cf7",
+  "edgeCount": 16,
+  "modelEvaluationsForCompilation": 112,
+  "compilationSeconds": 35.354,
+  "evaluationsForValidation": 48,
+  "fieldSize": [
+    144,
+    180
+  ],
+  "inferenceSize": [
+    576,
+    720
+  ],
+  "method": "Re-run official NCNN network; compare its RGB out0 to normalized RGBA16F fields + R8 mask reconstructed at inference size.",
+  "meanAbsoluteRGBErrorAcrossCases": 0.0021896640052242824,
+  "worstCaseMeanAbsoluteRGBError": 0.003965778276324272,
+  "maxFullFieldInteriorMeanError": 0.0,
+  "cases": [
+    {
+      "edge": "view-left-up__view-up",
+      "time": 0.25,
+      "meanAbsoluteRGBError": 0.002168880309909582,
+      "p95AbsoluteRGBError": 0.007455063052475452,
+      "maxAbsoluteRGBError": 0.26336294412612915,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left-up__view-up",
+      "time": 0.5,
+      "meanAbsoluteRGBError": 0.003455227939411998,
+      "p95AbsoluteRGBError": 0.01088599395006895,
+      "maxAbsoluteRGBError": 0.4121071696281433,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left-up__view-up",
+      "time": 0.75,
+      "meanAbsoluteRGBError": 0.0021596213337033987,
+      "p95AbsoluteRGBError": 0.007383652031421661,
+      "maxAbsoluteRGBError": 0.3876155614852905,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-up__view-right-up",
+      "time": 0.25,
+      "meanAbsoluteRGBError": 0.00243984698317945,
+      "p95AbsoluteRGBError": 0.008312704972922802,
+      "maxAbsoluteRGBError": 0.33398300409317017,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-up__view-right-up",
+      "time": 0.5,
+      "meanAbsoluteRGBError": 0.003965778276324272,
+      "p95AbsoluteRGBError": 0.012355336919426918,
+      "maxAbsoluteRGBError": 0.29680150747299194,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-up__view-right-up",
+      "time": 0.75,
+      "meanAbsoluteRGBError": 0.002467494923621416,
+      "p95AbsoluteRGBError": 0.008279697969555855,
+      "maxAbsoluteRGBError": 0.19477063417434692,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left__front",
+      "time": 0.25,
+      "meanAbsoluteRGBError": 0.0018998179584741592,
+      "p95AbsoluteRGBError": 0.006470799446105957,
+      "maxAbsoluteRGBError": 0.20091795921325684,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left__front",
+      "time": 0.5,
+      "meanAbsoluteRGBError": 0.0031090814154595137,
+      "p95AbsoluteRGBError": 0.0094530638307333,
+      "maxAbsoluteRGBError": 0.40938591957092285,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left__front",
+      "time": 0.75,
+      "meanAbsoluteRGBError": 0.0019605723209679127,
+      "p95AbsoluteRGBError": 0.006677400320768356,
+      "maxAbsoluteRGBError": 0.28923657536506653,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "front__view-right",
+      "time": 0.25,
+      "meanAbsoluteRGBError": 0.002129731699824333,
+      "p95AbsoluteRGBError": 0.006824806332588196,
+      "maxAbsoluteRGBError": 0.2940714359283447,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "front__view-right",
+      "time": 0.5,
+      "meanAbsoluteRGBError": 0.003620430361479521,
+      "p95AbsoluteRGBError": 0.009477764368057251,
+      "maxAbsoluteRGBError": 0.4055243134498596,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "front__view-right",
+      "time": 0.75,
+      "meanAbsoluteRGBError": 0.00219611544162035,
+      "p95AbsoluteRGBError": 0.006656235549598932,
+      "maxAbsoluteRGBError": 0.24526101350784302,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left-down__view-down",
+      "time": 0.25,
+      "meanAbsoluteRGBError": 0.002175060333684087,
+      "p95AbsoluteRGBError": 0.006732673849910498,
+      "maxAbsoluteRGBError": 0.19938939809799194,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left-down__view-down",
+      "time": 0.5,
+      "meanAbsoluteRGBError": 0.003436189843341708,
+      "p95AbsoluteRGBError": 0.009925581514835358,
+      "maxAbsoluteRGBError": 0.34253793954849243,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left-down__view-down",
+      "time": 0.75,
+      "meanAbsoluteRGBError": 0.0022610125597566366,
+      "p95AbsoluteRGBError": 0.007068163249641657,
+      "maxAbsoluteRGBError": 0.32665011286735535,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-down__view-right-down",
+      "time": 0.25,
+      "meanAbsoluteRGBError": 0.0018282074015587568,
+      "p95AbsoluteRGBError": 0.00697786221280694,
+      "maxAbsoluteRGBError": 0.2767471671104431,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-down__view-right-down",
+      "time": 0.5,
+      "meanAbsoluteRGBError": 0.0028159860521554947,
+      "p95AbsoluteRGBError": 0.01095929928123951,
+      "maxAbsoluteRGBError": 0.37300896644592285,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-down__view-right-down",
+      "time": 0.75,
+      "meanAbsoluteRGBError": 0.0017909242305904627,
+      "p95AbsoluteRGBError": 0.006691250018775463,
+      "maxAbsoluteRGBError": 0.268243670463562,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left-up__view-left",
+      "time": 0.25,
+      "meanAbsoluteRGBError": 0.0014140101848170161,
+      "p95AbsoluteRGBError": 0.005406451877206564,
+      "maxAbsoluteRGBError": 0.26499485969543457,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left-up__view-left",
+      "time": 0.5,
+      "meanAbsoluteRGBError": 0.0020625125616788864,
+      "p95AbsoluteRGBError": 0.007002592086791992,
+      "maxAbsoluteRGBError": 0.23995113372802734,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left-up__view-left",
+      "time": 0.75,
+      "meanAbsoluteRGBError": 0.0014506039442494512,
+      "p95AbsoluteRGBError": 0.005394430365413427,
+      "maxAbsoluteRGBError": 0.20059263706207275,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-up__front",
+      "time": 0.25,
+      "meanAbsoluteRGBError": 0.0009794159559533,
+      "p95AbsoluteRGBError": 0.003589332103729248,
+      "maxAbsoluteRGBError": 0.15297222137451172,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-up__front",
+      "time": 0.5,
+      "meanAbsoluteRGBError": 0.0015510747907683253,
+      "p95AbsoluteRGBError": 0.0050318269059062,
+      "maxAbsoluteRGBError": 0.19858509302139282,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-up__front",
+      "time": 0.75,
+      "meanAbsoluteRGBError": 0.00102469592820853,
+      "p95AbsoluteRGBError": 0.003595204558223486,
+      "maxAbsoluteRGBError": 0.15541893243789673,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-right-up__view-right",
+      "time": 0.25,
+      "meanAbsoluteRGBError": 0.0015000182902440429,
+      "p95AbsoluteRGBError": 0.004926925990730524,
+      "maxAbsoluteRGBError": 0.23089608550071716,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-right-up__view-right",
+      "time": 0.5,
+      "meanAbsoluteRGBError": 0.0025281738489866257,
+      "p95AbsoluteRGBError": 0.007646328303962946,
+      "maxAbsoluteRGBError": 0.17769330739974976,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-right-up__view-right",
+      "time": 0.75,
+      "meanAbsoluteRGBError": 0.0015948308864608407,
+      "p95AbsoluteRGBError": 0.005150738172233105,
+      "maxAbsoluteRGBError": 0.2608753442764282,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left__view-left-down",
+      "time": 0.25,
+      "meanAbsoluteRGBError": 0.0015560592291876674,
+      "p95AbsoluteRGBError": 0.00539011973887682,
+      "maxAbsoluteRGBError": 0.32683512568473816,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left__view-left-down",
+      "time": 0.5,
+      "meanAbsoluteRGBError": 0.002374607138335705,
+      "p95AbsoluteRGBError": 0.007030913140624762,
+      "maxAbsoluteRGBError": 0.40501827001571655,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left__view-left-down",
+      "time": 0.75,
+      "meanAbsoluteRGBError": 0.001547546125948429,
+      "p95AbsoluteRGBError": 0.0052965907379984856,
+      "maxAbsoluteRGBError": 0.2629961669445038,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "front__view-down",
+      "time": 0.25,
+      "meanAbsoluteRGBError": 0.0010929610580205917,
+      "p95AbsoluteRGBError": 0.003946785815060139,
+      "maxAbsoluteRGBError": 0.1611281931400299,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "front__view-down",
+      "time": 0.5,
+      "meanAbsoluteRGBError": 0.0018067791825160384,
+      "p95AbsoluteRGBError": 0.005739986896514893,
+      "maxAbsoluteRGBError": 0.2594411373138428,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "front__view-down",
+      "time": 0.75,
+      "meanAbsoluteRGBError": 0.001190811861306429,
+      "p95AbsoluteRGBError": 0.004153788089752197,
+      "maxAbsoluteRGBError": 0.147960364818573,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-right__view-right-down",
+      "time": 0.25,
+      "meanAbsoluteRGBError": 0.0015957477735355496,
+      "p95AbsoluteRGBError": 0.005697339773178101,
+      "maxAbsoluteRGBError": 0.1992710530757904,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-right__view-right-down",
+      "time": 0.5,
+      "meanAbsoluteRGBError": 0.0024928690399974585,
+      "p95AbsoluteRGBError": 0.0079995421692729,
+      "maxAbsoluteRGBError": 0.2175532579421997,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-right__view-right-down",
+      "time": 0.75,
+      "meanAbsoluteRGBError": 0.0016060768393799663,
+      "p95AbsoluteRGBError": 0.005686347372829914,
+      "maxAbsoluteRGBError": 0.16836333274841309,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left-up__front",
+      "time": 0.25,
+      "meanAbsoluteRGBError": 0.002404098166152835,
+      "p95AbsoluteRGBError": 0.007949234917759895,
+      "maxAbsoluteRGBError": 0.24479785561561584,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left-up__front",
+      "time": 0.5,
+      "meanAbsoluteRGBError": 0.00389302265830338,
+      "p95AbsoluteRGBError": 0.011924210004508495,
+      "maxAbsoluteRGBError": 0.36521390080451965,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left-up__front",
+      "time": 0.75,
+      "meanAbsoluteRGBError": 0.0023524390999227762,
+      "p95AbsoluteRGBError": 0.007744967937469482,
+      "maxAbsoluteRGBError": 0.4063756465911865,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-up__view-right",
+      "time": 0.25,
+      "meanAbsoluteRGBError": 0.001978796673938632,
+      "p95AbsoluteRGBError": 0.00665909331291914,
+      "maxAbsoluteRGBError": 0.34087419509887695,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-up__view-right",
+      "time": 0.5,
+      "meanAbsoluteRGBError": 0.0032695734407752752,
+      "p95AbsoluteRGBError": 0.00959283672273159,
+      "maxAbsoluteRGBError": 0.4141124486923218,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-up__view-right",
+      "time": 0.75,
+      "meanAbsoluteRGBError": 0.002045158063992858,
+      "p95AbsoluteRGBError": 0.006512586958706379,
+      "maxAbsoluteRGBError": 0.24750155210494995,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left__view-down",
+      "time": 0.25,
+      "meanAbsoluteRGBError": 0.0019037517486140132,
+      "p95AbsoluteRGBError": 0.006720307283103466,
+      "maxAbsoluteRGBError": 0.21954792737960815,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left__view-down",
+      "time": 0.5,
+      "meanAbsoluteRGBError": 0.0030136003624647856,
+      "p95AbsoluteRGBError": 0.009822772815823555,
+      "maxAbsoluteRGBError": 0.3756851255893707,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "view-left__view-down",
+      "time": 0.75,
+      "meanAbsoluteRGBError": 0.001980534754693508,
+      "p95AbsoluteRGBError": 0.006922724656760693,
+      "maxAbsoluteRGBError": 0.2491357922554016,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "front__view-right-down",
+      "time": 0.25,
+      "meanAbsoluteRGBError": 0.0019862025510519743,
+      "p95AbsoluteRGBError": 0.007470761425793171,
+      "maxAbsoluteRGBError": 0.3279000222682953,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "front__view-right-down",
+      "time": 0.5,
+      "meanAbsoluteRGBError": 0.003085013711825013,
+      "p95AbsoluteRGBError": 0.011017216369509697,
+      "maxAbsoluteRGBError": 0.39159849286079407,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    },
+    {
+      "edge": "front__view-right-down",
+      "time": 0.75,
+      "meanAbsoluteRGBError": 0.0019429069943726063,
+      "p95AbsoluteRGBError": 0.006860858295112848,
+      "maxAbsoluteRGBError": 0.257169246673584,
+      "fullFieldInteriorMeanError": 0.0,
+      "fullFieldInteriorMaxError": 0.0
+    }
+  ],
+  "limitations": [
+    "Low-resolution stored fields approximate full-resolution neural outputs.",
+    "Network is conditioned on neutral art; expression overlays reuse those fields.",
+    "Triangle interiors combine edge fields and are not direct three-view neural inference.",
+    "Endpoint artwork differs in some details; inference does not repair inconsistent drawing."
+  ]
+}

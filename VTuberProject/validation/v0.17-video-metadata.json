@@ -1,0 +1,13 @@
+{
+  "file": "v0.17-continuous-demo.webm",
+  "bytes": 49882927,
+  "videoBlocks": 11568,
+  "timecodeScaleNs": 1000000,
+  "codec": "V_VP9",
+  "width": 780,
+  "height": 600,
+  "timestampSpanSeconds": 200.941,
+  "encodedMeanFps": 57.56416062426284,
+  "uniqueTimestamps": 11568,
+  "scope": "One browser tour recording; fixed-background VP9, requested 60 fps; no real camera or OBS"
+}

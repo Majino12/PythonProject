@@ -1,0 +1,466 @@
+{
+  "schemaVersion": 1,
+  "id": "short-hair-rife-v4.6-fields-v1",
+  "model": {
+    "name": "RIFE v4.6",
+    "implementation": "nihui/rife-ncnn-vulkan",
+    "commit": "a7532fc3f9f8f008cd6eecd6f2ffe2a9698e0cf7",
+    "license": "MIT",
+    "weights": {
+      "flownet.bin": "f334ed2260149ce0188a6dcf049844e8b0cdd912e01cbcfb63553157d2508958",
+      "flownet.param": "724569596bcd1e7b9fa50455c604777ebed99746d2ef40aa86e31b5725f1053c"
+    },
+    "url": "https://github.com/nihui/rife-ncnn-vulkan/tree/a7532fc3f9f8f008cd6eecd6f2ffe2a9698e0cf7",
+    "runtime": "ncnn 1.0.20261020, CPU float32, no TTA",
+    "flowBlob": "327",
+    "maskBlob": "332"
+  },
+  "inferenceSize": [
+    576,
+    720
+  ],
+  "padding": "right/bottom zero to multiples of 32",
+  "fieldSize": [
+    144,
+    180
+  ],
+  "times": [
+    0.125,
+    0.25,
+    0.375,
+    0.5,
+    0.625,
+    0.75,
+    0.875
+  ],
+  "flowFormat": "little-endian float16, [time][y][x][dx0,dy0,dx1,dy1]",
+  "flowUnits": "normalized image UV displacement; positive y points down",
+  "maskFormat": "uint8, [time][y][x], endpoint0 weight / 255",
+  "sampling": "pixel-centred bilinear; fields are downsampled from neural outputs",
+  "endpoints": "source art is used exactly at t=0 and t=1",
+  "sources": {
+    "view-left-up": {
+      "path": "./assets/short-hair-v1/view-left-up.png",
+      "sha256": "614ea3f4df961ffefefe4ae054eea45fe6c42a0cf5ae25cb3f6e88d5f6ca8637"
+    },
+    "view-up": {
+      "path": "./assets/short-hair-complete-poses-v1/view-up-neutral.png",
+      "sha256": "252ba6a46b0121ee0c9f94b37180ba4745158da6f2bb230aff5efa0894cb23d6"
+    },
+    "view-right-up": {
+      "path": "./assets/short-hair-v1/view-right-up.png",
+      "sha256": "900d998244e371021320ead30a823661d8759b516d72ad6390c2c62d3fd21037"
+    },
+    "view-left": {
+      "path": "./assets/short-hair-v1/view-left.png",
+      "sha256": "23da31b12da3e50550519db9d95077e107d20755ca72fdab8b82335a961206b6"
+    },
+    "front": {
+      "path": "./assets/short-hair-v1/front.png",
+      "sha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822"
+    },
+    "view-right": {
+      "path": "./assets/short-hair-v1/view-right.png",
+      "sha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3"
+    },
+    "view-left-down": {
+      "path": "./assets/short-hair-v1/view-left-down.png",
+      "sha256": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983"
+    },
+    "view-down": {
+      "path": "./assets/short-hair-complete-poses-v1/view-down-neutral.png",
+      "sha256": "f9e6315e19b09a121d3d1216611dd0759020f21a5d3fab9827adebb9eceb9d4f"
+    },
+    "view-right-down": {
+      "path": "./assets/short-hair-complete-poses-v1/view-right-down-neutral.png",
+      "sha256": "5845cf6909248321f234bff531c16b231017d95fcd92de1e24789328b79e0b71"
+    }
+  },
+  "edges": [
+    {
+      "from": "view-left-up",
+      "to": "view-up",
+      "flow": {
+        "path": "view-left-up--view-up.flow.bin",
+        "bytes": 1451520,
+        "sha256": "6183babd0b7382415a4273188206d1b399e5c852629a47a4fd4953e12414aaf7"
+      },
+      "mask": {
+        "path": "view-left-up--view-up.mask.bin",
+        "bytes": 181440,
+        "sha256": "e498981e3f54cd2849206e309cf49cf71b01e90e56e1cf64c6a4ddd6e0d2ab28"
+      },
+      "inferenceSeconds": [
+        0.339738,
+        0.333286,
+        0.319648,
+        0.317236,
+        0.312682,
+        0.312454,
+        0.311395
+      ],
+      "id": "view-left-up__view-up"
+    },
+    {
+      "from": "view-up",
+      "to": "view-right-up",
+      "flow": {
+        "path": "view-up--view-right-up.flow.bin",
+        "bytes": 1451520,
+        "sha256": "13c18f860a7d34836fa2f6a4887187da19189cb451aa9f5da4fbba590cb8a3a2"
+      },
+      "mask": {
+        "path": "view-up--view-right-up.mask.bin",
+        "bytes": 181440,
+        "sha256": "74314d14de9f6f5519449368490831629f2f640a6ddd2666f13208ce4be03c28"
+      },
+      "inferenceSeconds": [
+        0.313219,
+        0.312209,
+        0.312297,
+        0.312592,
+        0.311863,
+        0.312099,
+        0.311666
+      ],
+      "id": "view-up__view-right-up"
+    },
+    {
+      "from": "view-left",
+      "to": "front",
+      "flow": {
+        "path": "view-left--front.flow.bin",
+        "bytes": 1451520,
+        "sha256": "fb403c73f7f4c90411852851a6372f987edc4250f8c63ee3953822599e075c17"
+      },
+      "mask": {
+        "path": "view-left--front.mask.bin",
+        "bytes": 181440,
+        "sha256": "9f30c8866f9c7979b7a3b9dd29d203aa096b28c39cb1536558d443aad1a51bb0"
+      },
+      "inferenceSeconds": [
+        0.312153,
+        0.311467,
+        0.312063,
+        0.311858,
+        0.311862,
+        0.314884,
+        0.311189
+      ],
+      "id": "view-left__front"
+    },
+    {
+      "from": "front",
+      "to": "view-right",
+      "flow": {
+        "path": "front--view-right.flow.bin",
+        "bytes": 1451520,
+        "sha256": "4499afbea88e3e0a4a38eb3097d91b4827c79c4ceaa0ed9a7103d5e22eee9a47"
+      },
+      "mask": {
+        "path": "front--view-right.mask.bin",
+        "bytes": 181440,
+        "sha256": "a956021b07a9fe48a56306f25613dd58d2bca2e92b638110845cfd38be70a04d"
+      },
+      "inferenceSeconds": [
+        0.304894,
+        0.312349,
+        0.313162,
+        0.308692,
+        0.311681,
+        0.314326,
+        0.312099
+      ],
+      "id": "front__view-right"
+    },
+    {
+      "from": "view-left-down",
+      "to": "view-down",
+      "flow": {
+        "path": "view-left-down--view-down.flow.bin",
+        "bytes": 1451520,
+        "sha256": "82fc4351a9efdae7a0d1239a9359f4e23b468c1e49bb7ef96a56e117b867a716"
+      },
+      "mask": {
+        "path": "view-left-down--view-down.mask.bin",
+        "bytes": 181440,
+        "sha256": "4679a97c822d2ce51104b2cf1a7e7f3e7cd8d4adb7bce866696db1c9c28b1c5b"
+      },
+      "inferenceSeconds": [
+        0.309222,
+        0.310792,
+        0.31298,
+        0.312643,
+        0.312857,
+        0.312706,
+        0.313639
+      ],
+      "id": "view-left-down__view-down"
+    },
+    {
+      "from": "view-down",
+      "to": "view-right-down",
+      "flow": {
+        "path": "view-down--view-right-down.flow.bin",
+        "bytes": 1451520,
+        "sha256": "d303819148ff0e11c089fd39dd87a318060a5ce3ec7a0a3f2fac5d0d5a617d8f"
+      },
+      "mask": {
+        "path": "view-down--view-right-down.mask.bin",
+        "bytes": 181440,
+        "sha256": "4cf5372743e11c639968885f3234fb01f76b8022e2e3c0095b2dc7cf2bcbd140"
+      },
+      "inferenceSeconds": [
+        0.312917,
+        0.313777,
+        0.312435,
+        0.312188,
+        0.311831,
+        0.311877,
+        0.312854
+      ],
+      "id": "view-down__view-right-down"
+    },
+    {
+      "from": "view-left-up",
+      "to": "view-left",
+      "flow": {
+        "path": "view-left-up--view-left.flow.bin",
+        "bytes": 1451520,
+        "sha256": "476867f84b1fd0b4e5edbc44e444366fbe58feaacc9af887115e214c6aea3287"
+      },
+      "mask": {
+        "path": "view-left-up--view-left.mask.bin",
+        "bytes": 181440,
+        "sha256": "36e947cdeb542c7858a565bc5b69dfa8434ed6037cad63a59425b814ea6a9c6e"
+      },
+      "inferenceSeconds": [
+        0.313145,
+        0.312746,
+        0.312769,
+        0.311766,
+        0.312414,
+        0.312418,
+        0.309957
+      ],
+      "id": "view-left-up__view-left"
+    },
+    {
+      "from": "view-up",
+      "to": "front",
+      "flow": {
+        "path": "view-up--front.flow.bin",
+        "bytes": 1451520,
+        "sha256": "886fc79e13d9552fdffab658b53919545f6f7d21080fef6f341da2b876d15584"
+      },
+      "mask": {
+        "path": "view-up--front.mask.bin",
+        "bytes": 181440,
+        "sha256": "e242838f7637a737135ab853d1c4d7e5835afa5681b3392cbc9a1fe7831a5d03"
+      },
+      "inferenceSeconds": [
+        0.317342,
+        0.330698,
+        0.316089,
+        0.31149,
+        0.313246,
+        0.312967,
+        0.312354
+      ],
+      "id": "view-up__front"
+    },
+    {
+      "from": "view-right-up",
+      "to": "view-right",
+      "flow": {
+        "path": "view-right-up--view-right.flow.bin",
+        "bytes": 1451520,
+        "sha256": "bc1a500b6d70bc3843320373ec60b425973a0345d3c1f9463f18bc126f59d899"
+      },
+      "mask": {
+        "path": "view-right-up--view-right.mask.bin",
+        "bytes": 181440,
+        "sha256": "9bde3a2765a49ee461126cdb4297f6e719379399ae7c0809857dc3ad9201c6c6"
+      },
+      "inferenceSeconds": [
+        0.312725,
+        0.312935,
+        0.311958,
+        0.312522,
+        0.311479,
+        0.312196,
+        0.312717
+      ],
+      "id": "view-right-up__view-right"
+    },
+    {
+      "from": "view-left",
+      "to": "view-left-down",
+      "flow": {
+        "path": "view-left--view-left-down.flow.bin",
+        "bytes": 1451520,
+        "sha256": "2f3a67e365d397c5e5214501a6b72d287881d14cfc2121ecc03eaecaaf952bf9"
+      },
+      "mask": {
+        "path": "view-left--view-left-down.mask.bin",
+        "bytes": 181440,
+        "sha256": "d85bb72ce7fff2765584bf9c6680509105aaeb33ba1853944d8638359860e311"
+      },
+      "inferenceSeconds": [
+        0.311606,
+        0.311841,
+        0.311071,
+        0.313646,
+        0.313182,
+        0.318963,
+        0.313324
+      ],
+      "id": "view-left__view-left-down"
+    },
+    {
+      "from": "front",
+      "to": "view-down",
+      "flow": {
+        "path": "front--view-down.flow.bin",
+        "bytes": 1451520,
+        "sha256": "279e2677042ad878e0a95677ab5b688e62b30268597282745da2f45fcd4df6ae"
+      },
+      "mask": {
+        "path": "front--view-down.mask.bin",
+        "bytes": 181440,
+        "sha256": "b06c1e338b0f6f20ddf687d33885f12095722888143bef90c7903d02badb772b"
+      },
+      "inferenceSeconds": [
+        0.317336,
+        0.31254,
+        0.310626,
+        0.311912,
+        0.311058,
+        0.312404,
+        0.310337
+      ],
+      "id": "front__view-down"
+    },
+    {
+      "from": "view-right",
+      "to": "view-right-down",
+      "flow": {
+        "path": "view-right--view-right-down.flow.bin",
+        "bytes": 1451520,
+        "sha256": "f72c695d10c115580a03a062bb5f97892d66ab2bc8af719a9481f81c561d0893"
+      },
+      "mask": {
+        "path": "view-right--view-right-down.mask.bin",
+        "bytes": 181440,
+        "sha256": "92305a3ba6416a2ab20064af399a569cc4f46196c74208952aabd9bd079265d2"
+      },
+      "inferenceSeconds": [
+        0.301182,
+        0.309259,
+        0.313214,
+        0.313421,
+        0.312309,
+        0.314615,
+        0.310628
+      ],
+      "id": "view-right__view-right-down"
+    },
+    {
+      "from": "view-left-up",
+      "to": "front",
+      "flow": {
+        "path": "view-left-up--front.flow.bin",
+        "bytes": 1451520,
+        "sha256": "5daa2286ec6c9d298df9c546022fd5fe61ce9f571e1141df555bbf18e2a60036"
+      },
+      "mask": {
+        "path": "view-left-up--front.mask.bin",
+        "bytes": 181440,
+        "sha256": "49df3f9acf9edab6f5ce8eded600317827c76a75e513becbb39d1ca1a0098b72"
+      },
+      "inferenceSeconds": [
+        0.313253,
+        0.311999,
+        0.312741,
+        0.312929,
+        0.311826,
+        0.312353,
+        0.315685
+      ],
+      "id": "view-left-up__front"
+    },
+    {
+      "from": "view-up",
+      "to": "view-right",
+      "flow": {
+        "path": "view-up--view-right.flow.bin",
+        "bytes": 1451520,
+        "sha256": "be8acbae37b2d1ec5f5687e2877e9027aef55a13882a2e5695bac16aae636f6e"
+      },
+      "mask": {
+        "path": "view-up--view-right.mask.bin",
+        "bytes": 181440,
+        "sha256": "cd49c9a8326de5b0aadfe4457065f35f1c74b75573237baa6cf71d354ea7f6a8"
+      },
+      "inferenceSeconds": [
+        0.318029,
+        0.31149,
+        0.306733,
+        0.310733,
+        0.321204,
+        0.311949,
+        0.31094
+      ],
+      "id": "view-up__view-right"
+    },
+    {
+      "from": "view-left",
+      "to": "view-down",
+      "flow": {
+        "path": "view-left--view-down.flow.bin",
+        "bytes": 1451520,
+        "sha256": "ee8adbe11e71097d03dbab1aead3fc0d965d06b64bf7f2c2bdff496137b8752a"
+      },
+      "mask": {
+        "path": "view-left--view-down.mask.bin",
+        "bytes": 181440,
+        "sha256": "19321800eb94ac0bd7517e99816210b002a45025de7309f2b8e57273e5c37cc4"
+      },
+      "inferenceSeconds": [
+        0.311456,
+        0.312443,
+        0.312236,
+        0.312007,
+        0.312371,
+        0.313384,
+        0.313502
+      ],
+      "id": "view-left__view-down"
+    },
+    {
+      "from": "front",
+      "to": "view-right-down",
+      "flow": {
+        "path": "front--view-right-down.flow.bin",
+        "bytes": 1451520,
+        "sha256": "f59b4a1772fc7b496e8fce2a9a5d73b5ff46e9c80655608e9bc0ffa8af781796"
+      },
+      "mask": {
+        "path": "front--view-right-down.mask.bin",
+        "bytes": 181440,
+        "sha256": "8c12676ba9fd2985d5a30d860cad7672ee75d77d452ceddafbb44c7048196b45"
+      },
+      "inferenceSeconds": [
+        0.312752,
+        0.312286,
+        0.314221,
+        0.3129,
+        0.31269,
+        0.309952,
+        0.311102
+      ],
+      "id": "front__view-right-down"
+    }
+  ],
+  "compilationSeconds": 35.354
+}

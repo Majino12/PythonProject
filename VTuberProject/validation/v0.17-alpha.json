@@ -1,0 +1,111 @@
+{
+  "status": "validated-development-candidate",
+  "sourceArtworkChanged": false,
+  "sourceApprovalChanged": false,
+  "poses": 9,
+  "maskBytes": 1116223,
+  "maskSourceHashesVerified": true,
+  "unitTests": {
+    "passed": 25,
+    "failed": 0
+  },
+  "visualReview": {
+    "backgrounds": [
+      "dark",
+      "white",
+      "magenta"
+    ],
+    "summary": "All nine full-character mattes preserve the face, clothes, hair silhouette and principal fine strands. Fine hairs may retain RGB antialiasing from the original pale background.",
+    "contactSheet": "nine-pose-dark.png"
+  },
+  "layerExport": [
+    {
+      "poseId": "front",
+      "zipCrcPassed": true,
+      "ownershipFailures": 0,
+      "rgbaFailures": 0,
+      "bothVisible": 0,
+      "features": {
+        "eyeLeft": {
+          "width": 1122,
+          "height": 1402,
+          "visiblePixels": 17980
+        },
+        "eyeRight": {
+          "width": 1122,
+          "height": 1402,
+          "visiblePixels": 19372
+        },
+        "browLeft": {
+          "width": 1122,
+          "height": 1402,
+          "visiblePixels": 10902
+        },
+        "browRight": {
+          "width": 1122,
+          "height": 1402,
+          "visiblePixels": 9246
+        },
+        "mouth": {
+          "width": 1122,
+          "height": 1402,
+          "visiblePixels": 15544
+        }
+      }
+    },
+    {
+      "poseId": "view-right-down",
+      "zipCrcPassed": true,
+      "ownershipFailures": 0,
+      "rgbaFailures": 0,
+      "bothVisible": 0,
+      "features": {
+        "eyeLeft": {
+          "width": 1122,
+          "height": 1402,
+          "visiblePixels": 7292
+        },
+        "eyeRight": {
+          "width": 1122,
+          "height": 1402,
+          "visiblePixels": 18745
+        },
+        "browLeft": {
+          "width": 1122,
+          "height": 1402,
+          "visiblePixels": 3306
+        },
+        "browRight": {
+          "width": 1122,
+          "height": 1402,
+          "visiblePixels": 9877
+        },
+        "mouth": {
+          "width": 1122,
+          "height": 1402,
+          "visiblePixels": 5675
+        }
+      }
+    }
+  ],
+  "scope": [
+    "complete character alpha",
+    "mutually exclusive visible head/torso partitions",
+    "authored eye/brow/mouth replacement layers",
+    "ZIP export at the selected authored pose endpoint"
+  ],
+  "limitations": [
+    "Hair and face stay in one head layer.",
+    "No occluded anatomy or clothes are reconstructed.",
+    "Semantic hair/face trial failed eyebrow boundary quality and was excluded from runtime assets.",
+    "The native canvas integration does not replace browser/OBS acceptance."
+  ],
+  "model": {
+    "name": "SkyTNT anime-seg ISNet",
+    "repository": "https://github.com/SkyTNT/anime-segmentation",
+    "weights": "https://huggingface.co/skytnt/anime-seg/resolve/493cb60893f47441b26ec4fb9a306bce9e342982/isnetis.onnx",
+    "revision": "493cb60893f47441b26ec4fb9a306bce9e342982",
+    "sha256": "f15622d853e8260172812b657053460e20806f04b9e05147d49af7bed31a6e99",
+    "license": "Apache-2.0"
+  }
+}

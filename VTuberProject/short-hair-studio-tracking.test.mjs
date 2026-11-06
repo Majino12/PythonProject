@@ -170,6 +170,43 @@ test('invalid replay starts preserve an active clip; backwards replay clocks are
   player.sample(110); assert.throws(()=>player.sample(109));
 });
 
+test('new recordings preserve fractional head coordinates in v2 without retaining input references',()=>{
+  const recorder=new TrackingClipRecorder();recorder.start(0);
+  const headPose={yaw:.125,pitch:-.375};
+  recorder.capture({...frame(),headPose},0);headPose.yaw=1;
+  recorder.capture({...frame({jawOpen:1}),headPose:{yaw:.875,pitch:.625}},100);
+  const saved=recorder.stop(120);
+  assert.equal(saved.schemaVersion,2);
+  assert.deepEqual(saved.samples[0].headPose,{yaw:.125,pitch:-.375});
+  assert.deepEqual(parseTrackingClip(JSON.stringify(saved)),saved);
+  const player=new TrackingClipPlayer();player.start(saved,1000);
+  const middle=player.sample(1050);
+  assert.deepEqual(middle.headPose,{yaw:.5,pitch:.125});
+  assert.equal(middle.coefficients.jawOpen,0);
+  const final=player.sample(1100);
+  assert.deepEqual(final.headPose,{yaw:.875,pitch:.625});assert.equal(final.poseId,'view-right-up');
+});
+
+test('v1 clips remain readable and replay maps exact old pose timing to continuous vertices',()=>{
+  const value=clip(),parsed=parseTrackingClip(JSON.stringify(value));
+  assert.equal(parsed.schemaVersion,1);assert.equal(parsed.samples[0].headPose,undefined);
+  const player=new TrackingClipPlayer();player.start(parsed,0);
+  assert.deepEqual(player.sample(79).headPose,{yaw:0,pitch:0});
+  assert.deepEqual(player.sample(80).headPose,{yaw:-1,pitch:0});
+});
+
+test('v2 clips strictly require bounded coordinates and v1 does not silently accept v2 fields',()=>{
+  const valid={...clip(),schemaVersion:2,samples:clip().samples.map(sample=>({...sample,headPose:{yaw:.2,pitch:0}}))};
+  assert.deepEqual(validateTrackingClip(valid),valid);
+  for(const headPose of [null,undefined,{yaw:.2},{yaw:1.01,pitch:0},{yaw:NaN,pitch:0},{yaw:0,pitch:0,url:'remote'}]) {
+    const broken=structuredClone(valid);broken.samples[0].headPose=headPose;
+    assert.throws(()=>validateTrackingClip(broken));
+  }
+  const missing=structuredClone(valid);delete missing.samples[0].headPose;
+  assert.throws(()=>validateTrackingClip(missing));
+  assert.throws(()=>validateTrackingClip({...valid,schemaVersion:1}));
+});
+
 test('inference metrics distinguish completed detection, face freshness, failures, idle and sample insufficiency',()=>{
   const metrics = new TrackingInferenceMetrics();
   assert.equal(metrics.snapshot(0).inferenceFps,null);
