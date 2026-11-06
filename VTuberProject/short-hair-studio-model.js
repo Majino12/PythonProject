@@ -1,3 +1,5 @@
+import {validateOutputComposition,normalizeOutputComposition} from './short-hair-composition.js';
+import {validateSecondaryFrame,normalizeSecondarySettings} from './short-hair-secondary-motion.js';
 import {CHANNELS, sanitizeChannels} from './expression-model.js';
 import {STUDIO_HEAD_POSES, poseHeadCoordinates, normalizeHeadPose, validateHeadPose, nearestStudioPoseId} from './short-hair-pose-motion.js';
 
@@ -70,6 +72,7 @@ export function parseStudioFrame(text) {
   }
   let headPose;
   let transparent;
+  const secondary=object(parsed)&&Object.hasOwn(parsed,'secondary')?validateSecondaryFrame(parsed.secondary):undefined;
   if (object(parsed) && Object.hasOwn(parsed,'poseId') && !poseIds.has(parsed.poseId)) throw new Error('单帧使用了未知姿态。');
   if (object(parsed) && Object.hasOwn(parsed,'headPose')) headPose = validateHeadPose(parsed.headPose);
   else if (object(parsed) && Object.hasOwn(parsed,'poseId')) headPose = poseHeadCoordinates(parsed.poseId);
@@ -78,6 +81,7 @@ export function parseStudioFrame(text) {
     transparent=parsed.preview.transparent;
   }
   return {coefficients: sanitizeChannels(raw), ignored: Object.keys(raw).filter(key => !channelKeys.has(key)),
+    ...(secondary?{secondary}:{}),
     ...(headPose ? {headPose,poseId:nearestStudioPoseId(headPose)} : {}),
     ...(transparent === undefined ? {} : {transparent})};
 }
@@ -94,6 +98,8 @@ export function createStudioProject(input = {}) {
     poseId: nearestStudioPoseId(headPose), headPose, coefficients: sanitizeChannels(value.coefficients),
     faceOnly: value.faceOnly !== false, followHead: value.followHead === true, tourPoses: value.tourPoses === true,
     transparent:value.transparent !== false,
+    composition:normalizeOutputComposition(value.composition),secondarySettings:{...normalizeSecondarySettings(value.secondarySettings),enabled:false},
+    secondary:Object.hasOwn(value,'secondary')?validateSecondaryFrame(value.secondary):{breath:0,sway:0,hair:0},
     motionProfile: value.motionProfile==='quick'?'quick':'natural',
     trackingSettings:{preset:['balanced','responsive','stable'].includes(tracking.preset)?tracking.preset:'balanced',
       eyeSensitivity:sensitivity('eyeSensitivity'),mouthSensitivity:sensitivity('mouthSensitivity')},
@@ -109,6 +115,8 @@ export function parseStudioProject(text) {
   }
   if (!poseIds.has(parsed.poseId)) throw new Error('项目使用了未知姿态。');
   if (Object.hasOwn(parsed,'headPose')) validateHeadPose(parsed.headPose);
+  if(Object.hasOwn(parsed,'composition'))validateOutputComposition(parsed.composition);
+  if(Object.hasOwn(parsed,'secondary'))validateSecondaryFrame(parsed.secondary);
   const {coefficients} = parseStudioFrame(JSON.stringify({coefficients: parsed.coefficients}));
   return createStudioProject({...parsed, coefficients});
 }

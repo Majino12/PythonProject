@@ -32,3 +32,8 @@
   https://github.com/nihui/rife-ncnn-vulkan/tree/a7532fc3f9f8f008cd6eecd6f2ffe2a9698e0cf7
   https://github.com/hzwer/Practical-RIFE
   许可副本见 assets/short-hair-motion-v1/LICENSE-RIFE.txt。
+
+
+v0.18运行补充
+微动是同一RGBA画面上保守的几何位移，含<=1.5px整体摆动、<=2px躯干呼吸、<=2px避开脸部的外侧发梢位移。它不是可编辑独立前后发层，也不是新神经推理。所有输出使用工作台已提交的breath/sway/hair，原画对比强制零微动。全零严格保留v0.17像素；非零在原稿端点也通过单源GPU路径处理。
+WebGL上下文恢复重建纹理和程序；丢失期间不清目标canvas。缓存只跟随实际画稿与视线变化，不因无可见变化的系数漂移重绘。端点仅准备一个原稿缓冲。

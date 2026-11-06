@@ -170,14 +170,15 @@ test('invalid replay starts preserve an active clip; backwards replay clocks are
   player.sample(110); assert.throws(()=>player.sample(109));
 });
 
-test('new recordings preserve fractional head coordinates in v2 without retaining input references',()=>{
+test('new recordings preserve fractional head coordinates in v3 and default omitted micro-motion to zero',()=>{
   const recorder=new TrackingClipRecorder();recorder.start(0);
   const headPose={yaw:.125,pitch:-.375};
   recorder.capture({...frame(),headPose},0);headPose.yaw=1;
   recorder.capture({...frame({jawOpen:1}),headPose:{yaw:.875,pitch:.625}},100);
   const saved=recorder.stop(120);
-  assert.equal(saved.schemaVersion,2);
+  assert.equal(saved.schemaVersion,3);
   assert.deepEqual(saved.samples[0].headPose,{yaw:.125,pitch:-.375});
+  assert.deepEqual(saved.samples[0].secondary,{breath:0,sway:0,hair:0});
   assert.deepEqual(parseTrackingClip(JSON.stringify(saved)),saved);
   const player=new TrackingClipPlayer();player.start(saved,1000);
   const middle=player.sample(1050);
@@ -193,6 +194,63 @@ test('v1 clips remain readable and replay maps exact old pose timing to continuo
   const player=new TrackingClipPlayer();player.start(parsed,0);
   assert.deepEqual(player.sample(79).headPose,{yaw:0,pitch:0});
   assert.deepEqual(player.sample(80).headPose,{yaw:-1,pitch:0});
+});
+
+test('v2 recordings preserve continuous interpolation and replay with neutral secondary motion',()=>{
+  const valid={...clip(),schemaVersion:2,samples:clip().samples.map((sample,index)=>({...sample,headPose:{yaw:index*.3,pitch:0}}))};
+  assert.deepEqual(parseTrackingClip(JSON.stringify(valid)),valid);
+  const player=new TrackingClipPlayer();player.start(valid,1000);const middle=player.sample(1040);
+  assert.deepEqual(middle.headPose,{yaw:.15,pitch:0});assert.deepEqual(middle.secondary,{breath:0,sway:0,hair:0});
+  assert.equal(player.sample(1200).done,true);
+});
+
+test('v3 records exactly displayed secondary values and replays their timestamp interpolation',()=>{
+  const recorder=new TrackingClipRecorder();recorder.start(100);
+  const secondary={breath:-.4,sway:.1,hair:.8};
+  recorder.capture({...frame(),headPose:{yaw:-.5,pitch:0},secondary},100);secondary.breath=1;
+  recorder.capture({...frame({jawOpen:.7}),headPose:{yaw:.5,pitch:.4},secondary:{breath:.6,sway:-.3,hair:-.4}},200);
+  const saved=recorder.stop(240);
+  assert.equal(saved.schemaVersion,3);assert.equal(saved.samples[0].secondary.breath,-.4);
+  assert.deepEqual(parseTrackingClip(JSON.stringify(saved)),saved);
+  const player=new TrackingClipPlayer();player.start(saved,1000);saved.samples[1].secondary.hair=1;
+  const middle=player.sample(1050);
+  assert.deepEqual(middle.headPose,{yaw:0,pitch:.2});
+  assert.ok(Math.abs(middle.secondary.breath-.1)<1e-12);
+  assert.ok(Math.abs(middle.secondary.sway+.1)<1e-12);
+  assert.ok(Math.abs(middle.secondary.hair-.2)<1e-12);
+  assert.equal(middle.coefficients.jawOpen,0);
+  const final=player.sample(1200);assert.equal(final.done,true);assert.equal(final.elapsedMs,140);
+  assert.deepEqual(final.headPose,{yaw:.5,pitch:.4});
+  assert.deepEqual(final.secondary,{breath:.6,sway:-.3,hair:-.4});assert.equal(final.coefficients.jawOpen,.7);
+  final.secondary.hair=1;assert.equal(player.clip.samples.at(-1).secondary.hair,-.4);assert.equal(player.sample(1300),null);
+});
+
+test('v3 single-frame clips return the exact secondary endpoint without restarting a simulation',()=>{
+  const recorder=new TrackingClipRecorder();recorder.start(0);
+  recorder.capture({...frame(),secondary:{breath:1,sway:-1,hair:0}},0);
+  const player=new TrackingClipPlayer();player.start(recorder.stop(0),100);
+  const last=player.sample(100);assert.equal(last.done,true);assert.deepEqual(last.secondary,{breath:1,sway:-1,hair:0});
+  assert.equal(player.sample(101),null);
+});
+
+test('v3 strictly requires head and secondary data while old versions reject new fields',()=>{
+  const valid={...clip(),schemaVersion:3,samples:clip().samples.map(sample=>({...sample,
+    headPose:{yaw:.2,pitch:0},secondary:{breath:0,sway:.3,hair:-.2}}))};
+  assert.deepEqual(validateTrackingClip(valid),valid);
+  for(const secondary of [null,undefined,[],{breath:0,sway:0},{breath:0,sway:0,hair:NaN},
+    {breath:1.01,sway:0,hair:0},{breath:0,sway:0,hair:'0'},{breath:0,sway:0,hair:0,url:'remote'}]) {
+    const bad=structuredClone(valid);bad.samples[0].secondary=secondary;assert.throws(()=>validateTrackingClip(bad));
+  }
+  for(const key of ['headPose','secondary']){const bad=structuredClone(valid);delete bad.samples[0][key];assert.throws(()=>validateTrackingClip(bad));}
+  for(const schemaVersion of [1,2])assert.throws(()=>validateTrackingClip({...valid,schemaVersion}));
+});
+
+test('recording rejects malformed explicit secondary data rather than silently dropping it',()=>{
+  const recorder=new TrackingClipRecorder();recorder.start(0);
+  for(const secondary of [null,{breath:0},{breath:0,sway:0,hair:Infinity},{breath:0,sway:0,hair:0,extra:1}]) {
+    assert.throws(()=>recorder.capture({...frame(),secondary},0));
+  }
+  assert.equal(recorder.samples.length,0);
 });
 
 test('v2 clips strictly require bounded coordinates and v1 does not silently accept v2 fields',()=>{

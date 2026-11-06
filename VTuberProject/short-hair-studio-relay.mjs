@@ -6,10 +6,10 @@ const json = (response,status,value) => {
   response.end(JSON.stringify(value));
 };
 export function createStudioOutputRelay({now = Date.now, maxClients = 8} = {}) {
-  let latest = null, owner = null, lastSequence = -1, updatedAt = 0;
+  let latest = null, owner = null, lastSequence = -1, updatedAt = 0, stopped = false;
   const clients = new Set();
   const stoppedSequences = new Map();
-  const payload = () => ({active:Boolean(owner),stale:Boolean(owner)&&now()-updatedAt>5000,updatedAt,frame:latest,clients:clients.size});
+  const payload = () => ({active:Boolean(owner),stopped,stale:Boolean(owner)&&now()-updatedAt>5000,updatedAt,frame:latest,clients:clients.size});
   const broadcast = () => {
     const message = `data: ${JSON.stringify(payload())}\n\n`;
     for (const client of clients) {
@@ -52,14 +52,14 @@ export function createStudioOutputRelay({now = Date.now, maxClients = 8} = {}) {
         if (stoppedSequences.size>128) stoppedSequences.delete(stoppedSequences.keys().next().value);
         // A delayed stop from an older generation cannot clear a restarted sender.
         if (value.senderId === owner && value.sequence <= lastSequence) {json(response,200,{stopped:false});return true;}
-        if (value.senderId === owner) {owner=null;latest=null;lastSequence=-1;updatedAt=now();broadcast();}
+        if (!owner || value.senderId === owner) {owner=null;latest=null;lastSequence=-1;updatedAt=now();stopped=true;broadcast();}
         json(response,200,{stopped:true});return true;
       }
       const packet = validateOutputEnvelope(value), time = now();
       if (packet.sequence <= (stoppedSequences.get(packet.senderId) ?? -1)) {json(response,409,{error:'已停止的输出帧已忽略。'});return true;}
       if (owner && owner !== packet.senderId && time-updatedAt < 5000) {json(response,409,{error:'另一工作台正在输出，请先停止它的直播画面。'});return true;}
       if (owner === packet.senderId && packet.sequence <= lastSequence) {json(response,409,{error:'过期的输出帧已忽略。'});return true;}
-      owner=packet.senderId;lastSequence=packet.sequence;latest=packet.frame;updatedAt=time;broadcast();
+      stopped=false;owner=packet.senderId;lastSequence=packet.sequence;latest=packet.frame;updatedAt=time;broadcast();
       json(response,200,{accepted:true,clients:clients.size});
     } catch(error) {json(response,400,{error:error.message || '输出状态无效。'});}
     return true;

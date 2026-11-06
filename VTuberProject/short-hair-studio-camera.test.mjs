@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {ShortHairStudioCamera} from './short-hair-studio-camera.js';
+import {ShortHairStudioCamera,StudioInferenceBudget} from './short-hair-studio-camera.js';
 const deferred=()=>{let resolve,reject;const promise=new Promise((a,b)=>{resolve=a;reject=b;});return{promise,resolve,reject};};
 function harness(overrides={}){
   const states=[],events={},calls={load:0,media:0,stops:0,closed:0,detect:0};
@@ -81,6 +81,62 @@ test('detector errors propagate to lifecycle handling without becoming successfu
   assert.throws(()=>h.camera.poll(0),/detector failed/);
   assert.equal(h.camera.getMetrics(1).failedCount,1);assert.equal(h.camera.getMetrics(1).sampleCount,0);
   h.camera.dispose();
+});
+test('a failed detector is closed and an explicit restart builds a fresh CPU task',async()=>{
+  const delegates=[],instances=[];
+  const h=harness({loadTracker:async options=>{
+    delegates.push(options.delegate);
+    const instance={closed:0,close(){this.closed++;},detectForVideo(){if(instances.length===1)throw new Error('GPU context lost');return{faceLandmarks:[]};}};
+    instances.push(instance);return instance;
+  }});
+  await h.camera.start();assert.throws(()=>h.camera.poll(0),/GPU context lost/);
+  assert.equal(instances[0].closed,1);assert.equal(h.camera.tracker,null);assert.equal(h.camera.trackerPromise,null);
+  h.camera.stop();assert.equal(await h.camera.start(),true);h.video.currentTime=.1;
+  assert.doesNotThrow(()=>h.camera.poll(100));assert.deepEqual(delegates,['GPU','CPU']);
+  assert.notEqual(instances[0],h.camera.tracker);h.camera.dispose();
+  assert.deepEqual(instances.map(instance=>instance.closed),[1,1]);
+});
+test('normal stop and restart reuse the healthy task and do not force CPU fallback',async()=>{
+  const h=harness();await h.camera.start();h.camera.poll(0);h.camera.stop();await h.camera.start();
+  assert.equal(h.calls.load,1);assert.equal(h.calls.closed,0);assert.equal(h.camera.preferredDelegate,'GPU');h.camera.dispose();
+});
+test('a cleanup exception cannot hide the original detector error or block a fresh retry',async()=>{
+  let loads=0;const broken={close(){throw new Error('cleanup context lost');},detectForVideo(){throw new Error('original inference failure');}};
+  const h=harness({loadTracker:async()=>++loads===1?broken:h.tracker});await h.camera.start();
+  assert.throws(()=>h.camera.poll(0),/original inference failure/);assert.equal(h.camera.tracker,null);
+  h.camera.stop();assert.equal(await h.camera.start(),true);assert.equal(loads,2);h.camera.dispose();
+});
+test('a cancelled replacement load never reopens the camera and disposal closes its late task',async()=>{
+  const waiting=deferred();let loads=0,closed=0;
+  const broken={detectForVideo(){throw new Error('failed');},close(){closed++;}};
+  const replacement={close(){closed++;}};
+  const h=harness({loadTracker:()=>++loads===1?Promise.resolve(broken):waiting.promise});
+  await h.camera.start();assert.throws(()=>h.camera.poll(0),/failed/);h.camera.stop();
+  const restarted=h.camera.start();h.camera.stop();h.camera.dispose();waiting.resolve(replacement);
+  assert.equal(await restarted,false);assert.equal(h.calls.media,1);assert.equal(closed,2);
+});
+test('inference budget backs off only after sustained measured cost and reports its effective target',()=>{
+  const budget=new StudioInferenceBudget();assert.equal(budget.fps,30);
+  for(let i=0;i<3;i++)budget.record(40,i*40);assert.equal(budget.fps,30);
+  budget.record(40,120);assert.equal(budget.fps,20);assert.equal(budget.intervalMs,50);
+  for(let i=0;i<4;i++)budget.record(40,160+i*50);assert.equal(budget.fps,15);
+  assert.equal(budget.intervalMs,1000/15);
+});
+test('budget hysteresis and dwell prevent rapid upgrades or oscillation around a threshold',()=>{
+  const budget=new StudioInferenceBudget();for(let i=0;i<8;i++)budget.record(40,i*70);
+  for(let i=0;i<30;i++)budget.record(5,600+i*20);assert.equal(budget.fps,15);
+  budget.record(5,2500);assert.equal(budget.fps,20);
+  for(let i=0;i<40;i++)budget.record(i%2?19:17,2550+i*50);assert.equal(budget.fps,20);
+  for(let i=0;i<40;i++)budget.record(5,4600+i*50);assert.equal(budget.fps,30);
+  budget.record(NaN,9000);budget.record(-1,9000);assert.equal(budget.fps,30);
+});
+test('camera obeys a slower inference budget without reprocessing frames and resets it on restart',async()=>{
+  let timer=0;const h=harness({clock:()=>{timer+=40;return timer;}});await h.camera.start();
+  for(let i=0;i<8;i++){h.video.currentTime=i/10;h.camera.poll(i*100);}
+  assert.equal(h.camera.getMetrics(700).inferenceBudgetFps,15);assert.equal(h.calls.detect,8);
+  h.video.currentTime=.9;assert.equal(h.camera.poll(740),null);assert.equal(h.calls.detect,8);
+  h.camera.poll(770);assert.equal(h.calls.detect,9);h.camera.poll(850);assert.equal(h.calls.detect,9);
+  h.camera.stop();await h.camera.start();assert.equal(h.camera.getMetrics(900).inferenceBudgetFps,30);h.camera.dispose();
 });
 test('face signal expires through skipped or empty detections and recovers only with usable landmarks',async()=>{
   const h=harness();await h.camera.start();

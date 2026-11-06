@@ -261,14 +261,22 @@ test('repeated identical state renews a static sender lease without allowing ano
 });
 
 function deferred() {let resolve,reject;const promise=new Promise((yes,no)=>{resolve=yes;reject=no;});return {promise,resolve,reject};}
-const response=(ok=true,result={clients:1})=>({ok,json:async()=>result});
+const response=(ok=true,result={clients:1},status=ok?200:400)=>({ok,status,json:async()=>result});
 const turn=()=>new Promise(resolve=>setImmediate(resolve));
+function fakeClock() {
+  let time=0,nextId=0;const timers=new Map();
+  return {now:()=>time,setTimer(callback,delay){const id=++nextId;timers.set(id,{at:time+delay,callback});return id;},clearTimer:id=>timers.delete(id),
+    get size(){return timers.size;},async advance(delta){const end=time+delta;
+      while(true){const due=[...timers].filter(([,timer])=>timer.at<=end).sort((a,b)=>a[1].at-b[1].at)[0];
+        if(!due)break;time=due[1].at;timers.delete(due[0]);due[1].callback();await turn();}
+      time=end;}};
+}
 function controlledPublisher() {
-  const calls=[],states=[];
-  const publisher=new StudioOutputPublisher({senderId,onState:state=>states.push(state),fetcher:(url,options)=>{
+  const calls=[],states=[],clock=fakeClock();
+  const publisher=new StudioOutputPublisher({senderId,now:clock.now,setTimer:clock.setTimer,clearTimer:clock.clearTimer,onState:state=>states.push(state),fetcher:(url,options)=>{
     const pending=deferred();calls.push({url,options,body:JSON.parse(options.body),...pending});return pending.promise;
   }});
-  return {publisher,calls,states};
+  return {publisher,calls,states,clock};
 }
 
 test('publisher has one in-flight state and coalesces all queued updates to the latest frame',async()=>{
@@ -316,34 +324,82 @@ test('stopping a publisher which has never started makes no network request',asy
   assert.equal(calls.length,0);assert.equal(publisher.enabled,false);
 });
 
-test('current-generation publisher failure discards pending frames and sends a newer stop envelope',async()=>{
-  for(const mode of ['http','network']) {
-    const {publisher,calls,states}=controlledPublisher();publisher.start();
-    publisher.publish(frame('parted'));publisher.publish(frame('openWide'));
-    if(mode==='http')calls[0].resolve(response(false,{error:'current sender rejected'}));
-    else calls[0].reject(new Error('current connection failed'));
-    await turn();
-    assert.equal(publisher.enabled,false);assert.equal(publisher.pending,null);assert.equal(publisher.sending,false);
-    assert.equal(calls.length,2);assert.equal(calls[1].url,'/api/studio-output/stop');
-    assert.ok(calls[1].body.sequence>calls[0].body.sequence);assert.equal(calls[1].options.keepalive,true);
-    assert.equal(states.at(-1).status,'error');
-    calls[1].reject(new Error('network also unavailable for cleanup'));await turn();
-    assert.equal(calls.length,2);assert.equal(publisher.enabled,false);
+test('publisher deduplicates only successful snapshots and independently renews a static lease every second',async()=>{
+  const {publisher,calls,clock}=controlledPublisher();publisher.start();const current=frame('parted');publisher.publish(current);
+  current.state.mouth='pucker';assert.equal(calls[0].body.frame.state.mouth,'parted','publish snapshots mutable caller state');
+  calls[0].resolve(response());await turn();
+  for(let i=0;i<120;i++){publisher.publish(frame('parted'));await turn();}
+  assert.equal(calls.length,1);
+  await clock.advance(999);assert.equal(calls.length,1);
+  await clock.advance(1);assert.equal(calls.length,2);assert.equal(calls[1].body.frame.state.mouth,'parted');
+  calls[1].resolve(response());await turn();await clock.advance(1000);assert.equal(calls.length,3);
+  calls[2].resolve(response());await turn();
+  const stopped=publisher.stop();calls[3].resolve(response());await stopped;
+  assert.equal(clock.size,0);await clock.advance(10000);assert.equal(calls.length,4);
+});
+
+test('publisher retries transient failures with only the latest frame and does not mark a failed frame as delivered',async()=>{
+  for(const failure of ['network',408,429,500,503]) {
+    const {publisher,calls,states,clock}=controlledPublisher();publisher.start();publisher.publish(frame('parted'));
+    if(failure==='network')calls[0].reject(new Error('temporary network failure'));
+    else calls[0].resolve(response(false,{error:'temporary relay failure'},failure));
+    await turn();assert.equal(publisher.enabled,true);assert.equal(states.at(-1).status,'reconnecting');
+    publisher.publish(frame('openSmall'));publisher.publish(frame('press'));
+    await clock.advance(249);assert.equal(calls.length,1);
+    await clock.advance(1);assert.equal(calls.length,2);assert.equal(calls[1].body.frame.state.mouth,'press');
+    calls[1].resolve(response());await turn();assert.equal(states.at(-1).status,'active');assert.equal(publisher.failures,0);
+    const stopped=publisher.stop();calls[2].resolve(response());await stopped;
   }
 });
 
-test('retry after current-generation failure survives its still-pending cleanup response',async()=>{
-  const {publisher,calls,states}=controlledPublisher();publisher.start();publisher.publish(frame('parted'));
-  calls[0].resolve(response(false,{error:'first connection failed'}));await turn();
-  assert.equal(calls[1].url,'/api/studio-output/stop');
-  publisher.start();publisher.publish(frame('press'));
-  assert.equal(calls[2].url,'/api/studio-output/state');assert.ok(calls[2].body.sequence>calls[1].body.sequence);
-  calls[2].resolve(response());await turn();assert.equal(states.at(-1).status,'active');
-  calls[1].reject(new Error('old cleanup failed later'));await turn();
-  assert.equal(publisher.enabled,true);assert.equal(states.at(-1).status,'active');assert.equal(publisher.sending,false);
+test('publisher retries an unchanged frame that has never succeeded',async()=>{
+  const {publisher,calls,clock}=controlledPublisher();publisher.start();publisher.publish(frame());
+  calls[0].reject(new Error('offline'));await turn();publisher.publish(frame());await clock.advance(250);
+  assert.equal(calls.length,2);assert.deepEqual(calls[1].body.frame,frame());
+  calls[1].resolve(response());await turn();const stopped=publisher.stop();calls[2].resolve(response());await stopped;
 });
 
-async function receiverHarness() {
+test('publisher resends the previous successful state after an uncertain failed change',async()=>{
+  const {publisher,calls,clock}=controlledPublisher();publisher.start();publisher.publish(frame());calls[0].resolve(response());await turn();
+  publisher.publish(frame('press'));calls[1].reject(new Error('response was lost'));await turn();publisher.publish(frame());
+  await clock.advance(250);assert.equal(calls.length,3);assert.deepEqual(calls[2].body.frame,frame());
+  calls[2].resolve(response());await turn();const stopped=publisher.stop();calls[3].resolve(response());await stopped;
+});
+
+test('publisher bounds retries and preserves the last successful relay frame on exhaustion',async()=>{
+  const {publisher,calls,states,clock}=controlledPublisher();publisher.start();publisher.publish(frame('parted'));
+  const delays=[250,500,1000,2000,4000,4000];
+  for(let attempt=0;attempt<=delays.length;attempt++) {
+    calls[attempt].reject(new Error('server offline'));await turn();
+    if(attempt<delays.length){assert.equal(publisher.enabled,true);await clock.advance(delays[attempt]);}
+  }
+  assert.equal(calls.length,7);assert.equal(publisher.enabled,false);assert.equal(clock.size,0);
+  assert.equal(calls.every(call=>call.url.endsWith('/state')),true);assert.match(states.at(-1).message,/已保留最后画面/);
+  await clock.advance(30000);assert.equal(calls.length,7);
+  publisher.start();publisher.publish(frame('press'));calls[7].resolve(response());await turn();assert.equal(states.at(-1).status,'active');
+  const stopped=publisher.stop();calls[8].resolve(response());await stopped;
+});
+
+test('publisher conflicts and invalid requests stop immediately with explicit error and no automatic clear',async()=>{
+  for(const status of [400,403,409,413]) {
+    const {publisher,calls,states,clock}=controlledPublisher();publisher.start();publisher.publish(frame());
+    calls[0].resolve(response(false,{error:'invalid publisher state'},status));await turn();
+    assert.equal(publisher.enabled,false);assert.equal(publisher.pending,null);assert.equal(states.at(-1).status,'error');
+    if(status===409)assert.match(states.at(-1).message,/占用.*冲突/);
+    await clock.advance(30000);assert.equal(calls.length,1);assert.equal(clock.size,0);
+  }
+});
+
+test('publisher explicit stop cancels delayed recovery and aborts in-flight delivery',async()=>{
+  const {publisher,calls,clock}=controlledPublisher();publisher.start();publisher.publish(frame());
+  const stop=publisher.stop();assert.equal(calls[0].options.signal.aborted,true);calls[1].resolve(response());await stop;
+  calls[0].reject(new Error('aborted'));await turn();await clock.advance(30000);assert.equal(calls.length,2);
+  publisher.start();publisher.publish(frame());calls[2].reject(new Error('offline'));await turn();assert.equal(clock.size,1);
+  const again=publisher.stop();calls[3].resolve(response());await again;assert.equal(clock.size,0);
+  await clock.advance(30000);assert.equal(calls.length,4);
+});
+
+async function receiverHarness({render,loader}={}) {
   const source=readFileSync(new URL('./short-hair-output.js',import.meta.url),'utf8').replace(/^import[^\n]+\n/gm,'');
   const scheduled=new Map(),draws=[],outputDraws=[],events={},connections=[],notice={};let nextId=0,clears=0,fills=0;
   const canvas={width:1280,height:720,getContext:()=>({clearRect(){clears++;},fillRect(){fills++;}})};
@@ -351,13 +407,13 @@ async function receiverHarness() {
     createElement:()=>({width:630,height:460}),addEventListener(type,callback){events[type]=callback;}};
   const windowEvents={};
   const context=vm.createContext({document,window:{addEventListener(type,callback){windowEvents[type]=callback;}},
-    loadContinuousShortHairAssets:async()=>({}),poseHeadCoordinates,validateOutputFrame,
+    loadContinuousShortHairAssets:loader|| (async()=>({})),poseHeadCoordinates,validateOutputFrame,
     drawOutputFrame(target,native,options){outputDraws.push({target,native,options});},
-    renderContinuousShortHairStudio(native,assets,poseId,coefficients,previous,options){draws.push({poseId,state:options.stateOverride,coefficients,options});},
+    renderContinuousShortHairStudio(native,assets,poseId,coefficients,previous,options){draws.push({poseId,state:options.stateOverride,coefficients,options});return render?.();},
     EventSource:class {constructor(url){this.url=url;this.closed=false;connections.push(this);}close(){this.closed=true;}},
     requestAnimationFrame(callback){scheduled.set(++nextId,callback);return nextId;},cancelAnimationFrame(id){scheduled.delete(id);}});
   vm.runInContext(source,context);await turn();
-  return {notice,document,draws,outputDraws,scheduled,windowEvents,connections,get clears(){return clears;},get fills(){return fills;},
+  return {notice,document,draws,outputDraws,scheduled,events,windowEvents,connections,get clears(){return clears;},get fills(){return fills;},
     send(value){connections[0].onmessage({data:JSON.stringify(value)});},
     step(){const entry=scheduled.entries().next().value;if(entry){scheduled.delete(entry[0]);entry[1]();}}};
 }
@@ -435,4 +491,139 @@ test('receiver transport failure warns immediately and a queued draw cannot hide
   h.step();assert.equal(h.notice.hidden,false);assert.equal(h.notice.className,'connection-warning');
   h.send({active:true,stale:false,frame:frame('neutral')});h.step();assert.equal(h.notice.hidden,true);
   h.windowEvents.pagehide();
+});
+
+test('receiver preserves the last successful output while recovering resources and renders the latest pending frame',async()=>{
+  let ready=true;const h=await receiverHarness({render:()=>({didDraw:ready})});
+  h.send({active:true,frame:frame('parted')});h.step();const before=h.clears;
+  ready=false;h.send({active:true,frame:frame('press')});h.step();
+  assert.equal(h.outputDraws.length,1);assert.equal(h.clears,before);assert.equal(h.scheduled.size,1);assert.match(h.notice.textContent,/恢复.*保留最后画面/);
+  h.send({active:true,frame:frame('openWide')});h.step();assert.equal(h.outputDraws.length,1);assert.equal(h.scheduled.size,1);
+  ready=true;h.step();assert.equal(h.outputDraws.length,2);assert.equal(h.draws.at(-1).state.mouth,'openWide');assert.equal(h.notice.hidden,true);
+  h.windowEvents.pagehide();
+});
+
+test('receiver suspends recovery RAF in the background and resumes with the newest state on visibility',async()=>{
+  let ready=false;const h=await receiverHarness({render:()=>({didDraw:ready})});
+  h.send({active:true,frame:frame()});h.step();assert.equal(h.scheduled.size,1);
+  h.document.hidden=true;h.events.visibilitychange();assert.equal(h.scheduled.size,0);
+  h.send({active:true,frame:frame('pucker')});h.step();assert.equal(h.draws.length,1);assert.equal(h.scheduled.size,0);
+  ready=true;h.document.hidden=false;h.events.visibilitychange();assert.equal(h.scheduled.size,1);h.step();
+  assert.equal(h.draws.at(-1).state.mouth,'pucker');assert.equal(h.notice.hidden,true);h.windowEvents.pagehide();
+});
+
+test('receiver keeps its successful image on invalid packets or a rendering exception and recovers from later valid state',async()=>{
+  let fail=false;const h=await receiverHarness({render:()=>{if(fail)throw new Error('unavailable image');return {didDraw:true};}});
+  h.send({active:true,frame:frame()});h.step();const before=h.clears;
+  h.send({active:true,frame:{}});assert.equal(h.clears,before);assert.match(h.notice.textContent,/无效.*保留最后画面/);
+  fail=true;h.send({active:true,frame:frame('press')});h.step();assert.equal(h.clears,before);assert.equal(h.outputDraws.length,1);
+  assert.match(h.notice.textContent,/unavailable image.*保留最后画面/);assert.equal(h.scheduled.size,0);
+  fail=false;h.send({active:true,frame:frame('press')});h.step();assert.equal(h.outputDraws.length,2);assert.equal(h.notice.hidden,true);h.windowEvents.pagehide();
+});
+
+test('receiver does not redraw duplicate relay heartbeats but updates stale and fresh notices',async()=>{
+  const h=await receiverHarness();h.send({active:true,frame:frame()});h.step();
+  h.send({active:true,stale:true,frame:frame()});h.step();assert.equal(h.draws.length,1);assert.equal(h.notice.hidden,false);
+  h.send({active:true,stale:false,frame:frame()});h.step();assert.equal(h.draws.length,1);assert.equal(h.notice.hidden,true);
+  h.windowEvents.pagehide();
+});
+
+test('receiver forwards user framing independently from native character motion',async()=>{
+  const h=await receiverHarness(),composition={scale:1.6,x:.25,y:-.5,mirror:true};
+  h.send({active:true,frame:{...frame(),composition}});h.step();assert.deepEqual(h.outputDraws[0].options.composition,composition);
+  assert.equal(h.draws[0].options.composition,undefined);h.windowEvents.pagehide();
+});
+
+test('receiver disposes assets loaded after its page has already closed without opening an SSE connection',async()=>{
+  const pending=deferred();let disposed=0;const h=await receiverHarness({loader:()=>pending.promise});
+  h.windowEvents.pagehide();pending.resolve({flowRenderer:{dispose(){disposed++;}}});await turn();
+  assert.equal(disposed,1);assert.equal(h.connections.length,0);assert.equal(h.scheduled.size,0);
+});
+
+test('HTTP relay preserves user framing for late receivers and rejects out of range composition without replacing the last frame',async()=>{
+  await withRelay(async({request,connect})=>{
+    const composition={scale:2.5,x:-1,y:1,mirror:true};
+    assert.equal((await request('state',{method:'POST',body:{...packet(1),frame:{...frame(),composition}}})).status,200);
+    const receiver=await connect();assert.deepEqual((await receiver.next()).frame.composition,composition);
+    for(const bad of [{scale:3,x:0,y:0,mirror:false},{scale:1,x:0,y:0},{scale:1,x:0,y:0,mirror:false,extra:1}])
+      assert.equal((await request('state',{method:'POST',body:{...packet(2),frame:{...frame(),composition:bad}}})).status,400);
+    const late=await connect();assert.deepEqual((await late.next()).frame.composition,composition);
+  });
+});
+
+test('output protocol preserves bounded secondary motion while legacy frames keep it optional',()=>{
+  assert.equal(Object.hasOwn(validateOutputFrame(frame()),'secondary'),false);
+  const secondary={breath:.25,sway:-.5,hair:1};const result=validateOutputFrame({...frame(),secondary});
+  assert.deepEqual(result.secondary,secondary);assert.notEqual(result.secondary,secondary);
+  for(const value of [null,{}, {breath:0,sway:0},{breath:0,sway:0,hair:2},{breath:0,sway:NaN,hair:0},
+    {breath:'0',sway:0,hair:0},{breath:0,sway:0,hair:0,extra:0}])assert.throws(()=>validateOutputFrame({...frame(),secondary:value}));
+});
+
+test('receiver forwards exact secondary motion without advancing a separate clock',async()=>{
+  const h=await receiverHarness(),secondary={breath:.25,sway:-.5,hair:1};
+  h.send({active:true,frame:{...frame(),secondary}});h.step();assert.deepEqual(h.draws[0].options.secondary,secondary);
+  h.send({active:true,frame:{...frame(),secondary}});h.step();assert.equal(h.draws.length,1);
+  h.windowEvents.pagehide();
+});
+
+test('receiver keeps its last image across a restarted empty relay but explicit stop still clears it',async()=>{
+  const h=await receiverHarness();h.send({active:true,frame:frame('press')});h.step();const before=h.clears;
+  h.connections[0].onerror();h.send({active:false,stopped:false,frame:null});
+  assert.equal(h.clears,before);assert.match(h.notice.textContent,/信号中断.*保留最后画面/);
+  h.send({active:true,stopped:false,frame:frame('press')});h.step();assert.equal(h.notice.hidden,true);assert.equal(h.draws.length,1);
+  h.send({active:false,stopped:true,frame:null});assert.equal(h.clears,before+1);assert.match(h.notice.textContent,/已停止/);
+  h.windowEvents.pagehide();
+});
+
+test('HTTP relay distinguishes initial empty state from explicit stop and relays secondary motion unchanged',async()=>{
+  await withRelay(async({request,connect})=>{
+    const receiver=await connect();assert.equal((await receiver.next()).stopped,false);
+    const secondary={breath:.1,sway:-.5,hair:1};
+    await request('state',{method:'POST',body:{...packet(1,'press'),frame:{...frame('press'),secondary}}});
+    const current=await receive(receiver,mouthIs('press'));assert.equal(current.stopped,false);assert.deepEqual(current.frame.secondary,secondary);
+    const late=await connect();assert.deepEqual((await late.next()).frame.secondary,secondary);
+    await request('stop',{method:'POST',body:{senderId,sequence:2}});assert.equal((await receive(receiver,value=>!value.active)).stopped,true);
+    await request('state',{method:'POST',body:packet(3)});assert.equal((await receive(receiver,mouthIs('neutral'))).stopped,false);
+  });
+});
+
+test('HTTP explicit stop also clears retained receivers after the relay has restarted without an owner',async()=>{
+  await withRelay(async({request,connect})=>{
+    const receiver=await connect();assert.equal((await receiver.next()).stopped,false);
+    await request('stop',{method:'POST',body:{senderId,sequence:8}});
+    const current=await receive(receiver,value=>value.stopped);assert.equal(current.active,false);assert.equal(current.frame,null);
+    assert.equal((await request('state',{method:'POST',body:packet(7)})).status,409);
+  });
+});
+
+test('publisher default browser host functions retain their global receiver during delivery, renewal, recovery and stop',async()=>{
+  const source=readFileSync(new URL('./short-hair-studio-publisher.js',import.meta.url),'utf8').replace(/^export /gm,'');
+  const timers=new Map(),calls=[],states=[];let time=0,failNext=false;
+  const context=vm.createContext({AbortController,testFrame:frame('parted'),hostTimers:timers,
+    clockNow:()=>time,onPublisherState:state=>states.push(state),
+    request(url,options){calls.push({url,options});if(failNext){failNext=false;return Promise.reject(new Error('temporary interruption'));}return Promise.resolve(response());}});
+  // Browser timer/fetch APIs reject a receiver other than Window. Sloppy host
+  // stubs model a plain global call binding Window, but reject publisher.method().
+  vm.runInContext(`
+    let nextTimer=0;
+    globalThis.setTimeout=function(callback,delay){if(this!==globalThis)throw new TypeError('Illegal invocation: setTimeout');const id=++nextTimer;hostTimers.set(id,{callback,delay});return id;};
+    globalThis.clearTimeout=function(id){if(this!==globalThis)throw new TypeError('Illegal invocation: clearTimeout');hostTimers.delete(id);};
+    globalThis.fetch=function(...args){if(this!==globalThis)throw new TypeError('Illegal invocation: fetch');return request(...args);};
+    globalThis.crypto={randomUUID(){if(this!==globalThis.crypto)throw new TypeError('Illegal invocation: randomUUID');return 'browser-host-sender';}};
+    Date.now=clockNow;
+    ${source}
+    globalThis.publisher=new StudioOutputPublisher({onState:onPublisherState});
+    publisher.start();publisher.publish(testFrame);
+  `,context);
+  await turn();assert.equal(calls.length,1);assert.equal(states.at(-1).status,'active');assert.equal(timers.size,1);
+  assert.equal(JSON.parse(calls[0].options.body).senderId,'browser-host-sender');
+  const fire=async delay=>{
+    const entry=[...timers].find(([,timer])=>timer.delay===delay);assert.ok(entry,`expected ${delay} ms browser timer`);
+    timers.delete(entry[0]);time+=delay;entry[1].callback();await turn();
+  };
+  await fire(1000);assert.equal(calls.length,2);assert.equal(states.at(-1).status,'active');
+  failNext=true;await fire(1000);assert.equal(calls.length,3);assert.equal(states.at(-1).status,'reconnecting');
+  await fire(250);assert.equal(calls.length,4);assert.equal(states.at(-1).status,'active');
+  await vm.runInContext('publisher.stop()',context);
+  assert.equal(calls.at(-1).url,'/api/studio-output/stop');assert.equal(timers.size,0);assert.equal(context.publisher.enabled,false);
 });

@@ -3,6 +3,7 @@ import {renderShortHairStudio} from './short-hair-studio-renderer.js';
 import {STUDIO_HEAD_POSES,poseHeadCoordinates,nearestStudioPoseId} from './short-hair-pose-motion.js';
 import {continuousViewport} from './short-hair-continuous-model.js';
 import {drawOutputFrame} from './short-hair-studio-output-model.js';
+import {createShortHairLayerInspection} from './short-hair-layer-inspector.js';
 import {sanitizeChannels} from './expression-model.js';
 
 /** Premultiplied RGB makes transparent-edge comparisons meaningful: invisible
@@ -37,7 +38,7 @@ const pixels=canvas=>canvas.getContext('2d').getImageData(0,0,canvas.width,canva
 const nextPaint=()=>new Promise(resolve=>requestAnimationFrame(()=>resolve()));
 
 export async function runContinuousDiagnostics(assets,{onProgress=()=>{},preview=null}={}) {
-  const report={schemaVersion:1,kind:'short-hair-continuous-browser-validation',version:'0.17.0',
+  const report={schemaVersion:1,kind:'short-hair-continuous-browser-validation',version:'0.18.0',
     startedAt:new Date().toISOString(),status:'running',checks:[],limitations:[
       'Pixel continuity is not an artistic-quality or real-camera/OBS acceptance test.',
       'Model pair fields are extended geometrically to triangle interiors; this is not three-image neural inference.',
@@ -95,6 +96,56 @@ export async function runContinuousDiagnostics(assets,{onProgress=()=>{},preview
   const corners=[0,1279,719*1280,720*1280-1].map(index=>outputPixels[index*4+3]);
   add('output:transparent-corners',corners.every(value=>value===0),{size:[1280,720],cornerAlpha:corners});
 
+  for(const pose of STUDIO_HEAD_POSES){
+    const inspection=createShortHairLayerInspection(assets,pose.id,sanitizeChannels({eyeBlinkLeft:.5,jawOpen:.5}));
+    const layers=inspection.layers;
+    add(`layers:full-size:${pose.id}`,Object.keys(layers).length===8&&Object.values(layers).every(layer=>layer.width===1122&&layer.height===1402));
+    native.width=1122;native.height=1402;const nc=native.getContext('2d');nc.clearRect(0,0,1122,1402);nc.drawImage(layers.head,0,0);nc.drawImage(layers.torso,0,0);
+    const metric=compareDiagnosticPixels(pixels(layers.character),pixels(native),{premultiplied:true});
+    add(`layers:head-torso-reconstruction:${pose.id}`,metric.meanAbsoluteDifference<.01&&metric.meanAlphaDifference===0,{metric});
+    await nextPaint();
+  }
+  const secondary={breath:.55,sway:-.25,hair:.6};
+  for(const headPose of [{yaw:0,pitch:0},middle,{yaw:-.7,pitch:.6}]){
+    render(actual,headPose,neutral,{transparent:true});const zeroPixels=pixels(actual);
+    render(other,headPose,neutral,{transparent:true,secondary:{breath:0,sway:0,hair:0}});
+    let metric=compareDiagnosticPixels(zeroPixels,pixels(other));
+    add(`secondary:zero:${headPose.yaw},${headPose.pitch}`,metric.differentPixels===0,{metric});
+    render(other,headPose,neutral,{transparent:true,secondary});const moved=pixels(other);
+    metric=compareDiagnosticPixels(zeroPixels,moved,{premultiplied:true});
+    add(`secondary:bounded:${headPose.yaw},${headPose.pitch}`,metric.differentPixels>100&&metric.meanAbsoluteDifference<5,{metric});
+    render(actual,headPose,neutral,{transparent:true,secondary});
+    metric=compareDiagnosticPixels(pixels(actual),moved);
+    add(`secondary:deterministic:${headPose.yaw},${headPose.pitch}`,metric.differentPixels===0,{metric});
+    await nextPaint();
+  }
+  render(actual,middle,neutral,{transparent:true,secondary});
+  drawOutputFrame(output,actual,{transparent:true,composition:{scale:.75,x:.2,y:-.1,mirror:true}});
+  expected.width=1280;expected.height=720;
+  const ec=expected.getContext('2d'),fit=Math.min(1280/actual.width,720/actual.height)*.75;
+  ec.save();ec.translate(1280*.6,720*.45);ec.scale(-1,1);ec.drawImage(actual,-actual.width*fit/2,-actual.height*fit/2,actual.width*fit,actual.height*fit);ec.restore();
+  const compositionMetric=compareDiagnosticPixels(pixels(output),pixels(expected));
+  add('output:composition-mirror',compositionMetric.differentPixels===0,{metric:compositionMetric});
+
+  // Exercise the actual browser GPU lifecycle, not just a stubbed flag.
+  const renderer=assets.flowRenderer,extension=renderer.gl.getExtension('WEBGL_lose_context');
+  if(extension){
+    const gpuEvent=name=>new Promise((resolve,reject)=>{
+      const handler=()=>{clearTimeout(timeout);resolve();};
+      const timeout=setTimeout(()=>{renderer.canvas.removeEventListener(name,handler);reject(new Error('GPU event timeout: '+name));},10000);
+      renderer.canvas.addEventListener(name,handler,{once:true});
+    });
+    const beforeLoss=pixels(actual),lost=gpuEvent('webglcontextlost');extension.loseContext();await lost;
+    const attempt=render(actual,middle,neutral,{transparent:true,secondary});
+    const lostMetric=compareDiagnosticPixels(beforeLoss,pixels(actual));
+    add('graphics:loss-retains-frame',attempt.didDraw===false&&lostMetric.differentPixels===0,{metric:lostMetric});
+    await new Promise(resolve=>setTimeout(resolve,100));
+    const restored=gpuEvent('webglcontextrestored');extension.restoreContext();await restored;
+    const restoredResult=render(actual,middle,neutral,{transparent:true,secondary});
+    const restoredMetric=compareDiagnosticPixels(beforeLoss,pixels(actual));
+    add('graphics:restore-rebuilds-resources',restoredResult.didDraw===true&&restoredMetric.differentPixels===0,{metric:restoredMetric});
+  }else add('graphics:restore-rebuilds-resources',false,{reason:'WEBGL_lose_context unavailable; restoration not exercised'});
+
   if(preview){render(preview,middle,sanitizeChannels({jawOpen:.65,eyeBlinkLeft:.5}),{transparent:true});}
   report.status=report.checks.every(check=>check.passed)?'passed':'failed';
   report.summary={checks:report.checks.length,passed:report.checks.filter(check=>check.passed).length,
@@ -104,8 +155,8 @@ export async function runContinuousDiagnostics(assets,{onProgress=()=>{},preview
 
 if(typeof document!=='undefined'){
   const run=document.querySelector('#run'),download=document.querySelector('#download'),reportNode=document.querySelector('#report');
-  let assets=null,result=null;
-  const show=report=>{reportNode.textContent=JSON.stringify(report,null,2);};
+  let assets=null,result=null,lastReport=null;
+  const show=report=>{lastReport=report;reportNode.textContent=JSON.stringify(report,null,2);};
   run.addEventListener('click',async()=>{
     run.disabled=true;download.disabled=true;result=null;document.querySelector('#status').textContent='正在核验本地素材并运行像素比较…';
     show({status:'loading'});
@@ -113,12 +164,12 @@ if(typeof document!=='undefined'){
       assets ||= await loadContinuousShortHairAssets();
       result=await runContinuousDiagnostics(assets,{onProgress:show,preview:document.querySelector('#preview')});
       document.querySelector('#status').textContent=`${result.status==='passed'?'通过':'存在失败'} · ${result.summary.passed}/${result.summary.checks} 项`;
-    }catch(error){result={status:'error',message:error.message,stack:error.stack};show(result);document.querySelector('#status').textContent=`验收未完成：${error.message}`;}
+    }catch(error){result={...lastReport,status:'error',message:error.message,stack:error.stack};show(result);document.querySelector('#status').textContent=`验收未完成：${error.message}`;}
     finally{run.disabled=false;download.disabled=false;}
   });
   download.addEventListener('click',()=>{
     if(!result)return;const url=URL.createObjectURL(new Blob([JSON.stringify(result,null,2)],{type:'application/json'}));
-    const a=document.createElement('a');a.href=url;a.download='v0.17-continuous-browser-validation.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    const a=document.createElement('a');a.href=url;a.download='v0.18-continuous-browser-validation.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
   });
   window.addEventListener('pagehide',()=>assets?.flowRenderer?.dispose());
 }

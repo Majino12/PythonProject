@@ -107,3 +107,20 @@ test('v2 single-frame preview restores an explicit transparent flag without chan
   for(const transparent of [null,0,1,'false'])
     assert.throws(()=>parseStudioFrame(JSON.stringify({...frame,preview:{transparent}})));
 });
+
+test('v0.18 project saves composition and a frozen secondary frame but never auto-runs it',()=>{
+  const composition={scale:1.4,x:.2,y:-.3,mirror:true},secondary={breath:.2,sway:-.1,hair:.5};
+  const result=parseStudioProject(JSON.stringify(createStudioProject({composition,secondary,secondarySettings:{enabled:true,intensity:.8}})));
+  assert.deepEqual(result.composition,composition);assert.deepEqual(result.secondary,secondary);
+  assert.deepEqual(result.secondarySettings,{enabled:false,intensity:.8});
+  const old=createStudioProject();assert.deepEqual(old.secondary,{breath:0,sway:0,hair:0});
+  for(const value of [{scale:9,x:0,y:0,mirror:false},{scale:1,x:0,y:0},null])
+    assert.throws(()=>parseStudioProject(JSON.stringify({...old,composition:value})));
+  for(const value of [{breath:2,sway:0,hair:0},{breath:0,sway:0},null])
+    assert.throws(()=>parseStudioProject(JSON.stringify({...old,secondary:value})));
+});
+test('single frame accepts strict secondary values without enabling movement',()=>{
+  const secondary={breath:.1,sway:-.2,hair:.3};
+  assert.deepEqual(parseStudioFrame(JSON.stringify({coefficients:{jawOpen:.5},secondary})).secondary,secondary);
+  assert.throws(()=>parseStudioFrame(JSON.stringify({coefficients:{jawOpen:.5},secondary:{...secondary,hair:Infinity}})));
+});

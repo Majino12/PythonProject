@@ -22,22 +22,20 @@ cd PythonProject
 
 ## MoeMotion
 
-版本：`0.17.0`。在 v0.16.0 基础上增加连续转头、真实 RIFE 模型运动场、角色透明遮罩与图层导出。九方向原稿、已登记表情与批准记录保留；仍为 2D，不接入 VTube Studio，不修改旧 3D。
+版本：`0.18.0`。在连续转头、RIFE运动场和透明素材基础上，补充可暂停的自然微动、校准质量与新样本门控、直播构图及异常恢复。保留原画与批准记录，仍为2D。
 
-需要 Node.js 18 或更新版本，在仓库根目录执行：
+需要 Node.js 18 或更新版本：
 
 ```bash
 cd VTuberProject
 npm start
 ```
 
-打开 <http://127.0.0.1:4173>，使用滑块连续转头。首次主动开启摄像头才下载 MediaPipe；模型运动场和透明遮罩已本地预计算，不逐帧等待神经推理。
+打开 <http://127.0.0.1:4173>。摄像头、微动和直播均需主动开启。直播区可预览缩放、位置、镜像；将 `http://127.0.0.1:4173/short-hair-output.html` 添加到同机 OBS 浏览器源（1280×720）。支持透明叠加、短暂断线重连与最后画面保留。[OBS 接入说明](VTuberProject/OBS-SETUP.txt)
 
-直播时在工作台启用输出，将 `http://127.0.0.1:4173/short-hair-output.html` 添加为同机 OBS 浏览器源，宽 1280、高 720。透明背景有真实 alpha，可叠加在直播场景上；PNG 支持透明，浏览器录像仍使用固定背景。[OBS 接入说明](VTuberProject/OBS-SETUP.txt)
+素材检查器可逐层查看八张透明画布，ZIP使用同一生成路径。头发与脸仍同属头部可见层，没有可靠的隐藏区域补画。微动是保守几何位移，完整独立头发绑定和一张图自动建模仍待后续完成。[模型说明](VTuberProject/docs/CONTINUOUS-2D.txt)
 
-图层可导出角色、头部、躯干及眼口眉替换画稿；头发与脸仍同属头部层，无隐藏区域补画。三角形内部采用模型两图运动场的几何组合，细发、衣服和轮廓可能受原稿差异影响。一张图自动建模仍是后续目标。[模型说明](VTuberProject/docs/CONTINUOUS-2D.txt)
-
-770/770 自动测试、64/64 浏览器连续像素检查通过；一次巡回演示录像平均约 57.56 fps（请求60），不代表所有设备。真人摄像头及实际 OBS 尚未实机验收。[验证记录](VTuberProject/RELEASE-VALIDATION.txt)
+863/863 自动测试、94/94 真实浏览器像素检查通过；另验证短重启自动重连、长失联保留画面、构图与图层检查。真人摄像头和实际 OBS 尚未实机验收。[验证记录](VTuberProject/RELEASE-VALIDATION.txt)
 
 旧 Luna／3D、原画与批准记录保留。许可见 [原素材](VTuberProject/assets/THIRD_PARTY_NOTICES.txt)、[RIFE](VTuberProject/assets/short-hair-motion-v1/LICENSE-RIFE.txt)、[动漫分割](VTuberProject/assets/short-hair-alpha-v1/LICENSE-anime-seg.txt)。完整能力见 [项目 README](VTuberProject/README.md)。
 

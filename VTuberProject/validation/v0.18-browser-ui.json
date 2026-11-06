@@ -1,0 +1,23 @@
+{
+  "version": "0.18.0",
+  "date": "2026-11-06",
+  "localPort": 4179,
+  "browser": "Codex in-app browser",
+  "cameraActivated": false,
+  "obsInstalledOrRun": false,
+  "checks": [
+    "Project reload retains composition and remains stationary; camera and output default off",
+    "Natural secondary movement starts manually and pause updates badge immediately",
+    "640x360 output preview and 1280x720 receiver compose scale .85, x .32, y .08 and mirror",
+    "Layer inspector shows head and torso endpoint snapshots at 1122x1402",
+    "Publisher browser native timer binding and actual POST/SSE connection verified after fix",
+    "Long service outage exhausts retries while receiver visibly retains last portrait; explicit reenable works",
+    "Short service restart reconnects automatically without user reenable",
+    "Explicit output stop clears receiver and displays stopped notice"
+  ],
+  "limitations": [
+    "No real webcam performance/appearance acceptance.",
+    "No actual OBS hardware session.",
+    "Pixel tests do not establish artistic quality or approve candidate artwork."
+  ]
+}

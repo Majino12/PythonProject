@@ -1,3 +1,6 @@
+import {validateSecondaryFrame} from './short-hair-secondary-motion.js';
+import {validateOutputComposition,layoutOutputComposition} from './short-hair-composition.js';
+export {validateOutputComposition,normalizeOutputComposition} from './short-hair-composition.js';
 import {validateHeadPose} from './short-hair-pose-motion.js';
 import {STUDIO_CHANNELS, STUDIO_POSES} from './short-hair-studio-model.js';
 
@@ -28,6 +31,8 @@ export function validateOutputFrame(value) {
   const extra = {};
   if (value.headPose !== undefined) extra.headPose = validateHeadPose(value.headPose);
   if (value.transparent !== undefined) extra.transparent = value.transparent;
+  if (value.composition !== undefined) extra.composition = validateOutputComposition(value.composition);
+  if (value.secondary !== undefined) extra.secondary = validateSecondaryFrame(value.secondary);
   return {poseId:value.poseId, coefficients, state, faceOnly:value.faceOnly, original:value.original, ...extra};
 }
 
@@ -37,12 +42,15 @@ export function validateOutputEnvelope(value) {
   return {senderId:value.senderId, sequence:value.sequence, frame:validateOutputFrame(value.frame)};
 }
 
-/** Fit each native pose into one fixed OBS canvas without stretching it. */
-export function drawOutputFrame(target, source, {transparent=false}={}) {
+/** Fit each native pose, then apply user framing without baking a background into alpha. */
+export function drawOutputFrame(target, source, {transparent=false,composition}={}) {
   const context = target.getContext('2d');
-  const scale = Math.min(target.width/source.width, target.height/source.height);
-  const width = source.width*scale, height = source.height*scale;
+  const {width,height,centerX,centerY,mirror}=layoutOutputComposition(target,source,composition);
   context.clearRect?.(0,0,target.width,target.height);
   if (!transparent) {context.fillStyle = '#bfc6d3'; context.fillRect(0,0,target.width,target.height);}
-  context.drawImage(source,(target.width-width)/2,(target.height-height)/2,width,height);
+  if(mirror) {
+    context.save();
+    try {context.translate(centerX,centerY);context.scale(-1,1);context.drawImage(source,-width/2,-height/2,width,height);}
+    finally {context.restore();}
+  } else context.drawImage(source,centerX-width/2,centerY-height/2,width,height);
 }

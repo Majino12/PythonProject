@@ -8,11 +8,14 @@ import {FaceSession} from './face-session.js';
 import * as timing from './short-hair-studio-timing.js';
 import * as tracking from './short-hair-studio-tracking.js';
 import * as poseMotion from './short-hair-pose-motion.js';
+import * as trackingQuality from './short-hair-tracking-quality.js';
+import * as secondaryMotion from './short-hair-secondary-motion.js';
+import * as composition from './short-hair-composition.js';
 import {mapBlendshapeValue} from './arkit-blendshapes.js';
 
 const source = readFileSync(new URL('./short-hair-studio.js', import.meta.url),'utf8').replace(/^import[\s\S]*?from ['"][^'"]+['"];\n/gm,'');
 function harness() {
-  const elements = new Map(), documentEvents = {}, windowEvents = {}, frames = new Map(), intervals = new Map(), calls = {load:0,recordStop:0,downloads:[],filenames:[],streams:[],draws:[],now:0,attributeWrites:0,published:[],outputStops:0};
+  const elements = new Map(), documentEvents = {}, windowEvents = {}, frames = new Map(), intervals = new Map(), calls = {load:0,assetResolvers:[],saved:[],recordStop:0,downloads:[],filenames:[],streams:[],draws:[],compositions:[],now:0,attributeWrites:0,published:[],outputStops:0};
   let frameId=0;
   const element = key => {
     if (!elements.has(key)) elements.set(key,{value:'',checked:false,hidden:false,disabled:false,dataset:{},textContent:'',
@@ -42,16 +45,19 @@ function harness() {
   const capabilities={extendedEyes:true,extendedJaw:true,shiftLeft:true,shiftRight:true,gaze:true};
   const selector=(assets,poseId,channels,previous={})=>({targetState:selectExpression(channels,previous,capabilities),targetGaze:selectGaze(channels,capabilities),
     availableSequences:{eyeLeft:['open','quarter','half','threeQuarter','closed'],eyeRight:['open','quarter','half','threeQuarter','closed'],mouth:['neutral','parted','openSmall','openMedium','openWide']}});
-  const context=vm.createContext({...model,...timing,...tracking,...poseMotion,sanitizeChannels,selectGaze,FaceSession,ShortHairStudioCamera:Camera,StudioOutputPublisher:Publisher,document,
-    window:{location:{origin:'http://127.0.0.1:4175'},addEventListener(type,callback){windowEvents[type]=callback;}},localStorage:{getItem:()=>null,setItem(){}},
+  const context=vm.createContext({...model,...timing,...tracking,...poseMotion,...trackingQuality,...secondaryMotion,...composition,sanitizeChannels,selectGaze,FaceSession,ShortHairStudioCamera:Camera,StudioOutputPublisher:Publisher,document,
+    window:{location:{origin:'http://127.0.0.1:4175'},addEventListener(type,callback){windowEvents[type]=callback;}},localStorage:{getItem:()=>null,setItem(key,value){calls.saved.push({key,value});}},
     performance:{now:()=>calls.now},requestAnimationFrame(callback){frames.set(++frameId,callback);return frameId;},cancelAnimationFrame(id){frames.delete(id);},
-    loadContinuousShortHairAssets(){calls.load++;return new Promise(()=>{});},selectShortHairStudioState:selector,
+    loadContinuousShortHairAssets(){calls.load++;return new Promise(resolve=>calls.assetResolvers.push(resolve));},selectShortHairStudioState:selector,
     exportShortHairLayers(){return Promise.resolve([]);},
+    createShortHairLayerInspection(){return{layers:{}};},
+    drawOutputFrame(output,source,options){calls.compositions.push({transparent:options.transparent,composition:{...options.composition}});},
     loadShortHairCharacterPack(){return Promise.resolve({pack:{}});},summarizeShortHairCharacterPack(){return{poseCount:9,artworkFileCount:0,poses:[]};},
     renderContinuousShortHairStudio(canvas,assets,poseId,channels,previous,options){
       const target=selector(assets,poseId,channels,previous),neutral=selector(assets,poseId,{});
       const result={...target,state:options.original?neutral.targetState:options.stateOverride || target.targetState,gaze:options.original?neutral.targetGaze:target.targetGaze,didDraw:true,
-        headPose:options.original?poseMotion.poseHeadCoordinates(poseMotion.nearestStudioPoseId(options.headPose)):{...options.headPose},transparent:options.transparent};
+        headPose:options.original?poseMotion.poseHeadCoordinates(poseMotion.nearestStudioPoseId(options.headPose)):{...options.headPose},transparent:options.transparent,
+        secondary:options.original?{breath:0,sway:0,hair:0}:{...options.secondary}};
       calls.draws.push({at:calls.now,poseId,...result});return result;
     },extractFaceMotion:result=>result?.faceMotion || null,
     calls,console,Blob,URL:{createObjectURL(blob){calls.downloads.push(blob);return 'blob:test';},revokeObjectURL(){}},setTimeout(callback){callback();return 0;},
@@ -85,10 +91,11 @@ test('invalid imported frames leave active input and coefficients unchanged',()=
   assert.equal(h.run('source'),'demo');assert.equal(h.run('coefficients.jawOpen'),.7);assert.match(h.elements.get('#importStatus').textContent,/未应用/);
 });
 test('the first calibrated frame uses the new head baseline without a one-frame pose jump',()=>{
-  const h=harness();h.run(`source='camera';camera.active=true;calibrationUntil=3000;poseId='front';
-    session.samples=Array.from({length:5},()=>({}));poseSamples=Array.from({length:5},()=>({x:.7,y:.6}));
+  const h=harness();h.run(`source='camera';camera.active=true;poseId='front';beginCalibration();
     camera.poll=()=>({faceMotion:{pose:{x:.7,y:.6}},faceBlendshapes:[{categories:[]}]});`);
-  h.elements.get('#followHead').checked=true;h.run('cameraFrame(3000,1/60)');
+  h.elements.get('#followHead').checked=true;
+  for(let now=0;now<=3000;now+=100){h.calls.now=now;h.run(`cameraFrame(${now},.1)`);}
+  assert.equal(h.run('calibrationUntil'),0);assert.match(h.elements.get('#motionStatus').textContent,/校准完成/);
   assert.equal(h.run('poseId'),'front');assert.equal(h.run('trackedPose.yaw'),0);assert.equal(Math.abs(h.run('trackedPose.pitch')),0);
 });
 test('tracking runtime errors close the camera and leave a retryable manual state',()=>{
@@ -142,7 +149,8 @@ test('camera ARKit gaze remains unit coefficients and normalized head pitch is c
     {categoryName:'eyeLookOutLeft',score:.8},{categoryName:'eyeLookInRight',score:.8},
     {categoryName:'eyeLookUpLeft',score:.6},{categoryName:'eyeLookUpRight',score:.6}]}]});`);
   h.elements.get('#followHead').checked=true;h.run('cameraFrame(1000,1/60)');
-  assert.equal(h.run('poseMotion.current.yaw'),0);assert.equal(h.run('poseMotion.target.yaw'),1);h.run('cameraFrame(1080,1/60)');
+  assert.equal(h.run('poseMotion.current.yaw'),0);assert.equal(h.run('poseMotion.target.yaw'),0);h.run('cameraFrame(1080,1/60)');
+  assert.equal(h.run('poseMotion.target.yaw'),1);
   assert.equal(h.run('poseId'),'view-right-up');assert.equal(h.run('trackedPose.pitch'),.6);
   const configs=tracking.createFaceSessionSettings().channels;
   assert.equal(h.run('selectGaze(coefficients,{gaze:true}).eyeLeft.x'),mapBlendshapeValue(.8,configs.eyeLookOutLeft));
@@ -158,7 +166,7 @@ test('camera calibration handles every studio channel and new frames replace sta
   const baseline=Object.fromEntries(keys.map((key,index)=>[key,.04+index*.01]));
   h.context.frameInput={faceMotion:{pose:{x:.12,y:.18}},faceBlendshapes:[{categories:keys.map(key=>({categoryName:key,score:baseline[key]}))}]};
   h.run("source='camera';camera.active=true;camera.poll=()=>frameInput;beginCalibration();");
-  for(const time of [100,500,1000,1500,2000,2500,3000]) h.run(`cameraFrame(${time},1/60)`);
+  for(let time=0;time<=3000;time+=100) h.run(`cameraFrame(${time},1/60)`);
   assert.equal(h.run('calibrationUntil'),0);
   for(const key of keys){
     assert.ok(Math.abs(h.run(`session.neutral[${JSON.stringify(key)}]`)-baseline[key])<1e-12,key);
@@ -364,7 +372,7 @@ test('tracking reset restores short-hair defaults and recalibrates only an alrea
 
 test('camera targets preserve fractional angles and stale input returns toward neutral without a hard displayed jump',()=>{
   const h=harness();h.prepare();h.elements.get('#followHead').checked=true;
-  h.run('source="camera";camera.active=true;camera.poll=()=>({faceMotion:{pose:{x:.16,y:0}},faceBlendshapes:[{categories:[]}]});cameraFrame(1000,1/60);camera.poll=()=>null;');
+  h.run('source="camera";camera.active=true;signalGate.reset(960);camera.poll=()=>({faceMotion:{pose:{x:.16,y:0}},faceBlendshapes:[{categories:[]}]});cameraFrame(960,1/60);cameraFrame(1000,1/60);camera.poll=()=>null;');
   assert.ok(Math.abs(h.run('poseMotion.target.yaw')-.35)<1e-12);
   for(const now of [1040,1080,1160])h.run(`cameraFrame(${now},1/60)`);
   assert.ok(Math.abs(h.run('poseMotion.target.yaw')-.35)<1e-12);
@@ -419,7 +427,7 @@ test('PNG, project and frame exports freeze the currently displayed angle instea
   h.run('savePng();');assert.equal(pngPose,yaw);assert.equal(h.frames.size,0);
   h.run('saveProject();exportFrame();');
   const project=JSON.parse(await h.calls.downloads[1].text()),frame=JSON.parse(await h.calls.downloads[2].text());
-  assert.equal(project.headPose.yaw,yaw);assert.equal(frame.headPose.yaw,yaw);assert.equal(frame.schemaVersion,2);
+  assert.equal(project.headPose.yaw,yaw);assert.equal(frame.headPose.yaw,yaw);assert.equal(frame.schemaVersion,3);
   assert.equal(project.transparent,true);assert.equal(frame.preview.transparent,true);
   assert.equal(h.run('poseMotion.target.yaw'),yaw);assert.equal(h.frames.size,0);
 });
@@ -433,7 +441,7 @@ test('continuous recording saves displayed intermediate coordinates and output t
   assert.ok(h.run('clipRecorder.samples.some(sample=>sample.headPose.yaw>0&&sample.headPose.yaw<1)'));
   h.elements.get('#transparentToggle').checked=false;h.elements.get('#transparentToggle').events.change();
   assert.equal(h.calls.published.at(-1).transparent,false);
-  h.run('stopActive();');assert.equal(h.run('savedClip.schemaVersion'),2);
+  h.run('stopActive();');assert.equal(h.run('savedClip.schemaVersion'),3);
   assert.ok(h.run('savedClip.samples.some(sample=>sample.headPose.yaw>0&&sample.headPose.yaw<1)'));
 });
 
@@ -487,4 +495,207 @@ test('a skipped final clip frame is retried before playback is declared complete
   assert.equal(h.run('rendered.headPose.yaw'),0);assert.equal(h.run('source'),'clip');assert.equal(h.frames.size,1);
   h.context.renderContinuousShortHairStudio=draw;h.step(117);
   assert.equal(h.run('rendered.headPose.yaw'),1);assert.equal(h.run('source'),'manual');assert.equal(h.frames.size,0);
+});
+
+const plain=value=>JSON.parse(JSON.stringify(value));
+function cameraSample(pose={x:.1,y:.03},channels={}) {
+  return {faceMotion:{pose},faceBlendshapes:[{categories:Object.entries(channels).map(([categoryName,score])=>({categoryName,score}))}]};
+}
+function attachCamera(h,sample=cameraSample()) {
+  h.context.frameInput=sample;
+  h.run('source="camera";camera.active=true;signalGate.reset(calls.now);camera.poll=()=>frameInput;');
+}
+function calibrationFrames(h,end=3000) {
+  for(let now=0;now<=end;now+=100){h.calls.now=now;h.run(`cameraFrame(${now},.1)`);}
+}
+
+test('a rejected closed-eye calibration preserves the previously useful face and head baseline',()=>{
+  const h=harness();h.prepare();attachCamera(h,cameraSample({x:.1,y:.03},{eyeBlinkLeft:.95,eyeBlinkRight:.9,jawOpen:.04}));
+  h.run('session.neutral.eyeBlinkLeft=.08;session.neutral.eyeBlinkRight=.09;session.neutral.jawOpen=.06;neutralPose={x:.12,y:-.04};');
+  const previousChannels=plain(h.run('session.neutral')),previousPose=plain(h.run('neutralPose'));
+  h.run('beginCalibration();');calibrationFrames(h);
+  assert.deepEqual(plain(h.run('session.neutral')),previousChannels);assert.deepEqual(plain(h.run('neutralPose')),previousPose);
+  assert.equal(h.run('calibrationUntil'),0);assert.equal(h.run('calibrationBackup'),null);assert.equal(h.run('session.samples.length'),0);
+  assert.match(h.elements.get('#motionStatus').textContent,/眼睛闭合/);assert.equal(h.run('source'),'camera');
+});
+
+test('calibration lost near its end retains its previous baseline and explains the failure',()=>{
+  const h=harness();h.prepare();attachCamera(h);
+  h.run('session.neutral.jawOpen=.06;neutralPose={x:.12,y:-.04};beginCalibration();');calibrationFrames(h,1500);
+  h.context.frameInput=null;h.calls.now=3000;h.run('cameraFrame(3000,.1);');
+  assert.equal(h.run('session.neutral.jawOpen'),.06);assert.deepEqual(plain(h.run('neutralPose')),{x:.12,y:-.04});
+  assert.match(h.elements.get('#motionStatus').textContent,/校准结束时/);assert.equal(h.run('calibrationUntil'),0);
+});
+
+test('manual pause, hidden-page interruption and hardware loss all restore an unfinished calibration',()=>{
+  for(const mode of ['pause','hidden','hardware']){
+    const h=harness();h.prepare();attachCamera(h);
+    h.run('session.neutral.jawOpen=.08;neutralPose={x:.16,y:-.07};beginCalibration();');calibrationFrames(h,1000);
+    if(mode==='pause')h.run('stopActive();');
+    else if(mode==='hidden'){h.document.hidden=true;h.documentEvents.visibilitychange();}
+    else h.run('camera.active=false;camera.onState({status:"stopped",message:"disconnected"});');
+    assert.equal(h.run('session.neutral.jawOpen'),.08,mode);assert.deepEqual(plain(h.run('neutralPose')),{x:.16,y:-.07},mode);
+    assert.equal(h.run('calibrationUntil'),0,mode);assert.equal(h.run('calibrationBackup'),null,mode);
+    assert.equal(h.run('source'),'manual',mode);assert.equal(h.frames.size,0,mode);
+  }
+});
+
+test('face loss and two fresh recovery samples update both the target and the recovery message',()=>{
+  const h=harness();h.prepare();h.elements.get('#followHead').checked=true;attachCamera(h,cameraSample({x:.16,y:0}));
+  h.run('cameraFrame(0,1/60);cameraFrame(40,1/60);');assert.equal(h.run('trackingStatus'),'tracking');
+  h.context.frameInput=null;h.run('cameraFrame(700,1/60);');
+  assert.equal(h.run('poseMotion.target.yaw'),0);assert.equal(h.run('trackingStatus'),'lost');assert.match(h.elements.get('#motionStatus').textContent,/寻找面部/);
+  h.context.frameInput=cameraSample({x:.18,y:0});h.run('cameraFrame(740,1/60);');
+  assert.equal(h.run('poseMotion.target.yaw'),0);assert.equal(h.run('trackingStatus'),'recovering');
+  h.run('cameraFrame(780,1/60);');
+  assert.ok(Math.abs(h.run('poseMotion.target.yaw')-.4)<1e-12);assert.equal(h.run('poseMotion.current.yaw'),0);
+  assert.equal(h.run('trackingStatus'),'tracking');assert.match(h.elements.get('#motionStatus').textContent,/跟踪已恢复/);
+});
+
+test('a single wrong landmark angle cannot move the head target or postpone its stale timeout',()=>{
+  const h=harness();h.prepare();h.elements.get('#followHead').checked=true;attachCamera(h,cameraSample({x:.1,y:0}));
+  h.run('cameraFrame(0,1/60);cameraFrame(40,1/60);');const target=h.run('poseMotion.target.yaw');assert.ok(target>0);
+  h.context.frameInput=cameraSample({x:.95,y:0},{jawOpen:1});h.run('cameraFrame(80,1);');
+  assert.equal(h.run('poseMotion.target.yaw'),target);assert.ok(h.run('coefficients.jawOpen')>.9,'expression samples need not wait for a head jump confirmation');
+  h.context.frameInput=null;for(const now of [120,180,240])h.run(`cameraFrame(${now},1/60);`);
+  assert.equal(h.run('poseMotion.target.yaw'),target);h.run('cameraFrame(281,1/60);');assert.equal(h.run('poseMotion.target.yaw'),0);
+});
+
+test('pausing optional micro-motion freezes its displayed frame and resuming continues its phase',()=>{
+  const h=harness();h.prepare();h.run('toggleSecondary();');h.step(0);h.step(100);
+  const shown=plain(h.run('secondaryMotion.current')),phase=h.run('secondaryMotion.elapsed');assert.ok(shown.breath>0);
+  h.run('toggleSecondary();');h.step(500);
+  assert.equal(h.run('secondaryRunning'),false);assert.deepEqual(plain(h.run('rendered.secondary')),shown);
+  assert.equal(h.run('secondaryMotion.elapsed'),phase);assert.equal(h.frames.size,0);
+  h.calls.now=600;h.run('toggleSecondary();');h.step(600);
+  assert.ok(h.run('secondaryMotion.elapsed')>phase);assert.ok(h.run('secondaryMotion.elapsed')<phase+.11);
+});
+
+test('hiding a micro-motion session freezes it and visibility cannot restart it',()=>{
+  const h=harness();h.prepare();h.run('toggleSecondary();');h.step(0);h.step(100);
+  const shown=plain(h.run('secondaryMotion.current')),phase=h.run('secondaryMotion.elapsed');
+  h.document.hidden=true;h.documentEvents.visibilitychange();
+  assert.equal(h.run('secondaryRunning'),false);assert.equal(h.frames.size,0);
+  h.document.hidden=false;h.documentEvents.visibilitychange();
+  assert.deepEqual(plain(h.run('rendered.secondary')),shown);assert.equal(h.run('secondaryMotion.elapsed'),phase);assert.equal(h.frames.size,0);
+});
+
+test('hardware camera termination freezes optional micro-motion and clears its running UI',()=>{
+  const h=harness();h.prepare();h.run('toggleSecondary();');h.step(0);h.step(100);
+  const shown=plain(h.run('secondaryMotion.current'));attachCamera(h);
+  h.run('camera.active=false;camera.onState({status:"stopped",message:"disconnected"});');
+  assert.equal(h.run('secondaryRunning'),false);assert.deepEqual(plain(h.run('secondaryMotion.current')),shown);
+  assert.equal(h.elements.get('#secondaryToggle').textContent,'开启微动');assert.equal(h.frames.size,0);assert.equal(h.run('isAnimating()'),false);
+});
+
+test('PNG, frame and project exports freeze exactly the displayed micro-motion',async()=>{
+  for(const action of ['savePng','exportFrame','saveProject']){
+    const h=harness();h.prepare();h.run('toggleSecondary();');h.step(0);h.step(100);
+    const shown=plain(h.run('rendered.secondary'));let pngSecondary;
+    h.elements.get('#studioCanvas').toBlob=callback=>{pngSecondary=plain(h.run('secondaryMotion.current'));callback(new Blob(['png'],{type:'image/png'}));};
+    h.run(`${action}();`);
+    assert.equal(h.run('secondaryRunning'),false,action);assert.equal(h.frames.size,0,action);
+    assert.deepEqual(plain(h.run('rendered.secondary')),shown,action);
+    if(action==='savePng')assert.deepEqual(pngSecondary,shown);
+    else assert.deepEqual(JSON.parse(await h.calls.downloads[0].text()).secondary,shown,action);
+  }
+});
+
+test('a failed draw commits neither micro-motion nor head movement nor a new output heartbeat',()=>{
+  const h=harness();h.prepare();h.elements.get('#outputToggle').checked=true;h.elements.get('#outputToggle').events.change();
+  h.run('toggleSecondary();choosePose("view-right");');h.step(0);
+  const head=h.run('poseMotion'),secondary=h.run('secondaryMotion'),committed=plain(h.calls.published.at(-1));
+  const draw=h.context.renderContinuousShortHairStudio;h.context.renderContinuousShortHairStudio=()=>({didDraw:false});h.step(34);
+  assert.equal(h.run('poseMotion'),head);assert.equal(h.run('secondaryMotion'),secondary);assert.equal(h.run('graphicsPending'),true);
+  h.run('publishOutput();');assert.deepEqual(plain(h.calls.published.at(-1)),committed);
+  h.context.renderContinuousShortHairStudio=draw;h.step(51);
+  assert.ok(h.run('poseMotion.current.yaw')>head.current.yaw);assert.ok(h.run('secondaryMotion.elapsed')>secondary.elapsed);
+  assert.equal(h.run('graphicsPending'),false);
+});
+
+test('setting micro-motion intensity to zero waits for a successful reset draw before committing it',()=>{
+  const h=harness();h.prepare();h.run('toggleSecondary();');h.step(0);h.step(100);
+  const shown=plain(h.run('rendered.secondary')),before=h.run('secondaryMotion'),draw=h.context.renderContinuousShortHairStudio;
+  assert.ok(shown.breath>0);h.context.renderContinuousShortHairStudio=()=>({didDraw:false});
+  h.elements.get('#secondaryIntensity').value='0';h.elements.get('#secondaryIntensity').events.input();
+  assert.equal(h.run('secondaryMotion'),before);assert.deepEqual(plain(h.run('rendered.secondary')),shown);
+  assert.equal(h.run('secondaryRunning'),false);assert.equal(h.run('graphicsPending'),true);
+  h.context.renderContinuousShortHairStudio=draw;h.step(117);
+  assert.deepEqual(plain(h.run('secondaryMotion.current')),{breath:0,sway:0,hair:0});
+  assert.deepEqual(plain(h.run('rendered.secondary')),{breath:0,sway:0,hair:0});assert.equal(h.run('graphicsPending'),false);
+});
+
+test('v3 replay uses recorded micro-motion once and retains its final endpoint after a failed draw',()=>{
+  const h=harness();h.prepare();h.context.testClip={schemaVersion:3,kind:'moemotion-short-hair-tracking-clip',characterId:'short-hair-v1',durationMs:100,
+    samples:[{t:0,poseId:'front',headPose:{yaw:0,pitch:0},secondary:{breath:-.4,sway:.1,hair:.8},coefficients:sanitizeChannels({})},
+      {t:100,poseId:'view-right',headPose:{yaw:1,pitch:.4},secondary:{breath:.6,sway:-.3,hair:-.4},coefficients:sanitizeChannels({})}]};
+  let simulationCalls=0;const advance=h.context.advanceSecondaryMotion;
+  h.context.advanceSecondaryMotion=(...args)=>{simulationCalls++;return advance(...args);};
+  h.run('toggleSecondary();savedClip=testClip;playClip();');h.step(0);h.step(50);
+  assert.equal(h.run('secondaryRunning'),false);assert.equal(simulationCalls,0);assert.equal(h.run('rendered.headPose.yaw'),.5);
+  assert.ok(Math.abs(h.run('rendered.secondary.breath')-.1)<1e-12);assert.ok(Math.abs(h.run('rendered.secondary.hair')-.2)<1e-12);
+  const shown=plain(h.run('secondaryMotion.current')),draw=h.context.renderContinuousShortHairStudio;
+  h.context.renderContinuousShortHairStudio=()=>({didDraw:false});h.step(100);
+  assert.deepEqual(plain(h.run('secondaryMotion.current')),shown);assert.equal(h.run('source'),'clip');
+  h.context.renderContinuousShortHairStudio=draw;h.step(117);
+  assert.deepEqual(plain(h.run('rendered.secondary')),{breath:.6,sway:-.3,hair:-.4});assert.equal(h.run('rendered.headPose.yaw'),1);
+  assert.equal(simulationCalls,0);assert.equal(h.run('source'),'manual');assert.equal(h.frames.size,0);
+});
+
+test('composition changes update only output framing and never advance or mirror the rig controls',()=>{
+  const h=harness();h.prepare();h.run('poseMotion=createStudioPoseMotion({yaw:.31,pitch:-.22});paint({snap:true});');
+  h.elements.get('#outputToggle').checked=true;h.elements.get('#outputToggle').events.change();
+  const head=h.run('poseMotion'),secondary=h.run('secondaryMotion'),drawCount=h.calls.draws.length,display=plain(h.run('rendered'));
+  h.elements.get('#outputScale').value='1.4';h.elements.get('#outputScale').events.input();
+  h.elements.get('#outputX').value='-.3';h.elements.get('#outputX').events.input();
+  h.elements.get('#outputMirror').checked=true;h.elements.get('#outputMirror').events.change();
+  assert.equal(h.run('poseMotion'),head);assert.equal(h.run('secondaryMotion'),secondary);assert.equal(h.calls.draws.length,drawCount);
+  assert.deepEqual(plain(h.run('rendered')),display);assert.equal(h.frames.size,0);
+  const output=h.calls.published.at(-1);assert.deepEqual(plain(output.headPose),{yaw:.31,pitch:-.22});
+  assert.deepEqual(plain(output.composition),{scale:1.4,x:-.3,y:0,mirror:true});
+  assert.deepEqual(h.calls.compositions.at(-1).composition,{scale:1.4,x:-.3,y:0,mirror:true});
+});
+
+test('a pending project or clip import cannot cancel a newer explicit micro-motion action',async()=>{
+  for(const kind of ['project','clip']){
+    const h=harness();h.prepare();let complete;
+    const waiting=new Promise(resolve=>{complete=resolve;});let pending;
+    if(kind==='project'){
+      h.context.input={files:[{size:200,text:()=>waiting}],value:'file'};pending=h.run('readInputFile(input,"project")');
+    }else{
+      h.elements.get('#clipFile').files=[{size:200,text:()=>waiting}];pending=h.run('openClipFile()');
+    }
+    h.run('toggleSecondary();');
+    complete(JSON.stringify(kind==='project'?model.createStudioProject({name:'older file'}):trackingClip()));await pending;
+    assert.equal(h.run('secondaryRunning'),true,kind);assert.equal(h.run('savedClip'),null,kind);
+    assert.notEqual(h.run('project.name'),'older file',kind);assert.equal(h.frames.size,1,kind);
+  }
+});
+
+test('assets completing after page exit are disposed without rebuilding or reviving the studio',async()=>{
+  const h=harness();let disposed=0,built=0;
+  h.context.buildControls=()=>{built++;};assert.equal(h.calls.assetResolvers.length,1);
+  h.windowEvents.pagehide();h.calls.assetResolvers[0]({flowRenderer:{dispose(){disposed++;}}});
+  await Promise.resolve();await Promise.resolve();await Promise.resolve();
+  assert.equal(disposed,1);assert.equal(built,0);assert.equal(h.run('ready'),false);assert.equal(h.frames.size,0);
+  assert.equal(h.run('camera.starts'),0);assert.equal(h.run('assets'),undefined);
+});
+
+test('page exit cannot schedule graphics recovery or accept a late animation callback',()=>{
+  const h=harness();h.prepare();h.run('graphicsPending=true;ensureAnimation();');
+  const late=[...h.frames.values()][0],draws=h.calls.draws.length;
+  assert.equal(h.frames.size,1);h.windowEvents.pagehide();
+  assert.equal(h.run('ready'),false);assert.equal(h.frames.size,0);
+  late(1000);assert.equal(h.calls.draws.length,draws);assert.equal(h.frames.size,0);
+});
+
+test('pausing micro-motion immediately updates the source badge and persists the exact frozen frame',()=>{
+  const h=harness();h.prepare();h.run('toggleSecondary();');h.step(0);h.step(100);
+  assert.equal(h.elements.get('#sourceBadge').textContent,'自然微动');const shown=plain(h.run('rendered.secondary'));
+  h.run('toggleSecondary();');assert.equal(h.elements.get('#sourceBadge').textContent,'手动 · 静止');
+  assert.equal(h.elements.get('#secondaryToggle').textContent,'开启微动');
+  const saved=JSON.parse(h.calls.saved.at(-1).value);
+  assert.deepEqual(saved.secondary,shown);assert.equal(saved.secondarySettings.enabled,false);
+  h.context.restoreInput=saved;h.run('restoreProject(restoreInput);');
+  assert.equal(h.run('secondaryRunning'),false);assert.equal(h.frames.size,0);assert.deepEqual(plain(h.run('rendered.secondary')),shown);
 });

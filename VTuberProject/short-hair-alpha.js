@@ -1,3 +1,5 @@
+import {renderShortHairStudio,selectShortHairStudioState} from './short-hair-studio-renderer.js';
+
 /** Model-derived alpha, independent of authored RGB and expression selection.
  * The browser only loads prepared masks; it never downloads/runs a segmenter.
  */
@@ -155,22 +157,34 @@ export function createShortHairLayerZip(entries){
 
 function pngBytes(canvas){return new Promise((resolve,reject)=>canvas.toBlob(blob=>{if(!blob){reject(new Error('PNG 图层导出失败。'));return;}blob.arrayBuffer().then(bytes=>resolve(new Uint8Array(bytes)),reject);},'image/png'));}
 
-/** UI entry point. Exports the authored pose endpoint with current expressions,
- * irrespective of preview crop/scale. Motion-model in-between images are not
- * mislabelled as authored feature layers. Source files remain untouched. */
-export async function exportShortHairLayers(assets,poseId,coefficients,{state}={}){
+/** One synchronous native-pose composition serves inspection and ZIP export.
+ * Endpoint compatibility is resolved before any five-feature layer is cut. */
+export function createShortHairLayerFrame(assets,poseId,coefficients,{state}={}){
  if(!assets?.alpha)throw new Error('透明图层尚未加载完成。');
- const {renderShortHairStudio,selectShortHairStudioState}=await import('./short-hair-studio-renderer.js');
+ if(!SHORT_HAIR_ALPHA_POSES.includes(poseId))throw new Error('未知的透明角色姿态。');
  const source=assets[families[poseId]],record=poseId==='front'?source?.manifest:source?.manifest?.poses?.[poseId],compiled=poseId==='front'?source?.compiled:source?.compiled?.[poseId];
  const selected=selectShortHairStudioState(assets,poseId,coefficients,{}).targetState;
  const native=newCanvas(1122,1402),options={faceOnly:false,stateOverride:compatibleShortHairExportState(selected,state,record,compiled)};
  const rendered=renderShortHairStudio(native,assets,poseId,coefficients,{},options);
  const visible=createShortHairVisibleLayers(native,assets.alpha,poseId);
  const features=createShortHairFeatureLayers(assets,poseId,rendered.state,native);
+ const original=assets.alpha.manifest.poses[poseId].source,rect=[0,0,1122,1402];
+ return {poseId,state:{...rendered.state},layers:{...visible,...features.layers},descriptors:{
+  character:{kind:'transparent-character',source:original,rect:[...rect]},
+  head:{kind:'visible-head-partition',source:original,rect:[...rect],includes:['hair','face'],hiddenPixelsReconstructed:false},
+  torso:{kind:'visible-torso-partition',source:original,rect:[...rect],hiddenPixelsReconstructed:false},
+  ...features.descriptors}};
+}
+
+/** UI entry point. Exports the authored pose endpoint with current expressions,
+ * irrespective of preview crop/scale. Motion-model in-between images are not
+ * mislabelled as authored feature layers. Source files remain untouched. */
+export async function exportShortHairLayers(assets,poseId,coefficients,{state}={}){
+ const inspection=createShortHairLayerFrame(assets,poseId,coefficients,{state});
  const entries=[];
- for(const [name,canvas]of Object.entries({...visible,...features.layers}))entries.push({name:`${name}.png`,data:await pngBytes(canvas)});
+ for(const [name,canvas]of Object.entries(inspection.layers))entries.push({name:`${name}.png`,data:await pngBytes(canvas)});
  const descriptor={schemaVersion:1,kind:'short-hair-visible-layer-export',poseId,width:1122,height:1402,
-  source:assets.alpha.manifest.poses[poseId],state:rendered.state,features:features.descriptors,
+  source:assets.alpha.manifest.poses[poseId],state:inspection.state,features:Object.fromEntries(SHORT_HAIR_FEATURE_GROUPS.map(group=>[group,inspection.descriptors[group]])),
   compositing:'head.png and torso.png are mutually exclusive visible partitions; their sum recreates character.png. Feature PNGs are authored replacement patches, not additive anatomy.',
   limitations:['No occluded neck, scalp, face or clothes have been reconstructed.','Hair and face are together in head.png.','Neutral feature crops and eyelid patches include current gaze.','The export uses the authored endpoint pose; motion interpolation is not flattened into feature layers.']};
  entries.push({name:'layers.json',data:new TextEncoder().encode(JSON.stringify(descriptor,null,2)+'\n')});

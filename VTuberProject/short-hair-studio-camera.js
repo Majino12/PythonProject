@@ -2,16 +2,38 @@ import {extractFaceMotion} from './motion.js';
 import {TrackingInferenceMetrics} from './short-hair-studio-tracking.js';
 
 /** Loaded only after the user clicks the camera button. No requests on import. */
-async function loadFaceTracker() {
+async function loadFaceTracker({delegate = 'GPU'} = {}) {
   const {FaceLandmarker, FilesetResolver} = await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.21/vision_bundle.mjs');
   const fileset = await FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.21/wasm');
   const options = {
-    baseOptions: {modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task', delegate: 'GPU'},
+    baseOptions: {modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task', delegate},
     numFaces: 1, outputFaceBlendshapes: true, outputFacialTransformationMatrixes: true,
     runningMode: 'VIDEO', minFaceDetectionConfidence: .35, minFacePresenceConfidence: .35, minTrackingConfidence: .35,
   };
   try { return await FaceLandmarker.createFromOptions(fileset, options); }
-  catch { return FaceLandmarker.createFromOptions(fileset, {...options, baseOptions: {...options.baseOptions, delegate: 'CPU'}}); }
+  catch (error) {
+    if(delegate==='CPU')throw error;
+    return FaceLandmarker.createFromOptions(fileset, {...options, baseOptions: {...options.baseOptions, delegate: 'CPU'}});
+  }
+}
+
+/** Leave rendering time between synchronous inferences. Four sustained costly
+ * calls reduce the budget; recovering needs 24 cheap calls and a two-second
+ * dwell, with separate thresholds to avoid oscillation around a boundary. */
+export class StudioInferenceBudget {
+  constructor() {this.reset();}
+  reset() {this.level=0;this.meanMs=null;this.slow=0;this.fast=0;this.changedAt=-Infinity;}
+  get fps() {return [30,20,15][this.level];}
+  get intervalMs() {return [32,50,1000/15][this.level];}
+  record(durationMs,now) {
+    if(!Number.isFinite(durationMs)||durationMs<0||!Number.isFinite(now))return;
+    this.meanMs=this.meanMs===null?durationMs:this.meanMs*.8+durationMs*.2;
+    const slow=this.level<2&&this.meanMs>[18,30][this.level];
+    const fast=this.level>0&&this.meanMs<[0,12,22][this.level];
+    this.slow=slow?this.slow+1:0;this.fast=fast?this.fast+1:0;
+    if(this.slow>=4){this.level++;this.changedAt=now;this.slow=0;this.fast=0;}
+    else if(this.fast>=24&&now-this.changedAt>=2000){this.level--;this.changedAt=now;this.slow=0;this.fast=0;}
+  }
 }
 
 /** Own the stream lifecycle; stale start requests never reactivate a cancelled camera. */
@@ -24,7 +46,8 @@ export class ShortHairStudioCamera {
     this.starting = false; this.active = false; this.disposed = false;
     this.closedTrackers = new WeakSet();
     this.lastVideoTime = -1; this.lastProcessedAt = -Infinity;
-    this.clock = clock; this.metrics = new TrackingInferenceMetrics();
+    this.clock = clock; this.metrics = new TrackingInferenceMetrics();this.budget=new StudioInferenceBudget();
+    this.preferredDelegate='GPU';
   }
 
   async start() {
@@ -34,7 +57,7 @@ export class ShortHairStudioCamera {
     this.onState({status: 'loading', message: '正在加载面部识别模型，首次使用需要联网…'});
     try {
       if (!this.tracker) {
-        if (!this.trackerPromise) this.trackerPromise = Promise.resolve().then(() => this.loadTracker()).catch(error => {this.trackerPromise = null; throw error;});
+        if (!this.trackerPromise) this.trackerPromise = Promise.resolve().then(() => this.loadTracker({delegate:this.preferredDelegate})).catch(error => {this.trackerPromise = null; throw error;});
         const tracker = await this.trackerPromise;
         if (this.disposed) {this.closeTracker(tracker); return false;}
         this.tracker = tracker;
@@ -51,7 +74,7 @@ export class ShortHairStudioCamera {
         return false;
       }
       this.stream = pending; this.active = true; this.lastVideoTime = -1; this.lastProcessedAt = -Infinity;
-      this.metrics.reset();
+      this.metrics.reset();this.budget.reset();
       pending.getVideoTracks().forEach(track => track.addEventListener('ended', () => {
         if (this.stream === pending) this.stop('摄像头连接已结束，已回到手动模式。');
       }, {once: true}));
@@ -80,31 +103,40 @@ export class ShortHairStudioCamera {
 
   poll(now) {
     if (!this.active || !this.tracker || this.video.readyState < 2 || !Number.isFinite(now)
-      || now - this.lastProcessedAt < 32 || this.video.currentTime === this.lastVideoTime) return null;
+      || now - this.lastProcessedAt < this.budget.intervalMs || this.video.currentTime === this.lastVideoTime) return null;
     this.lastProcessedAt = now; this.lastVideoTime = this.video.currentTime;
     const startedAt = this.clock();
     try {
       const result = this.tracker.detectForVideo(this.video, now);
       const durationMs = Math.max(0, this.clock() - startedAt);
       this.metrics.record(now, durationMs, Boolean(extractFaceMotion(result)));
+      this.budget.record(durationMs,now);
       return result;
     } catch (error) {
       this.metrics.record(now, Math.max(0, this.clock() - startedAt), false, true);
+      // A failed GPU task must not be reused by a later start. A fresh CPU task
+      // also gives the next explicit user retry a chance after context loss.
+      const failed=this.tracker;this.tracker=null;this.trackerPromise=null;this.preferredDelegate='CPU';
+      this.closeTracker(failed);
       throw error;
     }
   }
 
   getMetrics(now = this.clock()) {
     const measured = this.metrics.snapshot(now);
-    return {...measured, inferenceFps:this.active ? measured.inferenceFps : null, signalStale:!this.active || measured.signalStale};
+    return {...measured, inferenceFps:this.active ? measured.inferenceFps : null, signalStale:!this.active || measured.signalStale,
+      inferenceBudgetFps:this.budget.fps};
   }
 
   dispose() {
-    this.disposed = true; this.stop(); this.closeTracker(this.tracker); this.tracker = null;
+    this.disposed = true; this.stop(); this.closeTracker(this.tracker); this.tracker = null;this.trackerPromise=null;
   }
 
   closeTracker(tracker) {
     if (!tracker || this.closedTrackers.has(tracker)) return;
-    this.closedTrackers.add(tracker); tracker.close?.();
+    this.closedTrackers.add(tracker);
+    // Cleanup may itself fail after a lost graphics context. Invalidation and
+    // the original inference error must still reach the lifecycle handler.
+    try {tracker.close?.();} catch {}
   }
 }

@@ -1,0 +1,100 @@
+{
+  "status": "rejected-for-runtime-registration",
+  "generatedCandidatesOnly": true,
+  "originalRgbUnchanged": true,
+  "dimensions": {
+    "source": [
+      1122,
+      1402
+    ],
+    "mask": [
+      1122,
+      1402
+    ],
+    "underpaint": [
+      1122,
+      1402
+    ],
+    "matte": [
+      1122,
+      1402
+    ]
+  },
+  "files": {
+    "source": {
+      "path": "assets/short-hair-v1/front.png",
+      "sha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822"
+    },
+    "mask": {
+      "path": "work/v018-hair-trial/front-hair-mask-candidate.png",
+      "sha256": "893d557ae49970864f105f9ff3893ad92eb2ca023c4eba051f8bf9dc2bff2710"
+    },
+    "underpaint": {
+      "path": "work/v018-hair-trial/front-underpaint-candidate.png",
+      "sha256": "e098f0fc2f7b958469bfbbab63d137fa623d736ed52d5550cfe72a93fd6c8dfb"
+    },
+    "matte": {
+      "path": "assets/short-hair-alpha-v1/front-matte.png",
+      "sha256": "cd0648e0ae8814b87b09d7f4cc35d4359c6f05623c3e84e30d08df0216f4d4d5"
+    }
+  },
+  "mask": {
+    "hairPixels": 275262,
+    "outsideOriginalMattePixels": 255,
+    "outsideFraction": 0.0009263901301305665,
+    "protectedEyebrowPixels": 1667,
+    "protectedEyebrowMisclassifiedPixels": 421
+  },
+  "underpaint": {
+    "alphaZeroPixels": 697794,
+    "alphaOpaquePixels": 693,
+    "registration": {
+      "eyes": {
+        "roi": [
+          350,
+          465,
+          410,
+          95
+        ],
+        "bestEdgeTranslation": {
+          "dx": -1,
+          "dy": 0,
+          "ncc": 0.6794081506565565
+        },
+        "zeroShiftRgbMae": 22.92747111681643,
+        "exactRgbPixelFraction": 0.006675224646983312
+      },
+      "mouth": {
+        "roi": [
+          480,
+          645,
+          160,
+          65
+        ],
+        "bestEdgeTranslation": {
+          "dx": -1,
+          "dy": 0,
+          "ncc": 0.9840033906711697
+        },
+        "zeroShiftRgbMae": 1.592724358974359,
+        "exactRgbPixelFraction": 0.010865384615384615
+      },
+      "shirt": {
+        "roi": [
+          410,
+          980,
+          310,
+          250
+        ],
+        "bestEdgeTranslation": {
+          "dx": -1,
+          "dy": 0,
+          "ncc": 0.9525996155702424
+        },
+        "zeroShiftRgbMae": 3.0585075268817206,
+        "exactRgbPixelFraction": 0.0009290322580645161
+      }
+    }
+  },
+  "decision": "No runtime/approval change. Canvas size matches but the candidates are generated redraws; semantic hair mask includes original-background pixels and eyebrow ownership errors, and underpaint alters already-visible painted features. Preserve for evidence only. Require a registered ownership mask and hidden-only compositing before any motion-ready hair layer."
+}
