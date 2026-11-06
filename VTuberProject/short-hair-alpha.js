@@ -1,4 +1,5 @@
 import {renderShortHairStudio,selectShortHairStudioState} from './short-hair-studio-renderer.js';
+import {createShortHairFringeLayerInspection,FRINGE_LAYER_README} from './short-hair-fringe-layer-export.js';
 
 /** Model-derived alpha, independent of authored RGB and expression selection.
  * The browser only loads prepared masks; it never downloads/runs a segmenter.
@@ -169,11 +170,12 @@ export function createShortHairLayerFrame(assets,poseId,coefficients,{state}={})
  const visible=createShortHairVisibleLayers(native,assets.alpha,poseId);
  const features=createShortHairFeatureLayers(assets,poseId,rendered.state,native);
  const original=assets.alpha.manifest.poses[poseId].source,rect=[0,0,1122,1402];
- return {poseId,state:{...rendered.state},layers:{...visible,...features.layers},descriptors:{
+ const fringe=assets.fringe?.poses?.[poseId]||assets.fringe?.manifest?.poses?.[poseId]?createShortHairFringeLayerInspection(assets,poseId,visible.character,visible.head):null;
+ return {poseId,state:{...rendered.state},...(fringe?{fringe:fringe.descriptor,binding:fringe.binding}:{}),layers:{...visible,...features.layers,...fringe?.layers},descriptors:{
   character:{kind:'transparent-character',source:original,rect:[...rect]},
   head:{kind:'visible-head-partition',source:original,rect:[...rect],includes:['hair','face'],hiddenPixelsReconstructed:false},
   torso:{kind:'visible-torso-partition',source:original,rect:[...rect],hiddenPixelsReconstructed:false},
-  ...features.descriptors}};
+  ...features.descriptors,...fringe?.descriptors}};
 }
 
 /** UI entry point. Exports the authored pose endpoint with current expressions,
@@ -183,13 +185,15 @@ export async function exportShortHairLayers(assets,poseId,coefficients,{state}={
  const inspection=createShortHairLayerFrame(assets,poseId,coefficients,{state});
  const entries=[];
  for(const [name,canvas]of Object.entries(inspection.layers))entries.push({name:`${name}.png`,data:await pngBytes(canvas)});
- const descriptor={schemaVersion:1,kind:'short-hair-visible-layer-export',poseId,width:1122,height:1402,
+ const descriptor={schemaVersion:inspection.fringe?2:1,kind:inspection.fringe?'short-hair-fringe-layer-export':'short-hair-visible-layer-export',poseId,width:1122,height:1402,
   source:assets.alpha.manifest.poses[poseId],state:inspection.state,features:Object.fromEntries(SHORT_HAIR_FEATURE_GROUPS.map(group=>[group,inspection.descriptors[group]])),
   compositing:'head.png and torso.png are mutually exclusive visible partitions; their sum recreates character.png. Feature PNGs are authored replacement patches, not additive anatomy.',
   limitations:['No occluded neck, scalp, face or clothes have been reconstructed.','Hair and face are together in head.png.','Neutral feature crops and eyelid patches include current gaze.','The export uses the authored endpoint pose; motion interpolation is not flattened into feature layers.']};
+ if(inspection.fringe){descriptor.fringe=inspection.fringe;descriptor.layers=inspection.descriptors;descriptor.compositing=inspection.fringe.compositing;descriptor.limitations=inspection.fringe.limitations;entries.push({name:'binding.json',data:new TextEncoder().encode(JSON.stringify(inspection.binding,null,2)+'\n')});}
  entries.push({name:'layers.json',data:new TextEncoder().encode(JSON.stringify(descriptor,null,2)+'\n')});
- entries.push({name:'README.txt',data:new TextEncoder().encode('透明分层导出\ncharacter.png：当前姿态角色透明图。\nhead.png + torso.png：沿登记颈线分开的可见像素，位置与原图一致，两层合成可还原 character.png。\n眼、口、眉 PNG：对应实际画稿的局部替换片，含皮肤及原有遮挡；不是可任意叠加的纯五官。眼部含当前视线。\n没有补画被遮挡的脸、头皮、颈部或衣服；头发与脸仍在同一头部层。\n导出的是当前选定的实际姿态端点，不把转头模型中间图冒充为画师分层。\n')});
- return {blob:new Blob([createShortHairLayerZip(entries)],{type:'application/zip'}),filename:`short-hair-${poseId}-layers.zip`};
+ const readme=inspection.fringe?FRINGE_LAYER_README:'透明分层导出\ncharacter.png：当前姿态角色透明图。\nhead.png + torso.png：沿登记颈线分开的可见像素，位置与原图一致，两层合成可还原 character.png。\n眼、口、眉 PNG：对应实际画稿的局部替换片，含皮肤及原有遮挡；不是可任意叠加的纯五官。眼部含当前视线。\n此方向没有已登记的前发补画分解；头发与脸仍在同一头部层，没有补画被遮挡的脸、头皮、颈部或衣服。\n导出实际姿态端点，不把转头模型中间图冒充为画师分层。\n';
+ entries.push({name:'README.txt',data:new TextEncoder().encode(readme)});
+ return {blob:new Blob([createShortHairLayerZip(entries)],{type:'application/zip'}),filename:`short-hair-${poseId}-layers.zip`,hasFringe:Boolean(inspection.fringe)};
 }
 
 /** A preview can be between two poses. Reuse only states actually painted for

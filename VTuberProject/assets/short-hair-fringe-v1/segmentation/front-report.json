@@ -1,0 +1,1029 @@
+{
+  "inference": {
+    "id": "front-large",
+    "model": "SAM2.1 Hiera large",
+    "device": "cpu",
+    "encoderSeconds": 2.5125021660005586,
+    "totalSeconds": 2.534443666001607,
+    "scores": [
+      0.8460654020309448,
+      0.8809589147567749,
+      0.9515488147735596
+    ],
+    "maskPixels": [
+      232773,
+      450087,
+      269997
+    ],
+    "sourceSha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822"
+  },
+  "baselineRefinement": {
+    "model": "SAM2.1 Hiera Large",
+    "proposal": "front-large/mask-2.png",
+    "sourceSha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822",
+    "modelPixels": 269997,
+    "refinedPixels": 295082,
+    "addedPixels": 26447,
+    "removedPixels": 1362,
+    "originalBrowProtectedPixels": 1920,
+    "originalBrowModelOverlap": 405,
+    "originalBrowFinalOverlap": 0,
+    "openEyeFinalOverlap": 0,
+    "outsideAlphaFinalPixels": 0,
+    "configuration": {
+      "blueMinusRedMin": 8,
+      "strongSkinBlueMinusRedMax": -20,
+      "boundedExpansionRadius": 12,
+      "maxHolePixels": 32,
+      "protectedBrowPolygons": [
+        [
+          [
+            365,
+            434
+          ],
+          [
+            392,
+            431
+          ],
+          [
+            393,
+            440
+          ],
+          [
+            365,
+            443
+          ]
+        ],
+        [
+          [
+            404,
+            430
+          ],
+          [
+            438,
+            432
+          ],
+          [
+            472,
+            441
+          ],
+          [
+            475,
+            448
+          ],
+          [
+            436,
+            440
+          ],
+          [
+            402,
+            440
+          ]
+        ],
+        [
+          [
+            603,
+            448
+          ],
+          [
+            621,
+            438
+          ],
+          [
+            646,
+            431
+          ],
+          [
+            672,
+            427
+          ],
+          [
+            679,
+            434
+          ],
+          [
+            649,
+            439
+          ],
+          [
+            622,
+            446
+          ],
+          [
+            602,
+            453
+          ]
+        ],
+        [
+          [
+            689,
+            428
+          ],
+          [
+            719,
+            427
+          ],
+          [
+            735,
+            432
+          ],
+          [
+            719,
+            435
+          ],
+          [
+            692,
+            434
+          ]
+        ]
+      ],
+      "protectedEyePolygons": [
+        [
+          [
+            380,
+            509
+          ],
+          [
+            398,
+            495
+          ],
+          [
+            423,
+            490
+          ],
+          [
+            447,
+            491
+          ],
+          [
+            473,
+            503
+          ],
+          [
+            493,
+            520
+          ],
+          [
+            480,
+            536
+          ],
+          [
+            450,
+            544
+          ],
+          [
+            420,
+            544
+          ],
+          [
+            396,
+            536
+          ]
+        ],
+        [
+          [
+            620,
+            518
+          ],
+          [
+            638,
+            500
+          ],
+          [
+            653,
+            491
+          ],
+          [
+            674,
+            487
+          ],
+          [
+            697,
+            490
+          ],
+          [
+            720,
+            496
+          ],
+          [
+            729,
+            506
+          ],
+          [
+            719,
+            524
+          ],
+          [
+            700,
+            536
+          ],
+          [
+            675,
+            540
+          ],
+          [
+            647,
+            536
+          ],
+          [
+            629,
+            529
+          ]
+        ]
+      ],
+      "protectedBrowHairExclusions": []
+    },
+    "notes": [
+      "Mask proposal remains a derived candidate. No artwork pixels were repainted.",
+      "Exact brow/eye guards are original artwork registration constraints, not an automatic model quality claim.",
+      "Native RGB refinement is limited to a 12px model boundary neighbourhood; no arbitrary new disconnected foreground."
+    ]
+  },
+  "finalRefinement": {
+    "kind": "bounded-native-hair-tip-refinement-candidate",
+    "sourceSha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822",
+    "underpaintSha256": "bb952449c3765c24e77863563c4e85146e577280c58e36c5dabf2ae7646c2d83",
+    "previousMaskSha256": "455f01239ae070bf3c0154576d3836b0fbfdbf52362928d989d8c737612d4769",
+    "maskSha256": "50a64ac56176b8b34c53d47afe1b2c4cb20d0ae3d862228c461ee5fd7d182ff1",
+    "previousPixels": 295082,
+    "addedPixels": 2189,
+    "coldCoreAddedPixels": 1445,
+    "antialiasBandAddedPixels": 744,
+    "removedPixels": 0,
+    "finalPixels": 297271,
+    "protectedFinalOverlap": 0,
+    "outsideAlphaFinalPixels": 0,
+    "configuration": {
+      "proposal": "front-large/mask-2.png",
+      "anchor": "original-sam",
+      "boundedExpansionRadius": 32,
+      "sourceBlueMinusRedCoreMin": 0,
+      "sourceBlueMinusGreenMin": 8,
+      "antialiasBandRadius": 1,
+      "antialiasBlueMinusRedMin": -12,
+      "antialiasBlueMinusGreenMin": 4,
+      "generatedSkinRedMinusBlueMinExclusive": 12,
+      "generatedSkinRedMinExclusive": 120,
+      "sourceUnderpaintRGBL1MinExclusive": 70,
+      "roi": [
+        270,
+        240,
+        850,
+        660
+      ],
+      "guardMask": "../front-refined/feature-protection.png",
+      "protectedBrowPolygons": [
+        [
+          [
+            365,
+            434
+          ],
+          [
+            392,
+            431
+          ],
+          [
+            393,
+            440
+          ],
+          [
+            365,
+            443
+          ]
+        ],
+        [
+          [
+            404,
+            430
+          ],
+          [
+            438,
+            432
+          ],
+          [
+            472,
+            441
+          ],
+          [
+            475,
+            448
+          ],
+          [
+            436,
+            440
+          ],
+          [
+            402,
+            440
+          ]
+        ],
+        [
+          [
+            603,
+            448
+          ],
+          [
+            621,
+            438
+          ],
+          [
+            646,
+            431
+          ],
+          [
+            672,
+            427
+          ],
+          [
+            679,
+            434
+          ],
+          [
+            649,
+            439
+          ],
+          [
+            622,
+            446
+          ],
+          [
+            602,
+            453
+          ]
+        ],
+        [
+          [
+            689,
+            428
+          ],
+          [
+            719,
+            427
+          ],
+          [
+            735,
+            432
+          ],
+          [
+            719,
+            435
+          ],
+          [
+            692,
+            434
+          ]
+        ]
+      ],
+      "protectedEyePolygons": [
+        [
+          [
+            380,
+            509
+          ],
+          [
+            398,
+            495
+          ],
+          [
+            423,
+            490
+          ],
+          [
+            447,
+            491
+          ],
+          [
+            473,
+            503
+          ],
+          [
+            493,
+            520
+          ],
+          [
+            480,
+            536
+          ],
+          [
+            450,
+            544
+          ],
+          [
+            420,
+            544
+          ],
+          [
+            396,
+            536
+          ]
+        ],
+        [
+          [
+            620,
+            518
+          ],
+          [
+            638,
+            500
+          ],
+          [
+            653,
+            491
+          ],
+          [
+            674,
+            487
+          ],
+          [
+            697,
+            490
+          ],
+          [
+            720,
+            496
+          ],
+          [
+            729,
+            506
+          ],
+          [
+            719,
+            524
+          ],
+          [
+            700,
+            536
+          ],
+          [
+            675,
+            540
+          ],
+          [
+            647,
+            536
+          ],
+          [
+            629,
+            529
+          ]
+        ]
+      ]
+    },
+    "addedComponents": [
+      {
+        "pixels": 7,
+        "bounds": [
+          618,
+          322,
+          1,
+          7
+        ],
+        "centroid": [
+          618.0,
+          325.0
+        ]
+      },
+      {
+        "pixels": 5,
+        "bounds": [
+          458,
+          341,
+          3,
+          5
+        ],
+        "centroid": [
+          458.8,
+          343.0
+        ]
+      },
+      {
+        "pixels": 5,
+        "bounds": [
+          448,
+          361,
+          3,
+          5
+        ],
+        "centroid": [
+          448.8,
+          363.0
+        ]
+      },
+      {
+        "pixels": 5,
+        "bounds": [
+          612,
+          388,
+          2,
+          5
+        ],
+        "centroid": [
+          612.2,
+          390.0
+        ]
+      },
+      {
+        "pixels": 27,
+        "bounds": [
+          663,
+          388,
+          13,
+          25
+        ],
+        "centroid": [
+          669.1851851851852,
+          400.3703703703704
+        ]
+      },
+      {
+        "pixels": 11,
+        "bounds": [
+          610,
+          394,
+          3,
+          9
+        ],
+        "centroid": [
+          610.8181818181819,
+          397.8181818181818
+        ]
+      },
+      {
+        "pixels": 6,
+        "bounds": [
+          676,
+          395,
+          3,
+          6
+        ],
+        "centroid": [
+          676.8333333333334,
+          397.5
+        ]
+      },
+      {
+        "pixels": 6,
+        "bounds": [
+          430,
+          401,
+          3,
+          6
+        ],
+        "centroid": [
+          430.6666666666667,
+          403.5
+        ]
+      },
+      {
+        "pixels": 23,
+        "bounds": [
+          606,
+          404,
+          5,
+          19
+        ],
+        "centroid": [
+          607.9130434782609,
+          412.9130434782609
+        ]
+      },
+      {
+        "pixels": 10,
+        "bounds": [
+          676,
+          414,
+          5,
+          9
+        ],
+        "centroid": [
+          678.0,
+          417.7
+        ]
+      },
+      {
+        "pixels": 6,
+        "bounds": [
+          685,
+          417,
+          3,
+          6
+        ],
+        "centroid": [
+          686.0,
+          419.5
+        ]
+      },
+      {
+        "pixels": 12,
+        "bounds": [
+          421,
+          418,
+          5,
+          11
+        ],
+        "centroid": [
+          423.0,
+          423.3333333333333
+        ]
+      },
+      {
+        "pixels": 12,
+        "bounds": [
+          603,
+          424,
+          4,
+          11
+        ],
+        "centroid": [
+          604.5833333333334,
+          428.6666666666667
+        ]
+      },
+      {
+        "pixels": 158,
+        "bounds": [
+          687,
+          434,
+          29,
+          34
+        ],
+        "centroid": [
+          701.7911392405064,
+          451.4177215189873
+        ]
+      },
+      {
+        "pixels": 5,
+        "bounds": [
+          694,
+          435,
+          3,
+          4
+        ],
+        "centroid": [
+          694.8,
+          436.4
+        ]
+      },
+      {
+        "pixels": 22,
+        "bounds": [
+          725,
+          435,
+          17,
+          18
+        ],
+        "centroid": [
+          733.5454545454545,
+          444.1818181818182
+        ]
+      },
+      {
+        "pixels": 115,
+        "bounds": [
+          403,
+          442,
+          15,
+          28
+        ],
+        "centroid": [
+          408.9391304347826,
+          455.69565217391306
+        ]
+      },
+      {
+        "pixels": 18,
+        "bounds": [
+          380,
+          448,
+          12,
+          18
+        ],
+        "centroid": [
+          385.27777777777777,
+          456.5
+        ]
+      },
+      {
+        "pixels": 13,
+        "bounds": [
+          481,
+          448,
+          8,
+          3
+        ],
+        "centroid": [
+          484.61538461538464,
+          449.3076923076923
+        ]
+      },
+      {
+        "pixels": 15,
+        "bounds": [
+          487,
+          458,
+          3,
+          5
+        ],
+        "centroid": [
+          488.0,
+          460.0
+        ]
+      },
+      {
+        "pixels": 40,
+        "bounds": [
+          582,
+          459,
+          15,
+          37
+        ],
+        "centroid": [
+          589.425,
+          476.9
+        ]
+      },
+      {
+        "pixels": 7,
+        "bounds": [
+          401,
+          471,
+          3,
+          5
+        ],
+        "centroid": [
+          402.14285714285717,
+          472.57142857142856
+        ]
+      },
+      {
+        "pixels": 7,
+        "bounds": [
+          582,
+          472,
+          3,
+          7
+        ],
+        "centroid": [
+          583.2857142857143,
+          475.0
+        ]
+      },
+      {
+        "pixels": 6,
+        "bounds": [
+          794,
+          498,
+          4,
+          6
+        ],
+        "centroid": [
+          795.3333333333334,
+          500.5
+        ]
+      },
+      {
+        "pixels": 22,
+        "bounds": [
+          560,
+          510,
+          9,
+          15
+        ],
+        "centroid": [
+          564.7272727272727,
+          516.2727272727273
+        ]
+      },
+      {
+        "pixels": 359,
+        "bounds": [
+          535,
+          512,
+          49,
+          47
+        ],
+        "centroid": [
+          557.066852367688,
+          538.8440111420613
+        ]
+      },
+      {
+        "pixels": 201,
+        "bounds": [
+          500,
+          514,
+          32,
+          41
+        ],
+        "centroid": [
+          513.497512437811,
+          537.2189054726368
+        ]
+      },
+      {
+        "pixels": 49,
+        "bounds": [
+          583,
+          514,
+          25,
+          18
+        ],
+        "centroid": [
+          595.530612244898,
+          522.8367346938776
+        ]
+      },
+      {
+        "pixels": 26,
+        "bounds": [
+          311,
+          518,
+          7,
+          23
+        ],
+        "centroid": [
+          313.96153846153845,
+          529.3846153846154
+        ]
+      },
+      {
+        "pixels": 9,
+        "bounds": [
+          564,
+          520,
+          5,
+          7
+        ],
+        "centroid": [
+          565.7777777777778,
+          523.1111111111111
+        ]
+      },
+      {
+        "pixels": 73,
+        "bounds": [
+          578,
+          520,
+          20,
+          29
+        ],
+        "centroid": [
+          586.8767123287671,
+          535.1506849315068
+        ]
+      },
+      {
+        "pixels": 5,
+        "bounds": [
+          367,
+          522,
+          2,
+          4
+        ],
+        "centroid": [
+          367.4,
+          523.6
+        ]
+      },
+      {
+        "pixels": 47,
+        "bounds": [
+          729,
+          535,
+          9,
+          18
+        ],
+        "centroid": [
+          732.3191489361702,
+          544.8297872340426
+        ]
+      },
+      {
+        "pixels": 47,
+        "bounds": [
+          374,
+          543,
+          15,
+          21
+        ],
+        "centroid": [
+          380.51063829787233,
+          552.6595744680851
+        ]
+      },
+      {
+        "pixels": 41,
+        "bounds": [
+          323,
+          556,
+          7,
+          17
+        ],
+        "centroid": [
+          325.9268292682927,
+          563.2439024390244
+        ]
+      },
+      {
+        "pixels": 9,
+        "bounds": [
+          338,
+          556,
+          5,
+          9
+        ],
+        "centroid": [
+          340.22222222222223,
+          560.0
+        ]
+      },
+      {
+        "pixels": 7,
+        "bounds": [
+          723,
+          558,
+          3,
+          3
+        ],
+        "centroid": [
+          723.7142857142857,
+          558.8571428571429
+        ]
+      },
+      {
+        "pixels": 229,
+        "bounds": [
+          372,
+          563,
+          33,
+          48
+        ],
+        "centroid": [
+          388.70305676855895,
+          595.0655021834061
+        ]
+      },
+      {
+        "pixels": 7,
+        "bounds": [
+          343,
+          567,
+          4,
+          7
+        ],
+        "centroid": [
+          344.7142857142857,
+          570.0
+        ]
+      },
+      {
+        "pixels": 304,
+        "bounds": [
+          699,
+          569,
+          38,
+          49
+        ],
+        "centroid": [
+          720.8848684210526,
+          591.8717105263158
+        ]
+      },
+      {
+        "pixels": 38,
+        "bounds": [
+          754,
+          575,
+          8,
+          27
+        ],
+        "centroid": [
+          757.5,
+          588.6315789473684
+        ]
+      },
+      {
+        "pixels": 14,
+        "bounds": [
+          407,
+          612,
+          6,
+          5
+        ],
+        "centroid": [
+          409.2857142857143,
+          614.2142857142857
+        ]
+      }
+    ],
+    "notes": [
+      "New sibling only; front-refined and all runtime assets unchanged.",
+      "Generated underpaint is used only to confirm exposed skin, no generated hair pixels enter ownership.",
+      "Warm red-gray shadows are rejected by B-R>=0/B-G>=8 core; only a 1px adjacent band can relax B-R to -12 while keeping B-G>=4.",
+      "Addition remains within 32px of the reported anchor and outside exact eyebrow/eye guards.",
+      "base-additions-preview only replaces added owner pixels in the existing parent base for diagnosis; contact residual must be rebuilt by parent."
+    ],
+    "refinementScriptSha256": "63bd7fd85cffba72ca10a00db15509aeea8a5bdbc2a217c6849f7394a02ae4bd"
+  }
+}

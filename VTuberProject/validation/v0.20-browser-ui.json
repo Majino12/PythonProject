@@ -1,0 +1,29 @@
+{
+  "version": "0.20.0",
+  "date": "2026-11-06",
+  "browser": "Codex in-app browser",
+  "reviewPort": 4181,
+  "cameraActivated": false,
+  "microphoneActivated": false,
+  "obsHardwareTested": false,
+  "checks": [
+    "Loaded all nine registered directions with current source/matte hash gates",
+    "Layer inspector exposes 18 actual layers, frontHair selectable",
+    "Clicked export ZIP: 21 entries including 18 PNG and binding/layers/README; front binding exactly matches registered manifest",
+    "Manual yaw 0.4 pitch 0.25 with closed eyes and secondary motion publishes to independent output",
+    "Independent output connects and shows authored closed eyes; no studio/output error logs",
+    "Explicit output stop clears receiver; returned review studio to front neutral with secondary stopped"
+  ],
+  "observedLimitation": {
+    "headPose": {
+      "yaw": 0.4,
+      "pitch": 0.25
+    },
+    "expression": "closed eyes",
+    "description": "Visible nose/eyelid double lines at a blended head angle persist with secondary intensity 0; existing RIFE fields and flow renderer are unchanged by v0.20. This iteration does not claim to solve those blend artifacts.",
+    "images": [
+      "v0.20-blended-output-observation.png",
+      "v0.20-zero-fringe-output-observation.png"
+    ]
+  }
+}

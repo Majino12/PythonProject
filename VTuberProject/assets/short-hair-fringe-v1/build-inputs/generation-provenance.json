@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 1,
+  "tool": "image_gen.imagegen",
+  "modelIdentifierExposed": false,
+  "purpose": "registered hidden forehead/temple underpaint proposals; only bounded regions are admitted into runtime",
+  "status": "derived-candidate",
+  "front": {
+    "source": "assets/short-hair-v1/front.png",
+    "result": "front-underpaint-candidate.png",
+    "promptRecord": "summary-reconstructed-from-task-context",
+    "promptSummary": "Precise registered removal of front bangs only, preserving 1122x1402 canvas, pose, visible features, outer hair, clothing and background; fill occluded forehead/temple skin and eyebrow segments.",
+    "registeredBuildInput": "front-underpaint.png",
+    "sha256": "bb952449c3765c24e77863563c4e85146e577280c58e36c5dabf2ae7646c2d83",
+    "originalSourceSha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822",
+    "runtimeUnderpaintSha256": "9a4d697a42971d9b8d8f1a0fb6b9f2c2170ebd02b3335b1e2883a426bd20f6ff",
+    "dimensions": [
+      1122,
+      1402
+    ]
+  },
+  "remainingPosePromptFile": "underpaint-prompt.txt",
+  "poses": {
+    "view-left": {
+      "source": "assets/short-hair-v1/view-left.png",
+      "result": "view-left-underpaint-candidate.png",
+      "sha256": "7ef72287ac39b493ee4fa40cb1d381457ed9623a08149a6740ce7a712f10ae3e",
+      "prompt": "underpaint-prompt.txt",
+      "tool": "image_gen.imagegen",
+      "transparentBackground": false,
+      "registeredBuildInput": "view-left-underpaint.png",
+      "originalSourceSha256": "23da31b12da3e50550519db9d95077e107d20755ca72fdab8b82335a961206b6",
+      "runtimeUnderpaintSha256": "d0f9afbb39239db8d979319c1f4b3d66658d069d6b561d6b84bb6228bdc1cd6e"
+    },
+    "view-right": {
+      "source": "assets/short-hair-v1/view-right.png",
+      "result": "view-right-underpaint-candidate.png",
+      "sha256": "14e3e8427582caaf7153b57526954ad60dfa690e0b3b20117d64bc6387e6d188",
+      "prompt": "underpaint-prompt.txt",
+      "tool": "image_gen.imagegen",
+      "transparentBackground": false,
+      "registeredBuildInput": "view-right-underpaint.png",
+      "originalSourceSha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3",
+      "runtimeUnderpaintSha256": "21bfffdf25e8ed81d75f2e1e6d45177cfe526567a65026c7367f1b112397f707"
+    },
+    "view-right-up": {
+      "source": "assets/short-hair-v1/view-right-up.png",
+      "result": "view-right-up-underpaint-candidate.png",
+      "sha256": "5f312c47340649c2e0b50ace7c8df2d6046b52fd66a6d6a418713444f9f5705a",
+      "prompt": "underpaint-prompt.txt",
+      "tool": "image_gen.imagegen",
+      "transparentBackground": false,
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "accepted": true,
+      "registeredBuildInput": "view-right-up-underpaint.png",
+      "originalSourceSha256": "900d998244e371021320ead30a823661d8759b516d72ad6390c2c62d3fd21037",
+      "runtimeUnderpaintSha256": "2028843dd3b754985203ec516ca68120d9d2c1ed5bda70ad198b779572813ed8"
+    },
+    "view-left-down": {
+      "source": "./assets/short-hair-v1/view-left-down.png",
+      "result": "view-left-down-underpaint-candidate.png",
+      "sha256": "c4ac79b35b1ffc82e005f2aa24d7b8328765af02232d008caaa9ded35f8698b3",
+      "prompt": "underpaint-prompt.txt",
+      "promptAppend": "",
+      "tool": "image_gen.imagegen",
+      "transparentBackground": false,
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "accepted": true,
+      "registeredBuildInput": "view-left-down-underpaint.png",
+      "originalSourceSha256": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983",
+      "runtimeUnderpaintSha256": "3bfc7d13f7813b31965ef1734c2a9e31fb4115f8a2a0459adae4dc059096b4c5"
+    },
+    "view-up": {
+      "source": "./assets/short-hair-complete-poses-v1/view-up-neutral.png",
+      "result": "view-up-underpaint-candidate.png",
+      "sha256": "370663de167ee007c56cf7c3cffccdc3553c4335650c4174acd49e0dbaca852a",
+      "prompt": "underpaint-prompt.txt",
+      "promptAppend": "",
+      "tool": "image_gen.imagegen",
+      "transparentBackground": false,
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "accepted": true,
+      "registeredBuildInput": "view-up-underpaint.png",
+      "originalSourceSha256": "252ba6a46b0121ee0c9f94b37180ba4745158da6f2bb230aff5efa0894cb23d6",
+      "runtimeUnderpaintSha256": "042f763a45f2d3693ff747747d48e3f9fd8fd826fc29deae8fd857ed036e5661"
+    },
+    "view-down": {
+      "source": "./assets/short-hair-complete-poses-v1/view-down-neutral.png",
+      "result": "view-down-underpaint-candidate.png",
+      "sha256": "6b3abc0576cb0780cbb15cf8f4f14731ef171c30516f8823994e33a86fbe94c6",
+      "prompt": "underpaint-prompt.txt",
+      "tool": "image_gen.imagegen",
+      "transparentBackground": false,
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "accepted": true,
+      "registeredBuildInput": "view-down-underpaint.png",
+      "originalSourceSha256": "f9e6315e19b09a121d3d1216611dd0759020f21a5d3fab9827adebb9eceb9d4f",
+      "runtimeUnderpaintSha256": "53e61aa36cb0491bdc5462221d7f5760301018f1ab5c7193e60c5da18b8c012e"
+    },
+    "view-right-down": {
+      "source": "./assets/short-hair-complete-poses-v1/view-right-down-neutral.png",
+      "result": "view-right-down-underpaint-candidate.png",
+      "sha256": "fe2e1d26e07ea0bdac40ad5122b93310a092589e1c35bf146571fd9fc983ce57",
+      "prompt": "underpaint-prompt.txt",
+      "tool": "image_gen.imagegen",
+      "transparentBackground": false,
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "accepted": true,
+      "registeredBuildInput": "view-right-down-underpaint.png",
+      "originalSourceSha256": "5845cf6909248321f234bff531c16b231017d95fcd92de1e24789328b79e0b71",
+      "runtimeUnderpaintSha256": "7eabbcfe7978307ac5827e430c84b76eba73655218fe17b9ce63be45d214c6e2"
+    },
+    "view-left-up": {
+      "source": "assets/short-hair-v1/view-left-up.png",
+      "references": [
+        "view-left-up-reference.png",
+        "view-left-up-third-rejected-size.png"
+      ],
+      "result": "view-left-up-underpaint-candidate.png",
+      "sha256": "c1a6a9a9cf8c5d221253d11a0032ec9d104039cabcda3ff129e18a5b354d0eb9",
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "accepted": true,
+      "prompt": "view-left-up-correction-prompt.txt",
+      "tool": "image_gen.imagegen",
+      "transparentBackground": false,
+      "registeredBuildInput": "view-left-up-underpaint.png",
+      "originalSourceSha256": "614ea3f4df961ffefefe4ae054eea45fe6c42a0cf5ae25cb3f6e88d5f6ca8637",
+      "runtimeUnderpaintSha256": "652cbaafdc19b846ed0ebc004042c54b15b168c7929c09397a307214936032ab"
+    }
+  },
+  "rejected": [
+    {
+      "source": "assets/short-hair-v1/view-left-up.png",
+      "result": "view-left-up-underpaint-rejected-size.png",
+      "sha256": "04280fc29e909e3955dd4bca7f687dc1ffaa8f9c77f2a44a73626314cf8934da",
+      "prompt": "underpaint-prompt.txt",
+      "tool": "image_gen.imagegen",
+      "transparentBackground": false,
+      "dimensions": [
+        1072,
+        1467
+      ],
+      "accepted": false
+    },
+    {
+      "source": "./assets/short-hair-v1/view-left-up.png",
+      "result": "view-left-up-retry-underpaint-rejected-size.png",
+      "sha256": "0704967914b77551d887e8d8425e00224f7ed80e2dc2ae3632c1063bcad6ccde",
+      "prompt": "underpaint-prompt.txt",
+      "promptAppend": "CRITICAL: do not crop, reframe, stretch or rescale the reference. EXACT output dimensions 1122 wide by 1402 high. Preserve all original feature pixel positions and original head tilt. This is an in-place edit of the first image.",
+      "tool": "image_gen.imagegen",
+      "transparentBackground": false,
+      "dimensions": [
+        1072,
+        1467
+      ],
+      "accepted": false
+    },
+    {
+      "source": "assets/short-hair-v1/view-left-up.png",
+      "inputPNG": "view-left-up-reference.png",
+      "inputProcessing": "Ancillary PNG metadata removed; IHDR/IDAT pixels unchanged",
+      "result": "view-left-up-third-rejected-size.png",
+      "sha256": "91b579ccfce6ee57c79dae3a287008ee888ca4c597638a3fb87e05145f1da0f8",
+      "dimensions": [
+        1072,
+        1467
+      ],
+      "accepted": false,
+      "reason": "wrong dimensions and framing",
+      "prompt": "underpaint-prompt.txt",
+      "promptAppend": "The provided PNG canvas is 1122 pixels wide and 1402 pixels high (aspect ratio 0.8002853). Retain this exact 4:5 canvas. Keep the left eye at its original coordinates approximately x 350 y 440 and right eye at x 519 y 422, and the chin at x 400 y 700; no reframing. Match pixel positions from the reference, do not interpret these approximate anchors as instructions to move features."
+    }
+  ]
+}

@@ -22,7 +22,7 @@ cd PythonProject
 
 ## MoeMotion
 
-版本：`0.19.0`。采用全16边比较后的RIFE4.25运动场，补充不打断跟踪的命名表情、页面热键、五档自然眨眼、Worker后台推理和眼口输入上限。保留原画与批准记录，仍为2D。
+版本：`0.20.0`。增加九方向前发/脸部分层、隐区补画、受保护的局部前发网格与透明图层/绑定导出；SAM2.1 Large离线分割，RIFE4.25继续负责转头。保留原画与批准记录，仍为2D。
 
 需要 Node.js 18 或更新版本：
 
@@ -35,11 +35,11 @@ npm start
 
 素材检查器可逐层查看八张透明画布，ZIP使用同一生成路径。头发与脸仍同属头部可见层，没有可靠的隐藏区域补画。微动是保守几何位移，完整独立头发绑定和一张图自动建模仍待后续完成。[模型说明](VTuberProject/docs/CONTINUOUS-2D.txt)
 
-921/921 自动测试、5/5 Python编译器测试、94/94 真实浏览器像素检查通过；新模型32个字段可逐字节重建，后台推理通过真实浏览器画稿诊断。真人摄像头和实际 OBS 尚未实机验收。[验证记录](VTuberProject/RELEASE-VALIDATION.txt)
+989/989 自动测试、5/5 Python编译器测试、626/626 真实浏览器检查通过；36张分层材料及9份绑定可确定性重建。真人摄像头和实际 OBS 尚未实机验收。[验证记录](VTuberProject/RELEASE-VALIDATION.txt)
 
 旧 Luna／3D、原画与批准记录保留。许可见 [原素材](VTuberProject/assets/THIRD_PARTY_NOTICES.txt)、[RIFE](VTuberProject/assets/short-hair-motion-v1/LICENSE-RIFE.txt)、[动漫分割](VTuberProject/assets/short-hair-alpha-v1/LICENSE-anime-seg.txt)。完整能力见 [项目 README](VTuberProject/README.md)。
 
-市场差距和模型取舍见 [对比报告](VTuberProject/docs/MARKET-COMPARISON-v0.19.txt)。4.25关键转向重影减少，但低分辨率流场压缩误差略增；仍需真实分层和可编辑绑定。
+市场差距和模型取舍见 [对比报告](VTuberProject/docs/MARKET-COMPARISON-v0.19.txt)。本轮局部前发支持小幅独立位移；完整隐藏表情和可编辑全头绑定仍待补齐，部分中间角度的五官重影仍保留为明确问题。详见 [前发分层说明](VTuberProject/docs/FRINGE-2D.txt)。
 
 ## 小说全文分析 · 2.0
 

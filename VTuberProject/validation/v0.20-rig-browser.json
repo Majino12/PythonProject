@@ -1,0 +1,6506 @@
+{
+  "schemaVersion": 1,
+  "kind": "short-hair-rig-browser-validation",
+  "version": "0.20.0",
+  "status": "passed",
+  "startedAt": "2026-11-06T05:43:15.987Z",
+  "assetStatus": "derived-candidate",
+  "poses": [
+    {
+      "poseId": "front",
+      "files": [
+        {
+          "path": "./assets/short-hair-v1/front.png",
+          "bytes": 1891855,
+          "expectedSha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822",
+          "actualSha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-alpha-v1/front-matte.png",
+          "bytes": 122331,
+          "expectedSha256": "cd0648e0ae8814b87b09d7f4cc35d4359c6f05623c3e84e30d08df0216f4d4d5",
+          "actualSha256": "cd0648e0ae8814b87b09d7f4cc35d4359c6f05623c3e84e30d08df0216f4d4d5",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/front-ownership.png",
+          "bytes": 11573,
+          "expectedSha256": "bef8bd7bbd35723d19b5dfa1755dc3fb5fff6b32821258ab84b69c1c912c3272",
+          "actualSha256": "bef8bd7bbd35723d19b5dfa1755dc3fb5fff6b32821258ab84b69c1c912c3272",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/front-weight.png",
+          "bytes": 36553,
+          "expectedSha256": "0e97173cef23f7552ae764f32ccfa19ae39084e7da62d57c469da730833f9c58",
+          "actualSha256": "0e97173cef23f7552ae764f32ccfa19ae39084e7da62d57c469da730833f9c58",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/front-underpaint.png",
+          "bytes": 270845,
+          "expectedSha256": "9a4d697a42971d9b8d8f1a0fb6b9f2c2170ebd02b3335b1e2883a426bd20f6ff",
+          "actualSha256": "9a4d697a42971d9b8d8f1a0fb6b9f2c2170ebd02b3335b1e2883a426bd20f6ff",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/front-hairOwnership.png",
+          "bytes": 10993,
+          "expectedSha256": "50a64ac56176b8b34c53d47afe1b2c4cb20d0ae3d862228c461ee5fd7d182ff1",
+          "actualSha256": "50a64ac56176b8b34c53d47afe1b2c4cb20d0ae3d862228c461ee5fd7d182ff1",
+          "matched": true
+        }
+      ],
+      "bindingSha256": "50ba61dffad574b98f5d0b50a5d51f3df076deb3de97b09b15ed1cfbd3bc14a5",
+      "runtimeValidated": true,
+      "vertices": 5325,
+      "triangles": 10360,
+      "expressions": [
+        {
+          "id": "neutral",
+          "state": {
+            "eyeLeft": "open",
+            "eyeRight": "open",
+            "browLeft": "neutral",
+            "browRight": "neutral",
+            "mouth": "neutral"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "c189da9f559ccceb98d54d382818fa3a6d6b08df707a2f582473fde8622e727c"
+        },
+        {
+          "id": "blink",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "closed",
+            "browLeft": "up",
+            "browRight": "up",
+            "mouth": "openWide"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "42f0532778bf7fc267e6a41e29cc27f54972a8ede2618cde288edcc4b6c168ab"
+        },
+        {
+          "id": "asymmetric",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "open",
+            "browLeft": "down",
+            "browRight": "down",
+            "mouth": "openSmall"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": -0.8,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": -0.8,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "1d65d660823e313becbdb1d47f606a2cdc8ee675a2bad2a7f88d33d3c6f61b56"
+        }
+      ],
+      "performance": [
+        {
+          "expression": "neutral",
+          "control": "negative",
+          "renderMs": 1.185,
+          "renderAndReadbackMs": 6.06
+        },
+        {
+          "expression": "neutral",
+          "control": "positive",
+          "renderMs": 0.84,
+          "renderAndReadbackMs": 5.355
+        },
+        {
+          "expression": "blink",
+          "control": "negative",
+          "renderMs": 1.035,
+          "renderAndReadbackMs": 6.55
+        },
+        {
+          "expression": "blink",
+          "control": "positive",
+          "renderMs": 1.88,
+          "renderAndReadbackMs": 5.99
+        },
+        {
+          "expression": "asymmetric",
+          "control": "negative",
+          "renderMs": 0.845,
+          "renderAndReadbackMs": 4.93
+        },
+        {
+          "expression": "asymmetric",
+          "control": "positive",
+          "renderMs": 0.82,
+          "renderAndReadbackMs": 5.005
+        }
+      ],
+      "paintCoverage": {
+        "eyes": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ],
+        "mutableSourceReused": true
+      },
+      "warmRenderTiming": {
+        "samples": 8,
+        "meanMs": 0.764,
+        "p50Ms": 0.755,
+        "p95Ms": 0.92,
+        "scope": "CPU submission and native canvas assembly; texture cache warm; no readback, no tracking/OBS"
+      }
+    },
+    {
+      "poseId": "view-left",
+      "files": [
+        {
+          "path": "./assets/short-hair-v1/view-left.png",
+          "bytes": 1902045,
+          "expectedSha256": "23da31b12da3e50550519db9d95077e107d20755ca72fdab8b82335a961206b6",
+          "actualSha256": "23da31b12da3e50550519db9d95077e107d20755ca72fdab8b82335a961206b6",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-alpha-v1/view-left-matte.png",
+          "bytes": 126541,
+          "expectedSha256": "04f1bef67c95b1e1c407b0c62856f48a85c3c5f08da6b0359e0cfd56bda3f632",
+          "actualSha256": "04f1bef67c95b1e1c407b0c62856f48a85c3c5f08da6b0359e0cfd56bda3f632",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-left-ownership.png",
+          "bytes": 10763,
+          "expectedSha256": "fe4adada6450ab40edcdd091cba7324b5f7b5fdb271303bebf2de41e92680d8c",
+          "actualSha256": "fe4adada6450ab40edcdd091cba7324b5f7b5fdb271303bebf2de41e92680d8c",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-left-weight.png",
+          "bytes": 41816,
+          "expectedSha256": "25c3ff3f99d8dc277bf2e010a52d7b167537039c862c8c1660ae4505178b677d",
+          "actualSha256": "25c3ff3f99d8dc277bf2e010a52d7b167537039c862c8c1660ae4505178b677d",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-left-underpaint.png",
+          "bytes": 274154,
+          "expectedSha256": "d0f9afbb39239db8d979319c1f4b3d66658d069d6b561d6b84bb6228bdc1cd6e",
+          "actualSha256": "d0f9afbb39239db8d979319c1f4b3d66658d069d6b561d6b84bb6228bdc1cd6e",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-left-hairOwnership.png",
+          "bytes": 10559,
+          "expectedSha256": "b30899e915bb220dd7887cdfe11743259c7ea01a300abb490d3c9ad617488c6d",
+          "actualSha256": "b30899e915bb220dd7887cdfe11743259c7ea01a300abb490d3c9ad617488c6d",
+          "matched": true
+        }
+      ],
+      "bindingSha256": "40a4142951b359c11b551f27d763255174bb3c6a51cb9e3521cb343ccb4cfb76",
+      "runtimeValidated": true,
+      "vertices": 7719,
+      "triangles": 15088,
+      "expressions": [
+        {
+          "id": "neutral",
+          "state": {
+            "eyeLeft": "open",
+            "eyeRight": "open",
+            "mouth": "neutral",
+            "browLeft": "neutral",
+            "browRight": "neutral"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "f2004a6b6f60bed5722d160ad845bdcab7833ca88b3532d302900de92ed454ee"
+        },
+        {
+          "id": "blink",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "closed",
+            "mouth": "openWide",
+            "browLeft": "innerUp",
+            "browRight": "innerUp"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "c63be514f29185336dcb112c5009ec5b7d22dfd6ca6c3bb1167331a8f6504f20"
+        },
+        {
+          "id": "asymmetric",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "open",
+            "mouth": "openSmall",
+            "browLeft": "down",
+            "browRight": "down"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": -0.8,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": -0.8,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "0bd8495734172a8d4bd277b1ea75d60e3571386c406597be73c1ea9b16599e0c"
+        }
+      ],
+      "performance": [
+        {
+          "expression": "neutral",
+          "control": "negative",
+          "renderMs": 1.09,
+          "renderAndReadbackMs": 7.285
+        },
+        {
+          "expression": "neutral",
+          "control": "positive",
+          "renderMs": 1.115,
+          "renderAndReadbackMs": 5.25
+        },
+        {
+          "expression": "blink",
+          "control": "negative",
+          "renderMs": 1.475,
+          "renderAndReadbackMs": 5.775
+        },
+        {
+          "expression": "blink",
+          "control": "positive",
+          "renderMs": 1.305,
+          "renderAndReadbackMs": 8.085
+        },
+        {
+          "expression": "asymmetric",
+          "control": "negative",
+          "renderMs": 1.055,
+          "renderAndReadbackMs": 5.015
+        },
+        {
+          "expression": "asymmetric",
+          "control": "positive",
+          "renderMs": 1.085,
+          "renderAndReadbackMs": 8.365
+        }
+      ],
+      "paintCoverage": {
+        "eyes": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ],
+        "mutableSourceReused": true
+      },
+      "warmRenderTiming": {
+        "samples": 8,
+        "meanMs": 1.091,
+        "p50Ms": 1.055,
+        "p95Ms": 1.33,
+        "scope": "CPU submission and native canvas assembly; texture cache warm; no readback, no tracking/OBS"
+      }
+    },
+    {
+      "poseId": "view-right",
+      "files": [
+        {
+          "path": "./assets/short-hair-v1/view-right.png",
+          "bytes": 1917113,
+          "expectedSha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3",
+          "actualSha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-alpha-v1/view-right-matte.png",
+          "bytes": 122887,
+          "expectedSha256": "25332ce93d878e8171918e99766fd379b8fdb9c995e68f5fe0eb1bfbd24d7f7a",
+          "actualSha256": "25332ce93d878e8171918e99766fd379b8fdb9c995e68f5fe0eb1bfbd24d7f7a",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-right-ownership.png",
+          "bytes": 10456,
+          "expectedSha256": "48172e29352236aedd428143f941e0795631098402e12deb91ca83f38d48f314",
+          "actualSha256": "48172e29352236aedd428143f941e0795631098402e12deb91ca83f38d48f314",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-right-weight.png",
+          "bytes": 34678,
+          "expectedSha256": "08277757306e5cb15f1a1a3380daee417802ed1ec73ea020af97ad9b66562a08",
+          "actualSha256": "08277757306e5cb15f1a1a3380daee417802ed1ec73ea020af97ad9b66562a08",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-right-underpaint.png",
+          "bytes": 248621,
+          "expectedSha256": "21bfffdf25e8ed81d75f2e1e6d45177cfe526567a65026c7367f1b112397f707",
+          "actualSha256": "21bfffdf25e8ed81d75f2e1e6d45177cfe526567a65026c7367f1b112397f707",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-right-hairOwnership.png",
+          "bytes": 10191,
+          "expectedSha256": "b03f39bba0debddd7cdbd598bc67aaea9bd8bbfaf0f2dd0528d9f11c90342e57",
+          "actualSha256": "b03f39bba0debddd7cdbd598bc67aaea9bd8bbfaf0f2dd0528d9f11c90342e57",
+          "matched": true
+        }
+      ],
+      "bindingSha256": "5e5f370f422a6afbe6522cb3b4ab06cb440975e37e2279a26bf2695fdbc24aee",
+      "runtimeValidated": true,
+      "vertices": 7440,
+      "triangles": 14536,
+      "expressions": [
+        {
+          "id": "neutral",
+          "state": {
+            "eyeLeft": "open",
+            "eyeRight": "open",
+            "mouth": "neutral",
+            "browLeft": "neutral",
+            "browRight": "neutral"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "b108f8b099d9a19093fc23d4020be6e0ff6bee30e5b13b6912f7bc0b4889474f"
+        },
+        {
+          "id": "blink",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "closed",
+            "mouth": "openWide",
+            "browLeft": "innerUp",
+            "browRight": "innerUp"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "e5b5852ff4d0c39d8e78936edae41384e637f46e37a9022b587a2fdd4e00af2a"
+        },
+        {
+          "id": "asymmetric",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "open",
+            "mouth": "openSmall",
+            "browLeft": "down",
+            "browRight": "down"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": -0.8,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": -0.8,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "a29190f1838f5542b0200ffaa424eeba9489071052387deb3ea77a10d83b3de5"
+        }
+      ],
+      "performance": [
+        {
+          "expression": "neutral",
+          "control": "negative",
+          "renderMs": 1.16,
+          "renderAndReadbackMs": 5.39
+        },
+        {
+          "expression": "neutral",
+          "control": "positive",
+          "renderMs": 1.08,
+          "renderAndReadbackMs": 5.485
+        },
+        {
+          "expression": "blink",
+          "control": "negative",
+          "renderMs": 2.225,
+          "renderAndReadbackMs": 6.045
+        },
+        {
+          "expression": "blink",
+          "control": "positive",
+          "renderMs": 1.025,
+          "renderAndReadbackMs": 5.71
+        },
+        {
+          "expression": "asymmetric",
+          "control": "negative",
+          "renderMs": 1.02,
+          "renderAndReadbackMs": 4.745
+        },
+        {
+          "expression": "asymmetric",
+          "control": "positive",
+          "renderMs": 1.02,
+          "renderAndReadbackMs": 5.11
+        }
+      ],
+      "paintCoverage": {
+        "eyes": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ],
+        "mutableSourceReused": true
+      },
+      "warmRenderTiming": {
+        "samples": 8,
+        "meanMs": 1.059,
+        "p50Ms": 1.055,
+        "p95Ms": 1.105,
+        "scope": "CPU submission and native canvas assembly; texture cache warm; no readback, no tracking/OBS"
+      }
+    },
+    {
+      "poseId": "view-right-up",
+      "files": [
+        {
+          "path": "./assets/short-hair-v1/view-right-up.png",
+          "bytes": 1884105,
+          "expectedSha256": "900d998244e371021320ead30a823661d8759b516d72ad6390c2c62d3fd21037",
+          "actualSha256": "900d998244e371021320ead30a823661d8759b516d72ad6390c2c62d3fd21037",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-alpha-v1/view-right-up-matte.png",
+          "bytes": 121687,
+          "expectedSha256": "7529af64ac439ea82f4e53fa5e829c1ee76d07ad9297f49b3ec58ce3df026e2a",
+          "actualSha256": "7529af64ac439ea82f4e53fa5e829c1ee76d07ad9297f49b3ec58ce3df026e2a",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-right-up-ownership.png",
+          "bytes": 10191,
+          "expectedSha256": "4211bcbb1fe76c3e315725899453dedb0fa702589c3ad963c9fc5cd58ec0db08",
+          "actualSha256": "4211bcbb1fe76c3e315725899453dedb0fa702589c3ad963c9fc5cd58ec0db08",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-right-up-weight.png",
+          "bytes": 39695,
+          "expectedSha256": "a4c6b59578e6c8b836f5995a340a4f93162d979af414068027d6ea00a5f45b5f",
+          "actualSha256": "a4c6b59578e6c8b836f5995a340a4f93162d979af414068027d6ea00a5f45b5f",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-right-up-underpaint.png",
+          "bytes": 255085,
+          "expectedSha256": "2028843dd3b754985203ec516ca68120d9d2c1ed5bda70ad198b779572813ed8",
+          "actualSha256": "2028843dd3b754985203ec516ca68120d9d2c1ed5bda70ad198b779572813ed8",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-right-up-hairOwnership.png",
+          "bytes": 9980,
+          "expectedSha256": "1487280ad674b5cbc4e138cd70757b7c15787d8894f66c0dd0bc9b8b977e7b5f",
+          "actualSha256": "1487280ad674b5cbc4e138cd70757b7c15787d8894f66c0dd0bc9b8b977e7b5f",
+          "matched": true
+        }
+      ],
+      "bindingSha256": "2e9dd9a429934acb1529147d1f94e0f2a340dcf8a48c2d62ce19c4dbea0ea4b7",
+      "runtimeValidated": true,
+      "vertices": 7790,
+      "triangles": 15228,
+      "expressions": [
+        {
+          "id": "neutral",
+          "state": {
+            "eyeLeft": "open",
+            "eyeRight": "open",
+            "mouth": "neutral",
+            "browLeft": "neutral",
+            "browRight": "neutral"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "f9529df8c219f78798927ce71eb3b196903225037bd4c232d6a7a5a0bd2467a3"
+        },
+        {
+          "id": "blink",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "closed",
+            "mouth": "openWide",
+            "browLeft": "innerUp",
+            "browRight": "innerUp"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "dae546918e7f7c75bc7dbccc2925d71922c9a49a41a07ee1e8fe5c3a154b2a6a"
+        },
+        {
+          "id": "asymmetric",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "open",
+            "mouth": "openSmall",
+            "browLeft": "down",
+            "browRight": "down"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": -0.8,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": -0.8,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "dd22caf8a22ed369865a294d4a37129052e5ea1be360bbca92d6830ecf935371"
+        }
+      ],
+      "performance": [
+        {
+          "expression": "neutral",
+          "control": "negative",
+          "renderMs": 2.635,
+          "renderAndReadbackMs": 8.135
+        },
+        {
+          "expression": "neutral",
+          "control": "positive",
+          "renderMs": 1.135,
+          "renderAndReadbackMs": 5.03
+        },
+        {
+          "expression": "blink",
+          "control": "negative",
+          "renderMs": 1.15,
+          "renderAndReadbackMs": 5.405
+        },
+        {
+          "expression": "blink",
+          "control": "positive",
+          "renderMs": 1.1,
+          "renderAndReadbackMs": 5.3
+        },
+        {
+          "expression": "asymmetric",
+          "control": "negative",
+          "renderMs": 1.17,
+          "renderAndReadbackMs": 7.08
+        },
+        {
+          "expression": "asymmetric",
+          "control": "positive",
+          "renderMs": 1.365,
+          "renderAndReadbackMs": 6.31
+        }
+      ],
+      "paintCoverage": {
+        "eyes": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ],
+        "mutableSourceReused": true
+      },
+      "warmRenderTiming": {
+        "samples": 8,
+        "meanMs": 1.071,
+        "p50Ms": 1.075,
+        "p95Ms": 1.09,
+        "scope": "CPU submission and native canvas assembly; texture cache warm; no readback, no tracking/OBS"
+      }
+    },
+    {
+      "poseId": "view-left-down",
+      "files": [
+        {
+          "path": "./assets/short-hair-v1/view-left-down.png",
+          "bytes": 1880125,
+          "expectedSha256": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983",
+          "actualSha256": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-alpha-v1/view-left-down-matte.png",
+          "bytes": 121468,
+          "expectedSha256": "38ec8234e3680276baf229dace34039bcba0bf376ed34f564fed3768ee14d5e9",
+          "actualSha256": "38ec8234e3680276baf229dace34039bcba0bf376ed34f564fed3768ee14d5e9",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-left-down-ownership.png",
+          "bytes": 10778,
+          "expectedSha256": "5173d4733ffcb4af3c4aca7792ab53c7fb2dab88d109c0ea02b9ea007a0796be",
+          "actualSha256": "5173d4733ffcb4af3c4aca7792ab53c7fb2dab88d109c0ea02b9ea007a0796be",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-left-down-weight.png",
+          "bytes": 40741,
+          "expectedSha256": "e6011f4a52d245b57f72858af750da482103277350a5ab791c5cef6315e47c42",
+          "actualSha256": "e6011f4a52d245b57f72858af750da482103277350a5ab791c5cef6315e47c42",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-left-down-underpaint.png",
+          "bytes": 275989,
+          "expectedSha256": "3bfc7d13f7813b31965ef1734c2a9e31fb4115f8a2a0459adae4dc059096b4c5",
+          "actualSha256": "3bfc7d13f7813b31965ef1734c2a9e31fb4115f8a2a0459adae4dc059096b4c5",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-left-down-hairOwnership.png",
+          "bytes": 10234,
+          "expectedSha256": "1a2f095cf65d282202901f2dab4558474429341cdef7af08f00c2818a57ed8b9",
+          "actualSha256": "1a2f095cf65d282202901f2dab4558474429341cdef7af08f00c2818a57ed8b9",
+          "matched": true
+        }
+      ],
+      "bindingSha256": "968953ac83e8ee4bb0004b222dde1fe09ac4a7d61fb564953921931da57a5611",
+      "runtimeValidated": true,
+      "vertices": 9672,
+      "triangles": 18952,
+      "expressions": [
+        {
+          "id": "neutral",
+          "state": {
+            "eyeLeft": "open",
+            "eyeRight": "open",
+            "mouth": "neutral",
+            "browLeft": "neutral",
+            "browRight": "neutral"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "0b02f296314083307688922a15b4fbbda338bde115f435a5be69f652ee4b716f"
+        },
+        {
+          "id": "blink",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "closed",
+            "mouth": "openWide",
+            "browLeft": "innerUp",
+            "browRight": "innerUp"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "1b3cd2b709c0670e6826cc921f79a3c77f36fd35c84e79696ce59b940c0a3830"
+        },
+        {
+          "id": "asymmetric",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "open",
+            "mouth": "openSmall",
+            "browLeft": "down",
+            "browRight": "down"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": -0.8,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": -0.8,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "77661f26b6f5148a9ed5c25b8fb6a5793f5f44f2d154583e00a8c6fa1ca52424"
+        }
+      ],
+      "performance": [
+        {
+          "expression": "neutral",
+          "control": "negative",
+          "renderMs": 1.415,
+          "renderAndReadbackMs": 5.535
+        },
+        {
+          "expression": "neutral",
+          "control": "positive",
+          "renderMs": 1.365,
+          "renderAndReadbackMs": 5.61
+        },
+        {
+          "expression": "blink",
+          "control": "negative",
+          "renderMs": 1.405,
+          "renderAndReadbackMs": 8.12
+        },
+        {
+          "expression": "blink",
+          "control": "positive",
+          "renderMs": 1.39,
+          "renderAndReadbackMs": 5.485
+        },
+        {
+          "expression": "asymmetric",
+          "control": "negative",
+          "renderMs": 1.45,
+          "renderAndReadbackMs": 5.96
+        },
+        {
+          "expression": "asymmetric",
+          "control": "positive",
+          "renderMs": 1.39,
+          "renderAndReadbackMs": 7.715
+        }
+      ],
+      "paintCoverage": {
+        "eyes": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ],
+        "mutableSourceReused": true
+      },
+      "warmRenderTiming": {
+        "samples": 8,
+        "meanMs": 1.285,
+        "p50Ms": 1.295,
+        "p95Ms": 1.305,
+        "scope": "CPU submission and native canvas assembly; texture cache warm; no readback, no tracking/OBS"
+      }
+    },
+    {
+      "poseId": "view-up",
+      "files": [
+        {
+          "path": "./assets/short-hair-complete-poses-v1/view-up-neutral.png",
+          "bytes": 1871811,
+          "expectedSha256": "252ba6a46b0121ee0c9f94b37180ba4745158da6f2bb230aff5efa0894cb23d6",
+          "actualSha256": "252ba6a46b0121ee0c9f94b37180ba4745158da6f2bb230aff5efa0894cb23d6",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-alpha-v1/view-up-matte.png",
+          "bytes": 124537,
+          "expectedSha256": "bb4c9a38edbc93a298ed1ec6cda1b157fe262b2c83e65577d93118718204713e",
+          "actualSha256": "bb4c9a38edbc93a298ed1ec6cda1b157fe262b2c83e65577d93118718204713e",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-up-ownership.png",
+          "bytes": 11568,
+          "expectedSha256": "d78c2d9bcca2a9a7ac7a5257636605803dc897ecbd1e4061f83c2085770707d3",
+          "actualSha256": "d78c2d9bcca2a9a7ac7a5257636605803dc897ecbd1e4061f83c2085770707d3",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-up-weight.png",
+          "bytes": 37265,
+          "expectedSha256": "a599a380ceb19789173c01f4233ffacb31c8793da64cf7a128f3f06f67c6b8c3",
+          "actualSha256": "a599a380ceb19789173c01f4233ffacb31c8793da64cf7a128f3f06f67c6b8c3",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-up-underpaint.png",
+          "bytes": 265638,
+          "expectedSha256": "042f763a45f2d3693ff747747d48e3f9fd8fd826fc29deae8fd857ed036e5661",
+          "actualSha256": "042f763a45f2d3693ff747747d48e3f9fd8fd826fc29deae8fd857ed036e5661",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-up-hairOwnership.png",
+          "bytes": 10873,
+          "expectedSha256": "739d1e31d34f2e8516803ff94de29306cd17e0c084b8a184d5f4e8ac8c017bb0",
+          "actualSha256": "739d1e31d34f2e8516803ff94de29306cd17e0c084b8a184d5f4e8ac8c017bb0",
+          "matched": true
+        }
+      ],
+      "bindingSha256": "14201173f4346e7fdd9bebb219366e92f7ad2fcc8ea5dce1f392b738f88c79bd",
+      "runtimeValidated": true,
+      "vertices": 5694,
+      "triangles": 11088,
+      "expressions": [
+        {
+          "id": "neutral",
+          "state": {
+            "eyeLeft": "open",
+            "eyeRight": "open",
+            "mouth": "neutral",
+            "browLeft": "neutral",
+            "browRight": "neutral"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "a1649f1166f7288686b6aac89b802d853f57d9b75acae44f90f74533a88d9930"
+        },
+        {
+          "id": "blink",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "closed",
+            "mouth": "openWide",
+            "browLeft": "innerUp",
+            "browRight": "innerUp"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "5e6c4e098b0e051efcba5d9637e09225cb1fa9dd14a2955b8376e87b6d603908"
+        },
+        {
+          "id": "asymmetric",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "open",
+            "mouth": "openSmall",
+            "browLeft": "down",
+            "browRight": "down"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": -0.8,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": -0.8,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "e20f308bb6f5aaa00cba5a94985add6fbe85b1025e5b05d68830218ae01f12a7"
+        }
+      ],
+      "performance": [
+        {
+          "expression": "neutral",
+          "control": "negative",
+          "renderMs": 0.96,
+          "renderAndReadbackMs": 6.35
+        },
+        {
+          "expression": "neutral",
+          "control": "positive",
+          "renderMs": 0.775,
+          "renderAndReadbackMs": 4.345
+        },
+        {
+          "expression": "blink",
+          "control": "negative",
+          "renderMs": 0.79,
+          "renderAndReadbackMs": 7.215
+        },
+        {
+          "expression": "blink",
+          "control": "positive",
+          "renderMs": 0.81,
+          "renderAndReadbackMs": 4.745
+        },
+        {
+          "expression": "asymmetric",
+          "control": "negative",
+          "renderMs": 2.375,
+          "renderAndReadbackMs": 6.66
+        },
+        {
+          "expression": "asymmetric",
+          "control": "positive",
+          "renderMs": 0.77,
+          "renderAndReadbackMs": 4.62
+        }
+      ],
+      "paintCoverage": {
+        "eyes": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ],
+        "mutableSourceReused": true
+      },
+      "warmRenderTiming": {
+        "samples": 8,
+        "meanMs": 0.773,
+        "p50Ms": 0.775,
+        "p95Ms": 0.785,
+        "scope": "CPU submission and native canvas assembly; texture cache warm; no readback, no tracking/OBS"
+      }
+    },
+    {
+      "poseId": "view-down",
+      "files": [
+        {
+          "path": "./assets/short-hair-complete-poses-v1/view-down-neutral.png",
+          "bytes": 1887913,
+          "expectedSha256": "f9e6315e19b09a121d3d1216611dd0759020f21a5d3fab9827adebb9eceb9d4f",
+          "actualSha256": "f9e6315e19b09a121d3d1216611dd0759020f21a5d3fab9827adebb9eceb9d4f",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-alpha-v1/view-down-matte.png",
+          "bytes": 124252,
+          "expectedSha256": "05143c9f7a01a8e500d9744c6aa2796c02fe8314a075fe1b22959953a88815b2",
+          "actualSha256": "05143c9f7a01a8e500d9744c6aa2796c02fe8314a075fe1b22959953a88815b2",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-down-ownership.png",
+          "bytes": 11265,
+          "expectedSha256": "1776b13191d552334f515e9a831b5634869d323383767772fdd1544914f62799",
+          "actualSha256": "1776b13191d552334f515e9a831b5634869d323383767772fdd1544914f62799",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-down-weight.png",
+          "bytes": 32541,
+          "expectedSha256": "0721dc49690e68087d2016a3640fabafc62a841ec8bfb4e1ad83084dc3a2d955",
+          "actualSha256": "0721dc49690e68087d2016a3640fabafc62a841ec8bfb4e1ad83084dc3a2d955",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-down-underpaint.png",
+          "bytes": 258366,
+          "expectedSha256": "53e61aa36cb0491bdc5462221d7f5760301018f1ab5c7193e60c5da18b8c012e",
+          "actualSha256": "53e61aa36cb0491bdc5462221d7f5760301018f1ab5c7193e60c5da18b8c012e",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-down-hairOwnership.png",
+          "bytes": 10804,
+          "expectedSha256": "fa12a2b07b7611ffb4c2be9a6fc04de0d2ed4b7365c460010ca6e3e0387931ae",
+          "actualSha256": "fa12a2b07b7611ffb4c2be9a6fc04de0d2ed4b7365c460010ca6e3e0387931ae",
+          "matched": true
+        }
+      ],
+      "bindingSha256": "9137071522999aecbadff668a4c7d4a982d1793a710859587de38aa00cd2fff2",
+      "runtimeValidated": true,
+      "vertices": 9152,
+      "triangles": 17922,
+      "expressions": [
+        {
+          "id": "neutral",
+          "state": {
+            "eyeLeft": "open",
+            "eyeRight": "open",
+            "mouth": "neutral",
+            "browLeft": "neutral",
+            "browRight": "neutral"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "c08256a367b2a1f87c0231591c05a3a2f1b39b30eccd5b5143ef3bb717c76208"
+        },
+        {
+          "id": "blink",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "closed",
+            "mouth": "openWide",
+            "browLeft": "innerUp",
+            "browRight": "innerUp"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "0160055054643577706e025b965e95334a3f2d1eaf814a070aa5b20010ccee7b"
+        },
+        {
+          "id": "asymmetric",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "open",
+            "mouth": "openSmall",
+            "browLeft": "down",
+            "browRight": "down"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": -0.8,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": -0.8,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "12de9877f3c4a5d6cf998e3bea9a6f3395a012103cbbd2c7aa347b0c2e35114e"
+        }
+      ],
+      "performance": [
+        {
+          "expression": "neutral",
+          "control": "negative",
+          "renderMs": 1.435,
+          "renderAndReadbackMs": 5.16
+        },
+        {
+          "expression": "neutral",
+          "control": "positive",
+          "renderMs": 1.245,
+          "renderAndReadbackMs": 6.32
+        },
+        {
+          "expression": "blink",
+          "control": "negative",
+          "renderMs": 1.28,
+          "renderAndReadbackMs": 5.145
+        },
+        {
+          "expression": "blink",
+          "control": "positive",
+          "renderMs": 1.265,
+          "renderAndReadbackMs": 6.23
+        },
+        {
+          "expression": "asymmetric",
+          "control": "negative",
+          "renderMs": 1.52,
+          "renderAndReadbackMs": 5.33
+        },
+        {
+          "expression": "asymmetric",
+          "control": "positive",
+          "renderMs": 1.385,
+          "renderAndReadbackMs": 5.85
+        }
+      ],
+      "paintCoverage": {
+        "eyes": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ],
+        "mutableSourceReused": true
+      },
+      "warmRenderTiming": {
+        "samples": 8,
+        "meanMs": 1.269,
+        "p50Ms": 1.27,
+        "p95Ms": 1.31,
+        "scope": "CPU submission and native canvas assembly; texture cache warm; no readback, no tracking/OBS"
+      }
+    },
+    {
+      "poseId": "view-right-down",
+      "files": [
+        {
+          "path": "./assets/short-hair-complete-poses-v1/view-right-down-neutral.png",
+          "bytes": 1869776,
+          "expectedSha256": "5845cf6909248321f234bff531c16b231017d95fcd92de1e24789328b79e0b71",
+          "actualSha256": "5845cf6909248321f234bff531c16b231017d95fcd92de1e24789328b79e0b71",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-alpha-v1/view-right-down-matte.png",
+          "bytes": 121755,
+          "expectedSha256": "4749fc1908e3353f2bdc6407ad77497f233d0eb83e2b4176846826e22260e8d5",
+          "actualSha256": "4749fc1908e3353f2bdc6407ad77497f233d0eb83e2b4176846826e22260e8d5",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-right-down-ownership.png",
+          "bytes": 10219,
+          "expectedSha256": "84fe514d51134273cdf79561c03d8bce903f8153227b14bebf0aaac754999f9c",
+          "actualSha256": "84fe514d51134273cdf79561c03d8bce903f8153227b14bebf0aaac754999f9c",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-right-down-weight.png",
+          "bytes": 36617,
+          "expectedSha256": "99b3cfb87bc173f0fc1214e24cf3ae74101b92c0ae54506cd9a7439f515ecf8e",
+          "actualSha256": "99b3cfb87bc173f0fc1214e24cf3ae74101b92c0ae54506cd9a7439f515ecf8e",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-right-down-underpaint.png",
+          "bytes": 244067,
+          "expectedSha256": "7eabbcfe7978307ac5827e430c84b76eba73655218fe17b9ce63be45d214c6e2",
+          "actualSha256": "7eabbcfe7978307ac5827e430c84b76eba73655218fe17b9ce63be45d214c6e2",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-right-down-hairOwnership.png",
+          "bytes": 9683,
+          "expectedSha256": "011a2e6fa84f530abfbbb3b6b231811d4a87bd1acd6f6d01e59e64cd028d029d",
+          "actualSha256": "011a2e6fa84f530abfbbb3b6b231811d4a87bd1acd6f6d01e59e64cd028d029d",
+          "matched": true
+        }
+      ],
+      "bindingSha256": "15eeaf8c7f2230fcfa6979340d9437f17a5183aec1fa5be72bc9aa3f18e247ad",
+      "runtimeValidated": true,
+      "vertices": 6132,
+      "triangles": 11952,
+      "expressions": [
+        {
+          "id": "neutral",
+          "state": {
+            "eyeLeft": "open",
+            "eyeRight": "open",
+            "mouth": "neutral",
+            "browLeft": "neutral",
+            "browRight": "neutral"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "b2f66d98cf27e807b3b719bb067f179177ebb61509814b34eeb5809c3710ed45"
+        },
+        {
+          "id": "blink",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "closed",
+            "mouth": "openWide",
+            "browLeft": "innerUp",
+            "browRight": "innerUp"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "08e0ed9d257fb24d8538a5a6ec39de196fd5186fc2c9cfb11870426c766683d5"
+        },
+        {
+          "id": "asymmetric",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "open",
+            "mouth": "openSmall",
+            "browLeft": "down",
+            "browRight": "down"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": -0.8,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": -0.8,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "50cea2dca1845f144426080adaa1fc42c89ebfad9187211b6fbb88de229832ed"
+        }
+      ],
+      "performance": [
+        {
+          "expression": "neutral",
+          "control": "negative",
+          "renderMs": 0.94,
+          "renderAndReadbackMs": 4.585
+        },
+        {
+          "expression": "neutral",
+          "control": "positive",
+          "renderMs": 0.865,
+          "renderAndReadbackMs": 4.61
+        },
+        {
+          "expression": "blink",
+          "control": "negative",
+          "renderMs": 1.22,
+          "renderAndReadbackMs": 6.43
+        },
+        {
+          "expression": "blink",
+          "control": "positive",
+          "renderMs": 1.045,
+          "renderAndReadbackMs": 5.395
+        },
+        {
+          "expression": "asymmetric",
+          "control": "negative",
+          "renderMs": 0.865,
+          "renderAndReadbackMs": 4.795
+        },
+        {
+          "expression": "asymmetric",
+          "control": "positive",
+          "renderMs": 0.845,
+          "renderAndReadbackMs": 6.945
+        }
+      ],
+      "paintCoverage": {
+        "eyes": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ],
+        "mutableSourceReused": true
+      },
+      "warmRenderTiming": {
+        "samples": 8,
+        "meanMs": 0.844,
+        "p50Ms": 0.84,
+        "p95Ms": 0.94,
+        "scope": "CPU submission and native canvas assembly; texture cache warm; no readback, no tracking/OBS"
+      }
+    },
+    {
+      "poseId": "view-left-up",
+      "files": [
+        {
+          "path": "./assets/short-hair-v1/view-left-up.png",
+          "bytes": 1882392,
+          "expectedSha256": "614ea3f4df961ffefefe4ae054eea45fe6c42a0cf5ae25cb3f6e88d5f6ca8637",
+          "actualSha256": "614ea3f4df961ffefefe4ae054eea45fe6c42a0cf5ae25cb3f6e88d5f6ca8637",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-alpha-v1/view-left-up-matte.png",
+          "bytes": 130765,
+          "expectedSha256": "3fd2f4b84c50a7841278b5b5589aa57e672f21693fabefbf71436d5a39b94465",
+          "actualSha256": "3fd2f4b84c50a7841278b5b5589aa57e672f21693fabefbf71436d5a39b94465",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-left-up-ownership.png",
+          "bytes": 10947,
+          "expectedSha256": "65c857d5ece49942ae858b1c31889e9f72f37f19380c36716da54972de9d31d2",
+          "actualSha256": "65c857d5ece49942ae858b1c31889e9f72f37f19380c36716da54972de9d31d2",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-left-up-weight.png",
+          "bytes": 46344,
+          "expectedSha256": "59db4afafbf3c9c75c0c80aff57c95076aae6c347381f0c47f7b5f32af758879",
+          "actualSha256": "59db4afafbf3c9c75c0c80aff57c95076aae6c347381f0c47f7b5f32af758879",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-left-up-underpaint.png",
+          "bytes": 270837,
+          "expectedSha256": "652cbaafdc19b846ed0ebc004042c54b15b168c7929c09397a307214936032ab",
+          "actualSha256": "652cbaafdc19b846ed0ebc004042c54b15b168c7929c09397a307214936032ab",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/view-left-up-hairOwnership.png",
+          "bytes": 10910,
+          "expectedSha256": "27f6cc73cf43acfcdd67908d2af65cfba046caf6f20f7e69075c73989f02db9d",
+          "actualSha256": "27f6cc73cf43acfcdd67908d2af65cfba046caf6f20f7e69075c73989f02db9d",
+          "matched": true
+        }
+      ],
+      "bindingSha256": "35d1e6daf6f4690b968145fe63b644e6fa5288a74b64a0e1036144e029d9bae3",
+      "runtimeValidated": true,
+      "vertices": 6035,
+      "triangles": 11760,
+      "expressions": [
+        {
+          "id": "neutral",
+          "state": {
+            "eyeLeft": "open",
+            "eyeRight": "open",
+            "mouth": "neutral",
+            "browLeft": "neutral",
+            "browRight": "neutral"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "77de869e48706b444ee61de45c3d763d9a8d9a7414bd68e6a065e69ebfe43ef0"
+        },
+        {
+          "id": "blink",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "closed",
+            "mouth": "openWide",
+            "browLeft": "innerUp",
+            "browRight": "innerUp"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "e62e6e010717812d4ba113a392c3c3a80c04f81ef74c918d28f43240922f02db"
+        },
+        {
+          "id": "asymmetric",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "open",
+            "mouth": "openSmall",
+            "browLeft": "down",
+            "browRight": "down"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": -0.8,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": -0.8,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "96beec4622821e1f96bc1a4c714f3a75efaf100a52b12db47efec97063464b6a"
+        }
+      ],
+      "performance": [
+        {
+          "expression": "neutral",
+          "control": "negative",
+          "renderMs": 2.17,
+          "renderAndReadbackMs": 5.965
+        },
+        {
+          "expression": "neutral",
+          "control": "positive",
+          "renderMs": 0.815,
+          "renderAndReadbackMs": 4.795
+        },
+        {
+          "expression": "blink",
+          "control": "negative",
+          "renderMs": 0.825,
+          "renderAndReadbackMs": 4.625
+        },
+        {
+          "expression": "blink",
+          "control": "positive",
+          "renderMs": 0.805,
+          "renderAndReadbackMs": 4.62
+        },
+        {
+          "expression": "asymmetric",
+          "control": "negative",
+          "renderMs": 0.875,
+          "renderAndReadbackMs": 4.84
+        },
+        {
+          "expression": "asymmetric",
+          "control": "positive",
+          "renderMs": 0.965,
+          "renderAndReadbackMs": 4.905
+        }
+      ],
+      "paintCoverage": {
+        "eyes": [
+          "open",
+          "quarter",
+          "half",
+          "threeQuarter",
+          "closed"
+        ],
+        "mouth": [
+          "neutral",
+          "parted",
+          "openSmall",
+          "openMedium",
+          "openWide"
+        ],
+        "mutableSourceReused": true
+      },
+      "warmRenderTiming": {
+        "samples": 8,
+        "meanMs": 0.803,
+        "p50Ms": 0.805,
+        "p95Ms": 0.83,
+        "scope": "CPU submission and native canvas assembly; texture cache warm; no readback, no tracking/OBS"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "poseId": "front",
+      "name": "actual-files-match-registered-sha256",
+      "passed": true,
+      "files": 6
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 52974
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714226
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 30858,
+      "maxError": 162
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 52974
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714451
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 31002,
+      "maxError": 149
+    },
+    {
+      "poseId": "front",
+      "name": "blink:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "front",
+      "name": "blink:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "front",
+      "name": "blink:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 52974
+    },
+    {
+      "poseId": "front",
+      "name": "blink:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "blink:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714226
+    },
+    {
+      "poseId": "front",
+      "name": "blink:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 30858,
+      "maxError": 162
+    },
+    {
+      "poseId": "front",
+      "name": "blink:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 52974
+    },
+    {
+      "poseId": "front",
+      "name": "blink:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "blink:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714451
+    },
+    {
+      "poseId": "front",
+      "name": "blink:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 31002,
+      "maxError": 149
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 52974
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714226
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 30858,
+      "maxError": 162
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 52974
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714451
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 31002,
+      "maxError": 149
+    },
+    {
+      "poseId": "front",
+      "name": "five-authored-eye-and-jaw-steps-available",
+      "passed": true,
+      "eyes": [
+        "open",
+        "quarter",
+        "half",
+        "threeQuarter",
+        "closed"
+      ],
+      "mouth": [
+        "neutral",
+        "parted",
+        "openSmall",
+        "openMedium",
+        "openWide"
+      ]
+    },
+    {
+      "poseId": "front",
+      "name": "authored-step:eyes:open",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "browLeft": "neutral",
+        "browRight": "neutral",
+        "mouth": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "authored-step:eyes:quarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "quarter",
+        "eyeRight": "quarter",
+        "browLeft": "neutral",
+        "browRight": "neutral",
+        "mouth": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "authored-step:eyes:half",
+      "passed": true,
+      "state": {
+        "eyeLeft": "half",
+        "eyeRight": "half",
+        "browLeft": "neutral",
+        "browRight": "neutral",
+        "mouth": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "authored-step:eyes:threeQuarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "threeQuarter",
+        "eyeRight": "threeQuarter",
+        "browLeft": "neutral",
+        "browRight": "neutral",
+        "mouth": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "authored-step:eyes:closed",
+      "passed": true,
+      "state": {
+        "eyeLeft": "closed",
+        "eyeRight": "closed",
+        "browLeft": "neutral",
+        "browRight": "neutral",
+        "mouth": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "authored-step:mouth:neutral",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "browLeft": "neutral",
+        "browRight": "neutral",
+        "mouth": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "authored-step:mouth:parted",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "browLeft": "neutral",
+        "browRight": "neutral",
+        "mouth": "parted"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "authored-step:mouth:openSmall",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "browLeft": "neutral",
+        "browRight": "neutral",
+        "mouth": "openSmall"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "authored-step:mouth:openMedium",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "browLeft": "neutral",
+        "browRight": "neutral",
+        "mouth": "openMedium"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "authored-step:mouth:openWide",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "browLeft": "neutral",
+        "browRight": "neutral",
+        "mouth": "openWide"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "corner:-1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 52974
+    },
+    {
+      "poseId": "front",
+      "name": "corner:-1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "corner:-1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.49999999999943157
+    },
+    {
+      "poseId": "front",
+      "name": "corner:-1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 52974
+    },
+    {
+      "poseId": "front",
+      "name": "corner:-1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "corner:-1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.5000000000000081
+    },
+    {
+      "poseId": "front",
+      "name": "corner:1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 52974
+    },
+    {
+      "poseId": "front",
+      "name": "corner:1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "corner:1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.4999999999993822
+    },
+    {
+      "poseId": "front",
+      "name": "corner:1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 52974
+    },
+    {
+      "poseId": "front",
+      "name": "corner:1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "corner:1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.5000000000000113
+    },
+    {
+      "poseId": "view-left",
+      "name": "actual-files-match-registered-sha256",
+      "passed": true,
+      "files": 6
+    },
+    {
+      "poseId": "view-left",
+      "name": "neutral:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-left",
+      "name": "neutral:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-left",
+      "name": "neutral:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 41490
+    },
+    {
+      "poseId": "view-left",
+      "name": "neutral:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "neutral:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285713366
+    },
+    {
+      "poseId": "view-left",
+      "name": "neutral:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 27301,
+      "maxError": 168
+    },
+    {
+      "poseId": "view-left",
+      "name": "neutral:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 41490
+    },
+    {
+      "poseId": "view-left",
+      "name": "neutral:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "neutral:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714
+    },
+    {
+      "poseId": "view-left",
+      "name": "neutral:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 27210,
+      "maxError": 158
+    },
+    {
+      "poseId": "view-left",
+      "name": "blink:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-left",
+      "name": "blink:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-left",
+      "name": "blink:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 41490
+    },
+    {
+      "poseId": "view-left",
+      "name": "blink:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "blink:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285713366
+    },
+    {
+      "poseId": "view-left",
+      "name": "blink:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 27301,
+      "maxError": 168
+    },
+    {
+      "poseId": "view-left",
+      "name": "blink:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 41490
+    },
+    {
+      "poseId": "view-left",
+      "name": "blink:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "blink:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714
+    },
+    {
+      "poseId": "view-left",
+      "name": "blink:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 27210,
+      "maxError": 158
+    },
+    {
+      "poseId": "view-left",
+      "name": "asymmetric:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-left",
+      "name": "asymmetric:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-left",
+      "name": "asymmetric:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 41490
+    },
+    {
+      "poseId": "view-left",
+      "name": "asymmetric:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "asymmetric:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285713366
+    },
+    {
+      "poseId": "view-left",
+      "name": "asymmetric:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 27301,
+      "maxError": 168
+    },
+    {
+      "poseId": "view-left",
+      "name": "asymmetric:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 41490
+    },
+    {
+      "poseId": "view-left",
+      "name": "asymmetric:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "asymmetric:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714
+    },
+    {
+      "poseId": "view-left",
+      "name": "asymmetric:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 27210,
+      "maxError": 158
+    },
+    {
+      "poseId": "view-left",
+      "name": "five-authored-eye-and-jaw-steps-available",
+      "passed": true,
+      "eyes": [
+        "open",
+        "quarter",
+        "half",
+        "threeQuarter",
+        "closed"
+      ],
+      "mouth": [
+        "neutral",
+        "parted",
+        "openSmall",
+        "openMedium",
+        "openWide"
+      ]
+    },
+    {
+      "poseId": "view-left",
+      "name": "authored-step:eyes:open",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "authored-step:eyes:quarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "quarter",
+        "eyeRight": "quarter",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "authored-step:eyes:half",
+      "passed": true,
+      "state": {
+        "eyeLeft": "half",
+        "eyeRight": "half",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "authored-step:eyes:threeQuarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "threeQuarter",
+        "eyeRight": "threeQuarter",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "authored-step:eyes:closed",
+      "passed": true,
+      "state": {
+        "eyeLeft": "closed",
+        "eyeRight": "closed",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "authored-step:mouth:neutral",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "authored-step:mouth:parted",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "parted",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "authored-step:mouth:openSmall",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openSmall",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "authored-step:mouth:openMedium",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openMedium",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "authored-step:mouth:openWide",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openWide",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "corner:-1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 41490
+    },
+    {
+      "poseId": "view-left",
+      "name": "corner:-1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "corner:-1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.49999999999993333
+    },
+    {
+      "poseId": "view-left",
+      "name": "corner:-1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 41490
+    },
+    {
+      "poseId": "view-left",
+      "name": "corner:-1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "corner:-1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.4999999999999587
+    },
+    {
+      "poseId": "view-left",
+      "name": "corner:1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 41490
+    },
+    {
+      "poseId": "view-left",
+      "name": "corner:1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "corner:1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.499999999999954
+    },
+    {
+      "poseId": "view-left",
+      "name": "corner:1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 41490
+    },
+    {
+      "poseId": "view-left",
+      "name": "corner:1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left",
+      "name": "corner:1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.49999999999999467
+    },
+    {
+      "poseId": "view-right",
+      "name": "actual-files-match-registered-sha256",
+      "passed": true,
+      "files": 6
+    },
+    {
+      "poseId": "view-right",
+      "name": "neutral:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-right",
+      "name": "neutral:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-right",
+      "name": "neutral:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 42212
+    },
+    {
+      "poseId": "view-right",
+      "name": "neutral:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "neutral:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.558571428570259
+    },
+    {
+      "poseId": "view-right",
+      "name": "neutral:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 29421,
+      "maxError": 162
+    },
+    {
+      "poseId": "view-right",
+      "name": "neutral:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 42212
+    },
+    {
+      "poseId": "view-right",
+      "name": "neutral:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "neutral:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.558571428571364
+    },
+    {
+      "poseId": "view-right",
+      "name": "neutral:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 29295,
+      "maxError": 176
+    },
+    {
+      "poseId": "view-right",
+      "name": "blink:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-right",
+      "name": "blink:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-right",
+      "name": "blink:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 42212
+    },
+    {
+      "poseId": "view-right",
+      "name": "blink:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "blink:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.558571428570259
+    },
+    {
+      "poseId": "view-right",
+      "name": "blink:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 29421,
+      "maxError": 162
+    },
+    {
+      "poseId": "view-right",
+      "name": "blink:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 42212
+    },
+    {
+      "poseId": "view-right",
+      "name": "blink:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "blink:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.558571428571364
+    },
+    {
+      "poseId": "view-right",
+      "name": "blink:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 29295,
+      "maxError": 176
+    },
+    {
+      "poseId": "view-right",
+      "name": "asymmetric:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-right",
+      "name": "asymmetric:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-right",
+      "name": "asymmetric:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 42212
+    },
+    {
+      "poseId": "view-right",
+      "name": "asymmetric:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "asymmetric:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.558571428570259
+    },
+    {
+      "poseId": "view-right",
+      "name": "asymmetric:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 29421,
+      "maxError": 162
+    },
+    {
+      "poseId": "view-right",
+      "name": "asymmetric:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 42212
+    },
+    {
+      "poseId": "view-right",
+      "name": "asymmetric:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "asymmetric:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.558571428571364
+    },
+    {
+      "poseId": "view-right",
+      "name": "asymmetric:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 29295,
+      "maxError": 176
+    },
+    {
+      "poseId": "view-right",
+      "name": "five-authored-eye-and-jaw-steps-available",
+      "passed": true,
+      "eyes": [
+        "open",
+        "quarter",
+        "half",
+        "threeQuarter",
+        "closed"
+      ],
+      "mouth": [
+        "neutral",
+        "parted",
+        "openSmall",
+        "openMedium",
+        "openWide"
+      ]
+    },
+    {
+      "poseId": "view-right",
+      "name": "authored-step:eyes:open",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "authored-step:eyes:quarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "quarter",
+        "eyeRight": "quarter",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "authored-step:eyes:half",
+      "passed": true,
+      "state": {
+        "eyeLeft": "half",
+        "eyeRight": "half",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "authored-step:eyes:threeQuarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "threeQuarter",
+        "eyeRight": "threeQuarter",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "authored-step:eyes:closed",
+      "passed": true,
+      "state": {
+        "eyeLeft": "closed",
+        "eyeRight": "closed",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "authored-step:mouth:neutral",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "authored-step:mouth:parted",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "parted",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "authored-step:mouth:openSmall",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openSmall",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "authored-step:mouth:openMedium",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openMedium",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "authored-step:mouth:openWide",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openWide",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "corner:-1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 42212
+    },
+    {
+      "poseId": "view-right",
+      "name": "corner:-1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "corner:-1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.49999999999961203
+    },
+    {
+      "poseId": "view-right",
+      "name": "corner:-1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 42212
+    },
+    {
+      "poseId": "view-right",
+      "name": "corner:-1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "corner:-1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.49999999999996103
+    },
+    {
+      "poseId": "view-right",
+      "name": "corner:1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 42212
+    },
+    {
+      "poseId": "view-right",
+      "name": "corner:1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "corner:1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.49999999999948713
+    },
+    {
+      "poseId": "view-right",
+      "name": "corner:1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 42212
+    },
+    {
+      "poseId": "view-right",
+      "name": "corner:1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right",
+      "name": "corner:1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.49999999999994316
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "actual-files-match-registered-sha256",
+      "passed": true,
+      "files": 6
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "neutral:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "neutral:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "neutral:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 44139
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "neutral:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "neutral:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285713088
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "neutral:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 22772,
+      "maxError": 162
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "neutral:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 44139
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "neutral:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "neutral:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285712766
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "neutral:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 22730,
+      "maxError": 161
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "blink:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "blink:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "blink:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 44139
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "blink:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "blink:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285713088
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "blink:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 22772,
+      "maxError": 162
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "blink:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 44139
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "blink:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "blink:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285712766
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "blink:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 22730,
+      "maxError": 161
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "asymmetric:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "asymmetric:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "asymmetric:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 44139
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "asymmetric:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "asymmetric:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285713088
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "asymmetric:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 22772,
+      "maxError": 162
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "asymmetric:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 44139
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "asymmetric:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "asymmetric:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285712766
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "asymmetric:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 22730,
+      "maxError": 161
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "five-authored-eye-and-jaw-steps-available",
+      "passed": true,
+      "eyes": [
+        "open",
+        "quarter",
+        "half",
+        "threeQuarter",
+        "closed"
+      ],
+      "mouth": [
+        "neutral",
+        "parted",
+        "openSmall",
+        "openMedium",
+        "openWide"
+      ]
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "authored-step:eyes:open",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "authored-step:eyes:quarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "quarter",
+        "eyeRight": "quarter",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "authored-step:eyes:half",
+      "passed": true,
+      "state": {
+        "eyeLeft": "half",
+        "eyeRight": "half",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "authored-step:eyes:threeQuarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "threeQuarter",
+        "eyeRight": "threeQuarter",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "authored-step:eyes:closed",
+      "passed": true,
+      "state": {
+        "eyeLeft": "closed",
+        "eyeRight": "closed",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "authored-step:mouth:neutral",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "authored-step:mouth:parted",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "parted",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "authored-step:mouth:openSmall",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openSmall",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "authored-step:mouth:openMedium",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openMedium",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "authored-step:mouth:openWide",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openWide",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "corner:-1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 44139
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "corner:-1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "corner:-1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.4999999999999225
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "corner:-1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 44139
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "corner:-1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "corner:-1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.5250099911460172
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "corner:1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 44139
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "corner:1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "corner:1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.4999999999998619
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "corner:1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 44139
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "corner:1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-up",
+      "name": "corner:1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.4999999999999755
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "actual-files-match-registered-sha256",
+      "passed": true,
+      "files": 6
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "neutral:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "neutral:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "neutral:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 39907
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "neutral:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "neutral:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285710033
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "neutral:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 29643,
+      "maxError": 147
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "neutral:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 39907
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "neutral:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "neutral:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285710215
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "neutral:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 29520,
+      "maxError": 143
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "blink:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "blink:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "blink:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 39907
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "blink:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "blink:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285710033
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "blink:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 29643,
+      "maxError": 147
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "blink:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 39907
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "blink:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "blink:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285710215
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "blink:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 29520,
+      "maxError": 143
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "asymmetric:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "asymmetric:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "asymmetric:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 39907
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "asymmetric:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "asymmetric:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285710033
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "asymmetric:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 29643,
+      "maxError": 147
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "asymmetric:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 39907
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "asymmetric:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "asymmetric:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285710215
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "asymmetric:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 29520,
+      "maxError": 143
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "five-authored-eye-and-jaw-steps-available",
+      "passed": true,
+      "eyes": [
+        "open",
+        "quarter",
+        "half",
+        "threeQuarter",
+        "closed"
+      ],
+      "mouth": [
+        "neutral",
+        "parted",
+        "openSmall",
+        "openMedium",
+        "openWide"
+      ]
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "authored-step:eyes:open",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "authored-step:eyes:quarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "quarter",
+        "eyeRight": "quarter",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "authored-step:eyes:half",
+      "passed": true,
+      "state": {
+        "eyeLeft": "half",
+        "eyeRight": "half",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "authored-step:eyes:threeQuarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "threeQuarter",
+        "eyeRight": "threeQuarter",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "authored-step:eyes:closed",
+      "passed": true,
+      "state": {
+        "eyeLeft": "closed",
+        "eyeRight": "closed",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "authored-step:mouth:neutral",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "authored-step:mouth:parted",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "parted",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "authored-step:mouth:openSmall",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openSmall",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "authored-step:mouth:openMedium",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openMedium",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "authored-step:mouth:openWide",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openWide",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "corner:-1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 39907
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "corner:-1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "corner:-1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.49999999999981143
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "corner:-1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 39907
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "corner:-1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "corner:-1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.4999999999998718
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "corner:1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 39907
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "corner:1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "corner:1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.4999999999994232
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "corner:1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 39907
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "corner:1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-down",
+      "name": "corner:1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.49999999999989075
+    },
+    {
+      "poseId": "view-up",
+      "name": "actual-files-match-registered-sha256",
+      "passed": true,
+      "files": 6
+    },
+    {
+      "poseId": "view-up",
+      "name": "neutral:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-up",
+      "name": "neutral:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-up",
+      "name": "neutral:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 37858
+    },
+    {
+      "poseId": "view-up",
+      "name": "neutral:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "neutral:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.558571428571387
+    },
+    {
+      "poseId": "view-up",
+      "name": "neutral:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 41902,
+      "maxError": 156
+    },
+    {
+      "poseId": "view-up",
+      "name": "neutral:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 37858
+    },
+    {
+      "poseId": "view-up",
+      "name": "neutral:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "neutral:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714349
+    },
+    {
+      "poseId": "view-up",
+      "name": "neutral:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 42007,
+      "maxError": 170
+    },
+    {
+      "poseId": "view-up",
+      "name": "blink:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-up",
+      "name": "blink:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-up",
+      "name": "blink:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 37858
+    },
+    {
+      "poseId": "view-up",
+      "name": "blink:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "blink:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.558571428571387
+    },
+    {
+      "poseId": "view-up",
+      "name": "blink:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 41902,
+      "maxError": 156
+    },
+    {
+      "poseId": "view-up",
+      "name": "blink:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 37858
+    },
+    {
+      "poseId": "view-up",
+      "name": "blink:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "blink:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714349
+    },
+    {
+      "poseId": "view-up",
+      "name": "blink:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 42007,
+      "maxError": 170
+    },
+    {
+      "poseId": "view-up",
+      "name": "asymmetric:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-up",
+      "name": "asymmetric:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-up",
+      "name": "asymmetric:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 37858
+    },
+    {
+      "poseId": "view-up",
+      "name": "asymmetric:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "asymmetric:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.558571428571387
+    },
+    {
+      "poseId": "view-up",
+      "name": "asymmetric:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 41902,
+      "maxError": 156
+    },
+    {
+      "poseId": "view-up",
+      "name": "asymmetric:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 37858
+    },
+    {
+      "poseId": "view-up",
+      "name": "asymmetric:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "asymmetric:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714349
+    },
+    {
+      "poseId": "view-up",
+      "name": "asymmetric:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 42007,
+      "maxError": 170
+    },
+    {
+      "poseId": "view-up",
+      "name": "five-authored-eye-and-jaw-steps-available",
+      "passed": true,
+      "eyes": [
+        "open",
+        "quarter",
+        "half",
+        "threeQuarter",
+        "closed"
+      ],
+      "mouth": [
+        "neutral",
+        "parted",
+        "openSmall",
+        "openMedium",
+        "openWide"
+      ]
+    },
+    {
+      "poseId": "view-up",
+      "name": "authored-step:eyes:open",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "authored-step:eyes:quarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "quarter",
+        "eyeRight": "quarter",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "authored-step:eyes:half",
+      "passed": true,
+      "state": {
+        "eyeLeft": "half",
+        "eyeRight": "half",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "authored-step:eyes:threeQuarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "threeQuarter",
+        "eyeRight": "threeQuarter",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "authored-step:eyes:closed",
+      "passed": true,
+      "state": {
+        "eyeLeft": "closed",
+        "eyeRight": "closed",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "authored-step:mouth:neutral",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "authored-step:mouth:parted",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "parted",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "authored-step:mouth:openSmall",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openSmall",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "authored-step:mouth:openMedium",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openMedium",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "authored-step:mouth:openWide",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openWide",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "corner:-1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 37858
+    },
+    {
+      "poseId": "view-up",
+      "name": "corner:-1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "corner:-1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.4999999999999485
+    },
+    {
+      "poseId": "view-up",
+      "name": "corner:-1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 37858
+    },
+    {
+      "poseId": "view-up",
+      "name": "corner:-1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "corner:-1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.4999999999999521
+    },
+    {
+      "poseId": "view-up",
+      "name": "corner:1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 37858
+    },
+    {
+      "poseId": "view-up",
+      "name": "corner:1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "corner:1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.49999999999965206
+    },
+    {
+      "poseId": "view-up",
+      "name": "corner:1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 37858
+    },
+    {
+      "poseId": "view-up",
+      "name": "corner:1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-up",
+      "name": "corner:1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.4999999999999952
+    },
+    {
+      "poseId": "view-down",
+      "name": "actual-files-match-registered-sha256",
+      "passed": true,
+      "files": 6
+    },
+    {
+      "poseId": "view-down",
+      "name": "neutral:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-down",
+      "name": "neutral:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-down",
+      "name": "neutral:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 36250
+    },
+    {
+      "poseId": "view-down",
+      "name": "neutral:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "neutral:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285710471
+    },
+    {
+      "poseId": "view-down",
+      "name": "neutral:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 39733,
+      "maxError": 150
+    },
+    {
+      "poseId": "view-down",
+      "name": "neutral:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 36250
+    },
+    {
+      "poseId": "view-down",
+      "name": "neutral:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "neutral:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285710953
+    },
+    {
+      "poseId": "view-down",
+      "name": "neutral:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 40009,
+      "maxError": 175
+    },
+    {
+      "poseId": "view-down",
+      "name": "blink:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-down",
+      "name": "blink:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-down",
+      "name": "blink:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 36250
+    },
+    {
+      "poseId": "view-down",
+      "name": "blink:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "blink:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285710471
+    },
+    {
+      "poseId": "view-down",
+      "name": "blink:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 39733,
+      "maxError": 150
+    },
+    {
+      "poseId": "view-down",
+      "name": "blink:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 36250
+    },
+    {
+      "poseId": "view-down",
+      "name": "blink:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "blink:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285710953
+    },
+    {
+      "poseId": "view-down",
+      "name": "blink:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 40009,
+      "maxError": 175
+    },
+    {
+      "poseId": "view-down",
+      "name": "asymmetric:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-down",
+      "name": "asymmetric:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-down",
+      "name": "asymmetric:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 36250
+    },
+    {
+      "poseId": "view-down",
+      "name": "asymmetric:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "asymmetric:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285710471
+    },
+    {
+      "poseId": "view-down",
+      "name": "asymmetric:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 39733,
+      "maxError": 150
+    },
+    {
+      "poseId": "view-down",
+      "name": "asymmetric:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 36250
+    },
+    {
+      "poseId": "view-down",
+      "name": "asymmetric:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "asymmetric:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285710953
+    },
+    {
+      "poseId": "view-down",
+      "name": "asymmetric:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 40009,
+      "maxError": 175
+    },
+    {
+      "poseId": "view-down",
+      "name": "five-authored-eye-and-jaw-steps-available",
+      "passed": true,
+      "eyes": [
+        "open",
+        "quarter",
+        "half",
+        "threeQuarter",
+        "closed"
+      ],
+      "mouth": [
+        "neutral",
+        "parted",
+        "openSmall",
+        "openMedium",
+        "openWide"
+      ]
+    },
+    {
+      "poseId": "view-down",
+      "name": "authored-step:eyes:open",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "authored-step:eyes:quarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "quarter",
+        "eyeRight": "quarter",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "authored-step:eyes:half",
+      "passed": true,
+      "state": {
+        "eyeLeft": "half",
+        "eyeRight": "half",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "authored-step:eyes:threeQuarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "threeQuarter",
+        "eyeRight": "threeQuarter",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "authored-step:eyes:closed",
+      "passed": true,
+      "state": {
+        "eyeLeft": "closed",
+        "eyeRight": "closed",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "authored-step:mouth:neutral",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "authored-step:mouth:parted",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "parted",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "authored-step:mouth:openSmall",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openSmall",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "authored-step:mouth:openMedium",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openMedium",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "authored-step:mouth:openWide",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openWide",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "corner:-1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 36250
+    },
+    {
+      "poseId": "view-down",
+      "name": "corner:-1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "corner:-1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.4999999999995225
+    },
+    {
+      "poseId": "view-down",
+      "name": "corner:-1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 36250
+    },
+    {
+      "poseId": "view-down",
+      "name": "corner:-1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "corner:-1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.4999999999999859
+    },
+    {
+      "poseId": "view-down",
+      "name": "corner:1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 36250
+    },
+    {
+      "poseId": "view-down",
+      "name": "corner:1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "corner:1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.49999999999955996
+    },
+    {
+      "poseId": "view-down",
+      "name": "corner:1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 36250
+    },
+    {
+      "poseId": "view-down",
+      "name": "corner:1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-down",
+      "name": "corner:1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.49999999999959327
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "actual-files-match-registered-sha256",
+      "passed": true,
+      "files": 6
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "neutral:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "neutral:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "neutral:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 26341
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "neutral:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "neutral:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285711744
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "neutral:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 35018,
+      "maxError": 149
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "neutral:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 26341
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "neutral:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "neutral:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285713909
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "neutral:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 35088,
+      "maxError": 139
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "blink:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "blink:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "blink:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 26341
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "blink:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "blink:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285711744
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "blink:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 35018,
+      "maxError": 149
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "blink:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 26341
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "blink:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "blink:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285713909
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "blink:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 35088,
+      "maxError": 139
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "asymmetric:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "asymmetric:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "asymmetric:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 26341
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "asymmetric:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "asymmetric:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285711744
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "asymmetric:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 35018,
+      "maxError": 149
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "asymmetric:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 26341
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "asymmetric:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "asymmetric:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285713909
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "asymmetric:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 35088,
+      "maxError": 139
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "five-authored-eye-and-jaw-steps-available",
+      "passed": true,
+      "eyes": [
+        "open",
+        "quarter",
+        "half",
+        "threeQuarter",
+        "closed"
+      ],
+      "mouth": [
+        "neutral",
+        "parted",
+        "openSmall",
+        "openMedium",
+        "openWide"
+      ]
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "authored-step:eyes:open",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "authored-step:eyes:quarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "quarter",
+        "eyeRight": "quarter",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "authored-step:eyes:half",
+      "passed": true,
+      "state": {
+        "eyeLeft": "half",
+        "eyeRight": "half",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "authored-step:eyes:threeQuarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "threeQuarter",
+        "eyeRight": "threeQuarter",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "authored-step:eyes:closed",
+      "passed": true,
+      "state": {
+        "eyeLeft": "closed",
+        "eyeRight": "closed",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "authored-step:mouth:neutral",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "authored-step:mouth:parted",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "parted",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "authored-step:mouth:openSmall",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openSmall",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "authored-step:mouth:openMedium",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openMedium",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "authored-step:mouth:openWide",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openWide",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "corner:-1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 26341
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "corner:-1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "corner:-1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.499999999999933
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "corner:-1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 26341
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "corner:-1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "corner:-1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.49999999999992334
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "corner:1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 26341
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "corner:1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "corner:1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.4999999999998914
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "corner:1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 26341
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "corner:1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-right-down",
+      "name": "corner:1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.4999999999999831
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "actual-files-match-registered-sha256",
+      "passed": true,
+      "files": 6
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "neutral:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "neutral:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "neutral:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 32878
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "neutral:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "neutral:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714068
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "neutral:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 27042,
+      "maxError": 155
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "neutral:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 32878
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "neutral:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "neutral:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5676202368912939
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "neutral:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 27138,
+      "maxError": 151
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "blink:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "blink:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "blink:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 32878
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "blink:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "blink:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714068
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "blink:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 27042,
+      "maxError": 155
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "blink:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 32878
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "blink:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "blink:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5676202368912939
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "blink:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 27138,
+      "maxError": 151
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "asymmetric:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "asymmetric:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "asymmetric:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 32878
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "asymmetric:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "asymmetric:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714068
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "asymmetric:negative:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 27042,
+      "maxError": 155
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "asymmetric:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 32878
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "asymmetric:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "asymmetric:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5676202368912939
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "asymmetric:positive:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 27138,
+      "maxError": 151
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "five-authored-eye-and-jaw-steps-available",
+      "passed": true,
+      "eyes": [
+        "open",
+        "quarter",
+        "half",
+        "threeQuarter",
+        "closed"
+      ],
+      "mouth": [
+        "neutral",
+        "parted",
+        "openSmall",
+        "openMedium",
+        "openWide"
+      ]
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "authored-step:eyes:open",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "authored-step:eyes:quarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "quarter",
+        "eyeRight": "quarter",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "authored-step:eyes:half",
+      "passed": true,
+      "state": {
+        "eyeLeft": "half",
+        "eyeRight": "half",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "authored-step:eyes:threeQuarter",
+      "passed": true,
+      "state": {
+        "eyeLeft": "threeQuarter",
+        "eyeRight": "threeQuarter",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "authored-step:eyes:closed",
+      "passed": true,
+      "state": {
+        "eyeLeft": "closed",
+        "eyeRight": "closed",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "authored-step:mouth:neutral",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "neutral",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "authored-step:mouth:parted",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "parted",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "authored-step:mouth:openSmall",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openSmall",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "authored-step:mouth:openMedium",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openMedium",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "authored-step:mouth:openWide",
+      "passed": true,
+      "state": {
+        "eyeLeft": "open",
+        "eyeRight": "open",
+        "mouth": "openWide",
+        "browLeft": "neutral",
+        "browRight": "neutral"
+      },
+      "epsilonMaxError": 1,
+      "maximumGuardError": 1,
+      "guardFailures": 0,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "corner:-1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 32878
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "corner:-1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "corner:-1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.49999999999999306
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "corner:-1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 32878
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "corner:-1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "corner:-1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.5370606565115836
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "corner:1,-1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 32878
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "corner:1,-1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "corner:1,-1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.4999999999999569
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "corner:1,1:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 32878
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "corner:1,1:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "view-left-up",
+      "name": "corner:1,1:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.0827625302982185,
+      "minimumAreaRatio": 0.550271157332756
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.37,0.22:independent-pose-buffers",
+      "passed": true,
+      "poses": [
+        "view-up",
+        "front",
+        "view-right"
+      ],
+      "weights": [
+        0.21999999999999997,
+        0.41000000000000003,
+        0.37
+      ]
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.37,0.22:hair-deformed-once",
+      "passed": true,
+      "flowSecondary": {
+        "breath": 0.4,
+        "sway": -0.2,
+        "hair": 0
+      }
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.37,0.22:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 29316,
+      "maxError": 131
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.37,0.22:deterministic",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.37,0.22:independent-fringe-before-rife",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.37,0.22:current-painted-expression-survives",
+      "passed": true,
+      "pixelsOverTwoBytes": 45337,
+      "maxError": 218
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.37,0.22:neutral-restored-after-expression",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.37,0.22:transparent-output-clears-previous-frame",
+      "passed": true,
+      "size": [
+        1280,
+        720
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.37,0.22:output-scale-position-mirror",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 921600
+    },
+    {
+      "poseId": null,
+      "name": "blend:-0.36,0.48:independent-pose-buffers",
+      "passed": true,
+      "poses": [
+        "view-left-up",
+        "view-up",
+        "front"
+      ],
+      "weights": [
+        0.36,
+        0.12,
+        0.52
+      ]
+    },
+    {
+      "poseId": null,
+      "name": "blend:-0.36,0.48:hair-deformed-once",
+      "passed": true,
+      "flowSecondary": {
+        "breath": 0.4,
+        "sway": -0.2,
+        "hair": 0
+      }
+    },
+    {
+      "poseId": null,
+      "name": "blend:-0.36,0.48:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 31645,
+      "maxError": 125
+    },
+    {
+      "poseId": null,
+      "name": "blend:-0.36,0.48:deterministic",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": null,
+      "name": "blend:-0.36,0.48:independent-fringe-before-rife",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": null,
+      "name": "blend:-0.36,0.48:current-painted-expression-survives",
+      "passed": true,
+      "pixelsOverTwoBytes": 46793,
+      "maxError": 215
+    },
+    {
+      "poseId": null,
+      "name": "blend:-0.36,0.48:neutral-restored-after-expression",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": null,
+      "name": "blend:-0.36,0.48:transparent-output-clears-previous-frame",
+      "passed": true,
+      "size": [
+        1280,
+        720
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "poseId": null,
+      "name": "blend:-0.36,0.48:output-scale-position-mirror",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 921600
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.43,-0.29:independent-pose-buffers",
+      "passed": true,
+      "poses": [
+        "front",
+        "view-right",
+        "view-right-down"
+      ],
+      "weights": [
+        0.5700000000000001,
+        0.14,
+        0.29
+      ]
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.43,-0.29:hair-deformed-once",
+      "passed": true,
+      "flowSecondary": {
+        "breath": 0.4,
+        "sway": -0.2,
+        "hair": 0
+      }
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.43,-0.29:visible-fringe-motion",
+      "passed": true,
+      "pixelsOverTwoBytes": 27034,
+      "maxError": 139
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.43,-0.29:deterministic",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.43,-0.29:independent-fringe-before-rife",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.43,-0.29:current-painted-expression-survives",
+      "passed": true,
+      "pixelsOverTwoBytes": 46241,
+      "maxError": 218
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.43,-0.29:neutral-restored-after-expression",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.43,-0.29:transparent-output-clears-previous-frame",
+      "passed": true,
+      "size": [
+        1280,
+        720
+      ],
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "poseId": null,
+      "name": "blend:0.43,-0.29:output-scale-position-mirror",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 921600
+    }
+  ],
+  "limitations": [
+    "Technical checks do not approve segmentation or hidden artwork.",
+    "Only registered poses are tested; unregistered directions are not claimed.",
+    "Performance is a local diagnostic sample, not an OBS or end-to-end tracking benchmark."
+  ],
+  "integration": {
+    "status": "passed",
+    "headPoses": [
+      {
+        "yaw": 0.37,
+        "pitch": 0.22
+      },
+      {
+        "yaw": -0.36,
+        "pitch": 0.48
+      },
+      {
+        "yaw": 0.43,
+        "pitch": -0.29
+      }
+    ],
+    "flowModel": {
+      "name": "RIFE v4.25",
+      "implementation": "hzwer/Practical-RIFE",
+      "commit": "bbfd2ea90910789a860ea3e2b32a240cd577b75e",
+      "license": "MIT",
+      "weights": {
+        "train_log/flownet.pkl": "6615790efd627772917205db291f51cd392528a157ecbb2ecaeec3bff8eb6de2",
+        "train_log/IFNet_HDv3.py": "655b4c772b037967b86c2dd31c8fa3b5323b79dd9a0e0088708d89149bbc8a32",
+        "model/warplayer.py": "feb3af9475b724749b023d1913c3b135431eff13d0045b8efb472a699058385f"
+      },
+      "url": "https://github.com/hzwer/Practical-RIFE/tree/bbfd2ea90910789a860ea3e2b32a240cd577b75e",
+      "weightArchiveUrl": "https://drive.google.com/uc?export=download&id=1ZKjcbmt1hypiFprJPIKW0Tt0lr_2i7bg",
+      "weightArchiveSha256": "e63d481b7ae5d4a4e6ad7ac5b410ff78f3bf7be3b51b2e38ca8152747abde5b4",
+      "runtime": "PyTorch 2.9.1, CPU float32, 4 threads, no TTA",
+      "flowOutput": "flow_list[-1]",
+      "maskOutput": "sigmoid(mask_logits)",
+      "scaleList": [
+        16,
+        8,
+        4,
+        2,
+        1
+      ]
+    },
+    "outputs": [
+      1280,
+      720
+    ],
+    "cases": [
+      {
+        "headPose": {
+          "yaw": 0.37,
+          "pitch": 0.22
+        },
+        "renderMs": 3,
+        "rgbaSha256": "8038833045ab7ea4bdf8216c0e1e9bd8420169f4d1b05e84a212635e697b1a78",
+        "outputRgbaSha256": "3b6355b7656d0b127b77919cd443a628df99af5eb55f08ad93a6180aa6c3206a"
+      },
+      {
+        "headPose": {
+          "yaw": -0.36,
+          "pitch": 0.48
+        },
+        "renderMs": 1.14,
+        "rgbaSha256": "6258cc1d7c277cd53aaec152df2a462a4b62f3e54bc7bff2b7ba8ad8063c77cb",
+        "outputRgbaSha256": "9a87038ba5c5ea80935cd404f83038a62829258fb9f6b2a133642d6c6b626dcc"
+      },
+      {
+        "headPose": {
+          "yaw": 0.43,
+          "pitch": -0.29
+        },
+        "renderMs": 2.205,
+        "rgbaSha256": "a4b43f954f8cac90a8d9d12c10f29fb1b2d8ef08e3953142638ade4384b49b68",
+        "outputRgbaSha256": "c054b16a2423dd0071cced21d9dc2d3984a7a1ed7b786e386a88843893b0f35c"
+      }
+    ]
+  },
+  "summary": {
+    "poses": 9,
+    "checks": 513,
+    "passed": 513,
+    "failed": 0
+  },
+  "finishedAt": "2026-11-06T05:43:28.825Z"
+}

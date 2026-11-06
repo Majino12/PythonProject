@@ -1,0 +1,27 @@
+{
+  "ownedPixels": 62395,
+  "contactPixels": 72806,
+  "guardedRingPixels": 2780,
+  "outerAlphaExcludedPixels": 0,
+  "supportRadius": 24,
+  "solidRadius": 12,
+  "weightEncoding": "uint8-unorm; use weight/255 as the single authoritative mix coefficient",
+  "contactVisiblePixels": 68278,
+  "meanContactAlpha": 40.812999794955914,
+  "maxFloatReconstructionError": 0.4745098039215634,
+  "roundedReconstructionMismatchPixels": 0,
+  "semantics": "contact residual carries original edge/shadow appearance; it is not newly generated anatomy or an independent face feature",
+  "clippedToOpaqueMatte": 0,
+  "bounds": [
+    281,
+    228,
+    559,
+    419
+  ],
+  "binding": {
+    "vertices": 5325,
+    "triangles": 10360,
+    "minimumAreaRatio": 0.4999999999993822,
+    "maxWeight": 1
+  }
+}

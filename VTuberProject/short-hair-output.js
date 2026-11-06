@@ -29,7 +29,7 @@ function schedule() {if(!disposed&&!document.hidden&&assets&&pending&&!animation
 async function start() {
   try {
     const loaded=await loadContinuousShortHairAssets();
-    if(disposed){loaded.flowRenderer?.dispose();return;}
+    if(disposed){loaded.flowRenderer?.dispose();loaded.fringeRenderer?.dispose();return;}
     assets=loaded;clear('请在工作台启用直播画面');
     connection=new EventSource('/api/studio-output/events');
     connection.onmessage=event=>{
@@ -53,5 +53,5 @@ async function start() {
   }catch(error){if(!disposed)clear(`角色载入失败：${error.message}`);}
 }
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelDraw();else schedule();});
-window.addEventListener('pagehide',()=>{disposed=true;pending=null;connection?.close();assets?.flowRenderer?.dispose();cancelDraw();});
+window.addEventListener('pagehide',()=>{disposed=true;pending=null;connection?.close();assets?.flowRenderer?.dispose();assets?.fringeRenderer?.dispose();cancelDraw();});
 start();

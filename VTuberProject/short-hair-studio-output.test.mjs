@@ -535,9 +535,9 @@ test('receiver forwards user framing independently from native character motion'
 });
 
 test('receiver disposes assets loaded after its page has already closed without opening an SSE connection',async()=>{
-  const pending=deferred();let disposed=0;const h=await receiverHarness({loader:()=>pending.promise});
-  h.windowEvents.pagehide();pending.resolve({flowRenderer:{dispose(){disposed++;}}});await turn();
-  assert.equal(disposed,1);assert.equal(h.connections.length,0);assert.equal(h.scheduled.size,0);
+  const pending=deferred();let disposed=0,fringeDisposed=0;const h=await receiverHarness({loader:()=>pending.promise});
+  h.windowEvents.pagehide();pending.resolve({flowRenderer:{dispose(){disposed++;}},fringeRenderer:{dispose(){fringeDisposed++;}}});await turn();
+  assert.equal(disposed,1);assert.equal(fringeDisposed,1);assert.equal(h.connections.length,0);assert.equal(h.scheduled.size,0);
 });
 
 test('HTTP relay preserves user framing for late receivers and rejects out of range composition without replacing the last frame',async()=>{

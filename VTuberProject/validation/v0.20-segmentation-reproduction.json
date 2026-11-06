@@ -1,0 +1,433 @@
+{
+  "schemaVersion": 1,
+  "kind": "v0.20-segmentation-reproduction-validation",
+  "allPassed": true,
+  "poseCount": 9,
+  "scriptSha256": "63bdc932c8e3b813507085c955e066cc245aa780dc8f80d4aba28176f517b951",
+  "segmentationManifestSha256": "7f5f6c910c2baa3a0f7b38c0673a13bdd5558f5be28e000bfb822d2a30aa0947",
+  "modelInferenceActuallyReran": true,
+  "environment": {
+    "python": "3.12.14",
+    "torch": "2.9.1",
+    "torchvision": "0.24.1",
+    "numpy": "2.3.5",
+    "opencv": "4.12.0",
+    "pillow": "13.0.0",
+    "device": "cpu",
+    "threads": 8,
+    "precision": "float32",
+    "notes": [
+      "Observed authoring environment, not a clean-install lockfile. Torch and base libraries were reused through an isolated venv .pth.",
+      "OpenCV 4.12 metadata requests NumPy <2.3; inherited NumPy 2.3.5 was used successfully here. A clean environment must be independently verified by canonical output pixel hashes."
+    ]
+  },
+  "proposalsMode": {
+    "mode": "proposals",
+    "reports": [
+      {
+        "poseId": "front",
+        "mode": "proposals",
+        "modelInferenceRan": false,
+        "seconds": 0.13946545799990417,
+        "scores": [
+          0.8460654020309448,
+          0.8809589147567749,
+          0.9515488147735596
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 297271,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "50a64ac56176b8b34c53d47afe1b2c4cb20d0ae3d862228c461ee5fd7d182ff1",
+        "binaryPixelSha256": "f1d15d03061a7370c91a75780ac54d0dc517bfb0633143af13e6e58eb24b910a",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      },
+      {
+        "poseId": "view-left",
+        "mode": "proposals",
+        "modelInferenceRan": false,
+        "seconds": 0.11979004199747578,
+        "scores": [
+          0.8617813587188721,
+          0.8752841949462891,
+          0.9651066064834595
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 302051,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "b30899e915bb220dd7887cdfe11743259c7ea01a300abb490d3c9ad617488c6d",
+        "binaryPixelSha256": "934b23710d2d7928fa96aa042ec2ec076490381bb193ef2c75e5302b7c1e0a29",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      },
+      {
+        "poseId": "view-right",
+        "mode": "proposals",
+        "modelInferenceRan": false,
+        "seconds": 0.12064579199795844,
+        "scores": [
+          0.8973097801208496,
+          0.872255265712738,
+          0.9656558632850647
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 305988,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "b03f39bba0debddd7cdbd598bc67aaea9bd8bbfaf0f2dd0528d9f11c90342e57",
+        "binaryPixelSha256": "3a45b1097fe9eb3c2ae0aaf3fb100ec9d875bba3e2fcabfad25411a37aa40feb",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      },
+      {
+        "poseId": "view-left-up",
+        "mode": "proposals",
+        "modelInferenceRan": false,
+        "seconds": 0.11922991699975682,
+        "scores": [
+          0.8581061363220215,
+          0.8810778260231018,
+          0.9641966223716736
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 292812,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "27f6cc73cf43acfcdd67908d2af65cfba046caf6f20f7e69075c73989f02db9d",
+        "binaryPixelSha256": "90ca203ee9f1aeb92d2dec6310bb2b3968ec5b850aa7bea36f79a382fc480460",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      },
+      {
+        "poseId": "view-right-up",
+        "mode": "proposals",
+        "modelInferenceRan": false,
+        "seconds": 0.11825108400080353,
+        "scores": [
+          0.8954979777336121,
+          0.8714768886566162,
+          0.9664285182952881
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 284307,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "1487280ad674b5cbc4e138cd70757b7c15787d8894f66c0dd0bc9b8b977e7b5f",
+        "binaryPixelSha256": "d951ded423f4033586b8efceaaa63aa76910d1df874740a5e173f64fb2dd4380",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      },
+      {
+        "poseId": "view-left-down",
+        "mode": "proposals",
+        "modelInferenceRan": false,
+        "seconds": 0.11844195799858426,
+        "scores": [
+          0.8343523740768433,
+          0.8986371755599976,
+          0.9667983651161194
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 338042,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "1a2f095cf65d282202901f2dab4558474429341cdef7af08f00c2818a57ed8b9",
+        "binaryPixelSha256": "03f8062213c63d8dfa05ef06cdb368447bdec8466bb5b84198338d983e9ccbca",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      },
+      {
+        "poseId": "view-up",
+        "mode": "proposals",
+        "modelInferenceRan": false,
+        "seconds": 0.11961250000240398,
+        "scores": [
+          0.8624046444892883,
+          0.8517931699752808,
+          0.9537583589553833
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 282647,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "739d1e31d34f2e8516803ff94de29306cd17e0c084b8a184d5f4e8ac8c017bb0",
+        "binaryPixelSha256": "5a7ee32725d81a9daf93bda9285577ca978b962f35d4ee353741b4f6e9994ef5",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      },
+      {
+        "poseId": "view-down",
+        "mode": "proposals",
+        "modelInferenceRan": false,
+        "seconds": 0.11965054200118175,
+        "scores": [
+          0.9042026400566101,
+          0.8901227116584778,
+          0.9600161910057068
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 317591,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "fa12a2b07b7611ffb4c2be9a6fc04de0d2ed4b7365c460010ca6e3e0387931ae",
+        "binaryPixelSha256": "df6562fa5f60cb681bdf8c5073ee50cde8a83d2d9e08b4c34d5d3126cb2cbdac",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      },
+      {
+        "poseId": "view-right-down",
+        "mode": "proposals",
+        "modelInferenceRan": false,
+        "seconds": 0.11894995799957542,
+        "scores": [
+          0.8608108758926392,
+          0.8930268287658691,
+          0.9679908752441406
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 320384,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "011a2e6fa84f530abfbbb3b6b231811d4a87bd1acd6f6d01e59e64cd028d029d",
+        "binaryPixelSha256": "4c008e3e8bc05d6f5722d70553c75db91aa0db9f958ea33b04a329e07b272799",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "officialSamMode": {
+    "mode": "sam",
+    "reports": [
+      {
+        "poseId": "front",
+        "mode": "sam",
+        "modelInferenceRan": true,
+        "seconds": 2.874516957999731,
+        "scores": [
+          0.8460654020309448,
+          0.8809589147567749,
+          0.9515488147735596
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 297271,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "50a64ac56176b8b34c53d47afe1b2c4cb20d0ae3d862228c461ee5fd7d182ff1",
+        "binaryPixelSha256": "f1d15d03061a7370c91a75780ac54d0dc517bfb0633143af13e6e58eb24b910a",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      },
+      {
+        "poseId": "view-left",
+        "mode": "sam",
+        "modelInferenceRan": true,
+        "seconds": 2.791728833999514,
+        "scores": [
+          0.8617813587188721,
+          0.8752841949462891,
+          0.9651066064834595
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 302051,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "b30899e915bb220dd7887cdfe11743259c7ea01a300abb490d3c9ad617488c6d",
+        "binaryPixelSha256": "934b23710d2d7928fa96aa042ec2ec076490381bb193ef2c75e5302b7c1e0a29",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      },
+      {
+        "poseId": "view-right",
+        "mode": "sam",
+        "modelInferenceRan": true,
+        "seconds": 2.5807288750002044,
+        "scores": [
+          0.8973097801208496,
+          0.872255265712738,
+          0.9656558632850647
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 305988,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "b03f39bba0debddd7cdbd598bc67aaea9bd8bbfaf0f2dd0528d9f11c90342e57",
+        "binaryPixelSha256": "3a45b1097fe9eb3c2ae0aaf3fb100ec9d875bba3e2fcabfad25411a37aa40feb",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      },
+      {
+        "poseId": "view-left-up",
+        "mode": "sam",
+        "modelInferenceRan": true,
+        "seconds": 2.5723698750007316,
+        "scores": [
+          0.8581061363220215,
+          0.8810778260231018,
+          0.9641966223716736
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 292812,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "27f6cc73cf43acfcdd67908d2af65cfba046caf6f20f7e69075c73989f02db9d",
+        "binaryPixelSha256": "90ca203ee9f1aeb92d2dec6310bb2b3968ec5b850aa7bea36f79a382fc480460",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      },
+      {
+        "poseId": "view-right-up",
+        "mode": "sam",
+        "modelInferenceRan": true,
+        "seconds": 2.579733667000255,
+        "scores": [
+          0.8954979777336121,
+          0.8714768886566162,
+          0.9664285182952881
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 284307,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "1487280ad674b5cbc4e138cd70757b7c15787d8894f66c0dd0bc9b8b977e7b5f",
+        "binaryPixelSha256": "d951ded423f4033586b8efceaaa63aa76910d1df874740a5e173f64fb2dd4380",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      },
+      {
+        "poseId": "view-left-down",
+        "mode": "sam",
+        "modelInferenceRan": true,
+        "seconds": 2.575015374997747,
+        "scores": [
+          0.8343523740768433,
+          0.8986371755599976,
+          0.9667983651161194
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 338042,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "1a2f095cf65d282202901f2dab4558474429341cdef7af08f00c2818a57ed8b9",
+        "binaryPixelSha256": "03f8062213c63d8dfa05ef06cdb368447bdec8466bb5b84198338d983e9ccbca",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      },
+      {
+        "poseId": "view-up",
+        "mode": "sam",
+        "modelInferenceRan": true,
+        "seconds": 2.574849667002127,
+        "scores": [
+          0.8624046444892883,
+          0.8517931699752808,
+          0.9537583589553833
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 282647,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "739d1e31d34f2e8516803ff94de29306cd17e0c084b8a184d5f4e8ac8c017bb0",
+        "binaryPixelSha256": "5a7ee32725d81a9daf93bda9285577ca978b962f35d4ee353741b4f6e9994ef5",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      },
+      {
+        "poseId": "view-down",
+        "mode": "sam",
+        "modelInferenceRan": true,
+        "seconds": 2.5745157089986606,
+        "scores": [
+          0.9042026400566101,
+          0.8901227116584778,
+          0.9600161910057068
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 317591,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "fa12a2b07b7611ffb4c2be9a6fc04de0d2ed4b7365c460010ca6e3e0387931ae",
+        "binaryPixelSha256": "df6562fa5f60cb681bdf8c5073ee50cde8a83d2d9e08b4c34d5d3126cb2cbdac",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      },
+      {
+        "poseId": "view-right-down",
+        "mode": "sam",
+        "modelInferenceRan": true,
+        "seconds": 2.583995542001503,
+        "scores": [
+          0.8608108758926392,
+          0.8930268287658691,
+          0.9679908752441406
+        ],
+        "proposalMatchesRecordedPixels": true,
+        "baselineMatchesRecordedPixels": true,
+        "finalMatchesRecordedPixels": true,
+        "foregroundPixels": 320384,
+        "protectedOverlapPixels": 0,
+        "outsideAlphaPixels": 0,
+        "outputPngSha256": "011a2e6fa84f530abfbbb3b6b231811d4a87bd1acd6f6d01e59e64cd028d029d",
+        "binaryPixelSha256": "4c008e3e8bc05d6f5722d70553c75db91aa0db9f958ea33b04a329e07b272799",
+        "runtimeAssetsModified": false,
+        "artworkApprovalChanged": false,
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "meaning": "Both archived-proposal refinement and actual official CPU SAM2 inference reproduce all nine final canonical binary ownership pixel hashes. This verifies numeric reproduction, not independent semantic/artwork accuracy."
+}

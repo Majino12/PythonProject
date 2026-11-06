@@ -1,0 +1,3208 @@
+{
+  "schemaVersion": 1,
+  "id": "short-hair-fringe-v1",
+  "status": "derived-candidate",
+  "width": 1122,
+  "height": 1402,
+  "model": {
+    "name": "SAM 2.1 Hiera Large",
+    "weightsSha256": "2647878d5dfa5098f2f8649825738a9345572bae2d4350a2468587ece47dd318",
+    "commit": "2b90b9f5ceec907a1c18123530e92e794ad901a4",
+    "repository": "https://github.com/facebookresearch/sam2",
+    "license": "Apache-2.0"
+  },
+  "poses": {
+    "front": {
+      "source": {
+        "path": "./assets/short-hair-v1/front.png",
+        "sha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822"
+      },
+      "alphaSha256": "cd0648e0ae8814b87b09d7f4cc35d4359c6f05623c3e84e30d08df0216f4d4d5",
+      "binding": {
+        "schemaVersion": 1,
+        "kind": "short-hair-mesh-binding",
+        "poseId": "front",
+        "sourceSha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822",
+        "bounds": [
+          281,
+          228,
+          559,
+          419
+        ],
+        "grid": {
+          "columns": 25,
+          "rows": 29
+        },
+        "rootLine": [
+          [
+            281,
+            632
+          ],
+          [
+            315.9375,
+            454
+          ],
+          [
+            350.875,
+            368
+          ],
+          [
+            385.8125,
+            318
+          ],
+          [
+            420.75,
+            291
+          ],
+          [
+            455.6875,
+            275
+          ],
+          [
+            490.625,
+            268
+          ],
+          [
+            525.5625,
+            266
+          ],
+          [
+            560.5,
+            261
+          ],
+          [
+            595.4375,
+            263
+          ],
+          [
+            630.375,
+            269
+          ],
+          [
+            665.3125,
+            279
+          ],
+          [
+            700.25,
+            305
+          ],
+          [
+            735.1875,
+            348
+          ],
+          [
+            770.125,
+            414
+          ],
+          [
+            805.0625,
+            479
+          ],
+          [
+            840,
+            632
+          ]
+        ],
+        "tipLine": [
+          [
+            281,
+            647
+          ],
+          [
+            840,
+            647
+          ]
+        ],
+        "travel": {
+          "x": 6,
+          "y": 1
+        },
+        "revealMarginPx": 12,
+        "runtimeValidated": true,
+        "protectedRegions": [
+          {
+            "polygon": [
+              [
+                606,
+                448
+              ],
+              [
+                761,
+                448
+              ],
+              [
+                761,
+                564
+              ],
+              [
+                606,
+                564
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                347,
+                448
+              ],
+              [
+                514,
+                448
+              ],
+              [
+                514,
+                564
+              ],
+              [
+                347,
+                564
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                592,
+                395
+              ],
+              [
+                750,
+                395
+              ],
+              [
+                750,
+                450
+              ],
+              [
+                705,
+                450
+              ],
+              [
+                655,
+                458
+              ],
+              [
+                608,
+                463
+              ],
+              [
+                592,
+                463
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                368,
+                397
+              ],
+              [
+                506,
+                397
+              ],
+              [
+                506,
+                464
+              ],
+              [
+                468,
+                461
+              ],
+              [
+                420,
+                453
+              ],
+              [
+                368,
+                450
+              ]
+            ],
+            "padding": 8
+          }
+        ]
+      },
+      "supportRadius": 24,
+      "solidRadius": 12,
+      "ownership": {
+        "path": "./assets/short-hair-fringe-v1/front-ownership.png",
+        "bytes": 11573,
+        "sha256": "bef8bd7bbd35723d19b5dfa1755dc3fb5fff6b32821258ab84b69c1c912c3272"
+      },
+      "weight": {
+        "path": "./assets/short-hair-fringe-v1/front-weight.png",
+        "bytes": 36553,
+        "sha256": "0e97173cef23f7552ae764f32ccfa19ae39084e7da62d57c469da730833f9c58"
+      },
+      "underpaint": {
+        "path": "./assets/short-hair-fringe-v1/front-underpaint.png",
+        "bytes": 270845,
+        "sha256": "9a4d697a42971d9b8d8f1a0fb6b9f2c2170ebd02b3335b1e2883a426bd20f6ff"
+      },
+      "hairOwnership": {
+        "path": "./assets/short-hair-fringe-v1/front-hairOwnership.png",
+        "bytes": 10993,
+        "sha256": "50a64ac56176b8b34c53d47afe1b2c4cb20d0ae3d862228c461ee5fd7d182ff1"
+      },
+      "generatedUnderpaint": {
+        "path": "./assets/short-hair-fringe-v1/build-inputs/front-underpaint.png",
+        "sha256": "bb952449c3765c24e77863563c4e85146e577280c58e36c5dabf2ae7646c2d83",
+        "status": "derived-candidate",
+        "runtimeUse": "Only registered W support; current authored expression is D."
+      }
+    },
+    "view-left": {
+      "source": {
+        "path": "./assets/short-hair-v1/view-left.png",
+        "sha256": "23da31b12da3e50550519db9d95077e107d20755ca72fdab8b82335a961206b6"
+      },
+      "alphaSha256": "04f1bef67c95b1e1c407b0c62856f48a85c3c5f08da6b0359e0cfd56bda3f632",
+      "binding": {
+        "schemaVersion": 1,
+        "kind": "short-hair-mesh-binding",
+        "poseId": "view-left",
+        "sourceSha256": "23da31b12da3e50550519db9d95077e107d20755ca72fdab8b82335a961206b6",
+        "bounds": [
+          261,
+          223,
+          542,
+          515
+        ],
+        "grid": {
+          "columns": 25,
+          "rows": 29
+        },
+        "rootLine": [
+          [
+            261,
+            723
+          ],
+          [
+            294.875,
+            335
+          ],
+          [
+            328.75,
+            293
+          ],
+          [
+            362.625,
+            276
+          ],
+          [
+            396.5,
+            267
+          ],
+          [
+            430.375,
+            256
+          ],
+          [
+            464.25,
+            259
+          ],
+          [
+            498.125,
+            259
+          ],
+          [
+            532,
+            270
+          ],
+          [
+            565.875,
+            275
+          ],
+          [
+            599.75,
+            313
+          ],
+          [
+            633.625,
+            350
+          ],
+          [
+            667.5,
+            404
+          ],
+          [
+            701.375,
+            474
+          ],
+          [
+            735.25,
+            451
+          ],
+          [
+            769.125,
+            449
+          ],
+          [
+            803,
+            723
+          ]
+        ],
+        "tipLine": [
+          [
+            261,
+            738
+          ],
+          [
+            803,
+            738
+          ]
+        ],
+        "travel": {
+          "x": 6,
+          "y": 1
+        },
+        "revealMarginPx": 12,
+        "runtimeValidated": true,
+        "protectedRegions": [
+          {
+            "polygon": [
+              [
+                483,
+                434
+              ],
+              [
+                660,
+                434
+              ],
+              [
+                660,
+                543
+              ],
+              [
+                483,
+                543
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                294,
+                454
+              ],
+              [
+                418,
+                454
+              ],
+              [
+                418,
+                556
+              ],
+              [
+                294,
+                556
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                470,
+                417
+              ],
+              [
+                481,
+                394
+              ],
+              [
+                500,
+                394
+              ],
+              [
+                524,
+                393
+              ],
+              [
+                550,
+                384
+              ],
+              [
+                590,
+                382
+              ],
+              [
+                614,
+                391
+              ],
+              [
+                627,
+                406
+              ],
+              [
+                620,
+                419
+              ],
+              [
+                590,
+                419
+              ],
+              [
+                563,
+                423
+              ],
+              [
+                541,
+                429
+              ],
+              [
+                520,
+                436
+              ],
+              [
+                497,
+                446
+              ],
+              [
+                473,
+                451
+              ],
+              [
+                468,
+                438
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                299,
+                425
+              ],
+              [
+                325,
+                410
+              ],
+              [
+                344,
+                403
+              ],
+              [
+                366,
+                403
+              ],
+              [
+                382,
+                417
+              ],
+              [
+                388,
+                434
+              ],
+              [
+                385,
+                455
+              ],
+              [
+                366,
+                455
+              ],
+              [
+                348,
+                448
+              ],
+              [
+                330,
+                447
+              ],
+              [
+                309,
+                449
+              ],
+              [
+                299,
+                440
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                344,
+                603
+              ],
+              [
+                347,
+                603
+              ],
+              [
+                347,
+                605
+              ],
+              [
+                344,
+                605
+              ]
+            ],
+            "padding": 8
+          }
+        ]
+      },
+      "supportRadius": 24,
+      "solidRadius": 12,
+      "ownership": {
+        "path": "./assets/short-hair-fringe-v1/view-left-ownership.png",
+        "bytes": 10763,
+        "sha256": "fe4adada6450ab40edcdd091cba7324b5f7b5fdb271303bebf2de41e92680d8c"
+      },
+      "weight": {
+        "path": "./assets/short-hair-fringe-v1/view-left-weight.png",
+        "bytes": 41816,
+        "sha256": "25c3ff3f99d8dc277bf2e010a52d7b167537039c862c8c1660ae4505178b677d"
+      },
+      "underpaint": {
+        "path": "./assets/short-hair-fringe-v1/view-left-underpaint.png",
+        "bytes": 274154,
+        "sha256": "d0f9afbb39239db8d979319c1f4b3d66658d069d6b561d6b84bb6228bdc1cd6e"
+      },
+      "hairOwnership": {
+        "path": "./assets/short-hair-fringe-v1/view-left-hairOwnership.png",
+        "bytes": 10559,
+        "sha256": "b30899e915bb220dd7887cdfe11743259c7ea01a300abb490d3c9ad617488c6d"
+      },
+      "generatedUnderpaint": {
+        "path": "./assets/short-hair-fringe-v1/build-inputs/view-left-underpaint.png",
+        "sha256": "7ef72287ac39b493ee4fa40cb1d381457ed9623a08149a6740ce7a712f10ae3e",
+        "status": "derived-candidate",
+        "runtimeUse": "Only registered W support; current authored expression is D."
+      }
+    },
+    "view-right": {
+      "source": {
+        "path": "./assets/short-hair-v1/view-right.png",
+        "sha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3"
+      },
+      "alphaSha256": "25332ce93d878e8171918e99766fd379b8fdb9c995e68f5fe0eb1bfbd24d7f7a",
+      "binding": {
+        "schemaVersion": 1,
+        "kind": "short-hair-mesh-binding",
+        "poseId": "view-right",
+        "sourceSha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3",
+        "bounds": [
+          305,
+          225,
+          522,
+          427
+        ],
+        "grid": {
+          "columns": 25,
+          "rows": 29
+        },
+        "rootLine": [
+          [
+            305,
+            637
+          ],
+          [
+            337.625,
+            485
+          ],
+          [
+            370.25,
+            490
+          ],
+          [
+            402.875,
+            476
+          ],
+          [
+            435.5,
+            386
+          ],
+          [
+            468.125,
+            338
+          ],
+          [
+            500.75,
+            298
+          ],
+          [
+            533.375,
+            278
+          ],
+          [
+            566,
+            271
+          ],
+          [
+            598.625,
+            261
+          ],
+          [
+            631.25,
+            258
+          ],
+          [
+            663.875,
+            260
+          ],
+          [
+            696.5,
+            260
+          ],
+          [
+            729.125,
+            271
+          ],
+          [
+            761.75,
+            296
+          ],
+          [
+            794.375,
+            349
+          ],
+          [
+            827,
+            637
+          ]
+        ],
+        "tipLine": [
+          [
+            305,
+            652
+          ],
+          [
+            827,
+            652
+          ]
+        ],
+        "travel": {
+          "x": 6,
+          "y": 1
+        },
+        "revealMarginPx": 12,
+        "runtimeValidated": true,
+        "protectedRegions": [
+          {
+            "polygon": [
+              [
+                705,
+                431
+              ],
+              [
+                814,
+                431
+              ],
+              [
+                814,
+                542
+              ],
+              [
+                705,
+                542
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                449,
+                445
+              ],
+              [
+                619,
+                445
+              ],
+              [
+                619,
+                557
+              ],
+              [
+                449,
+                557
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                714,
+                405
+              ],
+              [
+                718,
+                393
+              ],
+              [
+                738,
+                392
+              ],
+              [
+                765,
+                389
+              ],
+              [
+                786,
+                394
+              ],
+              [
+                800,
+                407
+              ],
+              [
+                798,
+                425
+              ],
+              [
+                784,
+                427
+              ],
+              [
+                765,
+                430
+              ],
+              [
+                746,
+                438
+              ],
+              [
+                726,
+                447
+              ],
+              [
+                710,
+                454
+              ],
+              [
+                704,
+                438
+              ],
+              [
+                710,
+                421
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                441,
+                419
+              ],
+              [
+                468,
+                411
+              ],
+              [
+                505,
+                398
+              ],
+              [
+                542,
+                395
+              ],
+              [
+                580,
+                394
+              ],
+              [
+                605,
+                399
+              ],
+              [
+                619,
+                413
+              ],
+              [
+                624,
+                445
+              ],
+              [
+                614,
+                456
+              ],
+              [
+                589,
+                452
+              ],
+              [
+                561,
+                446
+              ],
+              [
+                536,
+                442
+              ],
+              [
+                508,
+                440
+              ],
+              [
+                481,
+                444
+              ],
+              [
+                455,
+                444
+              ],
+              [
+                441,
+                439
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                775,
+                575
+              ],
+              [
+                784,
+                575
+              ],
+              [
+                784,
+                588
+              ],
+              [
+                775,
+                588
+              ]
+            ],
+            "padding": 8
+          }
+        ]
+      },
+      "supportRadius": 24,
+      "solidRadius": 12,
+      "ownership": {
+        "path": "./assets/short-hair-fringe-v1/view-right-ownership.png",
+        "bytes": 10456,
+        "sha256": "48172e29352236aedd428143f941e0795631098402e12deb91ca83f38d48f314"
+      },
+      "weight": {
+        "path": "./assets/short-hair-fringe-v1/view-right-weight.png",
+        "bytes": 34678,
+        "sha256": "08277757306e5cb15f1a1a3380daee417802ed1ec73ea020af97ad9b66562a08"
+      },
+      "underpaint": {
+        "path": "./assets/short-hair-fringe-v1/view-right-underpaint.png",
+        "bytes": 248621,
+        "sha256": "21bfffdf25e8ed81d75f2e1e6d45177cfe526567a65026c7367f1b112397f707"
+      },
+      "hairOwnership": {
+        "path": "./assets/short-hair-fringe-v1/view-right-hairOwnership.png",
+        "bytes": 10191,
+        "sha256": "b03f39bba0debddd7cdbd598bc67aaea9bd8bbfaf0f2dd0528d9f11c90342e57"
+      },
+      "generatedUnderpaint": {
+        "path": "./assets/short-hair-fringe-v1/build-inputs/view-right-underpaint.png",
+        "sha256": "14e3e8427582caaf7153b57526954ad60dfa690e0b3b20117d64bc6387e6d188",
+        "status": "derived-candidate",
+        "runtimeUse": "Only registered W support; current authored expression is D."
+      }
+    },
+    "view-right-up": {
+      "source": {
+        "path": "./assets/short-hair-v1/view-right-up.png",
+        "sha256": "900d998244e371021320ead30a823661d8759b516d72ad6390c2c62d3fd21037"
+      },
+      "alphaSha256": "7529af64ac439ea82f4e53fa5e829c1ee76d07ad9297f49b3ec58ce3df026e2a",
+      "binding": {
+        "schemaVersion": 1,
+        "kind": "short-hair-mesh-binding",
+        "poseId": "view-right-up",
+        "sourceSha256": "900d998244e371021320ead30a823661d8759b516d72ad6390c2c62d3fd21037",
+        "bounds": [
+          296,
+          182,
+          535,
+          513
+        ],
+        "grid": {
+          "columns": 25,
+          "rows": 29
+        },
+        "rootLine": [
+          [
+            296,
+            680
+          ],
+          [
+            329.4375,
+            470
+          ],
+          [
+            362.875,
+            471
+          ],
+          [
+            396.3125,
+            474
+          ],
+          [
+            429.75,
+            378
+          ],
+          [
+            463.1875,
+            308
+          ],
+          [
+            496.625,
+            263
+          ],
+          [
+            530.0625,
+            240
+          ],
+          [
+            563.5,
+            226
+          ],
+          [
+            596.9375,
+            219
+          ],
+          [
+            630.375,
+            215
+          ],
+          [
+            663.8125,
+            216
+          ],
+          [
+            697.25,
+            220
+          ],
+          [
+            730.6875,
+            229
+          ],
+          [
+            764.125,
+            258
+          ],
+          [
+            797.5625,
+            314
+          ],
+          [
+            831,
+            680
+          ]
+        ],
+        "tipLine": [
+          [
+            296,
+            695
+          ],
+          [
+            831,
+            695
+          ]
+        ],
+        "travel": {
+          "x": 6,
+          "y": 1
+        },
+        "revealMarginPx": 12,
+        "runtimeValidated": true,
+        "protectedRegions": [
+          {
+            "polygon": [
+              [
+                718,
+                386
+              ],
+              [
+                798,
+                386
+              ],
+              [
+                819,
+                407
+              ],
+              [
+                815,
+                445
+              ],
+              [
+                806,
+                475
+              ],
+              [
+                786,
+                489
+              ],
+              [
+                742,
+                489
+              ],
+              [
+                713,
+                470
+              ],
+              [
+                708,
+                432
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                449,
+                389
+              ],
+              [
+                635,
+                389
+              ],
+              [
+                635,
+                504
+              ],
+              [
+                449,
+                504
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                708,
+                332
+              ],
+              [
+                724,
+                326
+              ],
+              [
+                746,
+                326
+              ],
+              [
+                773,
+                328
+              ],
+              [
+                792,
+                333
+              ],
+              [
+                804,
+                345
+              ],
+              [
+                807,
+                361
+              ],
+              [
+                803,
+                380
+              ],
+              [
+                787,
+                386
+              ],
+              [
+                766,
+                382
+              ],
+              [
+                744,
+                385
+              ],
+              [
+                724,
+                397
+              ],
+              [
+                708,
+                398
+              ],
+              [
+                703,
+                384
+              ],
+              [
+                705,
+                355
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                491,
+                354
+              ],
+              [
+                518,
+                347
+              ],
+              [
+                548,
+                340
+              ],
+              [
+                583,
+                337
+              ],
+              [
+                614,
+                335
+              ],
+              [
+                630,
+                339
+              ],
+              [
+                638,
+                353
+              ],
+              [
+                635,
+                378
+              ],
+              [
+                623,
+                395
+              ],
+              [
+                606,
+                394
+              ],
+              [
+                582,
+                388
+              ],
+              [
+                552,
+                386
+              ],
+              [
+                523,
+                387
+              ],
+              [
+                497,
+                394
+              ],
+              [
+                482,
+                394
+              ],
+              [
+                480,
+                379
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                801,
+                548
+              ],
+              [
+                802,
+                548
+              ],
+              [
+                802,
+                550
+              ],
+              [
+                801,
+                550
+              ]
+            ],
+            "padding": 8
+          }
+        ]
+      },
+      "supportRadius": 24,
+      "solidRadius": 12,
+      "ownership": {
+        "path": "./assets/short-hair-fringe-v1/view-right-up-ownership.png",
+        "bytes": 10191,
+        "sha256": "4211bcbb1fe76c3e315725899453dedb0fa702589c3ad963c9fc5cd58ec0db08"
+      },
+      "weight": {
+        "path": "./assets/short-hair-fringe-v1/view-right-up-weight.png",
+        "bytes": 39695,
+        "sha256": "a4c6b59578e6c8b836f5995a340a4f93162d979af414068027d6ea00a5f45b5f"
+      },
+      "underpaint": {
+        "path": "./assets/short-hair-fringe-v1/view-right-up-underpaint.png",
+        "bytes": 255085,
+        "sha256": "2028843dd3b754985203ec516ca68120d9d2c1ed5bda70ad198b779572813ed8"
+      },
+      "hairOwnership": {
+        "path": "./assets/short-hair-fringe-v1/view-right-up-hairOwnership.png",
+        "bytes": 9980,
+        "sha256": "1487280ad674b5cbc4e138cd70757b7c15787d8894f66c0dd0bc9b8b977e7b5f"
+      },
+      "generatedUnderpaint": {
+        "path": "./assets/short-hair-fringe-v1/build-inputs/view-right-up-underpaint.png",
+        "sha256": "5f312c47340649c2e0b50ace7c8df2d6046b52fd66a6d6a418713444f9f5705a",
+        "status": "derived-candidate",
+        "runtimeUse": "Only registered W support; current authored expression is D."
+      }
+    },
+    "view-left-down": {
+      "source": {
+        "path": "./assets/short-hair-v1/view-left-down.png",
+        "sha256": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983"
+      },
+      "alphaSha256": "38ec8234e3680276baf229dace34039bcba0bf376ed34f564fed3768ee14d5e9",
+      "binding": {
+        "schemaVersion": 1,
+        "kind": "short-hair-mesh-binding",
+        "poseId": "view-left-down",
+        "sourceSha256": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983",
+        "bounds": [
+          235,
+          267,
+          563,
+          488
+        ],
+        "grid": {
+          "columns": 25,
+          "rows": 29
+        },
+        "rootLine": [
+          [
+            235,
+            740
+          ],
+          [
+            270.1875,
+            388
+          ],
+          [
+            305.375,
+            339
+          ],
+          [
+            340.5625,
+            315
+          ],
+          [
+            375.75,
+            309
+          ],
+          [
+            410.9375,
+            300
+          ],
+          [
+            446.125,
+            302
+          ],
+          [
+            481.3125,
+            305
+          ],
+          [
+            516.5,
+            317
+          ],
+          [
+            551.6875,
+            338
+          ],
+          [
+            586.875,
+            376
+          ],
+          [
+            622.0625,
+            423
+          ],
+          [
+            657.25,
+            476
+          ],
+          [
+            692.4375,
+            497
+          ],
+          [
+            727.625,
+            471
+          ],
+          [
+            762.8125,
+            470
+          ],
+          [
+            798,
+            740
+          ]
+        ],
+        "tipLine": [
+          [
+            235,
+            755
+          ],
+          [
+            798,
+            755
+          ]
+        ],
+        "travel": {
+          "x": 6,
+          "y": 1
+        },
+        "revealMarginPx": 12,
+        "runtimeValidated": true,
+        "protectedRegions": [
+          {
+            "polygon": [
+              [
+                465,
+                515
+              ],
+              [
+                490,
+                503
+              ],
+              [
+                530,
+                493
+              ],
+              [
+                571,
+                493
+              ],
+              [
+                604,
+                502
+              ],
+              [
+                641,
+                510
+              ],
+              [
+                636,
+                553
+              ],
+              [
+                617,
+                585
+              ],
+              [
+                594,
+                605
+              ],
+              [
+                539,
+                609
+              ],
+              [
+                494,
+                598
+              ],
+              [
+                464,
+                581
+              ],
+              [
+                450,
+                552
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                275,
+                521
+              ],
+              [
+                318,
+                516
+              ],
+              [
+                347,
+                525
+              ],
+              [
+                369,
+                546
+              ],
+              [
+                378,
+                571
+              ],
+              [
+                378,
+                594
+              ],
+              [
+                358,
+                610
+              ],
+              [
+                327,
+                610
+              ],
+              [
+                303,
+                594
+              ],
+              [
+                286,
+                572
+              ],
+              [
+                267,
+                550
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                439,
+                456
+              ],
+              [
+                458,
+                455
+              ],
+              [
+                481,
+                449
+              ],
+              [
+                514,
+                441
+              ],
+              [
+                550,
+                437
+              ],
+              [
+                585,
+                438
+              ],
+              [
+                610,
+                447
+              ],
+              [
+                620,
+                463
+              ],
+              [
+                618,
+                483
+              ],
+              [
+                609,
+                495
+              ],
+              [
+                585,
+                496
+              ],
+              [
+                555,
+                496
+              ],
+              [
+                527,
+                502
+              ],
+              [
+                505,
+                511
+              ],
+              [
+                483,
+                519
+              ],
+              [
+                460,
+                522
+              ],
+              [
+                444,
+                526
+              ],
+              [
+                434,
+                521
+              ],
+              [
+                434,
+                489
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                273,
+                484
+              ],
+              [
+                292,
+                475
+              ],
+              [
+                314,
+                471
+              ],
+              [
+                335,
+                471
+              ],
+              [
+                354,
+                477
+              ],
+              [
+                362,
+                494
+              ],
+              [
+                367,
+                515
+              ],
+              [
+                367,
+                525
+              ],
+              [
+                352,
+                524
+              ],
+              [
+                333,
+                521
+              ],
+              [
+                311,
+                515
+              ],
+              [
+                288,
+                511
+              ],
+              [
+                272,
+                510
+              ],
+              [
+                266,
+                499
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                327,
+                634
+              ],
+              [
+                347,
+                634
+              ],
+              [
+                347,
+                652
+              ],
+              [
+                327,
+                652
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                701,
+                715
+              ],
+              [
+                704,
+                715
+              ],
+              [
+                704,
+                719
+              ],
+              [
+                701,
+                719
+              ]
+            ],
+            "padding": 8
+          }
+        ]
+      },
+      "supportRadius": 24,
+      "solidRadius": 12,
+      "ownership": {
+        "path": "./assets/short-hair-fringe-v1/view-left-down-ownership.png",
+        "bytes": 10778,
+        "sha256": "5173d4733ffcb4af3c4aca7792ab53c7fb2dab88d109c0ea02b9ea007a0796be"
+      },
+      "weight": {
+        "path": "./assets/short-hair-fringe-v1/view-left-down-weight.png",
+        "bytes": 40741,
+        "sha256": "e6011f4a52d245b57f72858af750da482103277350a5ab791c5cef6315e47c42"
+      },
+      "underpaint": {
+        "path": "./assets/short-hair-fringe-v1/view-left-down-underpaint.png",
+        "bytes": 275989,
+        "sha256": "3bfc7d13f7813b31965ef1734c2a9e31fb4115f8a2a0459adae4dc059096b4c5"
+      },
+      "hairOwnership": {
+        "path": "./assets/short-hair-fringe-v1/view-left-down-hairOwnership.png",
+        "bytes": 10234,
+        "sha256": "1a2f095cf65d282202901f2dab4558474429341cdef7af08f00c2818a57ed8b9"
+      },
+      "generatedUnderpaint": {
+        "path": "./assets/short-hair-fringe-v1/build-inputs/view-left-down-underpaint.png",
+        "sha256": "c4ac79b35b1ffc82e005f2aa24d7b8328765af02232d008caaa9ded35f8698b3",
+        "status": "derived-candidate",
+        "runtimeUse": "Only registered W support; current authored expression is D."
+      }
+    },
+    "view-up": {
+      "source": {
+        "path": "./assets/short-hair-complete-poses-v1/view-up-neutral.png",
+        "sha256": "252ba6a46b0121ee0c9f94b37180ba4745158da6f2bb230aff5efa0894cb23d6"
+      },
+      "alphaSha256": "bb4c9a38edbc93a298ed1ec6cda1b157fe262b2c83e65577d93118718204713e",
+      "binding": {
+        "schemaVersion": 1,
+        "kind": "short-hair-mesh-binding",
+        "poseId": "view-up",
+        "sourceSha256": "252ba6a46b0121ee0c9f94b37180ba4745158da6f2bb230aff5efa0894cb23d6",
+        "bounds": [
+          276,
+          189,
+          551,
+          443
+        ],
+        "grid": {
+          "columns": 25,
+          "rows": 29
+        },
+        "rootLine": [
+          [
+            276,
+            617
+          ],
+          [
+            310.4375,
+            487
+          ],
+          [
+            344.875,
+            326
+          ],
+          [
+            379.3125,
+            282
+          ],
+          [
+            413.75,
+            253
+          ],
+          [
+            448.1875,
+            231
+          ],
+          [
+            482.625,
+            225
+          ],
+          [
+            517.0625,
+            222
+          ],
+          [
+            551.5,
+            222
+          ],
+          [
+            585.9375,
+            223
+          ],
+          [
+            620.375,
+            222
+          ],
+          [
+            654.8125,
+            232
+          ],
+          [
+            689.25,
+            243
+          ],
+          [
+            723.6875,
+            272
+          ],
+          [
+            758.125,
+            321
+          ],
+          [
+            792.5625,
+            423
+          ],
+          [
+            827,
+            617
+          ]
+        ],
+        "tipLine": [
+          [
+            276,
+            632
+          ],
+          [
+            827,
+            632
+          ]
+        ],
+        "travel": {
+          "x": 6,
+          "y": 1
+        },
+        "revealMarginPx": 12,
+        "runtimeValidated": true,
+        "protectedRegions": [
+          {
+            "polygon": [
+              [
+                608,
+                441
+              ],
+              [
+                630,
+                419
+              ],
+              [
+                663,
+                410
+              ],
+              [
+                697,
+                408
+              ],
+              [
+                730,
+                419
+              ],
+              [
+                763,
+                443
+              ],
+              [
+                761,
+                472
+              ],
+              [
+                742,
+                498
+              ],
+              [
+                713,
+                511
+              ],
+              [
+                663,
+                514
+              ],
+              [
+                628,
+                501
+              ],
+              [
+                610,
+                477
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                352,
+                450
+              ],
+              [
+                373,
+                425
+              ],
+              [
+                402,
+                414
+              ],
+              [
+                441,
+                410
+              ],
+              [
+                479,
+                421
+              ],
+              [
+                504,
+                441
+              ],
+              [
+                508,
+                473
+              ],
+              [
+                491,
+                500
+              ],
+              [
+                467,
+                512
+              ],
+              [
+                418,
+                514
+              ],
+              [
+                381,
+                500
+              ],
+              [
+                359,
+                479
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                606,
+                347
+              ],
+              [
+                632,
+                350
+              ],
+              [
+                660,
+                359
+              ],
+              [
+                687,
+                366
+              ],
+              [
+                710,
+                370
+              ],
+              [
+                732,
+                379
+              ],
+              [
+                734,
+                399
+              ],
+              [
+                718,
+                401
+              ],
+              [
+                696,
+                400
+              ],
+              [
+                670,
+                404
+              ],
+              [
+                642,
+                412
+              ],
+              [
+                611,
+                419
+              ],
+              [
+                593,
+                419
+              ],
+              [
+                595,
+                389
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                397,
+                366
+              ],
+              [
+                425,
+                354
+              ],
+              [
+                455,
+                349
+              ],
+              [
+                480,
+                351
+              ],
+              [
+                496,
+                364
+              ],
+              [
+                503,
+                388
+              ],
+              [
+                505,
+                414
+              ],
+              [
+                486,
+                413
+              ],
+              [
+                463,
+                409
+              ],
+              [
+                439,
+                401
+              ],
+              [
+                415,
+                396
+              ],
+              [
+                391,
+                398
+              ],
+              [
+                384,
+                385
+              ]
+            ],
+            "padding": 8
+          }
+        ]
+      },
+      "supportRadius": 24,
+      "solidRadius": 12,
+      "ownership": {
+        "path": "./assets/short-hair-fringe-v1/view-up-ownership.png",
+        "bytes": 11568,
+        "sha256": "d78c2d9bcca2a9a7ac7a5257636605803dc897ecbd1e4061f83c2085770707d3"
+      },
+      "weight": {
+        "path": "./assets/short-hair-fringe-v1/view-up-weight.png",
+        "bytes": 37265,
+        "sha256": "a599a380ceb19789173c01f4233ffacb31c8793da64cf7a128f3f06f67c6b8c3"
+      },
+      "underpaint": {
+        "path": "./assets/short-hair-fringe-v1/view-up-underpaint.png",
+        "bytes": 265638,
+        "sha256": "042f763a45f2d3693ff747747d48e3f9fd8fd826fc29deae8fd857ed036e5661"
+      },
+      "hairOwnership": {
+        "path": "./assets/short-hair-fringe-v1/view-up-hairOwnership.png",
+        "bytes": 10873,
+        "sha256": "739d1e31d34f2e8516803ff94de29306cd17e0c084b8a184d5f4e8ac8c017bb0"
+      },
+      "generatedUnderpaint": {
+        "path": "./assets/short-hair-fringe-v1/build-inputs/view-up-underpaint.png",
+        "sha256": "370663de167ee007c56cf7c3cffccdc3553c4335650c4174acd49e0dbaca852a",
+        "status": "derived-candidate",
+        "runtimeUse": "Only registered W support; current authored expression is D."
+      }
+    },
+    "view-down": {
+      "source": {
+        "path": "./assets/short-hair-complete-poses-v1/view-down-neutral.png",
+        "sha256": "f9e6315e19b09a121d3d1216611dd0759020f21a5d3fab9827adebb9eceb9d4f"
+      },
+      "alphaSha256": "05143c9f7a01a8e500d9744c6aa2796c02fe8314a075fe1b22959953a88815b2",
+      "binding": {
+        "schemaVersion": 1,
+        "kind": "short-hair-mesh-binding",
+        "poseId": "view-down",
+        "sourceSha256": "f9e6315e19b09a121d3d1216611dd0759020f21a5d3fab9827adebb9eceb9d4f",
+        "bounds": [
+          263,
+          273,
+          568,
+          403
+        ],
+        "grid": {
+          "columns": 25,
+          "rows": 29
+        },
+        "rootLine": [
+          [
+            263,
+            661
+          ],
+          [
+            298.5,
+            513
+          ],
+          [
+            334,
+            455
+          ],
+          [
+            369.5,
+            399
+          ],
+          [
+            405,
+            361
+          ],
+          [
+            440.5,
+            339
+          ],
+          [
+            476,
+            314
+          ],
+          [
+            511.5,
+            308
+          ],
+          [
+            547,
+            306
+          ],
+          [
+            582.5,
+            306
+          ],
+          [
+            618,
+            307
+          ],
+          [
+            653.5,
+            316
+          ],
+          [
+            689,
+            335
+          ],
+          [
+            724.5,
+            389
+          ],
+          [
+            760,
+            450
+          ],
+          [
+            795.5,
+            499
+          ],
+          [
+            831,
+            661
+          ]
+        ],
+        "tipLine": [
+          [
+            263,
+            676
+          ],
+          [
+            831,
+            676
+          ]
+        ],
+        "travel": {
+          "x": 6,
+          "y": 1
+        },
+        "revealMarginPx": 12,
+        "runtimeValidated": true,
+        "protectedRegions": [
+          {
+            "polygon": [
+              [
+                608,
+                535
+              ],
+              [
+                629,
+                513
+              ],
+              [
+                661,
+                502
+              ],
+              [
+                699,
+                501
+              ],
+              [
+                732,
+                512
+              ],
+              [
+                763,
+                529
+              ],
+              [
+                765,
+                558
+              ],
+              [
+                747,
+                585
+              ],
+              [
+                715,
+                602
+              ],
+              [
+                665,
+                605
+              ],
+              [
+                628,
+                589
+              ],
+              [
+                608,
+                566
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                351,
+                537
+              ],
+              [
+                373,
+                519
+              ],
+              [
+                404,
+                512
+              ],
+              [
+                440,
+                510
+              ],
+              [
+                479,
+                522
+              ],
+              [
+                505,
+                544
+              ],
+              [
+                505,
+                573
+              ],
+              [
+                485,
+                598
+              ],
+              [
+                460,
+                608
+              ],
+              [
+                414,
+                609
+              ],
+              [
+                379,
+                590
+              ],
+              [
+                355,
+                568
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                607,
+                456
+              ],
+              [
+                632,
+                458
+              ],
+              [
+                662,
+                460
+              ],
+              [
+                690,
+                464
+              ],
+              [
+                712,
+                470
+              ],
+              [
+                733,
+                480
+              ],
+              [
+                736,
+                501
+              ],
+              [
+                721,
+                503
+              ],
+              [
+                695,
+                502
+              ],
+              [
+                670,
+                505
+              ],
+              [
+                646,
+                511
+              ],
+              [
+                621,
+                520
+              ],
+              [
+                596,
+                523
+              ],
+              [
+                596,
+                489
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                395,
+                478
+              ],
+              [
+                425,
+                465
+              ],
+              [
+                454,
+                463
+              ],
+              [
+                482,
+                464
+              ],
+              [
+                497,
+                478
+              ],
+              [
+                505,
+                501
+              ],
+              [
+                505,
+                522
+              ],
+              [
+                486,
+                521
+              ],
+              [
+                464,
+                518
+              ],
+              [
+                438,
+                509
+              ],
+              [
+                416,
+                504
+              ],
+              [
+                391,
+                506
+              ],
+              [
+                384,
+                494
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                286,
+                536
+              ],
+              [
+                287,
+                536
+              ],
+              [
+                287,
+                539
+              ],
+              [
+                286,
+                539
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                327,
+                593
+              ],
+              [
+                332,
+                593
+              ],
+              [
+                332,
+                602
+              ],
+              [
+                327,
+                602
+              ]
+            ],
+            "padding": 8
+          }
+        ]
+      },
+      "supportRadius": 24,
+      "solidRadius": 12,
+      "ownership": {
+        "path": "./assets/short-hair-fringe-v1/view-down-ownership.png",
+        "bytes": 11265,
+        "sha256": "1776b13191d552334f515e9a831b5634869d323383767772fdd1544914f62799"
+      },
+      "weight": {
+        "path": "./assets/short-hair-fringe-v1/view-down-weight.png",
+        "bytes": 32541,
+        "sha256": "0721dc49690e68087d2016a3640fabafc62a841ec8bfb4e1ad83084dc3a2d955"
+      },
+      "underpaint": {
+        "path": "./assets/short-hair-fringe-v1/view-down-underpaint.png",
+        "bytes": 258366,
+        "sha256": "53e61aa36cb0491bdc5462221d7f5760301018f1ab5c7193e60c5da18b8c012e"
+      },
+      "hairOwnership": {
+        "path": "./assets/short-hair-fringe-v1/view-down-hairOwnership.png",
+        "bytes": 10804,
+        "sha256": "fa12a2b07b7611ffb4c2be9a6fc04de0d2ed4b7365c460010ca6e3e0387931ae"
+      },
+      "generatedUnderpaint": {
+        "path": "./assets/short-hair-fringe-v1/build-inputs/view-down-underpaint.png",
+        "sha256": "6b3abc0576cb0780cbb15cf8f4f14731ef171c30516f8823994e33a86fbe94c6",
+        "status": "derived-candidate",
+        "runtimeUse": "Only registered W support; current authored expression is D."
+      }
+    },
+    "view-right-down": {
+      "source": {
+        "path": "./assets/short-hair-complete-poses-v1/view-right-down-neutral.png",
+        "sha256": "5845cf6909248321f234bff531c16b231017d95fcd92de1e24789328b79e0b71"
+      },
+      "alphaSha256": "4749fc1908e3353f2bdc6407ad77497f233d0eb83e2b4176846826e22260e8d5",
+      "binding": {
+        "schemaVersion": 1,
+        "kind": "short-hair-mesh-binding",
+        "poseId": "view-right-down",
+        "sourceSha256": "5845cf6909248321f234bff531c16b231017d95fcd92de1e24789328b79e0b71",
+        "bounds": [
+          349,
+          276,
+          561,
+          382
+        ],
+        "grid": {
+          "columns": 25,
+          "rows": 29
+        },
+        "rootLine": [
+          [
+            349,
+            643
+          ],
+          [
+            384.0625,
+            424
+          ],
+          [
+            419.125,
+            643
+          ],
+          [
+            454.1875,
+            451
+          ],
+          [
+            489.25,
+            430
+          ],
+          [
+            524.3125,
+            382
+          ],
+          [
+            559.375,
+            351
+          ],
+          [
+            594.4375,
+            335
+          ],
+          [
+            629.5,
+            317
+          ],
+          [
+            664.5625,
+            312
+          ],
+          [
+            699.625,
+            309
+          ],
+          [
+            734.6875,
+            310
+          ],
+          [
+            769.75,
+            315
+          ],
+          [
+            804.8125,
+            322
+          ],
+          [
+            839.875,
+            345
+          ],
+          [
+            874.9375,
+            384
+          ],
+          [
+            910,
+            643
+          ]
+        ],
+        "tipLine": [
+          [
+            349,
+            658
+          ],
+          [
+            910,
+            658
+          ]
+        ],
+        "travel": {
+          "x": 6,
+          "y": 1
+        },
+        "revealMarginPx": 12,
+        "runtimeValidated": true,
+        "protectedRegions": [
+          {
+            "polygon": [
+              [
+                754,
+                552
+              ],
+              [
+                774,
+                532
+              ],
+              [
+                797,
+                523
+              ],
+              [
+                829,
+                520
+              ],
+              [
+                856,
+                532
+              ],
+              [
+                859,
+                557
+              ],
+              [
+                844,
+                585
+              ],
+              [
+                820,
+                604
+              ],
+              [
+                789,
+                611
+              ],
+              [
+                769,
+                598
+              ],
+              [
+                753,
+                580
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                537,
+                478
+              ],
+              [
+                564,
+                464
+              ],
+              [
+                592,
+                466
+              ],
+              [
+                632,
+                477
+              ],
+              [
+                671,
+                491
+              ],
+              [
+                692,
+                510
+              ],
+              [
+                693,
+                539
+              ],
+              [
+                675,
+                562
+              ],
+              [
+                640,
+                573
+              ],
+              [
+                600,
+                568
+              ],
+              [
+                567,
+                549
+              ],
+              [
+                545,
+                524
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                805,
+                473
+              ],
+              [
+                823,
+                470
+              ],
+              [
+                844,
+                478
+              ],
+              [
+                850,
+                491
+              ],
+              [
+                850,
+                519
+              ],
+              [
+                833,
+                521
+              ],
+              [
+                806,
+                526
+              ],
+              [
+                796,
+                522
+              ],
+              [
+                798,
+                501
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                585,
+                433
+              ],
+              [
+                612,
+                421
+              ],
+              [
+                637,
+                429
+              ],
+              [
+                661,
+                438
+              ],
+              [
+                688,
+                446
+              ],
+              [
+                697,
+                450
+              ],
+              [
+                697,
+                497
+              ],
+              [
+                688,
+                495
+              ],
+              [
+                671,
+                482
+              ],
+              [
+                650,
+                472
+              ],
+              [
+                630,
+                463
+              ],
+              [
+                609,
+                459
+              ],
+              [
+                590,
+                453
+              ]
+            ],
+            "padding": 8
+          }
+        ]
+      },
+      "supportRadius": 24,
+      "solidRadius": 12,
+      "ownership": {
+        "path": "./assets/short-hair-fringe-v1/view-right-down-ownership.png",
+        "bytes": 10219,
+        "sha256": "84fe514d51134273cdf79561c03d8bce903f8153227b14bebf0aaac754999f9c"
+      },
+      "weight": {
+        "path": "./assets/short-hair-fringe-v1/view-right-down-weight.png",
+        "bytes": 36617,
+        "sha256": "99b3cfb87bc173f0fc1214e24cf3ae74101b92c0ae54506cd9a7439f515ecf8e"
+      },
+      "underpaint": {
+        "path": "./assets/short-hair-fringe-v1/view-right-down-underpaint.png",
+        "bytes": 244067,
+        "sha256": "7eabbcfe7978307ac5827e430c84b76eba73655218fe17b9ce63be45d214c6e2"
+      },
+      "hairOwnership": {
+        "path": "./assets/short-hair-fringe-v1/view-right-down-hairOwnership.png",
+        "bytes": 9683,
+        "sha256": "011a2e6fa84f530abfbbb3b6b231811d4a87bd1acd6f6d01e59e64cd028d029d"
+      },
+      "generatedUnderpaint": {
+        "path": "./assets/short-hair-fringe-v1/build-inputs/view-right-down-underpaint.png",
+        "sha256": "fe2e1d26e07ea0bdac40ad5122b93310a092589e1c35bf146571fd9fc983ce57",
+        "status": "derived-candidate",
+        "runtimeUse": "Only registered W support; current authored expression is D."
+      }
+    },
+    "view-left-up": {
+      "source": {
+        "path": "./assets/short-hair-v1/view-left-up.png",
+        "sha256": "614ea3f4df961ffefefe4ae054eea45fe6c42a0cf5ae25cb3f6e88d5f6ca8637"
+      },
+      "alphaSha256": "3fd2f4b84c50a7841278b5b5589aa57e672f21693fabefbf71436d5a39b94465",
+      "binding": {
+        "schemaVersion": 1,
+        "kind": "short-hair-mesh-binding",
+        "poseId": "view-left-up",
+        "sourceSha256": "614ea3f4df961ffefefe4ae054eea45fe6c42a0cf5ae25cb3f6e88d5f6ca8637",
+        "bounds": [
+          274,
+          176,
+          550,
+          578
+        ],
+        "grid": {
+          "columns": 25,
+          "rows": 29
+        },
+        "rootLine": [
+          [
+            274,
+            739
+          ],
+          [
+            308.375,
+            297
+          ],
+          [
+            342.75,
+            264
+          ],
+          [
+            377.125,
+            240
+          ],
+          [
+            411.5,
+            235
+          ],
+          [
+            445.875,
+            228
+          ],
+          [
+            480.25,
+            209
+          ],
+          [
+            514.625,
+            232
+          ],
+          [
+            549,
+            241
+          ],
+          [
+            583.375,
+            258
+          ],
+          [
+            617.75,
+            296
+          ],
+          [
+            652.125,
+            354
+          ],
+          [
+            686.5,
+            419
+          ],
+          [
+            720.875,
+            463
+          ],
+          [
+            755.25,
+            454
+          ],
+          [
+            789.625,
+            457
+          ],
+          [
+            824,
+            739
+          ]
+        ],
+        "tipLine": [
+          [
+            274,
+            754
+          ],
+          [
+            824,
+            754
+          ]
+        ],
+        "travel": {
+          "x": 6,
+          "y": 1
+        },
+        "revealMarginPx": 12,
+        "runtimeValidated": true,
+        "protectedRegions": [
+          {
+            "polygon": [
+              [
+                464,
+                384
+              ],
+              [
+                488,
+                369
+              ],
+              [
+                523,
+                365
+              ],
+              [
+                559,
+                366
+              ],
+              [
+                592,
+                378
+              ],
+              [
+                619,
+                392
+              ],
+              [
+                638,
+                403
+              ],
+              [
+                634,
+                430
+              ],
+              [
+                619,
+                454
+              ],
+              [
+                597,
+                470
+              ],
+              [
+                548,
+                474
+              ],
+              [
+                496,
+                468
+              ],
+              [
+                470,
+                456
+              ],
+              [
+                452,
+                437
+              ],
+              [
+                451,
+                410
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                299,
+                394
+              ],
+              [
+                366,
+                394
+              ],
+              [
+                377,
+                414
+              ],
+              [
+                381,
+                438
+              ],
+              [
+                378,
+                461
+              ],
+              [
+                367,
+                475
+              ],
+              [
+                348,
+                480
+              ],
+              [
+                325,
+                480
+              ],
+              [
+                306,
+                468
+              ],
+              [
+                282,
+                442
+              ],
+              [
+                282,
+                418
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                450,
+                335
+              ],
+              [
+                464,
+                324
+              ],
+              [
+                482,
+                324
+              ],
+              [
+                511,
+                323
+              ],
+              [
+                541,
+                324
+              ],
+              [
+                566,
+                331
+              ],
+              [
+                594,
+                340
+              ],
+              [
+                615,
+                353
+              ],
+              [
+                616,
+                369
+              ],
+              [
+                592,
+                367
+              ],
+              [
+                573,
+                361
+              ],
+              [
+                551,
+                360
+              ],
+              [
+                527,
+                365
+              ],
+              [
+                501,
+                371
+              ],
+              [
+                478,
+                377
+              ],
+              [
+                452,
+                382
+              ],
+              [
+                439,
+                377
+              ],
+              [
+                443,
+                355
+              ]
+            ],
+            "padding": 8
+          },
+          {
+            "polygon": [
+              [
+                307,
+                360
+              ],
+              [
+                322,
+                355
+              ],
+              [
+                340,
+                348
+              ],
+              [
+                356,
+                344
+              ],
+              [
+                369,
+                349
+              ],
+              [
+                373,
+                361
+              ],
+              [
+                373,
+                383
+              ],
+              [
+                376,
+                395
+              ],
+              [
+                361,
+                394
+              ],
+              [
+                344,
+                390
+              ],
+              [
+                327,
+                388
+              ],
+              [
+                310,
+                387
+              ],
+              [
+                302,
+                378
+              ]
+            ],
+            "padding": 8
+          }
+        ]
+      },
+      "supportRadius": 24,
+      "solidRadius": 12,
+      "ownership": {
+        "path": "./assets/short-hair-fringe-v1/view-left-up-ownership.png",
+        "bytes": 10947,
+        "sha256": "65c857d5ece49942ae858b1c31889e9f72f37f19380c36716da54972de9d31d2"
+      },
+      "weight": {
+        "path": "./assets/short-hair-fringe-v1/view-left-up-weight.png",
+        "bytes": 46344,
+        "sha256": "59db4afafbf3c9c75c0c80aff57c95076aae6c347381f0c47f7b5f32af758879"
+      },
+      "underpaint": {
+        "path": "./assets/short-hair-fringe-v1/view-left-up-underpaint.png",
+        "bytes": 270837,
+        "sha256": "652cbaafdc19b846ed0ebc004042c54b15b168c7929c09397a307214936032ab"
+      },
+      "hairOwnership": {
+        "path": "./assets/short-hair-fringe-v1/view-left-up-hairOwnership.png",
+        "bytes": 10910,
+        "sha256": "27f6cc73cf43acfcdd67908d2af65cfba046caf6f20f7e69075c73989f02db9d"
+      },
+      "generatedUnderpaint": {
+        "path": "./assets/short-hair-fringe-v1/build-inputs/view-left-up-underpaint.png",
+        "sha256": "c1a6a9a9cf8c5d221253d11a0032ec9d104039cabcda3ff129e18a5b354d0eb9",
+        "status": "derived-candidate",
+        "runtimeUse": "Only registered W support; current authored expression is D."
+      }
+    }
+  },
+  "underpaintProvenance": {
+    "tool": "image_gen.imagegen",
+    "underlyingModelVersion": "not exposed by tool",
+    "record": "./assets/short-hair-fringe-v1/build-inputs/generation-provenance.json",
+    "regeneration": "Fresh generative output is not deterministic; the accepted candidate bytes are pinned.",
+    "sourcePolicy": "Original art and approval records remain unchanged."
+  },
+  "processing": {
+    "wholeHair": "SAM2.1 Large proposal + per-pose native-pixel refinement and reviewed local thin-tip regions",
+    "fringe": "Confirmed generated skin intersected with wholeHair, excluding visible eye/brow ownership",
+    "material": "W is authoritative uint8 UNORM; 12px solid contact, 24px outer radius; non-hair contact at least 9px from alpha<255",
+    "mesh": "Native triangle mesh, pinned roots/full expression supports/soft-matte-adjacent hair; x<=6px y<=1px",
+    "runtime": "Dynamic D from authored expression; GPU residual + mesh then RIFE4.25; old whole-image hair warp disabled"
+  }
+}

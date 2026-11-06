@@ -1,0 +1,6 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MoeMotion · 前发网格验收</title>
+<style>body{margin:28px auto;max-width:1060px;padding:0 20px;background:#101820;color:#e4edf4;font:15px/1.55 system-ui}button{font:inherit;padding:9px 16px;margin:8px 8px 14px 0}canvas{display:block;width:min(100%,560px);height:auto;background:conic-gradient(#bdc3ca 25%,#e6e9ed 0 50%,#bdc3ca 0 75%,#e6e9ed 0) 0 0/24px 24px;border:1px solid #536170}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#18232d;padding:16px}p{max-width:850px}</style></head>
+<body data-mesh-diagnostic="synthetic"><h1>前发三角网格验收</h1><p>使用程序绘制的透明色块检查原生像素坐标、位移、保护区、网格接缝与图形恢复。它不评价分层画稿质量，不打开摄像头或麦克风。</p>
+<button id="run">运行网格验收</button><button id="download" disabled>下载 JSON 报告</button><p id="status">等待运行。</p><canvas id="preview" width="1122" height="1402" aria-label="网格诊断透明色块"></canvas><pre id="report">{"status":"idle"}</pre>
+<script type="module" src="./short-hair-mesh-diagnostics.js"></script></body></html>

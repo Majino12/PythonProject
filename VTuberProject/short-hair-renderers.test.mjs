@@ -118,3 +118,48 @@ test('original comparison stays unwarped and uses only its nearest authored pain
   assert.equal(h.calls.created,1);assert.equal(h.calls.flow.length,0);assert.equal(result.secondary.breath,0);
   assert.equal(result.state.mouth,'neutral');
 });
+
+
+function addFringe(h){const calls=[];h.assets.fringeRenderer={lost:false,disposed:false,restoreError:null,render(source,poseId,controls,options){const canvas={fringe:true,poseId,source,controls};calls.push({source,poseId,controls,options,canvas});return canvas;}};return calls;}
+test('fringe meshes receive current per-pose expression pixels before RIFE and suppress duplicate old hair warping',()=>{
+  const h=continuousHarness(),fringe=addFringe(h);h.render({jaw:.8,look:.3},{headPose:{yaw:.2,pitch:.3},secondary:{breath:.1,sway:.2,hair:.5}});
+  assert.equal(fringe.length,3);assert.equal(h.calls.paint.length,3);assert.equal(h.calls.flow.length,1);
+  assert.equal(new Set(fringe.map(c=>c.canvas)).size,3);assert.equal(new Set(h.calls.flow[0][1]).size,3);
+  for(const call of fringe){assert.deepEqual({...call.controls},{x:.5,y:.09});assert.strictEqual(call.source,h.assets.continuousBuffers.get(call.poseId).canvas);}
+  assert.deepEqual({...h.calls.flow[0][3]},{breath:.1,sway:.2,hair:0});
+  const signatures=[...h.calls.flow[0][2]];
+  h.render({jaw:.8,look:.3},{headPose:{yaw:.2,pitch:.3},secondary:{breath:.1,sway:.2,hair:-.5}});
+  assert.equal(h.calls.paint.length,3);assert.equal(fringe.length,6);assert.notDeepEqual([...h.calls.flow[1][2]],signatures);
+});
+
+test('fringe-only endpoint uses its assembled 2D source directly and preserves published hair control',()=>{
+  const h=continuousHarness(),fringe=addFringe(h),result=h.render({}, {secondary:{breath:0,sway:0,hair:.5}});
+  assert.equal(fringe.length,1);assert.equal(h.calls.flow.length,0);assert.strictEqual(h.calls.draw[0][0],fringe[0].canvas);assert.equal(result.secondary.hair,.5);
+});
+
+test('zero and original frames retain the precise old source path even with fringe assets loaded',()=>{
+  const h=continuousHarness(),fringe=addFringe(h);h.render();assert.equal(fringe.length,0);assert.equal(h.calls.flow.length,0);assert.strictEqual(h.calls.draw[0][0],h.assets.continuousBuffers.get('front').canvas);
+  h.render({jaw:.8},{original:true,secondary:{breath:1,sway:1,hair:1},headPose:{yaw:.2,pitch:.3}});assert.equal(fringe.length,0);assert.equal(h.calls.flow.length,0);
+});
+
+test('fringe loss, mid-composition failure and restoration errors retain the last display without partial repaint',()=>{
+  const h=continuousHarness();h.render();addFringe(h);const before={draw:h.calls.draw.length,clear:h.calls.clear,paint:h.calls.paint.length};
+  h.assets.fringeRenderer.lost=true;assert.equal(h.render({jaw:1},{faceOnly:true,secondary:{breath:0,sway:0,hair:1}}).didDraw,false);assert.equal(h.calls.paint.length,before.paint);
+  h.assets.fringeRenderer.lost=false;let count=0;h.assets.fringeRenderer.render=()=>++count===2?null:{};
+  assert.equal(h.render({jaw:1},{faceOnly:true,headPose:{yaw:.2,pitch:.3},secondary:{breath:0,sway:0,hair:1}}).didDraw,false);
+  assert.equal(h.calls.draw.length,before.draw);assert.equal(h.calls.clear,before.clear);assert.equal(h.canvas.width,1122);
+  const failure=new Error('mesh rebuild failed');h.assets.fringeRenderer.restoreError=failure;assert.throws(()=>h.render({}, {secondary:{breath:0,sway:0,hair:1}}),e=>e===failure);
+});
+
+function assetLoadHarness({hashMismatch=false,fringeConstructionFails=false}={}){
+  const calls={flow:0,fringe:0,flowDisposed:0},sha='1'.repeat(64),matteSha='3'.repeat(64),path='./assets/short-hair-v1/front.png';
+  const art={poses:[{id:'front',sourceFamily:'front'}],front:{manifest:{reference:'front',sources:{front:{src:path}}}}};
+  const alpha={manifest:{poses:{front:{source:path,sourceSha256:sha,matteSha256:matteSha}}}},motion={manifest:{sources:{front:{path,sha256:sha}}}},
+    fringe={manifest:{poses:{front:{source:{path,sha256:sha},alphaSha256:matteSha}}},poses:{front:{binding:{poseId:'front',sourceSha256:hashMismatch?'2'.repeat(64):sha}}}};
+  const context=vm.createContext({loadShortHairStudioAssets:async()=>art,loadShortHairAlphaAssets:async()=>alpha,loadShortHairMotionFields:async()=>motion,loadShortHairFringeAssets:async()=>fringe,
+    ShortHairFlowRenderer:class{constructor(){calls.flow++;}dispose(){calls.flowDisposed++;}},ShortHairFringeRenderer:class{constructor(value){calls.fringe++;assert.strictEqual(value,fringe);if(fringeConstructionFails)throw new Error('no second GPU');}}});
+  vm.runInContext(source,context);return {calls,load:()=>context.loadContinuousShortHairAssets()};
+}
+test('source hash mismatch is rejected before allocating either renderer',async()=>{const h=assetLoadHarness({hashMismatch:true});await assert.rejects(h.load(),/前发绑定/);assert.equal(h.calls.flow,0);assert.equal(h.calls.fringe,0);});
+test('failed fringe construction disposes the already-created flow context',async()=>{const h=assetLoadHarness({fringeConstructionFails:true});await assert.rejects(h.load(),/no second GPU/);assert.equal(h.calls.flowDisposed,1);});
+test('successful asset loading owns both renderers and separate expression buffers',async()=>{const h=assetLoadHarness(),assets=await h.load();assert.ok(assets.flowRenderer&&assets.fringeRenderer&&assets.fringe);assert.equal(assets.continuousBuffers.size,0);});

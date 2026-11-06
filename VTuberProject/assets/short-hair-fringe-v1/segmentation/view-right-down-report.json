@@ -1,0 +1,545 @@
+{
+  "inference": {
+    "id": "view-right-down",
+    "model": "SAM2.1 Hiera large",
+    "device": "cpu",
+    "encoderSeconds": 2.405371999999261,
+    "totalSeconds": 2.425684124998952,
+    "scores": [
+      0.8608108758926392,
+      0.8930268287658691,
+      0.9679908752441406
+    ],
+    "maskPixels": [
+      256899,
+      477158,
+      293842
+    ],
+    "sourceSha256": "5845cf6909248321f234bff531c16b231017d95fcd92de1e24789328b79e0b71"
+  },
+  "baselineRefinement": {
+    "poseId": "view-right-down",
+    "model": "SAM2.1 Hiera Large",
+    "proposal": "view-right-down/mask-2.png",
+    "sourceSha256": "5845cf6909248321f234bff531c16b231017d95fcd92de1e24789328b79e0b71",
+    "modelPixels": 293842,
+    "refinedPixels": 318290,
+    "addedPixels": 25744,
+    "removedPixels": 1296,
+    "browProtectedPixels": 1852,
+    "browModelOverlap": 157,
+    "browFinalOverlap": 0,
+    "eyeProtectedPixels": 5526,
+    "eyeFinalOverlap": 0,
+    "outsideAlphaFinalPixels": 0,
+    "configuration": {
+      "blueMinusRedMin": 8,
+      "strongSkinBlueMinusRedMax": -20,
+      "boundedExpansionRadius": 12,
+      "maxHolePixels": 32,
+      "protectedBrowPolygons": [
+        [
+          [
+            589,
+            436
+          ],
+          [
+            614,
+            439
+          ],
+          [
+            640,
+            446
+          ],
+          [
+            668,
+            456
+          ],
+          [
+            693,
+            468
+          ],
+          [
+            698,
+            479
+          ],
+          [
+            671,
+            467
+          ],
+          [
+            643,
+            458
+          ],
+          [
+            615,
+            450
+          ],
+          [
+            587,
+            446
+          ]
+        ],
+        [
+          [
+            798,
+            504
+          ],
+          [
+            812,
+            497
+          ],
+          [
+            831,
+            495
+          ],
+          [
+            851,
+            498
+          ],
+          [
+            855,
+            507
+          ],
+          [
+            834,
+            505
+          ],
+          [
+            814,
+            508
+          ],
+          [
+            798,
+            514
+          ]
+        ]
+      ],
+      "protectedBrowHairExclusions": [],
+      "protectedEyePolygons": [
+        [
+          [
+            570,
+            506
+          ],
+          [
+            582,
+            499
+          ],
+          [
+            598,
+            497
+          ],
+          [
+            615,
+            500
+          ],
+          [
+            634,
+            506
+          ],
+          [
+            652,
+            515
+          ],
+          [
+            665,
+            525
+          ],
+          [
+            655,
+            537
+          ],
+          [
+            638,
+            546
+          ],
+          [
+            619,
+            550
+          ],
+          [
+            600,
+            545
+          ],
+          [
+            585,
+            535
+          ],
+          [
+            576,
+            522
+          ]
+        ],
+        [
+          [
+            768,
+            568
+          ],
+          [
+            775,
+            558
+          ],
+          [
+            788,
+            550
+          ],
+          [
+            802,
+            546
+          ],
+          [
+            815,
+            544
+          ],
+          [
+            829,
+            543
+          ],
+          [
+            837,
+            547
+          ],
+          [
+            831,
+            560
+          ],
+          [
+            818,
+            574
+          ],
+          [
+            802,
+            586
+          ],
+          [
+            787,
+            592
+          ],
+          [
+            775,
+            586
+          ]
+        ]
+      ]
+    },
+    "maskSha256": "cc5c7197546c7371f18a3144aa83b2053f0bbdd574cfdf785fda3e257fee7f30",
+    "status": "derived-candidate-not-runtime",
+    "notes": [
+      "Each source image and prompt configuration was independently inspected. No mirrored coordinates.",
+      "Brow guards were traced as thin visible segments and exclude prior registered crossing hair; these are constraints, not labeled ground truth.",
+      "No hidden painting or mesh integration in this segmentation stage."
+    ]
+  },
+  "finalRefinement": {
+    "poseId": "view-right-down",
+    "kind": "bounded-native-hair-tip-refinement-candidate",
+    "sourceSha256": "5845cf6909248321f234bff531c16b231017d95fcd92de1e24789328b79e0b71",
+    "underpaintSha256": "fe2e1d26e07ea0bdac40ad5122b93310a092589e1c35bf146571fd9fc983ce57",
+    "previousMaskSha256": "cc5c7197546c7371f18a3144aa83b2053f0bbdd574cfdf785fda3e257fee7f30",
+    "maskSha256": "011a2e6fa84f530abfbbb3b6b231811d4a87bd1acd6f6d01e59e64cd028d029d",
+    "previousPixels": 318290,
+    "addedPixels": 2094,
+    "coldCoreAddedPixels": 1222,
+    "localReviewedTipCoreAddedPixels": 114,
+    "antialiasBandAddedPixels": 758,
+    "removedPixels": 0,
+    "finalPixels": 320384,
+    "protectedFinalOverlap": 0,
+    "outsideAlphaFinalPixels": 0,
+    "configuration": {
+      "anchor": "original-sam",
+      "boundedExpansionRadius": 32,
+      "sourceBlueMinusRedCoreMin": 0,
+      "sourceBlueMinusGreenMin": 8,
+      "antialiasBandRadius": 1,
+      "antialiasBlueMinusRedMin": -12,
+      "antialiasBlueMinusGreenMin": 4,
+      "generatedSkinRedMinusBlueMinExclusive": 12,
+      "generatedSkinRedMinExclusive": 120,
+      "sourceUnderpaintRGBL1MinExclusive": 70,
+      "roi": [
+        349,
+        276,
+        910,
+        658
+      ],
+      "roiSource": "independent current pose material support bounds before v2",
+      "reviewedLocalTipPolygons": [
+        [
+          [
+            514,
+            587
+          ],
+          [
+            530,
+            600
+          ],
+          [
+            541,
+            613
+          ],
+          [
+            539,
+            616
+          ],
+          [
+            527,
+            607
+          ],
+          [
+            517,
+            597
+          ]
+        ],
+        [
+          [
+            549,
+            585
+          ],
+          [
+            562,
+            594
+          ],
+          [
+            574,
+            603
+          ],
+          [
+            574,
+            607
+          ],
+          [
+            561,
+            601
+          ],
+          [
+            551,
+            592
+          ]
+        ],
+        [
+          [
+            667,
+            576
+          ],
+          [
+            681,
+            566
+          ],
+          [
+            698,
+            561
+          ],
+          [
+            701,
+            565
+          ],
+          [
+            687,
+            573
+          ],
+          [
+            667,
+            580
+          ]
+        ]
+      ],
+      "localTipEvidenceFile": "reviewed-local-tip-inclusions.json",
+      "reviewedLocalTipCoreBlueMinusRedMin": -12,
+      "reviewedLocalTipCoreBlueMinusGreenMin": 4,
+      "protectedBrowPolygons": [
+        [
+          [
+            589,
+            436
+          ],
+          [
+            614,
+            439
+          ],
+          [
+            640,
+            446
+          ],
+          [
+            668,
+            456
+          ],
+          [
+            693,
+            468
+          ],
+          [
+            698,
+            479
+          ],
+          [
+            671,
+            467
+          ],
+          [
+            643,
+            458
+          ],
+          [
+            615,
+            450
+          ],
+          [
+            587,
+            446
+          ]
+        ],
+        [
+          [
+            798,
+            504
+          ],
+          [
+            812,
+            497
+          ],
+          [
+            831,
+            495
+          ],
+          [
+            851,
+            498
+          ],
+          [
+            855,
+            507
+          ],
+          [
+            834,
+            505
+          ],
+          [
+            814,
+            508
+          ],
+          [
+            798,
+            514
+          ]
+        ]
+      ],
+      "protectedBrowHairExclusions": [],
+      "protectedEyePolygons": [
+        [
+          [
+            570,
+            506
+          ],
+          [
+            582,
+            499
+          ],
+          [
+            598,
+            497
+          ],
+          [
+            615,
+            500
+          ],
+          [
+            634,
+            506
+          ],
+          [
+            652,
+            515
+          ],
+          [
+            665,
+            525
+          ],
+          [
+            655,
+            537
+          ],
+          [
+            638,
+            546
+          ],
+          [
+            619,
+            550
+          ],
+          [
+            600,
+            545
+          ],
+          [
+            585,
+            535
+          ],
+          [
+            576,
+            522
+          ]
+        ],
+        [
+          [
+            768,
+            568
+          ],
+          [
+            775,
+            558
+          ],
+          [
+            788,
+            550
+          ],
+          [
+            802,
+            546
+          ],
+          [
+            815,
+            544
+          ],
+          [
+            829,
+            543
+          ],
+          [
+            837,
+            547
+          ],
+          [
+            831,
+            560
+          ],
+          [
+            818,
+            574
+          ],
+          [
+            802,
+            586
+          ],
+          [
+            787,
+            592
+          ],
+          [
+            775,
+            586
+          ]
+        ]
+      ]
+    },
+    "refinementScriptSha256": "01859ffbd4221dbcff3d534a8e7d79c085d050fda3268210ac89b38a01f9d67a",
+    "notes": [
+      "Independent per-pose underpaint and source; not mirrored front coordinates.",
+      "Only a new sibling mask. Original RGB/runtime/approval unchanged.",
+      "Base preview replaces added owner only; parent must rebuild F and contact residual.",
+      "Warm shadows excluded from cold-gray core; only 1px adjacent antialias relaxation."
+    ]
+  }
+}

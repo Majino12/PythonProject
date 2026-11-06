@@ -38,7 +38,7 @@ const pixels=canvas=>canvas.getContext('2d').getImageData(0,0,canvas.width,canva
 const nextPaint=()=>new Promise(resolve=>requestAnimationFrame(()=>resolve()));
 
 export async function runContinuousDiagnostics(assets,{onProgress=()=>{},preview=null}={}) {
-  const report={schemaVersion:1,kind:'short-hair-continuous-browser-validation',version:'0.19.0',
+  const report={schemaVersion:1,kind:'short-hair-continuous-browser-validation',version:'0.20.0',
     startedAt:new Date().toISOString(),status:'running',checks:[],limitations:[
       'Pixel continuity is not an artistic-quality or real-camera/OBS acceptance test.',
       'Model pair fields are extended geometrically to triangle interiors; this is not three-image neural inference.',
@@ -99,7 +99,7 @@ export async function runContinuousDiagnostics(assets,{onProgress=()=>{},preview
   for(const pose of STUDIO_HEAD_POSES){
     const inspection=createShortHairLayerInspection(assets,pose.id,sanitizeChannels({eyeBlinkLeft:.5,jawOpen:.5}));
     const layers=inspection.layers;
-    add(`layers:full-size:${pose.id}`,Object.keys(layers).length===8&&Object.values(layers).every(layer=>layer.width===1122&&layer.height===1402));
+    add(`layers:full-size:${pose.id}`,Object.keys(layers).length===(inspection.fringe?18:8)&&Object.values(layers).every(layer=>layer.width===1122&&layer.height===1402));
     native.width=1122;native.height=1402;const nc=native.getContext('2d');nc.clearRect(0,0,1122,1402);nc.drawImage(layers.head,0,0);nc.drawImage(layers.torso,0,0);
     const metric=compareDiagnosticPixels(pixels(layers.character),pixels(native),{premultiplied:true});
     add(`layers:head-torso-reconstruction:${pose.id}`,metric.meanAbsoluteDifference<.01&&metric.meanAlphaDifference===0,{metric});
@@ -169,7 +169,7 @@ if(typeof document!=='undefined'){
   });
   download.addEventListener('click',()=>{
     if(!result)return;const url=URL.createObjectURL(new Blob([JSON.stringify(result,null,2)],{type:'application/json'}));
-    const a=document.createElement('a');a.href=url;a.download='v0.19-continuous-browser-validation.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    const a=document.createElement('a');a.href=url;a.download='v0.20-continuous-browser-validation.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
   });
-  window.addEventListener('pagehide',()=>assets?.flowRenderer?.dispose());
+  window.addEventListener('pagehide',()=>{assets?.flowRenderer?.dispose();assets?.fringeRenderer?.dispose();});
 }

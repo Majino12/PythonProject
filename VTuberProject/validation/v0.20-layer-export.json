@@ -1,0 +1,591 @@
+{
+  "schemaVersion": 1,
+  "kind": "v0.20-layer-export-static-validation",
+  "scope": "Node pixel decomposition and encoded-PNG Canvas2D recomposition; UI button verification is separate",
+  "manifestSha256": "ac87470767876aa26e01ac0f52e39a1c4db939bd75f2fac3a41d6fad9808cde2",
+  "poseCount": 9,
+  "allPassed": true,
+  "observedPngTolerance": {
+    "maxRGB": 1,
+    "maxAlpha": 0,
+    "pixelsAboveOneChannelLevel": 0
+  },
+  "reports": [
+    {
+      "poseId": "front",
+      "kind": "Node static PNG and Canvas2D validation, not browser UI validation",
+      "pngEntries": [
+        "character",
+        "head",
+        "torso",
+        "face",
+        "backHair",
+        "frontHair",
+        "contact",
+        "edgeCorrection",
+        "recomposed",
+        "ownership",
+        "weight",
+        "hairOwnership",
+        "underpaint"
+      ],
+      "zipEntries": [
+        "character.png",
+        "head.png",
+        "torso.png",
+        "face.png",
+        "backHair.png",
+        "frontHair.png",
+        "contact.png",
+        "edgeCorrection.png",
+        "recomposed.png",
+        "ownership.png",
+        "weight.png",
+        "hairOwnership.png",
+        "underpaint.png",
+        "binding.json",
+        "layers.json",
+        "README.txt"
+      ],
+      "statistics": {
+        "frontHairPixels": 62395,
+        "backHairPixels": 234863,
+        "contactPixels": 44719,
+        "edgeCorrectionPixels": 23559,
+        "reconstructionMismatchPixels": 0,
+        "maxReconstructionChannelError": 0,
+        "weightEncoding": "registered uint8 UNORM; W/255"
+      },
+      "pngRoundTrip": {
+        "mismatchPixels": 6292,
+        "maxRGB": 1,
+        "maxAlpha": 0,
+        "aboveOne": 0
+      },
+      "metadata": {
+        "manuallyApproved": false,
+        "completeBareFace": false,
+        "completeBackHair": false
+      },
+      "sourceSha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822",
+      "registeredInputHashes": {
+        "ownership": "bef8bd7bbd35723d19b5dfa1755dc3fb5fff6b32821258ab84b69c1c912c3272",
+        "weight": "0e97173cef23f7552ae764f32ccfa19ae39084e7da62d57c469da730833f9c58",
+        "underpaint": "9a4d697a42971d9b8d8f1a0fb6b9f2c2170ebd02b3335b1e2883a426bd20f6ff",
+        "hairOwnership": "50a64ac56176b8b34c53d47afe1b2c4cb20d0ae3d862228c461ee5fd7d182ff1"
+      }
+    },
+    {
+      "poseId": "view-left",
+      "kind": "Node static PNG and Canvas2D validation, not browser UI validation",
+      "pngEntries": [
+        "character",
+        "head",
+        "torso",
+        "face",
+        "backHair",
+        "frontHair",
+        "contact",
+        "edgeCorrection",
+        "recomposed",
+        "ownership",
+        "weight",
+        "hairOwnership",
+        "underpaint"
+      ],
+      "zipEntries": [
+        "character.png",
+        "head.png",
+        "torso.png",
+        "face.png",
+        "backHair.png",
+        "frontHair.png",
+        "contact.png",
+        "edgeCorrection.png",
+        "recomposed.png",
+        "ownership.png",
+        "weight.png",
+        "hairOwnership.png",
+        "underpaint.png",
+        "binding.json",
+        "layers.json",
+        "README.txt"
+      ],
+      "statistics": {
+        "frontHairPixels": 52788,
+        "backHairPixels": 249263,
+        "contactPixels": 45050,
+        "edgeCorrectionPixels": 26962,
+        "reconstructionMismatchPixels": 0,
+        "maxReconstructionChannelError": 0,
+        "weightEncoding": "registered uint8 UNORM; W/255"
+      },
+      "pngRoundTrip": {
+        "mismatchPixels": 6980,
+        "maxRGB": 1,
+        "maxAlpha": 0,
+        "aboveOne": 0
+      },
+      "metadata": {
+        "manuallyApproved": false,
+        "completeBareFace": false,
+        "completeBackHair": false
+      },
+      "sourceSha256": "23da31b12da3e50550519db9d95077e107d20755ca72fdab8b82335a961206b6",
+      "registeredInputHashes": {
+        "ownership": "fe4adada6450ab40edcdd091cba7324b5f7b5fdb271303bebf2de41e92680d8c",
+        "weight": "25c3ff3f99d8dc277bf2e010a52d7b167537039c862c8c1660ae4505178b677d",
+        "underpaint": "d0f9afbb39239db8d979319c1f4b3d66658d069d6b561d6b84bb6228bdc1cd6e",
+        "hairOwnership": "b30899e915bb220dd7887cdfe11743259c7ea01a300abb490d3c9ad617488c6d"
+      }
+    },
+    {
+      "poseId": "view-right",
+      "kind": "Node static PNG and Canvas2D validation, not browser UI validation",
+      "pngEntries": [
+        "character",
+        "head",
+        "torso",
+        "face",
+        "backHair",
+        "frontHair",
+        "contact",
+        "edgeCorrection",
+        "recomposed",
+        "ownership",
+        "weight",
+        "hairOwnership",
+        "underpaint"
+      ],
+      "zipEntries": [
+        "character.png",
+        "head.png",
+        "torso.png",
+        "face.png",
+        "backHair.png",
+        "frontHair.png",
+        "contact.png",
+        "edgeCorrection.png",
+        "recomposed.png",
+        "ownership.png",
+        "weight.png",
+        "hairOwnership.png",
+        "underpaint.png",
+        "binding.json",
+        "layers.json",
+        "README.txt"
+      ],
+      "statistics": {
+        "frontHairPixels": 54679,
+        "backHairPixels": 251309,
+        "contactPixels": 39156,
+        "edgeCorrectionPixels": 21901,
+        "reconstructionMismatchPixels": 0,
+        "maxReconstructionChannelError": 0,
+        "weightEncoding": "registered uint8 UNORM; W/255"
+      },
+      "pngRoundTrip": {
+        "mismatchPixels": 6275,
+        "maxRGB": 1,
+        "maxAlpha": 0,
+        "aboveOne": 0
+      },
+      "metadata": {
+        "manuallyApproved": false,
+        "completeBareFace": false,
+        "completeBackHair": false
+      },
+      "sourceSha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3",
+      "registeredInputHashes": {
+        "ownership": "48172e29352236aedd428143f941e0795631098402e12deb91ca83f38d48f314",
+        "weight": "08277757306e5cb15f1a1a3380daee417802ed1ec73ea020af97ad9b66562a08",
+        "underpaint": "21bfffdf25e8ed81d75f2e1e6d45177cfe526567a65026c7367f1b112397f707",
+        "hairOwnership": "b03f39bba0debddd7cdbd598bc67aaea9bd8bbfaf0f2dd0528d9f11c90342e57"
+      }
+    },
+    {
+      "poseId": "view-right-up",
+      "kind": "Node static PNG and Canvas2D validation, not browser UI validation",
+      "pngEntries": [
+        "character",
+        "head",
+        "torso",
+        "face",
+        "backHair",
+        "frontHair",
+        "contact",
+        "edgeCorrection",
+        "recomposed",
+        "ownership",
+        "weight",
+        "hairOwnership",
+        "underpaint"
+      ],
+      "zipEntries": [
+        "character.png",
+        "head.png",
+        "torso.png",
+        "face.png",
+        "backHair.png",
+        "frontHair.png",
+        "contact.png",
+        "edgeCorrection.png",
+        "recomposed.png",
+        "ownership.png",
+        "weight.png",
+        "hairOwnership.png",
+        "underpaint.png",
+        "binding.json",
+        "layers.json",
+        "README.txt"
+      ],
+      "statistics": {
+        "frontHairPixels": 52281,
+        "backHairPixels": 232026,
+        "contactPixels": 39745,
+        "edgeCorrectionPixels": 24100,
+        "reconstructionMismatchPixels": 0,
+        "maxReconstructionChannelError": 0,
+        "weightEncoding": "registered uint8 UNORM; W/255"
+      },
+      "pngRoundTrip": {
+        "mismatchPixels": 6615,
+        "maxRGB": 1,
+        "maxAlpha": 0,
+        "aboveOne": 0
+      },
+      "metadata": {
+        "manuallyApproved": false,
+        "completeBareFace": false,
+        "completeBackHair": false
+      },
+      "sourceSha256": "900d998244e371021320ead30a823661d8759b516d72ad6390c2c62d3fd21037",
+      "registeredInputHashes": {
+        "ownership": "4211bcbb1fe76c3e315725899453dedb0fa702589c3ad963c9fc5cd58ec0db08",
+        "weight": "a4c6b59578e6c8b836f5995a340a4f93162d979af414068027d6ea00a5f45b5f",
+        "underpaint": "2028843dd3b754985203ec516ca68120d9d2c1ed5bda70ad198b779572813ed8",
+        "hairOwnership": "1487280ad674b5cbc4e138cd70757b7c15787d8894f66c0dd0bc9b8b977e7b5f"
+      }
+    },
+    {
+      "poseId": "view-left-down",
+      "kind": "Node static PNG and Canvas2D validation, not browser UI validation",
+      "pngEntries": [
+        "character",
+        "head",
+        "torso",
+        "face",
+        "backHair",
+        "frontHair",
+        "contact",
+        "edgeCorrection",
+        "recomposed",
+        "ownership",
+        "weight",
+        "hairOwnership",
+        "underpaint"
+      ],
+      "zipEntries": [
+        "character.png",
+        "head.png",
+        "torso.png",
+        "face.png",
+        "backHair.png",
+        "frontHair.png",
+        "contact.png",
+        "edgeCorrection.png",
+        "recomposed.png",
+        "ownership.png",
+        "weight.png",
+        "hairOwnership.png",
+        "underpaint.png",
+        "binding.json",
+        "layers.json",
+        "README.txt"
+      ],
+      "statistics": {
+        "frontHairPixels": 60626,
+        "backHairPixels": 277416,
+        "contactPixels": 41971,
+        "edgeCorrectionPixels": 23414,
+        "reconstructionMismatchPixels": 0,
+        "maxReconstructionChannelError": 0,
+        "weightEncoding": "registered uint8 UNORM; W/255"
+      },
+      "pngRoundTrip": {
+        "mismatchPixels": 6675,
+        "maxRGB": 1,
+        "maxAlpha": 0,
+        "aboveOne": 0
+      },
+      "metadata": {
+        "manuallyApproved": false,
+        "completeBareFace": false,
+        "completeBackHair": false
+      },
+      "sourceSha256": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983",
+      "registeredInputHashes": {
+        "ownership": "5173d4733ffcb4af3c4aca7792ab53c7fb2dab88d109c0ea02b9ea007a0796be",
+        "weight": "e6011f4a52d245b57f72858af750da482103277350a5ab791c5cef6315e47c42",
+        "underpaint": "3bfc7d13f7813b31965ef1734c2a9e31fb4115f8a2a0459adae4dc059096b4c5",
+        "hairOwnership": "1a2f095cf65d282202901f2dab4558474429341cdef7af08f00c2818a57ed8b9"
+      }
+    },
+    {
+      "poseId": "view-up",
+      "kind": "Node static PNG and Canvas2D validation, not browser UI validation",
+      "pngEntries": [
+        "character",
+        "head",
+        "torso",
+        "face",
+        "backHair",
+        "frontHair",
+        "contact",
+        "edgeCorrection",
+        "recomposed",
+        "ownership",
+        "weight",
+        "hairOwnership",
+        "underpaint"
+      ],
+      "zipEntries": [
+        "character.png",
+        "head.png",
+        "torso.png",
+        "face.png",
+        "backHair.png",
+        "frontHair.png",
+        "contact.png",
+        "edgeCorrection.png",
+        "recomposed.png",
+        "ownership.png",
+        "weight.png",
+        "hairOwnership.png",
+        "underpaint.png",
+        "binding.json",
+        "layers.json",
+        "README.txt"
+      ],
+      "statistics": {
+        "frontHairPixels": 64307,
+        "backHairPixels": 218340,
+        "contactPixels": 42953,
+        "edgeCorrectionPixels": 24367,
+        "reconstructionMismatchPixels": 0,
+        "maxReconstructionChannelError": 0,
+        "weightEncoding": "registered uint8 UNORM; W/255"
+      },
+      "pngRoundTrip": {
+        "mismatchPixels": 6125,
+        "maxRGB": 1,
+        "maxAlpha": 0,
+        "aboveOne": 0
+      },
+      "metadata": {
+        "manuallyApproved": false,
+        "completeBareFace": false,
+        "completeBackHair": false
+      },
+      "sourceSha256": "252ba6a46b0121ee0c9f94b37180ba4745158da6f2bb230aff5efa0894cb23d6",
+      "registeredInputHashes": {
+        "ownership": "d78c2d9bcca2a9a7ac7a5257636605803dc897ecbd1e4061f83c2085770707d3",
+        "weight": "a599a380ceb19789173c01f4233ffacb31c8793da64cf7a128f3f06f67c6b8c3",
+        "underpaint": "042f763a45f2d3693ff747747d48e3f9fd8fd826fc29deae8fd857ed036e5661",
+        "hairOwnership": "739d1e31d34f2e8516803ff94de29306cd17e0c084b8a184d5f4e8ac8c017bb0"
+      }
+    },
+    {
+      "poseId": "view-down",
+      "kind": "Node static PNG and Canvas2D validation, not browser UI validation",
+      "pngEntries": [
+        "character",
+        "head",
+        "torso",
+        "face",
+        "backHair",
+        "frontHair",
+        "contact",
+        "edgeCorrection",
+        "recomposed",
+        "ownership",
+        "weight",
+        "hairOwnership",
+        "underpaint"
+      ],
+      "zipEntries": [
+        "character.png",
+        "head.png",
+        "torso.png",
+        "face.png",
+        "backHair.png",
+        "frontHair.png",
+        "contact.png",
+        "edgeCorrection.png",
+        "recomposed.png",
+        "ownership.png",
+        "weight.png",
+        "hairOwnership.png",
+        "underpaint.png",
+        "binding.json",
+        "layers.json",
+        "README.txt"
+      ],
+      "statistics": {
+        "frontHairPixels": 66977,
+        "backHairPixels": 250614,
+        "contactPixels": 38554,
+        "edgeCorrectionPixels": 19835,
+        "reconstructionMismatchPixels": 0,
+        "maxReconstructionChannelError": 0,
+        "weightEncoding": "registered uint8 UNORM; W/255"
+      },
+      "pngRoundTrip": {
+        "mismatchPixels": 6240,
+        "maxRGB": 1,
+        "maxAlpha": 0,
+        "aboveOne": 0
+      },
+      "metadata": {
+        "manuallyApproved": false,
+        "completeBareFace": false,
+        "completeBackHair": false
+      },
+      "sourceSha256": "f9e6315e19b09a121d3d1216611dd0759020f21a5d3fab9827adebb9eceb9d4f",
+      "registeredInputHashes": {
+        "ownership": "1776b13191d552334f515e9a831b5634869d323383767772fdd1544914f62799",
+        "weight": "0721dc49690e68087d2016a3640fabafc62a841ec8bfb4e1ad83084dc3a2d955",
+        "underpaint": "53e61aa36cb0491bdc5462221d7f5760301018f1ab5c7193e60c5da18b8c012e",
+        "hairOwnership": "fa12a2b07b7611ffb4c2be9a6fc04de0d2ed4b7365c460010ca6e3e0387931ae"
+      }
+    },
+    {
+      "poseId": "view-right-down",
+      "kind": "Node static PNG and Canvas2D validation, not browser UI validation",
+      "pngEntries": [
+        "character",
+        "head",
+        "torso",
+        "face",
+        "backHair",
+        "frontHair",
+        "contact",
+        "edgeCorrection",
+        "recomposed",
+        "ownership",
+        "weight",
+        "hairOwnership",
+        "underpaint"
+      ],
+      "zipEntries": [
+        "character.png",
+        "head.png",
+        "torso.png",
+        "face.png",
+        "backHair.png",
+        "frontHair.png",
+        "contact.png",
+        "edgeCorrection.png",
+        "recomposed.png",
+        "ownership.png",
+        "weight.png",
+        "hairOwnership.png",
+        "underpaint.png",
+        "binding.json",
+        "layers.json",
+        "README.txt"
+      ],
+      "statistics": {
+        "frontHairPixels": 56190,
+        "backHairPixels": 264194,
+        "contactPixels": 36267,
+        "edgeCorrectionPixels": 22532,
+        "reconstructionMismatchPixels": 0,
+        "maxReconstructionChannelError": 0,
+        "weightEncoding": "registered uint8 UNORM; W/255"
+      },
+      "pngRoundTrip": {
+        "mismatchPixels": 6209,
+        "maxRGB": 1,
+        "maxAlpha": 0,
+        "aboveOne": 0
+      },
+      "metadata": {
+        "manuallyApproved": false,
+        "completeBareFace": false,
+        "completeBackHair": false
+      },
+      "sourceSha256": "5845cf6909248321f234bff531c16b231017d95fcd92de1e24789328b79e0b71",
+      "registeredInputHashes": {
+        "ownership": "84fe514d51134273cdf79561c03d8bce903f8153227b14bebf0aaac754999f9c",
+        "weight": "99b3cfb87bc173f0fc1214e24cf3ae74101b92c0ae54506cd9a7439f515ecf8e",
+        "underpaint": "7eabbcfe7978307ac5827e430c84b76eba73655218fe17b9ce63be45d214c6e2",
+        "hairOwnership": "011a2e6fa84f530abfbbb3b6b231811d4a87bd1acd6f6d01e59e64cd028d029d"
+      }
+    },
+    {
+      "poseId": "view-left-up",
+      "kind": "Node static PNG and Canvas2D validation, not browser UI validation",
+      "pngEntries": [
+        "character",
+        "head",
+        "torso",
+        "face",
+        "backHair",
+        "frontHair",
+        "contact",
+        "edgeCorrection",
+        "recomposed",
+        "ownership",
+        "weight",
+        "hairOwnership",
+        "underpaint"
+      ],
+      "zipEntries": [
+        "character.png",
+        "head.png",
+        "torso.png",
+        "face.png",
+        "backHair.png",
+        "frontHair.png",
+        "contact.png",
+        "edgeCorrection.png",
+        "recomposed.png",
+        "ownership.png",
+        "weight.png",
+        "hairOwnership.png",
+        "underpaint.png",
+        "binding.json",
+        "layers.json",
+        "README.txt"
+      ],
+      "statistics": {
+        "frontHairPixels": 42229,
+        "backHairPixels": 250583,
+        "contactPixels": 46158,
+        "edgeCorrectionPixels": 27329,
+        "reconstructionMismatchPixels": 0,
+        "maxReconstructionChannelError": 0,
+        "weightEncoding": "registered uint8 UNORM; W/255"
+      },
+      "pngRoundTrip": {
+        "mismatchPixels": 7804,
+        "maxRGB": 1,
+        "maxAlpha": 0,
+        "aboveOne": 0
+      },
+      "metadata": {
+        "manuallyApproved": false,
+        "completeBareFace": false,
+        "completeBackHair": false
+      },
+      "sourceSha256": "614ea3f4df961ffefefe4ae054eea45fe6c42a0cf5ae25cb3f6e88d5f6ca8637",
+      "registeredInputHashes": {
+        "ownership": "65c857d5ece49942ae858b1c31889e9f72f37f19380c36716da54972de9d31d2",
+        "weight": "59db4afafbf3c9c75c0c80aff57c95076aae6c347381f0c47f7b5f32af758879",
+        "underpaint": "652cbaafdc19b846ed0ebc004042c54b15b168c7929c09397a307214936032ab",
+        "hairOwnership": "27f6cc73cf43acfcdd67908d2af65cfba046caf6f20f7e69075c73989f02db9d"
+      }
+    }
+  ]
+}

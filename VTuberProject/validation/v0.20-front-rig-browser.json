@@ -1,0 +1,367 @@
+{
+  "schemaVersion": 1,
+  "kind": "short-hair-rig-browser-validation",
+  "version": "0.20.0",
+  "status": "passed",
+  "startedAt": "2026-11-06T05:02:44.339Z",
+  "assetStatus": "derived-candidate",
+  "poses": [
+    {
+      "poseId": "front",
+      "files": [
+        {
+          "path": "./assets/short-hair-v1/front.png",
+          "bytes": 1891855,
+          "expectedSha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822",
+          "actualSha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-alpha-v1/front-matte.png",
+          "bytes": 122331,
+          "expectedSha256": "cd0648e0ae8814b87b09d7f4cc35d4359c6f05623c3e84e30d08df0216f4d4d5",
+          "actualSha256": "cd0648e0ae8814b87b09d7f4cc35d4359c6f05623c3e84e30d08df0216f4d4d5",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/front-ownership.png",
+          "bytes": 11573,
+          "expectedSha256": "bef8bd7bbd35723d19b5dfa1755dc3fb5fff6b32821258ab84b69c1c912c3272",
+          "actualSha256": "bef8bd7bbd35723d19b5dfa1755dc3fb5fff6b32821258ab84b69c1c912c3272",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/front-weight.png",
+          "bytes": 36553,
+          "expectedSha256": "0e97173cef23f7552ae764f32ccfa19ae39084e7da62d57c469da730833f9c58",
+          "actualSha256": "0e97173cef23f7552ae764f32ccfa19ae39084e7da62d57c469da730833f9c58",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/front-underpaint.png",
+          "bytes": 270845,
+          "expectedSha256": "9a4d697a42971d9b8d8f1a0fb6b9f2c2170ebd02b3335b1e2883a426bd20f6ff",
+          "actualSha256": "9a4d697a42971d9b8d8f1a0fb6b9f2c2170ebd02b3335b1e2883a426bd20f6ff",
+          "matched": true
+        },
+        {
+          "path": "./assets/short-hair-fringe-v1/front-hairOwnership.png",
+          "bytes": 10993,
+          "expectedSha256": "50a64ac56176b8b34c53d47afe1b2c4cb20d0ae3d862228c461ee5fd7d182ff1",
+          "actualSha256": "50a64ac56176b8b34c53d47afe1b2c4cb20d0ae3d862228c461ee5fd7d182ff1",
+          "matched": true
+        }
+      ],
+      "bindingSha256": "50ba61dffad574b98f5d0b50a5d51f3df076deb3de97b09b15ed1cfbd3bc14a5",
+      "runtimeValidated": true,
+      "vertices": 5325,
+      "triangles": 10360,
+      "expressions": [
+        {
+          "id": "neutral",
+          "state": {
+            "eyeLeft": "open",
+            "eyeRight": "open",
+            "browLeft": "neutral",
+            "browRight": "neutral",
+            "mouth": "neutral"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "c189da9f559ccceb98d54d382818fa3a6d6b08df707a2f582473fde8622e727c"
+        },
+        {
+          "id": "blink",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "closed",
+            "browLeft": "up",
+            "browRight": "up",
+            "mouth": "openWide"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": 0,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "42f0532778bf7fc267e6a41e29cc27f54972a8ede2618cde288edcc4b6c168ab"
+        },
+        {
+          "id": "asymmetric",
+          "state": {
+            "eyeLeft": "closed",
+            "eyeRight": "open",
+            "browLeft": "down",
+            "browRight": "down",
+            "mouth": "openSmall"
+          },
+          "gaze": {
+            "eyeLeft": {
+              "x": -0.8,
+              "y": 0
+            },
+            "eyeRight": {
+              "x": -0.8,
+              "y": 0
+            }
+          },
+          "sourceRgbaSha256": "1d65d660823e313becbdb1d47f606a2cdc8ee675a2bad2a7f88d33d3c6f61b56"
+        }
+      ],
+      "performance": [
+        {
+          "expression": "neutral",
+          "control": "negative",
+          "renderAndReadbackMs": 5.46
+        },
+        {
+          "expression": "neutral",
+          "control": "positive",
+          "renderAndReadbackMs": 4.915
+        },
+        {
+          "expression": "blink",
+          "control": "negative",
+          "renderAndReadbackMs": 4.75
+        },
+        {
+          "expression": "blink",
+          "control": "positive",
+          "renderAndReadbackMs": 4.635
+        },
+        {
+          "expression": "asymmetric",
+          "control": "negative",
+          "renderAndReadbackMs": 5.975
+        },
+        {
+          "expression": "asymmetric",
+          "control": "positive",
+          "renderAndReadbackMs": 4.535
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "poseId": "front",
+      "name": "actual-files-match-registered-sha256",
+      "passed": true,
+      "files": 6
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 52974
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714226
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 52974
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "neutral:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714451
+    },
+    {
+      "poseId": "front",
+      "name": "blink:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "front",
+      "name": "blink:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "front",
+      "name": "blink:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 52974
+    },
+    {
+      "poseId": "front",
+      "name": "blink:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "blink:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714226
+    },
+    {
+      "poseId": "front",
+      "name": "blink:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 52974
+    },
+    {
+      "poseId": "front",
+      "name": "blink:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "blink:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714451
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:zero-exact-source",
+      "passed": true,
+      "maxError": 0,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:epsilon-current-expression-reconstruction",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 1573044,
+      "realShaderPath": true
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:negative:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 52974
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:negative:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:negative:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714226
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:positive:protected-eyes-brows",
+      "passed": true,
+      "maxError": 1,
+      "overTolerance": 0,
+      "alphaMismatch": 0,
+      "comparedPixels": 52974
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:positive:outer-alpha-unchanged",
+      "passed": true,
+      "alphaMismatch": 0
+    },
+    {
+      "poseId": "front",
+      "name": "asymmetric:positive:bounded-no-folds",
+      "passed": true,
+      "maxDisplacementPx": 6.002699392773221,
+      "minimumAreaRatio": 0.5585714285714451
+    }
+  ],
+  "limitations": [
+    "Technical checks do not approve segmentation or hidden artwork.",
+    "Only registered poses are tested; unregistered directions are not claimed.",
+    "Performance is a local diagnostic sample, not an OBS or end-to-end tracking benchmark."
+  ],
+  "summary": {
+    "poses": 1,
+    "checks": 25,
+    "passed": 25,
+    "failed": 0
+  },
+  "finishedAt": "2026-11-06T05:02:44.726Z"
+}

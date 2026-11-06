@@ -10,7 +10,7 @@ const dimensions=[1122,1402];
 const neutral={eyeLeft:'open',eyeRight:'open',browLeft:'neutral',browRight:'neutral',mouth:'neutral'};
 const plain=value=>JSON.parse(JSON.stringify(value));
 
-function harness() {
+function harness({withFringe=false}={}) {
   const renders=[],selections=[],canvases=[];
   function canvas() {
     const result={width:0,height:0,pixels:null,operations:[],matteApplications:0};
@@ -24,7 +24,12 @@ function harness() {
     canvases.push(result);return result;
   }
   const raw=readFileSync(new URL('./short-hair-alpha.js',import.meta.url),'utf8').replace(/^import[^\n]+\n/gm,'').replace(/^export /gm,'');
-  const context=vm.createContext({document:{createElement:canvas},Blob,TextEncoder,Uint8Array,Uint8ClampedArray,Uint32Array,DataView,
+  const context=vm.createContext({document:{createElement:canvas},Blob,TextEncoder,Uint8Array,Uint8ClampedArray,Uint32Array,DataView,FRINGE_LAYER_README:'fringe reconstruction instructions',
+    createShortHairFringeLayerInspection(assets,poseId,character,head){
+      assert.equal(character.matteApplications,1);assert.equal(head.matteApplications,0);
+      const layers={},descriptors={};for(const key of ['face','backHair','frontHair','contact','edgeCorrection','recomposed','ownership','weight','hairOwnership','underpaint']){layers[key]=Object.assign(canvas(),{width:1122,height:1402});descriptors[key]={kind:key,manuallyApproved:false};}
+      return {layers,descriptors,binding:{poseId,runtimeValidated:true},descriptor:{status:'derived-candidate',manuallyApproved:false,compositing:'registered source-over stack',limitations:['Generated support is not a complete approved bare face.']}};
+    },
     selectShortHairStudioState(assets,poseId,coefficients,previous){selections.push({poseId,coefficients,previous});return {targetState:{...neutral,browLeft:poseId==='front'?'up':'innerUp'}};},
     renderShortHairStudio(target,assets,poseId,coefficients,previous,options){renders.push({target,poseId,coefficients,previous,options});
       target.pixels=new Uint8ClampedArray(target.width*target.height*4);
@@ -43,6 +48,7 @@ function harness() {
     return poseId==='front'?{manifest:{...record,sources},compiled}:{manifest:{poses:{[poseId]:record},sources},compiled:{[poseId]:compiled}};
   }
   const assets={alpha:{manifest:{poses:{front:entry,'view-left':entry}},mattes:{front:{matte:true},'view-left':{matte:true}}},front:family('front'),side:family('view-left')};
+  if(withFringe)assets.fringe={poses:{front:{}},manifest:{poses:{front:{}}}};
   return {...context.api,renders,selections,canvases,assets};
 }
 
@@ -102,4 +108,18 @@ test('ZIP uses the same inspection state and eight native layers while retaining
   assert.deepEqual(descriptor.state,plain(inspection.state));assert.deepEqual(Object.keys(descriptor.features),groups);
   for(const group of groups)assert.deepEqual(descriptor.features[group],plain(inspection.descriptors[group]));
   assert.ok(descriptor.limitations.some(value=>value.includes('Hair and face')));
+});
+
+test('registered fringe ZIP includes all decomposition layers, masks and binding without marking generated art approved',async()=>{
+  const h=harness({withFringe:true}),result=await h.exportShortHairLayers(h.assets,'front',{});
+  assert.equal(result.hasFringe,true);
+  const entries=zipEntries(new Uint8Array(await result.blob.arrayBuffer()));
+  assert.equal(Object.keys(entries).length,21);
+  for(const key of ['face','backHair','frontHair','contact','edgeCorrection','recomposed','ownership','weight','hairOwnership','underpaint'])assert.ok(entries[key+'.png']);
+  const descriptor=JSON.parse(new TextDecoder().decode(entries['layers.json'])),binding=JSON.parse(new TextDecoder().decode(entries['binding.json']));
+  assert.equal(descriptor.schemaVersion,2);assert.equal(descriptor.kind,'short-hair-fringe-layer-export');assert.equal(descriptor.fringe.manuallyApproved,false);
+  assert.equal(binding.poseId,'front');assert.deepEqual(Object.keys(descriptor.features),groups);assert.equal(Object.keys(descriptor.layers).length,18);
+  assert.equal(descriptor.compositing,'registered source-over stack');
+  const legacy=await h.exportShortHairLayers(h.assets,'view-left',{});assert.equal(legacy.hasFringe,false);
+  assert.equal(Object.keys(zipEntries(new Uint8Array(await legacy.blob.arrayBuffer()))).length,10);
 });

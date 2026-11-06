@@ -1,0 +1,765 @@
+{
+  "inference": {
+    "id": "view-right",
+    "model": "SAM2.1 Hiera large",
+    "device": "cpu",
+    "encoderSeconds": 2.437205374999394,
+    "totalSeconds": 2.457958457998757,
+    "scores": [
+      0.8973097801208496,
+      0.872255265712738,
+      0.9656558632850647
+    ],
+    "maskPixels": [
+      255151,
+      492166,
+      279800
+    ],
+    "sourceSha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3"
+  },
+  "baselineRefinement": {
+    "poseId": "view-right",
+    "model": "SAM2.1 Hiera Large",
+    "proposal": "view-right/mask-2.png",
+    "sourceSha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3",
+    "modelPixels": 279800,
+    "refinedPixels": 303605,
+    "addedPixels": 25109,
+    "removedPixels": 1304,
+    "browProtectedPixels": 1935,
+    "browModelOverlap": 313,
+    "browFinalOverlap": 0,
+    "eyeProtectedPixels": 7245,
+    "eyeFinalOverlap": 0,
+    "outsideAlphaFinalPixels": 0,
+    "configuration": {
+      "blueMinusRedMin": 8,
+      "strongSkinBlueMinusRedMax": -20,
+      "boundedExpansionRadius": 12,
+      "maxHolePixels": 32,
+      "protectedBrowPolygons": [
+        [
+          [
+            479,
+            422
+          ],
+          [
+            510,
+            419
+          ],
+          [
+            512,
+            427
+          ],
+          [
+            483,
+            431
+          ]
+        ],
+        [
+          [
+            529,
+            419
+          ],
+          [
+            554,
+            419
+          ],
+          [
+            586,
+            423
+          ],
+          [
+            613,
+            432
+          ],
+          [
+            610,
+            440
+          ],
+          [
+            581,
+            431
+          ],
+          [
+            550,
+            428
+          ],
+          [
+            527,
+            429
+          ]
+        ],
+        [
+          [
+            716,
+            426
+          ],
+          [
+            731,
+            416
+          ],
+          [
+            751,
+            410
+          ],
+          [
+            774,
+            405
+          ],
+          [
+            790,
+            409
+          ],
+          [
+            789,
+            416
+          ],
+          [
+            774,
+            414
+          ],
+          [
+            751,
+            419
+          ],
+          [
+            732,
+            426
+          ],
+          [
+            715,
+            436
+          ]
+        ]
+      ],
+      "protectedBrowHairExclusions": [
+        [
+          [
+            768,
+            419
+          ],
+          [
+            777,
+            419
+          ],
+          [
+            783,
+            431
+          ],
+          [
+            785,
+            439
+          ],
+          [
+            777,
+            439
+          ],
+          [
+            772,
+            429
+          ],
+          [
+            768,
+            422
+          ]
+        ],
+        [
+          [
+            513,
+            431
+          ],
+          [
+            528,
+            431
+          ],
+          [
+            525,
+            438
+          ],
+          [
+            522,
+            445
+          ],
+          [
+            520,
+            450
+          ],
+          [
+            509,
+            450
+          ],
+          [
+            511,
+            441
+          ]
+        ]
+      ],
+      "protectedEyePolygons": [
+        [
+          [
+            719,
+            489
+          ],
+          [
+            727,
+            480
+          ],
+          [
+            737,
+            470
+          ],
+          [
+            744,
+            467
+          ],
+          [
+            752,
+            464
+          ],
+          [
+            760,
+            463
+          ],
+          [
+            766,
+            463
+          ],
+          [
+            771,
+            464
+          ],
+          [
+            775,
+            466
+          ],
+          [
+            779,
+            469
+          ],
+          [
+            782,
+            472
+          ],
+          [
+            781,
+            481
+          ],
+          [
+            779,
+            493
+          ],
+          [
+            772,
+            506
+          ],
+          [
+            761,
+            515
+          ],
+          [
+            744,
+            518
+          ],
+          [
+            730,
+            515
+          ],
+          [
+            722,
+            505
+          ]
+        ],
+        [
+          [
+            482,
+            497
+          ],
+          [
+            499,
+            488
+          ],
+          [
+            519,
+            481
+          ],
+          [
+            538,
+            478
+          ],
+          [
+            556,
+            479
+          ],
+          [
+            575,
+            482
+          ],
+          [
+            587,
+            491
+          ],
+          [
+            595,
+            505
+          ],
+          [
+            598,
+            509
+          ],
+          [
+            595,
+            515
+          ],
+          [
+            590,
+            521
+          ],
+          [
+            585,
+            522
+          ],
+          [
+            579,
+            524
+          ],
+          [
+            562,
+            529
+          ],
+          [
+            541,
+            531
+          ],
+          [
+            520,
+            530
+          ],
+          [
+            501,
+            519
+          ],
+          [
+            490,
+            508
+          ]
+        ]
+      ]
+    },
+    "maskSha256": "b9fefe0ee3a96231ac397ffc771a2b896823b799037f6a54bd8187354b1805f8",
+    "status": "derived-candidate-not-runtime",
+    "notes": [
+      "Each source image and prompt configuration was independently inspected. No mirrored coordinates.",
+      "Brow guards were traced as thin visible segments and exclude prior registered crossing hair; these are constraints, not labeled ground truth.",
+      "No hidden painting or mesh integration in this segmentation stage."
+    ]
+  },
+  "finalRefinement": {
+    "poseId": "view-right",
+    "kind": "bounded-native-hair-tip-refinement-candidate",
+    "sourceSha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3",
+    "underpaintSha256": "14e3e8427582caaf7153b57526954ad60dfa690e0b3b20117d64bc6387e6d188",
+    "previousMaskSha256": "b9fefe0ee3a96231ac397ffc771a2b896823b799037f6a54bd8187354b1805f8",
+    "maskSha256": "b03f39bba0debddd7cdbd598bc67aaea9bd8bbfaf0f2dd0528d9f11c90342e57",
+    "previousPixels": 303605,
+    "addedPixels": 2383,
+    "coldCoreAddedPixels": 1453,
+    "localReviewedTipCoreAddedPixels": 98,
+    "antialiasBandAddedPixels": 832,
+    "removedPixels": 0,
+    "finalPixels": 305988,
+    "protectedFinalOverlap": 0,
+    "outsideAlphaFinalPixels": 0,
+    "configuration": {
+      "anchor": "original-sam",
+      "boundedExpansionRadius": 32,
+      "sourceBlueMinusRedCoreMin": 0,
+      "sourceBlueMinusGreenMin": 8,
+      "antialiasBandRadius": 1,
+      "antialiasBlueMinusRedMin": -12,
+      "antialiasBlueMinusGreenMin": 4,
+      "generatedSkinRedMinusBlueMinExclusive": 12,
+      "generatedSkinRedMinExclusive": 120,
+      "sourceUnderpaintRGBL1MinExclusive": 70,
+      "roi": [
+        305,
+        225,
+        827,
+        650
+      ],
+      "roiSource": "independent current pose material support bounds before v2",
+      "reviewedLocalTipPolygons": [
+        [
+          [
+            473,
+            611
+          ],
+          [
+            490,
+            618
+          ],
+          [
+            506,
+            627
+          ],
+          [
+            506,
+            631
+          ],
+          [
+            490,
+            627
+          ],
+          [
+            477,
+            619
+          ]
+        ],
+        [
+          [
+            503,
+            594
+          ],
+          [
+            519,
+            599
+          ],
+          [
+            535,
+            603
+          ],
+          [
+            537,
+            607
+          ],
+          [
+            520,
+            608
+          ],
+          [
+            508,
+            602
+          ]
+        ]
+      ],
+      "localTipEvidenceFile": "reviewed-local-tip-inclusions.json",
+      "reviewedLocalTipCoreBlueMinusRedMin": -12,
+      "reviewedLocalTipCoreBlueMinusGreenMin": 4,
+      "protectedBrowPolygons": [
+        [
+          [
+            479,
+            422
+          ],
+          [
+            510,
+            419
+          ],
+          [
+            512,
+            427
+          ],
+          [
+            483,
+            431
+          ]
+        ],
+        [
+          [
+            529,
+            419
+          ],
+          [
+            554,
+            419
+          ],
+          [
+            586,
+            423
+          ],
+          [
+            613,
+            432
+          ],
+          [
+            610,
+            440
+          ],
+          [
+            581,
+            431
+          ],
+          [
+            550,
+            428
+          ],
+          [
+            527,
+            429
+          ]
+        ],
+        [
+          [
+            716,
+            426
+          ],
+          [
+            731,
+            416
+          ],
+          [
+            751,
+            410
+          ],
+          [
+            774,
+            405
+          ],
+          [
+            790,
+            409
+          ],
+          [
+            789,
+            416
+          ],
+          [
+            774,
+            414
+          ],
+          [
+            751,
+            419
+          ],
+          [
+            732,
+            426
+          ],
+          [
+            715,
+            436
+          ]
+        ]
+      ],
+      "protectedBrowHairExclusions": [
+        [
+          [
+            768,
+            419
+          ],
+          [
+            777,
+            419
+          ],
+          [
+            783,
+            431
+          ],
+          [
+            785,
+            439
+          ],
+          [
+            777,
+            439
+          ],
+          [
+            772,
+            429
+          ],
+          [
+            768,
+            422
+          ]
+        ],
+        [
+          [
+            513,
+            431
+          ],
+          [
+            528,
+            431
+          ],
+          [
+            525,
+            438
+          ],
+          [
+            522,
+            445
+          ],
+          [
+            520,
+            450
+          ],
+          [
+            509,
+            450
+          ],
+          [
+            511,
+            441
+          ]
+        ]
+      ],
+      "protectedEyePolygons": [
+        [
+          [
+            719,
+            489
+          ],
+          [
+            727,
+            480
+          ],
+          [
+            737,
+            470
+          ],
+          [
+            744,
+            467
+          ],
+          [
+            752,
+            464
+          ],
+          [
+            760,
+            463
+          ],
+          [
+            766,
+            463
+          ],
+          [
+            771,
+            464
+          ],
+          [
+            775,
+            466
+          ],
+          [
+            779,
+            469
+          ],
+          [
+            782,
+            472
+          ],
+          [
+            781,
+            481
+          ],
+          [
+            779,
+            493
+          ],
+          [
+            772,
+            506
+          ],
+          [
+            761,
+            515
+          ],
+          [
+            744,
+            518
+          ],
+          [
+            730,
+            515
+          ],
+          [
+            722,
+            505
+          ]
+        ],
+        [
+          [
+            482,
+            497
+          ],
+          [
+            499,
+            488
+          ],
+          [
+            519,
+            481
+          ],
+          [
+            538,
+            478
+          ],
+          [
+            556,
+            479
+          ],
+          [
+            575,
+            482
+          ],
+          [
+            587,
+            491
+          ],
+          [
+            595,
+            505
+          ],
+          [
+            598,
+            509
+          ],
+          [
+            595,
+            515
+          ],
+          [
+            590,
+            521
+          ],
+          [
+            585,
+            522
+          ],
+          [
+            579,
+            524
+          ],
+          [
+            562,
+            529
+          ],
+          [
+            541,
+            531
+          ],
+          [
+            520,
+            530
+          ],
+          [
+            501,
+            519
+          ],
+          [
+            490,
+            508
+          ]
+        ]
+      ]
+    },
+    "refinementScriptSha256": "01859ffbd4221dbcff3d534a8e7d79c085d050fda3268210ac89b38a01f9d67a",
+    "notes": [
+      "Independent per-pose underpaint and source; not mirrored front coordinates.",
+      "Only a new sibling mask. Original RGB/runtime/approval unchanged.",
+      "Base preview replaces added owner only; parent must rebuild F and contact residual.",
+      "Warm shadows excluded from cold-gray core; only 1px adjacent antialias relaxation."
+    ]
+  }
+}

@@ -74,6 +74,18 @@ test('loading the studio prepares only local art and remains still with no camer
   const h=harness();assert.equal(h.calls.load,1);assert.equal(h.run('camera.starts'),0);assert.equal(h.run('source'),'manual');assert.equal(h.frames.size,0);
   assert.equal(h.elements.get('#studioControls').disabled,true);
 });
+test('runtime material index retains all three derived manifests without changing the artwork inventory',async()=>{
+  const h=harness();
+  h.run(`characterPack={pack:{id:'authored-inventory',status:'candidate'}};
+    assets={alpha:{manifest:{id:'alpha',status:'derived-candidate'}},motionFields:{manifest:{id:'rife',status:'derived-candidate'}},fringe:{manifest:{id:'fringe',status:'derived-candidate',poses:{front:{source:{sha256:'registered-source'}}}}}};`);
+  h.elements.get('#exportPack').events.click();
+  assert.equal(h.calls.filenames.at(-1),'short-hair-runtime-materials.json');
+  const exported=JSON.parse(await h.calls.downloads.at(-1).text());
+  assert.equal(exported.schemaVersion,2);assert.equal(exported.kind,'short-hair-runtime-material-index');
+  assert.deepEqual(exported.artworkInventory,{id:'authored-inventory',status:'candidate'});
+  assert.equal(exported.derivedAlpha.id,'alpha');assert.equal(exported.derivedMotion.id,'rife');
+  assert.deepEqual(exported.derivedFringe,{id:'fringe',status:'derived-candidate',poses:{front:{source:{sha256:'registered-source'}}}});
+});
 test('hiding an active camera recording closes the camera and recorder without scheduling a hidden frame',()=>{
   const h=harness();h.run("ready=true;source='camera';camera.active=true;recorder={state:'recording',stop(){this.state='inactive';calls.recordStop++;}};ensureAnimation();");
   assert.equal(h.frames.size,1);h.document.hidden=true;h.documentEvents.visibilitychange();
@@ -675,11 +687,11 @@ test('a pending project or clip import cannot cancel a newer explicit micro-moti
 });
 
 test('assets completing after page exit are disposed without rebuilding or reviving the studio',async()=>{
-  const h=harness();let disposed=0,built=0;
+  const h=harness();let disposed=0,fringeDisposed=0,built=0;
   h.context.buildControls=()=>{built++;};assert.equal(h.calls.assetResolvers.length,1);
-  h.windowEvents.pagehide();h.calls.assetResolvers[0]({flowRenderer:{dispose(){disposed++;}}});
+  h.windowEvents.pagehide();h.calls.assetResolvers[0]({flowRenderer:{dispose(){disposed++;}},fringeRenderer:{dispose(){fringeDisposed++;}}});
   await Promise.resolve();await Promise.resolve();await Promise.resolve();
-  assert.equal(disposed,1);assert.equal(built,0);assert.equal(h.run('ready'),false);assert.equal(h.frames.size,0);
+  assert.equal(disposed,1);assert.equal(fringeDisposed,1);assert.equal(built,0);assert.equal(h.run('ready'),false);assert.equal(h.frames.size,0);
   assert.equal(h.run('camera.starts'),0);assert.equal(h.run('assets'),undefined);
 });
 

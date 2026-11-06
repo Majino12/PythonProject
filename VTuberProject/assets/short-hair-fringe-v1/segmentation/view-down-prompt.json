@@ -1,0 +1,42 @@
+{
+  "id": "view-down",
+  "variant": "large",
+  "image": "./assets/short-hair-complete-poses-v1/view-down-neutral.png",
+  "positive": [
+    [
+      560,
+      175
+    ],
+    [
+      280,
+      390
+    ],
+    [
+      815,
+      378
+    ]
+  ],
+  "negative": [
+    [
+      551,
+      663
+    ],
+    [
+      436,
+      561
+    ],
+    [
+      680,
+      554
+    ],
+    [
+      441,
+      496
+    ],
+    [
+      653,
+      492
+    ]
+  ],
+  "selectedCandidate": 2
+}

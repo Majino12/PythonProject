@@ -1,0 +1,42 @@
+{
+  "id": "view-right",
+  "variant": "large",
+  "image": "./assets/short-hair-v1/view-right.png",
+  "positive": [
+    [
+      480,
+      180
+    ],
+    [
+      290,
+      340
+    ],
+    [
+      810,
+      345
+    ]
+  ],
+  "negative": [
+    [
+      640,
+      615
+    ],
+    [
+      756,
+      483
+    ],
+    [
+      551,
+      506
+    ],
+    [
+      559,
+      426
+    ],
+    [
+      749,
+      416
+    ]
+  ],
+  "selectedCandidate": 2
+}

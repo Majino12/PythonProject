@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "kind": "independent-fringe-static-and-visual-review",
+  "generatedAt": "2026-11-06T05:43:19.662Z",
+  "manifestSha256": "ac87470767876aa26e01ac0f52e39a1c4db939bd75f2fac3a41d6fad9808cde2",
+  "command": "node --test --test-reporter=spec short-hair-fringe-assets.test.mjs short-hair-fringe-pack.test.mjs",
+  "tests": {
+    "passed": 21,
+    "failed": 0,
+    "skipped": 0
+  },
+  "poses": {
+    "front": {
+      "sourceSha256": "8743500c475f81ffd6054a9679db35f5538521e00afa09612a2045645569b822",
+      "alphaSha256": "cd0648e0ae8814b87b09d7f4cc35d4359c6f05623c3e84e30d08df0216f4d4d5",
+      "ownershipSha256": "bef8bd7bbd35723d19b5dfa1755dc3fb5fff6b32821258ab84b69c1c912c3272",
+      "wholeHairOwnershipSha256": "50a64ac56176b8b34c53d47afe1b2c4cb20d0ae3d862228c461ee5fd7d182ff1",
+      "weightSha256": "0e97173cef23f7552ae764f32ccfa19ae39084e7da62d57c469da730833f9c58",
+      "underpaintSha256": "9a4d697a42971d9b8d8f1a0fb6b9f2c2170ebd02b3335b1e2883a426bd20f6ff",
+      "vertexCount": 5325,
+      "triangleCount": 10360,
+      "minimumAreaRatio": 0.4999999999993822,
+      "bindingCanonicalSha256": "2ad2b22961b53ea4d693d5237d2701e82776324ba7b47d61b25d11b3c8e34eaf"
+    },
+    "view-left": {
+      "sourceSha256": "23da31b12da3e50550519db9d95077e107d20755ca72fdab8b82335a961206b6",
+      "alphaSha256": "04f1bef67c95b1e1c407b0c62856f48a85c3c5f08da6b0359e0cfd56bda3f632",
+      "ownershipSha256": "fe4adada6450ab40edcdd091cba7324b5f7b5fdb271303bebf2de41e92680d8c",
+      "wholeHairOwnershipSha256": "b30899e915bb220dd7887cdfe11743259c7ea01a300abb490d3c9ad617488c6d",
+      "weightSha256": "25c3ff3f99d8dc277bf2e010a52d7b167537039c862c8c1660ae4505178b677d",
+      "underpaintSha256": "d0f9afbb39239db8d979319c1f4b3d66658d069d6b561d6b84bb6228bdc1cd6e",
+      "vertexCount": 7719,
+      "triangleCount": 15088,
+      "minimumAreaRatio": 0.49999999999993333,
+      "bindingCanonicalSha256": "53af803b7d750a4fe2c14a069d01485c6eba7285478363f404019cdbbd255833"
+    },
+    "view-right": {
+      "sourceSha256": "beae316836a1255cab410270fe0183c1469ce6ef8b1804592a28a5253bd82bf3",
+      "alphaSha256": "25332ce93d878e8171918e99766fd379b8fdb9c995e68f5fe0eb1bfbd24d7f7a",
+      "ownershipSha256": "48172e29352236aedd428143f941e0795631098402e12deb91ca83f38d48f314",
+      "wholeHairOwnershipSha256": "b03f39bba0debddd7cdbd598bc67aaea9bd8bbfaf0f2dd0528d9f11c90342e57",
+      "weightSha256": "08277757306e5cb15f1a1a3380daee417802ed1ec73ea020af97ad9b66562a08",
+      "underpaintSha256": "21bfffdf25e8ed81d75f2e1e6d45177cfe526567a65026c7367f1b112397f707",
+      "vertexCount": 7440,
+      "triangleCount": 14536,
+      "minimumAreaRatio": 0.49999999999948713,
+      "bindingCanonicalSha256": "c30c28f4a615e481f5208200ed5275127fbab8f5d4fdc1e96994524bc3d1d786"
+    },
+    "view-right-up": {
+      "sourceSha256": "900d998244e371021320ead30a823661d8759b516d72ad6390c2c62d3fd21037",
+      "alphaSha256": "7529af64ac439ea82f4e53fa5e829c1ee76d07ad9297f49b3ec58ce3df026e2a",
+      "ownershipSha256": "4211bcbb1fe76c3e315725899453dedb0fa702589c3ad963c9fc5cd58ec0db08",
+      "wholeHairOwnershipSha256": "1487280ad674b5cbc4e138cd70757b7c15787d8894f66c0dd0bc9b8b977e7b5f",
+      "weightSha256": "a4c6b59578e6c8b836f5995a340a4f93162d979af414068027d6ea00a5f45b5f",
+      "underpaintSha256": "2028843dd3b754985203ec516ca68120d9d2c1ed5bda70ad198b779572813ed8",
+      "vertexCount": 7790,
+      "triangleCount": 15228,
+      "minimumAreaRatio": 0.4999999999998619,
+      "bindingCanonicalSha256": "8e9689f170ca274cc206cd1ed57e49020a012d5dc248fea468167c1bac2aa205"
+    },
+    "view-left-down": {
+      "sourceSha256": "08736380e4f228183e5b96476c0b9a3ba64d6b361c91968bc8639fae5e756983",
+      "alphaSha256": "38ec8234e3680276baf229dace34039bcba0bf376ed34f564fed3768ee14d5e9",
+      "ownershipSha256": "5173d4733ffcb4af3c4aca7792ab53c7fb2dab88d109c0ea02b9ea007a0796be",
+      "wholeHairOwnershipSha256": "1a2f095cf65d282202901f2dab4558474429341cdef7af08f00c2818a57ed8b9",
+      "weightSha256": "e6011f4a52d245b57f72858af750da482103277350a5ab791c5cef6315e47c42",
+      "underpaintSha256": "3bfc7d13f7813b31965ef1734c2a9e31fb4115f8a2a0459adae4dc059096b4c5",
+      "vertexCount": 9672,
+      "triangleCount": 18952,
+      "minimumAreaRatio": 0.4999999999994232,
+      "bindingCanonicalSha256": "b8196536c129b6befddd1b74340243786b8d5cf5e61e15246b4453b3c8ea64a7"
+    },
+    "view-up": {
+      "sourceSha256": "252ba6a46b0121ee0c9f94b37180ba4745158da6f2bb230aff5efa0894cb23d6",
+      "alphaSha256": "bb4c9a38edbc93a298ed1ec6cda1b157fe262b2c83e65577d93118718204713e",
+      "ownershipSha256": "d78c2d9bcca2a9a7ac7a5257636605803dc897ecbd1e4061f83c2085770707d3",
+      "wholeHairOwnershipSha256": "739d1e31d34f2e8516803ff94de29306cd17e0c084b8a184d5f4e8ac8c017bb0",
+      "weightSha256": "a599a380ceb19789173c01f4233ffacb31c8793da64cf7a128f3f06f67c6b8c3",
+      "underpaintSha256": "042f763a45f2d3693ff747747d48e3f9fd8fd826fc29deae8fd857ed036e5661",
+      "vertexCount": 5694,
+      "triangleCount": 11088,
+      "minimumAreaRatio": 0.49999999999965206,
+      "bindingCanonicalSha256": "49ba8866d9b524371af48581fe4f29e0801661d49417278b676666f4d4d7a32e"
+    },
+    "view-down": {
+      "sourceSha256": "f9e6315e19b09a121d3d1216611dd0759020f21a5d3fab9827adebb9eceb9d4f",
+      "alphaSha256": "05143c9f7a01a8e500d9744c6aa2796c02fe8314a075fe1b22959953a88815b2",
+      "ownershipSha256": "1776b13191d552334f515e9a831b5634869d323383767772fdd1544914f62799",
+      "wholeHairOwnershipSha256": "fa12a2b07b7611ffb4c2be9a6fc04de0d2ed4b7365c460010ca6e3e0387931ae",
+      "weightSha256": "0721dc49690e68087d2016a3640fabafc62a841ec8bfb4e1ad83084dc3a2d955",
+      "underpaintSha256": "53e61aa36cb0491bdc5462221d7f5760301018f1ab5c7193e60c5da18b8c012e",
+      "vertexCount": 9152,
+      "triangleCount": 17922,
+      "minimumAreaRatio": 0.4999999999995225,
+      "bindingCanonicalSha256": "1f18b479a91cca8711d557524c80555ff80d3291e0cf1a71ff0f9a2ed205ac3e"
+    },
+    "view-right-down": {
+      "sourceSha256": "5845cf6909248321f234bff531c16b231017d95fcd92de1e24789328b79e0b71",
+      "alphaSha256": "4749fc1908e3353f2bdc6407ad77497f233d0eb83e2b4176846826e22260e8d5",
+      "ownershipSha256": "84fe514d51134273cdf79561c03d8bce903f8153227b14bebf0aaac754999f9c",
+      "wholeHairOwnershipSha256": "011a2e6fa84f530abfbbb3b6b231811d4a87bd1acd6f6d01e59e64cd028d029d",
+      "weightSha256": "99b3cfb87bc173f0fc1214e24cf3ae74101b92c0ae54506cd9a7439f515ecf8e",
+      "underpaintSha256": "7eabbcfe7978307ac5827e430c84b76eba73655218fe17b9ce63be45d214c6e2",
+      "vertexCount": 6132,
+      "triangleCount": 11952,
+      "minimumAreaRatio": 0.4999999999998914,
+      "bindingCanonicalSha256": "6c28c1b2c510faa2354460c1de6bff7b2756c36dbdbfad167abe9d20f8b86583"
+    },
+    "view-left-up": {
+      "sourceSha256": "614ea3f4df961ffefefe4ae054eea45fe6c42a0cf5ae25cb3f6e88d5f6ca8637",
+      "alphaSha256": "3fd2f4b84c50a7841278b5b5589aa57e672f21693fabefbf71436d5a39b94465",
+      "ownershipSha256": "65c857d5ece49942ae858b1c31889e9f72f37f19380c36716da54972de9d31d2",
+      "wholeHairOwnershipSha256": "27f6cc73cf43acfcdd67908d2af65cfba046caf6f20f7e69075c73989f02db9d",
+      "weightSha256": "59db4afafbf3c9c75c0c80aff57c95076aae6c347381f0c47f7b5f32af758879",
+      "underpaintSha256": "652cbaafdc19b846ed0ebc004042c54b15b168c7929c09397a307214936032ab",
+      "vertexCount": 6035,
+      "triangleCount": 11760,
+      "minimumAreaRatio": 0.4999999999999569,
+      "bindingCanonicalSha256": "94228ab4d7b43d781e7d27402f6b61a4166e981b332303d25c674955709297e4"
+    }
+  },
+  "verifiedInvariants": [
+    "Nine exact native source registrations and all PNG byte sizes/SHA-256",
+    "Binary H subset of whole hair, H implies W=255, W and H grayscale converted to alpha once",
+    "Opaque source/matte/U wherever W is nonzero; U transparent elsewhere",
+    "Moving H contains no registered visible eyebrow or eye aperture pixels",
+    "Actual authored eye/brow supports from every expression state remain pinned at all control corners",
+    "Every triangle stays positively oriented and >=0.49999999 of original area at control corners",
+    "Every moving support pixel has Euclidean clearance to nonopaque matte >= its maximum displacement + 2 px",
+    "Zero observed corner landings outside fully opaque matte"
+  ],
+  "visualReview": {
+    "inspected": "All eight local tip-core targeted source/magenta sheets, refreshed nine-face-bases overview, native left-up/up/right-down bases; earlier native front and other directions inspected before final tip updates.",
+    "finding": "Former conspicuous floating cool-gray cheek/nose hair tips are removed; no new conspicuous movable detached tips observed in the inspected final bases.",
+    "fixedCrossings": "Small old-hair/brow and eye-edge crossings remain in protected fixed regions. The base is not a completely bare or arbitrarily re-riggable face."
+  },
+  "decision": "Static materials and bindings satisfy the current small inner-fringe motion constraints. Actual GPU/expression/output browser validation remains a separate release gate.",
+  "artApprovalChanged": false,
+  "metadataRefresh": {
+    "verifiedAt": "2026-11-06T05:48:32.217477+00:00",
+    "priorValidatedManifestSha256": "37b01e6dd308732a4381118949a12b6d4907ce99e0a949f19099fc5cd2fb2721",
+    "newManifestSha256": "ac87470767876aa26e01ac0f52e39a1c4db939bd75f2fac3a41d6fad9808cde2",
+    "onlyChanges": [
+      "root underpaintProvenance",
+      "root processing",
+      "poses[*].generatedUnderpaint"
+    ],
+    "priorManifestByteExactReconstruction": true,
+    "allNineRecordedPixelAssetHashesUnchanged": true,
+    "allNineBindingsEqualToBuildSnapshots": true,
+    "allNineRegisteredImageAndMatteBytesRehashed": true,
+    "rawUnderpaintPathsAndHashesMatchBuildConfigAndProvenance": true,
+    "testsRerun": false,
+    "reason": "Metadata-only change; stripping these additions reproduces the prior tested manifest byte-for-byte."
+  }
+}

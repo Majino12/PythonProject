@@ -1,0 +1,653 @@
+{
+  "inference": {
+    "id": "view-up",
+    "model": "SAM2.1 Hiera large",
+    "device": "cpu",
+    "encoderSeconds": 2.4303853750006965,
+    "totalSeconds": 2.450545042000158,
+    "scores": [
+      0.8624046444892883,
+      0.8517931699752808,
+      0.9537583589553833
+    ],
+    "maskPixels": [
+      219284,
+      496753,
+      251464
+    ],
+    "sourceSha256": "252ba6a46b0121ee0c9f94b37180ba4745158da6f2bb230aff5efa0894cb23d6"
+  },
+  "baselineRefinement": {
+    "poseId": "view-up",
+    "model": "SAM2.1 Hiera Large",
+    "proposal": "view-up/mask-2.png",
+    "sourceSha256": "252ba6a46b0121ee0c9f94b37180ba4745158da6f2bb230aff5efa0894cb23d6",
+    "modelPixels": 251464,
+    "refinedPixels": 279567,
+    "addedPixels": 28850,
+    "removedPixels": 747,
+    "browProtectedPixels": 2192,
+    "browModelOverlap": 154,
+    "browFinalOverlap": 0,
+    "eyeProtectedPixels": 7966,
+    "eyeFinalOverlap": 0,
+    "outsideAlphaFinalPixels": 0,
+    "configuration": {
+      "blueMinusRedMin": 8,
+      "strongSkinBlueMinusRedMax": -20,
+      "boundedExpansionRadius": 12,
+      "maxHolePixels": 32,
+      "protectedBrowPolygons": [
+        [
+          [
+            399,
+            378
+          ],
+          [
+            420,
+            374
+          ],
+          [
+            445,
+            374
+          ],
+          [
+            470,
+            378
+          ],
+          [
+            489,
+            386
+          ],
+          [
+            493,
+            395
+          ],
+          [
+            470,
+            388
+          ],
+          [
+            443,
+            384
+          ],
+          [
+            420,
+            384
+          ],
+          [
+            399,
+            388
+          ]
+        ],
+        [
+          [
+            604,
+            382
+          ],
+          [
+            623,
+            375
+          ],
+          [
+            647,
+            372
+          ],
+          [
+            671,
+            373
+          ],
+          [
+            696,
+            378
+          ],
+          [
+            719,
+            385
+          ],
+          [
+            723,
+            393
+          ],
+          [
+            695,
+            386
+          ],
+          [
+            670,
+            382
+          ],
+          [
+            646,
+            382
+          ],
+          [
+            622,
+            385
+          ],
+          [
+            603,
+            393
+          ]
+        ]
+      ],
+      "protectedBrowHairExclusions": [],
+      "protectedEyePolygons": [
+        [
+          [
+            382,
+            466
+          ],
+          [
+            393,
+            455
+          ],
+          [
+            408,
+            447
+          ],
+          [
+            424,
+            443
+          ],
+          [
+            444,
+            443
+          ],
+          [
+            461,
+            446
+          ],
+          [
+            477,
+            453
+          ],
+          [
+            488,
+            462
+          ],
+          [
+            480,
+            474
+          ],
+          [
+            468,
+            486
+          ],
+          [
+            448,
+            491
+          ],
+          [
+            429,
+            491
+          ],
+          [
+            410,
+            487
+          ],
+          [
+            395,
+            479
+          ]
+        ],
+        [
+          [
+            622,
+            461
+          ],
+          [
+            635,
+            450
+          ],
+          [
+            649,
+            443
+          ],
+          [
+            665,
+            440
+          ],
+          [
+            683,
+            440
+          ],
+          [
+            701,
+            445
+          ],
+          [
+            715,
+            451
+          ],
+          [
+            730,
+            461
+          ],
+          [
+            725,
+            475
+          ],
+          [
+            712,
+            485
+          ],
+          [
+            691,
+            491
+          ],
+          [
+            669,
+            491
+          ],
+          [
+            648,
+            487
+          ],
+          [
+            634,
+            478
+          ]
+        ]
+      ]
+    },
+    "maskSha256": "8f2abeab4b1e78933f9b5cf006d387700985928b3d655df8432a39d0d0442f54",
+    "status": "derived-candidate-not-runtime",
+    "notes": [
+      "Each source image and prompt configuration was independently inspected. No mirrored coordinates.",
+      "Brow guards were traced as thin visible segments and exclude prior registered crossing hair; these are constraints, not labeled ground truth.",
+      "No hidden painting or mesh integration in this segmentation stage."
+    ]
+  },
+  "finalRefinement": {
+    "poseId": "view-up",
+    "kind": "bounded-native-hair-tip-refinement-candidate",
+    "sourceSha256": "252ba6a46b0121ee0c9f94b37180ba4745158da6f2bb230aff5efa0894cb23d6",
+    "underpaintSha256": "370663de167ee007c56cf7c3cffccdc3553c4335650c4174acd49e0dbaca852a",
+    "previousMaskSha256": "8f2abeab4b1e78933f9b5cf006d387700985928b3d655df8432a39d0d0442f54",
+    "maskSha256": "739d1e31d34f2e8516803ff94de29306cd17e0c084b8a184d5f4e8ac8c017bb0",
+    "previousPixels": 279567,
+    "addedPixels": 3080,
+    "coldCoreAddedPixels": 1945,
+    "localReviewedTipCoreAddedPixels": 213,
+    "antialiasBandAddedPixels": 922,
+    "removedPixels": 0,
+    "finalPixels": 282647,
+    "protectedFinalOverlap": 0,
+    "outsideAlphaFinalPixels": 0,
+    "configuration": {
+      "anchor": "original-sam",
+      "boundedExpansionRadius": 32,
+      "sourceBlueMinusRedCoreMin": 0,
+      "sourceBlueMinusGreenMin": 8,
+      "antialiasBandRadius": 1,
+      "antialiasBlueMinusRedMin": -12,
+      "antialiasBlueMinusGreenMin": 4,
+      "generatedSkinRedMinusBlueMinExclusive": 12,
+      "generatedSkinRedMinExclusive": 120,
+      "sourceUnderpaintRGBL1MinExclusive": 70,
+      "roi": [
+        276,
+        189,
+        827,
+        632
+      ],
+      "roiSource": "independent current pose material support bounds before v2",
+      "reviewedLocalTipPolygons": [
+        [
+          [
+            380,
+            551
+          ],
+          [
+            398,
+            560
+          ],
+          [
+            422,
+            575
+          ],
+          [
+            423,
+            579
+          ],
+          [
+            402,
+            574
+          ],
+          [
+            385,
+            562
+          ]
+        ],
+        [
+          [
+            687,
+            582
+          ],
+          [
+            710,
+            563
+          ],
+          [
+            729,
+            547
+          ],
+          [
+            735,
+            550
+          ],
+          [
+            717,
+            573
+          ],
+          [
+            694,
+            584
+          ]
+        ],
+        [
+          [
+            588,
+            477
+          ],
+          [
+            599,
+            483
+          ],
+          [
+            615,
+            498
+          ],
+          [
+            615,
+            501
+          ],
+          [
+            601,
+            493
+          ],
+          [
+            588,
+            481
+          ]
+        ],
+        [
+          [
+            600,
+            465
+          ],
+          [
+            614,
+            472
+          ],
+          [
+            622,
+            477
+          ],
+          [
+            622,
+            480
+          ],
+          [
+            609,
+            475
+          ],
+          [
+            600,
+            469
+          ]
+        ],
+        [
+          [
+            575,
+            493
+          ],
+          [
+            588,
+            498
+          ],
+          [
+            599,
+            501
+          ],
+          [
+            599,
+            504
+          ],
+          [
+            587,
+            502
+          ],
+          [
+            575,
+            497
+          ]
+        ]
+      ],
+      "localTipEvidenceFile": "reviewed-local-tip-inclusions.json",
+      "reviewedLocalTipCoreBlueMinusRedMin": -12,
+      "reviewedLocalTipCoreBlueMinusGreenMin": 4,
+      "protectedBrowPolygons": [
+        [
+          [
+            399,
+            378
+          ],
+          [
+            420,
+            374
+          ],
+          [
+            445,
+            374
+          ],
+          [
+            470,
+            378
+          ],
+          [
+            489,
+            386
+          ],
+          [
+            493,
+            395
+          ],
+          [
+            470,
+            388
+          ],
+          [
+            443,
+            384
+          ],
+          [
+            420,
+            384
+          ],
+          [
+            399,
+            388
+          ]
+        ],
+        [
+          [
+            604,
+            382
+          ],
+          [
+            623,
+            375
+          ],
+          [
+            647,
+            372
+          ],
+          [
+            671,
+            373
+          ],
+          [
+            696,
+            378
+          ],
+          [
+            719,
+            385
+          ],
+          [
+            723,
+            393
+          ],
+          [
+            695,
+            386
+          ],
+          [
+            670,
+            382
+          ],
+          [
+            646,
+            382
+          ],
+          [
+            622,
+            385
+          ],
+          [
+            603,
+            393
+          ]
+        ]
+      ],
+      "protectedBrowHairExclusions": [],
+      "protectedEyePolygons": [
+        [
+          [
+            382,
+            466
+          ],
+          [
+            393,
+            455
+          ],
+          [
+            408,
+            447
+          ],
+          [
+            424,
+            443
+          ],
+          [
+            444,
+            443
+          ],
+          [
+            461,
+            446
+          ],
+          [
+            477,
+            453
+          ],
+          [
+            488,
+            462
+          ],
+          [
+            480,
+            474
+          ],
+          [
+            468,
+            486
+          ],
+          [
+            448,
+            491
+          ],
+          [
+            429,
+            491
+          ],
+          [
+            410,
+            487
+          ],
+          [
+            395,
+            479
+          ]
+        ],
+        [
+          [
+            622,
+            461
+          ],
+          [
+            635,
+            450
+          ],
+          [
+            649,
+            443
+          ],
+          [
+            665,
+            440
+          ],
+          [
+            683,
+            440
+          ],
+          [
+            701,
+            445
+          ],
+          [
+            715,
+            451
+          ],
+          [
+            730,
+            461
+          ],
+          [
+            725,
+            475
+          ],
+          [
+            712,
+            485
+          ],
+          [
+            691,
+            491
+          ],
+          [
+            669,
+            491
+          ],
+          [
+            648,
+            487
+          ],
+          [
+            634,
+            478
+          ]
+        ]
+      ]
+    },
+    "refinementScriptSha256": "01859ffbd4221dbcff3d534a8e7d79c085d050fda3268210ac89b38a01f9d67a",
+    "notes": [
+      "Independent per-pose underpaint and source; not mirrored front coordinates.",
+      "Only a new sibling mask. Original RGB/runtime/approval unchanged.",
+      "Base preview replaces added owner only; parent must rebuild F and contact residual.",
+      "Warm shadows excluded from cold-gray core; only 1px adjacent antialias relaxation."
+    ]
+  }
+}

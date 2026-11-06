@@ -538,7 +538,7 @@ async function exportLayers(){
   if(!ready)return;const selectedPose=nearestStudioPoseId(poseMotion.current);
   $('#exportLayers').disabled=true;setText($('#layerStatus'),'正在整理透明图层…');
   try{const result=await exportShortHairLayers(assets,selectedPose,$('#originalToggle').checked?{}:committedOutput?.coefficients||coefficients,{state:rendered?.state});
-    download(result.blob,result.filename);setText($('#layerStatus'),`已导出 ${selectedPose} 原画方向的可见图层；中间转角不改变原稿。`);
+    download(result.blob,result.filename);setText($('#layerStatus'),result.hasFringe?`已导出 ${selectedPose} 的脸部补画候选、前发、其余头发、修正层和绑定；ZIP 内含原位重组说明。`:`已导出 ${selectedPose} 原画方向的可见图层；此方向尚无前发补画分解。`);
   }catch(error){setText($('#layerStatus'),`未导出：${error.message}`);}
   finally{$('#exportLayers').disabled=false;}
 }
@@ -549,11 +549,17 @@ function showInspectedLayer(){
   const target=$('#layerPreview');target.width=layer.width;target.height=layer.height;
   target.getContext('2d').drawImage(layer,0,0);
   $('#layerPreviewPanel').hidden=false;
-  setText($('#layerPreviewStatus'),`${layerInspection.poseId} · ${$('#layerSelect').selectedOptions[0].textContent} · ${layer.width}×${layer.height} · 检查时的画面快照`);
+  const description=layerInspection.descriptors[key]?.description;
+  setText($('#layerPreviewStatus'),`${layerInspection.poseId} · ${$('#layerSelect').selectedOptions[0].textContent} · ${layer.width}×${layer.height} · 检查时的画面快照${description?'。'+description:''}`);
 }
 function inspectLayers(){
   if(!ready)return;
-  try{layerInspection=createShortHairLayerInspection(assets,nearestStudioPoseId(poseMotion.current),$('#originalToggle').checked?{}:committedOutput?.coefficients||coefficients,{state:rendered?.state});showInspectedLayer();}
+  try{layerInspection=createShortHairLayerInspection(assets,nearestStudioPoseId(poseMotion.current),$('#originalToggle').checked?{}:committedOutput?.coefficients||coefficients,{state:rendered?.state});
+    const selected=$('#layerSelect').value,labels={character:'透明角色',head:'头部可见层',torso:'躯干可见层',eyeLeft:'角色左眼',eyeRight:'角色右眼',browLeft:'角色左眉',browRight:'角色右眉',mouth:'嘴部'};
+    $('#layerSelect').replaceChildren(...Object.keys(layerInspection.layers).map(key=>{const option=document.createElement('option');option.value=key;option.textContent=layerInspection.descriptors[key]?.label||labels[key]||key;return option;}));
+    $('#layerSelect').value=Object.hasOwn(layerInspection.layers,selected)?selected:'character';showInspectedLayer();
+    setText($('#layerStatus'),layerInspection.fringe?'已生成当前方向的透明分层快照；补画与头发归属仍为派生候选，可切换图层核验后导出。':'已生成可见图层快照；此方向尚无已登记的前发补画分解。');
+  }
   catch(error){setText($('#layerStatus'),`图层检查未完成：${error.message}`);}
 }
 function syncPerformanceControls(){
@@ -650,10 +656,10 @@ async function loadAssets() {
   $('#loadStatus').className='notice';$('#loadStatus').textContent='正在准备九个方向的角色画稿…';$('#retryLoad').hidden=true;
   let loaded;
   try {
-    loaded=await loadContinuousShortHairAssets();if(request!==loadRequest){loaded.flowRenderer.dispose();return;}
-    const pack=await loadShortHairCharacterPack();if(request!==loadRequest){loaded.flowRenderer.dispose();return;}
+    loaded=await loadContinuousShortHairAssets();if(request!==loadRequest){loaded.flowRenderer.dispose();loaded.fringeRenderer?.dispose();return;}
+    const pack=await loadShortHairCharacterPack();if(request!==loadRequest){loaded.flowRenderer.dispose();loaded.fringeRenderer?.dispose();return;}
     const coverage=summarizeShortHairCharacterPack(pack.pack,loaded);characterPack=pack;
-    assets?.flowRenderer?.dispose();assets=loaded;buildControls();ready=true;
+    assets?.flowRenderer?.dispose();assets?.fringeRenderer?.dispose();assets=loaded;buildControls();ready=true;
     setText($('#interpolationStatus'),'连续转头已就绪 · 拖动滑块可停在任意中间角度');
     setText($('#packSummary'),`${coverage.poseCount} 个方向 · ${coverage.artworkFileCount} 张采用画稿 · 9 组透明遮罩 · 16 组转头运动场`);
     setText($('#assetSummary'),'九方向已接入；抬头、低头、右下的基础稿和八个非正面方向的新增中间稿仍保持候选状态，具体批准范围见素材清单。');
@@ -666,7 +672,7 @@ async function loadAssets() {
     restoreProject(project);if(!ready)return;$('#studioControls').disabled=false;$('#loadStatus').hidden=true;$('#stagePlaceholder').hidden=true;canvas.hidden=false;
     for (const id of ['#projectName','#openProject','#saveProject']) $(id).disabled = false;
     motionMessage('选择方向，搭配眼睛、嘴巴和眉毛；摄像头尚未开启。');
-  }catch(error){if(loaded&&loaded!==assets)loaded.flowRenderer.dispose();if(request===loadRequest)fail(error);}
+  }catch(error){if(loaded&&loaded!==assets){loaded.flowRenderer.dispose();loaded.fringeRenderer?.dispose();}if(request===loadRequest)fail(error);}
 }
 
 function init() {
@@ -723,14 +729,14 @@ function init() {
   $('#resetComposition').addEventListener('click',()=>changeComposition({}));
   $('#inspectLayers').addEventListener('click',inspectLayers);$('#layerSelect').addEventListener('change',showInspectedLayer);
   $('#exportLayers').addEventListener('click',exportLayers);
-  $('#exportPack').addEventListener('click',()=>{if(characterPack)download(new Blob([JSON.stringify({schemaVersion:2,kind:'short-hair-runtime-material-index',version:'0.19.0',artworkInventory:characterPack.pack,derivedAlpha:assets.alpha.manifest,derivedMotion:assets.motionFields.manifest,note:'原画登记描述原稿本身；透明与连续转头能力由独立派生素材提供，不改变原画批准记录。'},null,2)],{type:'application/json'}),'short-hair-runtime-materials.json');});
+  $('#exportPack').addEventListener('click',()=>{if(characterPack)download(new Blob([JSON.stringify({schemaVersion:2,kind:'short-hair-runtime-material-index',version:'0.20.0',artworkInventory:characterPack.pack,derivedAlpha:assets.alpha.manifest,derivedMotion:assets.motionFields.manifest,derivedFringe:assets.fringe.manifest,note:'原画登记描述原稿本身；透明与连续转头能力由独立派生素材提供，不改变原画批准记录。'},null,2)],{type:'application/json'}),'short-hair-runtime-materials.json');});
   syncPreferenceControls();syncClipControls();syncTrackingStats();
   $('#savePerformance').addEventListener('click',savePerformancePreset);$('#clearPerformance').addEventListener('click',clearPerformance);
   $('#idleBlinkToggle').addEventListener('change',toggleIdleBlink);
   document.addEventListener('keydown',event=>{if(!ready)return;const action=matchPerformanceShortcut(event,{hidden:document.hidden,focused:document.hasFocus?.()!==false});if(action===null||typeof action==='number'&&!performancePresets[action])return;event.preventDefault();if(action==='clear')clearPerformance();else togglePerformance(action);});
   $('#retryLoad').addEventListener('click',loadAssets);
   document.addEventListener('visibilitychange',()=>{if(document.hidden){stopActive('页面已隐藏，摄像头和演示已暂停。');stopRecording();}else if(graphicsPending)ensureAnimation();});
-  window.addEventListener('pagehide',()=>{++loadRequest;ready=false;stopActive();stopRecording();camera.dispose();assets?.flowRenderer?.dispose();if(outputHeartbeat)clearInterval(outputHeartbeat);void publisher.stop();});
+  window.addEventListener('pagehide',()=>{++loadRequest;ready=false;stopActive();stopRecording();camera.dispose();assets?.flowRenderer?.dispose();assets?.fringeRenderer?.dispose();if(outputHeartbeat)clearInterval(outputHeartbeat);void publisher.stop();});
   loadAssets();
 }
 init();

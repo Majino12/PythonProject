@@ -1,0 +1,561 @@
+{
+  "poseId": "view-right-down",
+  "source": {
+    "path": "./assets/short-hair-complete-poses-v1/view-right-down-neutral.png",
+    "sha256": "5845cf6909248321f234bff531c16b231017d95fcd92de1e24789328b79e0b71"
+  },
+  "alpha": {
+    "path": "./assets/short-hair-alpha-v1/view-right-down-matte.png",
+    "sha256": "4749fc1908e3353f2bdc6407ad77497f233d0eb83e2b4176846826e22260e8d5"
+  },
+  "prompt": {
+    "id": "view-right-down",
+    "variant": "large",
+    "image": "./assets/short-hair-complete-poses-v1/view-right-down-neutral.png",
+    "positive": [
+      [
+        616,
+        180
+      ],
+      [
+        345,
+        332
+      ],
+      [
+        884,
+        389
+      ]
+    ],
+    "negative": [
+      [
+        670,
+        649
+      ],
+      [
+        615,
+        522
+      ],
+      [
+        802,
+        563
+      ],
+      [
+        647,
+        453
+      ],
+      [
+        831,
+        501
+      ]
+    ],
+    "selectedCandidate": 2
+  },
+  "baselineRefinement": {
+    "blueMinusRedMin": 8,
+    "strongSkinBlueMinusRedMax": -20,
+    "boundedExpansionRadius": 12,
+    "maxHolePixels": 32,
+    "protectedBrowPolygons": [
+      [
+        [
+          589,
+          436
+        ],
+        [
+          614,
+          439
+        ],
+        [
+          640,
+          446
+        ],
+        [
+          668,
+          456
+        ],
+        [
+          693,
+          468
+        ],
+        [
+          698,
+          479
+        ],
+        [
+          671,
+          467
+        ],
+        [
+          643,
+          458
+        ],
+        [
+          615,
+          450
+        ],
+        [
+          587,
+          446
+        ]
+      ],
+      [
+        [
+          798,
+          504
+        ],
+        [
+          812,
+          497
+        ],
+        [
+          831,
+          495
+        ],
+        [
+          851,
+          498
+        ],
+        [
+          855,
+          507
+        ],
+        [
+          834,
+          505
+        ],
+        [
+          814,
+          508
+        ],
+        [
+          798,
+          514
+        ]
+      ]
+    ],
+    "protectedBrowHairExclusions": [],
+    "protectedEyePolygons": [
+      [
+        [
+          570,
+          506
+        ],
+        [
+          582,
+          499
+        ],
+        [
+          598,
+          497
+        ],
+        [
+          615,
+          500
+        ],
+        [
+          634,
+          506
+        ],
+        [
+          652,
+          515
+        ],
+        [
+          665,
+          525
+        ],
+        [
+          655,
+          537
+        ],
+        [
+          638,
+          546
+        ],
+        [
+          619,
+          550
+        ],
+        [
+          600,
+          545
+        ],
+        [
+          585,
+          535
+        ],
+        [
+          576,
+          522
+        ]
+      ],
+      [
+        [
+          768,
+          568
+        ],
+        [
+          775,
+          558
+        ],
+        [
+          788,
+          550
+        ],
+        [
+          802,
+          546
+        ],
+        [
+          815,
+          544
+        ],
+        [
+          829,
+          543
+        ],
+        [
+          837,
+          547
+        ],
+        [
+          831,
+          560
+        ],
+        [
+          818,
+          574
+        ],
+        [
+          802,
+          586
+        ],
+        [
+          787,
+          592
+        ],
+        [
+          775,
+          586
+        ]
+      ]
+    ]
+  },
+  "proposal": {
+    "path": "proposals/view-right-down.png",
+    "sha256": "4e1104b0dd174b5fd6fe8daa29487bc9f7db04389f466f3e3bc11f757ec0cb77",
+    "binaryPixelSha256": "14a1f8bf61380b90bfe323f98ff598d52ad6702661b05bc24258a9488a7b57e3",
+    "scores": [
+      0.8608108758926392,
+      0.8930268287658691,
+      0.9679908752441406
+    ],
+    "selectedCandidate": 2
+  },
+  "expected": {
+    "binaryPixelSha256": "4c008e3e8bc05d6f5722d70553c75db91aa0db9f958ea33b04a329e07b272799",
+    "foregroundPixels": 320384,
+    "runtimePath": "./assets/short-hair-fringe-v1/view-right-down-hairOwnership.png",
+    "originalWorkMaskPngSha256": "011a2e6fa84f530abfbbb3b6b231811d4a87bd1acd6f6d01e59e64cd028d029d",
+    "runtimePngSha256": "011a2e6fa84f530abfbbb3b6b231811d4a87bd1acd6f6d01e59e64cd028d029d"
+  },
+  "approval": {
+    "status": "derived-candidate",
+    "manuallyApproved": false,
+    "artworkApprovalChanged": false
+  },
+  "tipRefinement": {
+    "configuration": {
+      "anchor": "original-sam",
+      "boundedExpansionRadius": 32,
+      "sourceBlueMinusRedCoreMin": 0,
+      "sourceBlueMinusGreenMin": 8,
+      "antialiasBandRadius": 1,
+      "antialiasBlueMinusRedMin": -12,
+      "antialiasBlueMinusGreenMin": 4,
+      "generatedSkinRedMinusBlueMinExclusive": 12,
+      "generatedSkinRedMinExclusive": 120,
+      "sourceUnderpaintRGBL1MinExclusive": 70,
+      "roi": [
+        349,
+        276,
+        910,
+        658
+      ],
+      "roiSource": "independent current pose material support bounds before v2",
+      "reviewedLocalTipPolygons": [
+        [
+          [
+            514,
+            587
+          ],
+          [
+            530,
+            600
+          ],
+          [
+            541,
+            613
+          ],
+          [
+            539,
+            616
+          ],
+          [
+            527,
+            607
+          ],
+          [
+            517,
+            597
+          ]
+        ],
+        [
+          [
+            549,
+            585
+          ],
+          [
+            562,
+            594
+          ],
+          [
+            574,
+            603
+          ],
+          [
+            574,
+            607
+          ],
+          [
+            561,
+            601
+          ],
+          [
+            551,
+            592
+          ]
+        ],
+        [
+          [
+            667,
+            576
+          ],
+          [
+            681,
+            566
+          ],
+          [
+            698,
+            561
+          ],
+          [
+            701,
+            565
+          ],
+          [
+            687,
+            573
+          ],
+          [
+            667,
+            580
+          ]
+        ]
+      ],
+      "localTipEvidenceFile": "reviewed-local-tip-inclusions.json",
+      "reviewedLocalTipCoreBlueMinusRedMin": -12,
+      "reviewedLocalTipCoreBlueMinusGreenMin": 4,
+      "protectedBrowPolygons": [
+        [
+          [
+            589,
+            436
+          ],
+          [
+            614,
+            439
+          ],
+          [
+            640,
+            446
+          ],
+          [
+            668,
+            456
+          ],
+          [
+            693,
+            468
+          ],
+          [
+            698,
+            479
+          ],
+          [
+            671,
+            467
+          ],
+          [
+            643,
+            458
+          ],
+          [
+            615,
+            450
+          ],
+          [
+            587,
+            446
+          ]
+        ],
+        [
+          [
+            798,
+            504
+          ],
+          [
+            812,
+            497
+          ],
+          [
+            831,
+            495
+          ],
+          [
+            851,
+            498
+          ],
+          [
+            855,
+            507
+          ],
+          [
+            834,
+            505
+          ],
+          [
+            814,
+            508
+          ],
+          [
+            798,
+            514
+          ]
+        ]
+      ],
+      "protectedBrowHairExclusions": [],
+      "protectedEyePolygons": [
+        [
+          [
+            570,
+            506
+          ],
+          [
+            582,
+            499
+          ],
+          [
+            598,
+            497
+          ],
+          [
+            615,
+            500
+          ],
+          [
+            634,
+            506
+          ],
+          [
+            652,
+            515
+          ],
+          [
+            665,
+            525
+          ],
+          [
+            655,
+            537
+          ],
+          [
+            638,
+            546
+          ],
+          [
+            619,
+            550
+          ],
+          [
+            600,
+            545
+          ],
+          [
+            585,
+            535
+          ],
+          [
+            576,
+            522
+          ]
+        ],
+        [
+          [
+            768,
+            568
+          ],
+          [
+            775,
+            558
+          ],
+          [
+            788,
+            550
+          ],
+          [
+            802,
+            546
+          ],
+          [
+            815,
+            544
+          ],
+          [
+            829,
+            543
+          ],
+          [
+            837,
+            547
+          ],
+          [
+            831,
+            560
+          ],
+          [
+            818,
+            574
+          ],
+          [
+            802,
+            586
+          ],
+          [
+            787,
+            592
+          ],
+          [
+            775,
+            586
+          ]
+        ]
+      ]
+    },
+    "underpaint": {
+      "path": "./assets/short-hair-fringe-v1/build-inputs/view-right-down-underpaint.png",
+      "sha256": "fe2e1d26e07ea0bdac40ad5122b93310a092589e1c35bf146571fd9fc983ce57"
+    },
+    "baselineBinaryPixelSha256": "5b459627dce0ea50527e607b67a148a7070f5eda31325a826c992b06f5ac27ef"
+  }
+}

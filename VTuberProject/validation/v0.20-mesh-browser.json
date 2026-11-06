@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "kind": "short-hair-mesh-browser-validation",
+  "version": "0.20.0",
+  "startedAt": "2026-11-06T04:54:19.539Z",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "zero-returns-exact-source",
+      "passed": true
+    },
+    {
+      "name": "original-returns-exact-source",
+      "passed": true
+    },
+    {
+      "name": "candidate-does-not-move",
+      "passed": true
+    },
+    {
+      "name": "source-top-stays-top",
+      "passed": true,
+      "actual": [
+        229,
+        50,
+        37,
+        255
+      ]
+    },
+    {
+      "name": "source-bottom-stays-bottom",
+      "passed": true,
+      "actual": [
+        38,
+        77,
+        235,
+        255
+      ]
+    },
+    {
+      "name": "integer-move-vacates-old-edge",
+      "passed": true
+    },
+    {
+      "name": "root-pixels-stay-fixed",
+      "passed": true
+    },
+    {
+      "name": "protected-region-remains-fixed",
+      "passed": true,
+      "mismatchedPixels": 0
+    },
+    {
+      "name": "shared-triangle-edges-have-no-holes",
+      "passed": true,
+      "holes": 0
+    },
+    {
+      "name": "semi-transparent-interior-preserved",
+      "passed": true,
+      "source": [
+        20,
+        219,
+        80,
+        128
+      ],
+      "actual": [
+        20,
+        219,
+        80,
+        128
+      ]
+    },
+    {
+      "name": "fractional-edge-preserves-premultiplied-color",
+      "passed": true,
+      "source": [
+        20,
+        219,
+        80,
+        128
+      ],
+      "edge": [
+        20,
+        218,
+        79,
+        90
+      ]
+    },
+    {
+      "name": "negative-control-moves-opposite",
+      "passed": true
+    },
+    {
+      "name": "synthetic-source-support-inside-binding",
+      "passed": true,
+      "sourcePixels": 60800
+    },
+    {
+      "name": "bounded-positive-jacobian",
+      "passed": true,
+      "maximumDisplacementPx": 6,
+      "minimumAreaRatio": 0.5
+    },
+    {
+      "name": "material-epsilon-reconstructs-current-rgba",
+      "passed": true,
+      "maximumChannelError": 1,
+      "pixelsOverTolerance": 0
+    },
+    {
+      "name": "material-current-expression-replaces-cached-neutral",
+      "passed": true,
+      "maximumChannelError": 1,
+      "pixelsOverTolerance": 0
+    },
+    {
+      "name": "material-ownership-uses-D-and-outside-is-transparent",
+      "passed": true
+    },
+    {
+      "name": "real-gpu-loss-does-not-claim-a-frame",
+      "passed": true
+    },
+    {
+      "name": "real-gpu-restoration-is-pixel-identical",
+      "passed": true,
+      "before": "bb3e895b897aa16aec79fb00cdf55f9ca7d2fe7ac659c8a747ced2d5412437dc",
+      "after": "bb3e895b897aa16aec79fb00cdf55f9ca7d2fe7ac659c8a747ced2d5412437dc",
+      "materialBefore": "0e4e50d53a281fc006661e712a1e336e2ec29904fd5f4dfbc083b252ca1fc433",
+      "materialAfter": "0e4e50d53a281fc006661e712a1e336e2ec29904fd5f4dfbc083b252ca1fc433"
+    }
+  ],
+  "limitations": [
+    "Synthetic texture checks do not validate hair segmentation or hidden paintings.",
+    "No webcam, microphone, or OBS session."
+  ],
+  "summary": {
+    "checks": 19,
+    "passed": 19,
+    "failed": 0
+  },
+  "finishedAt": "2026-11-06T04:54:19.955Z"
+}
