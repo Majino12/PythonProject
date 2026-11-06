@@ -76,11 +76,16 @@ export function parseStudioFrame(text) {
 
 export function createStudioProject(input = {}) {
   const value = object(input) ? input : {};
+  const tracking=object(value.trackingSettings)?value.trackingSettings:{};
+  const sensitivity=key=>typeof tracking[key]==='number'&&Number.isFinite(tracking[key])?Math.max(.7,Math.min(1.4,tracking[key])):1;
   return {
     schemaVersion: 1, kind: 'moemotion-short-hair-project', characterId: 'short-hair-v1',
     name: typeof value.name === 'string' && value.name.trim() ? value.name.trim().slice(0, 60) : '我的短发角色',
     poseId: poseIds.has(value.poseId) ? value.poseId : 'front', coefficients: sanitizeChannels(value.coefficients),
     faceOnly: value.faceOnly !== false, followHead: value.followHead === true, tourPoses: value.tourPoses === true,
+    motionProfile: value.motionProfile==='quick'?'quick':'natural',
+    trackingSettings:{preset:['balanced','responsive','stable'].includes(tracking.preset)?tracking.preset:'balanced',
+      eyeSensitivity:sensitivity('eyeSensitivity'),mouthSensitivity:sensitivity('mouthSensitivity')},
   };
 }
 

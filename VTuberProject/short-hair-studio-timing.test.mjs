@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {StudioFrameClock,createStudioMotion,advanceStudioMotion,STUDIO_RENDER_FPS,STUDIO_RECORDING_FPS} from './short-hair-studio-timing.js';
+import {StudioFrameClock,createStudioMotion,advanceStudioMotion,STUDIO_RENDER_FPS,STUDIO_RECORDING_FPS,STUDIO_MOTION_PROFILES} from './short-hair-studio-timing.js';
 
 test('60 is an unmeasured scheduling/recording target, never a fabricated result',()=>{
   const clock=new StudioFrameClock();assert.equal(STUDIO_RENDER_FPS,60);assert.equal(STUDIO_RECORDING_FPS,60);
@@ -115,4 +115,162 @@ test('invalid timing or duplicate source stages fail explicitly',()=>{
   assert.throws(()=>new StudioFrameClock({targetFps:59}));assert.throws(()=>new StudioFrameClock({uiIntervalMs:1}));
   assert.throws(()=>advanceStudioMotion(createStudioMotion(neutral),target,NaN,sequences));
   assert.throws(()=>advanceStudioMotion(createStudioMotion(neutral),target,20,{eyeLeft:['open','open']}));
+});
+
+function playMouth(from,to,{profile='natural',fps=60,gap=1000/fps,paintings=sequences}={}) {
+  let motion=createStudioMotion({...neutral,mouth:from}),duration=0,complete=false;
+  const visits=[];
+  for(let frame=0;frame<120;frame++) {
+    const dt=frame===0?0:gap;
+    const next=advanceStudioMotion(motion,{...neutral,mouth:to},dt,paintings,{profile});
+    duration+=dt;
+    if(next.frameState.mouth!==motion.frameState.mouth) visits.push(next.frameState.mouth);
+    motion=next.motion;
+    if(!next.moving) {complete=true;break;}
+  }
+  assert.equal(complete,true,'mouth transition must finish without a pending destination queue');
+  return {visits,duration,motion};
+}
+
+test('natural and quick close all available jaw paintings before each special mouth',()=>{
+  for(const profile of Object.keys(STUDIO_MOTION_PROFILES)) {
+    for(const mouth of ['pucker','press','shiftLeft','shiftRight']) {
+      assert.deepEqual(playMouth('openWide',mouth,{profile}).visits,
+        ['openMedium','openSmall','parted','neutral',mouth]);
+    }
+  }
+});
+
+test('special mouths return through the real neutral painting before jaw or another special',()=>{
+  for(const profile of Object.keys(STUDIO_MOTION_PROFILES)) {
+    for(const mouth of ['pucker','press','shiftLeft','shiftRight']) {
+      assert.deepEqual(playMouth(mouth,'openWide',{profile}).visits,
+        ['neutral','parted','openSmall','openMedium','openWide']);
+      assert.deepEqual(playMouth(mouth,'neutral',{profile}).visits,['neutral']);
+      const other=mouth==='pucker'?'press':'pucker';
+      assert.deepEqual(playMouth(mouth,other,{profile}).visits,['neutral',other]);
+      assert.deepEqual(playMouth(mouth,mouth,{profile}).visits,[]);
+    }
+  }
+});
+
+test('neutral bridge has a visible dwell, including after a very long frame stall',()=>{
+  for(const profile of Object.keys(STUDIO_MOTION_PROFILES)) {
+    const options={profile},goal={...neutral,mouth:'shiftRight'};
+    const bridge=advanceStudioMotion(createStudioMotion({...neutral,mouth:'pucker'}),goal,10000,sequences,options);
+    assert.equal(bridge.frameState.mouth,'neutral');assert.equal(bridge.moving,true);
+    const hold=advanceStudioMotion(bridge.motion,goal,0,sequences,options);
+    assert.equal(hold.frameState.mouth,'neutral');
+    const half=STUDIO_MOTION_PROFILES[profile].neutralHoldMs/2;
+    const waiting=advanceStudioMotion(hold.motion,goal,half,sequences,options);
+    assert.equal(waiting.frameState.mouth,'neutral');assert.equal(waiting.moving,true);
+    const arrived=advanceStudioMotion(waiting.motion,goal,half,sequences,options);
+    assert.equal(arrived.frameState.mouth,'shiftRight');assert.equal(arrived.moving,false);
+  }
+});
+
+test('a changed target reverses the displayed jaw immediately without completing an old bridge',()=>{
+  for(const profile of Object.keys(STUDIO_MOTION_PROFILES)) {
+    const options={profile},start=createStudioMotion({...neutral,mouth:'openWide'});
+    const closing=advanceStudioMotion(start,{...neutral,mouth:'pucker'},0,sequences,options);
+    assert.equal(closing.frameState.mouth,'openMedium');
+    const reversed=advanceStudioMotion(closing.motion,{...neutral,mouth:'openWide'},100,sequences,options);
+    assert.equal(reversed.frameState.mouth,'openWide');assert.equal(reversed.moving,false);
+    const held=advanceStudioMotion(reversed.motion,{...neutral,mouth:'openWide'},10000,sequences,options);
+    assert.equal(held.frameState.mouth,'openWide');assert.equal(held.moving,false);
+  }
+});
+
+test('a new target at neutral cancels the prior special or jaw destination',()=>{
+  const options={profile:'natural'};
+  for(const abandoned of ['openWide','press']) {
+    const bridge=advanceStudioMotion(createStudioMotion({...neutral,mouth:'pucker'}),{...neutral,mouth:abandoned},100,sequences,options);
+    assert.equal(bridge.frameState.mouth,'neutral');
+    const interrupted=advanceStudioMotion(bridge.motion,{...neutral,mouth:'shiftLeft'},32,sequences,options);
+    assert.equal(interrupted.frameState.mouth,'shiftLeft');assert.equal(interrupted.moving,false);
+  }
+  const bridge=advanceStudioMotion(createStudioMotion({...neutral,mouth:'pucker'}),{...neutral,mouth:'openWide'},100,sequences,options);
+  const cancelled=advanceStudioMotion(bridge.motion,neutral,0,sequences,options);
+  assert.equal(cancelled.frameState.mouth,'neutral');assert.equal(cancelled.moving,false);
+});
+
+test('rapid special target changes share the current neutral dwell instead of restarting it',()=>{
+  for(const profile of Object.keys(STUDIO_MOTION_PROFILES)) {
+    const options={profile},hold=STUDIO_MOTION_PROFILES[profile].neutralHoldMs;
+    let motion=advanceStudioMotion(createStudioMotion({...neutral,mouth:'pucker'}),{...neutral,mouth:'press'},100,sequences,options).motion;
+    assert.equal(motion.frameState.mouth,'neutral');
+    for(const mouth of ['shiftLeft','press','shiftRight']) {
+      const waiting=advanceStudioMotion(motion,{...neutral,mouth},hold/4,sequences,options);
+      assert.equal(waiting.frameState.mouth,'neutral');motion=waiting.motion;
+    }
+    const latest=advanceStudioMotion(motion,{...neutral,mouth:'shiftLeft'},hold/4,sequences,options);
+    assert.equal(latest.frameState.mouth,'shiftLeft');assert.equal(latest.moving,false);
+  }
+});
+
+test('profile eye timing is independent while a mouth bridge is pending and brows stay authored',()=>{
+  const options={profile:'natural'},start=createStudioMotion({...neutral,mouth:'openWide'});
+  const goal={...neutral,eyeLeft:'closed',mouth:'pucker',browLeft:'up'};
+  const first=advanceStudioMotion(start,goal,0,sequences,options);
+  assert.equal(first.frameState.eyeLeft,'quarter');assert.equal(first.frameState.eyeRight,'open');
+  assert.equal(first.frameState.mouth,'openMedium');assert.equal(first.frameState.browLeft,'up');
+  const second=advanceStudioMotion(first.motion,goal,24,sequences,options);
+  assert.equal(second.frameState.eyeLeft,'half');assert.equal(second.frameState.eyeRight,'open');
+  assert.equal(second.frameState.mouth,'openMedium');assert.equal(second.moving,true);
+});
+
+test('profile proposals never skip uncommitted paintings, even after stalls',()=>{
+  for(const profile of Object.keys(STUDIO_MOTION_PROFILES)) {
+    const options={profile},shown=createStudioMotion({...neutral,mouth:'openWide'}),goal={...neutral,mouth:'pucker'};
+    const proposal=advanceStudioMotion(shown,goal,10000,sequences,options);
+    assert.equal(proposal.frameState.mouth,'openMedium');
+    assert.equal(advanceStudioMotion(shown,goal,20000,sequences,options).frameState.mouth,'openMedium');
+    assert.equal(shown.frameState.mouth,'openWide');
+    assert.equal(advanceStudioMotion(proposal.motion,goal,0,sequences,options).frameState.mouth,'openMedium');
+    assert.deepEqual(playMouth('openWide','pucker',{profile,gap:10000}).visits,
+      ['openMedium','openSmall','parted','neutral','pucker']);
+  }
+});
+
+test('30 and 60 Hz profile playback preserve routes and comparable elapsed duration',()=>{
+  for(const profile of Object.keys(STUDIO_MOTION_PROFILES)) {
+    for(const [from,to] of [['neutral','openWide'],['openWide','pucker'],['pucker','openWide'],['shiftLeft','shiftRight']]) {
+      const slow=playMouth(from,to,{profile,fps:30}),fast=playMouth(from,to,{profile,fps:60});
+      assert.deepEqual(slow.visits,fast.visits);
+      assert.ok(Math.abs(slow.duration-fast.duration)<=1000/30+.001,
+        `${profile} ${from} to ${to}: ${slow.duration} / ${fast.duration} ms`);
+      assert.ok(slow.duration<400&&fast.duration<400,'authored mouth route must not add an excessive wait');
+    }
+  }
+  for(const fps of [30,60]) {
+    assert.ok(playMouth('pucker','openWide',{profile:'quick',fps}).duration
+      <playMouth('pucker','openWide',{profile:'natural',fps}).duration);
+  }
+});
+
+test('switching speed profiles continues from the shown painting without snapping to the goal',()=>{
+  const goal={...neutral,mouth:'pucker'};
+  const natural=advanceStudioMotion(createStudioMotion({...neutral,mouth:'openWide'}),goal,0,sequences,{profile:'natural'});
+  const quick=advanceStudioMotion(natural.motion,goal,30,sequences,{profile:'quick'});
+  assert.equal(quick.frameState.mouth,'openSmall');assert.equal(quick.moving,true);
+});
+
+test('profile routes respect three-stage artwork and exact reset/export boundaries',()=>{
+  const old={eyeLeft:['open','half','closed'],eyeRight:['open','half','closed'],mouth:['neutral','openSmall','openWide']};
+  assert.deepEqual(playMouth('openWide','press',{paintings:old}).visits,['openSmall','neutral','press']);
+  assert.deepEqual(playMouth('press','openWide',{paintings:old}).visits,['neutral','openSmall','openWide']);
+  for(const profile of Object.keys(STUDIO_MOTION_PROFILES)) {
+    const goal={...target,mouth:'pucker'};
+    const snap=advanceStudioMotion(createStudioMotion(),goal,0,sequences,{profile});
+    assert.deepEqual(snap.frameState,goal);assert.equal(snap.moving,false);
+    assert.ok(Object.isFrozen(snap.motion));assert.ok(Object.isFrozen(snap.motion.elapsedMs));
+  }
+});
+
+test('profiles reject unknown speed and cannot invent an unregistered neutral bridge',()=>{
+  assert.throws(()=>advanceStudioMotion(createStudioMotion(neutral),target,0,sequences,{profile:'fastest'}));
+  assert.throws(()=>advanceStudioMotion(createStudioMotion(neutral),target,0,sequences,null));
+  const special={...neutral,mouth:'pucker'},withoutNeutral={...sequences,mouth:['parted','openSmall','openWide']};
+  assert.throws(()=>advanceStudioMotion(createStudioMotion({...neutral,mouth:'openWide'}),special,0,withoutNeutral,{profile:'natural'}),/中性画稿/);
+  assert.throws(()=>advanceStudioMotion(createStudioMotion(neutral),special,0,{}, {profile:'quick'}),/实际张嘴画稿/);
 });

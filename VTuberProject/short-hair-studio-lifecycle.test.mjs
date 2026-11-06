@@ -6,10 +6,12 @@ import * as model from './short-hair-studio-model.js';
 import {sanitizeChannels,selectGaze,selectExpression} from './expression-model.js';
 import {FaceSession} from './face-session.js';
 import * as timing from './short-hair-studio-timing.js';
+import * as tracking from './short-hair-studio-tracking.js';
+import {mapBlendshapeValue} from './arkit-blendshapes.js';
 
 const source = readFileSync(new URL('./short-hair-studio.js', import.meta.url),'utf8').replace(/^import[\s\S]*?from ['"][^'"]+['"];\n/gm,'');
 function harness() {
-  const elements = new Map(), documentEvents = {}, windowEvents = {}, frames = new Map(), calls = {load:0,recordStop:0,downloads:[],filenames:[],streams:[],draws:[],now:0,attributeWrites:0};
+  const elements = new Map(), documentEvents = {}, windowEvents = {}, frames = new Map(), intervals = new Map(), calls = {load:0,recordStop:0,downloads:[],filenames:[],streams:[],draws:[],now:0,attributeWrites:0,published:[],outputStops:0};
   let frameId=0;
   const element = key => {
     if (!elements.has(key)) elements.set(key,{value:'',checked:false,hidden:false,disabled:false,dataset:{},textContent:'',
@@ -21,6 +23,13 @@ function harness() {
     async start(){this.starts++;return false;}
     stop(){this.stops++;this.active=false;this.starting=false;this.onState({status:'stopped',message:'stopped'});}
     dispose(){this.disposals++;this.stop();}
+    getMetrics(){return{inferenceFps:null,meanInferenceMs:null,signalStale:true};}
+  }
+  class Publisher {
+    constructor({onState}){this.onState=onState;this.enabled=false;}
+    start(){this.enabled=true;}
+    publish(value){calls.published.push(value);}
+    stop(){this.enabled=false;calls.outputStops++;return Promise.resolve();}
   }
   const document={hidden:false,querySelector:element,querySelectorAll:()=>[],body:{append(){}},
     createElement(tag){
@@ -32,18 +41,20 @@ function harness() {
   const capabilities={extendedEyes:true,extendedJaw:true,shiftLeft:true,shiftRight:true,gaze:true};
   const selector=(assets,poseId,channels,previous={})=>({targetState:selectExpression(channels,previous,capabilities),targetGaze:selectGaze(channels,capabilities),
     availableSequences:{eyeLeft:['open','quarter','half','threeQuarter','closed'],eyeRight:['open','quarter','half','threeQuarter','closed'],mouth:['neutral','parted','openSmall','openMedium','openWide']}});
-  const context=vm.createContext({...model,...timing,sanitizeChannels,selectGaze,FaceSession,ShortHairStudioCamera:Camera,document,
-    window:{addEventListener(type,callback){windowEvents[type]=callback;}},localStorage:{getItem:()=>null,setItem(){}},
+  const context=vm.createContext({...model,...timing,...tracking,sanitizeChannels,selectGaze,FaceSession,ShortHairStudioCamera:Camera,StudioOutputPublisher:Publisher,document,
+    window:{location:{origin:'http://127.0.0.1:4175'},addEventListener(type,callback){windowEvents[type]=callback;}},localStorage:{getItem:()=>null,setItem(){}},
     performance:{now:()=>calls.now},requestAnimationFrame(callback){frames.set(++frameId,callback);return frameId;},cancelAnimationFrame(id){frames.delete(id);},
     loadShortHairStudioAssets(){calls.load++;return new Promise(()=>{});},selectShortHairStudioState:selector,
+    loadShortHairCharacterPack(){return Promise.resolve({pack:{}});},summarizeShortHairCharacterPack(){return{poseCount:9,artworkFileCount:0,poses:[]};},
     renderShortHairStudio(canvas,assets,poseId,channels,previous,options){
       const target=selector(assets,poseId,channels,previous),neutral=selector(assets,poseId,{});
       const result={...target,state:options.original?neutral.targetState:options.stateOverride || target.targetState,gaze:options.original?neutral.targetGaze:target.targetGaze,didDraw:true};
       calls.draws.push({at:calls.now,poseId,...result});return result;
     },extractFaceMotion:result=>result?.faceMotion || null,
-    calls,console,Blob,URL:{createObjectURL(blob){calls.downloads.push(blob);return 'blob:test';},revokeObjectURL(){}},setTimeout(callback){callback();return 0;}});
+    calls,console,Blob,URL:{createObjectURL(blob){calls.downloads.push(blob);return 'blob:test';},revokeObjectURL(){}},setTimeout(callback){callback();return 0;},
+    setInterval(callback){const id=intervals.size+1;intervals.set(id,callback);return id;},clearInterval(id){intervals.delete(id);}});
   vm.runInContext(source,context);
-  return{context,calls,elements,frames,document,documentEvents,windowEvents,run:code=>vm.runInContext(code,context),
+  return{context,calls,elements,frames,intervals,document,documentEvents,windowEvents,run:code=>vm.runInContext(code,context),
     step(now){const next=frames.entries().next().value;if(!next)return false;const[id,callback]=next;frames.delete(id);calls.now=now;callback(now);return true;},
     prepare(){vm.runInContext('assets={poses:[{id:"front",label:"正面"},{id:"view-right",label:"右转"}]};ready=true;paint({snap:true});',context);}};
 }
@@ -128,9 +139,11 @@ test('camera ARKit gaze remains unit coefficients and normalized head pitch is c
     {categoryName:'eyeLookOutLeft',score:.8},{categoryName:'eyeLookInRight',score:.8},
     {categoryName:'eyeLookUpLeft',score:.6},{categoryName:'eyeLookUpRight',score:.6}]}]});`);
   h.elements.get('#followHead').checked=true;h.run('cameraFrame(1000,1/60)');
+  assert.equal(h.run('poseId'),'front');h.run('cameraFrame(1080,1/60)');
   assert.equal(h.run('poseId'),'view-right-up');assert.equal(h.run('trackedPose.pitch'),.6);
-  assert.equal(h.run('selectGaze(coefficients,{gaze:true}).eyeLeft.x'),.8);
-  assert.equal(h.run('selectGaze(coefficients,{gaze:true}).eyeLeft.y'),-.6);
+  const configs=tracking.createFaceSessionSettings().channels;
+  assert.equal(h.run('selectGaze(coefficients,{gaze:true}).eyeLeft.x'),mapBlendshapeValue(.8,configs.eyeLookOutLeft));
+  assert.equal(h.run('selectGaze(coefficients,{gaze:true}).eyeLeft.y'),-mapBlendshapeValue(.6,configs.eyeLookUpLeft));
 });
 test('a delayed PNG callback retains the captured pose name rather than a later selection',()=>{
   const h=harness();let complete;h.elements.get('#studioCanvas').toBlob=callback=>{complete=callback;};
@@ -151,7 +164,8 @@ test('camera calibration handles every studio channel and new frames replace sta
   for(const [index,active] of keys.entries()){
     h.context.frameInput.faceBlendshapes[0].categories=keys.map(key=>({categoryName:key,score:baseline[key]+(key===active ? (1-baseline[key])*.8 : 0)}));
     h.run(`cameraFrame(${3100+index*100},1)`);
-    for(const key of keys)assert.ok(Math.abs(h.run(`coefficients[${JSON.stringify(key)}]`)-(key===active?.8:0))<1e-6,`${active} active; ${key} output`);
+    const config=tracking.createFaceSessionSettings().channels;
+    for(const key of keys)assert.ok(Math.abs(h.run(`coefficients[${JSON.stringify(key)}]`)-(key===active?mapBlendshapeValue(.8,config[key]):0))<1e-6,`${active} active; ${key} output`);
   }
   h.context.frameInput=null;h.run('cameraFrame(6000,1)');
   for(const key of keys)assert.ok(h.run(`coefficients[${JSON.stringify(key)}]`)<1e-6,`${key}: stale face clears`);
@@ -235,4 +249,126 @@ test('a camera polling failure during RAF cannot repaint or advance the last vis
   const h=harness();h.prepare();h.run('setManual({jawOpen:1});source="camera";camera.active=true;camera.poll=()=>{throw new Error("lost");};');
   const count=h.calls.draws.length,shown=h.run('rendered.state.mouth');h.step(0);
   assert.equal(h.calls.draws.length,count);assert.equal(h.run('rendered.state.mouth'),shown);assert.equal(h.frames.size,0);
+});
+
+const trackingClip = (jawOpen=.8) => ({schemaVersion:1,kind:'moemotion-short-hair-tracking-clip',characterId:'short-hair-v1',durationMs:160,
+  samples:[{t:0,poseId:'front',coefficients:sanitizeChannels({})},{t:80,poseId:'front',coefficients:sanitizeChannels({jawOpen})}]});
+
+test('numeric clip recording retains manual changes, stops on pause and never starts a camera or download',()=>{
+  const h=harness();h.prepare();h.run('toggleClipRecording();');
+  assert.equal(h.run('clipRecorder.recording'),true);assert.equal(h.frames.size,1);
+  h.step(0);h.calls.now=40;h.run('setManual({jawOpen:.8});');h.step(60);
+  assert.equal(h.run('clipRecorder.recording'),true);
+  h.calls.now=80;h.run('stopActive();');
+  assert.equal(h.run('clipRecorder.recording'),false);assert.equal(h.run('savedClip.durationMs'),80);
+  assert.equal(h.run('savedClip.samples.some(sample=>sample.coefficients.jawOpen===.8)'),true);
+  assert.equal(h.run('camera.starts'),0);assert.equal(h.calls.downloads.length,0);assert.equal(h.frames.size,0);
+  assert.equal(h.elements.get('#saveClip').disabled,false);
+});
+
+test('manual input deliberately closes camera while preserving an ongoing mixed-source numeric recording',()=>{
+  const h=harness();h.prepare();h.run('source="camera";camera.active=true;toggleClipRecording();');
+  h.calls.now=40;h.run('setManual({jawOpen:.8});');
+  assert.equal(h.run('camera.active'),false);assert.equal(h.run('source'),'manual');
+  assert.equal(h.run('clipRecorder.recording'),true);
+  h.calls.now=80;h.run('choosePose("view-right");');
+  assert.equal(h.run('clipRecorder.recording'),true);
+  h.calls.now=100;h.run('stopActive();');
+  assert.equal(h.run('savedClip.samples.some(sample=>sample.coefficients.jawOpen===.8&&sample.poseId==="view-right")'),true);
+});
+
+test('replay closes an active camera, completes painted endpoints and a manual change cancels pending replay',()=>{
+  const h=harness();h.prepare();h.context.testClip=trackingClip();
+  h.run('savedClip=testClip;source="camera";camera.active=true;playClip();');
+  assert.equal(h.run('camera.active'),false);assert.equal(h.run('camera.stops'),1);assert.equal(h.run('source'),'clip');
+  for(let time=0;time<600&&h.frames.size;time+=17)h.step(time);
+  assert.equal(h.run('source'),'manual');assert.equal(h.run('coefficients.jawOpen'),.8);
+  assert.equal(h.run('rendered.state.mouth'),'openMedium');assert.equal(h.frames.size,0);
+  h.calls.now=700;h.run('playClip();');const oldCallback=[...h.frames.values()][0];
+  h.run('setManual({mouthPucker:1});');oldCallback(720);
+  assert.equal(h.run('source'),'manual');assert.equal(h.run('clipPlayer.playing'),false);
+  assert.equal(h.run('coefficients.mouthPucker'),1);assert.equal(h.run('coefficients.jawOpen'),0);
+});
+
+test('hiding a numeric recording finalizes it and returning visible cannot resume either capture or replay',()=>{
+  const h=harness();h.prepare();h.run('toggleClipRecording();');h.step(0);h.step(40);
+  h.calls.now=60;h.document.hidden=true;h.documentEvents.visibilitychange();
+  assert.equal(h.run('clipRecorder.recording'),false);assert.equal(h.run('savedClip.durationMs'),60);assert.equal(h.frames.size,0);
+  h.document.hidden=false;h.documentEvents.visibilitychange();assert.equal(h.frames.size,0);
+  h.run('playClip();');h.document.hidden=true;h.documentEvents.visibilitychange();
+  assert.equal(h.run('clipPlayer.playing'),false);assert.equal(h.run('source'),'manual');assert.equal(h.frames.size,0);
+});
+
+test('hardware camera disconnect finalizes an active numeric clip instead of leaving a stuck recording',()=>{
+  const h=harness();h.prepare();h.run('source="camera";camera.active=true;toggleClipRecording();');
+  h.calls.now=80;h.run('camera.active=false;camera.onState({status:"stopped",message:"device ended"});');
+  assert.equal(h.run('clipRecorder.recording'),false);assert.equal(h.run('savedClip.durationMs'),80);
+  assert.equal(h.run('source'),'manual');assert.equal(h.frames.size,0);
+});
+
+test('a delayed numeric clip cannot replace newer manual work or a more recently opened clip',async()=>{
+  const h=harness();h.prepare();let finish;
+  const wait=new Promise(resolve=>{finish=resolve;});h.elements.get('#clipFile').files=[{size:100,text:()=>wait}];
+  const first=h.run('openClipFile();');h.run('setManual({mouthPucker:1});');finish(JSON.stringify(trackingClip()));await first;
+  assert.equal(h.run('savedClip'),null);assert.equal(h.run('coefficients.mouthPucker'),1);
+  let finishOlder;const older=new Promise(resolve=>{finishOlder=resolve;});
+  h.elements.get('#clipFile').files=[{size:100,text:()=>older}];const readingOlder=h.run('openClipFile();');
+  h.elements.get('#clipFile').files=[{size:100,text:async()=>JSON.stringify(trackingClip(.4))}];await h.run('openClipFile();');
+  finishOlder(JSON.stringify(trackingClip(.9)));await readingOlder;
+  assert.equal(h.run('savedClip.samples[1].coefficients.jawOpen'),.4);assert.equal(h.run('source'),'manual');
+});
+
+test('starting a fresh numeric recording invalidates a pending clip import',async()=>{
+  const h=harness();h.prepare();let finish;const wait=new Promise(resolve=>{finish=resolve;});
+  h.elements.get('#clipFile').files=[{size:100,text:()=>wait}];const reading=h.run('openClipFile();');
+  h.run('toggleClipRecording();');finish(JSON.stringify(trackingClip()));await reading;
+  assert.equal(h.run('clipRecorder.recording'),true);assert.equal(h.run('savedClip'),null);
+});
+
+test('a rejected stale clip import cannot overwrite the status of a newer manual action',async()=>{
+  const h=harness();h.prepare();let reject;const wait=new Promise((resolve,no)=>{reject=no;});
+  h.elements.get('#clipFile').files=[{size:100,text:()=>wait}];const reading=h.run('openClipFile();');
+  h.run('setManual({jawOpen:.4});syncClipControls("new state");');reject(new Error('obsolete failure'));await reading;
+  assert.equal(h.elements.get('#clipStatus').textContent,'new state');
+});
+
+test('continuous manual input at one pose keeps the already accumulated mouth hold time',()=>{
+  const h=harness();h.prepare();h.run('coefficients=sanitizeChannels({mouthPucker:1});paint({snap:true});setManual({mouthPressLeft:1});');
+  h.step(0);
+  const before=h.run('frameMotion.elapsedMs.mouth'),shown=h.run('rendered.state.mouth');
+  assert.ok(before>0 && before<38,`elapsed=${before}, shown=${shown}`);
+  h.calls.now=8;h.run('setManual({mouthPressLeft:.95},{reset:false});');
+  assert.equal(h.run('frameMotion.elapsedMs.mouth'),before);assert.equal(h.run('rendered.state.mouth'),shown);
+  for(let time=17;time<200&&h.frames.size;time+=17)h.step(time);
+  assert.equal(h.run('rendered.state.mouth'),'press');
+  assert.ok(h.calls.draws.some(draw=>draw.state.mouth==='neutral'));
+});
+
+test('tracking reset restores short-hair defaults and recalibrates only an already active camera',()=>{
+  const h=harness();h.prepare();h.run('trackingSettings=normalizeTrackingSettings({preset:"stable",eyeSensitivity:1.4,mouthSensitivity:.7});applyTrackingSettings(false);session.neutral.jawOpen=.3;');
+  h.elements.get('#resetTracking').events.click();
+  assert.equal(h.run('trackingSettings.preset'),'balanced');assert.equal(h.run('trackingSettings.eyeSensitivity'),1);
+  assert.equal(h.run('session.settings.channels.eyeBlinkLeft.smoothing'),24);assert.equal(h.run('camera.starts'),0);
+  h.run('source="camera";camera.active=true;session.neutral.jawOpen=.3;poseStabilizer.update({yaw:1},0);');
+  h.calls.now=500;h.elements.get('#resetTracking').events.click();
+  assert.equal(h.run('calibrationUntil'),3500);assert.equal(h.run('session.neutral.jawOpen'),0);
+  assert.equal(h.run('poseStabilizer.candidate'),null);assert.equal(h.run('source'),'camera');
+});
+
+test('camera pose dwell needs a new inference sample and never treats repeated RAF as additional head evidence',()=>{
+  const h=harness();h.prepare();h.elements.get('#followHead').checked=true;
+  h.run('source="camera";camera.active=true;camera.poll=()=>({faceMotion:{pose:{x:.8,y:0}},faceBlendshapes:[{categories:[]}]});cameraFrame(1000,1/60);camera.poll=()=>null;');
+  for(const now of [1040,1080,1160])h.run(`cameraFrame(${now},1/60)`);
+  assert.equal(h.run('poseId'),'front');
+  h.run('camera.poll=()=>({faceMotion:{pose:{x:.8,y:0}},faceBlendshapes:[{categories:[]}]});cameraFrame(1200,1/60);');
+  assert.equal(h.run('poseId'),'view-right');
+  h.run('camera.poll=()=>null;cameraFrame(1441,1/60);');assert.equal(h.run('poseId'),'front');
+});
+
+test('output publishing is explicit and page exit clears its heartbeat and publisher',()=>{
+  const h=harness();h.prepare();assert.equal(h.calls.published.length,0);assert.equal(h.intervals.size,0);
+  h.elements.get('#outputToggle').checked=true;h.elements.get('#outputToggle').events.change();
+  assert.equal(h.calls.published.length,1);assert.equal(h.intervals.size,1);
+  assert.equal(h.calls.published[0].poseId,'front');
+  h.windowEvents.pagehide();assert.equal(h.intervals.size,0);assert.equal(h.calls.outputStops,1);assert.equal(h.run('publisher.enabled'),false);
 });

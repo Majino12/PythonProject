@@ -79,6 +79,14 @@ export class StudioFrameClock {
 }
 
 export const STUDIO_PAINT_STEP_MS=Object.freeze({eyeLeft:24,eyeRight:24,mouth:38});
+/** These are display intervals between actual paintings, not new image frames.
+ * A quicker response still visits every available adjacent eye/jaw painting.
+ * Closing a jaw and opening an eye have their own timing, independent of the
+ * other facial parts. Neutral is the only bridge between authored mouth shapes. */
+export const STUDIO_MOTION_PROFILES=Object.freeze({
+  natural:Object.freeze({label:'自然',eyeCloseMs:24,eyeOpenMs:30,mouthOpenMs:38,mouthCloseMs:32,neutralHoldMs:32,specialHoldMs:38}),
+  quick:Object.freeze({label:'快速',eyeCloseMs:20,eyeOpenMs:24,mouthOpenMs:30,mouthCloseMs:28,neutralHoldMs:24,specialHoldMs:30}),
+});
 function copyState(state) {
   if(!object(state)||Object.values(state).some(value=>typeof value!=='string'||!value)) throw new TypeError('画稿状态需要非空字符串对象。');
   return {...state};
@@ -94,21 +102,72 @@ export function createStudioMotion(initialState=null) {
   return freezeMotion(initialState,STUDIO_PAINT_STEP_MS);
 }
 
+function nextPaint(group,current,target,sequence,profile) {
+  if(current===target) return null;
+  if(!sequence) {
+    if(group==='mouth') throw new Error('嘴型衔接需要登记包含 neutral 的实际张嘴画稿。');
+    return null;
+  }
+  const from=sequence.indexOf(current),to=sequence.indexOf(target);
+  if(from>=0&&to>=0) {
+    const opening=to>from;
+    return {state:sequence[from+Math.sign(to-from)],
+      interval:group==='mouth'?(opening?profile.mouthOpenMs:profile.mouthCloseMs)
+        :(opening?profile.eyeCloseMs:profile.eyeOpenMs),bridge:false};
+  }
+  if(group!=='mouth') return null;
+  const neutral=sequence.indexOf('neutral');
+  if(neutral<0) throw new Error('特殊嘴型不能使用未登记的中性画稿衔接。');
+  if(from<0) return {state:'neutral',interval:profile.specialHoldMs,bridge:true};
+  if(from===neutral) return {state:target,interval:profile.neutralHoldMs,bridge:true};
+  return {state:sequence[from+Math.sign(neutral-from)],interval:profile.mouthCloseMs,bridge:Math.abs(from-neutral)===1};
+}
+
+function advanceProfileMotion(motion,goal,dtMs,sequences,profile) {
+  const current=copyState(motion.frameState),frameState={...goal},elapsedMs={};
+  let moving=false;
+  for(const group of ['eyeLeft','eyeRight','mouth']) {
+    const next=nextPaint(group,current[group],goal[group],sequences[group],profile);
+    const maxRest=group==='mouth'?Math.max(profile.mouthOpenMs,profile.mouthCloseMs,profile.neutralHoldMs,profile.specialHoldMs)
+      :Math.max(profile.eyeCloseMs,profile.eyeOpenMs);
+    const interval=next?.interval??maxRest;
+    const elapsed=Math.min(interval*2,motion.elapsedMs[group]+dtMs);
+    elapsedMs[group]=Math.min(interval,elapsed);
+    if(!next) continue;
+    const canStep=elapsed+.75>=interval;
+    frameState[group]=canStep?next.state:current[group];
+    if(canStep) {
+      // A bridge must actually show neutral for its own interval. It cannot
+      // consume leftover time from the preceding jaw or special mouth. Stalls
+      // likewise leave no debt that could advance unseen art at zero elapsed.
+      elapsedMs[group]=next.bridge||elapsed>=interval*2?0:Math.max(0,elapsed-interval);
+    }
+    moving ||= frameState[group]!==goal[group];
+  }
+  return {frameState,moving,motion:freezeMotion(frameState,elapsedMs)};
+}
+
 /** Pure proposal: save returned `motion` only after rendering frameState
  * succeeds. Reusing the prior motion cannot skip an unseen intermediate.
  * Changing targets replans from that committed displayed frame. There is no
  * queued old destination, catch-up loop, crossfade, warp, or synthetic art.
- * `dtMs` is elapsed display time, while sequences list actual prepared art. */
-export function advanceStudioMotion(motion,target,dtMs,sequences) {
+ * `dtMs` is elapsed display time, while sequences list actual prepared art.
+ * Omit options to preserve the original timing. Explicit {profile:'natural'}
+ * or {profile:'quick'} also routes authored special mouths through neutral;
+ * no destination queue is stored, so every changed target is interruptible. */
+export function advanceStudioMotion(motion,target,dtMs,sequences,options={}) {
   if(!object(motion)||!object(motion.elapsedMs)||Object.keys(STUDIO_PAINT_STEP_MS).some(group=>!validTime(motion.elapsedMs[group]))) throw new TypeError('画稿时序状态无效。');
   if(!validTime(dtMs)) throw new TypeError('画稿时序间隔需要非负有限毫秒数。');
   if(!object(sequences)) throw new TypeError('需要此姿态实际可用的顺序画稿。');
+  if(!object(options)||options.profile!==undefined&&!Object.hasOwn(STUDIO_MOTION_PROFILES,options.profile)) throw new RangeError('动作速度只能选择自然或快速。');
+  const profile=options.profile===undefined?null:STUDIO_MOTION_PROFILES[options.profile];
   const goal=copyState(target);
   for(const [group,states] of Object.entries(sequences)) {
     if(!['eyeLeft','eyeRight','mouth'].includes(group)||!Array.isArray(states)||states.length<2
       ||new Set(states).size!==states.length||states.some(state=>typeof state!=='string'||!state)) throw new TypeError('顺序画稿登记无效。');
   }
   if(motion.frameState===null) return {frameState:goal,moving:false,motion:freezeMotion(goal,{eyeLeft:0,eyeRight:0,mouth:0})};
+  if(profile) return advanceProfileMotion(motion,goal,dtMs,sequences,profile);
   const current=copyState(motion.frameState),frameState={...goal};
   const elapsedMs={};let moving=false;
   for(const group of ['eyeLeft','eyeRight','mouth']) {

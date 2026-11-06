@@ -1,0 +1,98 @@
+{
+  "version": "0.16.0",
+  "date": "2026-11-06",
+  "timezone": "Asia/Seoul",
+  "nodeVersion": "22.20.0",
+  "tests": {
+    "passed": 668,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0
+  },
+  "syntaxPassed": true,
+  "browser": {
+    "cameraActivated": false,
+    "obsInstallationTested": false,
+    "assetInventoryMatchesCompiled": true,
+    "outputCanvas": [
+      1280,
+      720
+    ],
+    "controllerNarrowViewport": {
+      "clientWidth": 319,
+      "scrollWidth": 319
+    },
+    "outputViewport": {
+      "clientWidth": 1280,
+      "scrollWidth": 1280
+    },
+    "numericClipRecordReplayObserved": true,
+    "poseExpressionFullFrameSyncObserved": true,
+    "explicitStopClearsReceiver": true,
+    "staleSourceWarningObserved": true,
+    "freshSourceRecoveryObserved": true,
+    "controllerConsoleErrors": [],
+    "receiverConsoleErrors": [],
+    "poseChecks": [
+      {
+        "pose": "view-left-up",
+        "label": "画面左斜上 · 角色右转抬头，左眼 闭眼 · 右眼 闭眼\n嘴 小张 · 左眉 自然 · 右眉 自然"
+      },
+      {
+        "pose": "view-up",
+        "label": "正面抬头，左眼 闭眼 · 右眼 闭眼\n嘴 小张 · 左眉 自然 · 右眉 自然"
+      },
+      {
+        "pose": "view-right-up",
+        "label": "画面右斜上 · 角色左转抬头，左眼 闭眼 · 右眼 闭眼\n嘴 小张 · 左眉 自然 · 右眉 自然"
+      },
+      {
+        "pose": "view-left",
+        "label": "画面左转 · 角色右转，左眼 闭眼 · 右眼 闭眼\n嘴 小张 · 左眉 自然 · 右眉 自然"
+      },
+      {
+        "pose": "front",
+        "label": "正面，左眼 闭眼 · 右眼 闭眼\n嘴 小张 · 左眉 自然 · 右眉 自然"
+      },
+      {
+        "pose": "view-right",
+        "label": "画面右转 · 角色左转，左眼 闭眼 · 右眼 闭眼\n嘴 小张 · 左眉 自然 · 右眉 自然"
+      },
+      {
+        "pose": "view-left-down",
+        "label": "画面左斜下 · 角色右转低头，左眼 闭眼 · 右眼 闭眼\n嘴 小张 · 左眉 自然 · 右眉 自然"
+      },
+      {
+        "pose": "view-down",
+        "label": "正面低头，左眼 闭眼 · 右眼 闭眼\n嘴 小张 · 左眉 自然 · 右眉 自然"
+      },
+      {
+        "pose": "view-right-down",
+        "label": "画面右斜下 · 角色左转低头，左眼 闭眼 · 右眼 闭眼\n嘴 小张 · 左眉 自然 · 右眉 自然"
+      }
+    ]
+  },
+  "pixelRegression": {
+    "sourceDiagnosticVersion": "0.15.0",
+    "executedAgainstVersion": "0.16.0",
+    "comparisons": 718,
+    "assertions": 1060,
+    "failed": 0,
+    "rawReport": "v0.16-pixel-regression.json"
+  },
+  "recording": {
+    "file": "local-evidence/v0.16-motion-demo.webm (not uploaded)",
+    "bytes": 63012255,
+    "videoBlocks": 18438,
+    "timecodeScaleNs": 1000000,
+    "codec": "V_VP9",
+    "width": 630,
+    "height": 460,
+    "timestampSpanSeconds": 321.307,
+    "encodedMeanFps": 57.38125842263007,
+    "uniqueTimestamps": 18438
+  },
+  "sourceArtworkModified": false,
+  "approvalRecordsModified": false,
+  "legacy3DModified": false
+}

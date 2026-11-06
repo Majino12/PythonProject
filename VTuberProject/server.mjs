@@ -2,6 +2,7 @@ import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createStudioOutputRelay } from './short-hair-studio-relay.mjs';
 
 const port = Number(process.env.PORT || 4173);
 const root = fileURLToPath(new URL(".", import.meta.url));
@@ -94,8 +95,10 @@ async function generateAvatar(request, response) {
   }
 }
 
+const studioOutputRelay = createStudioOutputRelay();
 const server = createServer(async (request, response) => {
   try {
+    if (await studioOutputRelay.handle(request, response)) return;
     if (request.method === "POST" && request.url === "/api/generate-avatar") {
       await generateAvatar(request, response);
       return;

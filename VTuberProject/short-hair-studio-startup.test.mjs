@@ -5,13 +5,14 @@ import {readFile, stat} from 'node:fs/promises';
 import {extname, join, normalize} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import vm from 'node:vm';
+import {createStudioOutputRelay} from './short-hair-studio-relay.mjs';
 
 const root = new URL('.', import.meta.url);
 const read = file => readFileSync(new URL(file, root), 'utf8');
 
 test('the default server route opens the short-hair studio and preserves the old application at an explicit legacy URL', async () => {
   let handle;
-  const context = vm.createContext({readFile,stat,extname,join,normalize,fileURLToPath,URL,Buffer,AbortSignal,
+  const context = vm.createContext({readFile,stat,extname,join,normalize,fileURLToPath,URL,Buffer,AbortSignal,createStudioOutputRelay,
     process:{env:{PORT:'0'}},console:{log(){}},createServer(callback){handle=callback;return{listen(){},address:()=>({port:0})};}});
   const source = read('server.mjs').replace(/^import .*;\n/gm,'').replaceAll('import.meta.url',JSON.stringify(new URL('server.mjs',root).href));
   vm.runInContext(source,context);

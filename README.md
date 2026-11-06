@@ -22,7 +22,7 @@ cd PythonProject
 
 ## MoeMotion
 
-当前子项目版本为 `0.15.0`，默认打开短发角色 2D 工作台：九个准备好的头部方向、五档眼睑与张嘴、眉毛动作、独立视线和 22 个 ARKit 命名通道。八个非正面方向新增 16 张选定源稿，眼睑与张嘴逐张经过已有档位；提供 30／60 fps 请求选项和实际绘制统计。
+当前子项目版本为 `0.16.0`，默认打开短发角色 2D 工作台：九个准备好的头部方向、五档眼睑与张嘴、眉毛动作、独立视线和 22 个 ARKit 命名通道。本轮增加自然／快速动作衔接、带来源和哈希的素材清单、跟踪手感与眨眼／嘴部灵敏度、最多 60 秒的系数片段记录和重放，以及独立直播画面页。
 
 需要 Node.js 18 或更新版本。在仓库根目录执行：
 
@@ -31,11 +31,13 @@ cd VTuberProject
 npm start
 ```
 
-访问 <http://127.0.0.1:4173>，可直接手动搭配方向与表情或播放演示。开启摄像头是可选操作，首次需要联网下载 MediaPipe 面部模型；默认启动不加载 3D、不请求摄像头，也不调用图像生成服务。工作台支持本地项目保存、单帧系数 JSON、PNG 和无声录像导出。
+访问 <http://127.0.0.1:4173>，可手动搭配方向与表情、播放演示或主动开启面部跟踪。首次开启摄像头才下载 MediaPipe 模型；默认不加载 3D、不请求摄像头，也不调用图像生成服务。本地项目、单帧系数 JSON、PNG 和无声录像继续可用。
 
-九方向是有限画稿，不是连续转头；30／60 fps 是绘制和录像请求，不保证设备始终达到，也不代表每秒有 60 张独立原稿。当前保留画稿背景，没有虚拟摄像头、iPhone 接收器或 VTube Studio 连接。全套自动测试 589 项通过，浏览器完成 718 次原生像素比较、1060 项断言；实际摄像头硬件尚未启用验证。
+直播时在工作台启用输出，将 `http://127.0.0.1:4173/short-hair-output.html` 添加为同机 OBS 浏览器源，画幅 1280×720。独立画面通过本机服务接收角色状态，保留原画背景；具体设置见 [OBS 接入说明](VTuberProject/OBS-SETUP.txt)。
 
-旧 Luna／3D 应用仍可通过 `legacy-studio.html` 访问，其功能与许可见 [旧版说明](VTuberProject/LEGACY-README.md) 和 [素材来源与许可](VTuberProject/assets/THIRD_PARTY_NOTICES.txt)。本次没有修改 3D 功能。完整能力、限制、素材来源与验证结果见 [VTuberProject README](VTuberProject/README.md)。
+九方向仍是有限画稿，尚无连续转头、完整透明角色或一图自动建模；本轮未接入补帧模型。30／60 fps 是请求值。真实摄像头质量和实际 OBS 采集未做实机验收；自动测试、浏览器像素回归与输出页检查的范围见 [验证记录](VTuberProject/RELEASE-VALIDATION.txt)。
+
+旧 Luna／3D 应用保留在 `legacy-studio.html`，本次未修改其功能。许可见 [素材来源与许可](VTuberProject/assets/THIRD_PARTY_NOTICES.txt)，完整能力与限制见 [VTuberProject README](VTuberProject/README.md)。
 
 ## 小说全文分析 · 2.0
 
@@ -91,3 +93,4 @@ PythonProject/
 这些项目用于本地实验与功能演示。各子项目的运行环境与验证命令见其独立说明。音绪支持 Python 3.11+，并提供隔离真实数据的自动化测试。
 
 MoeMotion 的开发验证使用 Node.js 22，在 `VTuberProject` 目录执行 `npm run check` 和 `npm test`；GitHub 自动测试运行同样的命令。
+

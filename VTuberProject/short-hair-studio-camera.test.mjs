@@ -62,3 +62,35 @@ test('overlapping cancelled starts close a late tracker only once when the page 
   const first=h.camera.start();h.camera.stop();const second=h.camera.start();h.camera.dispose();wait.resolve(h.tracker);
   assert.deepEqual(await Promise.all([first,second]),[false,false]);assert.equal(h.calls.closed,1);assert.equal(h.calls.media,0);
 });
+test('inference metrics count only completed detector calls and measure detector time with a separate clock',async()=>{
+  let timer=0;const h=harness({clock:()=>{timer+=7;return timer;}});await h.camera.start();
+  h.camera.poll(0);h.camera.poll(50);
+  assert.equal(h.camera.getMetrics(50).sampleCount,1);
+  assert.equal(h.camera.getMetrics(50).inferenceFps,null);
+  for(let now=40;now<=240;now+=40){h.video.currentTime=now/1000;h.camera.poll(now);}
+  const metrics=h.camera.getMetrics(240);
+  assert.equal(metrics.sampleCount,7);assert.equal(metrics.inferenceFps,25);assert.equal(metrics.meanInferenceMs,7);
+  assert.equal(metrics.signalStale,true);assert.equal(metrics.signalAgeMs,null);
+  h.camera.stop();assert.equal(h.camera.poll(400),null);assert.equal(h.camera.getMetrics(400).sampleCount,7);
+  assert.equal(h.camera.getMetrics(240).inferenceFps,null);
+  await h.camera.start();assert.equal(h.camera.getMetrics(500).sampleCount,0);h.camera.dispose();
+});
+test('detector errors propagate to lifecycle handling without becoming successful inference samples',async()=>{
+  let timer=0;const h=harness({clock:()=>++timer});await h.camera.start();
+  h.tracker.detectForVideo=()=>{throw new Error('detector failed');};
+  assert.throws(()=>h.camera.poll(0),/detector failed/);
+  assert.equal(h.camera.getMetrics(1).failedCount,1);assert.equal(h.camera.getMetrics(1).sampleCount,0);
+  h.camera.dispose();
+});
+test('face signal expires through skipped or empty detections and recovers only with usable landmarks',async()=>{
+  const h=harness();await h.camera.start();
+  const landmarks=Array.from({length:468},()=>({x:.5,y:.5,z:0}));
+  landmarks[33]={x:.4,y:.4};landmarks[263]={x:.6,y:.4};landmarks[234]={x:.3,y:.5};landmarks[454]={x:.7,y:.5};
+  h.tracker.detectForVideo=()=>({faceLandmarks:[landmarks]});h.camera.poll(0);
+  assert.equal(h.camera.getMetrics(0).signalStale,false);assert.equal(h.camera.getMetrics(0).signalAgeMs,0);
+  h.camera.poll(250);assert.equal(h.camera.getMetrics(250).signalStale,true);
+  h.video.currentTime=.3;h.tracker.detectForVideo=()=>({faceLandmarks:[]});h.camera.poll(280);
+  assert.equal(h.camera.getMetrics(280).signalAgeMs,280);
+  h.video.currentTime=.4;h.tracker.detectForVideo=()=>({faceLandmarks:[landmarks]});h.camera.poll(320);
+  assert.equal(h.camera.getMetrics(320).signalStale,false);h.camera.dispose();
+});
