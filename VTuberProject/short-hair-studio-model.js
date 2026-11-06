@@ -1,3 +1,5 @@
+import {DEFAULT_PERFORMANCE_PRESETS,validatePerformancePresets} from './short-hair-performance.js';
+import {normalizeTrackingSettings,validateTrackingSettings} from './short-hair-tracking-settings.js';
 import {validateOutputComposition,normalizeOutputComposition} from './short-hair-composition.js';
 import {validateSecondaryFrame,normalizeSecondarySettings} from './short-hair-secondary-motion.js';
 import {CHANNELS, sanitizeChannels} from './expression-model.js';
@@ -90,7 +92,6 @@ export function createStudioProject(input = {}) {
   const value = object(input) ? input : {};
   if (Object.hasOwn(value,'transparent') && typeof value.transparent !== 'boolean') throw new Error('项目透明背景设置需要布尔值。');
   const tracking=object(value.trackingSettings)?value.trackingSettings:{};
-  const sensitivity=key=>typeof tracking[key]==='number'&&Number.isFinite(tracking[key])?Math.max(.7,Math.min(1.4,tracking[key])):1;
   const headPose=normalizeHeadPose(value.headPose,poseHeadCoordinates(poseIds.has(value.poseId)?value.poseId:'front'));
   return {
     schemaVersion: 1, kind: 'moemotion-short-hair-project', characterId: 'short-hair-v1',
@@ -101,8 +102,8 @@ export function createStudioProject(input = {}) {
     composition:normalizeOutputComposition(value.composition),secondarySettings:{...normalizeSecondarySettings(value.secondarySettings),enabled:false},
     secondary:Object.hasOwn(value,'secondary')?validateSecondaryFrame(value.secondary):{breath:0,sway:0,hair:0},
     motionProfile: value.motionProfile==='quick'?'quick':'natural',
-    trackingSettings:{preset:['balanced','responsive','stable'].includes(tracking.preset)?tracking.preset:'balanced',
-      eyeSensitivity:sensitivity('eyeSensitivity'),mouthSensitivity:sensitivity('mouthSensitivity')},
+    trackingSettings:normalizeTrackingSettings(tracking),
+    performancePresets:validatePerformancePresets(value.performancePresets===undefined?DEFAULT_PERFORMANCE_PRESETS:value.performancePresets),
   };
 }
 
@@ -117,6 +118,8 @@ export function parseStudioProject(text) {
   if (Object.hasOwn(parsed,'headPose')) validateHeadPose(parsed.headPose);
   if(Object.hasOwn(parsed,'composition'))validateOutputComposition(parsed.composition);
   if(Object.hasOwn(parsed,'secondary'))validateSecondaryFrame(parsed.secondary);
+  if(Object.hasOwn(parsed,'trackingSettings'))validateTrackingSettings(parsed.trackingSettings);
+  if(Object.hasOwn(parsed,'performancePresets'))validatePerformancePresets(parsed.performancePresets);
   const {coefficients} = parseStudioFrame(JSON.stringify({coefficients: parsed.coefficients}));
   return createStudioProject({...parsed, coefficients});
 }

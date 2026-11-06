@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {StudioTrackingSignalGate,StudioCalibrationQuality} from './short-hair-tracking-quality.js';
-const pose=(x=0,y=0,z=0)=>({x,y,z});
+const pose=(x=0,y=0,roll=0)=>({x,y,roll});
 const channels=(extra={})=>({eyeBlinkLeft:.04,eyeBlinkRight:.05,jawOpen:.025,...extra});
 function acquired() {const gate=new StudioTrackingSignalGate();gate.push(pose(),0);gate.push(pose(.01),40);return gate;}
 function calibration({start=0,count=31,step=100,makePose=()=>pose(.03,-.02),makeChannels=()=>channels()}={}) {
@@ -89,6 +89,14 @@ test('interrupted calibration cannot hide a long tracking gap behind sufficient 
 test('head motion across calibration rejects a misleading averaged center',()=>{
   const quality=calibration({makePose:i=>pose(i/30*.4,-.02)});
   const result=quality.finish(3000);assert.equal(result.reason,'moving');assert.equal(result.neutralPose,null);
+});
+test('calibration reads normalized pose.roll from the real motion extractor rather than a missing z',()=>{
+  const quality=calibration({makePose:i=>({x:.1,y:.03,roll:i/30})});
+  assert.equal(quality.finish(3000).reason,'moving');
+  assert.equal(calibration({makePose:()=>({x:.1,y:.03,roll:.2})}).finish(3000).ok,true);
+  const gate=new StudioTrackingSignalGate();
+  assert.equal(gate.push({x:0,y:0,roll:NaN},0).reason,'invalid-pose');
+  assert.equal(gate.push({x:0,y:0,roll:null},40).reason,'invalid-pose');
 });
 test('persistent closed eyes or open mouth cannot erase future expressions',()=>{
   assert.equal(calibration({makeChannels:()=>channels({eyeBlinkLeft:.9,eyeBlinkRight:.9})}).finish(3000).reason,'eyes-closed');

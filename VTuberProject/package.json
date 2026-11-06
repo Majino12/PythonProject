@@ -1,6 +1,6 @@
 {
   "name": "moemotion",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "private": true,
   "type": "module",
   "description": "Local 2D avatar studio with continuous neural-flow head motion, authored expressions, transparent layers and OBS browser output.",

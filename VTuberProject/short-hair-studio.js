@@ -1,3 +1,5 @@
+import {DEFAULT_PERFORMANCE_PRESETS,PERFORMANCE_PRESET_LIMIT,createPerformancePreset,createPerformanceMixer,setPerformancePreset,clearPerformancePresets,freezePerformanceMixer,isPerformancePresetActive,proposePerformanceFrame,matchPerformanceShortcut} from './short-hair-performance.js';
+import {createIdleBlink,advanceIdleBlink,applyIdleBlink} from './short-hair-idle-blink.js';
 import {selectShortHairStudioState} from './short-hair-studio-renderer.js';
 import {loadContinuousShortHairAssets,renderContinuousShortHairStudio} from './short-hair-continuous-renderer.js';
 import {poseHeadCoordinates,normalizeCameraHeadPose,nearestStudioPoseId,createStudioPoseMotion,targetStudioPoseMotion,advanceStudioPoseMotion,freezeStudioPoseMotion} from './short-hair-pose-motion.js';
@@ -44,6 +46,9 @@ const signalGate=new StudioTrackingSignalGate(), calibrationQuality=new StudioCa
 let calibrationBackup=null, trackingStatus='acquiring', graphicsPending=false;
 let secondaryMotion=createSecondaryMotion(),secondarySettings=normalizeSecondarySettings(),secondaryRunning=false;
 let composition=normalizeOutputComposition(),layerInspection=null,pendingSecondary=null;
+let performancePresets=project.performancePresets||DEFAULT_PERFORMANCE_PRESETS.map(preset=>({...preset}));
+let performanceMixer=createPerformanceMixer(),performanceMoving=false,performanceButtons=[];
+let idleBlinkEnabled=false,idleBlinkMotion=createIdleBlink();
 const clipRecorder = new TrackingClipRecorder(), clipPlayer = new TrackingClipPlayer();
 const publisher = new StudioOutputPublisher({onState(event) {
   setText($('#outputStatus'),event.message);$('#outputStatus').classList.toggle('warning',event.status==='error');
@@ -55,6 +60,7 @@ const camera = new ShortHairStudioCamera($('#cameraVideo'), {onState(event) {
   if (event.status === 'stopped' || event.status === 'error') {
     if (source === 'camera' || source === 'camera-pending') {
       finishClipRecording();
+      idleBlinkEnabled=false;performanceMixer=freezePerformanceMixer(performanceMixer);performanceMoving=false;syncPerformanceControls();
       pendingSecondary=null;secondaryRunning=false;secondaryMotion=freezeSecondaryMotion(secondaryMotion,poseMotion.current);syncSecondaryControls();
       source = 'manual'; poseMotion=freezeStudioPoseMotion(poseMotion); transitionPending = false; frameMotion = createStudioMotion(rendered?.state || null); frameClock.reset();
       cancelAnimationFrame(animationFrame); animationFrame = 0;
@@ -84,10 +90,10 @@ function syncSourceControls() {
   $('#cameraButton').textContent = camera.starting ? '取消连接' : camera.active ? '关闭摄像头' : '开启摄像头';
   $('#cameraPanel').hidden = !camera.active;
   $('#calibrateButton').disabled = !camera.active || calibrationUntil > 0;
-  $('#sourceBadge').textContent = source === 'clip' ? '片段重放' : source === 'demo' ? '自动演示' : source === 'camera' ? '面部跟踪' : source === 'camera-pending' ? '连接中' : secondaryRunning?'自然微动':'手动 · 静止';
+  $('#sourceBadge').textContent = source === 'clip' ? '片段重放' : source === 'demo' ? '自动演示' : source === 'camera' ? '面部跟踪' : source === 'camera-pending' ? '连接中' : secondaryRunning||idleBlinkActive()?'自然待机':'手动 · 静止';
 }
 function syncControls() {
-  setText($('#sourceBadge'), source === 'clip' ? '片段重放' : source === 'demo' ? '自动演示' : source === 'camera' ? '面部跟踪' : source === 'camera-pending' ? '连接中' : transitionPending ? '手动 · 逐稿动作' : secondaryRunning?'自然微动':'手动 · 静止');
+  setText($('#sourceBadge'), source === 'clip' ? '片段重放' : source === 'demo' ? '自动演示' : source === 'camera' ? '面部跟踪' : source === 'camera-pending' ? '连接中' : transitionPending ? '手动 · 逐稿动作' : secondaryRunning||idleBlinkActive()?'自然待机':'手动 · 静止');
   for (const button of controls.poses) setAttribute(button, 'aria-pressed', String(button.dataset.pose === poseId));
   for (const slider of controls.sliders) {
     const value = coefficients[slider.dataset.channel];
@@ -117,7 +123,8 @@ function syncControls() {
   if (rendered) setAttribute(canvas, 'aria-label', `${poseMeta()?.label || poseId}，${frameDescription(rendered.state)}`);
 }
 
-function isAnimating() {return graphicsPending || secondaryRunning || source === 'demo' || source === 'camera' || source === 'clip' || clipRecorder.recording || transitionPending || recorder?.state === 'recording';}
+function idleBlinkActive(){return idleBlinkEnabled&&source==='manual'&&!$('#originalToggle').checked;}
+function isAnimating() {return performanceMoving || idleBlinkActive() || graphicsPending || secondaryRunning || source === 'demo' || source === 'camera' || source === 'clip' || clipRecorder.recording || transitionPending || recorder?.state === 'recording';}
 function syncFrameStats(now = performance.now()) {
   if (!isAnimating()) {setText($('#frameStats'), `静止 · 目标 ${frameClock.targetFps} fps`); return;}
   const stats = frameClock.snapshot(now);
@@ -134,11 +141,16 @@ function paint({now = performance.now(), dt = 0, snap = false, hold = false, mea
     const secondaryProposal=secondaryOverride?{motion:rebaseSecondaryMotion(poseProposal.headPose,secondaryOverride),secondary:{...secondaryOverride}}
       :secondaryRunning?advanceSecondaryMotion(secondaryMotion,poseProposal.headPose,dt*1000,{...secondarySettings,enabled:true})
       :{motion:freezeSecondaryMotion(secondaryMotion,poseProposal.headPose),secondary:{...secondaryMotion.current}};
-    const selection = selectShortHairStudioState(assets, poseId, coefficients, previousState);
+    const performanceProposal=source==='clip'?{mixer:performanceMixer,effectiveCoefficients:coefficients,moving:false}
+      :proposePerformanceFrame(performanceMixer,coefficients,hold?0:dt*1000);
+    const blinkProposal=idleBlinkActive()?advanceIdleBlink(idleBlinkMotion,dt*1000):{motion:idleBlinkMotion,closure:0};
+    const paintedCoefficients=hold&&rendered&&committedOutput?{...committedOutput.coefficients}
+      :idleBlinkActive()?applyIdleBlink(performanceProposal.effectiveCoefficients,blinkProposal.closure):performanceProposal.effectiveCoefficients;
+    const selection = selectShortHairStudioState(assets, poseId, paintedCoefficients, previousState);
     const proposed = hold && rendered ? {frameState:rendered.state, moving:false, motion:frameMotion}
       : advanceStudioMotion(snap ? createStudioMotion(selection.targetState) : frameMotion,
         selection.targetState, dt * 1000, selection.availableSequences, {profile:motionProfile});
-    const next = renderContinuousShortHairStudio(canvas, assets, poseId, coefficients, previousState,
+    const next = renderContinuousShortHairStudio(canvas, assets, poseId, paintedCoefficients, previousState,
       {faceOnly, original:$('#originalToggle').checked, stateOverride:proposed.frameState,headPose:poseProposal.headPose,transparent,secondary:secondaryProposal.secondary});
     if (next.didDraw === false) {
       graphicsPending=true;setText($('#interpolationStatus'),'画面暂时中断，正在恢复图形资源；保留最后画面。');ensureAnimation();
@@ -149,16 +161,17 @@ function paint({now = performance.now(), dt = 0, snap = false, hold = false, mea
     }
     if(graphicsPending){graphicsPending=false;setText($('#interpolationStatus'),'连续转头已恢复 · 可继续操作');}
     pendingSecondary=null;secondaryMotion=$('#originalToggle').checked?rebaseSecondaryMotion(poseProposal.headPose,{breath:0,sway:0,hair:0}):{...secondaryProposal.motion,current:{...(next.secondary||secondaryProposal.secondary)}};
+    performanceMixer=performanceProposal.mixer;performanceMoving=performanceProposal.moving;idleBlinkMotion=blinkProposal.motion;
     rendered = next; previousState = selection.targetState;
     frameMotion = proposed.motion; poseMotion = poseProposal.motion; transitionPending = !$('#originalToggle').checked && (proposed.moving || poseProposal.moving);
     paintRecordingFrame();
     committedOutput={poseId:$('#originalToggle').checked?nearestStudioPoseId(next.headPose||poseMotion.current):poseId,
-      coefficients:{...coefficients},state:{...rendered.state},faceOnly,original:$('#originalToggle').checked,
+      coefficients:{...paintedCoefficients},state:{...rendered.state},faceOnly,original:$('#originalToggle').checked,
       headPose:{...(next.headPose||poseMotion.current)},transparent,secondary:{...secondaryMotion.current},composition:{...composition}};
     paintCompositionPreview();
     publishOutput();
     if(clipRecorder.recording){
-      clipRecorder.capture({coefficients:{...coefficients},poseId,headPose:{...poseMotion.current},secondary:{...secondaryMotion.current}},now);
+      clipRecorder.capture({coefficients:{...paintedCoefficients},poseId,headPose:{...poseMotion.current},secondary:{...secondaryMotion.current}},now);
       if(!clipRecorder.recording){savedClip=clipRecorder.stop();syncClipControls('已记录60秒，片段已停止；可下载或重放。');}
     }
     if (measure) frameClock.recordFrame(now, performance.now() - started);
@@ -174,15 +187,16 @@ function fail(error) {
 }
 function persistProject(includeCurrent = true) {
   project = createStudioProject({...project, name:$('#projectName').value, faceOnly,
-    motionProfile, trackingSettings, transparent, composition, secondarySettings:{...secondarySettings,enabled:false},secondary:secondaryMotion.current,
+    motionProfile, trackingSettings, transparent, composition, performancePresets, secondarySettings:{...secondarySettings,enabled:false},secondary:secondaryMotion.current,
     followHead:$('#followHead').checked, tourPoses:$('#tourPoses').checked,
-    ...(includeCurrent ? {poseId, coefficients,headPose:poseMotion.current} : {})});
+    ...(includeCurrent ? {poseId, coefficients:committedOutput?.coefficients||coefficients,headPose:poseMotion.current} : {})});
   try { localStorage.setItem(STUDIO_STORAGE_KEY, JSON.stringify(project)); $('#saveStatus').textContent = '已保存到本机'; $('#saveStatus').classList.remove('warning'); }
   catch { $('#saveStatus').textContent = '本机保存不可用，请下载项目'; $('#saveStatus').classList.add('warning'); }
 }
 function stopActive(message = '已暂停，可以继续手动搭配动作。', {preserveMotion = false, preserveClip = false, preserveSecondary = false} = {}) {
   const shouldStopCamera=camera.active||camera.starting;
   source = 'manual'; cancelCalibration();
+  if(!preserveSecondary){idleBlinkEnabled=false;if(!preserveMotion){performanceMixer=freezePerformanceMixer(performanceMixer);performanceMoving=false;}syncPerformanceControls();}
   if(!preserveSecondary){pendingSecondary=null;secondaryRunning=false;secondaryMotion=freezeSecondaryMotion(secondaryMotion,poseMotion.current);syncSecondaryControls();}
   if (shouldStopCamera) camera.stop();
   clipPlayer.stop();clipFinished=false;pendingClipFrame=null;
@@ -226,8 +240,9 @@ function cameraFrame(now, dt) {
   try {
     const result=camera.poll(now),face=result?extractFaceMotion(result):null;
     if(face){
-      lastFaceAt=now;session.receive(result,now,calibrationUntil>0);signalGate.push(face.pose,now);
-      if(calibrationUntil)calibrationQuality.add({pose:face.pose,channels:session.cameraFrame},now);
+      const sampleTime=Number.isFinite(result.trackingSampleTimeMs)?Math.min(now,result.trackingSampleTimeMs):now;
+      lastFaceAt=sampleTime;session.receive(result,sampleTime,calibrationUntil>0);signalGate.push(face.pose,sampleTime);
+      if(calibrationUntil)calibrationQuality.add({pose:face.pose,channels:session.cameraFrame},sampleTime);
     }
   } catch {
     stopActive();motionMessage('面部识别已中断，摄像头已关闭；可重新开启，当前表情保留。',true);return;
@@ -278,7 +293,7 @@ function tick(now) {
       if (source !== 'camera') {syncControls(); syncFrameStats(now); if(isAnimating())ensureAnimation(); return;}
     }
     if (!isAnimating()) {syncControls(); syncFrameStats(now); return;}
-    const didPaint=paint({now, dt:frame.dt, hold:source==='manual'&&!transitionPending, measure:wasAnimating,headPoseOverride:playbackHead,secondaryOverride:playbackSecondary});
+    const didPaint=paint({now, dt:frame.dt, hold:source==='manual'&&!transitionPending&&!performanceMoving&&!idleBlinkActive(), measure:wasAnimating,headPoseOverride:playbackHead,secondaryOverride:playbackSecondary});
     if(didPaint)pendingClipFrame=null;
     if(source==='clip'&&clipFinished&&didPaint&&!transitionPending){source='manual';clipPlayer.stop();clipFinished=false;pendingClipFrame=null;syncSourceControls();syncClipControls('动作片段重放完成。');}
     if (frame.updateUi || !isAnimating()) {
@@ -338,10 +353,12 @@ function changeComposition(next){
 }
 function syncPreferenceControls() {
   syncSecondaryControls();syncCompositionControls();
+  syncPerformanceControls();
   $('#motionProfile').value=motionProfile;$('#trackingPreset').value=trackingSettings.preset;
   $('#eyeSensitivity').value=String(trackingSettings.eyeSensitivity);$('#mouthSensitivity').value=String(trackingSettings.mouthSensitivity);
   setText($('#eyeSensitivityValue'),`${trackingSettings.eyeSensitivity.toFixed(2)}×`);
   setText($('#mouthSensitivityValue'),`${trackingSettings.mouthSensitivity.toFixed(2)}×`);
+  for(const key of ['eyeInputMax','mouthInputMax']){$('#'+key).value=String(trackingSettings[key]);setText($('#'+key+'Value'),Number(trackingSettings[key]).toFixed(2));}
 }
 function applyTrackingSettings(persist=true) {
   session.setSettings(createFaceSessionSettings(trackingSettings));poseStabilizer.setSettings(trackingSettings);
@@ -351,7 +368,7 @@ function syncTrackingStats(now=performance.now()) {
   if(source!=='camera'){setText($('#trackingStats'),'摄像头关闭 · 未测量识别速度');return;}
   const metrics=camera.getMetrics(now),rate=metrics.inferenceFps===null?'正在测量':`${metrics.inferenceFps.toFixed(1)} 次/秒`;
   const cost=metrics.meanInferenceMs===null?'':` · 识别平均 ${metrics.meanInferenceMs.toFixed(1)} ms`;
-  setText($('#trackingStats'),`${metrics.signalStale?'未找到新的人脸信号':'人脸信号正常'} · ${rate}${cost}${metrics.inferenceBudgetFps?' · 预算 '+metrics.inferenceBudgetFps+' Hz':''}`);
+  setText($('#trackingStats'),`${metrics.signalStale?'未找到新的人脸信号':'人脸信号正常'} · ${rate}${cost}${metrics.inferenceBudgetFps?' · 预算 '+metrics.inferenceBudgetFps+' Hz':''}${metrics.inferenceMode==='worker'?' · 后台识别':metrics.inferenceMode==='main-thread'?' · 主线程识别':''}${Number.isFinite(metrics.resultLatencyMs)?' · 结果延迟 '+metrics.resultLatencyMs.toFixed(0)+' ms':''}`);
 }
 function syncClipControls(message) {
   $('#recordClip').textContent=clipRecorder.recording?'停止记录':'记录动作片段';
@@ -371,12 +388,13 @@ function toggleClipRecording() {
   ++revision;++clipReadRequest;
   if(source==='clip')stopActive();
   savedClip=null;const now=performance.now();clipRecorder.start(now);
-  clipRecorder.capture({coefficients:{...coefficients},poseId,headPose:{...poseMotion.current},secondary:{...secondaryMotion.current}},now);
+  clipRecorder.capture({coefficients:{...(committedOutput?.coefficients||coefficients)},poseId,headPose:{...poseMotion.current},secondary:{...secondaryMotion.current}},now);
   syncClipControls('正在记录动作系数；可操作表情，或记录正在运行的演示/跟踪。');ensureAnimation();
 }
 function playClip() {
   if(!ready||!savedClip)return;
   stopActive('正在重放动作片段；摄像头保持关闭。');++revision;
+  performanceMixer=createPerformanceMixer();performanceMoving=false;syncPerformanceControls();
   clipPlayer.start(savedClip,performance.now());source='clip';clipFinished=false;$('#originalToggle').checked=false;
   frameMotion=createStudioMotion(rendered?.state||null);frameClock.reset();syncSourceControls();ensureAnimation();
 }
@@ -412,7 +430,7 @@ async function copyOutputUrl() {
 function exportFrame() {
   stopActive(); paint({hold:true}); syncControls(); if (!ready) return;
   const payload = {schemaVersion:3, kind:'moemotion-short-hair-frame', characterId:'short-hair-v1', poseId:committedOutput.poseId,headPose:{...committedOutput.headPose},secondary:{...committedOutput.secondary},
-    coefficients:{...coefficients}, supportedChannels:STUDIO_CHANNELS.map(channel => channel.key),
+    coefficients:{...committedOutput.coefficients}, supportedChannels:STUDIO_CHANNELS.map(channel => channel.key),
     renderedState:rendered.state, renderedGaze:rendered.gaze, targetState:rendered.targetState, targetGaze:rendered.targetGaze,
     preview:{faceOnly, original:$('#originalToggle').checked,transparent}, source:'manual', exportedAt:new Date().toISOString()};
   download(new Blob([JSON.stringify(payload,null,2)], {type:'application/json'}), `short-hair-frame-${stamp()}.json`);
@@ -441,6 +459,7 @@ function applyFrame(text) {
 }
 function restoreProject(next, persist = false) {
   stopActive('项目已打开，摄像头保持关闭。'); stopRecording(); ++revision; project = next;
+  performancePresets=project.performancePresets.map(preset=>({...preset}));performanceMixer=createPerformanceMixer();performanceMoving=false;idleBlinkEnabled=false;idleBlinkMotion=createIdleBlink();buildPerformanceControls();
   poseId = project.poseId; poseMotion=createStudioPoseMotion(project.headPose||poseHeadCoordinates(poseId));
   transparent=project.transparent!==false;$('#transparentToggle').checked=transparent; coefficients = sanitizeChannels(project.coefficients); faceOnly = project.faceOnly; previousState = {};
   composition=normalizeOutputComposition(project.composition);secondarySettings=normalizeSecondarySettings(project.secondarySettings);secondaryRunning=false;secondaryMotion=rebaseSecondaryMotion(poseMotion.current,project.secondary||{breath:0,sway:0,hair:0});
@@ -518,7 +537,7 @@ function stopRecording() {
 async function exportLayers(){
   if(!ready)return;const selectedPose=nearestStudioPoseId(poseMotion.current);
   $('#exportLayers').disabled=true;setText($('#layerStatus'),'正在整理透明图层…');
-  try{const result=await exportShortHairLayers(assets,selectedPose,$('#originalToggle').checked?{}:coefficients,{state:rendered?.state});
+  try{const result=await exportShortHairLayers(assets,selectedPose,$('#originalToggle').checked?{}:committedOutput?.coefficients||coefficients,{state:rendered?.state});
     download(result.blob,result.filename);setText($('#layerStatus'),`已导出 ${selectedPose} 原画方向的可见图层；中间转角不改变原稿。`);
   }catch(error){setText($('#layerStatus'),`未导出：${error.message}`);}
   finally{$('#exportLayers').disabled=false;}
@@ -534,8 +553,51 @@ function showInspectedLayer(){
 }
 function inspectLayers(){
   if(!ready)return;
-  try{layerInspection=createShortHairLayerInspection(assets,nearestStudioPoseId(poseMotion.current),$('#originalToggle').checked?{}:coefficients,{state:rendered?.state});showInspectedLayer();}
+  try{layerInspection=createShortHairLayerInspection(assets,nearestStudioPoseId(poseMotion.current),$('#originalToggle').checked?{}:committedOutput?.coefficients||coefficients,{state:rendered?.state});showInspectedLayer();}
   catch(error){setText($('#layerStatus'),`图层检查未完成：${error.message}`);}
+}
+function syncPerformanceControls(){
+  for(const button of performanceButtons)setAttribute(button,'aria-pressed',String(isPerformancePresetActive(performanceMixer,button.dataset.performance)));
+  $('#idleBlinkToggle').checked=idleBlinkEnabled;
+}
+function buildPerformanceControls(){
+  performanceButtons=[];
+  $('#performancePresets').replaceChildren(...performancePresets.map((preset,index)=>{
+    const row=document.createElement('div');row.className='performance-card';
+    const button=document.createElement('button');button.type='button';button.dataset.performance=preset.id;
+    button.textContent=`${index+1} · ${preset.name}`;button.setAttribute('aria-pressed','false');button.addEventListener('click',()=>togglePerformance(index));performanceButtons.push(button);
+    const remove=document.createElement('button');remove.type='button';remove.textContent='移除';remove.setAttribute('aria-label',`移除表情 ${preset.name}`);
+    remove.addEventListener('click',()=>{++revision;performanceMixer=setPerformancePreset(performanceMixer,preset,false);performanceMoving=true;performancePresets=performancePresets.filter(item=>item.id!==preset.id);buildPerformanceControls();persistProject(false);ensureAnimation();});
+    row.append(button,remove);return row;
+  }));syncPerformanceControls();
+}
+function togglePerformance(index){
+  const preset=performancePresets[index];if(!ready||!preset)return;
+  if(source==='clip'){setText($('#performanceStatus'),'请先暂停片段，再叠加表情。');return;}
+  try { performanceMixer=setPerformancePreset(performanceMixer,preset); }
+  catch(error){setText($('#performanceStatus'),`暂未切换：${error.message}`);return;}
+  ++revision;performanceMoving=true;
+  $('#originalToggle').checked=false;paint();syncPerformanceControls();syncControls();ensureAnimation();
+  setText($('#performanceStatus'),`${preset.name}已${isPerformancePresetActive(performanceMixer,preset.id)?'叠加':'取消'}；当前动作来源继续运行。`);
+}
+function clearPerformance(){
+  if(!ready)return;++revision;performanceMixer=clearPerformancePresets(performanceMixer);performanceMoving=performanceMixer.entries.length>0;
+  paint();syncPerformanceControls();if(isAnimating())ensureAnimation();setText($('#performanceStatus'),'正在取消叠加表情，回到当前输入。');
+}
+function savePerformancePreset(){
+  if(!ready)return;
+  try{
+    if(performancePresets.length>=PERFORMANCE_PRESET_LIMIT)throw new Error('最多保存 8 个预设，请先移除不需要的预设。');
+    const groups=['eyes','mouth','brows','gaze'].filter(group=>$('#capture-'+group).checked);
+    const preset=createPerformancePreset({id:`saved-${Date.now()}-${revision++}`,name:$('#performanceName').value,groups,channels:committedOutput?.coefficients||coefficients});
+    performancePresets=[...performancePresets,preset];buildPerformanceControls();persistProject(false);setText($('#performanceStatus'),`已保存“${preset.name}”，只覆盖选中的部位。`);
+  }catch(error){setText($('#performanceStatus'),`未保存：${error.message}`);}
+}
+function toggleIdleBlink(){
+  if(!ready)return;++revision;idleBlinkEnabled=$('#idleBlinkToggle').checked;
+  if(idleBlinkEnabled){idleBlinkMotion=createIdleBlink(Date.now()>>>0);$('#originalToggle').checked=false;}
+  else {frameMotion=createStudioMotion(rendered?.state||null);paint();}
+  syncPerformanceControls();syncControls();syncFrameStats();if(isAnimating())ensureAnimation();
 }
 function buildControls() {
   $('#poseButtons').replaceChildren(...assets.poses.map(pose => {
@@ -642,9 +704,9 @@ function init() {
   $('#motionProfile').addEventListener('change',()=>{
     ++revision;motionProfile=$('#motionProfile').value==='quick'?'quick':'natural';persistProject(source==='manual');
   });
-  for(const id of ['#trackingPreset','#eyeSensitivity','#mouthSensitivity'])$(id).addEventListener('change',()=>{
+  for(const id of ['#trackingPreset','#eyeSensitivity','#mouthSensitivity','#eyeInputMax','#mouthInputMax'])$(id).addEventListener('change',()=>{
     ++revision;
-    trackingSettings=normalizeTrackingSettings({preset:$('#trackingPreset').value,eyeSensitivity:Number($('#eyeSensitivity').value),mouthSensitivity:Number($('#mouthSensitivity').value)});
+    trackingSettings=normalizeTrackingSettings({preset:$('#trackingPreset').value,eyeSensitivity:Number($('#eyeSensitivity').value),mouthSensitivity:Number($('#mouthSensitivity').value),eyeInputMax:Number($('#eyeInputMax').value),mouthInputMax:Number($('#mouthInputMax').value)});
     applyTrackingSettings();
   });
   $('#resetTracking').addEventListener('click',()=>{trackingSettings=normalizeTrackingSettings();applyTrackingSettings();if(camera.active)beginCalibration();});
@@ -661,8 +723,11 @@ function init() {
   $('#resetComposition').addEventListener('click',()=>changeComposition({}));
   $('#inspectLayers').addEventListener('click',inspectLayers);$('#layerSelect').addEventListener('change',showInspectedLayer);
   $('#exportLayers').addEventListener('click',exportLayers);
-  $('#exportPack').addEventListener('click',()=>{if(characterPack)download(new Blob([JSON.stringify({schemaVersion:2,kind:'short-hair-runtime-material-index',version:'0.18.0',artworkInventory:characterPack.pack,derivedAlpha:assets.alpha.manifest,derivedMotion:assets.motionFields.manifest,note:'原画登记描述原稿本身；透明与连续转头能力由独立派生素材提供，不改变原画批准记录。'},null,2)],{type:'application/json'}),'short-hair-runtime-materials.json');});
+  $('#exportPack').addEventListener('click',()=>{if(characterPack)download(new Blob([JSON.stringify({schemaVersion:2,kind:'short-hair-runtime-material-index',version:'0.19.0',artworkInventory:characterPack.pack,derivedAlpha:assets.alpha.manifest,derivedMotion:assets.motionFields.manifest,note:'原画登记描述原稿本身；透明与连续转头能力由独立派生素材提供，不改变原画批准记录。'},null,2)],{type:'application/json'}),'short-hair-runtime-materials.json');});
   syncPreferenceControls();syncClipControls();syncTrackingStats();
+  $('#savePerformance').addEventListener('click',savePerformancePreset);$('#clearPerformance').addEventListener('click',clearPerformance);
+  $('#idleBlinkToggle').addEventListener('change',toggleIdleBlink);
+  document.addEventListener('keydown',event=>{if(!ready)return;const action=matchPerformanceShortcut(event,{hidden:document.hidden,focused:document.hasFocus?.()!==false});if(action===null||typeof action==='number'&&!performancePresets[action])return;event.preventDefault();if(action==='clear')clearPerformance();else togglePerformance(action);});
   $('#retryLoad').addEventListener('click',loadAssets);
   document.addEventListener('visibilitychange',()=>{if(document.hidden){stopActive('页面已隐藏，摄像头和演示已暂停。');stopRecording();}else if(graphicsPending)ensureAnimation();});
   window.addEventListener('pagehide',()=>{++loadRequest;ready=false;stopActive();stopRecording();camera.dispose();assets?.flowRenderer?.dispose();if(outputHeartbeat)clearInterval(outputHeartbeat);void publisher.stop();});

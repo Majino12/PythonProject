@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "reviewed-offline-neural-field-build",
+  "model": "RIFE v4.25",
+  "artifactId": "short-hair-rife-v4.25-fields-v1",
+  "fieldProtocol": "short-hair-motion-v1 (unchanged)",
+  "manifestSha256": "b45bae98d47934374053f86585f8b0487c7f41f0daf7c230b3e3104c34fbee7b",
+  "compiler": {
+    "path": "tools/compile-rife425-fields.py",
+    "sha256": "26052f640e37d849cbe7b277144340f42dbf297c001071bacafe8e4a488d8cb5"
+  },
+  "dependencyLock": {
+    "path": "tools/rife425-requirements.txt",
+    "sha256": "6faf32418484dfc867e449901ac225ab73ae1fa61877e57f77563363778e1754"
+  },
+  "validation": {
+    "path": "validation/v0.19-rife-model.json",
+    "sha256": "261a0362109f147ee5786f75f58097a6435ebe0fd987ed795a20d48faf9df00c",
+    "cases": 112,
+    "baseline": "RIFE v4.6"
+  },
+  "license": {
+    "path": "assets/short-hair-motion-v1/LICENSE-RIFE.txt",
+    "sha256": "7932fb49341512b959b1744a6d9cbb39e5a1ec89da438a34d0454d5d8df9fecd"
+  },
+  "sourceArtModified": false,
+  "weightsShipped": false,
+  "runtimeModelInference": false,
+  "review": "16 midpoint faces and four explicitly flagged tail cases inspected before candidate integration",
+  "limitations": [
+    "No ground-truth intermediate paintings. Metrics are proxies, not proof of artistic correctness.",
+    "4.25 reverse-RGB mean improves on 15/16 edges; right to right-down regresses.",
+    "144x180 compression error rises for 4.25. Same representation retained after visual review; fine lines can soften.",
+    "Neutral-art fields reused for authored expressions; interiors between edge fields are geometric approximations.",
+    "No semantic layer extraction or hidden-surface painting is created by this model."
+  ]
+}

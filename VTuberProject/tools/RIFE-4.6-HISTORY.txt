@@ -1,0 +1,58 @@
+RIFE v4.6 离线运动场构建
+
+工作台使用预先计算的神经网络运动场，不在浏览器请求或运行模型。
+九张原画保持不变；同一套运动场可重投影运行时已经合成的表情和透明层。
+这不是将两张原画直接透明叠化。最终采样先按模型预测的位移场移动两张图，再按遮挡权重合成。
+
+模型及来源
+  实现：https://github.com/nihui/rife-ncnn-vulkan
+  固定提交：a7532fc3f9f8f008cd6eecd6f2ffe2a9698e0cf7
+  模型目录：models/rife-v4.6
+  算法来源：https://github.com/hzwer/Practical-RIFE
+  两项目代码 MIT，随本素材附 LICENSE-RIFE.txt；ncnn 依赖为 BSD-3-Clause。
+  weights 未纳入项目、GitHub 发布目录或默认启动下载。
+
+复现环境
+  Python 3.12、ncnn 1.0.20261020、numpy 2.3.5、Pillow 13.0.0。
+  本轮实测为 macOS arm64、CPU float32、4 线程；不启用 Vulkan、TTA 或 fp16 运算。
+  新建独立虚拟环境后安装 tools/rife-requirements.txt，避免修改现有系统 Python。
+
+将以下两个文件存入单独的 RIFE_WEIGHTS 目录：
+  https://raw.githubusercontent.com/nihui/rife-ncnn-vulkan/a7532fc3f9f8f008cd6eecd6f2ffe2a9698e0cf7/models/rife-v4.6/flownet.bin
+  https://raw.githubusercontent.com/nihui/rife-ncnn-vulkan/a7532fc3f9f8f008cd6eecd6f2ffe2a9698e0cf7/models/rife-v4.6/flownet.param
+
+如 raw.githubusercontent.com 不可达，可使用同一固定提交的 jsDelivr GitHub 分发 URL：
+  https://cdn.jsdelivr.net/gh/nihui/rife-ncnn-vulkan@a7532fc3f9f8f008cd6eecd6f2ffe2a9698e0cf7/models/rife-v4.6/flownet.bin
+  https://cdn.jsdelivr.net/gh/nihui/rife-ncnn-vulkan@a7532fc3f9f8f008cd6eecd6f2ffe2a9698e0cf7/models/rife-v4.6/flownet.param
+
+本轮权重从上述 CDN 分发下载，并核对其 Git blob SHA 与 GitHub 固定提交一致。
+  flownet.bin：10,614,320 bytes；Git blob 70de38ecc5b6f1b63afa56108bf76911f04ce630
+  SHA256 f334ed2260149ce0188a6dcf049844e8b0cdd912e01cbcfb63553157d2508958
+  flownet.param：16,532 bytes；Git blob 3cb69d4ae09b085a2b5b51eb3c2e93745f805644
+  SHA256 724569596bcd1e7b9fa50455c604777ebed99746d2ef40aa86e31b5725f1053c
+
+编译器在本地原生模型解析前强制核对 SHA256；未知模型字节直接拒绝。
+
+在项目根目录执行（替换权重与验收输出路径）：
+  python tools/compile-rife-fields.py --project . --weights /absolute/path/to/RIFE_WEIGHTS
+  python tools/verify-rife-fields.py --project . --weights /absolute/path/to/RIFE_WEIGHTS --output /absolute/path/to/validation
+  node --test short-hair-motion-assets.test.mjs
+
+文件协议
+  assets/short-hair-motion-v1/manifest.json 登记 16 条三角网格边。
+  每边实际推理 t=0.125、0.25、0.375、0.5、0.625、0.75、0.875；端点保留源稿。
+  输入缩放为 576×720，右侧/底部补零至 32 的倍数；NCNN blob 327 是四通道 backward flow，332 是 endpoint0 遮挡权重。
+  运动场缩为 144×180，各分量除以输入宽/高，成为归一化图像 UV 位移。
+  flow.bin：无文件头，小端 float16，[7,180,144,4]，依次 dx0、dy0、dx1、dy1。
+  mask.bin：无文件头，uint8，[7,180,144]，除以 255 得 endpoint0 权重。
+  图像 y 轴向下；使用像素中心与双线性采样。
+  manifest 每个文件包含长度、SHA256；九张源图也登记 SHA256。
+  16 边共 112 次真实推理，字段合计 26,127,360 bytes；本机本次编译 35.354 秒。
+
+验证与边界
+  验证脚本另跑 48 次模型推理，并与导出运动场重建结果比较。
+  未压缩运动场内部像素重建误差为 0，验证了 flow/mask 的语义与方向。
+  低分辨率字段重建的平均 RGB 绝对误差为 0.002190；最差 case 均值 0.003966（范围为 0–1）。
+  上述误差衡量导出近似与本模型直接输出的差别，不能证明模型输出本身的艺术质量。
+  运行时相邻采样之间的时间插值，以及三角形内部多个边场的组合是几何近似，不是直接三视图神经推理。
+  网络以中性画稿估计运动；表情动态共用此运动场。不同原画中的发丝、服装、比例差异仍可能造成局部形变。

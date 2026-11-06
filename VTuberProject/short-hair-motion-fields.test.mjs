@@ -43,10 +43,25 @@ test('motion manifest refuses substituted model name, commit, license or pinned 
   rejects(value=>delete value.model);
   for(const [key,replacement] of [['name','RIFE v99'],['commit','0'.repeat(40)],['license','unknown']])
     rejects(value=>value.model[key]=replacement);
-  for(const name of ['flownet.bin','flownet.param']){
+  for(const name of ['train_log/flownet.pkl','train_log/IFNet_HDv3.py','model/warplayer.py']){
     rejects(value=>delete value.model.weights[name]);
     rejects(value=>value.model.weights[name]='0'.repeat(64));
   }
+  rejects(value=>value.model.weights['extra.pkl']='0'.repeat(64));
+});
+
+test('motion manifest requires the reviewed 4.25 implementation, archive and flow semantics',()=>{
+  rejects(value=>value.id='short-hair-rife-v4.6-fields-v1');
+  rejects(value=>value.model.name='RIFE v4.6');
+  for(const key of ['implementation','url','weightArchiveUrl','weightArchiveSha256','flowOutput','maskOutput']){
+    rejects(value=>delete value.model[key]);
+    rejects(value=>value.model[key]='unreviewed');
+  }
+  rejects(value=>value.model.scaleList=[8,4,2,1]);
+  rejects(value=>value.inferenceSize=[720,576]);
+  for(const key of ['padding','flowFormat','flowUnits','maskFormat','sampling'])
+    rejects(value=>value[key]='unreviewed');
+  rejects(value=>value.sources.extra=structuredClone(value.sources.front));
 });
 
 test('motion manifest refuses incomplete source metadata and non-SHA256 source hashes',()=>{

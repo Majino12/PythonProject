@@ -1,58 +1,93 @@
-RIFE v4.6 离线运动场构建
+RIFE v4.25 离线运动场构建（v0.19）
 
-工作台使用预先计算的神经网络运动场，不在浏览器请求或运行模型。
-九张原画保持不变；同一套运动场可重投影运行时已经合成的表情和透明层。
-这不是将两张原画直接透明叠化。最终采样先按模型预测的位移场移动两张图，再按遮挡权重合成。
+当前发布字段来自作者推荐的 RIFE v4.25。assets/short-hair-motion-v1 是字段协议版本，
+不代表模型版本。浏览器只加载已验证的 26,127,360 bytes 字段，不下载或执行神经模型。
+原画、alpha、表情和审批状态未修改；RGB 和透明 alpha 在运行时共用位移及遮挡权重。
 
-模型及来源
-  实现：https://github.com/nihui/rife-ncnn-vulkan
-  固定提交：a7532fc3f9f8f008cd6eecd6f2ffe2a9698e0cf7
-  模型目录：models/rife-v4.6
-  算法来源：https://github.com/hzwer/Practical-RIFE
-  两项目代码 MIT，随本素材附 LICENSE-RIFE.txt；ncnn 依赖为 BSD-3-Clause。
-  weights 未纳入项目、GitHub 发布目录或默认启动下载。
+官方来源与固定身份
+  https://github.com/hzwer/Practical-RIFE
+  仓库提交：bbfd2ea90910789a860ea3e2b32a240cd577b75e
+  作者 README 的 v4.25 权重链接：
+  https://drive.google.com/file/d/1ZKjcbmt1hypiFprJPIKW0Tt0lr_2i7bg/view
+  下载：https://drive.google.com/uc?export=download&id=1ZKjcbmt1hypiFprJPIKW0Tt0lr_2i7bg
+  RIFEv4.25_0919.zip：22,919,050 bytes
+  SHA256 e63d481b7ae5d4a4e6ad7ac5b410ff78f3bf7be3b51b2e38ca8152747abde5b4
+  代码与作者链接权重为 MIT；LICENSE-RIFE.txt 保留 hzwer 2021 声明。
+  模型参数不纳入发布目录或 GitHub 项目。
 
-复现环境
-  Python 3.12、ncnn 1.0.20261020、numpy 2.3.5、Pillow 13.0.0。
-  本轮实测为 macOS arm64、CPU float32、4 线程；不启用 Vulkan、TTA 或 fp16 运算。
-  新建独立虚拟环境后安装 tools/rife-requirements.txt，避免修改现有系统 Python。
+隔离依赖
+  本轮实测 macOS arm64、Python 3.12.14、PyTorch 2.9.1、numpy 2.3.5、Pillow 13.0.0。
+  CPU float32、4 线程、无 TTA/ensemble。MPS 在本次执行环境不可用，未跑 GPU 神经推理。
+  在项目外建立 venv，安装 tools/rife425-requirements.txt；不要安装进系统 Python。
+  作者完整视频 CLI 文档仍列 Python <=3.11；这里实际验证的是最小 IFNet 推理路径，
+  没有运行其 OpenCV/moviepy 视频/训练栈，不承诺整个上游应用支持 Python 3.12。
 
-将以下两个文件存入单独的 RIFE_WEIGHTS 目录：
-  https://raw.githubusercontent.com/nihui/rife-ncnn-vulkan/a7532fc3f9f8f008cd6eecd6f2ffe2a9698e0cf7/models/rife-v4.6/flownet.bin
-  https://raw.githubusercontent.com/nihui/rife-ncnn-vulkan/a7532fc3f9f8f008cd6eecd6f2ffe2a9698e0cf7/models/rife-v4.6/flownet.param
+准备目录 /absolute/path/to/rife425-model：
+  1. 从上述作者链接下载压缩包，先核对整个 archive SHA256。
+  2. 仅提取 train_log/flownet.pkl 与 train_log/IFNet_HDv3.py，保留原字节。
+     不提取/执行 __MACOSX、.pyc 或 package __init__.py。
+  3. 保存固定提交的 model/warplayer.py 到同名子目录：
+     https://raw.githubusercontent.com/hzwer/Practical-RIFE/bbfd2ea90910789a860ea3e2b32a240cd577b75e/model/warplayer.py
+     本轮通过 GitHub connector 读取同一提交。不要替换为浮动 main 文件。
 
-如 raw.githubusercontent.com 不可达，可使用同一固定提交的 jsDelivr GitHub 分发 URL：
-  https://cdn.jsdelivr.net/gh/nihui/rife-ncnn-vulkan@a7532fc3f9f8f008cd6eecd6f2ffe2a9698e0cf7/models/rife-v4.6/flownet.bin
-  https://cdn.jsdelivr.net/gh/nihui/rife-ncnn-vulkan@a7532fc3f9f8f008cd6eecd6f2ffe2a9698e0cf7/models/rife-v4.6/flownet.param
+逐文件 SHA256（编译器在任何模型代码执行和参数解析前强制校验）：
+  train_log/flownet.pkl
+    6615790efd627772917205db291f51cd392528a157ecbb2ecaeec3bff8eb6de2
+  train_log/IFNet_HDv3.py
+    655b4c772b037967b86c2dd31c8fa3b5323b79dd9a0e0088708d89149bbc8a32
+  model/warplayer.py
+    feb3af9475b724749b023d1913c3b135431eff13d0045b8efb472a699058385f
 
-本轮权重从上述 CDN 分发下载，并核对其 Git blob SHA 与 GitHub 固定提交一致。
-  flownet.bin：10,614,320 bytes；Git blob 70de38ecc5b6f1b63afa56108bf76911f04ce630
-  SHA256 f334ed2260149ce0188a6dcf049844e8b0cdd912e01cbcfb63553157d2508958
-  flownet.param：16,532 bytes；Git blob 3cb69d4ae09b085a2b5b51eb3c2e93745f805644
-  SHA256 724569596bcd1e7b9fa50455c604777ebed99746d2ef40aa86e31b5725f1053c
+编译器用 torch.load(weights_only=True) 加载参数，严格匹配全部推理层；只忽略作者
+训练用 teacher.* 与 caltime.* 参数。未更改学习权重、激活、层或 warp 算法。
+它显式绑定经过哈希校验的 warplayer，不导入未经审核的 package __init__.py。
 
-编译器在本地原生模型解析前强制核对 SHA256；未知模型字节直接拒绝。
+在项目根目录运行；下面的 python 必须指向独立 venv：
+  python tools/test-rife425-compiler.py --model-directory /absolute/path/to/rife425-model
+  python tools/compile-rife425-fields.py --project . --model-directory /absolute/path/to/rife425-model --output /absolute/path/outside-project/fields
 
-在项目根目录执行（替换权重与验收输出路径）：
-  python tools/compile-rife-fields.py --project . --weights /absolute/path/to/RIFE_WEIGHTS
-  python tools/verify-rife-fields.py --project . --weights /absolute/path/to/RIFE_WEIGHTS --output /absolute/path/to/validation
-  node --test short-hair-motion-assets.test.mjs
+编译器拒绝输出到项目内。先比较候选、检查所有角度和表达，再把已审核字段复制到
+assets/short-hair-motion-v1；不要让重新推理自动覆盖正式项目。JSON 记录推理时长，故
+重跑 manifest 的 hash 会随机器负载变化；比较二进制字段和九张原画的 SHA256。
 
-文件协议
-  assets/short-hair-motion-v1/manifest.json 登记 16 条三角网格边。
-  每边实际推理 t=0.125、0.25、0.375、0.5、0.625、0.75、0.875；端点保留源稿。
-  输入缩放为 576×720，右侧/底部补零至 32 的倍数；NCNN blob 327 是四通道 backward flow，332 是 endpoint0 遮挡权重。
-  运动场缩为 144×180，各分量除以输入宽/高，成为归一化图像 UV 位移。
-  flow.bin：无文件头，小端 float16，[7,180,144,4]，依次 dx0、dy0、dx1、dy1。
-  mask.bin：无文件头，uint8，[7,180,144]，除以 255 得 endpoint0 权重。
-  图像 y 轴向下；使用像素中心与双线性采样。
-  manifest 每个文件包含长度、SHA256；九张源图也登记 SHA256。
-  16 边共 112 次真实推理，字段合计 26,127,360 bytes；本机本次编译 35.354 秒。
+全量 A/B 与原分辨率压缩验证（另需历史 ncnn 4.6 依赖/权重）：
+  python tools/verify-rife425-fields.py --project . --model-directory /absolute/path/to/rife425-model --baseline-weights /absolute/path/to/rife46-deps --output /absolute/path/outside-project/comparison
+  node --test short-hair-motion-fields.test.mjs short-hair-motion-assets.test.mjs
 
-验证与边界
-  验证脚本另跑 48 次模型推理，并与导出运动场重建结果比较。
-  未压缩运动场内部像素重建误差为 0，验证了 flow/mask 的语义与方向。
-  低分辨率字段重建的平均 RGB 绝对误差为 0.002190；最差 case 均值 0.003966（范围为 0–1）。
-  上述误差衡量导出近似与本模型直接输出的差别，不能证明模型输出本身的艺术质量。
-  运行时相邻采样之间的时间插值，以及三角形内部多个边场的组合是几何近似，不是直接三视图神经推理。
-  网络以中性画稿估计运动；表情动态共用此运动场。不同原画中的发丝、服装、比例差异仍可能造成局部形变。
+验证输出 full-candidate、full-validation.json、full-previews 和 4 张 16 边中点脸部表。
+历史 NCNN binding 可放 baseline-weights 目录，或安装进仅用于对照的独立 venv。
+历史参数来源与版本见 RIFE-4.6-HISTORY.txt。compile-rife-fields.py、verify-rife-fields.py
+仅为 4.6 历史复现，不能用来重建当前发布的 4.25 字段。
+
+字段协议（不变）
+  输入 576×720，右侧/底部补零至 64 的倍数；5 个推理尺度 [16,8,4,2,1]。
+  模型返回最终四通道 backward flow，mask logits 取 sigmoid；其 RGB 输出由两端
+  原图 warp 后按该 mask 合成，无另一个 RGB residual。仅提取 flow + mask。
+  16 条既有三角网格边，各实际推理 t=i/8（i=1..7），共 112 次；端点仍为原画。
+  存储 144×180，位移各分量除以输入宽高：
+    flow.bin：无头，小端 float16，[7,180,144,4]，dx0,dy0,dx1,dy1。
+    mask.bin：无头，uint8，[7,180,144]，除以 255 得 endpoint0 权重。
+  图像 y 轴向下；像素中心与双线性采样；每个文件记录大小及 SHA256。
+  loader 只接受新的固定作者/模型/权重/代码身份和上述语义，旧 4.6 manifest 会被拒绝。
+
+此次全量结果（误差范围 0–1；均为代理指标，不是艺术质量分数）
+  已检查 16 边 × 7 时刻，另跑两个模型各自的反向输入/时间；全部有限，原稿 hash 未变。
+  4.25 完整字段在内部区域重建网络 RGB 平均误差 0.000000268，验证 flow/mask 语义。
+  反向 RGB 一致性均值 4.6 0.01232 → 4.25 0.01083；15/16 边改善。
+  right→right-down 回退：均值 0.01200 → 0.01329。
+  4.25 全局最差为 front→right-down t=.5，0.02663；旧全局最差 0.02427。
+  相同 144×180 存储对较细 flow 的近似损失上升：原分辨率脸部 premulRGB 误差均值
+  0.00285 → 0.00407，最差 0.00548 → 0.00803；alpha 均值 0.000406 → 0.000631。
+  全部逐边 mean/median/p95/worst/time 见 validation/v0.19-rife-model.json 与 CSV。
+  此误差是原 1122×1402 RGBA 在完整 flow 和压缩 flow 下的差异，不是与真实中间稿比较。
+
+视觉验收与限制
+  已逐边查看 16 个中点及 4 个最差指标相关样例（含 t=.875），使用实际压缩字段
+  warp 原分辨率 RGBA。下→右下、左上→正面、正面→右下的双眉眼/发线重影减少；
+  未见新的大变形，但细发线略软，部分嘴部仍有轻微重影。并非所有指标获胜。
+  provenance.json 固定 manifest、compiler、依赖锁、报告和许可 hash。
+  CPU 4 线程单次均值 4.6 NCNN 0.403s、4.25 PyTorch 0.254s，仅是本机不同后端实测，
+  不能据此声称新模型架构更快；浏览器只采样字段，不受离线推理时间影响。
+  相邻时刻插值、三角形内部边场组合仍是几何近似；并非直接三视图神经推理。
+  中性原稿 fields 被表情共用，需要实际浏览器表情/视线/透明边缘回归。
+  模型不产出可靠的语义分层或被遮挡区域补画；不能把这次更换说成完整自动建模。

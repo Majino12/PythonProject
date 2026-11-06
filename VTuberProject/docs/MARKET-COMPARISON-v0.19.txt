@@ -1,0 +1,43 @@
+VTuberProject v0.19 · 与成熟2D制作/直播工具的差距及模型选择
+核查日期：2026-11-06。对照来自下列官方文档，不是竞品真人实机测评。
+保持2D；VTube Studio只作为工作流参照，不集成其协议或兼容层。
+
+本轮补齐
+1. 直播表情控制：成熟工具已有命名表情、参数覆盖、淡入淡出和快捷操作。本项目新增最多8个命名预设、选择眼/口/眉/视线覆盖组、约300ms过渡、后启用优先；摄像头/演示不再因叠加预设中断。保存项目带预设，重开不自动激活。1–8/Esc只在页面聚焦且非文字输入时响应。
+2. 待机生命感：新增随机间隔的自动眨眼，沿真实五档眼睑画稿，和已有呼吸/摆动结合。仅手动模式自动眨眼，跟踪/回放不叠加第二次眨眼。没有凭空增加新的情绪画稿。
+3. 跟踪执行和校准：保留MediaPipe，后台Worker CPU推理优先、单帧在途、丢弃过期结果、异常释放与明确兼容降级；连续3次过期会暂停并提示重开到兼容模式，闲置失效Worker在请求摄像头前更换；以拍摄时间校准，修复真实roll字段遗漏。增加眼/嘴有效输入上限。实际浏览器画稿诊断三次warm为17.5/17.4/16ms，主线程继续响应；这不是摄像头精度或多设备性能承诺。
+4. 转头画质：由RIFE4.6换到4.25。全16边×7时刻对比，关键转向的双眉/发线重影减少。不是所有指标都改善，见下文。
+
+模型决定
+RIFE4.25：采用。Practical-RIFE作者在当前README推荐为默认，4.25针对动漫优化。仍采用开发阶段预计算流场，直播只执行WebGL，不实时载入PyTorch权重。16条边×7个时间点，输入576×720，保存144×180四通道float16 flow+uint8 mask，约26.1MB。完整原稿字节不变。
+反向RGB一致性均值4.6=0.01232、4.25=0.01083，15/16边改善；right→right-down变差。脸部原尺寸压缩误差从0.00285升至0.00407，alpha误差从0.000406升至0.000631；新版流场更细，同样低分辨率存储会损失更多细节。全分辨率场对模型RGB重建内部误差约2.68e-7。逐边图和CSV保留，可回到旧版。速度测试后端不同，不据此声称4.25模型本身更快。4.26虽存在，作者当前默认推荐和已完成本机实测支持4.25。
+MediaPipe：保留。已输出面部关键点、52blendshape类别和变换矩阵（包括neutral，不能当作52个有效表情或tongueOut）。本项目2D实际使用22个通道，欠缺主要是画稿和映射范围。更换成OpenSeeFace需要原生ONNX、UDP接入和特征重映射，不能直接获得当前缺失画稿。
+FILM：本轮不选。官方实现忽略time输入并固定中点，且RGB经过fusion；与现有任意时间flow+mask+alpha协议不是直接替换关系。
+GIMM：本轮不选。官方S-Lab非商业许可与CUDA/CuPy依赖，以及多流/RGB融合路径，不适合当前可直播分发的本机浏览器目标。
+Qwen-Image-Layered：暂不接入。Apache2.0可用，但官方完整模型约57.7GB/20B，生成式分层会重绘，不能保证像素登记和原五官一致。不能把它产出的层未经审查直接换成运行画稿。
+SAM2.1 Tiny：下一轮分层遮罩试验的候选。Apache2.0、约38.9M参数，正负点交互比再次盲目生成全脸更适合修前发归属；仍不能生成被头发遮住的额头/眼眉内容。现有anime-seg轮廓alpha本轮保留。
+
+仍明显落后，按依赖顺序推进
+A. 可编辑角色绑定与真正分层（最高优先）：Live2D/Inochi2D有网格、变形器、参数绑定和制作工具。本项目仍是九方向画稿+运动场，并非完整可编辑rig。需要先建立统一坐标的独立前发/后发/脸/颈/躯干/配件，以及准确alpha和隐藏区补画，再做遮挡顺序、局部形变和物理。已有头身可见像素ZIP不是完整头发拆分。v0.18错误候选继续不接入。
+B. 表情覆盖：当前22通道和有限眼口眉稿；缺笑/怒/悲的独立整脸、脸颊、泪、舌、更多口型及复合稿。以需要的直播表情清单补实际画稿、注册和验收，再扩通道，不能只增加滑块。
+C. 跟踪输入：需真人在不同光照/眼镜/转头范围下测精度、长时漂移与延迟；目前没有手机TrueDepth来源、完整roll身体倾斜、手部/上半身跟踪。iFacialMocap官方有独立UDP/TCP数据协议，可作为后续手机输入，不要求VTube Studio。
+D. 输出与控制：已有本机独立透明画面和OBS Browser Source，但没有OBS实机长播数据、虚拟摄像头、Spout/Syphon、跨设备安全传输或系统全局快捷键。VTS macOS后台热键需要系统辅助功能/输入监控授权；当前页面热键不宣称等同它。
+E. 多角色制作工具：仍绑定一个已登记角色，缺通用导入向导、遮罩编辑、网格/骨骼编辑、批量登记和素材覆盖提示。这是“一张图自动跑出好结果”前必须建立的中间表示与人工可修复入口。
+F. 语音口型：未启用麦克风，也无音素识别或发音口型画稿。添加响度驱动张嘴只能提供幅度，不应宣传为准确唇形同步。未来应先补发音稿再选择本地音素模型。
+
+建议下一轮小范围：先用一张正面原稿完成可复核的前发/脸mask与隐藏区补画，建立坐标与重建误差验收；通过后再扩九方向、分层物理。单图自动生成完整模型是最后一步，不把当前能力包装成已完成。
+
+官方资料
+VTube Studio模型表情/热键 https://github.com/DenchiSoft/VTubeStudio/wiki/VTS-Model-Settings
+VTube Studio macOS后台热键 https://github.com/DenchiSoft/VTubeStudio/wiki/MacOS-Background-Hotkeys
+Live2D眨眼参数 https://docs.live2d.com/en/cubism-editor-manual/eye-blink-settings/
+Inochi2D Creator/Session https://docs.inochi2d.com/en/latest/index.html
+Practical-RIFE推荐/模型 https://github.com/hzwer/Practical-RIFE
+MediaPipe Web https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker?tab=Web
+MediaPipe官方Worker示例 https://github.com/google-ai-edge/mediapipe-samples-web/blob/main/src/workers/face-landmarker.worker.ts
+OpenSeeFace https://github.com/emilianavt/OpenSeeFace
+iFacialMocap协议 https://www.ifacialmocap.com/for-developer/
+FILM固定中点代码 https://github.com/google-research/frame-interpolation/blob/main/models/film_net/interpolator.py
+GIMM https://github.com/GSeanCD/GIMM-VFI
+Qwen-Image-Layered https://huggingface.co/Qwen/Qwen-Image-Layered
+SAM2 https://github.com/facebookresearch/sam2

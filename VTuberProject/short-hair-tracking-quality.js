@@ -2,9 +2,12 @@
  * manual controls and the shared FaceSession deliberately do not use this gate. */
 const finite = value => typeof value === 'number' && Number.isFinite(value);
 const validTime = value => finite(value) && value >= 0;
-const copyPose = pose => ({x:pose.x,y:pose.y,z:pose.z ?? 0});
+// motion.js returns roll already normalized to [-1,1], not radians/degrees.
+// z was only the older test/adapter alias; prefer the actual detector property.
+const roll = pose => pose && Object.hasOwn(pose,'roll') ? pose.roll : pose?.z ?? 0;
+const copyPose = pose => ({x:pose.x,y:pose.y,roll:roll(pose)});
 const validPose = pose => pose && ['x','y'].every(key => finite(pose[key]) && Math.abs(pose[key]) <= 1)
-  && (pose.z === undefined || finite(pose.z) && Math.abs(pose.z) <= 1);
+  && finite(roll(pose)) && Math.abs(roll(pose)) <= 1;
 const distance = (a,b) => Math.max(Math.abs(a.x-b.x),Math.abs(a.y-b.y));
 const percentile = (values,fraction) => {
   const sorted = [...values].sort((a,b) => a-b);
@@ -109,7 +112,7 @@ export class StudioCalibrationQuality {
     if(now-samples.at(-1).at>limits.maxAgeMs)return report('stale');
     if(spanMs<limits.minSpanMs)return report('too-short');
     if(samples.some((sample,index)=>index>0&&sample.at-samples[index-1].at>limits.maxGapMs))return report('interrupted');
-    if([['x',limits.maxYawSpread],['y',limits.maxPitchSpread],['z',limits.maxRollSpread]].some(([axis,max])=>{
+    if([['x',limits.maxYawSpread],['y',limits.maxPitchSpread],['roll',limits.maxRollSpread]].some(([axis,max])=>{
       const values=samples.map(sample=>sample.pose[axis]);return percentile(values,.9)-percentile(values,.1)>max;
     }))return report('moving');
     if(['eyeBlinkLeft','eyeBlinkRight'].some(key=>percentile(samples.map(sample=>sample.channels[key]),.5)>limits.maxBlinkMedian))return report('eyes-closed');

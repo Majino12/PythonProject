@@ -1,0 +1,25 @@
+{
+  "version": "0.19.0",
+  "date": "2026-11-06",
+  "port": 4180,
+  "browser": "Codex in-app browser",
+  "cameraActivated": false,
+  "microphoneActivated": false,
+  "obsHardwareTested": false,
+  "checks": [
+    "RIFE 4.25 runtime loads all verified fields and 94 actual GPU pixel checks pass",
+    "Demo continues while pucker overlay changes actual authored mouth",
+    "Custom masked preset saved and remains after reload, active state remains off",
+    "Typing 1 inside preset name adds text and does not activate shortcut",
+    "Focused 3 activates brow overlay; Escape releases it",
+    "Independent output receives committed pucker face while studio is paused; explicit disable stops publishing",
+    "Idle blink option starts natural standby; camera remains off",
+    "No studio page error logs during exercised controls"
+  ],
+  "workerReport": "v0.19-tracking-worker-browser.json",
+  "limitations": [
+    "Authored PNG diagnostic is not real webcam accuracy.",
+    "No actual OBS session or long-duration recording in this iteration.",
+    "Visual inspection does not alter artwork approval state."
+  ]
+}

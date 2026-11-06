@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "mode": "worker",
+  "delegate": "CPU",
+  "modelLoadMs": 128,
+  "coldInferenceMs": 73.8,
+  "warmInferenceMs": [
+    17.5,
+    17.4,
+    16
+  ],
+  "meanWarmInferenceMs": 17,
+  "faces": 1,
+  "maxPending": 1,
+  "mainThreadTicks": 10,
+  "totalMs": 300,
+  "note": "仅验证后台模型可加载并处理已有画稿；未测真人精度，未访问摄像头或麦克风。"
+}

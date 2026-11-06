@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {FaceSession} from './face-session.js';
 import {STUDIO_CHANNELS} from './short-hair-studio-model.js';
 import {mapBlendshapeValue} from './arkit-blendshapes.js';
+import {validateTrackingSettings} from './short-hair-tracking-settings.js';
 import {TRACKING_PRESETS, normalizeTrackingSettings, createFaceSessionSettings, StudioPoseStabilizer,
   TRACKING_CLIP_LIMITS, validateTrackingClip, parseTrackingClip, TrackingClipRecorder, TrackingClipPlayer,
   TrackingInferenceMetrics} from './short-hair-studio-tracking.js';
@@ -13,9 +14,9 @@ const clip = () => ({schemaVersion:1,kind:'moemotion-short-hair-tracking-clip',c
   samples:[{t:0,...frame()},{t:80,...frame({jawOpen:.8},'view-left')},{t:160,...frame({eyeBlinkLeft:1})}]});
 
 test('short-hair presets normalize hostile settings without changing legacy defaults',()=>{
-  assert.deepEqual(normalizeTrackingSettings(null),{preset:'balanced',eyeSensitivity:1,mouthSensitivity:1});
+  assert.deepEqual(normalizeTrackingSettings(null),{preset:'balanced',eyeSensitivity:1,mouthSensitivity:1,eyeInputMax:.85,mouthInputMax:.85});
   assert.deepEqual(normalizeTrackingSettings({preset:'unknown',eyeSensitivity:99,mouthSensitivity:NaN}),
-    {preset:'balanced',eyeSensitivity:1.4,mouthSensitivity:1});
+    {preset:'balanced',eyeSensitivity:1.4,mouthSensitivity:1,eyeInputMax:.85,mouthInputMax:.85});
   const session = new FaceSession();
   assert.deepEqual(session.settings,{channels:{}});
   const settings = createFaceSessionSettings({preset:'responsive'});
@@ -35,6 +36,32 @@ test('sensitivity responds monotonically, preserves full closure and does not am
     assert.equal(mapBlendshapeValue(0,high[key]),0);
   }
   assert.deepEqual(low.eyeLookOutLeft,high.eyeLookOutLeft);
+});
+test('legacy defaults preserve the original effective maximum at every preset and sensitivity',()=>{
+  for(const preset of ['balanced','responsive','stable'])for(const sensitivity of [.7,1,1.4]){
+    const config=createFaceSessionSettings({preset,eyeSensitivity:sensitivity,mouthSensitivity:sensitivity}).channels;
+    assert.equal(config.eyeBlinkLeft.inputMax,Math.min(1,.85/sensitivity));
+    assert.equal(config.jawOpen.inputMax,Math.min(1,.85/sensitivity));
+  }
+});
+test('effective maximum maps modest observed eye and jaw input to full output without changing gaze or shared defaults',()=>{
+  const session=new FaceSession();session.setSettings(createFaceSessionSettings({eyeInputMax:.44,mouthInputMax:.4}));
+  session.neutral.eyeBlinkLeft=session.neutral.eyeBlinkRight=.1;session.neutral.jawOpen=.1;
+  session.cameraFrame.eyeBlinkLeft=session.cameraFrame.eyeBlinkRight=.5;session.cameraFrame.jawOpen=.46;session.cameraTime=0;
+  const output=session.update({},'camera',0,1);
+  assert.equal(output.eyeBlinkLeft,1);assert.equal(output.eyeBlinkRight,1);assert.ok(Math.abs(output.jawOpen-1)<1e-12);
+  assert.deepEqual(new FaceSession().settings,{channels:{}});
+  assert.deepEqual(createFaceSessionSettings({eyeInputMax:.2,mouthInputMax:.2}).channels.eyeLookOutLeft,
+    createFaceSessionSettings().channels.eyeLookOutLeft);
+});
+test('effective maximum accepts old saved settings and rejects malformed imported maxima',()=>{
+  assert.deepEqual(validateTrackingSettings({preset:'stable',eyeSensitivity:1,mouthSensitivity:1}),
+    {preset:'stable',eyeSensitivity:1,mouthSensitivity:1,eyeInputMax:.85,mouthInputMax:.85});
+  for(const value of [null,NaN,Infinity,.19,1.01,'0.5'])for(const key of ['eyeInputMax','mouthInputMax'])
+    assert.throws(()=>validateTrackingSettings({[key]:value}));
+  assert.throws(()=>validateTrackingSettings({other:1}));
+  assert.deepEqual(normalizeTrackingSettings({eyeInputMax:0,mouthInputMax:2}),
+    {preset:'balanced',eyeSensitivity:1,mouthSensitivity:1,eyeInputMax:.2,mouthInputMax:1});
 });
 
 test('presets use the single existing FaceSession filter and preserve neutral calibration',()=>{

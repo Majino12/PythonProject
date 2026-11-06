@@ -38,7 +38,7 @@ const pixels=canvas=>canvas.getContext('2d').getImageData(0,0,canvas.width,canva
 const nextPaint=()=>new Promise(resolve=>requestAnimationFrame(()=>resolve()));
 
 export async function runContinuousDiagnostics(assets,{onProgress=()=>{},preview=null}={}) {
-  const report={schemaVersion:1,kind:'short-hair-continuous-browser-validation',version:'0.18.0',
+  const report={schemaVersion:1,kind:'short-hair-continuous-browser-validation',version:'0.19.0',
     startedAt:new Date().toISOString(),status:'running',checks:[],limitations:[
       'Pixel continuity is not an artistic-quality or real-camera/OBS acceptance test.',
       'Model pair fields are extended geometrically to triangle interiors; this is not three-image neural inference.',
@@ -169,7 +169,7 @@ if(typeof document!=='undefined'){
   });
   download.addEventListener('click',()=>{
     if(!result)return;const url=URL.createObjectURL(new Blob([JSON.stringify(result,null,2)],{type:'application/json'}));
-    const a=document.createElement('a');a.href=url;a.download='v0.18-continuous-browser-validation.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    const a=document.createElement('a');a.href=url;a.download='v0.19-continuous-browser-validation.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
   });
   window.addEventListener('pagehide',()=>assets?.flowRenderer?.dispose());
 }

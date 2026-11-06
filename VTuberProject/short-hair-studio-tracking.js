@@ -1,9 +1,10 @@
 import {STUDIO_CHANNELS, STUDIO_POSES, selectStudioPose} from './short-hair-studio-model.js';
 import {poseHeadCoordinates, validateHeadPose, nearestStudioPoseId} from './short-hair-pose-motion.js';
 import {validateSecondaryFrame} from './short-hair-secondary-motion.js';
+import {normalizeTrackingSettings} from './short-hair-tracking-settings.js';
+export {normalizeTrackingSettings} from './short-hair-tracking-settings.js';
 
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
-const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 const keys = STUDIO_CHANNELS.map(channel => channel.key);
 const poseIds = new Set(STUDIO_POSES.map(pose => pose.id));
 
@@ -14,20 +15,14 @@ export const TRACKING_PRESETS = Object.freeze([
   Object.freeze({id:'stable', label:'稳定', blinkMs:42, mouthMs:75, otherMs:100, poseHoldMs:140, deadzone:.035}),
 ]);
 
-export function normalizeTrackingSettings(raw = {}) {
-  const value = object(raw) ? raw : {};
-  const sensitivity = key => typeof value[key] === 'number' && Number.isFinite(value[key]) ? clamp(value[key], .7, 1.4) : 1;
-  return {preset:TRACKING_PRESETS.some(item => item.id === value.preset) ? value.preset : 'balanced',
-    eyeSensitivity:sensitivity('eyeSensitivity'), mouthSensitivity:sensitivity('mouthSensitivity')};
-}
-
 /** Feed this to FaceSession.setSettings. Its existing filter is the only filter. */
 export function createFaceSessionSettings(raw) {
   const settings = normalizeTrackingSettings(raw), preset = TRACKING_PRESETS.find(item => item.id === settings.preset);
   return {channels:Object.fromEntries(STUDIO_CHANNELS.map(({key, group}) => {
     const blink = key === 'eyeBlinkLeft' || key === 'eyeBlinkRight', mouth = group === 'mouth';
     const sensitivity = blink ? settings.eyeSensitivity : mouth ? settings.mouthSensitivity : 1;
-    return [key, {inputMin:preset.deadzone, inputMax:blink || mouth ? Math.min(1, .85 / sensitivity) : 1,
+    const inputMax=blink?settings.eyeInputMax:mouth?settings.mouthInputMax:1;
+    return [key, {inputMin:preset.deadzone, inputMax:blink || mouth ? Math.min(1, inputMax / sensitivity) : 1,
       outputMin:0, outputMax:1, curve:'linear', smoothing:blink ? preset.blinkMs : mouth ? preset.mouthMs : preset.otherMs}];
   }))};
 }

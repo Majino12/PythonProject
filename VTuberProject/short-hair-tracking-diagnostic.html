@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>后台跟踪诊断</title>
+<style>body{font:16px/1.7 system-ui,sans-serif;max-width:760px;margin:48px auto;padding:0 24px;color:#dbe5ee;background:#121b26}button{font:inherit;padding:10px 18px;border:0;border-radius:8px;background:#b4dcf4;color:#142536;cursor:pointer}pre{white-space:pre-wrap;background:#1b2939;padding:20px;border-radius:10px}</style>
+<h1>后台跟踪诊断</h1>
+<p>点击后下载识别模型，在后台线程处理项目内画稿：先预热一次，再连续测量三次。不会打开摄像头或麦克风，也不会记录媒体。</p>
+<p>画稿可能没有可检测人脸；本页只验证加载、后台推理和资源释放，不评价真人跟踪精度。</p>
+<button id="runWorkerDiagnostic">运行一次后台诊断</button>
+<pre id="workerDiagnosticStatus" role="status">尚未加载模型。</pre>
+<script type="module" src="./short-hair-tracking-diagnostic.js"></script>
+</html>

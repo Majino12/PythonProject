@@ -124,3 +124,17 @@ test('single frame accepts strict secondary values without enabling movement',()
   assert.deepEqual(parseStudioFrame(JSON.stringify({coefficients:{jawOpen:.5},secondary})).secondary,secondary);
   assert.throws(()=>parseStudioFrame(JSON.stringify({coefficients:{jawOpen:.5},secondary:{...secondary,hair:Infinity}})));
 });
+
+test('v0.19 presets and tracking input ranges survive project round trips without active expression state',()=>{
+ const project=createStudioProject({trackingSettings:{eyeInputMax:.45,mouthInputMax:.6}});
+ const loaded=parseStudioProject(JSON.stringify({...project,activeExpressionIds:['pucker'],idleBlinkEnabled:true}));
+ assert.equal(loaded.trackingSettings.eyeInputMax,.45);assert.equal(loaded.trackingSettings.mouthInputMax,.6);
+ assert.deepEqual(loaded.performancePresets,project.performancePresets);assert.equal(loaded.performancePresets.length,4);
+ assert.ok(!Object.hasOwn(loaded,'activeExpressionIds'));assert.ok(!Object.hasOwn(loaded,'idleBlinkEnabled'));
+ const old={...project};delete old.performancePresets;delete old.trackingSettings.eyeInputMax;delete old.trackingSettings.mouthInputMax;
+ assert.equal(parseStudioProject(JSON.stringify(old)).performancePresets.length,4);
+ assert.equal(parseStudioProject(JSON.stringify(old)).trackingSettings.eyeInputMax,.85);
+ for(const input of [{trackingSettings:{eyeInputMax:0}},{trackingSettings:{mouthInputMax:'0.5'}},{performancePresets:[{id:'x'}]},
+  {performancePresets:[...project.performancePresets,...project.performancePresets]},{performancePresets:Array(9).fill(project.performancePresets[0])}])
+  assert.throws(()=>parseStudioProject(JSON.stringify({...project,...input})));
+});

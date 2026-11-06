@@ -20,13 +20,22 @@ test('RIFE field package covers every edge of the four consistently triangulated
 });
 
 test('neural provenance pins official network and weights, with an offline compiler',async()=>{
-  assert.equal(manifest.model.name,'RIFE v4.6');
-  assert.equal(manifest.model.commit,'a7532fc3f9f8f008cd6eecd6f2ffe2a9698e0cf7');
-  assert.equal(manifest.model.weights['flownet.bin'],'f334ed2260149ce0188a6dcf049844e8b0cdd912e01cbcfb63553157d2508958');
-  assert.equal(manifest.model.weights['flownet.param'],'724569596bcd1e7b9fa50455c604777ebed99746d2ef40aa86e31b5725f1053c');
-  assert.equal(manifest.model.flowBlob,'327');assert.equal(manifest.model.maskBlob,'332');
-  assert.match(await readFile(new URL('tools/compile-rife-fields.py',root),'utf8'),/ex\.extract\(name\)/);
-  assert.match(await readFile(new URL('LICENSE-RIFE.txt',directory),'utf8'),/Copyright \(c\) 2020 nihui/);
+  assert.equal(manifest.id,'short-hair-rife-v4.25-fields-v1');
+  assert.equal(manifest.model.name,'RIFE v4.25');
+  assert.equal(manifest.model.implementation,'hzwer/Practical-RIFE');
+  assert.equal(manifest.model.commit,'bbfd2ea90910789a860ea3e2b32a240cd577b75e');
+  assert.equal(manifest.model.weights['train_log/flownet.pkl'],'6615790efd627772917205db291f51cd392528a157ecbb2ecaeec3bff8eb6de2');
+  assert.equal(manifest.model.weights['train_log/IFNet_HDv3.py'],'655b4c772b037967b86c2dd31c8fa3b5323b79dd9a0e0088708d89149bbc8a32');
+  assert.equal(manifest.model.weights['model/warplayer.py'],'feb3af9475b724749b023d1913c3b135431eff13d0045b8efb472a699058385f');
+  assert.equal(manifest.model.weightArchiveSha256,'e63d481b7ae5d4a4e6ad7ac5b410ff78f3bf7be3b51b2e38ca8152747abde5b4');
+  assert.equal(manifest.model.flowOutput,'flow_list[-1]');assert.equal(manifest.model.maskOutput,'sigmoid(mask_logits)');
+  assert.deepEqual(manifest.model.scaleList,[16,8,4,2,1]);
+  assert.match(await readFile(new URL('LICENSE-RIFE.txt',directory),'utf8'),/Copyright \(c\) 2021 hzwer/);
+  const receipt=JSON.parse(await readFile(new URL('provenance.json',directory),'utf8'));
+  assert.equal(hash(await readFile(new URL('manifest.json',directory))),receipt.manifestSha256);
+  for(const key of ['compiler','dependencyLock','validation','license'])
+    assert.equal(hash(await readFile(new URL(receipt[key].path,root))),receipt[key].sha256,`${key} must match the reviewed receipt`);
+  assert.equal(receipt.sourceArtModified,false);assert.equal(receipt.weightsShipped,false);assert.equal(receipt.runtimeModelInference,false);
 });
 
 for(const [pose,source] of Object.entries(manifest.sources)) test(`RIFE motion fields reference the unchanged ${pose} painting`,async()=>{
@@ -59,9 +68,27 @@ for(const edge of manifest.edges) test(`RIFE ${edge.id} contains seven bounded n
 });
 
 test('exported motion-field reconstruction was compared against actual network RGB outputs',async()=>{
-  const report=JSON.parse(await readFile(new URL('validation/v0.17-rife-model.json',root),'utf8'));
-  assert.equal(report.evaluationsForValidation,48);assert.equal(report.cases.length,48);
-  assert.ok(report.maxFullFieldInteriorMeanError<.0001,'exported blob semantics must match model output');
-  assert.ok(report.worstCaseMeanAbsoluteRGBError<.006,'compressed fields must stay within the measured image error budget');
-  assert.deepEqual(new Set(report.cases.map(value=>value.edge)),new Set(manifest.edges.map(value=>value.id)));
+  const report=JSON.parse(await readFile(new URL('validation/v0.19-rife-model.json',root),'utf8'));
+  assert.equal(report.cases.length,112);assert.equal(report.allFinite,true);assert.equal(report.originalsStillUnchanged,true);
+  assert.equal(report.fieldBytes,26127360);
+  assert.equal(report.manifestSha256,hash(await readFile(new URL('manifest.json',directory))));
+  assert.deepEqual(new Set(report.cases.map(value=>`${value.from}__${value.to}`)),new Set(manifest.edges.map(value=>value.id)));
+  for(const [pose,source] of Object.entries(manifest.sources))assert.equal(report.sourceHashes[pose],source.sha256);
+  for(const edge of manifest.edges){
+    const cases=report.cases.filter(value=>value.from===edge.from&&value.to===edge.to);
+    assert.deepEqual(cases.map(value=>value.time),manifest.times);
+    for(const item of cases){
+      const current=item.models.rife425;
+      assert.ok(current.fullFieldInteriorMAE<.000001,'four-channel flow and mask must reproduce network output');
+      assert.ok(current.nativeCompressionFacePremulRGBMAE<.009,'stored fields must stay within the visually reviewed native-resolution compression budget');
+      assert.ok(current.nativeCompressionAlphaMAE<.0015,'native alpha compression must stay within the reviewed budget');
+      assert.equal(current.finite,true);
+    }
+  }
+  assert.equal(report.edges.length,16);
+  for(const edge of report.edges)for(const name of ['rife46','rife425']){
+    const distribution=edge.models[name].reverseSubjectRGBMAE;
+    assert.ok(distribution.worst.value>=distribution.mean);
+    assert.ok(manifest.times.includes(distribution.worst.time));
+  }
 });

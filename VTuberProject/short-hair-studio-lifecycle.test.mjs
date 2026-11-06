@@ -11,14 +11,16 @@ import * as poseMotion from './short-hair-pose-motion.js';
 import * as trackingQuality from './short-hair-tracking-quality.js';
 import * as secondaryMotion from './short-hair-secondary-motion.js';
 import * as composition from './short-hair-composition.js';
+import * as performanceLayer from './short-hair-performance.js';
+import * as idleBlink from './short-hair-idle-blink.js';
 import {mapBlendshapeValue} from './arkit-blendshapes.js';
 
 const source = readFileSync(new URL('./short-hair-studio.js', import.meta.url),'utf8').replace(/^import[\s\S]*?from ['"][^'"]+['"];\n/gm,'');
 function harness() {
   const elements = new Map(), documentEvents = {}, windowEvents = {}, frames = new Map(), intervals = new Map(), calls = {load:0,assetResolvers:[],saved:[],recordStop:0,downloads:[],filenames:[],streams:[],draws:[],compositions:[],now:0,attributeWrites:0,published:[],outputStops:0};
-  let frameId=0;
+  let frameId=0,createdId=0;
   const element = key => {
-    if (!elements.has(key)) elements.set(key,{value:'',checked:false,hidden:false,disabled:false,dataset:{},textContent:'',
+    if (!elements.has(key)) elements.set(key,{value:'',checked:false,hidden:false,disabled:false,dataset:{},textContent:'',children:[],append(...children){this.children.push(...children);},replaceChildren(...children){this.children=[...children];},
       classList:{toggle(){},add(){},remove(){}},events:{},attributes:{},setAttribute(key,value){this.attributes[key]=value;calls.attributeWrites++;},getAttribute(key){return this.attributes[key];},addEventListener(type,callback){this.events[type]=callback;}});
     return elements.get(key);
   };
@@ -35,17 +37,17 @@ function harness() {
     publish(value){calls.published.push(value);}
     stop(){this.enabled=false;calls.outputStops++;return Promise.resolve();}
   }
-  const document={hidden:false,querySelector:element,querySelectorAll:()=>[],body:{append(){}},
+  const document={hidden:false,focused:true,hasFocus(){return this.focused;},querySelector:element,querySelectorAll:()=>[],body:{append(){}},
     createElement(tag){
       if(tag==='a')return{click(){calls.filenames.push(this.download);},remove(){}};
       if(tag==='canvas')return{width:0,height:0,getContext:()=>({fillRect(){},clearRect(){},drawImage(){}}),captureStream(fps){const stream={fps,stops:0,getTracks:()=>[{stop(){stream.stops++;}}]};calls.streams.push(stream);return stream;}};
-      throw new Error(`Unexpected element ${tag}`);
+      const created=element(`generated-${++createdId}`);created.tagName=tag.toUpperCase();return created;
     },addEventListener(type,callback){documentEvents[type]=callback;}};
   Object.assign(element('#studioCanvas'),{width:630,height:460,captureStream(){}});
   const capabilities={extendedEyes:true,extendedJaw:true,shiftLeft:true,shiftRight:true,gaze:true};
   const selector=(assets,poseId,channels,previous={})=>({targetState:selectExpression(channels,previous,capabilities),targetGaze:selectGaze(channels,capabilities),
     availableSequences:{eyeLeft:['open','quarter','half','threeQuarter','closed'],eyeRight:['open','quarter','half','threeQuarter','closed'],mouth:['neutral','parted','openSmall','openMedium','openWide']}});
-  const context=vm.createContext({...model,...timing,...tracking,...poseMotion,...trackingQuality,...secondaryMotion,...composition,sanitizeChannels,selectGaze,FaceSession,ShortHairStudioCamera:Camera,StudioOutputPublisher:Publisher,document,
+  const context=vm.createContext({...model,...timing,...tracking,...poseMotion,...trackingQuality,...secondaryMotion,...composition,...performanceLayer,...idleBlink,sanitizeChannels,selectGaze,FaceSession,ShortHairStudioCamera:Camera,StudioOutputPublisher:Publisher,document,
     window:{location:{origin:'http://127.0.0.1:4175'},addEventListener(type,callback){windowEvents[type]=callback;}},localStorage:{getItem:()=>null,setItem(key,value){calls.saved.push({key,value});}},
     performance:{now:()=>calls.now},requestAnimationFrame(callback){frames.set(++frameId,callback);return frameId;},cancelAnimationFrame(id){frames.delete(id);},
     loadContinuousShortHairAssets(){calls.load++;return new Promise(resolve=>calls.assetResolvers.push(resolve));},selectShortHairStudioState:selector,
@@ -58,14 +60,14 @@ function harness() {
       const result={...target,state:options.original?neutral.targetState:options.stateOverride || target.targetState,gaze:options.original?neutral.targetGaze:target.targetGaze,didDraw:true,
         headPose:options.original?poseMotion.poseHeadCoordinates(poseMotion.nearestStudioPoseId(options.headPose)):{...options.headPose},transparent:options.transparent,
         secondary:options.original?{breath:0,sway:0,hair:0}:{...options.secondary}};
-      calls.draws.push({at:calls.now,poseId,...result});return result;
+      calls.draws.push({at:calls.now,poseId,coefficients:{...channels},...result});return result;
     },extractFaceMotion:result=>result?.faceMotion || null,
     calls,console,Blob,URL:{createObjectURL(blob){calls.downloads.push(blob);return 'blob:test';},revokeObjectURL(){}},setTimeout(callback){callback();return 0;},
     setInterval(callback){const id=intervals.size+1;intervals.set(id,callback);return id;},clearInterval(id){intervals.delete(id);}});
   vm.runInContext(source,context);
   return{context,calls,elements,frames,intervals,document,documentEvents,windowEvents,run:code=>vm.runInContext(code,context),
     step(now){const next=frames.entries().next().value;if(!next)return false;const[id,callback]=next;frames.delete(id);calls.now=now;callback(now);return true;},
-    prepare(){vm.runInContext('assets={poses:STUDIO_POSES.map(pose=>({...pose,label:pose.id}))};ready=true;paint({snap:true});',context);}};
+    prepare(){vm.runInContext('assets={poses:STUDIO_POSES.map(pose=>({...pose,label:pose.id}))};ready=true;buildPerformanceControls();paint({snap:true});',context);}};
 }
 
 test('loading the studio prepares only local art and remains still with no camera start',()=>{
@@ -691,11 +693,175 @@ test('page exit cannot schedule graphics recovery or accept a late animation cal
 
 test('pausing micro-motion immediately updates the source badge and persists the exact frozen frame',()=>{
   const h=harness();h.prepare();h.run('toggleSecondary();');h.step(0);h.step(100);
-  assert.equal(h.elements.get('#sourceBadge').textContent,'自然微动');const shown=plain(h.run('rendered.secondary'));
+  assert.equal(h.elements.get('#sourceBadge').textContent,'自然待机');const shown=plain(h.run('rendered.secondary'));
   h.run('toggleSecondary();');assert.equal(h.elements.get('#sourceBadge').textContent,'手动 · 静止');
   assert.equal(h.elements.get('#secondaryToggle').textContent,'开启微动');
   const saved=JSON.parse(h.calls.saved.at(-1).value);
   assert.deepEqual(saved.secondary,shown);assert.equal(saved.secondarySettings.enabled,false);
   h.context.restoreInput=saved;h.run('restoreProject(restoreInput);');
   assert.equal(h.run('secondaryRunning'),false);assert.equal(h.frames.size,0);assert.deepEqual(plain(h.run('rendered.secondary')),shown);
+});
+
+test('named expression buttons preserve camera and demo sources while masking only their selected group',()=>{
+  for(const mode of ['camera','demo']){
+    const h=harness();h.prepare();
+    if(mode==='camera')attachCamera(h);else h.run('source="demo";');
+    h.run('coefficients=sanitizeChannels({jawOpen:.7,browInnerUp:.2,eyeLookOutLeft:.6});paint({snap:true});');
+    const base=plain(h.run('coefficients')),stops=h.run('camera.stops');
+    h.elements.get('#performancePresets').children[0].children[0].events.click();
+    h.run('paint({dt:.15});');
+    assert.equal(h.run('source'),mode);assert.equal(h.run('camera.stops'),stops);assert.equal(h.run('camera.active'),mode==='camera');
+    assert.deepEqual(plain(h.run('coefficients')),base);assert.ok(h.run('committedOutput.coefficients.eyeBlinkLeft')>0);
+    for(const channel of model.STUDIO_CHANNELS.filter(channel=>channel.group!=='eyes'))assert.equal(h.run(`committedOutput.coefficients.${channel.key}`),base[channel.key]);
+    assert.equal(h.elements.get('#performancePresets').children[0].children[0].attributes['aria-pressed'],'true');
+    h.run('coefficients=sanitizeChannels({jawOpen:.9,eyeBlinkLeft:.2,eyeLookOutLeft:.1});clearPerformance();paint({dt:.3});');
+    assert.deepEqual(plain(h.run('committedOutput.coefficients')),plain(h.run('coefficients')));assert.equal(h.run('source'),mode);
+    assert.equal(h.elements.get('#performancePresets').children[0].children[0].attributes['aria-pressed'],'false');
+  }
+});
+
+test('recorded clips and live output capture effective expression coefficients and replay never reapplies a performance layer',()=>{
+  const h=harness();h.prepare();h.elements.get('#outputToggle').checked=true;h.elements.get('#outputToggle').events.change();
+  h.run('toggleClipRecording();togglePerformance(1);');
+  for(const time of [0,100,200,300,400])h.step(time);
+  assert.equal(h.run('coefficients.mouthPucker'),0);assert.equal(h.run('committedOutput.coefficients.mouthPucker'),1);
+  assert.deepEqual(plain(h.calls.published.at(-1).coefficients),plain(h.run('committedOutput.coefficients')));
+  h.run('finishClipRecording();');const clip=plain(h.run('savedClip'));
+  assert.equal(clip.samples[0].coefficients.mouthPucker,0);assert.equal(clip.samples.at(-1).coefficients.mouthPucker,1);
+  assert.ok(clip.samples.some(sample=>sample.coefficients.mouthPucker>0&&sample.coefficients.mouthPucker<1));
+  for(const saved of clip.samples.filter(sample=>sample.t>0)){const draw=h.calls.draws.filter(draw=>draw.at===saved.t).at(-1);if(draw)assert.equal(saved.coefficients.mouthPucker,draw.coefficients.mouthPucker);}
+  let mixes=0;const propose=h.context.proposePerformanceFrame;
+  h.context.proposePerformanceFrame=(...args)=>{mixes++;return propose(...args);};
+  h.run('playClip();');h.step(400);h.step(550);
+  assert.equal(mixes,0);assert.equal(h.run('performanceMixer.entries.length'),0);assert.equal(h.run('source'),'clip');
+  assert.equal(h.calls.draws.at(-1).coefficients.mouthPucker,h.run('coefficients.mouthPucker'));
+  const before=h.run('performanceMixer');h.run('togglePerformance(1);');assert.equal(h.run('performanceMixer'),before);assert.equal(h.run('source'),'clip');
+});
+
+test('failed drawing cannot advance expression fades or idle blink nor publish their unseen values',()=>{
+  const h=harness();h.prepare();h.elements.get('#outputToggle').checked=true;h.elements.get('#outputToggle').events.change();
+  h.run('togglePerformance(0);idleBlinkEnabled=true;idleBlinkMotion={...createIdleBlink(42),phase:"closing",elapsed:20,closure:.1};paint({dt:.03});');
+  const mixer=h.run('performanceMixer'),blink=h.run('idleBlinkMotion'),committed=plain(h.run('committedOutput'));
+  const draw=h.context.renderContinuousShortHairStudio;h.context.renderContinuousShortHairStudio=()=>({didDraw:false});h.run('paint({dt:.08});');
+  assert.equal(h.run('performanceMixer'),mixer);assert.equal(h.run('idleBlinkMotion'),blink);assert.equal(h.run('graphicsPending'),true);
+  h.run('publishOutput();');assert.deepEqual(plain(h.calls.published.at(-1)),committed);
+  h.context.renderContinuousShortHairStudio=draw;h.run('paint({dt:.08});');
+  assert.ok(h.run('performanceMixer.entries[0].weight')>mixer.entries[0].weight);assert.notEqual(h.run('idleBlinkMotion'),blink);
+  assert.equal(h.run('graphicsPending'),false);assert.notDeepEqual(plain(h.run('committedOutput.coefficients')),committed.coefficients);
+});
+
+test('manual pause and page hiding freeze partial expression fades and blink without ghost RAF on visibility',()=>{
+  for(const action of ['manual','hidden']){
+    const h=harness();h.prepare();h.run('togglePerformance(0);idleBlinkEnabled=true;idleBlinkMotion={...createIdleBlink(42),phase:"closing",elapsed:20,closure:.1};paint({dt:.06});');
+    const shown=plain(h.run('committedOutput')),weight=h.run('performanceMixer.entries[0].weight'),blink=h.run('idleBlinkMotion'),late=[...h.frames.values()][0];
+    if(action==='manual')h.elements.get('#manualButton').events.click();else {h.document.hidden=true;h.documentEvents.visibilitychange();}
+    assert.equal(h.run('performanceMixer.paused'),true);assert.equal(h.run('performanceMoving'),false);assert.equal(h.run('idleBlinkEnabled'),false);
+    assert.equal(h.run('performanceMixer.entries[0].weight'),weight);assert.equal(h.run('idleBlinkMotion'),blink);assert.deepEqual(plain(h.run('committedOutput')),shown);
+    assert.equal(h.frames.size,0);if(late)late(1000);h.document.hidden=false;h.documentEvents.visibilitychange();assert.equal(h.frames.size,0);
+    assert.equal(h.run('isAnimating()'),false);assert.deepEqual(plain(h.run('committedOutput')),shown);
+  }
+});
+
+test('PNG, frame and project exports preserve the displayed layered coefficients and do not restart their animation',async()=>{
+  for(const action of ['savePng','exportFrame','saveProject']){
+    const h=harness();h.prepare();h.run('togglePerformance(1);idleBlinkEnabled=true;idleBlinkMotion={...createIdleBlink(42),phase:"closing",elapsed:20,closure:.1};paint({dt:.09});');
+    const shown=plain(h.run('committedOutput.coefficients')),weight=h.run('performanceMixer.entries[0].weight');let png;
+    h.elements.get('#studioCanvas').toBlob=callback=>{png=plain(h.run('committedOutput.coefficients'));callback(new Blob(['png'],{type:'image/png'}));};
+    h.run(`${action}();`);assert.equal(h.run('performanceMixer.paused'),true,action);assert.equal(h.run('performanceMixer.entries[0].weight'),weight,action);
+    assert.equal(h.run('idleBlinkEnabled'),false,action);assert.equal(h.frames.size,0,action);assert.deepEqual(plain(h.run('committedOutput.coefficients')),shown,action);
+    if(action==='savePng')assert.deepEqual(png,shown);else{
+      const saved=JSON.parse(await h.calls.downloads[0].text());assert.deepEqual(saved.coefficients,shown,action);
+      if(action==='saveProject'){h.context.restoreInput=saved;h.run('restoreProject(restoreInput);');assert.equal(h.run('performanceMixer.entries.length'),0);assert.deepEqual(plain(h.run('committedOutput.coefficients')),shown);assert.equal(h.frames.size,0);}
+    }
+  }
+});
+
+test('page hotkeys ignore editing, modifiers, repeats, composition and focus loss, then toggle numbered buttons and clear explicitly',()=>{
+  const h=harness();h.prepare();let prevented=0;const event=extra=>({key:'1',code:'Digit1',preventDefault(){prevented++;},...extra});
+  for(const extra of [{repeat:true},{isComposing:true},{ctrlKey:true},{altKey:true},{metaKey:true},{shiftKey:true},
+    {target:{tagName:'INPUT'}},{target:{tagName:'TEXTAREA'}},{target:{tagName:'SELECT'}},{target:{isContentEditable:true}}])h.documentEvents.keydown(event(extra));
+  h.document.hidden=true;h.documentEvents.keydown(event({}));h.document.hidden=false;
+  h.document.focused=false;h.documentEvents.keydown(event({}));h.document.focused=true;
+  assert.equal(prevented,0);assert.equal(h.run('performanceMixer.entries.length'),0);assert.equal(h.frames.size,0);
+  h.documentEvents.keydown(event({}));assert.equal(prevented,1);assert.equal(h.run('performanceMixer.entries[0].target'),1);h.run('paint({dt:.15});');
+  h.documentEvents.keydown(event({key:'Escape',code:'Escape'}));assert.equal(prevented,2);assert.equal(h.run('performanceMixer.entries[0].target'),0);
+  assert.equal(h.run('performanceMoving'),true);assert.equal(h.elements.get('#performancePresets').children[0].children[0].attributes['aria-pressed'],'false');
+  h.documentEvents.keydown(event({key:'8',code:'Digit8'}));assert.equal(prevented,2,'unassigned slots do not consume keys');
+});
+
+test('saving a custom grouped expression persists it and an invalid project cannot replace the live source or its preset bank',async()=>{
+  const h=harness();h.prepare();h.run('coefficients=sanitizeChannels({jawOpen:.7,browInnerUp:.9});paint({snap:true});$("#performanceName").value="我的口型";$("#capture-mouth").checked=true;savePerformancePreset();');
+  assert.equal(h.run('performancePresets.length'),5);const custom=plain(h.run('performancePresets[4]'));
+  assert.equal(custom.name,'我的口型');assert.deepEqual(custom.groups,['mouth']);assert.equal(custom.channels.jawOpen,.7);
+  const saved=JSON.parse(h.calls.saved.at(-1).value);assert.deepEqual(saved.performancePresets[4],custom);
+  h.context.restoreInput=saved;h.run('restoreProject(restoreInput);');assert.equal(h.elements.get('#performancePresets').children.length,5);
+  attachCamera(h);const bank=plain(h.run('performancePresets')),coefficients=plain(h.run('coefficients'));
+  const invalid={...model.createStudioProject(),performancePresets:[{...custom,groups:['unknown']}]};
+  h.context.input={files:[{size:200,text:async()=>JSON.stringify(invalid)}],value:'file'};await h.run('readInputFile(input,"project")');
+  assert.equal(h.run('source'),'camera');assert.equal(h.run('camera.active'),true);assert.deepEqual(plain(h.run('performancePresets')),bank);assert.deepEqual(plain(h.run('coefficients')),coefficients);
+  assert.match(h.elements.get('#motionStatus').textContent,/未打开项目/);
+});
+
+test('removing an active preset lets the replacement eighth slot activate immediately while the old layer fades out',()=>{
+  const h=harness();h.prepare();h.run(`performancePresets=Array.from({length:8},(_,index)=>createPerformancePreset({id:'slot-'+index,name:'槽位'+index,groups:['eyes'],channels:{eyeBlinkLeft:index/7}}));
+    buildPerformanceControls();for(const preset of performancePresets)performanceMixer=setPerformancePreset(performanceMixer,preset,true);paint({dt:.3});`);
+  const removedId=h.run('performancePresets[0].id');h.elements.get('#performancePresets').children[0].children[1].events.click();
+  assert.equal(h.run('performancePresets.length'),7);assert.equal(h.run('performanceMixer.entries.length'),8);
+  h.run('$("#performanceName").value="替换口型";$("#capture-mouth").checked=true;savePerformancePreset();');
+  assert.equal(h.run('performancePresets.length'),8);h.elements.get('#performancePresets').children[7].children[0].events.click();
+  assert.equal(h.run('ready'),true);assert.equal(h.run('performanceMixer.entries.length'),9);assert.equal(h.run('performanceMixer.entries.filter(entry=>entry.target===1).length'),8);
+  h.context.removedId=removedId;h.run('paint({dt:.3});');assert.equal(h.run('performanceMixer.entries.some(entry=>entry.preset.id===removedId)'),false);
+  assert.equal(h.run('performanceMixer.entries.length'),8);
+});
+
+test('automatic idle blinking visits all five authored eyelids and reopens at both 30 and 60 fps',()=>{
+  for(const fps of [30,60]){
+    const h=harness();h.prepare();h.run(`frameClock.setTargetFps(${fps});idleBlinkEnabled=true;idleBlinkMotion=createIdleBlink(42);ensureAnimation();`);
+    assert.equal(h.run('idleBlinkMotion.phase'),'waiting');
+    for(let now=0;now<=7000;now+=1000/120)h.step(now);
+    const eyeStates=h.calls.draws.map(draw=>draw.state.eyeLeft),closedAt=eyeStates.indexOf('closed');
+    for(const state of ['open','quarter','half','threeQuarter','closed'])assert.ok(eyeStates.includes(state),`${fps} fps includes ${state}`);
+    assert.ok(closedAt>0);assert.ok(eyeStates.slice(closedAt+1).includes('open'),`${fps} fps reopens after full blink`);
+    assert.equal(h.run('coefficients.eyeBlinkLeft'),0);assert.equal(h.run('coefficients.eyeBlinkRight'),0);assert.equal(h.run('camera.starts'),0);
+  }
+});
+
+test('idle blinking does not add an independent blink to camera or recorded clip inputs',()=>{
+  const h=harness();h.prepare();h.run('idleBlinkEnabled=true;idleBlinkMotion={...createIdleBlink(42),phase:"closed",elapsed:20,closure:1};');
+  attachCamera(h);const frozen=h.run('idleBlinkMotion');h.run('coefficients=sanitizeChannels({eyeBlinkLeft:.2,eyeBlinkRight:.3});paint({dt:.08});');
+  assert.equal(h.run('idleBlinkActive()'),false);assert.equal(h.run('idleBlinkMotion'),frozen);assert.equal(h.run('committedOutput.coefficients.eyeBlinkLeft'),.2);
+  h.context.testClip={schemaVersion:3,kind:'moemotion-short-hair-tracking-clip',characterId:'short-hair-v1',durationMs:200,
+    samples:[{t:0,poseId:'front',headPose:{yaw:0,pitch:0},secondary:{breath:0,sway:0,hair:0},coefficients:sanitizeChannels({eyeBlinkLeft:.2})},
+      {t:200,poseId:'front',headPose:{yaw:0,pitch:0},secondary:{breath:0,sway:0,hair:0},coefficients:sanitizeChannels({eyeBlinkLeft:.2})}]};
+  h.run('savedClip=testClip;playClip();idleBlinkEnabled=true;idleBlinkMotion={...createIdleBlink(42),phase:"closed",elapsed:20,closure:1};');const clipBlink=h.run('idleBlinkMotion');
+  h.step(0);h.step(100);assert.equal(h.run('source'),'clip');assert.equal(h.run('idleBlinkMotion'),clipBlink);
+  assert.equal(h.run('committedOutput.coefficients.eyeBlinkLeft'),.2);assert.equal(h.run('committedOutput.coefficients.eyeBlinkRight'),0);
+});
+
+test('turning idle blink off returns through authored eyelids to the manual base and does not start another blink',()=>{
+  const h=harness();h.prepare();h.run('idleBlinkEnabled=true;idleBlinkMotion={...createIdleBlink(42),phase:"closed",elapsed:20,closure:1};paint({snap:true});ensureAnimation();');
+  assert.equal(h.run('rendered.state.eyeLeft'),'closed');const blink=h.run('idleBlinkMotion'),before=h.calls.draws.length;
+  h.elements.get('#idleBlinkToggle').checked=false;h.elements.get('#idleBlinkToggle').events.change();
+  for(let now=0;now<=1500&&h.frames.size;now+=1000/60)h.step(now);
+  assert.equal(h.run('idleBlinkEnabled'),false);assert.equal(h.run('idleBlinkMotion'),blink);
+  const visited=h.calls.draws.slice(before).map(draw=>draw.state.eyeLeft);
+  for(const state of ['closed','threeQuarter','half','quarter','open'])assert.ok(visited.includes(state),state);
+  assert.equal(h.run('rendered.state.eyeLeft'),'open');assert.equal(h.run('committedOutput.coefficients.eyeBlinkLeft'),0);
+  assert.equal(h.frames.size,0);assert.equal(h.run('isAnimating()'),false);
+  const count=h.calls.draws.length;h.step(10000);assert.equal(h.calls.draws.length,count);
+});
+
+test('rapid gaze preset reactivation preserves the displayed gaze, follows live base and commits handoff only after drawing',()=>{
+  const h=harness();h.prepare();attachCamera(h);h.run(`performancePresets=[
+    createPerformancePreset({id:'left',name:'左看',groups:['gaze'],channels:{eyeLookInLeft:1,eyeLookOutRight:1}}),
+    createPerformancePreset({id:'right',name:'右看',groups:['gaze'],channels:{eyeLookOutLeft:1,eyeLookInRight:1}})];
+    buildPerformanceControls();coefficients=sanitizeChannels({eyeLookOutLeft:.1});togglePerformance(0);paint({dt:.15});togglePerformance(1);paint({dt:.1});`);
+  const before=plain(h.run('committedOutput.coefficients'));h.run('togglePerformance(0);togglePerformance(0);');
+  const after=plain(h.run('committedOutput.coefficients'));for(const key of Object.keys(before))assert.ok(Math.abs(before[key]-after[key])<1e-12,key);
+  assert.ok(h.run('performanceMixer.handoff'));assert.equal(h.run('source'),'camera');assert.equal(h.run('camera.active'),true);
+  h.run('coefficients=sanitizeChannels({eyeLookOutLeft:.9});paint();');assert.ok(h.run('committedOutput.coefficients.eyeLookOutLeft')>after.eyeLookOutLeft);
+  const mixer=h.run('performanceMixer'),draw=h.context.renderContinuousShortHairStudio;h.context.renderContinuousShortHairStudio=()=>({didDraw:false});h.run('paint({dt:.1});');
+  assert.equal(h.run('performanceMixer'),mixer);assert.equal(h.run('performanceMixer.handoff.elapsedMs'),0);
+  h.context.renderContinuousShortHairStudio=draw;h.run('paint({dt:.1});');assert.equal(h.run('performanceMixer.handoff.elapsedMs'),100);
+  h.run('paint({dt:.2});');assert.equal(h.run('performanceMixer.handoff'),null);assert.equal(h.run('committedOutput.coefficients.eyeLookInLeft'),1);
 });
