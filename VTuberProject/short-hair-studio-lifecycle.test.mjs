@@ -877,3 +877,26 @@ test('rapid gaze preset reactivation preserves the displayed gaze, follows live 
   h.context.renderContinuousShortHairStudio=draw;h.run('paint({dt:.1});');assert.equal(h.run('performanceMixer.handoff.elapsedMs'),100);
   h.run('paint({dt:.2});');assert.equal(h.run('performanceMixer.handoff'),null);assert.equal(h.run('committedOutput.coefficients.eyeLookInLeft'),1);
 });
+
+test('real studio direction controls present bounded in-betweens after long callbacks and keep reversal velocity',()=>{
+  const h=harness();h.prepare();
+  h.run('poseMotion=createStudioPoseMotion("view-left");poseId="view-left";paint({snap:true});choosePose("view-right");');
+  let previous={...h.calls.draws.at(-1).headPose},intermediate=0;
+  for(let now=0;now<15000&&h.frames.size;now+=100){
+    h.step(now);const current=h.calls.draws.at(-1).headPose;
+    assert.ok(Math.hypot(current.yaw-previous.yaw,current.pitch-previous.pitch)<=.100001);
+    if(current.yaw>-.95&&current.yaw<.95)intermediate++;
+    previous={...current};
+  }
+  assert.ok(intermediate>=18);assert.equal(previous.yaw,1);
+  h.run('choosePose("view-left");');h.step(15000);h.step(15017);h.step(15034);
+  const velocity=h.run('poseMotion.velocity.yaw');assert.ok(velocity<0);
+  h.run('choosePose("view-right");');assert.equal(h.run('poseMotion.velocity.yaw'),velocity);
+});
+
+test('studio selects deliberate turn timing for manual and demo while camera uses tracking timing',()=>{
+  const h=harness();h.prepare();const modes=[],advance=h.context.advanceStudioPoseMotion;
+  h.context.advanceStudioPoseMotion=(motion,dt,options)=>{modes.push(options.mode);return advance(motion,dt,options);};
+  for(const mode of ['manual','demo','camera'])h.run(`source='${mode}';paint({dt:.016});`);
+  assert.deepEqual(modes,['turn','turn','tracking']);
+});

@@ -22,7 +22,7 @@ cd PythonProject
 
 ## MoeMotion
 
-版本：`0.20.0`。增加九方向前发/脸部分层、隐区补画、受保护的局部前发网格与透明图层/绑定导出；SAM2.1 Large离线分割，RIFE4.25继续负责转头。保留原画与批准记录，仍为2D。
+版本：`0.20.1`。修正工作台转头过快和掉帧跳步，让 RIFE 中间姿态连续显示；保留九方向分层、补画、局部前发网格及透明图层导出。
 
 需要 Node.js 18 或更新版本：
 
@@ -33,9 +33,9 @@ npm start
 
 打开 <http://127.0.0.1:4173>。摄像头、微动和直播均需主动开启。直播区可预览缩放、位置、镜像；将 `http://127.0.0.1:4173/short-hair-output.html` 添加到同机 OBS 浏览器源（1280×720）。支持透明叠加、短暂断线重连与最后画面保留。[OBS 接入说明](VTuberProject/OBS-SETUP.txt)
 
-素材检查器可逐层查看八张透明画布，ZIP使用同一生成路径。头发与脸仍同属头部可见层，没有可靠的隐藏区域补画。微动是保守几何位移，完整独立头发绑定和一张图自动建模仍待后续完成。[模型说明](VTuberProject/docs/CONTINUOUS-2D.txt)
+素材检查器支持透明角色、局部前发与脸部补画等图层，ZIP 包含绑定说明；仍非完整裸脸或全头可编辑模型。[分层说明](VTuberProject/docs/FRINGE-2D.txt)
 
-989/989 自动测试、5/5 Python编译器测试、626/626 真实浏览器检查通过；36张分层材料及9份绑定可确定性重建。真人摄像头和实际 OBS 尚未实机验收。[验证记录](VTuberProject/RELEASE-VALIDATION.txt)
+本轮 1002/1002 自动测试通过；30/60 fps 两组实际浏览器各 8 组转头通过步长与终点检查，并保存前后对照。真人摄像头和实际 OBS 未在本轮实机验收。[转头修正记录](VTuberProject/docs/TURN-SMOOTHNESS-v0.20.1.txt)
 
 旧 Luna／3D、原画与批准记录保留。许可见 [原素材](VTuberProject/assets/THIRD_PARTY_NOTICES.txt)、[RIFE](VTuberProject/assets/short-hair-motion-v1/LICENSE-RIFE.txt)、[动漫分割](VTuberProject/assets/short-hair-alpha-v1/LICENSE-anime-seg.txt)。完整能力见 [项目 README](VTuberProject/README.md)。
 

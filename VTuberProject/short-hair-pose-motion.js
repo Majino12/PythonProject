@@ -77,18 +77,13 @@ export function freezeStudioPoseMotion(motion) {
 }
 
 export const STUDIO_POSE_SMOOTHING_MS = Object.freeze({responsive:75,balanced:110,stable:160});
+const motionModes = Object.freeze({
+  tracking:Object.freeze({maximumStep:.14}),
+  turn:Object.freeze({maximumStep:.10,smoothingMs:250}),
+});
+const maximumFrameMs = 1000 / 30;
 
-/** Analytic critically damped integration avoids frame-rate-dependent easing.
- * A long scheduling stall cannot replay missed movement or teleport the model.
- * Velocity survives target reversals but never crosses the requested endpoint.
- * Callers retain the old motion on failed draws, then retry the same proposal. */
-export function advanceStudioPoseMotion(motion, dtMs, {preset = 'balanced'} = {}) {
-  validateMotion(motion);
-  if (!finite(dtMs) || dtMs < 0) throw new TypeError('连续转头间隔需要非负有限毫秒数。');
-  if (!Object.hasOwn(STUDIO_POSE_SMOOTHING_MS,preset)) throw new RangeError('连续转头速度预设无效。');
-  if (dtMs === 0) return {motion,headPose:{...motion.current},moving:axes.some(key =>
-    motion.current[key] !== motion.target[key] || motion.velocity[key] !== 0)};
-  const dt = Math.min(100,dtMs) / 1000, omega = 2 / (STUDIO_POSE_SMOOTHING_MS[preset] / 1000);
+function integratePose(motion, dt, omega) {
   const decay = Math.exp(-omega * dt), current = {}, velocity = {};
   for (const key of axes) {
     const old = motion.current[key], goal = motion.target[key], difference = old - goal;
@@ -101,7 +96,39 @@ export function advanceStudioPoseMotion(motion, dtMs, {preset = 'balanced'} = {}
     if (next < -1 || next > 1) speed = 0;
     current[key] = clamp(next);velocity[key] = speed;
   }
-  const result = state(current,motion.target,velocity);
+  return {current,velocity};
+}
+
+/** Camera tracking retains its responsive presets. Explicit manual/demo turns
+ * use a slower scale so an authored direction change has visible in-betweens.
+ * Both modes bound the distance between displayed frames, even after stalls.
+ * Shortening integration time follows the same 2D damped trajectory; clipping
+ * yaw and pitch independently would change the direction of a diagonal turn.
+ * Unused elapsed time is discarded, never queued for a later catch-up jump.
+ * Ordinary uncapped movement remains analytically identical at 30 and 60 Hz;
+ * under load a turn intentionally takes longer to preserve intermediate poses.
+ * Only commit the proposal after a successful draw. */
+export function advanceStudioPoseMotion(motion, dtMs, {preset = 'balanced',mode = 'tracking'} = {}) {
+  validateMotion(motion);
+  if (!finite(dtMs) || dtMs < 0) throw new TypeError('连续转头间隔需要非负有限毫秒数。');
+  if (!Object.hasOwn(STUDIO_POSE_SMOOTHING_MS,preset)) throw new RangeError('连续转头速度预设无效。');
+  if (!Object.hasOwn(motionModes,mode)) throw new RangeError('连续转头模式无效。');
+  if (dtMs === 0) return {motion,headPose:{...motion.current},moving:axes.some(key =>
+    motion.current[key] !== motion.target[key] || motion.velocity[key] !== 0)};
+  const policy=motionModes[mode],dt=Math.min(maximumFrameMs,dtMs)/1000;
+  const omega=2/((policy.smoothingMs??STUDIO_POSE_SMOOTHING_MS[preset])/1000);
+  const distance=frame=>Math.hypot(...axes.map(key=>frame.current[key]-motion.current[key]));
+  let frame=integratePose(motion,dt,omega);
+  if(distance(frame)>policy.maximumStep){
+    let low=0,high=dt;
+    frame={current:motion.current,velocity:motion.velocity};
+    for(let i=0;i<40;i++){
+      const middle=(low+high)/2,candidate=integratePose(motion,middle,omega);
+      if(distance(candidate)<=policy.maximumStep){low=middle;frame=candidate;}
+      else high=middle;
+    }
+  }
+  const result = state(frame.current,motion.target,frame.velocity);
   return {motion:result,headPose:{...result.current},moving:axes.some(key =>
     result.current[key] !== result.target[key] || result.velocity[key] !== 0)};
 }

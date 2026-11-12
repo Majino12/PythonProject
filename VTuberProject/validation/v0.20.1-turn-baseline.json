@@ -1,0 +1,4917 @@
+{
+  "schemaVersion": 1,
+  "kind": "short-hair-real-time-studio-turn-validation",
+  "version": "0.20.1",
+  "startedAt": "2026-11-12T04:49:28.612Z",
+  "studioVersion": "MoeMotion 0.20.0 · 本地 2D 工作台 · 项目说明",
+  "testedPage": "/short-hair-studio.html?turn-review=1",
+  "requestedFps": 60,
+  "status": "failed",
+  "turns": [
+    {
+      "name": "正面→左转",
+      "goal": {
+        "yaw": -1,
+        "pitch": 0
+      },
+      "passed": true,
+      "checks": [
+        {
+          "name": "bounded-presented-step",
+          "passed": true,
+          "actual": 0.11092528634008625,
+          "limit": 0.121
+        },
+        {
+          "name": "distinct-intermediate-poses",
+          "passed": true,
+          "actual": 40,
+          "minimum": 8
+        },
+        {
+          "name": "exact-final-pose",
+          "passed": true
+        }
+      ],
+      "completedDraws": 43,
+      "distinctIntermediatePoses": 40,
+      "largestStep": 0.11092528634008625,
+      "endpointExact": true,
+      "durationMs": 691.6299999989569,
+      "measuredDrawFps": 60.726110781867966,
+      "meanDrawCostMs": 0.8840697675423567,
+      "p95DrawCostMs": 0.380000002682209,
+      "p95FrameIntervalMs": 16.760000001639128,
+      "maximumFrameIntervalMs": 36.21999999880791,
+      "samples": [
+        {
+          "headPose": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 45818.95000000298,
+          "costMs": 0.125,
+          "moving": false
+        },
+        {
+          "headPose": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 45834.310000002384,
+          "costMs": 0.2750000022351742,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.03761215934823281,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 45870.53000000119,
+          "costMs": 25.95499999821186,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.12388503516566585,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 45872.115000002086,
+          "costMs": 0.3449999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.2308501893734981,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 45877.390000000596,
+          "costMs": 0.3499999977648258,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.34177547571358435,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 45894.09500000253,
+          "costMs": 0.380000002682209,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.44724699662009104,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 45911.04500000179,
+          "costMs": 0.5500000007450581,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.5425814113130891,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 45927.35000000149,
+          "costMs": 0.3200000002980232,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.6258050414684428,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 45944.04000000283,
+          "costMs": 0.33000000193715096,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.6967894534067408,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 45960.775000002235,
+          "costMs": 0.35500000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.7562806307446355,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 45977.400000002235,
+          "costMs": 0.3449999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.8053296751610919,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 45994.060000002384,
+          "costMs": 0.3150000013411045,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.8454177402274763,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46010.58000000194,
+          "costMs": 0.22500000149011612,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.8778423411986919,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46027.27000000328,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9038779748369519,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46043.98500000313,
+          "costMs": 0.29500000178813934,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9246547610105981,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46060.70000000298,
+          "costMs": 0.2750000022351742,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9411292769548099,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46077.32500000298,
+          "costMs": 0.2850000001490116,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9541491945406418,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46094.04000000283,
+          "costMs": 0.3150000013411045,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9643801517598882,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46110.65500000119,
+          "costMs": 0.2850000001490116,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9723932306235917,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46127.33999999985,
+          "costMs": 0.3099999986588955,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.978654109843247,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46143.960000000894,
+          "costMs": 0.25999999791383743,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9835283010218471,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46160.675000000745,
+          "costMs": 0.25999999791383743,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.987311928221188,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46177.36000000313,
+          "costMs": 0.3049999997019768,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9902437578718937,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46194.00500000268,
+          "costMs": 0.3100000023841858,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9925086637873071,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46210.65500000119,
+          "costMs": 0.28999999910593033,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9942570007920779,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46227.28500000015,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9956032185146566,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46243.96499999985,
+          "costMs": 0.26999999955296516,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9966378024206785,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46260.650000002235,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9974323540055361,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46277.31500000134,
+          "costMs": 0.2850000001490116,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9980406384348952,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46293.93000000343,
+          "costMs": 0.255000002682209,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9985065859850981,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46310.60000000149,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9988629124683164,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46327.28000000119,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9991350010271178,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46343.925000000745,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9993424880766785,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46360.685000002384,
+          "costMs": 0.26500000059604645,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9995006062756044,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46377.33000000194,
+          "costMs": 0.3049999997019768,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.999620988068412,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46393.98500000313,
+          "costMs": 0.2800000011920929,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9997125817101223,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46410.60500000045,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9997821709467275,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46427.28000000119,
+          "costMs": 0.25999999791383743,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9998350319903214,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46443.94000000134,
+          "costMs": 0.23999999836087227,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9998751316428086,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46460.68000000343,
+          "costMs": 0.26500000059604645,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9999055394599415,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46477.32500000298,
+          "costMs": 0.29500000178813934,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9999285883216193,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46493.9450000003,
+          "costMs": 0.26499999687075615,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46510.58000000194,
+          "costMs": 0.2199999988079071,
+          "moving": false
+        }
+      ]
+    },
+    {
+      "name": "左转→右转",
+      "goal": {
+        "yaw": 1,
+        "pitch": 0
+      },
+      "passed": false,
+      "checks": [
+        {
+          "name": "bounded-presented-step",
+          "passed": false,
+          "actual": 0.2217860071750377,
+          "limit": 0.121
+        },
+        {
+          "name": "distinct-intermediate-poses",
+          "passed": true,
+          "actual": 43,
+          "minimum": 8
+        },
+        {
+          "name": "exact-final-pose",
+          "passed": true
+        }
+      ],
+      "completedDraws": 46,
+      "distinctIntermediatePoses": 43,
+      "largestStep": 0.2217860071750377,
+      "endpointExact": true,
+      "durationMs": 733.480000000447,
+      "measuredDrawFps": 61.351366090380886,
+      "meanDrawCostMs": 0.6916304347307786,
+      "p95DrawCostMs": 0.3200000002980232,
+      "p95FrameIntervalMs": 17.11999999731779,
+      "maximumFrameIntervalMs": 37.5,
+      "samples": [
+        {
+          "headPose": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 46510.58000000194,
+          "costMs": 0.2199999988079071,
+          "moving": false
+        },
+        {
+          "headPose": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46512.175000000745,
+          "costMs": 0.09999999776482582,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9247756813035344,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46530.060000002384,
+          "costMs": 0.2200000025331974,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.7522299296685808,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46544.02000000328,
+          "costMs": 0.26000000163912773,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.5383662144724941,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46560.640000000596,
+          "costMs": 0.29500000178813934,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.3165802072974564,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46577.300000000745,
+          "costMs": 0.26999999955296516,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.10556655086708977,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46593.960000000894,
+          "costMs": 0.26500000059604645,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.08505550379927651,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46631.460000000894,
+          "costMs": 21.105000000447035,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.25161008293695264,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46632.00500000268,
+          "costMs": 0.1900000013411045,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.39357890681353813,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46644.08000000194,
+          "costMs": 0.30000000074505806,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.5124639796434413,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46660.59500000253,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.6106593503222222,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46677.29000000283,
+          "costMs": 0.26999999955296516,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.69081385980707,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46693.98000000045,
+          "costMs": 0.2799999974668026,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.7556672618237938,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46710.58000000194,
+          "costMs": 0.22500000149011612,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.8077420107164148,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46727.26000000164,
+          "costMs": 0.23999999836087227,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.8492984356102287,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46743.98000000045,
+          "costMs": 0.23499999940395355,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.8822585539096323,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46760.63500000164,
+          "costMs": 0.25999999791383743,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9082914777177633,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46777.22000000253,
+          "costMs": 0.21000000089406967,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9287548797811964,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46793.90500000119,
+          "costMs": 0.21000000089406967,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9447907028373786,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46810.64500000328,
+          "costMs": 0.2900000028312206,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9573049128217878,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46827.26000000164,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9670566020436939,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46843.96499999985,
+          "costMs": 0.2199999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9746238564423758,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46860.60000000149,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9804859731931215,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46877.30500000343,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9850173275746159,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46893.90500000119,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9885130835860707,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46910.54000000283,
+          "costMs": 0.20000000298023224,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.991205024522609,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46927.25,
+          "costMs": 0.23999999836087227,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9932756048413567,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46943.990000002086,
+          "costMs": 0.2549999989569187,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9948634598577031,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46960.60500000045,
+          "costMs": 0.24499999731779099,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9960812768697908,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46977.26000000164,
+          "costMs": 0.24500000104308128,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9970131719701965,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 46993.890000000596,
+          "costMs": 0.2199999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9977258249366326,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 47010.515000000596,
+          "costMs": 0.17999999970197678,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9982698599069934,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 47027.185000002384,
+          "costMs": 0.17999999970197678,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9986848677771122,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 47043.960000000894,
+          "costMs": 0.22499999776482582,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9990011300034056,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 47060.525000002235,
+          "costMs": 0.1900000013411045,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9992419133197022,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 47077.22500000149,
+          "costMs": 0.2199999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9994251156630276,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 47093.84500000253,
+          "costMs": 0.17500000074505806,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9995643056123055,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 47110.55500000343,
+          "costMs": 0.2200000025331974,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9996700364414037,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 47127.28000000119,
+          "costMs": 0.23999999836087227,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9997489018128519,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 47143.91000000015,
+          "costMs": 0.375,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.999811063084445,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 47160.63500000164,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9998571646483296,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 47177.310000002384,
+          "costMs": 0.26500000059604645,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9998920657337529,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 47193.9450000003,
+          "costMs": 0.22499999776482582,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9999178389716681,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 47210.23500000313,
+          "costMs": 0.3200000002980232,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9999384607294632,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 47227.35500000045,
+          "costMs": 0.24499999731779099,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 47244.060000002384,
+          "costMs": 0.26000000163912773,
+          "moving": false
+        }
+      ]
+    },
+    {
+      "name": "右转→正面",
+      "goal": {
+        "yaw": 0,
+        "pitch": 0
+      },
+      "passed": true,
+      "checks": [
+        {
+          "name": "bounded-presented-step",
+          "passed": true,
+          "actual": 0.1109257935294844,
+          "limit": 0.121
+        },
+        {
+          "name": "distinct-intermediate-poses",
+          "passed": true,
+          "actual": 39,
+          "minimum": 8
+        },
+        {
+          "name": "exact-final-pose",
+          "passed": true
+        }
+      ],
+      "completedDraws": 42,
+      "distinctIntermediatePoses": 39,
+      "largestStep": 0.1109257935294844,
+      "endpointExact": true,
+      "durationMs": 683.1349999979138,
+      "measuredDrawFps": 60.017419690288456,
+      "meanDrawCostMs": 0.24797619072099528,
+      "p95DrawCostMs": 0.30000000074505806,
+      "p95FrameIntervalMs": 16.975000001490116,
+      "maximumFrameIntervalMs": 33.24500000104308,
+      "samples": [
+        {
+          "headPose": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 47244.060000002384,
+          "costMs": 0.26000000163912773,
+          "moving": false
+        },
+        {
+          "headPose": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47246.34500000253,
+          "costMs": 0.11500000208616257,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9623878406517672,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47262.835000000894,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.8761149648343342,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47277.33000000194,
+          "costMs": 0.24000000208616257,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.7691831072362956,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47294,
+          "costMs": 0.2850000001490116,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.6582573137068112,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47310.60500000045,
+          "costMs": 0.23999999836087227,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.552783275433589,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47327.33999999985,
+          "costMs": 0.3049999997019768,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.4574454178448815,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47343.91500000283,
+          "costMs": 0.22500000149011612,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.3741949585315573,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47360.61000000313,
+          "costMs": 0.24500000104308128,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.30319103247074414,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47377.37000000104,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.19468363146663123,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47410.615000002086,
+          "costMs": 0.26999999955296516,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.1552212471253909,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47426.960000000894,
+          "costMs": 0.22499999776482582,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.12216636908811575,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47443.935000002384,
+          "costMs": 0.24000000208616257,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.09612202516304832,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47460.59500000253,
+          "costMs": 0.2200000025331974,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.07535078219489373,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47477.31500000134,
+          "costMs": 0.23499999940395355,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.058870723045190254,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47493.96499999985,
+          "costMs": 0.26999999955296516,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.046330054019535966,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47509.960000000894,
+          "costMs": 0.2850000001490116,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.03562256010940576,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47527.28500000015,
+          "costMs": 0.24499999731779099,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.02760676937640829,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47543.925000000745,
+          "costMs": 0.23499999940395355,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.02134589015675307,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47560.58999999985,
+          "costMs": 0.23499999940395355,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.016472984373433235,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47577.29500000179,
+          "costMs": 0.22500000149011612,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.012688071778813507,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47593.97500000149,
+          "costMs": 0.26000000163912773,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.00981425347209174,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47610.23500000313,
+          "costMs": 0.24000000208616257,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.007519379639022786,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47627.10000000149,
+          "costMs": 0.2549999989569187,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.0057434582069653085,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47643.94000000134,
+          "costMs": 0.24500000104308128,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.004396781485343992,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47660.615000002086,
+          "costMs": 0.2199999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.00336219757932201,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47677.34500000253,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.0025680620289869746,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47694,
+          "costMs": 0.2749999985098839,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.0019593615651048125,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47710.63500000164,
+          "costMs": 0.26000000163912773,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.0014934140149018868,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47727.32500000298,
+          "costMs": 0.30000000074505806,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.001137180663025505,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47744.00500000268,
+          "costMs": 0.2850000001490116,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.0008650700465033842,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47760.61000000313,
+          "costMs": 0.24000000208616257,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.000657511923321559,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47777.400000002235,
+          "costMs": 0.3049999997019768,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.000499393724395599,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47793.95000000298,
+          "costMs": 0.255000002682209,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.00037904334014886884,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47810.65500000119,
+          "costMs": 0.2850000001490116,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.0002874421684862055,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47827.25500000268,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.00021782905327258413,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47843.96499999985,
+          "costMs": 0.26499999687075615,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.0001649817792981187,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47860.625,
+          "costMs": 0.25999999791383743,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.00012486835719145367,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47877.38000000268,
+          "costMs": 0.2750000022351742,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.00009446054005848308,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47893.92000000179,
+          "costMs": 0.22500000149011612,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.00007141767583517341,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47910.65500000119,
+          "costMs": 0.2850000001490116,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47927.1950000003,
+          "costMs": 0.1549999974668026,
+          "moving": false
+        }
+      ]
+    },
+    {
+      "name": "正面→右上",
+      "goal": {
+        "yaw": 1,
+        "pitch": 1
+      },
+      "passed": false,
+      "checks": [
+        {
+          "name": "bounded-presented-step",
+          "passed": false,
+          "actual": 0.15682638964575857,
+          "limit": 0.121
+        },
+        {
+          "name": "distinct-intermediate-poses",
+          "passed": true,
+          "actual": 40,
+          "minimum": 8
+        },
+        {
+          "name": "exact-final-pose",
+          "passed": true
+        }
+      ],
+      "completedDraws": 43,
+      "distinctIntermediatePoses": 40,
+      "largestStep": 0.15682638964575857,
+      "endpointExact": true,
+      "durationMs": 683.3100000023842,
+      "measuredDrawFps": 61.46551345634259,
+      "meanDrawCostMs": 0.511860465241033,
+      "p95DrawCostMs": 0.2800000011920929,
+      "p95FrameIntervalMs": 17.139999996870756,
+      "maximumFrameIntervalMs": 28.484999999403954,
+      "samples": [
+        {
+          "headPose": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 47927.1950000003,
+          "costMs": 0.1549999974668026,
+          "moving": false
+        },
+        {
+          "headPose": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 47928.935000002384,
+          "costMs": 0.08999999985098839,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.03761215934823281,
+            "pitch": 0.03761215934823281
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 47947.185000002384,
+          "costMs": 0.26000000163912773,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.12391508995842826,
+            "pitch": 0.12391508995842826
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 47960.685000002384,
+          "costMs": 0.26500000059604645,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.23081689276370454,
+            "pitch": 0.23081689276370454
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 47977.275000002235,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.3417098963512242,
+            "pitch": 0.3417098963512242
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 47993.97000000253,
+          "costMs": 0.2750000022351742,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.44724699662004697,
+            "pitch": 0.44724699662004697
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48010.64500000328,
+          "costMs": 0.27000000327825546,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.5425277518995993,
+            "pitch": 0.5425277518995993
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48039.13000000268,
+          "costMs": 12.08500000089407,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.6257819221352796,
+            "pitch": 0.6257819221352796
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48043.96499999985,
+          "costMs": 0.25999999791383743,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.6967894534067408,
+            "pitch": 0.6967894534067408
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48060.70000000298,
+          "costMs": 0.26500000059604645,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.7562482043961988,
+            "pitch": 0.7562482043961988
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48077.27000000328,
+          "costMs": 0.24000000208616257,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.8053296751610919,
+            "pitch": 0.8053296751610919
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48093.91500000283,
+          "costMs": 0.22500000149011612,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.8454285498635058,
+            "pitch": 0.8454285498635058
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48110.67000000179,
+          "costMs": 0.2800000011920929,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.8778423411986791,
+            "pitch": 0.8778423411986791
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48127.28000000119,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9038779748369518,
+            "pitch": 0.9038779748369518
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48143.9450000003,
+          "costMs": 0.24499999731779099,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9246492178051063,
+            "pitch": 0.9246492178051063
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48160.625,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9411292769548099,
+            "pitch": 0.9411292769548099
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48177.26000000164,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9541422829277489,
+            "pitch": 0.9541422829277489
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48193.92000000179,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9643774398905943,
+            "pitch": 0.9643774398905943
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48210.57500000298,
+          "costMs": 0.22500000149011612,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9723932306235917,
+            "pitch": 0.9723932306235917
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48227.25500000268,
+          "costMs": 0.23499999940395355,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9786160494582805,
+            "pitch": 0.9786160494582805
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48243.83999999985,
+          "costMs": 0.23999999836087227,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9835257301337117,
+            "pitch": 0.9835257301337117
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48260.64500000328,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9873109313645291,
+            "pitch": 0.9873109313645291
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48277.34500000253,
+          "costMs": 0.30000000074505806,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9902429865965596,
+            "pitch": 0.9902429865965596
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48293.92000000179,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9925092593416605,
+            "pitch": 0.9925092593416605
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48310.63000000268,
+          "costMs": 0.255000002682209,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9942570007920772,
+            "pitch": 0.9942570007920772
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48327.275000002235,
+          "costMs": 0.23499999940395355,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9956028654019125,
+            "pitch": 0.9956028654019125
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48343.91500000283,
+          "costMs": 0.2200000025331974,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9966375311806553,
+            "pitch": 0.9966375311806553
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48360.66000000015,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.997431937971013,
+            "pitch": 0.997431937971013
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48377.32500000298,
+          "costMs": 0.2750000022351742,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9980404790845865,
+            "pitch": 0.9980404790845865
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48393.91000000015,
+          "costMs": 0.22999999672174454,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.998494961617868,
+            "pitch": 0.998494961617868
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48410.11000000313,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9988628193369745,
+            "pitch": 0.9988628193369745
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48427.25,
+          "costMs": 0.22999999672174454,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9991350010271179,
+            "pitch": 0.9991350010271179
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48443.97500000149,
+          "costMs": 0.2549999989569187,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9993424338885561,
+            "pitch": 0.9993424338885561
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48460.6950000003,
+          "costMs": 0.26499999687075615,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9995005650017028,
+            "pitch": 0.9995005650017028
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48477.22500000149,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9996209566598512,
+            "pitch": 0.9996209566598512
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48493.925000000745,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9997104728483986,
+            "pitch": 0.9997104728483986
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48510.23500000313,
+          "costMs": 0.26500000059604645,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9997821528061528,
+            "pitch": 0.9997821528061528
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48527.25500000268,
+          "costMs": 0.2200000025331974,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9998350182207019,
+            "pitch": 0.9998350182207019
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48543.88500000164,
+          "costMs": 0.19999999925494194,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9998751211977371,
+            "pitch": 0.9998751211977371
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48560.5700000003,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9999055394599414,
+            "pitch": 0.9999055394599414
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48577.25,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9999285883216192,
+            "pitch": 0.9999285883216192
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48593.96499999985,
+          "costMs": 0.25999999791383743,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48610.50500000268,
+          "costMs": 0.1600000001490116,
+          "moving": false
+        }
+      ]
+    },
+    {
+      "name": "右上→左下",
+      "goal": {
+        "yaw": -1,
+        "pitch": -1
+      },
+      "passed": false,
+      "checks": [
+        {
+          "name": "bounded-presented-step",
+          "passed": false,
+          "actual": 0.313744088704538,
+          "limit": 0.121
+        },
+        {
+          "name": "distinct-intermediate-poses",
+          "passed": true,
+          "actual": 42,
+          "minimum": 8
+        },
+        {
+          "name": "exact-final-pose",
+          "passed": true
+        }
+      ],
+      "completedDraws": 45,
+      "distinctIntermediatePoses": 42,
+      "largestStep": 0.313744088704538,
+      "endpointExact": true,
+      "durationMs": 733.394999999553,
+      "measuredDrawFps": 59.9949549697323,
+      "meanDrawCostMs": 0.7165555554131667,
+      "p95DrawCostMs": 0.36000000312924385,
+      "p95FrameIntervalMs": 26.78999999910593,
+      "maximumFrameIntervalMs": 32.88500000163913,
+      "samples": [
+        {
+          "headPose": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "at": 48610.50500000268,
+          "costMs": 0.1600000001490116,
+          "moving": false
+        },
+        {
+          "headPose": {
+            "yaw": 1,
+            "pitch": 1
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48612.460000000894,
+          "costMs": 0.23499999940395355,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.9247756813035344,
+            "pitch": 0.9247756813035344
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48631.95000000298,
+          "costMs": 0.23500000312924385,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.752169820083056,
+            "pitch": 0.752169820083056
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48644.11000000313,
+          "costMs": 0.36000000312924385,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.5382996212530038,
+            "pitch": 0.5382996212530038
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48660.72000000253,
+          "costMs": 0.3150000013411045,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.3164490485728313,
+            "pitch": 0.3164490485728313
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48677.400000002235,
+          "costMs": 0.3399999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.10550600675981792,
+            "pitch": 0.10550600675981792
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48693.97500000149,
+          "costMs": 0.26500000059604645,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.08516282262617825,
+            "pitch": -0.08516282262617825
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48720.765000000596,
+          "costMs": 10.375,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.24702167360390526,
+            "pitch": -0.24702167360390526
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48726.80500000343,
+          "costMs": 0.255000002682209,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.3936179350585689,
+            "pitch": -0.3936179350585689
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48744.03000000119,
+          "costMs": 0.26999999955296516,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.5125288360743642,
+            "pitch": -0.5125288360743642
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48771.83999999985,
+          "costMs": 11.469999998807907,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.6106859619567333,
+            "pitch": -0.6106859619567333
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48777.26000000164,
+          "costMs": 0.2199999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.6908570997270429,
+            "pitch": -0.6908570997270429
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48793.960000000894,
+          "costMs": 0.25999999791383743,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.7556846823973835,
+            "pitch": -0.7556846823973835
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48810.64500000328,
+          "costMs": 0.29500000178813934,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.8077698876859564,
+            "pitch": -0.8077698876859564
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48827.210000000894,
+          "costMs": 0.19499999657273293,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.8493206076619141,
+            "pitch": -0.8493206076619141
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48843.97500000149,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.8822673271513355,
+            "pitch": -0.8822673271513355
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48860.5700000003,
+          "costMs": 0.2199999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9082914777177633,
+            "pitch": -0.9082914777177633
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48877.23500000313,
+          "costMs": 0.21000000089406967,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9287603035197763,
+            "pitch": -0.9287603035197763
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48893.88500000164,
+          "costMs": 0.21000000089406967,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9447907028373786,
+            "pitch": -0.9447907028373786
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48910.515000000596,
+          "costMs": 0.17999999970197678,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9569262974473092,
+            "pitch": -0.9569262974473092
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48926.85500000045,
+          "costMs": 0.3449999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.967056602043694,
+            "pitch": -0.967056602043694
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48944.04000000283,
+          "costMs": 0.2750000022351742,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9746238564423759,
+            "pitch": -0.9746238564423759
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48960.675000000745,
+          "costMs": 0.28999999910593033,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9849037483031547,
+            "pitch": -0.9849037483031547
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 48993.560000002384,
+          "costMs": 0.33500000089406967,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9885149195102642,
+            "pitch": -0.9885149195102642
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49010.66500000283,
+          "costMs": 0.2800000011920929,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9912057308038259,
+            "pitch": -0.9912057308038259
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49027.28000000119,
+          "costMs": 0.23999999836087227,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9932756048413568,
+            "pitch": -0.9932756048413568
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49043.925000000745,
+          "costMs": 0.19999999925494194,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9948638759420266,
+            "pitch": -0.9948638759420266
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49060.66000000015,
+          "costMs": 0.2799999974668026,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9960812768697909,
+            "pitch": -0.9960812768697909
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49077.25500000268,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9970136595074109,
+            "pitch": -0.9970136595074109
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49093.89500000328,
+          "costMs": 0.20500000193715096,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9977260111842466,
+            "pitch": -0.9977260111842466
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49110.56500000134,
+          "costMs": 0.20499999821186066,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9982700020542358,
+            "pitch": -0.9982700020542358
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49127.25,
+          "costMs": 0.2199999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.998684976153357,
+            "pitch": -0.998684976153357
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49144.02000000328,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9990012950922585,
+            "pitch": -0.9990012950922585
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49160.58999999985,
+          "costMs": 0.22499999776482582,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.99924203894879,
+            "pitch": -0.99924203894879
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49177.265000000596,
+          "costMs": 0.22500000149011612,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9994251634202447,
+            "pitch": -0.9994251634202447
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49193.875,
+          "costMs": 0.1899999976158142,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.999564450718929,
+            "pitch": -0.999564450718929
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49210.60500000045,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9996700915176014,
+            "pitch": -0.9996700915176014
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49227.29500000179,
+          "costMs": 0.2549999989569187,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9997502841740258,
+            "pitch": -0.9997502841740258
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49243.98000000045,
+          "costMs": 0.23999999836087227,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9998110947540033,
+            "pitch": -0.9998110947540033
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49260.585000000894,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9998571766432387,
+            "pitch": -0.9998571766432387
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49277.26000000164,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9998920748146449,
+            "pitch": -0.9998920748146449
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49293.90500000119,
+          "costMs": 0.2199999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9999184873406969,
+            "pitch": -0.9999184873406969
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49310.585000000894,
+          "costMs": 0.22499999776482582,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9999384711200581,
+            "pitch": -0.9999384711200581
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49327.20500000194,
+          "costMs": 0.1900000013411045,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49343.900000002235,
+          "costMs": 0.1600000001490116,
+          "moving": false
+        }
+      ]
+    },
+    {
+      "name": "左下→正面",
+      "goal": {
+        "yaw": 0,
+        "pitch": 0
+      },
+      "passed": false,
+      "checks": [
+        {
+          "name": "bounded-presented-step",
+          "passed": false,
+          "actual": 0.1568720443522701,
+          "limit": 0.121
+        },
+        {
+          "name": "distinct-intermediate-poses",
+          "passed": true,
+          "actual": 40,
+          "minimum": 8
+        },
+        {
+          "name": "exact-final-pose",
+          "passed": true
+        }
+      ],
+      "completedDraws": 43,
+      "distinctIntermediatePoses": 40,
+      "largestStep": 0.1568720443522701,
+      "endpointExact": true,
+      "durationMs": 683.2599999979138,
+      "measuredDrawFps": 61.470011416046944,
+      "meanDrawCostMs": 0.21418604661905488,
+      "p95DrawCostMs": 0.27000000327825546,
+      "p95FrameIntervalMs": 16.769999999552965,
+      "maximumFrameIntervalMs": 19.359999999403954,
+      "samples": [
+        {
+          "headPose": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "at": 49343.900000002235,
+          "costMs": 0.1600000001490116,
+          "moving": false
+        },
+        {
+          "headPose": {
+            "yaw": -1,
+            "pitch": -1
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49345.925000000745,
+          "costMs": 0.08999999985098839,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9623878406517672,
+            "pitch": -0.9623878406517672
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49365.28500000015,
+          "costMs": 0.20499999821186066,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.8761149648343342,
+            "pitch": -0.8761149648343342
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49377.36000000313,
+          "costMs": 0.2750000022351742,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.7691498106265504,
+            "pitch": -0.7691498106265504
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49393.97000000253,
+          "costMs": 0.24500000104308128,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.6582245242864634,
+            "pitch": -0.6582245242864634
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49410.61000000313,
+          "costMs": 0.24000000208616257,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.552753003379953,
+            "pitch": -0.552753003379953
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49427.38000000268,
+          "costMs": 0.3100000023841858,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.45744541784488135,
+            "pitch": -0.45744541784488135
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49443.97500000149,
+          "costMs": 0.26999999955296516,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.37417184030928785,
+            "pitch": -0.37417184030928785
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49460.57500000298,
+          "costMs": 0.21000000089406967,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.303191032470744,
+            "pitch": -0.303191032470744
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49477.31500000134,
+          "costMs": 0.23999999836087227,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.24371936925536455,
+            "pitch": -0.24371936925536455
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49493.89500000328,
+          "costMs": 0.21000000089406967,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.19465701902165283,
+            "pitch": -0.19465701902165283
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49510.615000002086,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.15457145013649434,
+            "pitch": -0.15457145013649434
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49527.24500000104,
+          "costMs": 0.2199999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.12214894908858243,
+            "pitch": -0.12214894908858243
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49543.89500000328,
+          "costMs": 0.20500000193715096,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.09611505615703203,
+            "pitch": -0.09611505615703203
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49560.585000000894,
+          "costMs": 0.2199999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.07533969616905109,
+            "pitch": -0.07533969616905109
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49577.31500000134,
+          "costMs": 0.23499999940395355,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.05886633642433871,
+            "pitch": -0.05886633642433871
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49593.92000000179,
+          "costMs": 0.2199999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.04585080545936329,
+            "pitch": -0.04585080545936329
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49610.58000000194,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.0356198482401158,
+            "pitch": -0.0356198482401158
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49627.22500000149,
+          "costMs": 0.21000000089406967,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.02760464858131378,
+            "pitch": -0.02760464858131378
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49643.890000000596,
+          "costMs": 0.19999999925494194,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.021345890156753086,
+            "pitch": -0.021345890156753086
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49660.54000000283,
+          "costMs": 0.19500000029802322,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.01647169897815488,
+            "pitch": -0.01647169897815488
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49677.29000000283,
+          "costMs": 0.24000000208616257,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.012688071778813518,
+            "pitch": -0.012688071778813518
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49693.96499999985,
+          "costMs": 0.26499999687075615,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.009756242128107452,
+            "pitch": -0.009756242128107452
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49710.57500000298,
+          "costMs": 0.20500000193715096,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.007490740658339547,
+            "pitch": -0.007490740658339547
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49727.25,
+          "costMs": 0.2199999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.005742540244867918,
+            "pitch": -0.005742540244867918
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49743.900000002235,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.004396428400462669,
+            "pitch": -0.004396428400462669
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49760.56500000134,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.0033755136897722234,
+            "pitch": -0.0033755136897722234
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49777.0700000003,
+          "costMs": 0.23999999836087227,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.0025680620289869776,
+            "pitch": -0.0025680620289869776
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49793.92000000179,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.001959202227574667,
+            "pitch": -0.001959202227574667
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49810.5700000003,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.0014932921256886429,
+            "pitch": -0.0014932921256886429
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49827.17000000179,
+          "costMs": 0.17000000178813934,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.001136994407876713,
+            "pitch": -0.001136994407876713
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49843.875,
+          "costMs": 0.19499999657273293,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.0008649989728822309,
+            "pitch": -0.0008649989728822309
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49860.5700000003,
+          "costMs": 0.20999999716877937,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.00065751192332156,
+            "pitch": -0.00065751192332156
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49877.22000000253,
+          "costMs": 0.1850000023841858,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.000499352453870749,
+            "pitch": -0.000499352453870749
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49893.865000002086,
+          "costMs": 0.1900000013411045,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.00037894912219997286,
+            "pitch": -0.00037894912219997286
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49910.57500000298,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.00028737053855858565,
+            "pitch": -0.00028737053855858565
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49927.210000000894,
+          "costMs": 0.1899999976158142,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.00021781091419580364,
+            "pitch": -0.00021781091419580364
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49943.9450000003,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.00016496800967866223,
+            "pitch": -0.00016496800967866223
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49960.54000000283,
+          "costMs": 0.19500000029802322,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.00012485791298712113,
+            "pitch": -0.00012485791298712113
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49977.30500000343,
+          "costMs": 0.27000000327825546,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.00009446054005848319,
+            "pitch": -0.00009446054005848319
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 49993.86000000313,
+          "costMs": 0.1850000023841858,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.00007140568142641734,
+            "pitch": -0.00007140568142641734
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 50010.54000000283,
+          "costMs": 0.1850000023841858,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 50027.16000000015,
+          "costMs": 0.13499999791383743,
+          "moving": false
+        }
+      ]
+    },
+    {
+      "name": "向右途中反向左转",
+      "goal": {
+        "yaw": -1,
+        "pitch": 0
+      },
+      "passed": false,
+      "checks": [
+        {
+          "name": "bounded-presented-step",
+          "passed": false,
+          "actual": 0.1605268006662519,
+          "limit": 0.121
+        },
+        {
+          "name": "distinct-intermediate-poses",
+          "passed": true,
+          "actual": 45,
+          "minimum": 8
+        },
+        {
+          "name": "exact-final-pose",
+          "passed": true
+        }
+      ],
+      "completedDraws": 49,
+      "distinctIntermediatePoses": 45,
+      "largestStep": 0.1605268006662519,
+      "endpointExact": true,
+      "durationMs": 783.4200000017881,
+      "measuredDrawFps": 61.26981695628199,
+      "meanDrawCostMs": 0.20428571431916587,
+      "p95DrawCostMs": 0.25,
+      "p95FrameIntervalMs": 17.33000000193715,
+      "maximumFrameIntervalMs": 32.639999996870756,
+      "samples": [
+        {
+          "headPose": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 50027.16000000015,
+          "costMs": 0.13499999791383743,
+          "moving": false
+        },
+        {
+          "headPose": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 50029.27000000328,
+          "costMs": 0.07500000298023224,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.03761215934823281,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 50049.740000002086,
+          "costMs": 0.2199999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.12388503516570959,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 50060.67000000179,
+          "costMs": 0.23999999836087227,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.23078359645694302,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 50077.24500000104,
+          "costMs": 0.20999999716877937,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.3417098963512718,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 50093.865000002086,
+          "costMs": 0.1849999986588955,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.44715617765230575,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 1,
+            "pitch": 0
+          },
+          "at": 50110.54500000179,
+          "costMs": 0.19500000029802322,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.44715617765230575,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50110.98000000045,
+          "costMs": 0.10999999940395355,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.3927255088966677,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50127.23000000045,
+          "costMs": 0.20499999821186066,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.2678664851034156,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50143.99500000104,
+          "costMs": 0.24500000104308128,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0.11311844833899354,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50160.54500000179,
+          "costMs": 0.19999999925494194,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.047408352327258374,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50177.24500000104,
+          "costMs": 0.22499999776482582,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.20004502983965455,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50193.89500000328,
+          "costMs": 0.19500000029802322,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.33797397569806753,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50210.57500000298,
+          "costMs": 0.21000000089406967,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.45852160073563053,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50227.23500000313,
+          "costMs": 0.20000000298023224,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.5612126324855087,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50243.94000000134,
+          "costMs": 0.19999999925494194,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.6472343112688574,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50260.61000000313,
+          "costMs": 0.24500000104308128,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.7182854880167655,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50277.265000000596,
+          "costMs": 0.23499999940395355,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.7762828125127139,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50293.90500000119,
+          "costMs": 0.19999999925494194,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.8232213103475119,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50310.62000000104,
+          "costMs": 0.23999999836087227,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.8601096855085779,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50326.86000000313,
+          "costMs": 0.21000000089406967,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.8909572544771345,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50343.97500000149,
+          "costMs": 0.22500000149011612,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9148188347441607,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50360.60000000149,
+          "costMs": 0.22500000149011612,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9336427229290561,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50377.18000000343,
+          "costMs": 0.17000000178813934,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.948449376996567,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50393.91000000015,
+          "costMs": 0.20999999716877937,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9600523760706354,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50410.49500000104,
+          "costMs": 0.1600000001490116,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9691096417255699,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50427.20000000298,
+          "costMs": 0.19500000029802322,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.976159530663771,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50443.9450000003,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9816386670509851,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50460.525000002235,
+          "costMs": 0.17500000074505806,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9858803010158483,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50477.210000000894,
+          "costMs": 0.19500000029802322,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9891590388983329,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50493.86000000313,
+          "costMs": 0.17999999970197678,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.991689116060413,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50510.515000000596,
+          "costMs": 0.17500000074505806,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9936367617074929,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50527.22500000149,
+          "costMs": 0.19500000029802322,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9951340609837498,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50543.95500000194,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9962833723164793,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50560.5700000003,
+          "costMs": 0.20999999716877937,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9971645439255419,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50577.20000000298,
+          "costMs": 0.1900000013411045,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9978388319622249,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50593.85000000149,
+          "costMs": 0.17999999970197678,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9983544837078034,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50610.560000002384,
+          "costMs": 0.21000000089406967,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9987482319626542,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50627.25500000268,
+          "costMs": 0.19500000029802322,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.999048414823856,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50643.960000000894,
+          "costMs": 0.22499999776482582,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9992773112320301,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50660.52000000328,
+          "costMs": 0.18000000342726707,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9994514741796227,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50677.18000000343,
+          "costMs": 0.17500000074505806,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9995840332016002,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50693.935000002384,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9996847725900732,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50710.54000000283,
+          "costMs": 0.1850000023841858,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9997612495843785,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50727.400000002235,
+          "costMs": 0.3100000023841858,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9998192838930777,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50743.93000000343,
+          "costMs": 0.22500000149011612,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9998951719879443,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50776.5700000003,
+          "costMs": 0.3149999976158142,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9999209704658916,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50793.25,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50810.58000000194,
+          "costMs": 0.19999999925494194,
+          "moving": false
+        }
+      ]
+    },
+    {
+      "name": "反向后回正",
+      "goal": {
+        "yaw": 0,
+        "pitch": 0
+      },
+      "passed": true,
+      "checks": [
+        {
+          "name": "bounded-presented-step",
+          "passed": true,
+          "actual": 0.110395665171936,
+          "limit": 0.121
+        },
+        {
+          "name": "distinct-intermediate-poses",
+          "passed": true,
+          "actual": 39,
+          "minimum": 8
+        },
+        {
+          "name": "exact-final-pose",
+          "passed": true
+        }
+      ],
+      "completedDraws": 42,
+      "distinctIntermediatePoses": 39,
+      "largestStep": 0.110395665171936,
+      "endpointExact": true,
+      "durationMs": 683.2949999980628,
+      "measuredDrawFps": 60.00336604265542,
+      "meanDrawCostMs": 0.21166666659216085,
+      "p95DrawCostMs": 0.25,
+      "p95FrameIntervalMs": 16.79000000283122,
+      "maximumFrameIntervalMs": 33.30499999970198,
+      "samples": [
+        {
+          "headPose": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "at": 50810.58000000194,
+          "costMs": 0.19999999925494194,
+          "moving": false
+        },
+        {
+          "headPose": {
+            "yaw": -1,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 50812.37000000104,
+          "costMs": 0.0949999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.9623878406517672,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 50827.82500000298,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.8761149648342904,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 50843.97000000253,
+          "costMs": 0.2200000025331974,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.769149810626502,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 50860.70000000298,
+          "costMs": 0.25,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.6631486685518451,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 50876.48000000045,
+          "costMs": 0.19999999925494194,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.5527530033799091,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 50893.865000002086,
+          "costMs": 0.17999999970197678,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.45744541784484244,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 50910.61000000313,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.3741949585315237,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 50927.24500000104,
+          "costMs": 0.2199999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.30321054659323093,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 50944,
+          "costMs": 0.23999999836087227,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.24375179560377777,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 50960.58999999985,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.1946570190216335,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 50977.30500000343,
+          "costMs": 0.255000002682209,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.1545822597725239,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 50993.90500000119,
+          "costMs": 0.19999999925494194,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.12215765880130833,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51010.58000000194,
+          "costMs": 0.2199999988079071,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.09612202516303821,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51027.23000000045,
+          "costMs": 0.20499999821186066,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.0753452389894021,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51043.93000000343,
+          "costMs": 0.1900000013411045,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.05886633642433234,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51060.585000000894,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.045850805459358275,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51077.240000002086,
+          "costMs": 0.21000000089406967,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.03561984824011186,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51093.92000000179,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.0276046485813107,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51110.59500000253,
+          "costMs": 0.19500000029802322,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.021345890156750685,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51127.275000002235,
+          "costMs": 0.23499999940395355,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.016472984373431383,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51143.95500000194,
+          "costMs": 0.20500000193715096,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.00975701340343927,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51177.26000000164,
+          "costMs": 0.24500000104308128,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.007490740658338683,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51193.94000000134,
+          "costMs": 0.23499999940395355,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.005742999207922137,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51210.53500000015,
+          "costMs": 0.1849999986588955,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.0043967814853434865,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51227.23500000313,
+          "costMs": 0.21000000089406967,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.003362197579321622,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51243.99500000104,
+          "costMs": 0.22499999776482582,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.0025678540034256153,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51260.585000000894,
+          "costMs": 0.21000000089406967,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.0019592022275744373,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51277.29000000283,
+          "costMs": 0.2149999998509884,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.001493292125688467,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51293.890000000596,
+          "costMs": 0.19999999925494194,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.0011370875316836088,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51310.54500000179,
+          "costMs": 0.19500000029802322,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.0008650700465032829,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51327.22500000149,
+          "costMs": 0.19500000029802322,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.0006575119233214819,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51343.9450000003,
+          "costMs": 0.20499999821186066,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.0004993524538707497,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51360.63000000268,
+          "costMs": 0.22500000149011612,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.0003790119315878606,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51377.25500000268,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.00028739441323519265,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51393.91000000015,
+          "costMs": 0.19500000029802322,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.00021779277661681078,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51410.585000000894,
+          "costMs": 0.19999999925494194,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.00016498177929809909,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51427.21499999985,
+          "costMs": 0.19499999657273293,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.0001248683571914388,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51444.00500000268,
+          "costMs": 0.23000000044703484,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.0000944605400584718,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51460.650000002235,
+          "costMs": 0.26500000059604645,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": -0.00007141767583516487,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51477.275000002235,
+          "costMs": 0.24000000208616257,
+          "moving": true
+        },
+        {
+          "headPose": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "target": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "at": 51493.875,
+          "costMs": 0.17999999970197678,
+          "moving": false
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Successful draws and their cadence are measured; this is not proof of compositor presentation or encoded video FPS.",
+    "Step-bound checks do not establish artistic quality or remove existing intermediate-angle facial ghosting.",
+    "No camera, microphone or OBS hardware session is started. Optional video captures only the local character canvas."
+  ],
+  "summary": {
+    "turns": 8,
+    "passed": 3,
+    "maximumStep": 0.313744088704538,
+    "capturedIntermediateImages": 9
+  },
+  "finishedAt": "2026-11-12T04:49:34.292Z"
+}
