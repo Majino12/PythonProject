@@ -1,3 +1,4 @@
+import {validateArticulation} from './short-hair-articulation.js';
 import {DEFAULT_PERFORMANCE_PRESETS,validatePerformancePresets} from './short-hair-performance.js';
 import {normalizeTrackingSettings,validateTrackingSettings} from './short-hair-tracking-settings.js';
 import {validateOutputComposition,normalizeOutputComposition} from './short-hair-composition.js';
@@ -84,6 +85,7 @@ export function parseStudioFrame(text) {
   }
   return {coefficients: sanitizeChannels(raw), ignored: Object.keys(raw).filter(key => !channelKeys.has(key)),
     ...(secondary?{secondary}:{}),
+    ...(object(parsed)&&Object.hasOwn(parsed,'articulation')?{articulation:validateArticulation(parsed.articulation)}:{}),
     ...(headPose ? {headPose,poseId:nearestStudioPoseId(headPose)} : {}),
     ...(transparent === undefined ? {} : {transparent})};
 }
@@ -99,6 +101,7 @@ export function createStudioProject(input = {}) {
     poseId: nearestStudioPoseId(headPose), headPose, coefficients: sanitizeChannels(value.coefficients),
     faceOnly: value.faceOnly !== false, followHead: value.followHead === true, tourPoses: value.tourPoses === true,
     transparent:value.transparent !== false,
+    ...(Object.hasOwn(value,'articulation')?{articulation:validateArticulation(value.articulation)}:{}),
     composition:normalizeOutputComposition(value.composition),secondarySettings:{...normalizeSecondarySettings(value.secondarySettings),enabled:false},
     secondary:Object.hasOwn(value,'secondary')?validateSecondaryFrame(value.secondary):{breath:0,sway:0,hair:0},
     motionProfile: value.motionProfile==='quick'?'quick':'natural',

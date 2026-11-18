@@ -12,6 +12,7 @@ import * as trackingQuality from './short-hair-tracking-quality.js';
 import * as secondaryMotion from './short-hair-secondary-motion.js';
 import * as composition from './short-hair-composition.js';
 import * as performanceLayer from './short-hair-performance.js';
+import * as articulation from './short-hair-articulation.js';
 import * as idleBlink from './short-hair-idle-blink.js';
 import {mapBlendshapeValue} from './arkit-blendshapes.js';
 
@@ -47,7 +48,7 @@ function harness() {
   const capabilities={extendedEyes:true,extendedJaw:true,shiftLeft:true,shiftRight:true,gaze:true};
   const selector=(assets,poseId,channels,previous={})=>({targetState:selectExpression(channels,previous,capabilities),targetGaze:selectGaze(channels,capabilities),
     availableSequences:{eyeLeft:['open','quarter','half','threeQuarter','closed'],eyeRight:['open','quarter','half','threeQuarter','closed'],mouth:['neutral','parted','openSmall','openMedium','openWide']}});
-  const context=vm.createContext({...model,...timing,...tracking,...poseMotion,...trackingQuality,...secondaryMotion,...composition,...performanceLayer,...idleBlink,sanitizeChannels,selectGaze,FaceSession,ShortHairStudioCamera:Camera,StudioOutputPublisher:Publisher,document,
+  const context=vm.createContext({...model,...timing,...tracking,...poseMotion,...trackingQuality,...secondaryMotion,...composition,...performanceLayer,...idleBlink,...articulation,sanitizeChannels,selectGaze,FaceSession,ShortHairStudioCamera:Camera,StudioOutputPublisher:Publisher,document,
     window:{location:{origin:'http://127.0.0.1:4175'},addEventListener(type,callback){windowEvents[type]=callback;}},localStorage:{getItem:()=>null,setItem(key,value){calls.saved.push({key,value});}},
     performance:{now:()=>calls.now},requestAnimationFrame(callback){frames.set(++frameId,callback);return frameId;},cancelAnimationFrame(id){frames.delete(id);},
     loadContinuousShortHairAssets(){calls.load++;return new Promise(resolve=>calls.assetResolvers.push(resolve));},selectShortHairStudioState:selector,
@@ -57,7 +58,7 @@ function harness() {
     loadShortHairCharacterPack(){return Promise.resolve({pack:{}});},summarizeShortHairCharacterPack(){return{poseCount:9,artworkFileCount:0,poses:[]};},
     renderContinuousShortHairStudio(canvas,assets,poseId,channels,previous,options){
       const target=selector(assets,poseId,channels,previous),neutral=selector(assets,poseId,{});
-      const result={...target,state:options.original?neutral.targetState:options.stateOverride || target.targetState,gaze:options.original?neutral.targetGaze:target.targetGaze,didDraw:true,
+      const result={...target,articulation:options.original?articulation.articulationFromState(neutral.targetState):options.articulation,state:options.original?neutral.targetState:options.stateOverride || target.targetState,gaze:options.original?neutral.targetGaze:target.targetGaze,didDraw:true,
         headPose:options.original?poseMotion.poseHeadCoordinates(poseMotion.nearestStudioPoseId(options.headPose)):{...options.headPose},transparent:options.transparent,
         secondary:options.original?{breath:0,sway:0,hair:0}:{...options.secondary}};
       calls.draws.push({at:calls.now,poseId,coefficients:{...channels},...result});return result;
@@ -249,11 +250,11 @@ test('render scheduling counts successful 30/60 fps draws rather than 120 Hz RAF
 });
 test('a skipped or failed render cannot commit unseen motion or contribute to measured drawing rate',()=>{
   const h=harness();h.prepare();h.run('setManual({jawOpen:1});choosePose("view-right");');
-  const before=h.run('frameMotion'),beforePose=h.run('poseMotion'),draw=h.context.renderContinuousShortHairStudio;
+  const before=h.run('articulationMotion'),beforePose=h.run('poseMotion'),draw=h.context.renderContinuousShortHairStudio;
   h.context.renderContinuousShortHairStudio=()=>({didDraw:false});h.step(0);
-  assert.equal(h.run('frameMotion'),before);assert.equal(h.run('poseMotion'),beforePose);
+  assert.equal(h.run('articulationMotion'),before);assert.equal(h.run('poseMotion'),beforePose);
   assert.equal(h.run('frameClock.snapshot(0).sampleCount'),0);assert.equal(h.frames.size,1);
-  h.context.renderContinuousShortHairStudio=draw;h.step(17);assert.notEqual(h.run('frameMotion'),before);assert.ok(h.run('poseMotion.current.yaw')>0);
+  h.context.renderContinuousShortHairStudio=draw;h.step(17);assert.notEqual(h.run('articulationMotion'),before);assert.ok(h.run('poseMotion.current.yaw')>0);
   h.context.renderContinuousShortHairStudio=()=>{throw new Error('context lost');};const shown=h.run('rendered.state');h.step(34);
   assert.equal(h.run('ready'),false);assert.equal(h.run('rendered.state'),shown);assert.equal(h.frames.size,0);assert.equal(h.run('frameClock.snapshot(34).sampleCount'),0);
 });
@@ -361,14 +362,14 @@ test('a rejected stale clip import cannot overwrite the status of a newer manual
   assert.equal(h.elements.get('#clipStatus').textContent,'new state');
 });
 
-test('continuous manual input at one pose keeps the already accumulated mouth hold time',()=>{
+test('continuous manual input keeps its exact fractional mouth progress and visits neutral between branches',()=>{
   const h=harness();h.prepare();h.run('coefficients=sanitizeChannels({mouthPucker:1});paint({snap:true});setManual({mouthPressLeft:1});');
   h.step(0);
-  const before=h.run('frameMotion.elapsedMs.mouth'),shown=h.run('rendered.state.mouth');
-  assert.ok(before>0 && before<38,`elapsed=${before}, shown=${shown}`);
+  const before=plain(h.run('articulationMotion.current.mouth')),shown=h.run('rendered.state.mouth');
+  assert.ok(before.t>0 && before.t<1);assert.equal(before.from,'pucker');assert.equal(before.to,'neutral');
   h.calls.now=8;h.run('setManual({mouthPressLeft:.95},{reset:false});');
-  assert.equal(h.run('frameMotion.elapsedMs.mouth'),before);assert.equal(h.run('rendered.state.mouth'),shown);
-  for(let time=17;time<200&&h.frames.size;time+=17)h.step(time);
+  assert.deepEqual(plain(h.run('articulationMotion.current.mouth')),before);assert.equal(h.run('rendered.state.mouth'),shown);
+  for(let time=17;time<500&&h.frames.size;time+=17)h.step(time);
   assert.equal(h.run('rendered.state.mouth'),'press');
   assert.ok(h.calls.draws.some(draw=>draw.state.mouth==='neutral'));
 });
@@ -455,7 +456,7 @@ test('continuous recording saves displayed intermediate coordinates and output t
   assert.ok(h.run('clipRecorder.samples.some(sample=>sample.headPose.yaw>0&&sample.headPose.yaw<1)'));
   h.elements.get('#transparentToggle').checked=false;h.elements.get('#transparentToggle').events.change();
   assert.equal(h.calls.published.at(-1).transparent,false);
-  h.run('stopActive();');assert.equal(h.run('savedClip.schemaVersion'),3);
+  h.run('stopActive();');assert.equal(h.run('savedClip.schemaVersion'),4);
   assert.ok(h.run('savedClip.samples.some(sample=>sample.headPose.yaw>0&&sample.headPose.yaw<1)'));
 });
 
@@ -899,4 +900,128 @@ test('studio selects deliberate turn timing for manual and demo while camera use
   h.context.advanceStudioPoseMotion=(motion,dt,options)=>{modes.push(options.mode);return advance(motion,dt,options);};
   for(const mode of ['manual','demo','camera'])h.run(`source='${mode}';paint({dt:.016});`);
   assert.deepEqual(modes,['turn','turn','tracking']);
+});
+
+test('all five facial groups share continuous authored progress in manual, demo and camera modes',()=>{
+  for(const mode of ['manual','demo','camera']){
+    const h=harness();h.prepare();h.run(`source='${mode}';coefficients=sanitizeChannels({eyeBlinkLeft:1,eyeBlinkRight:1,mouthPucker:1,browDownLeft:1,browDownRight:1});paint({dt:1/60});`);
+    for(const group of articulation.ARTICULATION_GROUPS){
+      const part=plain(h.run(`committedOutput.articulation.${group}`));
+      assert.notEqual(part.from,part.to,`${mode} ${group}`);assert.ok(part.t>0&&part.t<1,`${mode} ${group}`);
+    }
+    const displayed=plain(h.run('committedOutput.articulation'));
+    h.run('coefficients=sanitizeChannels({});paint();');assert.deepEqual(plain(h.run('committedOutput.articulation')),displayed);
+    h.run('paint({dt:1/60});');
+    const next=plain(h.run('committedOutput.articulation'));
+    for(const group of articulation.ARTICULATION_GROUPS)assert.ok(next[group].t<displayed[group].t||next[group].from===next[group].to,`${mode} ${group} reverses`);
+  }
+});
+
+test('manual gaze moves continuously per eye and failed draws commit neither gaze nor articulation nor transport',()=>{
+  const h=harness();h.prepare();h.run('publisher.start();toggleClipRecording();setManual({eyeBlinkLeft:1,mouthPucker:1,browDownLeft:1,eyeLookOutLeft:1,eyeLookOutRight:.8,eyeLookUpLeft:.7,eyeLookDownRight:.6});');
+  assert.equal(h.run('committedOutput.coefficients.eyeLookOutLeft'),0);
+  h.run('paint({dt:1/60,now:40});');
+  const shown=plain(h.run('committedOutput')),before=h.run('articulationMotion'),captureCount=h.run('clipRecorder.samples.length');
+  assert.ok(shown.coefficients.eyeLookOutLeft>0&&shown.coefficients.eyeLookOutLeft<=.25);
+  assert.ok(shown.coefficients.eyeLookOutRight>0&&shown.coefficients.eyeLookOutRight<.8);
+  const draw=h.context.renderContinuousShortHairStudio;h.context.renderContinuousShortHairStudio=()=>({didDraw:false});
+  h.run('paint({dt:5,now:80});publishOutput();');
+  assert.equal(h.run('articulationMotion'),before);assert.deepEqual(plain(h.run('committedOutput')),shown);
+  assert.equal(h.run('clipRecorder.samples.length'),captureCount);assert.deepEqual(plain(h.calls.published.at(-1)),shown);
+  h.context.renderContinuousShortHairStudio=draw;h.run('paint({dt:5,now:100});');
+  const next=plain(h.run('committedOutput'));
+  assert.ok(next.coefficients.eyeLookOutLeft-shown.coefficients.eyeLookOutLeft<=.25);
+  assert.deepEqual(plain(h.run('clipRecorder.samples.at(-1).articulation')),next.articulation);
+  assert.deepEqual(plain(h.run('clipRecorder.samples.at(-1).coefficients')),next.coefficients);
+  assert.deepEqual(plain(h.calls.published.at(-1).articulation),next.articulation);
+  h.calls.now=100;h.run('setManual({eyeLookInLeft:1});');assert.equal(h.run('committedOutput.coefficients.eyeLookOutLeft'),next.coefficients.eyeLookOutLeft);
+  h.run('paint({dt:1/60});');assert.ok(h.run('committedOutput.coefficients.eyeLookOutLeft')<next.coefficients.eyeLookOutLeft);
+});
+
+test('camera and recorded gaze bypass manual damping while v4 articulation replays the exact recorded fractions',()=>{
+  const h=harness();h.prepare();h.run('source="camera";coefficients=sanitizeChannels({eyeLookOutLeft:.9,eyeLookInLeft:.2,eyeLookDownRight:.7});paint();');
+  assert.equal(h.run('committedOutput.coefficients.eyeLookOutLeft'),.9);assert.equal(h.run('committedOutput.coefficients.eyeLookInLeft'),.2);
+  const a={...articulation.articulationFromState(),eyeLeft:{from:'half',to:'threeQuarter',t:.2},mouth:{from:'neutral',to:'pucker',t:.4}};
+  const b={...articulation.articulationFromState(),eyeLeft:{from:'half',to:'threeQuarter',t:.8},mouth:{from:'neutral',to:'pucker',t:.9}};
+  h.context.testClip={schemaVersion:4,kind:'moemotion-short-hair-tracking-clip',characterId:'short-hair-v1',durationMs:100,
+    samples:[{t:0,poseId:'front',headPose:{yaw:0,pitch:0},secondary:{breath:0,sway:0,hair:0},coefficients:sanitizeChannels({eyeLookOutLeft:1}),articulation:a},
+      {t:100,poseId:'front',headPose:{yaw:0,pitch:0},secondary:{breath:0,sway:0,hair:0},coefficients:sanitizeChannels({eyeLookInLeft:1}),articulation:b}]};
+  h.run('savedClip=testClip;playClip();');h.step(0);assert.deepEqual(plain(h.run('committedOutput.articulation')),a);
+  h.step(50);assert.deepEqual(plain(h.run('committedOutput.articulation')),articulation.interpolateArticulation(a,b,.5));
+  assert.equal(h.run('committedOutput.coefficients.eyeLookOutLeft'),.5);assert.equal(h.run('committedOutput.coefficients.eyeLookInLeft'),.5);
+  const before=h.run('articulationMotion'),draw=h.context.renderContinuousShortHairStudio;
+  h.context.renderContinuousShortHairStudio=()=>({didDraw:false});h.step(100);assert.equal(h.run('articulationMotion'),before);assert.equal(h.run('source'),'clip');
+  h.context.renderContinuousShortHairStudio=draw;h.step(117);assert.deepEqual(plain(h.run('committedOutput.articulation')),b);
+  assert.equal(h.run('source'),'manual');assert.equal(h.frames.size,0);assert.equal(h.run('camera.starts'),0);
+});
+
+test('pausing, hiding and all exports freeze the exact fractional face and gaze; frame and project imports restore it',async()=>{
+  for(const action of ['stopActive();','savePng();','exportFrame();','saveProject();','document.hidden=true;']){
+    const h=harness();h.prepare();h.elements.get('#studioCanvas').toBlob=callback=>callback(new Blob(['png']));
+    h.run('setManual({eyeBlinkLeft:1,jawOpen:1,browDownLeft:1,eyeLookOutLeft:1});paint({dt:1/60});');
+    const shown=plain(h.run('committedOutput.articulation')),gaze=h.run('committedOutput.coefficients.eyeLookOutLeft');
+    h.run(action);if(action==='document.hidden=true;')h.documentEvents.visibilitychange();
+    assert.deepEqual(plain(h.run('committedOutput.articulation')),shown,action);assert.equal(h.run('committedOutput.coefficients.eyeLookOutLeft'),gaze);
+    assert.equal(h.frames.size,0,action);
+    if(action==='exportFrame();'||action==='saveProject();'){
+      const saved=JSON.parse(await h.calls.downloads.at(-1).text());assert.deepEqual(saved.articulation,shown);assert.equal(saved.coefficients.eyeLookOutLeft,gaze);
+      const next=harness();next.prepare();next.context.savedText=JSON.stringify(saved);
+      next.run(action==='exportFrame();'?'applyFrame(savedText);':'restoreProject(parseStudioProject(savedText));');
+      assert.deepEqual(plain(next.run('committedOutput.articulation')),shown);assert.equal(next.run('committedOutput.coefficients.eyeLookOutLeft'),gaze);
+      assert.equal(next.frames.size,0);assert.equal(next.run('camera.starts'),0);
+    }
+  }
+});
+
+test('a failed fractional import retries the saved frame and newer manual input cancels its pending snapshot',()=>{
+  for(const superseded of [false,true]){
+    const h=harness();h.prepare();const before=h.run('articulationMotion'),draw=h.context.renderContinuousShortHairStudio;
+    h.context.savedText=JSON.stringify({coefficients:{jawOpen:1,eyeLookOutLeft:.7},articulation:{...articulation.articulationFromState(),mouth:{from:'parted',to:'openSmall',t:.63}}});
+    h.context.renderContinuousShortHairStudio=()=>({didDraw:false});h.run('applyFrame(savedText);');
+    assert.deepEqual(plain(h.run('articulationMotion.current')),plain(before.current));assert.ok(h.run('pendingArticulation'));
+    if(superseded)h.run('setManual({mouthPressLeft:1});');
+    h.context.renderContinuousShortHairStudio=draw;h.step(0);
+    if(superseded){assert.equal(h.run('pendingArticulation'),null);assert.notEqual(h.run('committedOutput.articulation.mouth.from'),'parted');}
+    else{assert.deepEqual(plain(h.run('committedOutput.articulation.mouth')),{from:'parted',to:'openSmall',t:.63});assert.equal(h.run('committedOutput.coefficients.eyeLookOutLeft'),.7);assert.equal(h.frames.size,0);}
+  }
+});
+
+test('original preview publishes only canonical neutral articulation and clip capacity reports the actual limit',()=>{
+  const h=harness();h.prepare();h.run('setManual({eyeBlinkLeft:1,jawOpen:1,browDownLeft:1});paint({dt:1/60});');
+  h.elements.get('#originalToggle').checked=true;h.elements.get('#originalToggle').events.change();
+  assert.deepEqual(plain(h.run('committedOutput.articulation')),articulation.articulationFromState());
+  h.run('toggleClipRecording();clipRecorder.sampleBytes=TRACKING_CLIP_LIMITS.maxBytes;paint({hold:true,now:100});');
+  assert.equal(h.run('clipRecorder.recording'),false);assert.equal(h.run('clipRecorder.stopReason'),'size');
+  assert.match(h.elements.get('#clipStatus').textContent,/容量上限/);assert.doesNotMatch(h.elements.get('#clipStatus').textContent,/已记录60秒/);
+});
+
+test('a saved fractional frame clears live gaze layers and idle blink before restoring its exact frozen display',()=>{
+  const h=harness();h.prepare();h.run(`performancePresets=[createPerformancePreset({id:'gaze',name:'向右',groups:['gaze'],channels:{eyeLookOutLeft:1,eyeLookInRight:1}})];
+    buildPerformanceControls();togglePerformance(0);paint({dt:.3});idleBlinkEnabled=true;idleBlinkMotion={...createIdleBlink(42),phase:'closed',elapsed:20,closure:1};ensureAnimation();`);
+  const layer=h.run('performanceMixer'),blink=h.run('idleBlinkMotion');
+  h.run('applyFrame(\'{"jawOpen":null}\');');assert.equal(h.run('performanceMixer'),layer);assert.equal(h.run('idleBlinkMotion'),blink);
+  const savedArt={...articulation.articulationFromState(),eyeLeft:{from:'quarter',to:'half',t:.27},mouth:{from:'parted',to:'openSmall',t:.61}};
+  h.context.savedText=JSON.stringify({coefficients:{jawOpen:.8,eyeLookOutLeft:.23,eyeLookInRight:.19},articulation:savedArt});
+  h.run('applyFrame(savedText);');
+  assert.equal(h.run('source'),'manual');assert.equal(h.run('performanceMixer.entries.length'),0);assert.equal(h.run('performanceMoving'),false);
+  assert.equal(h.run('idleBlinkEnabled'),false);assert.equal(h.run('idleBlinkMotion.phase'),'waiting');assert.equal(h.frames.size,0);
+  assert.equal(h.run('committedOutput.coefficients.eyeLookOutLeft'),.23);assert.equal(h.run('committedOutput.coefficients.eyeLookInRight'),.19);
+  assert.deepEqual(plain(h.run('committedOutput.articulation')),savedArt);
+  const count=h.calls.draws.length;assert.equal(h.step(1000),false);assert.equal(h.calls.draws.length,count);assert.equal(h.run('camera.starts'),0);
+});
+
+test('recording original preview captures its visible native pose and neutral gaze without overwriting manual targets',()=>{
+  const h=harness();h.prepare();h.run('poseMotion=createStudioPoseMotion({yaw:.31,pitch:-.22});coefficients=sanitizeChannels({eyeBlinkLeft:1,mouthPucker:1,eyeLookOutLeft:.9,eyeLookInRight:.8});paint({snap:true});');
+  const input=plain(h.run('coefficients')),head=plain(h.run('poseMotion.current'));
+  h.elements.get('#originalToggle').checked=true;h.elements.get('#originalToggle').events.change();
+  assert.deepEqual(plain(h.run('committedOutput.headPose')),{yaw:0,pitch:0});h.run('toggleClipRecording();');
+  h.calls.now=40;h.run('paint({hold:true});finishClipRecording();');
+  const clip=plain(h.run('savedClip'));assert.equal(clip.schemaVersion,4);assert.ok(clip.samples.length>=2);
+  for(const sample of clip.samples){assert.equal(sample.poseId,'front');assert.deepEqual(sample.headPose,{yaw:0,pitch:0});assert.deepEqual(sample.coefficients,sanitizeChannels({}));assert.deepEqual(sample.articulation,articulation.articulationFromState());}
+  assert.deepEqual(plain(h.run('coefficients')),input);assert.deepEqual(plain(h.run('poseMotion.current')),head);
+  h.elements.get('#originalToggle').checked=false;h.elements.get('#originalToggle').events.change();
+  assert.deepEqual(plain(h.run('coefficients')),input);assert.deepEqual(plain(h.run('rendered.headPose')),head);
+  h.calls.now=50;h.run('playClip();');h.step(50);h.step(90);
+  assert.deepEqual(plain(h.run('rendered.headPose')),{yaw:0,pitch:0});assert.deepEqual(plain(h.run('rendered.gaze')),selectGaze({}, {gaze:true}));
+  assert.deepEqual(plain(h.run('committedOutput.articulation')),articulation.articulationFromState());assert.equal(h.run('source'),'manual');
 });

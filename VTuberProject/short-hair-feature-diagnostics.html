@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>短发角色 · 连续五官诊断</title>
+  <style>
+    :root{font:16px/1.5 system-ui,sans-serif;color:#142638;background:#e7ebef}body{margin:24px auto;padding:0 20px;max-width:1600px}h1{font-size:26px;margin-bottom:8px}p{max-width:1000px}button,select{font:inherit;padding:9px 14px;border:1px solid #8396a9;border-radius:6px;background:white;color:inherit}button:disabled{opacity:.5}.controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin:18px 0}.status{padding:13px;background:white;border-left:5px solid #39738e;white-space:pre-wrap}.status.error{border-color:#ac3140;color:#8a2432}.status.warning{border-color:#b87919}progress{width:100%;height:18px}.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}figure{margin:0;min-width:0}figcaption{font-weight:650;margin:8px 0}canvas{display:block;width:100%;height:auto;background:repeating-conic-gradient(#d4d9df 0 25%,#edf0f4 0 50%) 0/20px 20px;border:1px solid #93a3b3}pre{padding:16px;background:#f8fafb;border:1px solid #bac5ce;max-height:430px;overflow:auto;white-space:pre-wrap;font:13px/1.5 ui-monospace,monospace}.note{font-size:14px;color:#425c72}details{margin-top:18px}@media(max-width:850px){.pair{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<h1>短发角色 · 连续五官诊断</h1>
+<p>检查原画端点、连续表情的两端极限、九方向顶点与三角形接缝。固定采用 ε = 0.00001；端点要求完全一致，接缝与极限记录每个 RGBA 通道的真实差异，并单独报告最大差异是否 ≤ 2。另列预乘 RGB 与双方 alpha ≥ 250 的不透明区域差异，原始失败判定仍保留。</p>
+<p class="note">像素连续性通过，不等于鼻线或眼睑重影已经消失。中间角度没有逐帧人工真值，本页不生成“去重影通过率”。请结合对照、局部放大与真实计时的视频核验。</p>
+<div class="controls">
+  <button id="fd-load">载入画稿</button><button id="fd-run" disabled>运行完整诊断</button><button id="fd-endpoint-check" disabled>端点隔离检查</button><button id="fd-joint-check" disabled>联合表情端点</button><button id="fd-seam-check" disabled>最大接缝收敛检查</button>
+  <label>播放帧率 <select id="fd-fps"><option value="30">30 fps</option><option value="60">60 fps</option></select></label>
+  <button id="fd-replay" disabled>播放 8 秒动作</button><button id="fd-stop" disabled>停止</button>
+  <button id="fd-json" disabled>导出 JSON</button><button id="fd-png" disabled>导出对照 PNG</button><button id="fd-webm" disabled>录制 8 秒 WebM</button>
+</div>
+<div class="controls">
+  <label>转头 yaw <input id="fd-yaw" type="number" min="-1" max="1" step="0.05" value="0.4"></label>
+  <label>俯仰 pitch <input id="fd-pitch" type="number" min="-1" max="1" step="0.05" value="0.25"></label>
+  <label>眼睑 <select id="fd-eye"><option>open</option><option>quarter</option><option>half</option><option>threeQuarter</option><option selected>closed</option></select></label>
+  <button id="fd-compare" disabled>显示角度对照</button><button id="fd-crop-check" disabled>可见区域绘制校验</button>
+</div>
+<p id="fd-status" class="status" role="status" aria-live="polite">等待载入；不会开启摄像头。</p>
+<progress id="fd-progress" value="0" max="1"></progress>
+<pre id="fd-summary">尚未运行。默认对照为 yaw 0.4、pitch 0.25、双眼闭合。</pre>
+<div class="pair">
+  <figure><figcaption>五官校正关闭 · 同一素材与动作</figcaption><canvas id="fd-before" width="780" height="600"></canvas></figure>
+  <figure><figcaption>五官校正开启 · 同一素材与动作</figcaption><canvas id="fd-after" width="780" height="600"></canvas></figure>
+</div>
+<div class="pair">
+  <figure><figcaption>鼻线与眼睑 · 关闭校正</figcaption><canvas id="fd-detail-before" width="780" height="250"></canvas></figure>
+  <figure><figcaption>鼻线与眼睑 · 开启校正</figcaption><canvas id="fd-detail-after" width="780" height="250"></canvas></figure>
+</div>
+<details><summary>全部测量记录</summary><pre id="fd-report">尚无记录。</pre></details>
+<script type="module" src="./short-hair-feature-diagnostics.js"></script>
+</body>
+</html>

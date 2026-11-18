@@ -1,3 +1,4 @@
+import {articulationFromState} from './short-hair-articulation.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {STUDIO_CHANNELS, STUDIO_POSES, selectStudioPose, gazeChannels, applyStudioPreset, parseStudioFrame,
@@ -137,4 +138,21 @@ test('v0.19 presets and tracking input ranges survive project round trips withou
  for(const input of [{trackingSettings:{eyeInputMax:0}},{trackingSettings:{mouthInputMax:'0.5'}},{performancePresets:[{id:'x'}]},
   {performancePresets:[...project.performancePresets,...project.performancePresets]},{performancePresets:Array(9).fill(project.performancePresets[0])}])
   assert.throws(()=>parseStudioProject(JSON.stringify({...project,...input})));
+});
+
+
+test('project and frame JSON preserve optional fractional authored states without changing legacy schemas',()=>{
+  const articulation={...articulationFromState(),eyeLeft:{from:'half',to:'threeQuarter',t:.37},mouth:{from:'neutral',to:'pucker',t:.72},browRight:{from:'down',to:'neutral',t:.21}};
+  const project=createStudioProject({coefficients:{jawOpen:1},articulation});
+  assert.equal(project.schemaVersion,1);assert.deepEqual(project.articulation,articulation);
+  assert.deepEqual(parseStudioProject(JSON.stringify(project)).articulation,articulation);
+  const frame=parseStudioFrame(JSON.stringify({schemaVersion:3,coefficients:{jawOpen:1},articulation}));
+  assert.deepEqual(frame.articulation,articulation);
+  articulation.eyeLeft.t=.9;assert.equal(project.articulation.eyeLeft.t,.37);assert.equal(frame.articulation.eyeLeft.t,.37);
+  assert.equal(createStudioProject().articulation,undefined);assert.equal(parseStudioFrame('{"jawOpen":0.4}').articulation,undefined);
+  for(const bad of [null,{}, {...articulation,eyeLeft:{from:'open',to:'closed',t:.2}}, {...articulation,browLeft:{from:'neutral',to:'up',t:2}}]){
+    assert.throws(()=>createStudioProject({articulation:bad}));
+    assert.throws(()=>parseStudioProject(JSON.stringify({...project,articulation:bad})));
+    assert.throws(()=>parseStudioFrame(JSON.stringify({coefficients:{jawOpen:1},articulation:bad})));
+  }
 });

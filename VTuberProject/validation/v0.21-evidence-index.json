@@ -1,0 +1,259 @@
+{
+  "schemaVersion": 1,
+  "version": "0.21.0",
+  "date": "2026-11-18",
+  "kind": "release-evidence-index",
+  "scope": "Hashes of runtime entry points, feature geometry and final/retained validation evidence. Not a claim of complete visual quality.",
+  "notes": [
+    "Feature static results are shared by the 30/60 playback exports, not two independent runs.",
+    "Studio turn report version 0.20.1 names the unchanged diagnostic module; studioVersion identifies 0.21.0.",
+    "Actual camera, microphone and OBS were not used; frame rates refer to successful browser draws, not encoded video.",
+    "Local iteration-records media and cleanup receipts are intentionally outside the release payload."
+  ],
+  "files": {
+    "assets/short-hair-features-v1/manifest.json": {
+      "bytes": 372125,
+      "sha256": "c63602c7d410f6fa24739b48f15b49811fa15f894d56abda2ff1507f6035e498"
+    },
+    "package.json": {
+      "bytes": 843,
+      "sha256": "ea92fc6e030f920a48845175db212a809b186f6214fac5e8b684110f547e2876"
+    },
+    "short-hair-alpha.js": {
+      "bytes": 17059,
+      "sha256": "11368878bf1dee8355c37ecfc37ec6efa058f64a1848528aaccf3155d5535186"
+    },
+    "short-hair-articulation.js": {
+      "bytes": 13499,
+      "sha256": "0f4a1fb0b6f7857a11fd019067bf8fd35907f3664a5428fb4035c4357c6323ff"
+    },
+    "short-hair-character-pack.js": {
+      "bytes": 23829,
+      "sha256": "91c7ef2e743125a339bb0aba8d6b20caaf0f9666199725a2913a14b580c7b2a2"
+    },
+    "short-hair-composition.js": {
+      "bytes": 1817,
+      "sha256": "2b7f1497fb8897c797859211f1352e8462cbdc1cd03d1125858bb5d2f6fade7c"
+    },
+    "short-hair-continuous-diagnostics.html": {
+      "bytes": 1606,
+      "sha256": "b00472a0d44c5a4aaf269e08cdc26e8a1335e900f09114fd2e22d4a48200f0e7"
+    },
+    "short-hair-continuous-diagnostics.js": {
+      "bytes": 12254,
+      "sha256": "c410cf6502bfcd6d8d3b3869652c7a3c41f040c79bb7735574543c2c0ad6620a"
+    },
+    "short-hair-continuous-model.js": {
+      "bytes": 2233,
+      "sha256": "18ced7b2d0f9591892a069f80b6b6c9d9add1957985e86daf8448f5344d3db81"
+    },
+    "short-hair-continuous-renderer.js": {
+      "bytes": 22979,
+      "sha256": "920e93e9d8cedea1c36ceec061e4e95833ffe6ea139ffa80daa3a7c948854b7c"
+    },
+    "short-hair-face-tracker.js": {
+      "bytes": 1086,
+      "sha256": "df27c9f1f3f51b19b67f073077d340a8c10f9ff4a0e91e5ed0ecb376e26977cf"
+    },
+    "short-hair-face-worker-runtime.js": {
+      "bytes": 1106,
+      "sha256": "36bbb4c4e09e6accff5c82fbb6058500ad8e2a023c17b4976c2dd10d33003fae"
+    },
+    "short-hair-face-worker.js": {
+      "bytes": 638,
+      "sha256": "292964cff210a95e546c56bec9b28864f0719fb5f86d641ec1ab4831eee560f5"
+    },
+    "short-hair-feature-diagnostics.html": {
+      "bytes": 4360,
+      "sha256": "5f2516b46e9d4f969beaf9b4ba6adcdc1f438e75a7665592f98080521f94e359"
+    },
+    "short-hair-feature-diagnostics.js": {
+      "bytes": 39658,
+      "sha256": "9605df198131e7cee0fc10152d78dcd5b00bdd68c9e51858e8c454405bd396e4"
+    },
+    "short-hair-feature-geometry.js": {
+      "bytes": 14247,
+      "sha256": "5d56e7bf6d7ada9d7ff905285673b041d033fc90a8c9c4e4d35a8720ca1cd80f"
+    },
+    "short-hair-feature-review.html": {
+      "bytes": 1115,
+      "sha256": "0207d4125d6d02f196b0cef8300a4c960f62fac2e331f4d5505867480be631a5"
+    },
+    "short-hair-feature-review.js": {
+      "bytes": 1511,
+      "sha256": "32a150c105e71cca3ca17246c11877d6c0c2dc98e65758c7d9f03191d84af019"
+    },
+    "short-hair-flow-renderer.js": {
+      "bytes": 19031,
+      "sha256": "eee550392fbbcd001bb3e70a5ead80d1e97ff3b8bdc977c87d9ca8fa8cb25132"
+    },
+    "short-hair-fringe-assets.js": {
+      "bytes": 5385,
+      "sha256": "3c1b09c6823da92a0d81a2d883379a27b5a73a1420a360f2f38f7cd53cf7b110"
+    },
+    "short-hair-fringe-decomposition.js": {
+      "bytes": 8788,
+      "sha256": "51b780a865ace843275bf0930e9f55ae9b9ae7ad83bce84f5b40bedc4057ab99"
+    },
+    "short-hair-fringe-layer-export.js": {
+      "bytes": 11195,
+      "sha256": "e1e3edec18a8c081e7cf267903e4431c2ad7e913e15519d2f57d47cfc699c8dd"
+    },
+    "short-hair-fringe-renderer.js": {
+      "bytes": 3597,
+      "sha256": "500621479d602c52f5aef0cb1b7afafa948bf7f285e91bcef78db234c34b76d1"
+    },
+    "short-hair-idle-blink.js": {
+      "bytes": 1714,
+      "sha256": "25280cd69f3709e1605e85b11fc361c93e89350b38cf947043240ac2f6330aaa"
+    },
+    "short-hair-layer-inspector.js": {
+      "bytes": 340,
+      "sha256": "ef7abf7944cbff1c49f428ee9a93a99a6f3bd0a2b361641eaedcbaf66ea33415"
+    },
+    "short-hair-mesh-diagnostics.html": {
+      "bytes": 1254,
+      "sha256": "82671a64d0dd9fa20f0695b3ddb6b726503848288544b7a51578b5a3b732e83f"
+    },
+    "short-hair-mesh-diagnostics.js": {
+      "bytes": 12082,
+      "sha256": "0c742df6d50be30b538ae07f7f9f6273b02993f5e8521184902a1cc79601ec05"
+    },
+    "short-hair-mesh-model.js": {
+      "bytes": 15870,
+      "sha256": "a39696be852c8678f16dc073a706d9950689ca3fd8019b6726f630700a6d5cc3"
+    },
+    "short-hair-mesh-renderer.js": {
+      "bytes": 11522,
+      "sha256": "a75206f8829577a7c4f94fa420e654dd467779498e18f5dc8c13e52657c8a9a5"
+    },
+    "short-hair-motion-fields.js": {
+      "bytes": 4937,
+      "sha256": "eacea86fd6fddea9b6e47f2754547051f26289fa08b2ce3457cfcbcef169a2f6"
+    },
+    "short-hair-output.html": {
+      "bytes": 672,
+      "sha256": "c9b1b2d8f0567cd55a1d1eaca968b5909d131728d34d6535c27b39e66f967b5d"
+    },
+    "short-hair-output.js": {
+      "bytes": 3770,
+      "sha256": "3c9a77d0315f04b21e049390fbaf0f2ed07cb8e77bdbaa7080e0a8f7f2cabf11"
+    },
+    "short-hair-performance.js": {
+      "bytes": 10905,
+      "sha256": "d7e9b8ff2be21dab3caed3e1518d41fdb1748e932c32552ca3c943fa7a72d702"
+    },
+    "short-hair-pose-motion.js": {
+      "bytes": 7157,
+      "sha256": "04835239c3afc41f6b1f85f44fa5853364176254be5cac8a129f59ed42aee651"
+    },
+    "short-hair-rig-review.html": {
+      "bytes": 3872,
+      "sha256": "3dfc93e302bece65720e350bffd1eda763928c2d1c344eee870202fafacf27ff"
+    },
+    "short-hair-rig-review.js": {
+      "bytes": 23972,
+      "sha256": "34ccc1d9e33458c7a9638a5370e6ee38ef36708e92b8438ed13fd82170a00371"
+    },
+    "short-hair-secondary-motion.js": {
+      "bytes": 6499,
+      "sha256": "82859f2e764fdbeab39c13b3cb5d69cb1da99b5725b7ced12a40fe949a4bdb59"
+    },
+    "short-hair-studio-camera.js": {
+      "bytes": 12039,
+      "sha256": "04c6b39f54373531098553495eeeaa200d8434410fd3f93b63059bd7f4f79429"
+    },
+    "short-hair-studio-model.js": {
+      "bytes": 9773,
+      "sha256": "35e689b4edf41ed9a50d58e0f200bab62f213616cbe73eecbf894e66a78b77e2"
+    },
+    "short-hair-studio-output-model.js": {
+      "bytes": 3924,
+      "sha256": "cf9f209946c1516f3a8f56da54f8f32d50d74ad9676dd60a9bad45cc95d6345a"
+    },
+    "short-hair-studio-publisher.js": {
+      "bytes": 5014,
+      "sha256": "cc07dccbad01165e1a462f44e73307390aa5de5c1567a9392b1e558894d77b34"
+    },
+    "short-hair-studio-renderer.js": {
+      "bytes": 7614,
+      "sha256": "f7090c299c36dd9cd590ef8852dfb59096ff0aa93ee826ca04156e6e6a0dae38"
+    },
+    "short-hair-studio-timing.js": {
+      "bytes": 10972,
+      "sha256": "5b44a6e3da21ee78b18b53a4029a75dbef38443f78e56540084a793fe23a188a"
+    },
+    "short-hair-studio-tracking.js": {
+      "bytes": 15423,
+      "sha256": "90c0b4d7cd948a3e682db1ec760a7105b9b41a8e42a9dd5c3c4ef0712e69fa87"
+    },
+    "short-hair-studio.html": {
+      "bytes": 15284,
+      "sha256": "1c54bad4c262e0fe8f6d781eb8d8ae767da23ff52054bba0b728bfd8c6f582e0"
+    },
+    "short-hair-studio.js": {
+      "bytes": 63654,
+      "sha256": "93caed6381cd42890baadacccac2cb598c72c5fc9dbfa7390f4548c4c99713ea"
+    },
+    "short-hair-tracking-diagnostic.html": {
+      "bytes": 1044,
+      "sha256": "1015b32f255debc64185a686b1707c72f27917e55f49d5f9679348c3603cf29a"
+    },
+    "short-hair-tracking-diagnostic.js": {
+      "bytes": 2631,
+      "sha256": "275da14fa66c087eacc53dca1ee0fda49f783e237c0412440f6f8275c359384a"
+    },
+    "short-hair-tracking-quality.js": {
+      "bytes": 7678,
+      "sha256": "73a5036b4fd634f0d3de2413dfb632199af432df2e31ccdd8f308e24aaf873ac"
+    },
+    "short-hair-tracking-settings.js": {
+      "bytes": 1723,
+      "sha256": "bea371bf934a2b98914f7c54b0bbd79570a0af451b42d9411f0c03d6df7b6355"
+    },
+    "short-hair-tracking-worker-client.js": {
+      "bytes": 3135,
+      "sha256": "fb15d196ac6d5e43eb0dd9cf74734761c1c97fb2617ce28e1eb42599ea7fb686"
+    },
+    "short-hair-turn-review.js": {
+      "bytes": 12752,
+      "sha256": "82dc4bf01c80601dfdb505a25a0ab90a9fe8fcec5be16112473fc624e3c1f93a"
+    },
+    "validation/v0.21-check.txt": {
+      "bytes": 498,
+      "sha256": "4fc3ed30953e4920b48fe7a33d37b9a7c29d5ebeb54af95aae3786880b61d063"
+    },
+    "validation/v0.21-feature-pre-protection.json": {
+      "bytes": 1534313,
+      "sha256": "3d25054178a4eb86f88f84d3a0db51cd6a0747959329ee9a774ff4f4f30eb254"
+    },
+    "validation/v0.21-features-30.json": {
+      "bytes": 1401646,
+      "sha256": "76df26b92c979287e67b3d425533a9c748ed121adfa215a70ce324c713f8a9fe"
+    },
+    "validation/v0.21-features-60.json": {
+      "bytes": 1468164,
+      "sha256": "dc2925c642cb8d90bae613d5688f6166be8865b096e07f968f92305410090f94"
+    },
+    "validation/v0.21-source-byte-audit.json": {
+      "bytes": 11489,
+      "sha256": "0928d4eaaa3020a63ee1b3b12eabef09f1101fc89c50e966369522ef2291d0f3"
+    },
+    "validation/v0.21-studio-turn-30.json": {
+      "bytes": 136001,
+      "sha256": "3b5a7baa9c7648986ae193d5129382f32ced2931026f86412f51a4a8170ad706"
+    },
+    "validation/v0.21-studio-turn-60.json": {
+      "bytes": 211675,
+      "sha256": "6a51d7933c6492147607968c8917ef8d1bc8b3015c65fcd14336fa8b833c09c7"
+    },
+    "validation/v0.21-tests.txt": {
+      "bytes": 268608,
+      "sha256": "7c8b805f8e47bd5aa87770dde987efd5c8df275d396b9c6c9235a9878a4ff90e"
+    },
+    "validation/v0.21-video-decode.json": {
+      "bytes": 351,
+      "sha256": "1d9127bff777ad0f0f4fce2e84fcd1a22122e000710a42f54cf3f7a37ed35660"
+    }
+  }
+}

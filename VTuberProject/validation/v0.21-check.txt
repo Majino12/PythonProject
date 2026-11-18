@@ -1,0 +1,4 @@
+
+> moemotion@0.21.0 check
+> node --input-type=module -e "import {readdirSync} from 'node:fs'; import {spawnSync} from 'node:child_process'; for (const entry of readdirSync('.', {withFileTypes:true}).filter(entry => entry.isFile() && /[.]m?js$/.test(entry.name)).sort((a,b) => a.name.localeCompare(b.name))) { const result = spawnSync(process.execPath, ['--check', entry.name], {stdio:'inherit'}); if (result.error) throw result.error; if (result.status !== 0) process.exit(result.status ?? 1); }"
+

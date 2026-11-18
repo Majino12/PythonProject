@@ -307,3 +307,94 @@ test('inference metrics distinguish completed detection, face freshness, failure
   assert.equal(metrics.snapshot(3000).meanInferenceMs,null);
   metrics.reset(); assert.equal(metrics.snapshot(4000).sampleCount,0);
 });
+
+const articulationFrame=()=>({
+  eyeLeft:{from:'open',to:'open',t:0},eyeRight:{from:'open',to:'open',t:0},
+  mouth:{from:'neutral',to:'neutral',t:0},browLeft:{from:'neutral',to:'neutral',t:0},browRight:{from:'neutral',to:'neutral',t:0},
+});
+const articulatedFrame=(art=articulationFrame(),overrides={})=>({...frame(overrides),headPose:{yaw:0,pitch:0},
+  secondary:{breath:0,sway:0,hair:0},articulation:art});
+const eyePosition=point=>{const states=['open','quarter','half','threeQuarter','closed'];return states.indexOf(point.from)*(1-point.t)+states.indexOf(point.to)*point.t;};
+const weightOf=(point,name)=>(point.from===name?1-point.t:0)+(point.to===name?point.t:0);
+
+function recordedArticulation(samples){
+  const recorder=new TrackingClipRecorder();recorder.start(0);
+  for(const [t,art,channels] of samples)recorder.capture(articulatedFrame(art,channels),t);
+  return recorder.stop(samples.at(-1)[0]);
+}
+
+test('v4 stores actual articulation with displayed coefficients, copies it and interpolates both at replay time',()=>{
+  const a=articulationFrame(),b=articulationFrame();a.eyeLeft={from:'quarter',to:'half',t:.2};b.eyeLeft={from:'quarter',to:'half',t:.8};
+  const saved=recordedArticulation([[0,a,{jawOpen:.1,eyeLookOutLeft:.2}],[100,b,{jawOpen:.9,eyeLookOutLeft:.8}]]);
+  assert.equal(saved.schemaVersion,4);a.eyeLeft.t=.9;assert.equal(saved.samples[0].articulation.eyeLeft.t,.2);
+  assert.deepEqual(parseTrackingClip(JSON.stringify(saved)),saved);
+  const player=new TrackingClipPlayer();player.start(saved,1000);saved.samples[1].articulation.eyeLeft.t=.1;
+  const sample=player.sample(1050);assert.ok(Math.abs(eyePosition(sample.articulation.eyeLeft)-1.5)<1e-12);
+  assert.equal(sample.coefficients.jawOpen,.5);assert.equal(sample.coefficients.eyeLookOutLeft,.5);
+  assert.deepEqual(sample.articulation.eyeRight,articulationFrame().eyeRight);
+  sample.articulation.eyeLeft.t=0;assert.equal(player.clip.samples[0].articulation.eyeLeft.t,.2);
+  const end=player.sample(1100);assert.equal(end.done,true);assert.ok(Math.abs(eyePosition(end.articulation.eyeLeft)-1.8)<1e-12);
+  assert.equal(end.coefficients.jawOpen,.9);
+});
+
+test('v4 reversed edges interpolate their displayed position without replaying the wrong direction',()=>{
+  const a=articulationFrame(),b=articulationFrame();a.eyeLeft={from:'open',to:'quarter',t:.25};b.eyeLeft={from:'quarter',to:'open',t:.5};
+  const player=new TrackingClipPlayer();player.start(recordedArticulation([[0,a],[100,b]]),0);
+  assert.ok(Math.abs(eyePosition(player.sample(50).articulation.eyeLeft)-.375)<1e-12);
+  assert.equal(eyePosition(player.sample(100).articulation.eyeLeft),.5);
+});
+
+test('v4 skips no authored graph topology when recording gaps cross eye nodes and sample boundaries',()=>{
+  const a=articulationFrame(),b=articulationFrame(),c=articulationFrame();
+  a.eyeLeft={from:'open',to:'quarter',t:.8};b.eyeLeft={from:'quarter',to:'half',t:.4};c.eyeLeft={from:'half',to:'threeQuarter',t:.2};
+  const player=new TrackingClipPlayer();player.start(recordedArticulation([[0,a],[100,b],[200,c]]),0);
+  assert.ok(Math.abs(eyePosition(player.sample(50).articulation.eyeLeft)-1.1)<1e-12);
+  const before=eyePosition(player.sample(99.9999).articulation.eyeLeft),at=eyePosition(player.sample(100).articulation.eyeLeft),after=eyePosition(player.sample(100.0001).articulation.eyeLeft);
+  assert.ok(Math.abs(before-at)<.00001);assert.ok(Math.abs(after-at)<.00001);
+  assert.ok(Math.abs(eyePosition(player.sample(150).articulation.eyeLeft)-1.8)<1e-12);
+  assert.ok(Math.abs(eyePosition(player.sample(200).articulation.eyeLeft)-2.2)<1e-12);
+});
+
+test('v4 special mouth changes travel through neutral and hold exact recorded endpoints',()=>{
+  const a=articulationFrame(),b=articulationFrame();a.mouth={from:'neutral',to:'pucker',t:.8};b.mouth={from:'shiftRight',to:'neutral',t:.6};
+  const player=new TrackingClipPlayer();player.start(recordedArticulation([[0,a],[120,b]]),0);
+  assert.ok(Math.abs(weightOf(player.sample(60).articulation.mouth,'pucker')-.2)<1e-12);
+  assert.equal(weightOf(player.sample(80).articulation.mouth,'neutral'),1);
+  assert.ok(Math.abs(weightOf(player.sample(90).articulation.mouth,'shiftRight')-.1)<1e-12);
+  assert.ok(Math.abs(weightOf(player.sample(120).articulation.mouth,'shiftRight')-.4)<1e-12);
+});
+
+test('v4 requires complete bounded articulation, head and secondary data, and old schemas reject it',()=>{
+  const valid=recordedArticulation([[0,articulationFrame()],[100,articulationFrame()]]);
+  for(const key of ['articulation','headPose','secondary']){const bad=structuredClone(valid);delete bad.samples[0][key];assert.throws(()=>validateTrackingClip(bad));}
+  for(const art of [null,undefined,{},[],{...articulationFrame(),mouth:{from:'neutral',to:'unknown',t:0}},
+    {...articulationFrame(),eyeLeft:{from:'open',to:'closed',t:.5}},
+    {...articulationFrame(),eyeLeft:{from:'open',to:'quarter',t:NaN}},
+    {...articulationFrame(),eyeLeft:{from:'open',to:'quarter',t:1.1}}]){
+    const bad=structuredClone(valid);bad.samples[0].articulation=art;assert.throws(()=>validateTrackingClip(bad));
+  }
+  for(const schemaVersion of [1,2,3])assert.throws(()=>validateTrackingClip({...valid,schemaVersion}));
+});
+
+test('recording does not silently change articulation schema or discard invalid fields in rate-limited calls',()=>{
+  const recorder=new TrackingClipRecorder();recorder.start(0);recorder.capture(articulatedFrame(),0);
+  assert.throws(()=>recorder.capture(frame(),1));
+  assert.throws(()=>recorder.capture({...articulatedFrame(),articulation:null},1));
+  assert.throws(()=>recorder.capture({...articulatedFrame(),articulation:undefined},1));
+  assert.equal(recorder.samples.length,1);assert.equal(recorder.stop().schemaVersion,4);
+  recorder.start(100);recorder.capture(frame(),100);assert.throws(()=>recorder.capture(articulatedFrame(),101));
+  assert.equal(recorder.stop().schemaVersion,3);
+});
+
+test('v4 byte limit stops at a reopenable clip instead of writing a file its importer rejects',()=>{
+  const recorder=new TrackingClipRecorder();recorder.start(0);
+  const channels=Object.fromEntries(STUDIO_CHANNELS.map(({key},i)=>[key,.12345678901234567+i*.000000000000001]));
+  const art=articulationFrame();for(const key of ['eyeLeft','eyeRight'])art[key]={from:'threeQuarter',to:'closed',t:.12345678901234567};
+  art.mouth={from:'openMedium',to:'openWide',t:.12345678901234567};
+  for(const key of ['browLeft','browRight'])art[key]={from:'neutral',to:'outerUp',t:.12345678901234567};
+  for(let i=0;i<1801&&recorder.recording;i++)recorder.capture({...articulatedFrame(art,channels),headPose:{yaw:.12345678901234567,pitch:.12345678901234567},
+    secondary:{breath:.12345678901234567,sway:.12345678901234567,hair:.12345678901234567}},i*1000/30);
+  const saved=recorder.stop();assert.equal(recorder.stopReason,'size');
+  const serialized=JSON.stringify(saved);assert.ok(new TextEncoder().encode(serialized).length<=TRACKING_CLIP_LIMITS.maxBytes);
+  assert.deepEqual(parseTrackingClip(serialized),saved);assert.ok(saved.samples.length<1801);
+});

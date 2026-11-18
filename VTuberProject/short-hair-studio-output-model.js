@@ -2,6 +2,7 @@ import {validateSecondaryFrame} from './short-hair-secondary-motion.js';
 import {validateOutputComposition,layoutOutputComposition} from './short-hair-composition.js';
 export {validateOutputComposition,normalizeOutputComposition} from './short-hair-composition.js';
 import {validateHeadPose} from './short-hair-pose-motion.js';
+import {validateArticulation} from './short-hair-articulation.js';
 import {STUDIO_CHANNELS, STUDIO_POSES} from './short-hair-studio-model.js';
 
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -33,6 +34,7 @@ export function validateOutputFrame(value) {
   if (value.transparent !== undefined) extra.transparent = value.transparent;
   if (value.composition !== undefined) extra.composition = validateOutputComposition(value.composition);
   if (value.secondary !== undefined) extra.secondary = validateSecondaryFrame(value.secondary);
+  if (Object.hasOwn(value,'articulation')) extra.articulation = validateArticulation(value.articulation);
   return {poseId:value.poseId, coefficients, state, faceOnly:value.faceOnly, original:value.original, ...extra};
 }
 

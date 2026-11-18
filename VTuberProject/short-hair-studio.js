@@ -7,11 +7,12 @@ import {createShortHairLayerInspection} from './short-hair-layer-inspector.js';
 import {exportShortHairLayers} from './short-hair-alpha.js';
 import {STUDIO_CHANNELS, STUDIO_STORAGE_KEY, STUDIO_PRESETS, createStudioProject, parseStudioProject,
   parseStudioFrame, applyStudioPreset, gazeChannels, selectStudioPose, sampleStudioDemo} from './short-hair-studio-model.js';
-import {sanitizeChannels} from './expression-model.js';
+import {sanitizeChannels,selectGaze} from './expression-model.js';
+import {createArticulationMotion,restoreArticulationMotion,targetArticulationMotion,freezeArticulationMotion,advanceArticulationMotion,articulationFromState,validateArticulation,advanceAuthoredGaze,authoredGazeChannels} from './short-hair-articulation.js';
 import {FaceSession} from './face-session.js';
 import {extractFaceMotion} from './motion.js';
 import {ShortHairStudioCamera} from './short-hair-studio-camera.js';
-import {STUDIO_RENDER_FPS, StudioFrameClock, createStudioMotion, advanceStudioMotion} from './short-hair-studio-timing.js';
+import {STUDIO_RENDER_FPS, StudioFrameClock} from './short-hair-studio-timing.js';
 import {normalizeTrackingSettings,createFaceSessionSettings,StudioPoseStabilizer,TrackingClipRecorder,TrackingClipPlayer,parseTrackingClip,TRACKING_CLIP_LIMITS} from './short-hair-studio-tracking.js';
 import {loadShortHairCharacterPack,summarizeShortHairCharacterPack} from './short-hair-character-pack.js';
 import {StudioOutputPublisher} from './short-hair-studio-publisher.js';
@@ -37,7 +38,8 @@ let assets, ready = false, project = createStudioProject(), poseId = 'front', co
 let previousState = {}, rendered = null, faceOnly = true, source = 'manual', animationFrame = 0;
 let demoStartedAt = 0, demoBasePose = 'front', revision = 0, loadRequest = 0;
 const frameClock = new StudioFrameClock({targetFps:STUDIO_RENDER_FPS});
-let frameMotion = createStudioMotion(), transitionPending = false;
+let transitionPending = false;
+let articulationMotion=createArticulationMotion(),displayedGaze=selectGaze({}, {gaze:true});
 let poseMotion = createStudioPoseMotion(), transparent = true;
 let calibrationUntil = 0, neutralPose = {x:0,y:0}, lastFaceAt = -Infinity, trackedPose = {yaw:0,pitch:0};
 let recorder = null, recordingStream = null, recordingCanvas = null, recordingStartedAt = 0;
@@ -47,7 +49,7 @@ const poseStabilizer = new StudioPoseStabilizer(trackingSettings);
 const signalGate=new StudioTrackingSignalGate(), calibrationQuality=new StudioCalibrationQuality();
 let calibrationBackup=null, trackingStatus='acquiring', graphicsPending=false;
 let secondaryMotion=createSecondaryMotion(),secondarySettings=normalizeSecondarySettings(),secondaryRunning=false;
-let composition=normalizeOutputComposition(),layerInspection=null,pendingSecondary=null;
+let composition=normalizeOutputComposition(),layerInspection=null,pendingSecondary=null,pendingArticulation=null;
 let performancePresets=project.performancePresets||DEFAULT_PERFORMANCE_PRESETS.map(preset=>({...preset}));
 let performanceMixer=createPerformanceMixer(),performanceMoving=false,performanceButtons=[];
 let idleBlinkEnabled=false,idleBlinkMotion=createIdleBlink();
@@ -64,7 +66,7 @@ const camera = new ShortHairStudioCamera($('#cameraVideo'), {onState(event) {
       finishClipRecording();
       idleBlinkEnabled=false;performanceMixer=freezePerformanceMixer(performanceMixer);performanceMoving=false;syncPerformanceControls();
       pendingSecondary=null;secondaryRunning=false;secondaryMotion=freezeSecondaryMotion(secondaryMotion,poseMotion.current);syncSecondaryControls();
-      source = 'manual'; poseMotion=freezeStudioPoseMotion(poseMotion); transitionPending = false; frameMotion = createStudioMotion(rendered?.state || null); frameClock.reset();
+      source = 'manual'; pendingArticulation=null;poseMotion=freezeStudioPoseMotion(poseMotion); transitionPending = false; articulationMotion=freezeArticulationMotion(articulationMotion); frameClock.reset();
       cancelAnimationFrame(animationFrame); animationFrame = 0;
       if (recorder?.state === 'recording') ensureAnimation();
       syncFrameStats();
@@ -134,47 +136,57 @@ function syncFrameStats(now = performance.now()) {
     : `实测 ${stats.measuredFps.toFixed(1)} fps · 平均 ${stats.averageRenderMs.toFixed(1)} ms/帧`;
   setText($('#frameStats'), `目标 ${stats.targetFps} fps · ${detail}`);
 }
-function paint({now = performance.now(), dt = 0, snap = false, hold = false, measure = false,headPoseOverride=null,secondaryOverride=null} = {}) {
+function paint({now = performance.now(), dt = 0, snap = false, hold = false, measure = false,headPoseOverride=null,secondaryOverride=null,articulationOverride=null} = {}) {
   if (!ready) return false;
   try {
     const started = performance.now();
     const poseProposal=headPoseOverride?{motion:createStudioPoseMotion(headPoseOverride),headPose:headPoseOverride,moving:false}:advanceStudioPoseMotion(poseMotion,dt*1000,{preset:trackingSettings.preset,mode:source==='camera'?'tracking':'turn'});
-    secondaryOverride ||= pendingSecondary;
+    secondaryOverride ||= pendingSecondary;articulationOverride ||= pendingArticulation;
     const secondaryProposal=secondaryOverride?{motion:rebaseSecondaryMotion(poseProposal.headPose,secondaryOverride),secondary:{...secondaryOverride}}
       :secondaryRunning?advanceSecondaryMotion(secondaryMotion,poseProposal.headPose,dt*1000,{...secondarySettings,enabled:true})
       :{motion:freezeSecondaryMotion(secondaryMotion,poseProposal.headPose),secondary:{...secondaryMotion.current}};
     const performanceProposal=source==='clip'?{mixer:performanceMixer,effectiveCoefficients:coefficients,moving:false}
       :proposePerformanceFrame(performanceMixer,coefficients,hold?0:dt*1000);
-    const blinkProposal=idleBlinkActive()?advanceIdleBlink(idleBlinkMotion,dt*1000):{motion:idleBlinkMotion,closure:0};
-    const paintedCoefficients=hold&&rendered&&committedOutput?{...committedOutput.coefficients}
+    // Autonomous blinking holds the closed phase until both lids actually
+    // reach its authored endpoint; a slow or failed draw cannot truncate it.
+    const blinkAwaitingLids=idleBlinkMotion.phase==='closed'&&['eyeLeft','eyeRight'].some(eye=>articulationMotion.current[eye].from!=='closed'||articulationMotion.current[eye].to!=='closed');
+    const blinkProposal=idleBlinkActive()?advanceIdleBlink(idleBlinkMotion,blinkAwaitingLids?0:dt*1000):{motion:idleBlinkMotion,closure:0};
+    const effectiveCoefficients=hold&&!articulationOverride&&rendered&&committedOutput?{...committedOutput.coefficients}
       :idleBlinkActive()?applyIdleBlink(performanceProposal.effectiveCoefficients,blinkProposal.closure):performanceProposal.effectiveCoefficients;
+    const gazeTarget=selectGaze(effectiveCoefficients,{gaze:true});
+    const gazeProposal=source==='manual'&&!snap&&!hold&&!articulationOverride
+      ?advanceAuthoredGaze(displayedGaze,gazeTarget,dt*1000):{gaze:gazeTarget,moving:false};
+    const paintedCoefficients=source==='manual'?{...effectiveCoefficients,...authoredGazeChannels(gazeProposal.gaze)}:effectiveCoefficients;
     const selection = selectShortHairStudioState(assets, poseId, paintedCoefficients, previousState);
-    const proposed = hold && rendered ? {frameState:rendered.state, moving:false, motion:frameMotion}
-      : advanceStudioMotion(snap ? createStudioMotion(selection.targetState) : frameMotion,
-        selection.targetState, dt * 1000, selection.availableSequences, {profile:motionProfile});
+    const proposedMotion=articulationOverride?restoreArticulationMotion(articulationOverride)
+      :hold&&rendered?freezeArticulationMotion(articulationMotion)
+      :snap?createArticulationMotion(selection.targetState):targetArticulationMotion(articulationMotion,selection.targetState);
+    const proposed=advanceArticulationMotion(proposedMotion,articulationOverride||hold?0:dt*1000,{profile:motionProfile});
     const next = renderContinuousShortHairStudio(canvas, assets, poseId, paintedCoefficients, previousState,
-      {faceOnly, original:$('#originalToggle').checked, stateOverride:proposed.frameState,headPose:poseProposal.headPose,transparent,secondary:secondaryProposal.secondary});
+      {faceOnly, original:$('#originalToggle').checked, stateOverride:proposed.state,articulation:proposed.articulation,headPose:poseProposal.headPose,transparent,secondary:secondaryProposal.secondary});
     if (next.didDraw === false) {
+      if(snap||articulationOverride)pendingArticulation=validateArticulation(proposed.articulation);
       graphicsPending=true;setText($('#interpolationStatus'),'画面暂时中断，正在恢复图形资源；保留最后画面。');ensureAnimation();
       // Keep the last displayed frame committed; retry the same proposal.
-      transitionPending = !$('#originalToggle').checked && (poseProposal.moving || proposed.moving
-        || Object.entries(proposed.frameState).some(([key,value])=>rendered?.state[key]!==value));
+      transitionPending = !$('#originalToggle').checked && (poseProposal.moving || proposed.moving || gazeProposal.moving);
       return false;
     }
     if(graphicsPending){graphicsPending=false;setText($('#interpolationStatus'),'连续转头已恢复 · 可继续操作');}
-    pendingSecondary=null;secondaryMotion=$('#originalToggle').checked?rebaseSecondaryMotion(poseProposal.headPose,{breath:0,sway:0,hair:0}):{...secondaryProposal.motion,current:{...(next.secondary||secondaryProposal.secondary)}};
+    pendingArticulation=null;pendingSecondary=null;secondaryMotion=$('#originalToggle').checked?rebaseSecondaryMotion(poseProposal.headPose,{breath:0,sway:0,hair:0}):{...secondaryProposal.motion,current:{...(next.secondary||secondaryProposal.secondary)}};
     performanceMixer=performanceProposal.mixer;performanceMoving=performanceProposal.moving;idleBlinkMotion=blinkProposal.motion;
     rendered = next; previousState = selection.targetState;
-    frameMotion = proposed.motion; poseMotion = poseProposal.motion; transitionPending = !$('#originalToggle').checked && (proposed.moving || poseProposal.moving);
+    articulationMotion=$('#originalToggle').checked?restoreArticulationMotion(articulationFromState(next.state)):proposed.motion;
+    displayedGaze=next.gaze||gazeProposal.gaze;
+    poseMotion = poseProposal.motion; transitionPending = !$('#originalToggle').checked && (proposed.moving || poseProposal.moving || gazeProposal.moving);
     paintRecordingFrame();
     committedOutput={poseId:$('#originalToggle').checked?nearestStudioPoseId(next.headPose||poseMotion.current):poseId,
-      coefficients:{...paintedCoefficients},state:{...rendered.state},faceOnly,original:$('#originalToggle').checked,
+      coefficients:{...paintedCoefficients},state:{...rendered.state},articulation:validateArticulation(articulationMotion.current),faceOnly,original:$('#originalToggle').checked,
       headPose:{...(next.headPose||poseMotion.current)},transparent,secondary:{...secondaryMotion.current},composition:{...composition}};
     paintCompositionPreview();
     publishOutput();
     if(clipRecorder.recording){
-      clipRecorder.capture({coefficients:{...paintedCoefficients},poseId,headPose:{...poseMotion.current},secondary:{...secondaryMotion.current}},now);
-      if(!clipRecorder.recording){savedClip=clipRecorder.stop();syncClipControls('已记录60秒，片段已停止；可下载或重放。');}
+      clipRecorder.capture(displayedClipFrame(),now);
+      if(!clipRecorder.recording){savedClip=clipRecorder.stop();syncClipControls(clipRecorder.stopReason==='size'?'片段已达到文件容量上限，已停止记录；可下载或重放。':'已记录60秒，片段已停止；可下载或重放。');}
     }
     if (measure) frameClock.recordFrame(now, performance.now() - started);
     if(turnReviewEnabled)document.dispatchEvent(new CustomEvent('studio-frame-painted',{detail:{headPose:{...poseMotion.current},target:{...poseMotion.target},at:performance.now(),costMs:performance.now()-started,moving:transitionPending}}));
@@ -192,7 +204,7 @@ function persistProject(includeCurrent = true) {
   project = createStudioProject({...project, name:$('#projectName').value, faceOnly,
     motionProfile, trackingSettings, transparent, composition, performancePresets, secondarySettings:{...secondarySettings,enabled:false},secondary:secondaryMotion.current,
     followHead:$('#followHead').checked, tourPoses:$('#tourPoses').checked,
-    ...(includeCurrent ? {poseId, coefficients:committedOutput?.coefficients||coefficients,headPose:poseMotion.current} : {})});
+    ...(includeCurrent ? {poseId, coefficients:committedOutput?.coefficients||coefficients,headPose:poseMotion.current,articulation:committedOutput?.articulation||articulationMotion.current} : {})});
   try { localStorage.setItem(STUDIO_STORAGE_KEY, JSON.stringify(project)); $('#saveStatus').textContent = '已保存到本机'; $('#saveStatus').classList.remove('warning'); }
   catch { $('#saveStatus').textContent = '本机保存不可用，请下载项目'; $('#saveStatus').classList.add('warning'); }
 }
@@ -202,17 +214,17 @@ function stopActive(message = '已暂停，可以继续手动搭配动作。', {
   if(!preserveSecondary){idleBlinkEnabled=false;if(!preserveMotion){performanceMixer=freezePerformanceMixer(performanceMixer);performanceMoving=false;}syncPerformanceControls();}
   if(!preserveSecondary){pendingSecondary=null;secondaryRunning=false;secondaryMotion=freezeSecondaryMotion(secondaryMotion,poseMotion.current);syncSecondaryControls();}
   if (shouldStopCamera) camera.stop();
-  clipPlayer.stop();clipFinished=false;pendingClipFrame=null;
+  clipPlayer.stop();clipFinished=false;pendingClipFrame=null;pendingArticulation=null;
   if(!preserveClip)finishClipRecording();
   cancelAnimationFrame(animationFrame); animationFrame = 0;
-  session.clearTest(); transitionPending = false; if(!preserveMotion){frameMotion = createStudioMotion(rendered?.state || null);poseMotion=freezeStudioPoseMotion(poseMotion);} frameClock.reset();
+  session.clearTest(); transitionPending = false; if(!preserveMotion){articulationMotion=freezeArticulationMotion(articulationMotion);poseMotion=freezeStudioPoseMotion(poseMotion);} frameClock.reset();
   syncSourceControls(); motionMessage(message); syncFrameStats();syncTrackingStats();
   if (isAnimating()&&!document.hidden) ensureAnimation();
 }
-function setManual(next, {reset = true, message = '已应用动作，可以继续叠加其他部位。', persist = true} = {}) {
+function setManual(next, {reset = true, message = '已应用动作，可以继续叠加其他部位。', persist = true,snap=false,articulation=null} = {}) {
   stopActive(message,{preserveMotion:source==='manual',preserveClip:true,preserveSecondary:true}); ++revision; coefficients = sanitizeChannels(next);
   if (reset) previousState = {};
-  $('#originalToggle').checked = false; paint(); syncControls(); syncFrameStats();
+  $('#originalToggle').checked = false; paint({snap,articulationOverride:articulation}); syncControls(); syncFrameStats();
   if (isAnimating()) ensureAnimation();
   if (ready && persist) persistProject();
 }
@@ -275,7 +287,7 @@ function tick(now) {
   if (!ready || document.hidden || !isAnimating()) return;
   const frame = frameClock.advance(now);
   if (frame.render) {
-    const wasAnimating = isAnimating();let playbackHead=null,playbackSecondary=null;
+    const wasAnimating = isAnimating();let playbackHead=null,playbackSecondary=null,playbackArticulation=null;
     if (source === 'demo') {
       const sample = sampleStudioDemo(now - demoStartedAt, demoBasePose, $('#tourPoses').checked);
       if (sample.poseId !== poseId) {poseId = sample.poseId; previousState = {};}
@@ -287,7 +299,7 @@ function tick(now) {
       const sample=pendingClipFrame;
       if(sample){
         if(sample.poseId!==poseId){poseId=sample.poseId;previousState={};}
-        playbackHead=sample.headPose||poseHeadCoordinates(sample.poseId);playbackSecondary=sample.secondary;
+        playbackHead=sample.headPose||poseHeadCoordinates(sample.poseId);playbackSecondary=sample.secondary;playbackArticulation=sample.articulation;
         coefficients=sample.coefficients;clipFinished=sample.done;
         if(frame.updateUi)setText($('#clipStatus'),`重放中 · ${(sample.elapsedMs/1000).toFixed(1)} / ${(sample.durationMs/1000).toFixed(1)} 秒`);
       }
@@ -296,7 +308,7 @@ function tick(now) {
       if (source !== 'camera') {syncControls(); syncFrameStats(now); if(isAnimating())ensureAnimation(); return;}
     }
     if (!isAnimating()) {syncControls(); syncFrameStats(now); return;}
-    const didPaint=paint({now, dt:frame.dt, hold:source==='manual'&&!transitionPending&&!performanceMoving&&!idleBlinkActive(), measure:wasAnimating,headPoseOverride:playbackHead,secondaryOverride:playbackSecondary});
+    const didPaint=paint({now, dt:frame.dt, hold:source==='manual'&&!transitionPending&&!performanceMoving&&!idleBlinkActive(), measure:wasAnimating,headPoseOverride:playbackHead,secondaryOverride:playbackSecondary,articulationOverride:playbackArticulation});
     if(didPaint)pendingClipFrame=null;
     if(source==='clip'&&clipFinished&&didPaint&&!transitionPending){source='manual';clipPlayer.stop();clipFinished=false;pendingClipFrame=null;syncSourceControls();syncClipControls('动作片段重放完成。');}
     if (frame.updateUi || !isAnimating()) {
@@ -385,13 +397,21 @@ function finishClipRecording() {
   savedClip=clipRecorder.stop(performance.now());
   syncClipControls(savedClip?`已记录 ${(savedClip.durationMs/1000).toFixed(1)} 秒，可重放或下载。`:'没有可用的动作片段。');
 }
+function displayedClipFrame(){
+  if(!committedOutput)throw new Error('尚无成功绘制的画面可记录。');
+  // Original preview is a native neutral portrait. Clips have no preview-mode
+  // flag, so capture its actual pose and neutral gaze without changing inputs.
+  return {poseId:committedOutput.poseId,headPose:{...committedOutput.headPose},secondary:{...committedOutput.secondary},
+    coefficients:committedOutput.original?sanitizeChannels({}):{...committedOutput.coefficients},
+    articulation:validateArticulation(committedOutput.articulation)};
+}
 function toggleClipRecording() {
-  if(!ready)return;
+  if(!ready||!committedOutput)return;
   if(clipRecorder.recording){finishClipRecording();return;}
   ++revision;++clipReadRequest;
   if(source==='clip')stopActive();
   savedClip=null;const now=performance.now();clipRecorder.start(now);
-  clipRecorder.capture({coefficients:{...(committedOutput?.coefficients||coefficients)},poseId,headPose:{...poseMotion.current},secondary:{...secondaryMotion.current}},now);
+  clipRecorder.capture(displayedClipFrame(),now);
   syncClipControls('正在记录动作系数；可操作表情，或记录正在运行的演示/跟踪。');ensureAnimation();
 }
 function playClip() {
@@ -399,7 +419,7 @@ function playClip() {
   stopActive('正在重放动作片段；摄像头保持关闭。');++revision;
   performanceMixer=createPerformanceMixer();performanceMoving=false;syncPerformanceControls();
   clipPlayer.start(savedClip,performance.now());source='clip';clipFinished=false;$('#originalToggle').checked=false;
-  frameMotion=createStudioMotion(rendered?.state||null);frameClock.reset();syncSourceControls();ensureAnimation();
+  frameClock.reset();syncSourceControls();ensureAnimation();
 }
 async function openClipFile() {
   const file=$('#clipFile').files?.[0];if(!file)return;
@@ -415,7 +435,7 @@ async function openClipFile() {
 }
 function publishOutput() {
   if(!publisher.enabled||!ready||!committedOutput)return;
-  publisher.publish({...committedOutput,coefficients:{...committedOutput.coefficients},state:{...committedOutput.state},headPose:{...committedOutput.headPose},secondary:{...committedOutput.secondary},composition:{...committedOutput.composition}});
+  publisher.publish({...committedOutput,articulation:validateArticulation(committedOutput.articulation),coefficients:{...committedOutput.coefficients},state:{...committedOutput.state},headPose:{...committedOutput.headPose},secondary:{...committedOutput.secondary},composition:{...committedOutput.composition}});
 }
 function toggleOutput() {
   if($('#outputToggle').checked&&ready){
@@ -433,7 +453,7 @@ async function copyOutputUrl() {
 function exportFrame() {
   stopActive(); paint({hold:true}); syncControls(); if (!ready) return;
   const payload = {schemaVersion:3, kind:'moemotion-short-hair-frame', characterId:'short-hair-v1', poseId:committedOutput.poseId,headPose:{...committedOutput.headPose},secondary:{...committedOutput.secondary},
-    coefficients:{...committedOutput.coefficients}, supportedChannels:STUDIO_CHANNELS.map(channel => channel.key),
+    articulation:validateArticulation(committedOutput.articulation),coefficients:{...committedOutput.coefficients}, supportedChannels:STUDIO_CHANNELS.map(channel => channel.key),
     renderedState:rendered.state, renderedGaze:rendered.gaze, targetState:rendered.targetState, targetGaze:rendered.targetGaze,
     preview:{faceOnly, original:$('#originalToggle').checked,transparent}, source:'manual', exportedAt:new Date().toISOString()};
   download(new Blob([JSON.stringify(payload,null,2)], {type:'application/json'}), `short-hair-frame-${stamp()}.json`);
@@ -452,10 +472,14 @@ function saveProject() {
 function applyFrame(text) {
   try {
     const frame = parseStudioFrame(text);
-    if(frame.headPose){stopActive();poseMotion=createStudioPoseMotion(frame.headPose);poseId=frame.poseId;}
-    if(frame.secondary){stopActive();secondaryMotion=rebaseSecondaryMotion(poseMotion.current,frame.secondary);}
+    stopActive('已应用导入系数。',{preserveClip:true});
+    // Saved coefficients are already the effective displayed values. Reapplying
+    // a live layer (or idle blink clock) would change the imported snapshot.
+    performanceMixer=createPerformanceMixer();performanceMoving=false;idleBlinkEnabled=false;idleBlinkMotion=createIdleBlink();syncPerformanceControls();
+    if(frame.headPose){poseMotion=createStudioPoseMotion(frame.headPose);poseId=frame.poseId;}
+    if(frame.secondary){secondaryMotion=rebaseSecondaryMotion(poseMotion.current,frame.secondary);}
     if(frame.transparent!==undefined){transparent=frame.transparent;$('#transparentToggle').checked=transparent;}
-    setManual(frame.coefficients, {message:'已应用导入系数。'}); if (!ready) return;
+    setManual(frame.coefficients, {message:'已应用导入系数。',snap:true,articulation:frame.articulation}); if (!ready) return;
     $('#importStatus').textContent = `已应用 22 通道；未提供值设为 0。${frame.ignored.length ? `已忽略：${frame.ignored.join('、')}。` : ''}`;
     $('#importStatus').classList.toggle('warning', frame.ignored.length > 0);
   } catch(error) {$('#importStatus').textContent = `未应用：${error.message}`; $('#importStatus').classList.add('warning');}
@@ -468,7 +492,7 @@ function restoreProject(next, persist = false) {
   composition=normalizeOutputComposition(project.composition);secondarySettings=normalizeSecondarySettings(project.secondarySettings);secondaryRunning=false;secondaryMotion=rebaseSecondaryMotion(poseMotion.current,project.secondary||{breath:0,sway:0,hair:0});
   motionProfile=project.motionProfile || 'natural';trackingSettings=normalizeTrackingSettings(project.trackingSettings);applyTrackingSettings(false);syncPreferenceControls();
   $('#projectName').value = project.name; $('#followHead').checked = project.followHead; $('#tourPoses').checked = project.tourPoses;
-  $('#originalToggle').checked = false; paint({snap:true}); syncControls(); syncFrameStats(); if (persist && ready) persistProject();
+  $('#originalToggle').checked = false; paint({snap:true,articulationOverride:project.articulation}); syncControls(); syncFrameStats(); if (persist && ready) persistProject();
 }
 async function readInputFile(input, kind) {
   const file = input.files?.[0]; if (!file) return;
@@ -605,7 +629,7 @@ function savePerformancePreset(){
 function toggleIdleBlink(){
   if(!ready)return;++revision;idleBlinkEnabled=$('#idleBlinkToggle').checked;
   if(idleBlinkEnabled){idleBlinkMotion=createIdleBlink(Date.now()>>>0);$('#originalToggle').checked=false;}
-  else {frameMotion=createStudioMotion(rendered?.state||null);paint();}
+  else {paint();}
   syncPerformanceControls();syncControls();syncFrameStats();if(isAnimating())ensureAnimation();
 }
 function buildControls() {
@@ -651,7 +675,7 @@ function buildControls() {
     return [availableSequences.eyeLeft.length,availableSequences.eyeRight.length,availableSequences.mouth.length];
   });
   const allFive=stageCounts.every(counts=>counts.every(count=>count===5));
-  $('#frameArtSummary').textContent=`${allFive ? '九个方向的眨眼与张嘴均有五档画稿' : '眨眼与张嘴按各方向实际准备的画稿'}，动作逐张切换。转头在九个原画锚点之间连续变化；噘嘴、抿嘴和移嘴分别使用独立画稿。正面抬眉使用整眉近似，抿嘴为整嘴动作；暂未提供噘嘴与移嘴同时发生的复合稿。`;
+  $('#frameArtSummary').textContent=`${allFive ? '九个方向的眨眼与张嘴均有五档画稿' : '眨眼与张嘴按各方向实际准备的画稿'}，相邻画稿之间连续过渡。转头时眼、鼻、嘴按源画稿轮廓对齐；眉毛仍在现有局部画稿之间渐变，未建立新眉形几何。噘嘴、抿嘴和移嘴使用独立画稿，正面抬眉仍是整眉近似；暂未提供噘嘴与移嘴同时发生的复合稿。`;
 }
 async function loadAssets() {
   const request=++loadRequest; ready=false; $('#studioControls').disabled=true; $('#loadStatus').hidden=false;
@@ -693,7 +717,7 @@ function init() {
     poseId=nearestStudioPoseId(poseMotion.target);$('#originalToggle').checked=false;paint();syncControls();
     if(isAnimating())ensureAnimation();persistProject();
   });
-  for(const button of document.querySelectorAll('[data-view]'))button.addEventListener('click',()=>{faceOnly=button.dataset.view==='face';paint({snap:source==='manual'});syncControls();persistProject(source==='manual');});
+  for(const button of document.querySelectorAll('[data-view]'))button.addEventListener('click',()=>{faceOnly=button.dataset.view==='face';paint({hold:source==='manual'&&!transitionPending});syncControls();persistProject(source==='manual');});
   $('#projectName').addEventListener('input',()=>persistProject(false));
   for(const id of ['#followHead','#tourPoses'])$(id).addEventListener('change',()=>persistProject(false));
   $('#savePng').addEventListener('click',savePng);$('#saveProject').addEventListener('click',saveProject);$('#exportFrame').addEventListener('click',exportFrame);
@@ -732,7 +756,7 @@ function init() {
   $('#resetComposition').addEventListener('click',()=>changeComposition({}));
   $('#inspectLayers').addEventListener('click',inspectLayers);$('#layerSelect').addEventListener('change',showInspectedLayer);
   $('#exportLayers').addEventListener('click',exportLayers);
-  $('#exportPack').addEventListener('click',()=>{if(characterPack)download(new Blob([JSON.stringify({schemaVersion:2,kind:'short-hair-runtime-material-index',version:'0.20.1',artworkInventory:characterPack.pack,derivedAlpha:assets.alpha.manifest,derivedMotion:assets.motionFields.manifest,derivedFringe:assets.fringe.manifest,note:'原画登记描述原稿本身；透明与连续转头能力由独立派生素材提供，不改变原画批准记录。'},null,2)],{type:'application/json'}),'short-hair-runtime-materials.json');});
+  $('#exportPack').addEventListener('click',()=>{if(characterPack)download(new Blob([JSON.stringify({schemaVersion:2,kind:'short-hair-runtime-material-index',version:'0.21.0',artworkInventory:characterPack.pack,derivedAlpha:assets.alpha.manifest,derivedMotion:assets.motionFields.manifest,derivedFringe:assets.fringe.manifest,derivedFeatures:assets.featureGeometry,note:'原画登记描述原稿本身；透明与连续转头能力由独立派生素材提供，不改变原画批准记录。'},null,2)],{type:'application/json'}),'short-hair-runtime-materials.json');});
   syncPreferenceControls();syncClipControls();syncTrackingStats();
   $('#savePerformance').addEventListener('click',savePerformancePreset);$('#clearPerformance').addEventListener('click',clearPerformance);
   $('#idleBlinkToggle').addEventListener('change',toggleIdleBlink);

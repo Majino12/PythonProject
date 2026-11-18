@@ -18,7 +18,7 @@ function draw() {
   const frame=pending;
   try {
     const result=renderContinuousShortHairStudio(native,assets,frame.poseId,frame.coefficients,{},
-      {faceOnly:frame.faceOnly,original:frame.original,stateOverride:frame.state,headPose:frame.headPose||poseHeadCoordinates(frame.poseId),
+      {faceOnly:frame.faceOnly,original:frame.original,stateOverride:frame.state,articulation:frame.articulation,headPose:frame.headPose||poseHeadCoordinates(frame.poseId),
         transparent:frame.transparent===true,secondary:frame.secondary});
     if(result?.didDraw===false) {warn('图形资源正在恢复 · 保留最后画面');schedule();return;}
     drawOutputFrame(canvas,native,{transparent:frame.transparent===true,composition:frame.composition});

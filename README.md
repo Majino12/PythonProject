@@ -22,24 +22,20 @@ cd PythonProject
 
 ## MoeMotion
 
-版本：`0.20.1`。修正工作台转头过快和掉帧跳步，让 RIFE 中间姿态连续显示；保留九方向分层、补画、局部前发网格及透明图层导出。
+版本：`0.21.0`。九方向鼻线、眼睑与嘴部先按源画稿轮廓对齐，再连续转头；眼、口、眉及视线保留实际中间进度，减少离散切换和五官重影。沿用透明分层、遮挡补画和局部前发网格。
 
-需要 Node.js 18 或更新版本：
-
-```bash
+```sh
 cd VTuberProject
 npm start
 ```
 
-打开 <http://127.0.0.1:4173>。摄像头、微动和直播均需主动开启。直播区可预览缩放、位置、镜像；将 `http://127.0.0.1:4173/short-hair-output.html` 添加到同机 OBS 浏览器源（1280×720）。支持透明叠加、短暂断线重连与最后画面保留。[OBS 接入说明](VTuberProject/OBS-SETUP.txt)
+打开 <http://127.0.0.1:4173>。摄像头、微动和直播需主动开启。独立输出可调整构图并接入同机 OBS 浏览器源（1280×720）；新动作片段 v4 保存实际头位、表情进度及微动。[OBS 接入](VTuberProject/OBS-SETUP.txt) · [项目说明](VTuberProject/README.md)
 
-素材检查器支持透明角色、局部前发与脸部补画等图层，ZIP 包含绑定说明；仍非完整裸脸或全头可编辑模型。[分层说明](VTuberProject/docs/FRINGE-2D.txt)
+本轮 **1088/1088** 自动测试通过；30/60fps请求各8组实际转头通过。浏览器原画端点与表情端点保持一致，接缝可见像素差≤2，原始透明RGB差异另行保留。双画面对比实际约23/29次绘制每秒，不承诺稳定60fps。[连续五官与动作验证](VTuberProject/docs/FEATURE-MOTION-v0.21.txt)
 
-本轮 1002/1002 自动测试通过；30/60 fps 两组实际浏览器各 8 组转头通过步长与终点检查，并保存前后对照。真人摄像头和实际 OBS 未在本轮实机验收。[转头修正记录](VTuberProject/docs/TURN-SMOOTHNESS-v0.20.1.txt)
+已检查鼻线和闭眼重影明显改善；半闭眼与发尖相邻处仍可能轻微弯折，眉部仍依赖画稿混合，完整隐区与全头绑定尚未补齐。真人摄像头、长时间直播和实际OBS未在本轮实机验收。下载历史按日期保存在本机项目目录，不作为运行素材。
 
-旧 Luna／3D、原画与批准记录保留。许可见 [原素材](VTuberProject/assets/THIRD_PARTY_NOTICES.txt)、[RIFE](VTuberProject/assets/short-hair-motion-v1/LICENSE-RIFE.txt)、[动漫分割](VTuberProject/assets/short-hair-alpha-v1/LICENSE-anime-seg.txt)。完整能力见 [项目 README](VTuberProject/README.md)。
-
-市场差距和模型取舍见 [对比报告](VTuberProject/docs/MARKET-COMPARISON-v0.19.txt)。本轮局部前发支持小幅独立位移；完整隐藏表情和可编辑全头绑定仍待补齐，部分中间角度的五官重影仍保留为明确问题。详见 [前发分层说明](VTuberProject/docs/FRINGE-2D.txt)。
+旧 Luna／3D、原画与批准记录保留。许可见 [原素材](VTuberProject/assets/THIRD_PARTY_NOTICES.txt)、[RIFE](VTuberProject/assets/short-hair-motion-v1/LICENSE-RIFE.txt)、[动漫分割](VTuberProject/assets/short-hair-alpha-v1/LICENSE-anime-seg.txt)。[分层说明](VTuberProject/docs/FRINGE-2D.txt) · [市场对比历史](VTuberProject/docs/MARKET-COMPARISON-v0.19.txt)
 
 ## 小说全文分析 · 2.0
 

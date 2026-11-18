@@ -1,6 +1,7 @@
 import {STUDIO_CHANNELS, STUDIO_POSES, selectStudioPose} from './short-hair-studio-model.js';
 import {poseHeadCoordinates, validateHeadPose, nearestStudioPoseId} from './short-hair-pose-motion.js';
 import {validateSecondaryFrame} from './short-hair-secondary-motion.js';
+import {validateArticulation,interpolateArticulation} from './short-hair-articulation.js';
 import {normalizeTrackingSettings} from './short-hair-tracking-settings.js';
 export {normalizeTrackingSettings} from './short-hair-tracking-settings.js';
 
@@ -61,25 +62,31 @@ function exactKeys(value, expected, label) {
     throw new Error(`${label}含缺失或未知字段。`);
   }
 }
-function checkedFrame(frame, {withHeadPose = false, requireHeadPose = false, withSecondary = false, requireSecondary = false} = {}) {
+function checkedFrame(frame, {withHeadPose = false, requireHeadPose = false, withSecondary = false, requireSecondary = false,
+  withArticulation = false, requireArticulation = false} = {}) {
   const hasHeadPose = object(frame) && Object.hasOwn(frame,'headPose');
   const hasSecondary = object(frame) && Object.hasOwn(frame,'secondary');
-  exactKeys(frame, ['poseId','coefficients',...(hasHeadPose?['headPose']:[]),...(hasSecondary?['secondary']:[])], '动作帧');
+  const hasArticulation = object(frame) && Object.hasOwn(frame,'articulation');
+  exactKeys(frame, ['poseId','coefficients',...(hasHeadPose?['headPose']:[]),...(hasSecondary?['secondary']:[]),...(hasArticulation?['articulation']:[])], '动作帧');
   if (requireHeadPose && !hasHeadPose) throw new Error('连续动作帧缺少头部坐标。');
   if (requireSecondary && !hasSecondary) throw new Error('自然微动作帧缺少已显示的微动数据。');
+  if (requireArticulation && !hasArticulation) throw new Error('连续表情帧缺少已显示的画稿过渡。');
   if (!poseIds.has(frame.poseId)) throw new Error('动作片段含未知方向。');
   exactKeys(frame.coefficients, keys, '系数');
   for (const key of keys) if (!finite(frame.coefficients[key],0,1)) throw new Error(`${key}需要0–1之间的数字。`);
   const headPose = hasHeadPose ? validateHeadPose(frame.headPose) : poseHeadCoordinates(frame.poseId);
   const secondary = validateSecondaryFrame(hasSecondary ? frame.secondary : {breath:0,sway:0,hair:0});
+  const articulation = hasArticulation ? validateArticulation(frame.articulation) : undefined;
   return {poseId:frame.poseId, coefficients:Object.fromEntries(keys.map(key => [key,frame.coefficients[key]])),
-    ...(withHeadPose ? {headPose} : {}),...(withSecondary ? {secondary:{...secondary}} : {})};
+    ...(withHeadPose ? {headPose} : {}),...(withSecondary ? {secondary:{...secondary}} : {}),
+    ...(withArticulation && articulation ? {articulation} : {})};
 }
 
-/** A numeric-only, exact schema. No camera frames, paths, model blobs or settings. */
+/** Exact bounded control values and authored-state names. No camera frames,
+ * paths, model blobs or settings. */
 export function validateTrackingClip(value) {
   exactKeys(value,clipKeys,'动作片段');
-  if (![1,2,3].includes(value.schemaVersion) || value.kind !== 'moemotion-short-hair-tracking-clip' || value.characterId !== 'short-hair-v1') {
+  if (![1,2,3,4].includes(value.schemaVersion) || value.kind !== 'moemotion-short-hair-tracking-clip' || value.characterId !== 'short-hair-v1') {
     throw new Error('这不是短发角色的动作片段。');
   }
   if (!finite(value.durationMs,0,TRACKING_CLIP_LIMITS.maxDurationMs)) throw new Error('动作片段最长60秒。');
@@ -87,16 +94,17 @@ export function validateTrackingClip(value) {
     throw new Error('动作片段需要1–1801帧系数。');
   }
   let previous = -1;
-  const withHeadPose = value.schemaVersion >= 2,withSecondary=value.schemaVersion===3;
+  const withHeadPose = value.schemaVersion >= 2,withSecondary=value.schemaVersion>=3,withArticulation=value.schemaVersion===4;
   const samples = value.samples.map((sample,index) => {
-    exactKeys(sample,[...sampleKeys,...(withHeadPose?['headPose']:[]),...(withSecondary?['secondary']:[])],'片段帧');
+    exactKeys(sample,[...sampleKeys,...(withHeadPose?['headPose']:[]),...(withSecondary?['secondary']:[]),...(withArticulation?['articulation']:[])],'片段帧');
     if (!finite(sample.t,0,value.durationMs) || sample.t <= previous || index === 0 && sample.t !== 0) {
       throw new Error('时间戳必须从0开始、严格递增且不超过片段时长。');
     }
     previous = sample.t;
     return {t:sample.t,...checkedFrame({poseId:sample.poseId,coefficients:sample.coefficients,
-      ...(withHeadPose?{headPose:sample.headPose}:{}),...(withSecondary?{secondary:sample.secondary}:{})},
-      {withHeadPose,requireHeadPose:withHeadPose,withSecondary,requireSecondary:withSecondary})};
+      ...(withHeadPose?{headPose:sample.headPose}:{}),...(withSecondary?{secondary:sample.secondary}:{}),
+      ...(withArticulation?{articulation:sample.articulation}:{})},
+      {withHeadPose,requireHeadPose:withHeadPose,withSecondary,requireSecondary:withSecondary,withArticulation,requireArticulation:withArticulation})};
   });
   return {schemaVersion:value.schemaVersion,kind:'moemotion-short-hair-tracking-clip',characterId:'short-hair-v1',durationMs:value.durationMs,samples};
 }
@@ -110,11 +118,11 @@ export function parseTrackingClip(text) {
 }
 
 export class TrackingClipRecorder {
-  constructor() {this.recording = false; this.samples = []; this.durationMs = 0; this.stopReason = null;}
+  constructor() {this.recording = false; this.samples = []; this.durationMs = 0; this.stopReason = null;this.schemaVersion=null;this.sampleBytes=0;}
   get active() {return this.recording;}
   start(now) {
     if (!finite(now,0,Number.MAX_SAFE_INTEGER)) throw new Error('录制开始时间无效。');
-    this.startedAt = now; this.samples = []; this.durationMs = 0; this.stopReason = null; this.recording = true;
+    this.startedAt = now; this.samples = []; this.durationMs = 0; this.stopReason = null; this.recording = true;this.schemaVersion=null;this.sampleBytes=0;
   }
   capture(frame, now) {
     if (!this.recording) return false;
@@ -124,10 +132,22 @@ export class TrackingClipRecorder {
     if (t > TRACKING_CLIP_LIMITS.maxDurationMs || this.samples.length >= TRACKING_CLIP_LIMITS.maxSamples) {
       this.stop(this.startedAt + TRACKING_CLIP_LIMITS.maxDurationMs); this.stopReason = 'limit'; return false;
     }
+    const withArticulation=object(frame)&&Object.hasOwn(frame,'articulation'),version=withArticulation?4:3;
+    if(this.schemaVersion!==null&&this.schemaVersion!==version)throw new Error('录制中的连续表情格式不能改变。');
+    const copy = checkedFrame(frame,{withHeadPose:true,requireHeadPose:withArticulation,withSecondary:true,
+      requireSecondary:withArticulation,withArticulation,requireArticulation:withArticulation});
     if (previous && t - previous.t < TRACKING_CLIP_LIMITS.sampleIntervalMs - .001) return false;
-    const copy = checkedFrame(frame,{withHeadPose:true,withSecondary:true});
+    const sample={t:previous?t:0,...copy},bytes=new TextEncoder().encode(JSON.stringify(sample)).length;
+    const envelopeBytes=new TextEncoder().encode(JSON.stringify({schemaVersion:version,kind:'moemotion-short-hair-tracking-clip',
+      characterId:'short-hair-v1',durationMs:TRACKING_CLIP_LIMITS.maxDurationMs,samples:[]})).length;
+    // A final fractional duration may serialize longer than the 60000 bound.
+    // Reserve enough room without changing the existing two-megabyte format.
+    if(envelopeBytes+32+this.sampleBytes+bytes+(previous?1:0)>TRACKING_CLIP_LIMITS.maxBytes){
+      this.stop(this.startedAt+this.durationMs);this.stopReason='size';return false;
+    }
     if (!previous) this.startedAt = now;
-    this.samples.push({t:previous ? t : 0,...copy}); this.durationMs = previous ? t : 0;
+    this.schemaVersion=version;this.sampleBytes+=bytes+(previous?1:0);
+    this.samples.push(sample); this.durationMs = previous ? t : 0;
     return true;
   }
   stop(now) {
@@ -137,15 +157,16 @@ export class TrackingClipRecorder {
     }
     this.recording = false;
     if (!this.samples.length) return null;
-    return validateTrackingClip({schemaVersion:3,kind:'moemotion-short-hair-tracking-clip',characterId:'short-hair-v1',
+    return validateTrackingClip({schemaVersion:this.schemaVersion,kind:'moemotion-short-hair-tracking-clip',characterId:'short-hair-v1',
       durationMs:this.durationMs,samples:this.samples});
   }
 }
 
-/** Painted coefficients keep their recorded samples. V2+ head coordinates and
- * V3 secondary motion interpolate timestamps; V1 retains its discrete timing.
- * V1/V2 have zero secondary motion. Returned values are displayed values, so
- * replay must not run camera damping or secondary simulation a second time. */
+/** Legacy painted coefficients keep their recorded samples. V4 additionally
+ * interpolates displayed coefficients and continuous articulation on its
+ * authored graph, including across nodes and reversals. V2+ head coordinates
+ * and V3+ secondary motion interpolate timestamps; V1 retains discrete timing.
+ * Returned values are displayed values: replay must not damp them a second time. */
 export class TrackingClipPlayer {
   constructor() {this.playing = false; this.clip = null; this.index = 0;}
   get active() {return this.playing;}
@@ -164,14 +185,20 @@ export class TrackingClipPlayer {
     if (done) this.playing = false;
     const result = checkedFrame({poseId:frame.poseId,coefficients:frame.coefficients,
       ...(this.clip.schemaVersion>=2?{headPose:frame.headPose}:{}),
-      ...(this.clip.schemaVersion===3?{secondary:frame.secondary}:{})},{withHeadPose:true,withSecondary:true});
+      ...(this.clip.schemaVersion>=3?{secondary:frame.secondary}:{}),
+      ...(this.clip.schemaVersion===4?{articulation:frame.articulation}:{})},
+      {withHeadPose:true,withSecondary:true,withArticulation:this.clip.schemaVersion===4});
     const next = this.clip.samples[this.index + 1];
     if (this.clip.schemaVersion >= 2 && next) {
       const amount = (elapsed - frame.t) / (next.t - frame.t);
       result.headPose = Object.fromEntries(['yaw','pitch'].map(key =>
         [key,frame.headPose[key] + (next.headPose[key] - frame.headPose[key]) * amount]));
-      if(this.clip.schemaVersion===3)result.secondary=Object.fromEntries(['breath','sway','hair'].map(key=>
+      if(this.clip.schemaVersion>=3)result.secondary=Object.fromEntries(['breath','sway','hair'].map(key=>
         [key,frame.secondary[key]+(next.secondary[key]-frame.secondary[key])*amount]));
+      if(this.clip.schemaVersion===4){
+        result.coefficients=Object.fromEntries(keys.map(key=>[key,frame.coefficients[key]+(next.coefficients[key]-frame.coefficients[key])*amount]));
+        result.articulation=interpolateArticulation(frame.articulation,next.articulation,amount);
+      }
     }
     if (this.clip.schemaVersion >= 2) result.poseId = nearestStudioPoseId(result.headPose);
     return {...result,elapsedMs:elapsed,durationMs:this.clip.durationMs,done};
