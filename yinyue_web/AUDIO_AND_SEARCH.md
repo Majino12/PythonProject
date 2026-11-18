@@ -49,7 +49,7 @@ python run.py
 
 - 原模型：[OpenAI Whisper large-v3-turbo](https://huggingface.co/openai/whisper-large-v3-turbo)，809M 参数、多语、MIT。
 - 运行权重：[dropbox-dash/faster-whisper-large-v3-turbo](https://huggingface.co/dropbox-dash/faster-whisper-large-v3-turbo)，固定 revision `0a363e9161cbc7ed1431c9597a8ceaf0c4f78fcf`。
-- 引擎：[faster-whisper](https://github.com/SYSTRAN/faster-whisper) 1.2.1、CTranslate2 4.8.3，CPU int8，最多四线程；PyAV 19.0.1 解码为 16 kHz 单声道，无需额外安装 ffmpeg 命令。
+- 引擎：[faster-whisper](https://github.com/SYSTRAN/faster-whisper) 1.2.1、CTranslate2 4.8.3，CPU int8，最多四线程；PyAV 解码为 16 kHz 单声道，无需额外安装 ffmpeg 命令。Python 3.12+ 使用 PyAV 19.0.1；Python 3.11 使用兼容的 [PyAV 18.1.0](https://pypi.org/project/av/18.1.0/)，由依赖文件自动选择。
 - 下载白名单文件并校验 SHA-256；CT2 `model.bin` 为本地原生张量格式，非 Python pickle。Web 请求只读取本地文件，不下载模型、不上传音频。
 
 Whisper 主要针对语音识别。伴奏、合唱、音色处理、演唱拖音、语言混用都可能造成漏词和幻觉。关闭语音 VAD 以免误删唱词，使用 beam search、无语音信号和重复输出检查；静音直接返回无可靠歌词。有效副歌重复保留。仍需用户校对，不能将“自动识别”理解为准确歌词保证。

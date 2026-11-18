@@ -2,4 +2,5 @@
 # Apple Silicon wheels are available; PyAV includes the audio decoder.
 faster-whisper==1.2.1
 ctranslate2==4.8.3
-av==19.0.1
+av==18.1.0; python_version < "3.12"
+av==19.0.1; python_version >= "3.12"

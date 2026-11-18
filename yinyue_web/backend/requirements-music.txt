@@ -2,4 +2,5 @@
 # DSP uses NumPy; PyAV decodes local audio. SciPy also resamples optional CLAP input.
 numpy>=1.26,<3
 scipy>=1.13,<2
-av==19.0.1
+av==18.1.0; python_version < "3.12"
+av==19.0.1; python_version >= "3.12"

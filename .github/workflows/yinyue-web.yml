@@ -17,6 +17,10 @@ jobs:
         working-directory: yinyue_web
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            yinyue_web
+            .github
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
