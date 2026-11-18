@@ -1,8 +1,8 @@
-# 音绪 · 歌词情感工作台 2.2
+# 音绪 · 音乐与歌词情绪工作台 2.3
 
 一个在本机运行的歌词分析与曲库工具。粘贴歌词即可查看整体情感、逐行情感变化、词汇多样性和高频词；保存后可搜索曲库、查找特征相近的歌曲、导出 JSON。中文响应式界面，无前端构建步骤或 CDN。中文和韩文可使用本机专用情感模型，首次安装需下载约 861 MB 模型权重。
 
-2.2 新增 **音频上传与自动歌词转写、十维情绪画像、在线歌词搜索、开放许可音频试听与下载**。原有曲库继续保留。详细操作、模型来源与限制见 [音频和搜索说明](AUDIO_AND_SEARCH.md)。
+2.3 新增 **无需歌词的音乐情绪分析，以及依据音频特征、创作方向生成的编曲与旋律修改建议**。可选择同时尝试识词，保留 2.2 的歌词转写、十维歌词情绪、歌词搜索及开放许可音频下载。原有曲库继续保留。详细操作、模型来源与限制见 [音频和搜索说明](AUDIO_AND_SEARCH.md)。
 
 ## 快速开始
 
@@ -20,6 +20,9 @@ python scripts/setup_models.py
 python -m pip install -r backend/requirements-audio.txt
 python scripts/setup_emotion_model.py
 python scripts/setup_audio_model.py
+# 音乐情绪与编曲/旋律建议（不需要歌词）
+python -m pip install -r backend/requirements-music.txt
+python scripts/setup_music_mood.py
 python run.py
 ```
 
@@ -30,10 +33,12 @@ python run.py --no-browser
 python run.py --port 5012
 ```
 
-`python install_dependencies.py --with-models` 可一次安装基础与模型依赖，再运行 `python scripts/setup_models.py` 下载固定版本权重。需要 Python 3.11–3.13；模型在 CPU 上运行，建议至少 8 GB 内存。只有安装步骤需要访问 Hugging Face；分析时仅读取本地模型，不上传歌词、不临时下载。也可只安装基础依赖，界面会明确提示使用词典回退。
+`python install_dependencies.py --with-models --with-audio --with-music` 可安装全部依赖，再分别运行上述模型安装脚本。需要 Python 3.11–3.13；全部音频/歌词模型在 CPU 上运行时建议至少 16 GB 内存。只有安装步骤需要访问 Hugging Face；分析时仅读取本地模型，不上传音频或歌词、不临时下载。仅安装基础依赖也可使用歌词词典；仅安装音乐依赖可得到声学特征与规则线索，界面明确标注缺少音频 CLAP 模型。
 
 ## 功能
 
+- **音乐分析**：上传旋律、伴奏或完整歌曲，不填写歌词也能分析。音频 CLAP 比较八类情绪描述；本地信号处理提供节奏、能量、亮度和主导音高线索，生成带依据的编曲及旋律建议。可选择保持风格、更加振奋、更加舒缓、更加暗沉的方向，导出音乐报告 JSON。
+- **音乐与识词分开处理**：默认仅分析音乐，可同时尝试识词或单独识词；识词失败不丢弃已完成的音乐报告。歌词仍需校对，再手动导入曲库。
 - **歌词分析**：手动输入歌名、歌手、歌词，或填入原创示例后自行分析；查看整体情感、正负词比例、词汇统计、高频词和逐行情感轨迹。
 - **歌词获取**：通过 lyrics.ovh 查询歌手与歌名，成功后自动分析入库。队列逐首处理，明确区分成功与失败；停止按钮停止后续任务，当前请求仍会完成。
 - **我的曲库**：搜索、情感筛选、排序、分页、查看详情、单首重新分析、确认删除和 JSON 导出。同标题不同歌手分别保存；同歌手同标题更新已有记录，ID 保持不变。
@@ -78,11 +83,11 @@ python run.py --port 5012
 
 ## API
 
-所有接口使用同源 `/api` 路径。提交文本分析、歌词获取或推荐参数时使用 `Content-Type: application/json`；音频上传的 `POST /api/audio/jobs` 使用 `multipart/form-data`，字段为 `file` 和 `language`。错误返回 JSON 和相应 HTTP 状态码。下表列出曲库与歌词分析接口，音频任务、歌词搜索和音频下载接口见 [音频和搜索 API](AUDIO_AND_SEARCH.md#api)。
+所有接口使用同源 `/api` 路径。提交文本分析、歌词获取或推荐参数时使用 `Content-Type: application/json`；音频上传的 `POST /api/audio/jobs` 使用 `multipart/form-data`，字段为 `file`、`language`、`mode` 和 `goal`。错误返回 JSON 和相应 HTTP 状态码。音频任务、歌词搜索和音频下载接口详见 [音频和搜索 API](AUDIO_AND_SEARCH.md#api)。
 
 | 方法 | 路径 | 用途 |
 | --- | --- | --- |
-| GET | `/api/health` | 服务健康、版本、情感模型与音频模型状态 |
+| GET | `/api/health` | 服务健康、版本、歌词情感、识词与音乐模型状态 |
 | GET | `/api/library` | 曲库；支持 `q`、`sentiment`、`sort`、`page`、`per_page` |
 | GET | `/api/stats` | 实时曲库统计 |
 | GET | `/api/songs/<id>` | 单首歌曲详情 |
@@ -93,6 +98,9 @@ python run.py --port 5012
 | POST | `/api/songs/<id>/reanalyze` | 使用当前模型重新分析已有歌词 |
 | DELETE | `/api/songs/<id>` | 删除歌曲及关联数据 |
 | GET | `/api/export` | 导出完整曲库 JSON |
+| GET | `/api/audio/status` | 分别返回识词与音乐分析的就绪状态 |
+| POST | `/api/audio/jobs` | 上传音频，`mode=music/combined/transcribe`、`goal=preserve/uplifting/calmer/darker` |
+| GET / DELETE | `/api/audio/jobs/<id>` | 查询 / 取消音频任务 |
 
 歌名、歌手限制各 200 字符，歌词 50,000 字符，单次 JSON 请求上限 2 MiB；音频上传单独限制 30 MiB / 10 分钟。旧 `target_song` 标题推荐参数仅在曲库内标题唯一时接受；新客户端应使用 `song_id`。
 
@@ -102,6 +110,7 @@ python run.py --port 5012
 python -m unittest discover -s tests -v
 python -m compileall -q backend scripts run.py install_dependencies.py
 node --check frontend/js/app.js
+node --check frontend/js/media.js
 ```
 
 测试使用临时数据库和模拟歌词服务，不修改真实曲库，也不依赖外部歌词服务在线。覆盖输入校验、原子保存、删除关联记录、同名歌曲、分页与统计、情感分析、推荐稳定性、缓存及网络错误。GitHub Actions 自动运行上述检查。单元测试使用模拟模型，不下载权重；本机真实模型验证另行运行：

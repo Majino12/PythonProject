@@ -3,7 +3,7 @@
 // All API data is inserted with textContent or DOM nodes, never parsed as markup.
 const $ = (id) => document.getElementById(id);
 const SVG_NS = 'http://www.w3.org/2000/svg';
-const VIEW_LABELS = { analyze: '分析工作台', audio: '音频识词', search: '歌曲搜索', crawler: '歌词采集', library: '我的曲库', recommend: '相似发现' };
+const VIEW_LABELS = { analyze: '分析工作台', audio: '音乐分析', search: '歌曲搜索', crawler: '歌词采集', library: '我的曲库', recommend: '相似发现' };
 const SENTIMENT_LABELS = { positive: '积极', neutral: '中性', negative: '消极', uncertain: '倾向不明确', mixed: '混合情绪', unanalyzed: '待分析' };
 const clamp = (value, min, max) => Math.min(max, Math.max(min, Number(value) || 0));
 const number = (value, fallback = 0) => Number.isFinite(Number(value)) ? Number(value) : fallback;

@@ -4,6 +4,9 @@
 (() => {
   const byId = (id) => document.getElementById(id);
   const languages = { zh: '中文', ko: '韩文', en: '英文', unknown: '未确定' };
+  const goals = { preserve: '保持原有风格', uplifting: '更明亮、振奋', calmer: '更平静、舒缓', darker: '更暗沉、紧张' };
+  const modes = { music: '音乐分析', combined: '音乐分析 + 歌词识别', transcribe: '歌词识别' };
+  const measured = (value) => typeof value === 'number' && Number.isFinite(value);
   const jobKey = 'yinyue-audio-job';
   const fileLimit = 30 * 1024 * 1024;
   const allowedExtensions = /\.(mp3|wav|m4a|flac|ogg|oga|aiff|aif|aac|opus|webm)$/i;
@@ -144,20 +147,23 @@
       this.active = false;
       this.submitting = false;
       this.sequence = 0;
+      this.modelSequence = 0;
       const localPlayer = byId('audio-local-player');
       localPlayer.addEventListener('error', () => {
         if (!this.objectURL || (localPlayer.currentSrc && localPlayer.currentSrc !== this.objectURL)) return;
-        status('audio-file-status', '浏览器无法试听此格式，可用本机播放器校对；识词仍可继续。', true);
+        status('audio-file-status', '浏览器无法试听此格式，可用本机播放器试听；音频分析仍可继续。', true);
       });
       localPlayer.addEventListener('loadedmetadata', () => {
         if (!this.objectURL || localPlayer.currentSrc !== this.objectURL) return;
-        status('audio-file-status', this.previewReadyMessage || '音频已就绪，可以试听并继续识别。');
+        status('audio-file-status', this.previewReadyMessage || '音频已就绪，可以试听并继续分析。');
       });
       byId('audio-file').addEventListener('change', (event) => this.selectFile(event.target.files[0]));
       byId('audio-upload-form').addEventListener('submit', (event) => { event.preventDefault(); this.submit(); });
       byId('audio-cancel').addEventListener('click', () => this.cancel());
       byId('audio-retry-status').addEventListener('click', () => this.poll());
       byId('audio-refresh-model').addEventListener('click', () => this.checkModel());
+      byId('audio-mode').addEventListener('change', () => this.updateMode());
+      byId('music-save-report').addEventListener('click', () => this.saveReport());
       byId('audio-search-lyrics').addEventListener('click', () => {
         const title = byId('audio-title').value.trim() || byId('audio-input-title').value.trim();
         const artist = byId('audio-artist').value.trim() || byId('audio-input-artist').value.trim();
@@ -194,6 +200,7 @@
         if (this.objectURL) URL.revokeObjectURL(this.objectURL);
         window.clearTimeout(this.pollTimer);
       });
+      this.updateMode();
       this.checkModel();
       const previous = stored();
       if (previous && /^[a-f0-9]{32}$/.test(previous)) {
@@ -207,28 +214,53 @@
             byId('audio-artist').value = String(metadata.artist || '').slice(0, 200);
             byId('audio-input-title').value = byId('audio-title').value;
             byId('audio-input-artist').value = byId('audio-artist').value;
+            if (Object.hasOwn(modes, metadata.mode)) byId('audio-mode').value = metadata.mode;
+            if (Object.hasOwn(goals, metadata.goal)) byId('audio-goal').value = metadata.goal;
             if (typeof metadata.filename === 'string' && Number.isFinite(metadata.size)
                 && Number.isFinite(metadata.lastModified)) {
               this.expectedFile = { name: metadata.filename, size: metadata.size, lastModified: metadata.lastModified };
             }
           }
         } catch { /* Metadata is optional when restoring a job. */ }
+        this.updateMode();
         this.setBusy();
-        status('audio-job-status', '正在恢复上次识别任务…');
+        status('audio-job-status', '正在恢复上次音频任务…');
         this.poll();
       }
     }
 
     async checkModel() {
+      const sequence = ++this.modelSequence;
       byId('audio-refresh-model').disabled = true;
-      status('audio-model-status', '正在检查本机音频模型…');
+      status('audio-music-status', '正在检查本机音乐分析服务…');
       try {
         const state = await api('/audio/status');
+        if (sequence !== this.modelSequence) return;
+        status('audio-music-status', state.music?.status === 'ready'
+          ? '音乐分析已就绪 · 直接分析音频，无需歌词识别模型'
+          : state.music?.message || '音乐分析组件尚未就绪，请检查本机安装状态。', state.music?.status !== 'ready');
         status('audio-model-status', state.status === 'ready'
-          ? `${state.name || 'Whisper'} 已就绪 · 本机识别 · 中文 / 韩文 / 英文`
-          : state.message || '音频模型尚未安装，请完成音频模型安装后刷新。', state.status !== 'ready');
-      } catch (error) { status('audio-model-status', error.message, true); }
-      finally { byId('audio-refresh-model').disabled = false; }
+          ? `可选歌词识别：${state.name || 'Whisper'} 已就绪 · 中文 / 韩文 / 英文`
+          : `可选歌词识别未就绪；音乐分析仍可单独使用。${state.message || ''}`);
+      } catch (error) { if (sequence === this.modelSequence) status('audio-music-status', error.message, true); }
+      finally { if (sequence === this.modelSequence) byId('audio-refresh-model').disabled = false; }
+    }
+
+    updateMode() {
+      const mode = byId('audio-mode').value;
+      byId('audio-language-field').hidden = mode === 'music';
+      byId('audio-goal-field').hidden = mode === 'transcribe';
+      byId('audio-submit-label').textContent = { music: '开始音乐分析', combined: '分析音乐并尝试识词', transcribe: '开始识别歌词' }[mode];
+      byId('audio-mode-help').textContent = {
+        music: '直接分析音频，适合纯音乐和歌曲；无需安装歌词识别模型。',
+        combined: '先分析音乐，再尝试识别歌词。识词不可用或失败时，音乐结果仍会保留。',
+        transcribe: '仅生成待校对歌词，需要本机歌词识别模型。纯音乐可能没有可靠文字。',
+      }[mode];
+      if (!this.result) {
+        byId('music-analysis-panel').hidden = mode === 'transcribe';
+        byId('audio-review-panel').hidden = mode === 'music';
+      }
+      this.setBusy();
     }
 
     selectFile(file) {
@@ -242,8 +274,8 @@
       if (this.objectURL) URL.revokeObjectURL(this.objectURL);
       this.objectURL = URL.createObjectURL(file);
       this.previewReadyMessage = restorePreview
-        ? '已重新连接原音频，可继续逐段试听；校对文字和识别结果已保留。'
-        : '已选择音频。可以先试听，再开始识别。';
+        ? '已重新连接原音频，可继续逐段试听；分析结果和校对文字已保留。'
+        : '已选择音频。可以先试听，再开始分析。';
       status('audio-file-status', this.previewReadyMessage);
       byId('audio-local-player').src = this.objectURL;
       byId('audio-local-preview').hidden = false;
@@ -267,12 +299,18 @@
       byId('audio-review-content').hidden = true;
       byId('audio-review-empty').hidden = false;
       byId('audio-reviewed').checked = false;
+      byId('audio-transcript-empty-title').textContent = '听清歌词，再分析文字';
+      byId('audio-transcript-empty-description').textContent = '选择包含歌词识别的模式后，识别结果会显示在这里。纯音乐和不清晰的人声可能没有可靠文字。';
       byId('audio-progress').value = 0;
-      status('audio-job-status', '识别最长支持 10 分钟；纯音乐可能没有可识别歌词。');
+      byId('audio-progress-label').textContent = '0%';
+      byId('music-analysis-content').hidden = true;
+      byId('music-analysis-empty').hidden = false;
+      status('audio-transcription-status', '');
+      status('audio-job-status', '选择分析内容和创作目标后开始。最长支持 10 分钟。');
       this.jobId = null;
       stored(null);
       byId('audio-retry-status').hidden = true;
-      this.setBusy();
+      this.updateMode();
     }
 
     rejectFile(message) {
@@ -292,6 +330,8 @@
       const busy = this.active || this.submitting;
       byId('audio-file').disabled = busy;
       byId('audio-language').disabled = busy;
+      byId('audio-mode').disabled = busy;
+      byId('audio-goal').disabled = busy;
       byId('audio-input-title').disabled = busy;
       byId('audio-input-artist').disabled = busy;
       byId('audio-submit').disabled = busy || !this.file;
@@ -307,7 +347,9 @@
       const form = new FormData();
       form.append('file', this.file);
       form.append('language', byId('audio-language').value);
-      status('audio-job-status', '正在上传到本机并建立识别任务…');
+      form.append('mode', byId('audio-mode').value);
+      form.append('goal', byId('audio-goal').value);
+      status('audio-job-status', '正在上传到本机并建立音频任务…');
       try {
         const data = await api('/audio/jobs', { method: 'POST', body: form, timeout: 60000 });
         this.jobId = data.job.id;
@@ -318,12 +360,17 @@
         this.expectedFile = { name: this.file.name, size: this.file.size, lastModified: this.file.lastModified };
         byId('audio-review-content').hidden = true;
         byId('audio-review-empty').hidden = false;
+        byId('music-analysis-content').hidden = true;
+        byId('music-analysis-empty').hidden = false;
+        byId('audio-progress').value = 0;
+        this.updateMode();
         byId('audio-title').value = byId('audio-input-title').value;
         byId('audio-artist').value = byId('audio-input-artist').value;
         try {
           sessionStorage.setItem('yinyue-audio-metadata', JSON.stringify({ id: this.jobId,
             title: byId('audio-title').value, artist: byId('audio-artist').value,
-            filename: this.file.name, size: this.file.size, lastModified: this.file.lastModified }));
+            filename: this.file.name, size: this.file.size, lastModified: this.file.lastModified,
+            mode: byId('audio-mode').value, goal: byId('audio-goal').value }));
         } catch { /* A job can run without browser storage. */ }
         this.active = true;
         this.sequence++;
@@ -361,9 +408,12 @@
 
     renderJob(job) {
       this.active = ['queued', 'running', 'cancelling'].includes(job.status);
+      if (Object.hasOwn(modes, job.mode)) byId('audio-mode').value = job.mode;
+      if (Object.hasOwn(goals, job.goal)) byId('audio-goal').value = job.goal;
+      this.updateMode();
       byId('audio-progress').value = Math.max(0, Math.min(1, Number(job.progress) || 0));
       byId('audio-progress-label').textContent = `${Math.round(byId('audio-progress').value * 100)}%`;
-      status('audio-job-status', job.error || job.message || '正在识别', job.status === 'failed');
+      status('audio-job-status', job.error || job.message || '正在处理音频', job.status === 'failed');
       byId('audio-cancel').disabled = job.status === 'cancelling';
       this.setBusy();
       if (job.status === 'completed' && job.result) this.renderResult(job.result);
@@ -386,10 +436,180 @@
       }
     }
 
+    renderMusic(analysis) {
+      byId('music-analysis-panel').hidden = false;
+      byId('music-analysis-empty').hidden = true;
+      byId('music-analysis-content').hidden = false;
+      byId('music-report-title').textContent = byId('audio-title').value || byId('audio-input-title').value || '这段音乐的声音画像';
+      byId('music-report-meta').textContent = `${formatTime(analysis.duration)} · ${goals[analysis.goal] || '音乐分析'}`;
+      byId('music-report-summary').textContent = analysis.summary || '分析已完成，请结合实测特征与试听判断。';
+      byId('music-goal-label').textContent = goals[analysis.goal] || '基于音频证据';
+      byId('music-method').textContent = analysis.method === 'offline-dsp-heuristic-v1'
+        ? '在本机测量音频的节奏、音色、能量与音高，再用可解释规则生成听感线索。方法标识：offline-dsp-heuristic-v1。'
+        : analysis.method || '根据音频实测特征推导可解释线索。';
+      const warnings = Array.isArray(analysis.warnings) ? analysis.warnings : [];
+      byId('music-analysis-warnings').replaceChildren(...warnings.map((message) => node('li', '', message)));
+      byId('music-analysis-warnings').hidden = !warnings.length;
+
+      const emotions = Array.isArray(analysis.emotions) ? analysis.emotions : [];
+      const emotionList = byId('music-emotions');
+      const modelSummary = byId('music-model-summary');
+      emotionList.replaceChildren();
+      modelSummary.hidden = !analysis.mood_model?.available || !analysis.mood_model.summary;
+      modelSummary.textContent = analysis.mood_model?.summary || '';
+      modelSummary.style.gridColumn = '1 / -1';
+      emotionList.append(modelSummary);
+      for (const emotion of emotions) {
+        const item = node('article', 'music-emotion-card');
+        const heading = node('div', 'music-emotion-heading');
+        heading.append(node('h4', '', emotion.label));
+        if (measured(emotion.score)) {
+          heading.append(node('span', 'small-label', `规则倾向 ${emotion.score.toFixed(2)} / 1`));
+          const meter = node('div', 'music-emotion-meter');
+          meter.setAttribute('aria-hidden', 'true');
+          const fill = node('span'); fill.style.width = `${Math.max(0, Math.min(1, emotion.score)) * 100}%`; meter.append(fill);
+          item.append(heading, meter);
+        } else item.append(heading);
+        const evidence = Array.isArray(emotion.evidence) ? emotion.evidence.join('；') : emotion.evidence;
+        if (evidence) item.append(node('p', '', evidence));
+        emotionList.append(item);
+      }
+      if (!emotions.length) emotionList.append(node('p', 'music-insufficient', '当前片段缺少足够的声学规则依据，不生成规则情绪判断。'));
+
+      const features = byId('music-features');
+      features.replaceChildren();
+      for (const feature of Array.isArray(analysis.features) ? analysis.features : []) {
+        const card = node('article', 'music-feature');
+        card.append(node('h4', '', feature.label || feature.key));
+        const isProportion = ['low_frequency_ratio', 'pitch_coverage'].includes(feature.key);
+        let displayValue = '证据不足';
+        let displayUnit = feature.unit || '';
+        if (measured(feature.value)) {
+          if (isProportion) {
+            displayValue = `${Math.round(feature.value * 100)}%`;
+            displayUnit = '实测占比';
+          } else {
+            displayValue = feature.value.toLocaleString('zh-CN', { maximumFractionDigits: 2 });
+            if (feature.key === 'pulse_clarity') displayUnit = '/ 1';
+            else if (feature.unit === 'ratio') displayUnit = '（0–1）';
+          }
+        }
+        const value = node('strong', measured(feature.value) ? '' : 'insufficient-value', displayValue);
+        if (measured(feature.value) && displayUnit) value.append(node('small', '', displayUnit));
+        card.append(value);
+        if (feature.note) card.append(node('p', '', feature.note));
+        features.append(card);
+      }
+      if (!features.childElementCount) features.append(node('p', 'music-insufficient', '没有可展示的音乐特征。'));
+
+      const pitch = analysis.pitch || {};
+      byId('music-pitch-note').textContent = pitch.note || (pitch.available ? '这是混音中的音高线索，不等同于分离后的主旋律。' : '未检测到足够稳定的音高，暂不推断旋律走向。');
+      const pitchFacts = byId('music-pitch-facts'); pitchFacts.replaceChildren();
+      if (pitch.available) {
+        if (pitch.dominant_note) pitchFacts.append(node('span', '', `常见音高 ${pitch.dominant_note}`));
+        if (measured(pitch.range_semitones)) pitchFacts.append(node('span', '', `检测跨度 ${pitch.range_semitones.toFixed(1)} 半音`));
+        if (measured(pitch.coverage)) pitchFacts.append(node('span', '', `有效音高覆盖 ${(pitch.coverage * 100).toFixed(0)}%`));
+      }
+      this.renderEnergy(analysis.timeline);
+      this.renderAdvice('music-arrangement-advice', analysis.suggestions?.arrangement);
+      this.renderAdvice('music-melody-advice', analysis.suggestions?.melody);
+      this.renderMoodModel(analysis.mood_model);
+      status('music-report-status', analysis.available === false ? '当前音频证据不足，报告保留可用信息与限制。' : '音乐报告已生成。建议是创作起点，可以结合试听逐项尝试。');
+    }
+
+    renderAdvice(id, suggestions) {
+      const container = byId(id); container.replaceChildren();
+      for (const suggestion of Array.isArray(suggestions) ? suggestions : []) {
+        const card = node('article', 'music-advice-card');
+        card.append(node('h5', '', suggestion.title || '创作建议'));
+        if (suggestion.evidence) card.append(node('p', 'music-advice-evidence', `音频依据：${suggestion.evidence}`));
+        if (suggestion.action) card.append(node('p', '', suggestion.action));
+        if (suggestion.expected_effect) card.append(node('p', 'music-advice-effect', `预期听感：${suggestion.expected_effect}`));
+        container.append(card);
+      }
+      if (!container.childElementCount) container.append(node('p', 'music-insufficient', '音频依据不足，暂不提供具体调整建议。'));
+    }
+
+    renderMoodModel(model) {
+      const scores = Array.isArray(model?.scores) ? model.scores.filter((item) => measured(item.score)) : [];
+      byId('music-model-details').hidden = !model?.available || !scores.length;
+      const container = byId('music-model-scores'); container.replaceChildren();
+      if (!model?.available) return;
+      byId('music-model-summary').textContent = model.summary || '模型标签相似度仅作补充参考，请结合音频特征与试听判断。';
+      const coverage = model.coverage || {};
+      const coverageText = measured(coverage.analyzed_seconds) ? ` · 采样分析 ${formatTime(coverage.analyzed_seconds)} / 总长 ${formatTime(coverage.total_seconds)}` : '';
+      byId('music-model-method').textContent = `${model.model || '音频模型'} · ${model.method || '音频与情绪标签比较'}${coverageText}`;
+      for (const item of scores) {
+        const row = node('div', 'music-model-score');
+        row.append(node('span', '', item.name_zh || item.label), node('strong', '', item.score.toFixed(3)));
+        container.append(row);
+      }
+      for (const message of Array.isArray(model.warnings) ? model.warnings : []) container.append(node('p', 'field-help', message));
+    }
+
+    renderEnergy(timeline) {
+      const segments = Array.isArray(timeline) ? timeline.filter((item) => measured(item.start) && measured(item.end) && measured(item.energy)) : [];
+      const container = byId('music-energy-chart'); container.replaceChildren();
+      if (!segments.length) {
+        container.append(node('p', 'music-insufficient', '片段过短或能量证据不足，无法绘制变化曲线。'));
+        byId('music-energy-note').textContent = '';
+        return;
+      }
+      const namespace = 'http://www.w3.org/2000/svg';
+      const svgNode = (tag, attributes, text) => {
+        const item = document.createElementNS(namespace, tag);
+        for (const [name, value] of Object.entries(attributes || {})) item.setAttribute(name, String(value));
+        if (text !== undefined) item.textContent = String(text);
+        return item;
+      };
+      const width = 540, height = 160, left = 30, right = 10, top = 10, bottom = 27;
+      const duration = Math.max(...segments.map((item) => item.end));
+      if (!(duration > 0)) { container.append(node('p', 'music-insufficient', '没有有效的音频时间范围。')); return; }
+      const plotWidth = width - left - right, plotHeight = height - top - bottom;
+      const chart = svgNode('svg', { viewBox: `0 0 ${width} ${height}`, role: 'img', 'aria-label': `音频分为 ${segments.length} 段，纵轴显示零到一的相对能量。` });
+      for (const value of [0, 0.5, 1]) {
+        const y = top + (1 - value) * plotHeight;
+        chart.append(svgNode('line', { x1: left, x2: width - right, y1: y, y2: y, class: 'music-energy-grid' }));
+        chart.append(svgNode('text', { x: left - 7, y: y + 3, 'text-anchor': 'end' }, value.toFixed(1)));
+      }
+      const stride = Math.max(1, Math.ceil(segments.length / 120));
+      for (let i = 0; i < segments.length; i += stride) {
+        const group = segments.slice(i, i + stride);
+        const start = group[0].start, end = group[group.length - 1].end;
+        const energy = Math.max(0, Math.min(1, group.reduce((sum, item) => sum + item.energy, 0) / group.length));
+        const rect = svgNode('rect', { x: left + start / duration * plotWidth, y: top + (1 - energy) * plotHeight, width: Math.max(1, (end - start) / duration * plotWidth - 2), height: energy * plotHeight, rx: 2, class: 'music-energy-bar' });
+        rect.append(svgNode('title', {}, `${formatTime(start)}–${formatTime(end)}：相对能量 ${energy.toFixed(2)}`));
+        chart.append(rect);
+      }
+      chart.append(svgNode('text', { x: left, y: height - 6 }, '0:00'));
+      chart.append(svgNode('text', { x: width - right, y: height - 6, 'text-anchor': 'end' }, formatTime(duration)));
+      container.append(chart);
+      const highest = segments.reduce((current, item) => item.energy > current.energy ? item : current, segments[0]);
+      const lowest = Math.min(...segments.map((item) => item.energy));
+      const contrast = highest.energy - lowest < 0.05 ? '各段能量接近，未观察到明显起伏。'
+        : `能量相对较高的片段在 ${formatTime(highest.start)}–${formatTime(highest.end)}。`;
+      byId('music-energy-note').textContent = `${contrast}此图用于比较这段音频内部的能量，不表示情绪概率或音质好坏。${stride > 1 ? '较长音频已按连续片段平均后显示。' : ''}`;
+    }
+
+    saveReport() {
+      if (!this.result?.music_analysis) return;
+      const report = { exported_at: new Date().toISOString(), title: byId('audio-title').value || byId('audio-input-title').value,
+        artist: byId('audio-artist').value || byId('audio-input-artist').value,
+        filename: this.expectedFile?.name || this.file?.name || null, ...this.result };
+      if (byId('audio-transcript').value.trim() && this.result.mode !== 'music' && !this.result.no_speech
+          && (!this.result.transcription_status || this.result.transcription_status.status === 'completed')) {
+        report.lyrics_draft = { text: byId('audio-transcript').value, reviewed: byId('audio-reviewed').checked };
+      }
+      save(new Blob([JSON.stringify(report, null, 2)], { type: 'application/json;charset=utf-8' }), `${filename(report.title || 'music-analysis')}.music-analysis.json`);
+      status('music-report-status', '音乐分析 JSON 报告已交给浏览器下载。');
+    }
+
     renderResult(result) {
       this.result = result;
-      byId('audio-review-empty').hidden = true;
-      byId('audio-review-content').hidden = false;
+      const mode = Object.hasOwn(modes, result.mode) ? result.mode : result.music_analysis ? 'music' : 'transcribe';
+      byId('audio-mode').value = mode;
+      if (Object.hasOwn(goals, result.music_analysis?.goal)) byId('audio-goal').value = result.music_analysis.goal;
+      this.updateMode();
       byId('audio-transcript').value = result.text || '';
       try {
         const draft = JSON.parse(sessionStorage.getItem('yinyue-audio-draft') || '{}');
@@ -399,10 +619,24 @@
           byId('audio-artist').value = String(draft.artist || '').slice(0, 200);
         }
       } catch { /* The original transcript remains available without a saved draft. */ }
+      byId('music-analysis-panel').hidden = !result.music_analysis;
+      if (result.music_analysis) this.renderMusic(result.music_analysis);
+      const transcriptionState = result.transcription_status?.status || (mode === 'music' ? 'skipped' : 'completed');
+      const hasTranscript = transcriptionState === 'completed' && !result.no_speech && Boolean(byId('audio-transcript').value.trim());
+      byId('audio-review-panel').hidden = mode === 'music';
+      byId('audio-review-empty').hidden = hasTranscript;
+      byId('audio-review-content').hidden = !hasTranscript;
+      const transcriptionMessage = result.transcription_status?.message || (hasTranscript
+        ? '识别完成。请对照试听校对，再导入歌词情感分析。'
+        : mode === 'music' ? '本次仅分析音乐，未识别歌词。' : '没有识别到可靠歌词。纯音乐无需识词，也可以查看音乐分析。');
+      status('audio-transcription-status', transcriptionMessage, ['failed', 'unavailable'].includes(transcriptionState));
+      byId('audio-transcript-empty-title').textContent = transcriptionState === 'unavailable' ? '歌词识别暂不可用' : transcriptionState === 'failed' ? '本次歌词识别未完成' : '没有可靠歌词可供校对';
+      byId('audio-transcript-empty-description').textContent = `${transcriptionMessage}${result.music_analysis ? ' 音乐分析结果已保留，可继续查看与导出。' : ''}`;
       byId('audio-reviewed').checked = false;
       byId('audio-result-meta').textContent = `${languages[result.language] || result.language || '未确定'} · ${formatTime(result.duration)} · ${(result.segments || []).length} 个片段`;
       const warnings = byId('audio-warnings');
       warnings.replaceChildren(...(result.warnings || []).map((message) => node('li', '', message)));
+      warnings.hidden = !warnings.childElementCount;
       const segments = byId('audio-segments');
       segments.replaceChildren();
       for (const segment of result.segments || []) {
@@ -422,10 +656,10 @@
       this.saveDraft();
       if (this.restoredResult && !this.objectURL) {
         status('audio-file-status', this.expectedFile
-          ? `刷新后的识别结果和校对草稿已恢复。重新选择原音频“${this.expectedFile.name}”可恢复试听，无需重新识别。`
-          : '识别结果和校对草稿已恢复。此旧任务未保存原文件信息，重新选择音频将开始新的识别。');
+          ? `分析结果和校对草稿已恢复。重新选择原音频“${this.expectedFile.name}”可恢复试听，无需重新分析。`
+          : '分析结果和校对草稿已恢复。此旧任务未保存原文件信息，重新选择音频将开始新的分析。');
       }
-      status('audio-review-status', result.no_speech ? '未识别到可靠歌词。请换一段人声清晰的音频。' : '识别完成。请对照试听校对，再导入情感分析。', Boolean(result.no_speech));
+      status('audio-review-status', hasTranscript ? '识别完成。请对照试听校对，再导入歌词情感分析。' : '没有可靠歌词，不能作为已识别歌词导入。', !hasTranscript);
     }
 
     saveDraft() {
@@ -445,9 +679,11 @@
       const text = byId('audio-transcript').value;
       const lines = text.split(/\r?\n/).filter((line) => line.trim());
       const segments = this.result?.segments || [];
-      byId('audio-save-txt').disabled = !text.trim();
-      byId('audio-import').disabled = !text.trim();
-      byId('audio-save-lrc').disabled = !lines.length || lines.length !== segments.length;
+      const usable = this.result?.mode !== 'music' && !this.result?.no_speech
+        && (!this.result?.transcription_status || this.result.transcription_status.status === 'completed');
+      byId('audio-save-txt').disabled = !text.trim() || !usable;
+      byId('audio-import').disabled = !text.trim() || !usable;
+      byId('audio-save-lrc').disabled = !usable || !lines.length || lines.length !== segments.length;
       byId('audio-text-count').textContent = `${text.length.toLocaleString()} 字`;
       byId('audio-lrc-help').textContent = lines.length === segments.length
         ? 'LRC 沿用识别时间点，包含当前校对文字；时间点可能需要调整。'

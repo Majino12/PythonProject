@@ -16,7 +16,7 @@ cd PythonProject
 | --- | --- | --- | --- |
 | **MoeMotion / VTuberProject** | 连续转头、透明分层、五档眼口、独立视线、面部跟踪与 OBS 输出 | JavaScript、Canvas、Three.js、three-vrm、MediaPipe、Node.js | [项目说明](VTuberProject/README.md) · [源码](VTuberProject/) |
 | **小说全文分析 2.0** | 全文分块、混合模型阅读与证据复核、章节及全书报告 | Python、Flask、Ollama、兼容模型 API | [项目说明](xiaoshuo_web/README.md) · [源码](xiaoshuo_web/) |
-| **音绪 / 歌词情感工作台 2.2** | 多语歌词分析、本地音频转写、情绪画像、曲库与相似推荐 | Python、Flask、TextBlob、Transformers、Whisper、SQLite | [项目说明](yinyue_web/README.md) · [音频与搜索](yinyue_web/AUDIO_AND_SEARCH.md) · [源码](yinyue_web/) |
+| **音绪 / 音乐与歌词情绪工作台 2.3** | 音频情绪、编曲/旋律建议、可选识词与曲库 | Python、Flask、TextBlob、Transformers、CLAP、Whisper、SQLite | [项目说明](yinyue_web/README.md) · [音频与搜索](yinyue_web/AUDIO_AND_SEARCH.md) · [源码](yinyue_web/) |
 
 各子目录有独立的运行入口和依赖；仓库根目录没有统一启动命令。
 
@@ -59,9 +59,9 @@ python run.py
 
 全文覆盖率不等于准确率，模型结论仍需人工核对。未再使用旧版前 15 章截取、固定位置猜高潮与虚假进度。自动测试：`python -m unittest discover -s tests -v`。
 
-## 歌词情感分析 · 音绪 2.2
+## 音乐与歌词情绪分析 · 音绪 2.3
 
-中文歌词工作台，新增本地 Whisper 音频识词、十维情绪画像、在线歌词搜索及开放许可音频下载，提供手动歌词分析、逐行情感变化、高频词、歌词查询、曲库搜索筛选与 JSON 导出，以及按歌曲 ID 区分的相似推荐。英文使用 TextBlob 与情感词典，中文使用 Erlangshen、韩文使用 KoELECTRA 本地专用模型；展示置信度、模型版本和回退状态。歌词和分析原子保存到本机 SQLite。
+中文音乐工作台，支持无需歌词的音乐音频情绪分析，以及依据节奏、能量、音色和音高线索生成的编曲与旋律修改建议。使用本地 CLAP 音频语义模型、可解释声学特征和可选 Whisper 识词，保留十维歌词情绪、在线歌词搜索、开放许可音频下载及曲库管理。中文歌词使用 Erlangshen、韩文使用 KoELECTRA；音乐与歌词分别展示结果、模型和限制。歌词和分析原子保存到本机 SQLite。
 
 需要 Python 3.11 或更新版本。在独立虚拟环境安装：
 
@@ -95,4 +95,3 @@ PythonProject/
 这些项目用于本地实验与功能演示。各子项目的运行环境与验证命令见其独立说明。音绪支持 Python 3.11+，并提供隔离真实数据的自动化测试。
 
 MoeMotion 的开发验证使用 Node.js 22，在 `VTuberProject` 目录执行 `npm run check` 和 `npm test`；GitHub 自动测试运行同样的命令。
-

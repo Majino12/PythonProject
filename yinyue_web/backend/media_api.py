@@ -9,22 +9,29 @@ from werkzeug.utils import secure_filename
 
 try:
     from .audio_jobs import AudioJobs, QueueFull
+    from .audio_pipeline import AudioPipeline, MODES, GOALS
 except ImportError:
     from audio_jobs import AudioJobs, QueueFull
+    from audio_pipeline import AudioPipeline, MODES, GOALS
 
 
 ALLOWED_AUDIO = {'.mp3', '.wav', '.m4a', '.flac', '.ogg', '.oga', '.aiff', '.aif', '.aac', '.opus', '.webm'}
 
 
-def register_media_api(app, transcriber, music_service):
+def register_media_api(app, transcriber, music_service, music_analyzer=None):
     try:
         from .music_search import MusicSearchError
     except ImportError:
         from music_search import MusicSearchError
-    jobs = AudioJobs(transcriber)
+    jobs = AudioJobs(AudioPipeline(transcriber, music_analyzer))
     app.extensions['audio_jobs'] = jobs
     app.extensions['audio_transcriber'] = transcriber
     app.extensions['music_search'] = music_service
+    app.extensions['music_analyzer'] = music_analyzer
+
+    def music_status():
+        result = music_analyzer.status() if music_analyzer is not None else {'ready': False}
+        return {**result, 'status': 'ready' if result.get('ready') else 'missing'}
 
     def failure(message, code, status):
         return jsonify(success=False, error=message, error_code=code), status
@@ -44,12 +51,18 @@ def register_media_api(app, transcriber, music_service):
 
     @app.get('/api/audio/status')
     def audio_status():
-        return jsonify(transcriber.status())
+        return jsonify({**transcriber.status(), 'music': music_status()})
 
     @app.post('/api/audio/jobs')
     def upload_audio():
-        if transcriber.status().get('status') != 'ready':
+        mode = request.form.get('mode', 'transcribe')
+        goal = request.form.get('goal', 'preserve')
+        if mode not in MODES or goal not in GOALS:
+            return failure('请选择有效的分析模式和创作方向。', 'invalid_analysis_options', 400)
+        if mode == 'transcribe' and transcriber.status().get('status') != 'ready':
             return failure('音频模型尚未就绪，请安装音频依赖并运行 scripts/setup_audio_model.py 后重启。', 'model_unavailable', 503)
+        if mode != 'transcribe' and music_status()['status'] != 'ready':
+            return failure('音乐分析依赖尚未就绪，请安装 backend/requirements-music.txt 后重启。', 'music_unavailable', 503)
         uploaded = request.files.get('file')
         language = request.form.get('language', 'auto')
         if language not in {'auto', 'zh', 'ko', 'en'}:
@@ -73,7 +86,7 @@ def register_media_api(app, transcriber, music_service):
                     handle.write(chunk)
                 if not size:
                     return failure('音频文件为空。', 'empty_audio', 400)
-            job_id = jobs.submit(path, None if language == 'auto' else language)
+            job_id = jobs.submit(path, None if language == 'auto' else language, mode=mode, goal=goal)
             path = None  # The job owns cleanup from here on.
             return jsonify(success=True, job=jobs.get(job_id)), 202
         except QueueFull as error:

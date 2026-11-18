@@ -67,3 +67,389 @@
 @media(max-width:700px) { .music-search-results { grid-template-columns:1fr; } .music-search-form { grid-template-columns:1fr; } .media-workspace-grid { gap:18px; } .media-status-row { align-items:flex-start; font-size:12px; padding:12px; gap:10px; } .media-card-heading { flex-wrap:wrap; gap:8px; } .media-card-heading h3 { width:100%; } .media-result-card { padding:18px; } .audio-drop-zone { min-height:185px; } .audio-review-panel textarea { min-height:230px; } }
 
 @media (max-width:700px) { .navigation { grid-template-columns: repeat(6,minmax(0,1fr)); gap: 0; } .nav-item { padding: 8px 2px; min-width: 0; font-size: 10px; } }
+
+/* Audio evidence, music reports and optional transcription. */
+.audio-service-status {
+  min-width: 0;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.audio-service-status .field-help {
+  margin-top: 4px;
+}
+.audio-results-column {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+.music-analysis-panel {
+  min-width: 0;
+}
+.music-analysis-panel .audio-review-empty {
+  min-height: 570px;
+  padding: 28px 10px;
+}
+.music-analysis-panel .audio-review-empty h3 {
+  font-size: 18px;
+  font-weight: 500;
+}
+.music-analysis-panel .audio-review-empty p {
+  font-size: 12px;
+  line-height: 2;
+  max-width: 350px;
+}
+.audio-results-column .audio-review-panel {
+  min-height: 0;
+}
+.audio-results-column .audio-review-empty {
+  gap: 16px;
+}
+.audio-results-column .audio-review-panel .audio-review-empty {
+  min-height: 220px;
+  padding: 20px 10px;
+}
+.audio-results-column .audio-review-panel .audio-review-empty h3 {
+  font-size: 17px;
+}
+.audio-results-column .audio-review-panel .audio-review-empty p {
+  font-size: 12px;
+  line-height: 1.9;
+}
+.audio-review-panel #audio-transcription-status {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+.music-report-intro {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  padding-bottom: 24px;
+}
+.music-report-intro > div {
+  min-width: 0;
+}
+.music-report-intro h3 {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 8px 0 13px;
+  overflow-wrap: anywhere;
+}
+.music-report-intro p {
+  color: #aebd9e;
+  font-size: 12px;
+  line-height: 1.9;
+}
+.music-report-intro .button {
+  flex-shrink: 0;
+  font-size: 10px;
+  margin-top: 2px;
+}
+.music-report-section {
+  border-top: 1px solid var(--border);
+  padding-top: 22px;
+  margin-bottom: 25px;
+}
+.music-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 17px;
+}
+.music-section-heading h3 {
+  font-size: 13px;
+}
+.music-section-heading .small-label {
+  font-size: 9px;
+  text-align: right;
+}
+.music-emotions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.music-emotion-card {
+  background: #242d1b;
+  border: 1px solid #3c4d2c;
+  padding: 14px;
+  border-radius: 9px;
+}
+.music-emotion-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.music-emotion-heading h4 {
+  color: var(--accent);
+  font-size: 12px;
+}
+.music-emotion-heading .small-label {
+  font-size: 8px;
+  white-space: nowrap;
+}
+.music-emotion-meter {
+  height: 3px;
+  margin: 13px 0 10px;
+  background: #39492b;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.music-emotion-meter span {
+  display: block;
+  height: 100%;
+  background: #bad98b;
+  border-radius: inherit;
+}
+.music-emotion-card p {
+  color: #9eaf8b;
+  font-size: 10px;
+  line-height: 1.8;
+  margin-top: 10px;
+}
+.music-insufficient {
+  color: #8f9c83;
+  font-size: 11px;
+  line-height: 1.8;
+  padding: 12px 0;
+  grid-column: 1 / -1;
+}
+.music-features {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.music-feature {
+  border: 1px solid #35402b;
+  border-radius: 8px;
+  background: #171d13;
+  padding: 15px;
+  min-width: 0;
+}
+.music-feature h4 {
+  color: #acb99c;
+  font-size: 10px;
+  font-weight: 400;
+  margin-bottom: 9px;
+}
+.music-feature strong {
+  display: block;
+  color: #e0e8d6;
+  font-size: 22px;
+  line-height: 1.5;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.music-feature strong small {
+  margin-left: 6px;
+  color: #a0af8d;
+  font-size: 10px;
+  font-weight: 400;
+}
+.music-feature .insufficient-value {
+  font-size: 15px;
+  color: #8e9e7d;
+}
+.music-feature p {
+  font-size: 9px;
+  color: #7e8f6c;
+  line-height: 1.8;
+  margin-top: 8px;
+}
+.music-energy-chart {
+  width: 100%;
+  min-height: 120px;
+  margin: 18px 0 12px;
+}
+.music-energy-chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.music-energy-chart text {
+  fill: #849671;
+  font-family: var(--font);
+  font-size: 9px;
+}
+.music-energy-grid {
+  stroke: #36462a;
+  stroke-dasharray: 3 5;
+  stroke-width: .7;
+}
+.music-energy-bar {
+  fill: #b4d984;
+  fill-opacity: .82;
+}
+.music-pitch-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.music-pitch-facts span {
+  font-size: 10px;
+  color: #b8c8a8;
+  border: 1px solid #3e4d30;
+  background: #242e1c;
+  border-radius: 5px;
+  padding: 5px 9px;
+}
+.music-advice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.music-advice-grid section > h4 {
+  color: #b9ca9f;
+  font-size: 12px;
+  font-weight: 500;
+  padding-bottom: 11px;
+  border-bottom: 1px solid #35452a;
+}
+.music-advice-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+.music-advice-card {
+  padding: 14px;
+  background: #20281a;
+  border: 1px solid #334328;
+  border-radius: 8px;
+}
+.music-advice-card h5 {
+  margin: 0 0 10px;
+  font-size: 11px;
+  line-height: 1.7;
+  color: #d7e3c8;
+  font-weight: 500;
+}
+.music-advice-card p {
+  font-size: 10px;
+  color: #b2c29f;
+  line-height: 1.9;
+  margin: 8px 0 0;
+}
+.music-advice-card .music-advice-evidence {
+  color: #8a9f74;
+  font-size: 9px;
+}
+.music-advice-card .music-advice-effect {
+  color: #9bb980;
+  font-size: 9px;
+  padding-top: 9px;
+  border-top: 1px solid #344329;
+  margin-top: 12px;
+}
+.music-model-details,
+.music-method-details {
+  padding: 15px 0;
+  margin-bottom: 15px;
+  border-top: 1px solid var(--border);
+}
+.music-model-details summary,
+.music-method-details summary {
+  font-size: 11px;
+  color: #a7ba92;
+  cursor: pointer;
+}
+.music-model-scores {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 16px;
+  margin: 16px 0;
+}
+.music-model-score {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 10px;
+  color: #a9bb97;
+  padding: 6px 0;
+  border-bottom: 1px solid #334229;
+}
+.music-model-score strong {
+  color: #cddbbd;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+}
+.music-model-scores > .field-help {
+  grid-column: 1 / -1;
+}
+.music-method-details .audio-warnings {
+  margin-top: 14px;
+  margin-bottom: 0;
+  font-size: 10px;
+}
+@media (min-width: 1500px) {
+  #view-audio .media-workspace-grid {
+    grid-template-columns: minmax(320px, .7fr) minmax(0, 1.3fr);
+  }
+}
+@media (min-width: 1101px) and (max-width: 1350px) {
+  .music-report-intro {
+    flex-direction: column;
+  }
+  .music-emotions,
+  .music-advice-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 1100px) {
+  .music-analysis-panel .audio-review-empty {
+    min-height: 310px;
+  }
+}
+@media (max-width: 700px) {
+  .audio-results-column {
+    gap: 18px;
+  }
+  .music-report-intro {
+    flex-direction: column;
+  }
+  .music-report-intro h3 {
+    font-size: 22px;
+  }
+  .music-emotions,
+  .music-advice-grid {
+    grid-template-columns: 1fr;
+  }
+  .music-section-heading h3 {
+    font-size: 13px;
+  }
+  .music-section-heading .small-label {
+    font-size: 8px;
+  }
+  .music-feature {
+    padding: 12px;
+  }
+  .music-feature strong {
+    font-size: 21px;
+  }
+  .music-feature p,
+  .music-advice-card .music-advice-evidence,
+  .music-advice-card .music-advice-effect {
+    font-size: 10px;
+  }
+  .music-advice-card p {
+    font-size: 11px;
+  }
+  .music-analysis-panel .audio-review-empty h3 {
+    font-size: 17px;
+  }
+  .audio-service-status {
+    font-size: 11px;
+  }
+}
+.audio-service-status .error {
+  color: var(--negative);
+}
+.music-model-summary {
+  margin-top: 14px;
+  color: #bbcaaa;
+  font-size: 12px;
+  line-height: 1.9;
+}

@@ -25,7 +25,7 @@ class APIError(Exception):
 
 
 def create_app(config=None, *, database=None, lyric_analyzer=None, song_crawler=None,
-               audio_transcriber=None, music_service=None):
+               audio_transcriber=None, music_service=None, music_analyzer=None):
     app = Flask(__name__, static_folder=None)
     app.config.from_object(Config)
     if config is not None:
@@ -66,12 +66,19 @@ def create_app(config=None, *, database=None, lyric_analyzer=None, song_crawler=
         from .media_api import register_media_api
         from .audio_transcriber import AudioTranscriber
         from .music_search import MusicSearchService
+        from .music_analyzer import MusicAnalyzer
+        from .music_mood import MusicMoodEngine
     else:
         from media_api import register_media_api
         from audio_transcriber import AudioTranscriber
         from music_search import MusicSearchService
+        from music_analyzer import MusicAnalyzer
+        from music_mood import MusicMoodEngine
     audio_transcriber = audio_transcriber or AudioTranscriber(model_dir=Path(app.config["MODEL_DIR"]) / "audio")
-    register_media_api(app, audio_transcriber, music_service or MusicSearchService())
+    if music_analyzer is None:
+        music_analyzer = MusicAnalyzer(audio_mood_engine=MusicMoodEngine(
+            model_dir=Path(app.config['MODEL_DIR']) / 'music_mood'))
+    register_media_api(app, audio_transcriber, music_service or MusicSearchService(), music_analyzer)
 
     def body():
         if not request.is_json:
@@ -192,7 +199,7 @@ def create_app(config=None, *, database=None, lyric_analyzer=None, song_crawler=
         return jsonify(status="ok", service="yinyue-web", version=app.config["VERSION"],
                        analyzer=type(lyric_analyzer).__name__,
                        models=lyric_analyzer.model_status() if hasattr(lyric_analyzer, "model_status") else {},
-                       audio=audio_transcriber.status())
+                       audio=audio_transcriber.status(), music=music_analyzer.status())
 
     @app.post("/api/add_song")
     def add_song():
